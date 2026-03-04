@@ -2,10 +2,10 @@
   "ko": [
     {
       "key": "tagline",
-      "original": "Your beauty, captured in masterworks",
-      "translated": "당신의 아름다움을 명화로 남기세요",
-      "back": "Turn your beauty into a masterpiece",
-      "score": 0.4,
+      "original": "Turn Your Beauty into a Masterpiece",
+      "translated": "당신의 아름다움을, 명화로 남기세요",
+      "back": "Make your beauty a masterpiece",
+      "score": 0.67,
       "status": "✅"
     },
     {
@@ -37,8 +37,8 @@
       "original": "Please wait...",
       "translated": "잠시만요...",
       "back": "Wait a minute...",
-      "score": 0.5,
-      "status": "✅"
+      "score": 0.33,
+      "status": "⚠️"
     },
     {
       "key": "loginCancelled",
@@ -61,7 +61,7 @@
       "original": "Google login failed",
       "translated": "Google 로그인 실패",
       "back": "Failed to sign in to Google",
-      "score": 0.67,
+      "score": 0.4,
       "status": "✅"
     },
     {
@@ -69,7 +69,7 @@
       "original": "Apple login failed",
       "translated": "Apple 로그인 실패",
       "back": "Failed to sign in to Apple",
-      "score": 0.67,
+      "score": 0.4,
       "status": "✅"
     },
     {
@@ -93,7 +93,7 @@
       "original": "Password must be at least 6 characters",
       "translated": "비밀번호는 6자 이상이어야 합니다",
       "back": "Your password must be at least 6 characters long",
-      "score": 1.0,
+      "score": 0.78,
       "status": "✅"
     },
     {
@@ -116,10 +116,10 @@
   "ja": [
     {
       "key": "tagline",
-      "original": "Your beauty, captured in masterworks",
-      "translated": "あなたの美しさを、名画に",
-      "back": "Your beauty, a masterpiece",
-      "score": 0.4,
+      "original": "Turn Your Beauty into a Masterpiece",
+      "translated": "あなたの美しさを、名画に刻んでください",
+      "back": "Engrave your beauty on a masterpiece!",
+      "score": 0.67,
       "status": "✅"
     },
     {
@@ -159,8 +159,8 @@
       "original": "Login cancelled",
       "translated": "ログインがキャンセルされました",
       "back": "Your login has been canceled.",
-      "score": 0.5,
-      "status": "✅"
+      "score": 0.2,
+      "status": "⚠️"
     },
     {
       "key": "networkError",
@@ -191,7 +191,7 @@
       "original": "Email already in use",
       "translated": "すでに使用中のメールアドレスです",
       "back": "E-mail address already in use.",
-      "score": 0.75,
+      "score": 0.8,
       "status": "✅"
     },
     {
@@ -199,7 +199,7 @@
       "original": "Invalid email format",
       "translated": "メールアドレスの形式が正しくありません",
       "back": "Email address format is incorrect",
-      "score": 0.67,
+      "score": 0.4,
       "status": "✅"
     },
     {
@@ -215,7 +215,7 @@
       "original": "Invalid email or password",
       "translated": "メールアドレスまたはパスワードが正しくありません",
       "back": "Incorrect email address or password",
-      "score": 0.75,
+      "score": 0.6,
       "status": "✅"
     },
     {
@@ -230,19 +230,19 @@
   "id": [
     {
       "key": "tagline",
-      "original": "Your beauty, captured in masterworks",
-      "translated": "Kecantikanmu, dalam sebuah mahakarya",
-      "back": "Your beauty, in a masterpiece",
-      "score": 0.6,
+      "original": "Turn Your Beauty into a Masterpiece",
+      "translated": "Abadikan kecantikanmu dalam sebuah mahakarya",
+      "back": "Capture your beauty in a masterpiece",
+      "score": 0.67,
       "status": "✅"
     },
     {
       "key": "sub",
       "original": "Captured through the eyes of a master",
-      "translated": "Para maestro lintas abad. Satu foto.",
-      "back": "Maestros across the centuries. One photo.",
-      "score": 0.14,
-      "status": "⚠️"
+      "translated": "Keindahanmu, ditangkap melalui mata sang maestro",
+      "back": "Your beauty, captured through the eyes of the maestro",
+      "score": 0.62,
+      "status": "✅"
     },
     {
       "key": "logIn",
@@ -344,19 +344,19 @@
   "th": [
     {
       "key": "tagline",
-      "original": "Your beauty, captured in masterworks",
+      "original": "Turn Your Beauty into a Masterpiece",
       "translated": "ความงามของคุณ ในผลงานชิ้นเอก",
       "back": "Your beauty in a masterpiece.",
-      "score": 0.6,
+      "score": 0.67,
       "status": "✅"
     },
     {
       "key": "sub",
       "original": "Captured through the eyes of a master",
-      "translated": "ปรมาจารย์ข้ามยุคสมัย ภาพเดียว",
-      "back": "The Grandmaster Across Eras: A Single Image",
-      "score": 0.29,
-      "status": "⚠️"
+      "translated": "ความงามของคุณ ถ่ายทอดผ่านสายตาของปรมาจารย์",
+      "back": "Your beauty is conveyed through the eyes of a master.",
+      "score": 0.6,
+      "status": "✅"
     },
     {
       "key": "logIn",
@@ -378,8 +378,8 @@
       "key": "pleaseWait",
       "original": "Please wait...",
       "translated": "กรุณารอสักครู่...",
-      "back": "Please wait a moment.",
-      "score": 1.0,
+      "back": "Please wait a moment...",
+      "score": 0.5,
       "status": "✅"
     },
     {
@@ -395,7 +395,7 @@
       "original": "Network error. Please try again.",
       "translated": "เกิดข้อผิดพลาดเครือข่าย กรุณาลองใหม่",
       "back": "A network error has occurred. Please try again.",
-      "score": 1.0,
+      "score": 0.62,
       "status": "✅"
     },
     {
@@ -403,23 +403,23 @@
       "original": "Google login failed",
       "translated": "เข้าสู่ระบบด้วย Google ล้มเหลว",
       "back": "Failed to log in with Google.",
-      "score": 0.67,
-      "status": "✅"
+      "score": 0.33,
+      "status": "⚠️"
     },
     {
       "key": "appleFailed",
       "original": "Apple login failed",
       "translated": "เข้าสู่ระบบด้วย Apple ล้มเหลว",
       "back": "Failed to sign in with Apple.",
-      "score": 0.67,
-      "status": "✅"
+      "score": 0.33,
+      "status": "⚠️"
     },
     {
       "key": "emailInUse",
       "original": "Email already in use",
       "translated": "อีเมลนี้ถูกใช้งานแล้ว",
       "back": "This email address is already in use.",
-      "score": 1.0,
+      "score": 0.57,
       "status": "✅"
     },
     {
@@ -427,7 +427,7 @@
       "original": "Invalid email format",
       "translated": "รูปแบบอีเมลไม่ถูกต้อง",
       "back": "The email format is incorrect.",
-      "score": 0.67,
+      "score": 0.4,
       "status": "✅"
     },
     {
@@ -435,7 +435,7 @@
       "original": "Password must be at least 6 characters",
       "translated": "รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร",
       "back": "Password must be at least 6 characters long.",
-      "score": 1.0,
+      "score": 0.88,
       "status": "✅"
     },
     {
@@ -458,19 +458,19 @@
   "tr": [
     {
       "key": "tagline",
-      "original": "Your beauty, captured in masterworks",
-      "translated": "Güzelliğin, bir başyapıtta",
-      "back": "Your beauty, in a masterpiece",
-      "score": 0.6,
+      "original": "Turn Your Beauty into a Masterpiece",
+      "translated": "Güzelliğini bir başyapıtta ölümsüzleştir",
+      "back": "Immortalize your beauty in a masterpiece",
+      "score": 0.67,
       "status": "✅"
     },
     {
       "key": "sub",
       "original": "Captured through the eyes of a master",
-      "translated": "Yüzyılların ustaları. Tek bir fotoğraf.",
-      "back": "Masters of centuries. A single photograph.",
-      "score": 0.29,
-      "status": "⚠️"
+      "translated": "Güzelliğin, bir ustanın gözünden yakalandı",
+      "back": "Your beauty, captured through the eyes of a master",
+      "score": 0.78,
+      "status": "✅"
     },
     {
       "key": "logIn",
@@ -533,7 +533,7 @@
       "original": "Email already in use",
       "translated": "Bu e-posta zaten kullanımda",
       "back": "This email is already in use",
-      "score": 1.0,
+      "score": 0.67,
       "status": "✅"
     },
     {
@@ -572,19 +572,19 @@
   "ar": [
     {
       "key": "tagline",
-      "original": "Your beauty, captured in masterworks",
-      "translated": "جمالك، في لوحة فنية خالدة",
-      "back": "Your beauty, in a timeless painting",
-      "score": 0.6,
+      "original": "Turn Your Beauty into a Masterpiece",
+      "translated": "احتفظي بجمالك في لوحة فنية خالدة",
+      "back": "Preserve your beauty in a timeless canvas",
+      "score": 0.43,
       "status": "✅"
     },
     {
       "key": "sub",
       "original": "Captured through the eyes of a master",
-      "translated": "عباقرة عبر القرون. صورة واحدة.",
-      "back": "Geniuses across the centuries. One photo.",
-      "score": 0.14,
-      "status": "⚠️"
+      "translated": "جمالك، من خلال عيون المعلم",
+      "back": "Your beauty, through the eyes of a teacher",
+      "score": 0.62,
+      "status": "✅"
     },
     {
       "key": "logIn",
@@ -631,8 +631,8 @@
       "original": "Google login failed",
       "translated": "فشل تسجيل الدخول بـ Google",
       "back": "Failed to sign in with Google",
-      "score": 0.67,
-      "status": "✅"
+      "score": 0.33,
+      "status": "⚠️"
     },
     {
       "key": "appleFailed",
@@ -647,7 +647,7 @@
       "original": "Email already in use",
       "translated": "البريد الإلكتروني مستخدم بالفعل",
       "back": "Email is already in use",
-      "score": 1.0,
+      "score": 0.8,
       "status": "✅"
     },
     {
@@ -663,7 +663,7 @@
       "original": "Password must be at least 6 characters",
       "translated": "يجب أن تكون كلمة المرور 6 أحرف على الأقل",
       "back": "The password must be at least 6 characters long",
-      "score": 1.0,
+      "score": 0.78,
       "status": "✅"
     },
     {
@@ -686,10 +686,10 @@
   "es": [
     {
       "key": "tagline",
-      "original": "Your beauty, captured in masterworks",
-      "translated": "Tu belleza, en una obra maestra",
-      "back": "Your beauty, in a masterpiece",
-      "score": 0.6,
+      "original": "Turn Your Beauty into a Masterpiece",
+      "translated": "Inmortaliza tu belleza en una obra maestra",
+      "back": "Immortalize your beauty in a masterpiece",
+      "score": 0.67,
       "status": "✅"
     },
     {
@@ -745,7 +745,7 @@
       "original": "Google login failed",
       "translated": "Error al iniciar con Google",
       "back": "Error starting with Google",
-      "score": 0.33,
+      "score": 0.25,
       "status": "⚠️"
     },
     {
@@ -753,7 +753,7 @@
       "original": "Apple login failed",
       "translated": "Error al iniciar con Apple",
       "back": "Error starting with Apple",
-      "score": 0.33,
+      "score": 0.25,
       "status": "⚠️"
     },
     {
@@ -761,7 +761,7 @@
       "original": "Email already in use",
       "translated": "El correo ya está en uso",
       "back": "Mail is already in use",
-      "score": 0.75,
+      "score": 0.6,
       "status": "✅"
     },
     {
@@ -777,7 +777,7 @@
       "original": "Password must be at least 6 characters",
       "translated": "La contraseña debe tener al menos 6 caracteres",
       "back": "The password must be at least 6 characters long",
-      "score": 1.0,
+      "score": 0.78,
       "status": "✅"
     },
     {
@@ -800,19 +800,19 @@
   "fr": [
     {
       "key": "tagline",
-      "original": "Your beauty, captured in masterworks",
-      "translated": "Ta beauté, dans un chef-d'œuvre",
-      "back": "Your beauty, in a masterpiece",
-      "score": 0.6,
+      "original": "Turn Your Beauty into a Masterpiece",
+      "translated": "Immortalisez votre beauté dans un chef-d\\",
+      "back": "Immortalize your beauty in a masterpiece",
+      "score": 0.67,
       "status": "✅"
     },
     {
       "key": "sub",
       "original": "Captured through the eyes of a master",
-      "translated": "Les maîtres à travers les siècles. Une photo.",
-      "back": "Masters through the centuries. One photo.",
-      "score": 0.29,
-      "status": "⚠️"
+      "translated": "Ta beauté, capturée à travers les yeux d",
+      "back": "Your beauty, captured through the eyes of",
+      "score": 0.71,
+      "status": "✅"
     },
     {
       "key": "logIn",
@@ -825,10 +825,10 @@
     {
       "key": "signUp",
       "original": "Sign Up",
-      "translated": "S'inscrire",
-      "back": "Sign up",
-      "score": 1.0,
-      "status": "✅"
+      "translated": "S",
+      "back": "S",
+      "score": 0.0,
+      "status": "⚠️"
     },
     {
       "key": "pleaseWait",
@@ -875,16 +875,16 @@
       "original": "Email already in use",
       "translated": "E-mail déjà utilisé",
       "back": "E-mail already used",
-      "score": 0.25,
-      "status": "⚠️"
+      "score": 0.5,
+      "status": "✅"
     },
     {
       "key": "invalidEmail",
       "original": "Invalid email format",
-      "translated": "Format d'e-mail invalide",
-      "back": "Invalid e-mail format",
-      "score": 0.67,
-      "status": "✅"
+      "translated": "Format d",
+      "back": "Format d",
+      "score": 0.33,
+      "status": "⚠️"
     },
     {
       "key": "weakPassword",
@@ -899,7 +899,7 @@
       "original": "Invalid email or password",
       "translated": "E-mail ou mot de passe incorrect",
       "back": "Incorrect e-mail address or password",
-      "score": 0.5,
+      "score": 0.6,
       "status": "✅"
     },
     {
@@ -914,19 +914,19 @@
   "pt": [
     {
       "key": "tagline",
-      "original": "Your beauty, captured in masterworks",
-      "translated": "Sua beleza, em uma obra-prima",
-      "back": "Its beauty, in a masterpiece",
-      "score": 0.4,
+      "original": "Turn Your Beauty into a Masterpiece",
+      "translated": "Eterniza a tua beleza numa obra-prima",
+      "back": "Eternalize your beauty in a masterpiece",
+      "score": 0.67,
       "status": "✅"
     },
     {
       "key": "sub",
       "original": "Captured through the eyes of a master",
-      "translated": "Mestres através dos séculos. Uma foto.",
-      "back": "Masters through the centuries. Photo.",
-      "score": 0.29,
-      "status": "⚠️"
+      "translated": "Sua beleza, capturada pelos olhos de um mestre",
+      "back": "Its beauty, captured by the eyes of a master",
+      "score": 0.67,
+      "status": "✅"
     },
     {
       "key": "logIn",
@@ -989,7 +989,7 @@
       "original": "Email already in use",
       "translated": "E-mail já está em uso",
       "back": "E-mail is already in use",
-      "score": 0.75,
+      "score": 0.8,
       "status": "✅"
     },
     {
@@ -997,7 +997,7 @@
       "original": "Invalid email format",
       "translated": "Formato de e-mail inválido",
       "back": "Invalid e-mail format",
-      "score": 0.67,
+      "score": 1.0,
       "status": "✅"
     },
     {
@@ -1005,7 +1005,7 @@
       "original": "Password must be at least 6 characters",
       "translated": "A senha deve ter pelo menos 6 caracteres",
       "back": "The password must be at least 6 characters long",
-      "score": 1.0,
+      "score": 0.78,
       "status": "✅"
     },
     {
@@ -1013,7 +1013,7 @@
       "original": "Invalid email or password",
       "translated": "E-mail ou senha incorretos",
       "back": "Incorrect e-mail or password",
-      "score": 0.5,
+      "score": 0.75,
       "status": "✅"
     },
     {
@@ -1028,26 +1028,26 @@
   "zh-TW": [
     {
       "key": "tagline",
-      "original": "Your beauty, captured in masterworks",
-      "translated": "您的美麗，在傑作中永恆",
-      "back": "Your beauty is eternal in your masterpieces!",
-      "score": 0.6,
+      "original": "Turn Your Beauty into a Masterpiece",
+      "translated": "將您的美麗，留存於名畫之中",
+      "back": "Preserve your beauty in a famous painting!",
+      "score": 0.43,
       "status": "✅"
     },
     {
       "key": "sub",
       "original": "Captured through the eyes of a master",
-      "translated": "跨越世紀的大師。一張照片。",
-      "back": "Masters across the centuries. A photograph.",
-      "score": 0.29,
-      "status": "⚠️"
+      "translated": "您的美麗，透過大師的眼睛被捕捉",
+      "back": "Your beauty is captured through the eyes of a master.",
+      "score": 0.7,
+      "status": "✅"
     },
     {
       "key": "logIn",
       "original": "Log In",
       "translated": "登入",
       "back": "log in (to a computer)",
-      "score": 1.0,
+      "score": 0.4,
       "status": "✅"
     },
     {
@@ -1103,8 +1103,8 @@
       "original": "Email already in use",
       "translated": "此電子郵件已被使用",
       "back": "This email has already been used",
-      "score": 0.5,
-      "status": "✅"
+      "score": 0.33,
+      "status": "⚠️"
     },
     {
       "key": "invalidEmail",
