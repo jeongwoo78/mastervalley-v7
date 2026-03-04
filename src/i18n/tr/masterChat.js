@@ -1,3 +1,73 @@
-// masterChat — tr (placeholder)
-// TODO: Translate from en/ version
+// ========================================
+// masterChat — Türkçe (tr)
+// Toplam 49 giriş (7 ortak + 42 usta)
+// v70 - 2026-03-04
+// ========================================
 
+export const masterChat = {
+  common: {
+    chatWith: '{masterName} (AI) ile sohbet',
+    helpText: 'Ustadan sonucu düzenlemesini isteyin ya da istediğinizi sorun.',
+    chatEnded: 'Sohbet sona erdi.',
+    retransformComplete: '💡 Yeniden dönüşüm tamamlandı! Önceki görsel galeriye kaydedildi.',
+    requestModify: 'Düzenle',
+    errorMessage: '...Özür dilerim, düşüncelerim biraz dağıldı. Tekrar söyler misiniz?',
+    modifying: '{masterName} tablosu düzenleniyor.',
+    senderMe: 'Ben',
+    placeholderEnded: 'Sohbet sona erdi',
+    placeholderConverting: 'Dönüştürülüyor...',
+    placeholderDefault: '{masterName} ile sohbet et...'
+  },
+
+  masterNames: {
+    'VAN GOGH': 'Van Gogh',
+    'KLIMT': 'Klimt',
+    'MUNCH': 'Munch',
+    'CHAGALL': 'Chagall',
+    'MATISSE': 'Matisse',
+    'FRIDA': 'Frida Kahlo',
+    'LICHTENSTEIN': 'Lichtenstein'
+  },
+
+  greetings: {
+    'VAN GOGH': 'Ben Arles\'ten Van Gogh, yapay zeka aracılığıyla yeniden hayat buldum. Tablonu tamamladım, nasıl buldun?',
+    'KLIMT': 'Ben Viyana\'dan Klimt, yapay zeka aracılığıyla yeniden hayat buldum. Tablonu tamamladım, nasıl buldun?',
+    'MUNCH': 'Ben Oslo\'dan Munch, yapay zeka aracılığıyla yeniden hayat buldum. Tablonu tamamladım, nasıl buldun?',
+    'CHAGALL': 'Ben Vitebsk\'ten Chagall, yapay zeka aracılığıyla yeniden hayat buldum. Tablonu tamamladım, nasıl buldun?',
+    'MATISSE': 'Ben Nice\'den Matisse, yapay zeka aracılığıyla yeniden hayat buldum. Tablonu tamamladım, nasıl buldun?',
+    'FRIDA': 'Ben Meksika\'dan Frida, yapay zeka aracılığıyla yeniden hayat buldum. Tablonu tamamladım, nasıl buldun?',
+    'LICHTENSTEIN': 'Ben New York\'tan Lichtenstein, yapay zeka aracılığıyla yeniden hayat buldum. Tablonu tamamladım, nasıl buldun?'
+  },
+
+  suggestedQuestions: {
+    'VAN GOGH': ['Saç rengimi değiştir', 'Küpe ekle', 'Kulağının hikâyesini anlat', 'Neden ayçiçeklerini bu kadar seviyorsun?'],
+    'KLIMT': ['Dudak rengimi değiştir', 'Küpe ekle', '\"Öpücük\"ün modeli kimdi?', 'Neden altını bu kadar seviyorsun?'],
+    'MUNCH': ['Saç rengimi değiştir', 'Küpe ekle', 'Hiç evlendin mi?', 'Neden \"Çığlık\"ı çizdin?'],
+    'CHAGALL': ['Saç rengimi değiştir', 'Küpe ekle', 'Hiç aşık oldun mu?', 'Hayvanları seviyor musun?'],
+    'MATISSE': ['Dudak rengimi değiştir', 'Küpe ekle', 'Kendini tanıt', 'Renklerin neden bu kadar canlı?'],
+    'FRIDA': ['Dudak rengimi değiştir', 'Küpe ekle', 'O kazayı anlat', 'Neden bu kadar çok öz portre çizdin?'],
+    'LICHTENSTEIN': ['Saç rengimi değiştir', 'Küpe ekle', 'Kendini tanıt', 'Neden çizgi roman tarzında resim yapıyorsun?']
+  },
+
+  resultMessages: {
+    'VAN GOGH': 'Düzenlendi! Nasıl buldun, beğendin mi? Başka değiştirmek istediğin bir şey varsa söyle.',
+    'KLIMT': 'Düzenlendi. Nasıl buldun, beğendin mi? Başka değiştirmek istediğin bir şey varsa söyle.',
+    'MUNCH': 'Düzenlendi. Nasıl buldun, beğendin mi? Başka değiştirmek istediğin bir şey varsa söyle.',
+    'CHAGALL': 'Düzenlendi! Nasıl buldun, beğendin mi? Başka değiştirmek istediğin bir şey varsa söyle.',
+    'MATISSE': 'Düzenlendi! Nasıl buldun, beğendin mi? Başka değiştirmek istediğin bir şey varsa söyle.',
+    'FRIDA': 'Düzenlendi. Nasıl buldun, beğendin mi? Başka değiştirmek istediğin bir şey varsa söyle.',
+    'LICHTENSTEIN': 'Düzenlendi! Nasıl buldun, beğendin mi? Başka değiştirmek istediğin bir şey varsa söyle.'
+  },
+
+  farewellMessages: {
+    'VAN GOGH': 'Peki, atölyeme dönüyorum.',
+    'KLIMT': 'Peki, atölyeme dönüyorum.',
+    'MUNCH': 'Peki, atölyeme dönüyorum.',
+    'CHAGALL': 'Peki, atölyeme dönüyorum.',
+    'MATISSE': 'Peki, atölyeme dönüyorum.',
+    'FRIDA': 'Peki, atölyeme dönüyorum.',
+    'LICHTENSTEIN': 'Peki, atölyeme dönüyorum.'
+  }
+};
+
+export default masterChat;

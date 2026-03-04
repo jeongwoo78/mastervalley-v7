@@ -212,12 +212,25 @@ export const ui = {
     current: '현재'
   },
 
-  // ===== Login =====
-  login: {
+    login: {
+    tagline: '당신의 아름다움을 명화로 남기세요',
+    sub: '세기의 거장이 당신을 담습니다',
     continueWithGoogle: 'Google로 계속하기',
     continueWithApple: 'Apple로 계속하기',
     email: '이메일',
-    password: '비밀번호'
+    password: '비밀번호',
+    logIn: '로그인',
+    signUp: '회원가입',
+    pleaseWait: '잠시만요...',
+    loginCancelled: '로그인 취소됨',
+    networkError: '네트워크 오류. 다시 시도해주세요.',
+    googleFailed: 'Google 로그인 실패',
+    appleFailed: 'Apple 로그인 실패',
+    emailInUse: '이미 사용 중인 이메일',
+    invalidEmail: '올바르지 않은 이메일 형식',
+    weakPassword: '비밀번호는 6자 이상이어야 합니다',
+    wrongCredentials: '이메일 또는 비밀번호가 올바르지 않습니다',
+    loginFailed: '로그인 실패. 다시 시도해주세요.',
   },
 
   // ===== Common =====

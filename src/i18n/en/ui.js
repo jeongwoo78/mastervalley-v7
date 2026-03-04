@@ -212,12 +212,25 @@ export const ui = {
     current: 'Current'
   },
 
-  // ===== Login =====
-  login: {
+    login: {
+    tagline: 'Your beauty, captured in masterworks',
+    sub: 'Masters across centuries. One photo.',
     continueWithGoogle: 'Continue with Google',
     continueWithApple: 'Continue with Apple',
     email: 'Email',
-    password: 'Password'
+    password: 'Password',
+    logIn: 'Log In',
+    signUp: 'Sign Up',
+    pleaseWait: 'Please wait...',
+    loginCancelled: 'Login cancelled',
+    networkError: 'Network error. Please try again.',
+    googleFailed: 'Google login failed',
+    appleFailed: 'Apple login failed',
+    emailInUse: 'Email already in use',
+    invalidEmail: 'Invalid email format',
+    weakPassword: 'Password must be at least 6 characters',
+    wrongCredentials: 'Invalid email or password',
+    loginFailed: 'Login failed. Please try again.',
   },
 
   // ===== Common =====
