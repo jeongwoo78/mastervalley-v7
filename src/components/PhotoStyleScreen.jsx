@@ -40,9 +40,9 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, userCredits = 0, lan
   const categoryOrder = ['movements', 'masters', 'oriental'];
 
   const CATEGORY_COLORS = {
-    movements: '#a78bfa',
-    masters:   '#f59e0b',
-    oriental:  '#f43f5e',
+    movements: '#a855f7',
+    masters:   '#daa520',
+    oriental:  '#f472b6',
   };
   const [activeCategory, setActiveCategory] = useState(mainCategory || 'movements');
   const trackRef = useRef(null);
