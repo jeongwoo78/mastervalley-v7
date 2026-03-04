@@ -38,6 +38,12 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, userCredits = 0, lan
 
   // 카테고리 스와이프
   const categoryOrder = ['movements', 'masters', 'oriental'];
+
+  const CATEGORY_COLORS = {
+    movements: '#a78bfa',
+    masters:   '#f59e0b',
+    oriental:  '#f43f5e',
+  };
   const [activeCategory, setActiveCategory] = useState(mainCategory || 'movements');
   const trackRef = useRef(null);
   const touchRef = useRef({ startX: 0, startY: 0, lastX: 0, lastTime: 0, isDragging: false, direction: null });
@@ -352,7 +358,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, userCredits = 0, lan
       {/* Header */}
       <header className="style-header">
         <button className="back-btn" onClick={onBack}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
-        <span className="header-title">{categoryData[activeCategory].name}</span>
+        <span className="header-title" style={{ color: CATEGORY_COLORS[activeCategory] }}>{categoryData[activeCategory].name}</span>
       </header>
 
       {/* Photo Section (고정, 스와이프 밖) */}
@@ -409,7 +415,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, userCredits = 0, lan
       <style>{`
         .style-screen {
           min-height: 100vh;
-          background: #121212;
+          background: #0d0d0d;
           display: flex;
           flex-direction: column;
           max-width: 400px;
