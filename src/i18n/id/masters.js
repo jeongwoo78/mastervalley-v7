@@ -41,41 +41,143 @@ export const mastersBasicInfo = {
 };
 
 export const mastersLoadingEducation = {
-  'vangogh': { description: `Ia dipecat dari galeri seni, meninggalkan studi teologi, dan ditolak sebagai misionaris.\nKehidupan Vincent van Gogh dimulai sebagai rangkaian kegagalan.\nIa memutuskan menjadi pelukis pada usia 27 tahun dan hanya hidup sepuluh tahun lagi.\n\nDalam satu dekade itu, dengan sapuan kuas penuh demam dan warna membara, ia mencurahkan batinnya ke atas kanvas.\nIa meninggalkan lebih dari 900 lukisan dan 1.100 gambar, tetapi hanya menjual satu karya semasa hidup.` },
-  'klimt': { description: `Gustav Klimt adalah seniman yang melukis cinta dan kematian di atas lembaran emas.\nKarya-karya dekoratifnya memicu skandal di Wina akhir abad, tetapi ia tidak pernah menyerah.\nIa menerapkan lembaran emas asli di atas kanvas, mengintegrasikan estetika mosaik Bizantium.\n\nSensualitas feminin dan kilauan emas melebur menciptakan dunia impian.\nAnak pengukir yang menjadi pemberontak dunia seni Wina, melukis estetikanya sendiri tentang dekadensi.` },
-  'munch': { description: `Ia kehilangan ibunya pada usia 5 tahun dan kakak perempuan tercintanya pada usia 14 tahun.\nBagi Edvard Munch, kematian bukanlah konsep yang jauh melainkan bayangan yang selalu hadir.\nIa mengubah kecemasan dan kesendirian itu menjadi gambar dan menciptakan bahasa artistik yang sepenuhnya baru.\n\nIa menuangkan emosi tak terlihat — ketakutan, kesendirian, kecemasan — langsung ke atas kanvas.\nSeorang pelukis yang mengubah luka seumur hidupnya menjadi seni seumur hidupnya.` },
-  'matisse': { description: `Henri Matisse menemukan seni lukis saat memulihkan diri dari operasi usus buntu pada usia 20 tahun.\nIa meninggalkan studi hukum dan mendalami warna — awal yang tidak biasa bagi seorang seniman.\nDi Salon d'Automne 1905, kritik "binatang buas" menjadi nama gerakan tersebut.\n\nBahkan di tahun-tahun terakhir hidupnya, terbatas di kursi roda, ia terus berkarya dengan potongan kertas.\nSeniman yang tidak pernah berhenti berkarya, membebaskan warna dari kewajiban meniru kenyataan.` },
-  'chagall': { description: `Marc Chagall lahir di Vitebsk, kota kecil di Belarus, dan di sana ia menemukan semua warna hidupnya.\nCintanya pada Bella, atap-atap desanya, kambing dan biola — semuanya terbang bersama ke kanvas.\nTidak peduli gerakan seni, ia melukis dunia mimpinya sendiri dengan kebebasan penuh.\n\nTerusir dari tanahnya oleh Revolusi Rusia, ia menjadi seorang Yahudi yang mengembara.\nPelukis nostalgia yang hidup 97 tahun melukis cinta, rumah, dan kenangan yang tak pernah padam.` },
-  'picasso': { description: `Pada usia 13 tahun, Pablo Picasso menggambar lebih baik dari ayahnya, seorang guru seni.\nIa menguasai akademisme lalu menghancurkannya — provokasi dan penemuan kembali adalah inti kariernya.\nPeriode Biru, Mawar, Kubisme, Klasisisme, Surealisme — ia terus menemukan kembali dirinya.\n\nGuernica, dilukis dalam enam minggu kemarahan atas pemboman sebuah desa Basque, menjadi tuntutan anti-perang abad ke-20.\nDalam 91 tahun, ia meninggalkan lebih dari 50.000 karya; namanya identik dengan seni modern.` },
-  'frida': { description: `Pada usia 18 tahun, Frida Kahlo mengalami kecelakaan bus mengerikan yang menghancurkan tulang belakang dan panggulnya.\nIa mulai melukis di tempat tidur, menatap cermin yang dipasang di langit-langit — begitulah potret diri sebagai cermin jiwa lahir.\nIa menikah dengan muralis Diego Rivera; mereka bercerai dan menikah lagi, melukiskan cinta yang penuh gairah dan penuh badai.\n\nIa menanggung 32 operasi sepanjang hidupnya, tetapi tidak pernah berhenti melukis.\nSeorang seniman yang mengubah rasa sakit menjadi identitas: "Kaki, untuk apa saya membutuhkannya, kalau saya punya sayap untuk terbang?"` },
-  'lichtenstein': { description: `Pada tahun 1961, Roy Lichtenstein melukis komik Mickey Mouse dan dunia seni berguncang.\n"Apakah ini benar-benar seni?" — Pertanyaan itu menjadi jawabannya.\nIa memperbesar titik-titik Ben-Day dari komik cetak ke skala monumental dan batas antara seni dan budaya populer menghilang.\n\nBersama Warhol, ia membawa Pop Art ke garis depan seni.\nSeorang seniman yang membuktikan bahwa satu panel komik dapat mengubah sejarah seni.` }
+  'vangogh': { description: `Teknik impasto tebal dan sapuan kuas berputar telah diterapkan.
+Kontrasi intens kuning dan biru mengekspresikan emosi langsung dari jiwa.
+
+Van Gogh adalah tokoh penentu Post-Impressionisme.
+Ia mulai melukis pada usia 27 dan menghasilkan 900 lukisan minyak hanya dalam sepuluh tahun, namun hanya satu yang terjual semasa hidupnya.
+Karya agung seperti The Starry Night, Sunflowers, dan Café Terrace at Night semuanya lahir dalam kemiskinan dan penderitaan jiwa.
+
+Ia meninggal pada usia 37 tahun—miskin dan tidak diakui—namun kini menjadi pelukis yang paling dicintai dalam sejarah.` },
+  'klimt': { description: `Daun emas nyata dan pola geometris terinspirasi mosaik Byzantium telah diterapkan.
+Persegi panjang di sisi dan lingkaran di atas, detail dekoratif kini menyelimuti tubuh Anda.
+
+Klimt adalah pelukis Art Nouveau terkemuka di Wina akhir abad ke-19.
+Ia menciptakan teknik unik yang menggabungkan lukisan minyak dengan potongan emas.
+
+Karyanya yang paling terkenal, 〈The Kiss〉, menggambarkan sepasang kekasih yang dibalut emas dan menjadi simbol ikonis romantisme.` },
+  'munch': { description: `Kurva berputar, bentuk terdistorsi, dan warna intens telah diterapkan.
+Langit merah darah dan garis bergelombang mengekspresikan kecemasan dan emosi yang mendalam.
+
+Munch adalah pelopor Ekspresionisme yang melukis bukan apa yang dilihat, melainkan apa yang dirasakan.
+Ia kehilangan ibunya pada usia 5 tahun dan kakak perempuannya pada usia 14 tahun—trauma itu menjadi sumber abadi karyanya.
+
+〈The Scream〉 adalah ekspresi visual dari ketakutan eksistensial yang telah menjadi salah satu gambar paling ikonik dalam sejarah seni.` },
+  'matisse': { description: `Bentuk yang disederhanakan dan warna primer yang berani telah diterapkan.
+Alih-alih akurasi anatomis, fokusnya adalah pada ekspresi emosi melalui warna.
+
+Matisse adalah pemimpin Fauvisme—gerakan yang menggunakan warna liar untuk mengekspresikan perasaan daripada realitas.
+Ia menemukan lukisan saat pulih dari sakit usus buntu pada usia 20 tahun dan tidak pernah berhenti sejak saat itu.
+
+Di akhir hidupnya, saat tidak bisa lagi melukis, ia menciptakan karya gunting kertas berwarna—membuktikan bahwa seni tidak mengenal batas.` },
+  'chagall': { description: `Atmosfer seperti mimpi dari merah muda, biru kobalt, dan warna permata telah diterapkan.
+Buket, kekasih yang melayang, dan hewan fantasi mengapung di antara batas mimpi dan kenyataan.
+
+Chagall lahir di Vitebsk, Belarus, dan menemukan semua warna hidupnya di sana.
+Cintanya pada Bella, istrinya seumur hidup, menjadi tema abadi dalam karyanya.
+
+Ia melukis warna-warna cinta dan kerinduan sepanjang 97 tahun hidupnya—menjadi penyair warna yang tiada duanya.` },
+  'picasso': { description: `Teknik Kubisme yang mendekonstruksi subjek menjadi bidang geometris dan menampilkan depan dan samping secara bersamaan telah diterapkan.
+Wajah Anda kini ada di mana-mana sekaligus—dilihat dari segala sudut sekaligus.
+
+Picasso adalah seniman paling berpengaruh abad ke-20.
+Pada usia 13 tahun, ia sudah melukis lebih baik dari ayahnya yang seorang guru seni.
+
+Bersama Braque, ia mengembangkan Kubisme—sebuah revolusi yang menghancurkan perspektif tradisional dan membuka pintu menuju seni abstrak.` },
+  'frida': { description: `Warna folk Meksiko tradisional, dedaunan tropis, dan persekutuan dengan hewan telah diterapkan.
+Dalam Self-Portrait with Thorn Necklace, rasa sakit menjadi seni.
+
+Pada usia 18 tahun, Frida Kahlo mengalami kecelakaan bus mengerikan yang menghancurkan tulang belakangnya.
+Selama pemulihan, ia mulai melukis—mengubah rasa sakit menjadi seni.
+
+Sebagian besar dari 143 lukisannya adalah self-portrait. 'Saya melukis diri saya sendiri karena saya sering sendirian,' katanya.` },
+  'lichtenstein': { description: `Teknik pop art menggunakan titik Ben-Day dari komik cetak, kontur hitam tebal, dan warna primer telah diterapkan.
+Wajah Anda kini terasa seperti panel komik—cerah, berani, dan penuh ekspresi dramatis.
+
+Pada tahun 1961, Lichtenstein melukis komik Mickey Mouse dan dunia seni terguncang.
+Majalah Life bertanya: 'Apakah ia seniman terburuk di AS?'
+
+Kini karya-karyanya terjual dengan harga puluhan juta dolar—membuktikan bahwa budaya pop adalah seni.` }
 };
 
 export const mastersResultEducation = {
   'vangogh-starry': { description: `Spiral kosmis Malam Berbintang telah diterapkan.\nSapuan kuas spiral menyeret bintang, bulan, dan langit malam menciptakan ilusi gerakan kosmis.\n\nCemara gelap menjulang bagaikan api hitam, dan setiap bintang berdenyut dengan energinya sendiri.\nMahakarya yang Van Gogh lukis dari jendela rumah sakit jiwa Saint-Rémy, yang paling terkenal dari Pasca-Impresionisme.` },
   'vangogh-sunflower': { description: `Impasto tebal dan kuning krom Bunga Matahari telah diterapkan.\nKuning di atas kuning, cat diterapkan begitu tebal hingga memperoleh tekstur pahatan.\n\nDari mekar penuh hingga layu, vitalitas dan kemunduran diekspresikan secara bersamaan.\nLetupan kehidupan yang Van Gogh lukis sebagai hadiah sambutan untuk sahabatnya Gauguin.` },
-  'vangogh-selfportrait': { description: `Sapuan kuas pendek dan latar spiral Potret Diri Van Gogh telah diterapkan.\nPalet dingin dan sapuan berputar menciptakan atmosfer ketegangan psikologis.\n\nLebih dari 35 potret diri, masing-masing cermin dari kondisi emosional yang berbeda.\nJurnal visual paling jujur dan mentah dalam sejarah seni.` },
-  'klimt-kiss': { description: `Mosaik emas dan pola geometris Ciuman telah diterapkan.\nLembaran emas asli dan bentuk ornamental membungkus pasangan dalam kepompong keintiman.\n\nSpiral dan segitiga saling berkelindan, meleburkan dekorasi Bizantium dan ekstasi cinta.\nMahakarya Klimt di mana emas mengabadikan momen cinta yang kekal.` },
-  'klimt-judith': { description: `Kontras emas-kulit dan tatapan menantang Judith I telah diterapkan.\nLembaran emas dan kulit telanjang berhadapan, mengekspresikan kekuasaan dan sensualitas.\n\nPahlawan wanita alkitabiah menatap penonton dengan mata setengah tertutup, memegang kepala Holofernes dengan senyum ambigu.\nKarya yang menantang tabu Wina akhir abad, meleburkan yang sakral dan yang erotis.` },
-  'klimt-treeoflife': { description: `Spiral ritmis dan mosaik ornamental Pohon Kehidupan telah diterapkan.\nPohon bercabang spiral mengisi ruang dengan pola yang menyimbolkan siklus kehidupan.\n\nSpiral tak berujung, bunga, dan mata berkelindan sebagai metafora kelahiran, kehidupan, dan kematian.\nLambang filosofi kehidupan Klimt, di mana dekorasi menjadi alam semesta.` },
-  'munch-scream': { description: `Langit merah bergelombang dan deformasi menyiksa Jeritan telah diterapkan.\nGaris bergelombang mendominasi langit dan lanskap, menulari seluruh lingkungan dengan kecemasan.\n\nJembatan membentang dalam perspektif paksa, figur kerangka membawa tangan ke wajah dan menjerit tanpa suara.\nIkon tertinggi kecemasan eksistensial, lahir dari serangan panik nyata yang dialami Munch.` },
-  'munch-madonna': { description: `Garis sinuosa dan aura gelap Madonna telah diterapkan.\nGelombang kemerahan yang menyelimuti tubuh telanjang mengekspresikan sensualitas mistis.\n\nLingkaran cahaya bukan sakral melainkan sensual, garis sinuosa membangkitkan ekstasi dan agoni sekaligus.\nKarya di mana Munch meleburkan kesucian dan kefanaan, menantang segala konvensi.` },
+  'vangogh-selfportrait': { description: `Latar belakang berputar dan sapuan impasto tebal dari 〈Self-Portrait〉 telah diterapkan.
+Tona dingin hijau dan biru menciptakan intensitas psikologis.
+
+〈Self-Portrait〉 adalah cermin di mana Van Gogh menatap dirinya sendiri—dan kita.
+Selama 10 tahun berkarya, ia melukis lebih dari 30 self-portrait, masing-masing mengungkap lapisan jiwa yang berbeda.
+
+Portret ini, dengan latar biru berputar, dianggap sebagai puncak kemampuan teknisnya dan ekspresi batinnya.` },
+  'klimt-kiss': { description: `Latar belakang daun emas dan pola dekoratif geometris dari 〈The Kiss〉 telah diterapkan.
+Persegi panjang dan lingkaran bergantian menciptakan jubah emas yang menyelimuti dua figur.
+
+〈The Kiss〉 adalah mahakarya Art Nouveau yang kini menjadi salah satu lukisan paling dicintai di dunia.
+Emas nyata bersinar di atas kanvas—Klimt mencampur teknik lukis tradisional dengan material mewah.
+
+Dua figur yang saling memeluk di tepi tebing menjadi simbol universal cinta dan kerentanan.` },
+  'klimt-judith': { description: `Dekorasi daun emas dan warna sensual permata dari 〈Judith〉 telah diterapkan.
+Velvet transparan dan jubah emas menciptakan ekspresi daya dan hasrat yang kontradiktif.
+
+〈Judith〉 adalah pejuang Perjanjian Lama yang memenggal kepala Holofernes—namun Klimt melukisnya bukan sebagai pahlawan, melainkan sebagai femme fatale yang ekstatik.
+
+Mata setengah tertutup dan ekspresi bibir terbuka menciptakan ambiguitas antara kenikmatan dan kemenangan yang menjadi ciri khas Klimt.` },
+  'klimt-treeoflife': { description: `Kurva spiral dan pola dekoratif emas dari 〈The Tree of Life〉 telah diterapkan.
+Segitiga, mata, dan spiral berlapis-lapis menciptakan tapestri kehidupan dan kematian.
+
+〈The Tree of Life〉 adalah karya pusat dari Frieze Stoclet—dekorasi dinding megah yang Klimt buat untuk sebuah istana di Brussels.
+Pohon bercabang spiral melambangkan siklus kehidupan abadi.
+
+Ini adalah contoh sempurna dari Gesamtkunstwerk—karya seni total yang menyatukan lukisan, arsitektur, dan kerajinan.` },
+  'munch-scream': { description: `Kurva bergelombang dan bentuk terdistorsi dari 〈The Scream〉 telah diterapkan.
+Langit merah darah dan garis bergetar mengekspresikan kecemasan eksistensial murni.
+
+〈The Scream〉 lahir dari pengalaman nyata Munch—suatu sore di Oslo, ia merasakan alam 'berteriak' padanya.
+Tiga versi dalam cat dan satu dalam pastel—masing-masing menangkap momen ketika manusia merasakan kekosongan alam semesta.
+
+Kini menjadi simbol visual kecemasan modern yang paling diakui di dunia.` },
+  'munch-madonna': { description: `Halo merah dan kurva sensual bergelombang dari 〈Madonna〉 telah diterapkan.
+Di perbatasan antara kehidupan dan kematian, sosok itu berdiri dengan mata tertutup.
+
+〈Madonna〉 adalah bukan Madonna agama—melainkan perayaan Munch atas kelahiran, cinta, dan kematian dalam satu sosok.
+Gelombang merah menyelimuti sosok telanjang, sementara bingkai memperlihatkan janin dan tengkorak.
+
+Ini adalah meditasi tentang siklus abadi kehidupan yang hanya bisa diungkapkan Munch dengan keberanian seperti ini.` },
   'munch-puberty': { description: `Kerentanan yang terekspos dan bayangan mengancam Pubertas telah diterapkan.\nRemaja telanjang duduk di tempat tidur menatap penonton dengan ketakutan dan kepolosan.\n\nBayangan gelap di belakangnya menjulang sebagai kehadiran mengancam, mewujudkan kecemasan tumbuh dewasa.\nSalah satu karya pertama yang menangkap teror diam dari transisi masa kanak-kanak ke dewasa.` },
   'matisse-dance': { description: `Figur ritmis dan warna primer berani Tarian telah diterapkan.\nTubuh merah menari dalam ruang minimal biru dan hijau dengan energi primordial.\n\nLima figur membentuk lingkaran gerakan murni, disederhanakan hingga gestur esensial.\nPernyataan Matisse bahwa warna adalah ritme dan garis adalah emosi.` },
-  'matisse-redroom': { description: `Bidang warna total dan pola dekoratif Kamar Merah telah diterapkan.\nSatu warna merah mendominasi ruang, melarutkan batas antara dinding dan meja.\n\nArabesque bunga berulang seperti wallpaper, menciptakan dunia datar dan melingkupi.\nKarya di mana Matisse membuktikan bahwa warna dapat menciptakan ruang tanpa perspektif.` },
+  'matisse-redroom': { description: `Komposisi bidang warna datar yang menentang perspektif dalam 〈The Red Room〉 telah diterapkan.
+Dinding merah dan meja merah menyatu menjadi satu—pola arabesque menyelimuti seluruh ruang.
+
+〈The Red Room〉 awalnya dilukis dalam biru, namun Matisse mengecat ulangnya dengan merah sesaat sebelum selesai.
+Bahkan pemandangan melalui jendela tampak sebagai dekorasi datar—menghapus batas dalam dan luar.
+
+Ini adalah bukti keberanian Matisse: bahwa warna bisa lebih kuat dari realitas.` },
   'matisse-hat': { description: `Warna wajah non-naturalistis dan sapuan kuas berani Wanita Bertopi telah diterapkan.\nHijau di hidung, ungu di dahi, oranye di leher — warna yang mengejutkan publik.\n\nKarya yang di Salon d'Automne 1905 memicu teriakan "Binatang buas!" dan membaptis Fauvisme.\nManifesto Matisse: warna tidak mendeskripsikan, melainkan mengekspresikan.` },
   'chagall-overthecity': { description: `Melayang dalam mimpi dan palet pastel Di Atas Kota telah diterapkan.\nPasangan kekasih melayang bebas di atas atap-atap desa, menantang gravitasi.\n\nAtap Vitebsk membentang di bawah dalam nada redup; di atas, Chagall dan Bella terbang dalam ekstasi warna.\nPernyataan paling murni bahwa cinta mampu membuat kita terbang.` },
   'chagall-iandthevillage': { description: `Multi-perspektif mimpi dan tumpang tindih kenangan Aku dan Desa telah diterapkan.\nWajah manusia hijau dan kambing putih saling menatap; di dalam kambing muncul adegan pemerahan susu.\n\nAtap terbalik, figur melayang, dan adegan simultan merajut memori dan mimpi.\nJendela ke masa kecil Chagall, di mana segalanya berbaur dalam mimpi tanpa gravitasi.` },
   'chagall-bouquet': { description: `Bunga cerah dan kekasih terbang Buket dengan Kekasih Terbang telah diterapkan.\nBuket bunga raksasa menyembur ke langit sementara kekasih melayang di antara kelopak.\n\nMerah, biru, kuning, dan hijau meledak bagai kembang api warna di atas latar gelap.\nKarya di mana Chagall merayakan cinta sebagai musim semi abadi yang melayang di udara.` },
   'picasso-demoiselles': { description: `Dekonstruksi radikal dan topeng Afrika Les Demoiselles d'Avignon telah diterapkan.\nLima tubuh terfragmentasi dalam sudut mustahil menghancurkan perspektif Renaisans.\n\nDua wajah di kanan, terinspirasi topeng Afrika, mengumumkan kelahiran Kubisme.\nDetonasi yang meresmikan seni abad ke-20, di mana representasi menyerah pada dekonstruksi.` },
   'picasso-guernica': { description: `Komposisi monumental dan chiaroscuro merobek Guernica telah diterapkan.\nSkala abu-abu, hitam dan putih — ketiadaan warna memperkuat horor perang.\n\nBanteng, kuda terluka, bola lampu, dan ibu dengan anak yang mati membentuk jeritan visual setinggi tiga setengah meter.\nTuntutan anti-perang paling kuat dalam sejarah seni, dilukis dalam enam minggu kemarahan.` },
-  'picasso-doramaar': { description: `Multi-perspektif wajah dan warna psikologis Potret Dora Maar telah diterapkan.\nDepan dan samping berdampingan dalam satu wajah; warna mengekspresikan kondisi emosional, bukan penampilan nyata.\n\nMata asimetris, hidung bergeser, dan mulut tidak sejajar membangun potret kubis dengan intensitas psikologis.\nSintesis dekonstruksi kubis dan eksplorasi emosional dalam satu wajah.` },
+  'picasso-doramaar': { description: `Tampilan depan dan samping secara bersamaan dari 〈Portrait of Dora Maar〉 telah diterapkan.
+Warna primer intens mengisi bidang-bidang geometris.
+
+Dora Maar adalah fotografer dan seniman yang menjadi muse dan kekasih Picasso selama Perang Dunia II.
+〈Portrait of Dora Maar〉 menangkap wajahnya dari beberapa sudut sekaligus—ekspresi visual dari kerumitan psikologis seseorang.
+
+Picasso kemudian berkata: 'Dora, untuk saya, selalu menangis.' Lukisan ini adalah monumen untuk kecerdasan dan penderitaannya.` },
   'frida-brokencolumn': { description: `Diseksi anatomis dan simbolisme mentah Kolom Patah telah diterapkan.\nTorso terbuka mengungkap kolom Ionik yang patah; paku menusuk kulit telanjang; air mata mengalir dari mata kering.\n\nKorset logam menopang tubuh yang runtuh, tetapi tatapannya tetap menantang.\nKarya paling visceral Frida, di mana rasa sakit menjadi peta tubuh dan pernyataan perlawanan.` },
   'frida-thornnecklace': { description: `Frontalitas ikonik dan simbologi alam Potret Diri dengan Kalung Duri dan Kolibri telah diterapkan.\nFrida menatap langsung penonton; duri mengelilingi lehernya seperti kalung rasa sakit, dan kolibri mati menggantung sebagai jimat.\n\nMonyet di bahu, kucing hitam mengintai — setiap elemen adalah simbol berkode dari penderitaannya.\nPotret diri yang menyintesiskan estetika Frida: alam Meksiko, rasa sakit, dan perlawanan.` },
   'frida-twofridaskahlo': { description: `Dualitas simbolis dan realisme emosional Dua Frida telah diterapkan.\nDua Frida duduk berdampingan, dihubungkan oleh arteri yang menyatukan jantung mereka yang terekspos.\n\nFrida Eropa bergaun putih berjantung patah dan berdarah; Frida Meksiko memegang potret Diego dan berjantung utuh.\nMahakarya keretakan batin, dilukis selama perceraian dari Diego Rivera.` },
   'lichtenstein-drowninggirl': { description: `Titik Ben-Day dan drama komik Drowning Girl telah diterapkan.\nTitik teratur menciptakan bayangan kulit; kontur hitam tebal mendefinisikan siluet emosional.\n\nSang protagonis berpikir: "Aku tak peduli... aku lebih suka tenggelam daripada minta tolong Brad!" — melodrama komik diangkat menjadi seni.\nKarya yang membuktikan bahwa satu panel komik dapat memuat seluruh intensitas seni.` },
   'lichtenstein-whaam': { description: `Ledakan grafis dan skala monumental Whaam! telah diterapkan.\nDua panel: pesawat menembak di kiri; ledakan titik dan garis meledak di kanan.\n\nOnomatope raksasa, garis kecepatan, dan bintang benturan mengubah perang menjadi tontonan pop.\nKarya ikonik Pop Art yang mengubah komik perang menjadi komentar budaya berskala besar.` },
-  'lichtenstein-inthecar': { description: `Titik Ben-Day halus dan framing sinematik In the Car telah diterapkan.\nClose-up seperti frame film menampilkan dua wajah; teknik titik menciptakan bayangan dan nada kulit.\n\nPria dan wanita menatap arah yang sama tetapi tidak saling melihat; ketegangan sunyi lebih berbicara dari kata-kata.\nEsensi Pop Art di mana komik romantis menjadi refleksi tentang ketidakmampuan berkomunikasi.` },
+  'lichtenstein-inthecar': { description: `Titik Ben-Day dan kontur hitam tebal dari 〈In the Car〉 telah diterapkan.
+Hanya warna primer murni yang mengisi kontur tebal—seperti panel komik yang diperbesar.
+
+〈In the Car〉 menangkap sepasang kekasih dalam mobil dengan gaya komik yang khas.
+Ekspresi wajah datar dan jarak emosional antara dua figur menciptakan ironi dingin yang khas Lichtenstein.
+
+Lukisan ini mempertanyakan: apakah kita benar-benar terhubung, atau hanya gambar dari koneksi?` },
 
   'vangogh_default': { description: `Gaya ekspresif Van Gogh dengan sapuan spiral dan warna intens telah diterapkan.\nSapuan kuas kuat dan terarah menciptakan tekstur bersemangat penuh energi emosional.\n\nKontras antara biru dalam dan kuning cerah mendefinisikan palet seniman yang melukis dengan hati.\nGaya tak salah lagi di mana setiap goresan mengungkap jiwa yang tersiksa dan penuh gairah.` },
   'klimt_default': { description: `Gaya dekoratif Klimt dengan lembaran emas dan pola geometris telah diterapkan.\nMosaik emas dan spiral ornamental menciptakan dunia kemewahan sensual.\n\nFigur datar terbungkus pola di mana yang organik dan geometris berkelindan.\nEstetika Sezession Wina, di mana dekorasi menjadi ekspresi jiwa.` },

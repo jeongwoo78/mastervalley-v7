@@ -260,82 +260,91 @@ export const mastersLoadingEducation = {
 
   // ── Van Gogh ──
   'vangogh': {
-    description: `Il fut renvoyé d'une galerie d'art, abandonna ses études de théologie et fut refusé comme missionnaire.
-La vie de Vincent van Gogh commença comme un enchaînement d'échecs.
-Il décida de devenir peintre à 27 ans et ne vécut que dix années de plus.
+    description: `La technique de l'impasto épais et les coups de pinceau tourbillonnants ont été appliqués.
+L'intense contraste du jaune et du bleu exprime directement l'émotion de l'âme.
 
-Durant cette décennie, avec des touches fiévreuses et des couleurs brûlantes, il déversa son intérieur sur la toile.
-Il laissa plus de 900 tableaux et 1 100 dessins, mais n'en vendit qu'un seul de son vivant.`
+Van Gogh est une figure déterminante du Post-Impressionnisme.
+Il a commencé à peindre à 27 ans et a produit 900 peintures à l'huile en seulement dix ans, mais une seule s'est vendue de son vivant.
+Des chefs-d'œuvre comme La Nuit étoilée, Les Tournesols et La Terrasse du café le soir sont tous nés dans la pauvreté et la souffrance mentale.
+
+Il est mort à 37 ans—pauvre et non reconnu—mais il est aujourd'hui le peintre le plus aimé de l'histoire.`
   },
 
   // ── Klimt ──
   'klimt': {
-    description: `Gustav Klimt fut l'artiste qui peignit l'amour et la mort sur feuille d'or.
-Ses œuvres décoratives provoquèrent le scandale dans la Vienne fin de siècle, mais il ne céda jamais.
-Il appliquait de véritables feuilles d'or sur la toile, intégrant l'esthétique de la mosaïque byzantine.
+    description: `De vraies feuilles d'or et des motifs géométriques inspirés des mosaïques byzantines ont été appliqués.
+Des rectangles sur les côtés et des cercles en haut—les détails décoratifs enveloppent maintenant votre silhouette.
 
-La sensualité féminine et l'éclat de l'or se fondirent pour créer un monde de rêve.
-Le fils du graveur devenu le rebelle du monde de l'art viennois peignit sa propre esthétique de la décadence.`
+Klimt était le principal peintre Art Nouveau de la Vienne de la fin du XIXe siècle.
+Il a créé une technique unique combinant peinture à l'huile et incrustations d'or.
+
+Son œuvre la plus célèbre, 〈Le Baiser〉, représente un couple d'amoureux enveloppé d'or et est devenu une icône du romantisme.`
   },
 
   // ── Munch ──
   'munch': {
-    description: `Il perdit sa mère à 5 ans et sa sœur préférée à 14 ans.
-Pour Edvard Munch, la mort n'était pas un concept lointain mais une ombre toujours présente.
-Il transforma cette angoisse et cette solitude en images et inventa un langage artistique entièrement nouveau.
+    description: `Des courbes tourbillonnantes, des formes distordues et des couleurs intenses ont été appliquées.
+Des ciels rouge sang et des lignes ondulantes expriment l'anxiété et les émotions profondes.
 
-Il coucha sur la toile les émotions invisibles — la peur, la solitude, l'anxiété.
-Un peintre qui transforma sa blessure de toute une vie en art de toute une vie.`
+Munch fut le pionnier de l'Expressionnisme qui peignait non ce qu'il voyait, mais ce qu'il ressentait.
+Il a perdu sa mère à 5 ans et sa sœur préférée à 14 ans—ce traumatisme est devenu la source permanente de son œuvre.
+
+〈Le Cri〉 est une expression visuelle de la terreur existentielle qui est devenue l'une des images les plus emblématiques de l'histoire de l'art.`
   },
 
   // ── Matisse ──
   'matisse': {
-    description: `Henri Matisse découvrit la peinture en convalescence d'une appendicite à l'âge de 20 ans.
-Il abandonna ses études de droit et se consacra à la couleur — un début inhabituel pour un artiste.
-Au Salon d'Automne de 1905, la critique « les fauves » devint le nom du mouvement.
+    description: `Des formes simplifiées et des couleurs primaires audacieuses ont été appliquées.
+Plutôt que la précision anatomique, l'accent est mis sur l'expression des émotions à travers la couleur.
 
-Même dans les dernières années de sa vie, cloué dans un fauteuil roulant, il continua de créer avec des papiers découpés.
-Un artiste qui ne cessa jamais de créer, libérant la couleur de l'obligation d'imiter la réalité.`
+Matisse était le chef de file du Fauvisme—mouvement utilisant des couleurs sauvages pour exprimer les sentiments plutôt que la réalité.
+Il a découvert la peinture en se remettant d'une appendicite à l'âge de 20 ans et ne s'est jamais arrêté.
+
+À la fin de sa vie, quand il ne pouvait plus peindre, il créait des œuvres avec des découpages de papier coloré—prouvant que l'art n'a pas de limites.`
   },
 
   // ── Chagall ──
   'chagall': {
-    description: `Marc Chagall naquit à Vitebsk, un petit bourg de Biélorussie, et y trouva toutes les couleurs de sa vie.
-Son amour pour Bella, les toits de son village, les chèvres et les violons — tout s'envola ensemble sur la toile.
-Indifférent aux mouvements artistiques, il peignit son propre monde de rêve en toute liberté.
+    description: `Une atmosphère onirique de rose, de bleu cobalt et de couleurs chatoyantes a été appliquée.
+Des bouquets, des amoureux flottants et des animaux fantastiques flottent entre rêve et réalité.
 
-Chassé de sa terre par la Révolution russe, il devint un juif errant.
-Un peintre de la nostalgie qui vécut 97 ans en peignant l'amour, le foyer et les souvenirs qui ne s'éteignent jamais.`
+Chagall est né à Vitebsk, en Biélorussie, et y a trouvé toutes les couleurs de sa vie.
+Son amour pour Bella, sa femme toute sa vie, est devenu le thème éternel de son œuvre.
+
+Il a peint les couleurs de l'amour et de la nostalgie tout au long de ses 97 années de vie—devenant le poète des couleurs sans égal.`
   },
 
   // ── Picasso ──
   'picasso': {
-    description: `À 13 ans, Pablo Picasso dessinait mieux que son père, professeur d'art.
-Il maîtrisa l'académisme puis le détruisit — la provocation et la réinvention furent l'essence de sa carrière.
-Périodes Bleue, Rose, Cubisme, Classicisme, Surréalisme — il se réinventa sans cesse.
+    description: `Les techniques cubistes qui déconstruisent les sujets en plans géométriques et montrent le devant et le côté simultanément ont été appliquées.
+Votre visage est maintenant partout à la fois—vu sous tous les angles simultanément.
 
-Guernica, peint en six semaines de fureur contre le bombardement d'un village basque, devint le réquisitoire antiguerre du XXe siècle.
-En 91 ans, il laissa plus de 50 000 œuvres ; son nom est synonyme d'art moderne.`
+Picasso était l'artiste le plus influent du XXe siècle.
+À 13 ans, il peignait déjà mieux que son père, qui était professeur d'art.
+
+Avec Braque, il a développé le Cubisme—une révolution qui a brisé la perspective traditionnelle et ouvert la porte à l'art abstrait.`
   },
 
   // ── Frida ──
   'frida': {
-    description: `À 18 ans, Frida Kahlo subit un terrible accident de bus qui lui brisa la colonne vertébrale et le bassin.
-Elle commença à peindre dans son lit, se regardant dans un miroir fixé au plafond — ainsi naquit l'autoportrait comme miroir de l'âme.
-Elle épousa le muraliste Diego Rivera ; ils divorcèrent et se remarièrent, peignant leur amour passionné et tourmenté.
+    description: `Des couleurs folkloriques mexicaines traditionnelles, du feuillage tropical et une communion avec les animaux ont été appliqués.
+Dans Autoportrait au collier d'épines, la douleur devient art.
 
-Elle endura 32 opérations au cours de sa vie, mais ne cessa jamais de peindre.
-Une artiste qui transforma la douleur en identité : « Des pieds, pour quoi faire, puisque j'ai des ailes pour voler ? »`
+À 18 ans, Frida Kahlo a subi un terrible accident de bus qui lui a brisé la colonne vertébrale.
+Pendant sa convalescence, elle a commencé à peindre—transformant la douleur en art.
+
+Sur ses 143 tableaux, la plupart sont des autoportraits. 'Je me peins moi-même parce que je suis souvent seule', disait-elle.`
   },
 
   // ── Lichtenstein ──
   'lichtenstein': {
-    description: `En 1961, Roy Lichtenstein peignit une bande dessinée de Mickey Mouse et le monde de l'art trembla.
-« Est-ce vraiment de l'art ? » — La question devint la réponse.
-Il agrandit les points Ben-Day de la bande dessinée imprimée à une échelle monumentale et la frontière entre art et culture populaire s'effaça.
+    description: `Les techniques du pop art utilisant des points Ben-Day de bandes dessinées imprimées, des contours noirs épais et des couleurs primaires ont été appliquées.
+Votre visage ressemble maintenant à un panneau de bande dessinée—brillant, audacieux et plein d'expression dramatique.
 
-Avec Warhol, il porta le Pop Art au premier plan de l'art.
-Un artiste qui prouva qu'une seule case de bande dessinée peut changer l'histoire de l'art.`
+En 1961, Lichtenstein a peint une bande dessinée de Mickey Mouse et le monde de l'art a tremblé.
+Le magazine Life a demandé : 'Est-il le pire artiste des États-Unis ?'
+
+Ses œuvres se vendent maintenant pour des dizaines de millions de dollars—prouvant que la culture pop est de l'art.`
   }
 };
 
@@ -359,50 +368,61 @@ De la pleine floraison au flétrissement, la vitalité et le déclin sont exprim
 Un éclat de vie que Van Gogh peignit comme cadeau de bienvenue pour son ami Gauguin.`
   },
   'vangogh-selfportrait': {
-    description: `Les touches courtes et le fond en spirale des Autoportraits de Van Gogh ont été appliqués.
-La palette froide et les touches tourbillonnantes créent une atmosphère de tension psychologique.
+    description: `Le fond tourbillonnant et les épaisses touches d'impasto de 〈Autoportrait〉 ont été appliqués.
+Les tons froids de vert et de bleu créent une intensité psychologique.
 
-Plus de 35 autoportraits, chacun un miroir d'un état émotionnel différent.
-Le journal visuel le plus sincère et le plus brut de l'histoire de l'art.`
+〈Autoportrait〉 est le miroir dans lequel Van Gogh se regardait lui-même—et nous avec lui.
+Au cours de ses 10 années de carrière, il a peint plus de 30 autoportraits, chacun révélant différentes couches de l'âme.
+
+Ce portrait, avec son fond bleu tourbillonnant, est considéré comme le sommet de ses capacités techniques et de son expression intérieure.`
   },
 
   // ── Klimt ──
   'klimt-kiss': {
-    description: `La mosaïque dorée et les motifs géométriques du Baiser ont été appliqués.
-De véritables feuilles d'or et des formes ornementales enveloppent le couple dans un cocon d'intimité.
+    description: `Le fond de feuille d'or et les motifs décoratifs géométriques de 〈Le Baiser〉 ont été appliqués.
+Des rectangles et des cercles alternent pour créer un manteau doré enveloppant deux silhouettes.
 
-Spirales et triangles s'entrelacent, fusionnant la décoration byzantine et l'extase amoureuse.
-Le chef-d'œuvre de Klimt où l'or consacre l'instant éternel de l'amour.`
+〈Le Baiser〉 est le chef-d'œuvre de l'Art Nouveau qui est maintenant l'une des peintures les plus aimées au monde.
+L'or véritable brille sur la toile—Klimt a mélangé les techniques de peinture traditionnelles avec des matériaux luxueux.
+
+Deux silhouettes qui s'étreignent au bord d'un précipice sont devenues un symbole universel de l'amour et de la vulnérabilité.`
   },
   'klimt-judith': {
-    description: `Le contraste or-chair et le regard provocateur de Judith I ont été appliqués.
-Feuille d'or et peau nue se font face, exprimant pouvoir et sensualité.
+    description: `La décoration en feuille d'or et les couleurs sensuelles chatoyantes de 〈Judith〉 ont été appliquées.
+Du velours transparent et un manteau doré créent une expression contradictoire de pouvoir et de désir.
 
-L'héroïne biblique regarde le spectateur les yeux mi-clos, tenant la tête d'Holopherne avec un sourire ambigu.
-L'œuvre qui défia les tabous de la Vienne fin de siècle, fusionnant le sacré et l'érotique.`
+〈Judith〉 est la guerrière de l'Ancien Testament qui a décapité Holopherne—mais Klimt l'a peinte non comme une héroïne, mais comme une femme fatale en extase.
+
+Les yeux mi-clos et l'expression des lèvres entrouvertes créent une ambiguïté entre plaisir et victoire qui est la marque distinctive de Klimt.`
   },
   'klimt-treeoflife': {
-    description: `Les spirales rythmiques et les mosaïques ornementales de L'Arbre de vie ont été appliquées.
-L'arbre aux branches en spirale emplit l'espace de motifs symbolisant le cycle de la vie.
+    description: `Les courbes spirales et les motifs décoratifs dorés de 〈L'Arbre de vie〉 ont été appliqués.
+Des triangles, des yeux et des spirales superposés créent une tapisserie de vie et de mort.
 
-Spirales infinies, fleurs et yeux s'entrelacent comme métaphore de la naissance, de la vie et de la mort.
-L'emblème de la philosophie vitale de Klimt, où la décoration devient univers.`
+〈L'Arbre de vie〉 est la pièce centrale de la Frise Stoclet—une décoration murale monumentale que Klimt a créée pour un palais à Bruxelles.
+L'arbre aux branches en spirale symbolise le cycle éternel de la vie.
+
+C'est l'exemple parfait du Gesamtkunstwerk—œuvre d'art totale unissant peinture, architecture et artisanat.`
   },
 
   // ── Munch ──
   'munch-scream': {
-    description: `Le ciel rouge ondulant et la déformation agonisante du Cri ont été appliqués.
-Des lignes ondulantes dominent ciel et paysage, contaminant tout l'environnement d'angoisse.
+    description: `Les courbes ondulantes et les formes distordues de 〈Le Cri〉 ont été appliquées.
+Un ciel rouge sang et des lignes tremblantes expriment une pure anxiété existentielle.
 
-Le pont s'étire en perspective forcée, la figure squelettique porte les mains au visage et crie sans voix.
-L'icône suprême de l'angoisse existentielle, née d'une véritable attaque de panique vécue par Munch.`
+〈Le Cri〉 est né d'une expérience réelle de Munch—un soir à Oslo, il a senti que la nature lui 'criait dessus'.
+Trois versions en peinture et une en pastel—chacune capturant le moment où l'être humain ressent le vide de l'univers.
+
+C'est maintenant le symbole visuel de l'anxiété moderne le plus reconnu au monde.`
   },
   'munch-madonna': {
-    description: `Les lignes sinueuses et l'aura sombre de Madonna ont été appliquées.
-Les ondes rougeâtres enveloppant le corps nu expriment une sensualité mystique.
+    description: `Le halo rouge et les courbes sensuelles ondulantes de 〈Madonna〉 ont été appliqués.
+À la frontière entre la vie et la mort, la silhouette se dresse les yeux fermés.
 
-L'auréole n'est pas sacrée mais sensuelle, les lignes sinueuses évoquent extase et agonie à la fois.
-L'œuvre où Munch fusionna sainteté et carnalité, défiant toute convention.`
+〈Madonna〉 n'est pas une Madonna religieuse—c'est la célébration par Munch de la naissance, de l'amour et de la mort en une seule figure.
+Des vagues rouges enveloppent la silhouette nue, tandis que le cadre montre un fœtus et un crâne.
+
+C'est une méditation sur le cycle éternel de la vie que seul Munch pouvait exprimer avec un tel courage.`
   },
   'munch-puberty': {
     description: `La vulnérabilité exposée et l'ombre menaçante de Puberté ont été appliquées.
@@ -421,11 +441,13 @@ Cinq figures forment un cercle de mouvement pur, simplifié jusqu'au geste essen
 La déclaration de Matisse que la couleur est rythme et la ligne est émotion.`
   },
   'matisse-redroom': {
-    description: `Le champ de couleur total et le motif décoratif de La Chambre rouge ont été appliqués.
-Un seul rouge domine l'espace, dissolvant la frontière entre mur et table.
+    description: `La composition en plans de couleur plate qui défie la perspective dans 〈La Chambre rouge〉 a été appliquée.
+Le mur rouge et la table rouge fusionnent en un seul—les motifs d'arabesques recouvrent tout l'espace.
 
-Les arabesques florales se répètent comme un papier peint, créant un monde plat et enveloppant.
-L'œuvre où Matisse prouva que la couleur peut créer l'espace sans perspective.`
+〈La Chambre rouge〉 a d'abord été peinte en bleu, mais Matisse l'a repeinte en rouge juste avant de terminer.
+Même la vue par la fenêtre apparaît comme une décoration plate—effaçant la frontière entre intérieur et extérieur.
+
+C'est la preuve du courage de Matisse : que la couleur peut être plus puissante que la réalité.`
   },
   'matisse-hat': {
     description: `Les couleurs faciales non naturalistes et la touche audacieuse de La Femme au chapeau ont été appliquées.
@@ -474,11 +496,13 @@ Le taureau, le cheval blessé, l'ampoule et la mère avec l'enfant mort forment 
 Le réquisitoire antiguerre le plus puissant de l'histoire de l'art, peint en six semaines de fureur.`
   },
   'picasso-doramaar': {
-    description: `La multiperspective faciale et la couleur psychologique du Portrait de Dora Maar ont été appliqués.
-Face et profil coexistent en un seul visage ; les couleurs expriment l'état émotionnel, non l'apparence réelle.
+    description: `La vue simultanée de face et de profil de 〈Portrait de Dora Maar〉 a été appliquée.
+Des couleurs primaires intenses remplissent les plans géométriques.
 
-Yeux asymétriques, nez déplacé et bouche décalée construisent un portrait cubiste d'une intensité psychologique.
-La synthèse de la déconstruction cubiste et de l'exploration émotionnelle en un seul visage.`
+Dora Maar était photographe et artiste qui est devenue la muse et l'amante de Picasso pendant la Seconde Guerre mondiale.
+〈Portrait de Dora Maar〉 capture son visage sous plusieurs angles simultanément—expression visuelle de la complexité psychologique d'une personne.
+
+Picasso a ensuite dit : 'Dora, pour moi, pleurait toujours.' Ce tableau est un monument à son intelligence et à sa souffrance.`
   },
 
   // ── Frida ──
@@ -520,11 +544,13 @@ Onomatopées géantes, lignes de vitesse et étoiles d'impact transforment la gu
 L'œuvre emblématique du Pop Art qui transforma la bande dessinée de guerre en commentaire culturel à grande échelle.`
   },
   'lichtenstein-inthecar': {
-    description: `Les points Ben-Day fins et le cadrage cinématographique d'In the Car ont été appliqués.
-Un gros plan comme un photogramme de film montre deux visages ; la technique de points crée les ombres et les tons de peau.
+    description: `Les points Ben-Day et les contours noirs épais de 〈Dans la voiture〉 ont été appliqués.
+Seules des couleurs primaires pures remplissent les contours épais—comme un panneau de bande dessinée agrandi.
 
-L'homme et la femme regardent dans la même direction mais ne se voient pas ; la tension silencieuse parle plus que les mots.
-L'essence du Pop Art où la bande dessinée romantique devient réflexion sur l'incommunicabilité.`
+〈Dans la voiture〉 capture un couple dans une voiture dans le style de bande dessinée caractéristique de Lichtenstein.
+Les expressions faciales plates et la distance émotionnelle entre les deux figures créent l'ironie froide caractéristique de Lichtenstein.
+
+Cette peinture pose la question : sommes-nous vraiment connectés, ou ne sommes-nous que des images de connexion ?`
   },
 
   // ===== Secours par artiste (quand aucune œuvre spécifique n'est identifiée) =====

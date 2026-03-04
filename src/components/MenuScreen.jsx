@@ -194,7 +194,7 @@ const MenuScreen = ({
 const menuStyles = `
   .menu-screen {
     min-height: 100vh;
-    background: #121212;
+    background: #0d0d0d;
     display: flex;
     flex-direction: column;
     max-width: 400px;

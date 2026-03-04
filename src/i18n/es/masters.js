@@ -260,82 +260,91 @@ export const mastersLoadingEducation = {
 
   // ── Van Gogh ──
   'vangogh': {
-    description: `Fue despedido de una galería de arte, abandonó los estudios de teología y fue rechazado como misionero.
-La vida de Vincent van Gogh comenzó como una cadena de fracasos.
-Decidió ser pintor a los 27 años y solo vivió diez años más.
+    description: `La técnica de impasto grueso y las pinceladas arremolinadas han sido aplicadas.
+El intenso contraste de amarillo y azul expresa directamente la emoción del alma.
 
-En esa década, con pinceladas febriles y colores ardientes, volcó su interior sobre el lienzo.
-Dejó más de 900 pinturas y 1.100 dibujos, pero vendió una sola obra en vida.`
+Van Gogh es una figura definitoria del Post-Impresionismo.
+Comenzó a pintar a los 27 años y produjo 900 pinturas al óleo en solo diez años, pero solo una se vendió durante su vida.
+Obras maestras como La noche estrellada, Girasoles y Terraza del café por la noche nacieron en la pobreza y la angustia mental.
+
+Murió a los 37 años—pobre y sin reconocimiento—pero ahora es el pintor más amado de la historia.`
   },
 
   // ── Klimt ──
   'klimt': {
-    description: `Gustav Klimt fue el artista que pintó amor y muerte sobre pan de oro.
-Sus obras decorativas causaron escándalo en la Viena del fin de siglo, pero nunca cedió.
-Aplicaba verdadero pan de oro sobre el lienzo, incorporando la estética del mosaico bizantino.
+    description: `Láminas de oro real y patrones geométricos inspirados en mosaicos bizantinos han sido aplicados.
+Rectángulos a los lados y círculos arriba—los detalles decorativos ahora envuelven tu figura.
 
-La sensualidad femenina y el brillo del oro se fundieron para crear un mundo de ensueño.
-El hijo del grabador que se convirtió en el rebelde del mundo del arte vienés, pintó su propia estética de la decadencia.`
+Klimt fue el principal pintor Art Nouveau de la Viena de finales del siglo XIX.
+Creó una técnica única que combina pintura al óleo con incrustaciones de oro.
+
+Su obra más famosa, 〈El beso〉, representa a una pareja de amantes envueltos en oro y se ha convertido en un ícono del romanticismo.`
   },
 
   // ── Munch ──
   'munch': {
-    description: `Perdió a su madre con 5 años y a su hermana favorita con 14.
-Para Edvard Munch, la muerte era una sombra siempre presente, no un concepto distante.
-Convirtió esa angustia y soledad en imágenes e inventó un lenguaje artístico completamente nuevo.
+    description: `Curvas arremolinadas, formas distorsionadas y colores intensos han sido aplicados.
+Cielos de color rojo sangre y líneas ondulantes expresan ansiedad y emociones profundas.
 
-Plasmó las emociones invisibles — miedo, soledad, ansiedad — directamente sobre el lienzo.
-Un pintor que convirtió su herida de por vida en arte de por vida.`
+Munch fue el pionero del Expresionismo que pintó no lo que veía, sino lo que sentía.
+Perdió a su madre a los 5 años y a su hermana favorita a los 14—ese trauma se convirtió en la fuente perenne de su obra.
+
+〈El Grito〉 es una expresión visual del terror existencial que se ha convertido en una de las imágenes más icónicas de la historia del arte.`
   },
 
   // ── Matisse ──
   'matisse': {
-    description: `Henri Matisse descubrió la pintura mientras se recuperaba de una apendicitis a los 20 años.
-Abandonó los estudios de Derecho y se volcó en el color — un comienzo inusual como artista.
-En el Salón de Otoño de 1905, la crítica "las fieras" se convirtió en el nombre del movimiento.
+    description: `Formas simplificadas y colores primarios audaces han sido aplicados.
+En lugar de la precisión anatómica, el enfoque está en expresar la emoción a través del color.
 
-Incluso en los últimos años de su vida, limitado a una silla de ruedas, siguió creando con recortes de papel.
-Un artista que nunca dejó de crear, liberando el color de la obligación de imitar la realidad.`
+Matisse fue el líder del Fauvismo—movimiento que usó colores salvajes para expresar sentimientos en lugar de realidad.
+Descubrió la pintura mientras se recuperaba de una apendicitis a los 20 años y nunca se detuvo.
+
+Al final de su vida, cuando ya no podía pintar, creó obras con recortes de papel de colores—demostrando que el arte no tiene límites.`
   },
 
   // ── Chagall ──
   'chagall': {
-    description: `Marc Chagall nació en Vitebsk, un pequeño pueblo de Bielorrusia, y allí encontró todos los colores de su vida.
-Su amor por Bella, los tejados de su pueblo, las cabras y los violines — volaron juntos al lienzo.
-Ajeno a los movimientos artísticos, pintó su propio mundo de ensueño con total libertad.
+    description: `Una atmósfera onírica de rosa, azul cobalto y colores joya ha sido aplicada.
+Bouquets, amantes flotantes y animales fantásticos flotan entre el sueño y la realidad.
 
-Expulsado de su tierra por la Revolución Rusa, se convirtió en un judío errante.
-Un pintor de la nostalgia que vivió 97 años pintando el amor, el hogar y la memoria que nunca se apagan.`
+Chagall nació en Vitebsk, Bielorrusia, y encontró allí todos los colores de su vida.
+Su amor por Bella, su esposa de toda la vida, se convirtió en el tema eterno de su obra.
+
+Pintó los colores del amor y la nostalgia a lo largo de sus 97 años de vida—convirtiéndose en el poeta del color sin igual.`
   },
 
   // ── Picasso ──
   'picasso': {
-    description: `A los 13 años, Pablo Picasso dibujaba mejor que su padre, profesor de arte.
-Dominó el academicismo y luego lo destruyó — provocación y reinvención fueron la esencia de su carrera.
-Períodos Azul, Rosa, Cubismo, Clasicismo, Surrealismo — se reinventó sin parar.
+    description: `Las técnicas cubistas que deconstruyen los sujetos en planos geométricos y muestran el frente y el lado simultáneamente han sido aplicadas.
+Tu rostro ahora está en todas partes a la vez—visto desde todos los ángulos simultáneamente.
 
-Guernica, pintada en seis semanas de furia contra el bombardeo de un pueblo vasco, se convirtió en el alegato antibélico del siglo XX.
-En 91 años dejó más de 50.000 obras; su nombre es sinónimo de arte moderno.`
+Picasso fue el artista más influyente del siglo XX.
+A los 13 años, ya pintaba mejor que su padre, que era profesor de arte.
+
+Junto con Braque, desarrolló el Cubismo—una revolución que destruyó la perspectiva tradicional y abrió la puerta al arte abstracto.`
   },
 
   // ── Frida ──
   'frida': {
-    description: `A los 18 años, Frida Kahlo sufrió un gravísimo accidente de autobús que le destrozó la columna y la pelvis.
-Comenzó a pintar en la cama, mirándose en un espejo colocado en el techo — así nació el autorretrato como espejo del alma.
-Se casó con el muralista Diego Rivera; se divorciaron y volvieron a casarse, pintando su amor apasionado y tormentoso.
+    description: `Colores folclóricos mexicanos tradicionales, follaje tropical y comunión con animales han sido aplicados.
+En Autorretrato con collar de espinas, el dolor se convierte en arte.
 
-Soportó 32 operaciones a lo largo de su vida, pero nunca dejó de pintar.
-Una artista que convirtió el dolor en identidad: "Pies, ¿para qué los quiero, si tengo alas para volar?"`
+A los 18 años, Frida Kahlo sufrió un terrible accidente de autobús que le destrozó la columna vertebral.
+Durante la recuperación, comenzó a pintar—transformando el dolor en arte.
+
+De sus 143 pinturas, la mayoría son autorretratos. 'Me pinto a mí misma porque estoy sola con frecuencia', dijo.`
   },
 
   // ── Lichtenstein ──
   'lichtenstein': {
-    description: `En 1961, Roy Lichtenstein pintó un cómic de Mickey Mouse y el mundo del arte se sacudió.
-"¿Es esto realmente arte?" — La pregunta se convirtió en la respuesta.
-Amplió los puntos Ben-Day del cómic impreso a escala monumental y la línea entre arte y cultura popular se desvaneció.
+    description: `Las técnicas del pop art que usan puntos Ben-Day de cómics impresos, contornos negros gruesos y colores primarios han sido aplicadas.
+Tu rostro ahora parece un panel de cómic—brillante, audaz y lleno de expresión dramática.
 
-Junto a Warhol, llevó el Pop Art al primer plano del arte.
-Un artista que demostró que una sola viñeta de cómic puede cambiar la historia del arte.`
+En 1961, Lichtenstein pintó un cómic de Mickey Mouse y el mundo del arte se sacudió.
+La revista Life preguntó: '¿Es el peor artista de EE.UU.?'
+
+Ahora sus obras se venden por decenas de millones de dólares—demostrando que la cultura pop es arte.`
   }
 };
 
@@ -359,50 +368,61 @@ Desde el pleno florecimiento hasta el marchitamiento, se expresan simultáneamen
 Un estallido de vida que Van Gogh pintó como regalo de bienvenida para su amigo Gauguin.`
   },
   'vangogh-selfportrait': {
-    description: `Se han aplicado las pinceladas cortas y el fondo en espiral de los Autorretratos de Van Gogh.
-La paleta fría y las pinceladas arremolinadas crean una atmósfera de tensión psicológica.
+    description: `El fondo arremolinado y las gruesas pinceladas de impasto de 〈Autorretrato〉 han sido aplicados.
+Los tonos fríos de verde y azul crean una intensidad psicológica.
 
-Más de 35 autorretratos, cada uno un espejo de su estado emocional diferente.
-El diario visual más honesto y crudo de la historia del arte.`
+〈Autorretrato〉 es el espejo en el que Van Gogh se miraba a sí mismo—y nosotros con él.
+Durante sus 10 años de carrera, pintó más de 30 autorretratos, cada uno revelando diferentes capas del alma.
+
+Este retrato, con su fondo azul arremolinado, es considerado la cúspide de su capacidad técnica y expresión interior.`
   },
 
   // ── Klimt ──
   'klimt-kiss': {
-    description: `Se ha aplicado el mosaico dorado y los patrones geométricos de El Beso.
-Pan de oro real y formas ornamentales envuelven la pareja en un capullo de intimidad.
+    description: `El fondo de lámina de oro y los patrones decorativos geométricos de 〈El beso〉 han sido aplicados.
+Rectángulos y círculos se alternan creando un manto dorado que envuelve a dos figuras.
 
-Espirales y triángulos se entrelazan, fundiendo la decoración bizantina con el éxtasis amoroso.
-La obra maestra de Klimt donde el oro consagra el instante eterno del amor.`
+〈El beso〉 es la obra maestra del Art Nouveau que ahora es una de las pinturas más amadas del mundo.
+El oro real brilla sobre el lienzo—Klimt mezcló técnicas de pintura tradicional con materiales lujosos.
+
+Dos figuras que se abrazan en el borde de un precipicio se han convertido en símbolo universal del amor y la vulnerabilidad.`
   },
   'klimt-judith': {
-    description: `Se han aplicado el contraste oro-carne y la mirada desafiante de Judit I.
-Pan de oro y piel desnuda se contraponen, expresando poder y sensualidad.
+    description: `La decoración de lámina de oro y los colores sensuales joya de 〈Judith〉 han sido aplicados.
+Terciopelo transparente y manto dorado crean una expresión contradictoria de poder y deseo.
 
-La heroína bíblica mira al espectador con ojos entrecerrados, sosteniendo la cabeza de Holofernes con una sonrisa ambigua.
-La obra que desafió los tabúes de la Viena del fin de siglo, fusionando lo sagrado y lo erótico.`
+〈Judith〉 es la guerrera del Antiguo Testamento que decapitó a Holofernes—pero Klimt la pintó no como heroína, sino como femme fatale en éxtasis.
+
+Los ojos entrecerrados y la expresión de labios entreabiertos crean una ambigüedad entre el placer y la victoria que es la marca distintiva de Klimt.`
   },
   'klimt-treeoflife': {
-    description: `Se han aplicado las espirales rítmicas y los mosaicos ornamentales del Árbol de la Vida.
-El árbol de ramas en espiral llena el espacio con patrones que simbolizan el ciclo de la vida.
+    description: `Las curvas espirales y los patrones decorativos dorados de 〈El árbol de la vida〉 han sido aplicados.
+Triángulos, ojos y espirales superpuestos crean un tapiz de vida y muerte.
 
-Espirales infinitas, flores y ojos se entrelazan como metáfora del nacimiento, la vida y la muerte.
-El emblema de la filosofía vital de Klimt, donde la decoración se convierte en universo.`
+〈El árbol de la vida〉 es la pieza central del Friso Stoclet—una decoración mural monumental que Klimt creó para un palacio en Bruselas.
+El árbol de ramas en espiral simboliza el ciclo eterno de la vida.
+
+Es el ejemplo perfecto del Gesamtkunstwerk—obra de arte total que une pintura, arquitectura y artesanía.`
   },
 
   // ── Munch ──
   'munch-scream': {
-    description: `Se han aplicado el cielo rojo ondulante y la deformación agonizante de El Grito.
-Líneas ondulantes dominan cielo y paisaje, contagiando todo el entorno de angustia.
+    description: `Las curvas ondulantes y las formas distorsionadas de 〈El Grito〉 han sido aplicadas.
+Un cielo rojo sangre y líneas temblorosas expresan pura ansiedad existencial.
 
-El puente se extiende en perspectiva forzada, la figura esquelética se lleva las manos al rostro y grita sin voz.
-El icono supremo de la angustia existencial, nacido de un ataque de pánico real que Munch experimentó.`
+〈El Grito〉 nació de una experiencia real de Munch—una tarde en Oslo, sintió que la naturaleza 'le gritaba'.
+Tres versiones en pintura y una en pastel—cada una capturando el momento en que el ser humano siente el vacío del universo.
+
+Ahora es el símbolo visual de la ansiedad moderna más reconocido en el mundo.`
   },
   'munch-madonna': {
-    description: `Se han aplicado las líneas sinuosas y el aura oscura de Madonna.
-Las ondas rojizas que envuelven el cuerpo desnudo expresan una sensualidad mística.
+    description: `El halo rojo y las curvas sensuales ondulantes de 〈Madonna〉 han sido aplicados.
+En la frontera entre la vida y la muerte, la figura se alza con los ojos cerrados.
 
-El halo no es sagrado sino sensual, las líneas sinuosas evocan éxtasis y agonía a la vez.
-La obra en que Munch fusionó santidad y carnalidad, desafiando toda convención.`
+〈Madonna〉 no es una Madonna religiosa—es la celebración de Munch del nacimiento, el amor y la muerte en una sola figura.
+Olas rojas envuelven la figura desnuda, mientras el marco muestra un feto y una calavera.
+
+Es una meditación sobre el ciclo eterno de la vida que solo Munch podía expresar con tal valentía.`
   },
   'munch-puberty': {
     description: `Se han aplicado la vulnerabilidad expuesta y la sombra amenazante de Pubertad.
@@ -421,11 +441,13 @@ Cinco figuras forman un círculo de movimiento puro, simplificado hasta el gesto
 La declaración de Matisse de que el color es ritmo y la línea es emoción.`
   },
   'matisse-redroom': {
-    description: `Se ha aplicado el campo de color total y el patrón decorativo de La Habitación Roja.
-Un solo rojo domina el espacio, disolviendo la frontera entre pared y mesa.
+    description: `La composición de planos de color plano que desafía la perspectiva en 〈La habitación roja〉 ha sido aplicada.
+La pared roja y la mesa roja se fusionan en una sola—los patrones de arabescos cubren todo el espacio.
 
-Los arabescos florales se repiten como papel tapiz, creando un mundo plano y envolvente.
-La obra donde Matisse demostró que el color puede crear espacio sin perspectiva.`
+〈La habitación roja〉 fue originalmente pintada en azul, pero Matisse la repintó de rojo justo antes de terminar.
+Incluso la vista por la ventana aparece como decoración plana—borrando el límite entre interior y exterior.
+
+Esto es prueba de la valentía de Matisse: que el color puede ser más poderoso que la realidad.`
   },
   'matisse-hat': {
     description: `Se han aplicado los colores faciales no naturalistas y la pincelada audaz de La Mujer del Sombrero.
@@ -474,11 +496,13 @@ El toro, el caballo herido, la bombilla y la madre con el niño muerto forman un
 El alegato antibélico más poderoso de la historia del arte, pintado en seis semanas de furia.`
   },
   'picasso-doramaar': {
-    description: `Se ha aplicado la multiperspectiva facial y el color psicológico del Retrato de Dora Maar.
-Frente y perfil coexisten en un solo rostro; los colores expresan el estado emocional, no la apariencia real.
+    description: `La vista simultánea de frente y de lado de 〈Retrato de Dora Maar〉 ha sido aplicada.
+Colores primarios intensos llenan los planos geométricos.
 
-Ojos asimétricos, nariz desplazada y boca desencajada construyen un retrato cubista de intensidad psicológica.
-La síntesis de la deconstrucción cubista y la exploración emocional en un solo rostro.`
+Dora Maar era fotógrafa y artista que se convirtió en musa y amante de Picasso durante la Segunda Guerra Mundial.
+〈Retrato de Dora Maar〉 captura su rostro desde múltiples ángulos simultáneamente—expresión visual de la complejidad psicológica de una persona.
+
+Picasso luego dijo: 'Dora, para mí, siempre estaba llorando.' Esta pintura es un monumento a su inteligencia y sufrimiento.`
   },
 
   // ── Frida ──
@@ -520,11 +544,13 @@ Onomatopeyas gigantes, líneas de velocidad y estrellas de impacto convierten la
 La obra icónica del Pop Art que transformó el cómic bélico en comentario cultural a gran escala.`
   },
   'lichtenstein-inthecar': {
-    description: `Se han aplicado los puntos Ben-Day finos y el encuadre cinematográfico de En el Coche.
-Un primer plano como fotograma de película muestra dos rostros; la técnica de puntos crea las sombras y los tonos de piel.
+    description: `Los puntos Ben-Day y los contornos negros gruesos de 〈En el coche〉 han sido aplicados.
+Solo colores primarios puros llenan los contornos gruesos—como un panel de cómic ampliado.
 
-El hombre y la mujer miran en la misma dirección pero no se ven; la tensión silenciosa habla más que las palabras.
-La esencia del Pop Art donde el cómic romántico se convierte en reflexión sobre la incomunicación.`
+〈En el coche〉 captura a una pareja en un automóvil en el estilo de cómic característico de Lichtenstein.
+Las expresiones faciales planas y la distancia emocional entre las dos figuras crean la ironía fría característica de Lichtenstein.
+
+Esta pintura pregunta: ¿estamos realmente conectados, o solo somos imágenes de conexión?`
   },
 
   // ===== Respaldo por artista (cuando no se identifica obra específica) =====

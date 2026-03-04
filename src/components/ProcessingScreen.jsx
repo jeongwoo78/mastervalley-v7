@@ -491,10 +491,10 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           align-items: center;
           min-height: 100vh;
           padding: 20px;
-          background: #121212;
+          background: #0d0d0d;
         }
         .processing-content {
-          background: #121212;
+          background: #0d0d0d;
           padding: 20px;
           border-radius: 16px;
           max-width: 400px;
@@ -584,7 +584,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           width: 100%;
           margin-top: 16px;
           padding: 12px 0;
-          background: #121212;
+          background: #0d0d0d;
           display: flex;
           flex-direction: column;
           align-items: flex-end;

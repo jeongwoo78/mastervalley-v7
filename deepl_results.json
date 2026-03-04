@@ -825,10 +825,10 @@
     {
       "key": "signUp",
       "original": "Sign Up",
-      "translated": "S",
-      "back": "S",
-      "score": 0.0,
-      "status": "⚠️"
+      "translated": "S'inscrire",
+      "back": "Sign up",
+      "score": 1.0,
+      "status": "✅"
     },
     {
       "key": "pleaseWait",
@@ -881,10 +881,10 @@
     {
       "key": "invalidEmail",
       "original": "Invalid email format",
-      "translated": "Format d",
-      "back": "Format d",
-      "score": 0.33,
-      "status": "⚠️"
+      "translated": "Format d'e-mail invalide",
+      "back": "Invalid e-mail format",
+      "score": 1.0,
+      "status": "✅"
     },
     {
       "key": "weakPassword",
