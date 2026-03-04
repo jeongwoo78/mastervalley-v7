@@ -49,7 +49,7 @@ const LanguageScreen = ({ onBack, onSelect, currentLang = 'en' }) => {
       <style>{`
         .language-screen {
           min-height: 100vh;
-          background: #0d0d0d;
+          background: #121212;
           display: flex;
           flex-direction: column;
           max-width: 400px;

@@ -1,5 +1,5 @@
 // MenuScreen.jsx - Menu Screen (Dark Theme, SVG Icons)
-// v2: Emoji → SVG, 8 languages with accordion, Support accordion
+// v3: 12 languages all active
 import React, { useState } from 'react';
 import { getUi } from '../i18n';
 
@@ -47,16 +47,20 @@ const IconCheck = () => (
   </svg>
 );
 
-// 8 languages
+// 12 languages
 const ALL_LANGS = [
-  { code: 'en', native: 'English', active: true },
-  { code: 'ko', native: '한국어', active: true },
-  { code: 'ja', native: '日本語', active: false },
-  { code: 'ar', native: 'العربية', active: false },
-  { code: 'id', native: 'Bahasa Indonesia', active: false },
-  { code: 'th', native: 'ไทย', active: false },
-  { code: 'tr', native: 'Türkçe', active: false },
-  { code: 'vi', native: 'Tiếng Việt', active: false },
+  { code: 'en',    native: 'English',           active: true },
+  { code: 'ko',    native: '한국어',             active: true },
+  { code: 'ja',    native: '日本語',             active: true },
+  { code: 'id',    native: 'Bahasa Indonesia',  active: true },
+  { code: 'th',    native: 'ไทย',               active: true },
+  { code: 'tr',    native: 'Türkçe',            active: true },
+  { code: 'vi',    native: 'Tiếng Việt',        active: true },
+  { code: 'ar',    native: 'العربية',           active: true },
+  { code: 'es',    native: 'Español',           active: true },
+  { code: 'fr',    native: 'Français',          active: true },
+  { code: 'pt',    native: 'Português',         active: true },
+  { code: 'zh-TW', native: '繁體中文',           active: true },
 ];
 
 const MenuScreen = ({ 
@@ -190,7 +194,7 @@ const MenuScreen = ({
 const menuStyles = `
   .menu-screen {
     min-height: 100vh;
-    background: #0d0d0d;
+    background: #121212;
     display: flex;
     flex-direction: column;
     max-width: 400px;

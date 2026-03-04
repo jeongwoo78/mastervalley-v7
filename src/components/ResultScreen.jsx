@@ -1624,7 +1624,7 @@ const ResultScreen = ({
       <style>{`
         .result-screen {
           min-height: 100vh;
-          background: #0d0d0d;
+          background: #121212;
           padding: 16px;
           display: flex;
           align-items: flex-start;
@@ -1634,7 +1634,7 @@ const ResultScreen = ({
         .result-container {
           max-width: 400px;
           width: 100%;
-          background: #0d0d0d;
+          background: #121212;
         }
 
         .result-header {
@@ -1883,7 +1883,7 @@ const ResultScreen = ({
         .movement-badge {
           display: inline-block;
           padding: 0.25rem 0.75rem;
-          background: #0d0d0d;
+          background: #121212;
           color: white;
           border-radius: 12px;
           font-size: 0.75rem;
