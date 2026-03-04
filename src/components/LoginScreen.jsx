@@ -112,7 +112,7 @@ const LoginScreen = ({ onLoginSuccess }) => {
         </h1>
 
         {/* Sub */}
-        <p style={s.sub}>Masters across centuries. One photo.</p>
+        <p style={s.sub}>{t.sub}</p>
 
         {/* Google */}
         <button style={{ ...s.socialBtn, opacity: loading ? 0.6 : 1 }} onClick={handleGoogleLogin} disabled={loading}>

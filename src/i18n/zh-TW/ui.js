@@ -215,7 +215,7 @@ export const ui = {
 
     login: {
     tagline: '您的美麗，在傑作中永恆',
-    sub: '跨越世紀的大師。一張照片。',
+    sub: '您的美麗，透過大師的眼睛被捕捉',
     continueWithGoogle: '使用 Google 繼續',
     continueWithApple: '使用 Apple 繼續',
     email: '電子郵件',

@@ -586,4 +586,124 @@ L'essence du Pop Art qui effaça la frontière entre le musée et la culture de 
   }
 };
 
+  'vangogh-starrynight': {
+    description: `La technique d'impasto tourbillonnant de 〈La Nuit étoilée〉 a été appliquée.
+Le contraste intense du bleu cobalt et du jaune chrome libère l'énergie de la nuit.
+
+〈La Nuit étoilée〉 est la vision réimaginée par Van Gogh du paysage au-delà de la fenêtre de son asile à Saint-Rémy.
+Plutôt que de peindre le ciel nocturne réel, il a projeté ses tourments intérieurs sur les étoiles.`
+  },
+  'vangogh-cafe': {
+    description: `La technique de paysage nocturne aux couleurs complémentaires de 〈La Terrasse du café le soir〉, sans utiliser le noir, a été appliquée.
+Les réverbères jaunes et le ciel bleu profond expriment l'obscurité uniquement par contraste des couleurs.
+
+〈La Terrasse du café le soir〉 est la première scène nocturne en extérieur que Van Gogh peignit sous les étoiles à la Place du Forum d'Arles.
+Les chaises vides sur la terrasse et les passants évoquent à la fois la quiétude et la chaleur de la nuit.`
+  },
+  'vangogh-sunflowers': {
+    description: `Les subtiles variations tonales d'un jaune chrome unique dans 〈Les Tournesols〉 ont été appliquées.
+La peinture épaissement superposée capture la texture des pétales tels qu'ils sont.
+
+〈Les Tournesols〉 est une série que Van Gogh peignit pour décorer la Maison Jaune à Arles avant l'arrivée de Gauguin.
+Fleurs épanouies, fleurs fanées et graines révèlent ensemble le cycle de la vie.`
+  },
+  'vangogh-wheatfield': {
+    description: `Les coups de pinceau courbes dynamiques et les contrastes de couleurs complémentaires de 〈Champ de blé avec cyprès〉 ont été appliqués.
+Le blé agité par le vent et les cyprès semblables à des flammes transmettent l'énergie vitale de la nature.
+
+〈Champ de blé avec cyprès〉 est un paysage que Van Gogh peignit à plusieurs reprises près de l'asile de Saint-Rémy.
+L'horizon doré du champ de blé et le cyprès vertical relient la terre et le ciel.`
+  },
+  'matisse-greenstripe': {
+    description: `La division audacieuse des plans de couleur qui divise le visage en deux dans 〈La Raie verte〉 a été appliquée.
+Le rose, le jaune et le vert coexistent sur la peau, ignorant complètement la couleur naturelle.
+
+〈La Raie verte〉 est un portrait que Matisse peignit de son épouse Amélie, provoquant des cris de 'bêtes sauvages !' au Salon de 1905.
+Une seule raie verte au centre du visage divise lumière et ombre uniquement par la couleur.`
+  },
+  'matisse-purplecoat': {
+    description: `Les intenses plans de couleur et la composition plate décorative de 〈Femme au manteau violet〉 ont été appliqués.
+La frontière entre la figure et l'arrière-plan se dissout, la couleur elle-même créant l'espace.
+
+〈Femme au manteau violet〉 est une œuvre où Matisse a exprimé l'émotion à travers des formes simplifiées et une couleur pure.
+Le vaste plan de couleur du manteau violet domine la toile, se fondant avec les motifs du fond en un tout.`
+  },
+  'matisse-derain': {
+    description: `Les coups de pinceau rugueux et les couleurs de peau non naturelles du 〈Portrait d'André Derain〉 ont été appliqués.
+Les ombres vertes et la peau orange, avec des couleurs primaires audacieuses, rendent le sujet d'une manière sauvage et fauviste.
+
+Le 〈Portrait d'André Derain〉 est un portrait d'amitié que Matisse peignit de son confrère André Derain.
+Les deux peintres échangèrent des portraits l'un de l'autre en même temps, partageant ensemble leurs expériences fauves.`
+  },
+  'chagall-lovers': {
+    description: `Les couleurs oniriques et les images superposées de 〈Les Amoureux〉 ont été appliquées.
+Le rose, le bleu cobalt et le violet se fondent, effaçant la frontière entre rêve et réalité.
+
+〈Les Amoureux〉 est une œuvre que Chagall peignit sur son amour pour Bella, sa muse et épouse toute sa vie.
+Les amoureux superposés comme un rêve sur un fond réel expriment l'ivresse de l'amour.`
+  },
+  'chagall-lamariee': {
+    description: `Le contraste onirique des bouquets rouges et du ciel nocturne bleu dans 〈La Mariée〉 a été appliqué.
+Animaux et personnages se mêlent comme des apparitions, déployant une fantaisie festive.
+
+〈La Mariée〉 capture les toits et les clochers de la ville natale de Chagall, Vitebsk, comme un paysage de mémoire.
+La mariée tenant un bouquet rouge, superposée à la scène du village, renferme nostalgie et joie.`
+  },
+  'chagall-village': {
+    description: `Les perspectives multiples et les images transparentes superposées de 〈Moi et le village〉 ont été appliquées.
+Personnes, animaux et paysages villageois se mêlent comme dans un rêve, défiant échelle et proportion.
+
+〈Moi et le village〉 fut peint à Paris alors que Chagall était nostalgique de sa ville natale de Vitebsk.
+Réalité et mémoire se fondent sur une seule toile, capturant un désir infini du foyer.`
+  },
+  'munch-danceoflife': {
+    description: `Le contraste symbolique des couleurs claires et sombres dans 〈La Danse de la vie〉 a été appliqué.
+Avec la femme centrale en robe rouge comme axe, l'innocence et le désespoir sont placés de chaque côté.
+
+〈La Danse de la vie〉 est l'œuvre autobiographique de Munch qui compresse des souvenirs d'amour et de chagrins en une seule toile.
+Les couleurs claires et sombres alternent sur une seule toile, capturant à la fois le début et la fin de l'amour.`
+  },
+  'frida-parrots': {
+    description: `Le regard frontal intense et les couleurs folkloriques mexicaines de 〈Moi et mes perroquets〉 ont été appliqués.
+Des rouges, verts et bleus vifs remplissent la toile aux côtés du feuillage tropical.
+
+〈Moi et mes perroquets〉 est un autoportrait dans lequel Frida est entourée de quatre perroquets.
+Les perroquets sont des messagers d'amour dans le folklore mexicain, et des compagnons fidèles dans la solitude de Frida.`
+  },
+  'frida-monkeys': {
+    description: `Le regard frontal et le luxuriant fond tropical de 〈Autoportrait aux singes〉 ont été appliqués.
+Parmi les feuilles vert foncé, ses yeux intenses et ses sourcils joints révèlent son identité.
+
+〈Autoportrait aux singes〉 est un autoportrait que Frida peignit avec ses singes de compagnie.
+Dans la mythologie mexicaine, les singes symbolisent le désir, mais pour Frida ils remplaçaient les enfants qu'elle ne pouvait pas avoir.`
+  },
+  'lichtenstein-mmaybe': {
+    description: `Les points Ben-Day et la narration de bande dessinée des bulles de dialogue dans 〈M-Peut-être〉 ont été appliqués.
+Les couleurs primaires remplissent à plat dans des contours épais, recréant la texture d'une page imprimée.
+
+〈M-Peut-être〉 était une œuvre que Lichtenstein conservait dans sa collection personnelle, vendue 30 000 $—cinq fois le prix habituel.
+Elle est maintenant exposée comme pièce maîtresse de la collection Pop Art au Museum Ludwig de Cologne, en Allemagne.`
+  },
+  'lichtenstein-forgetit': {
+    description: `Les points Ben-Day et les intenses contrastes de couleurs primaires de 〈Oublie ça !〉 ont été appliqués.
+Les épais contours noirs fixent la forme comme un panneau de bande dessinée, comprimant l'émotion dramatiquement.
+
+〈Oublie ça !〉 est un chef-d'œuvre précoce créé juste après la première exposition solo de Lichtenstein en 1962.
+Cette même année, le magazine Life titrait : 'Est-il le pire artiste des États-Unis ?'—à son sujet.`
+  },
+  'lichtenstein-ohhhalright': {
+    description: `Les points Ben-Day et la composition de plans de couleur plate de 〈Ohhh...Très bien...〉 ont été appliqués.
+Le rouge, le bleu et le jaune se séparent nettement dans des contours noirs, aussi nets qu'une page imprimée.
+
+〈Ohhh...Très bien...〉 est une œuvre de 1964 empruntée au numéro 88 de Secret Hearts.
+Elle s'est vendue 42,6 millions de dollars chez Christie's en 2010, renversant la valeur de ce qu'il appelait autrefois 'toile usagée'.`
+  },
+  'lichtenstein-stilllife': {
+    description: `Les points Ben-Day et les contours épais créant une expression plate dans 〈Nature morte〉 ont été appliqués.
+Les plans de couleurs primaires simplifient les objets à la manière d'une bande dessinée, recréant la texture de l'impression.
+
+〈Nature morte〉 fait partie d'une série des années 1970 dans laquelle Lichtenstein réinterprétait un genre traditionnel en hommage à Picasso.
+'Il n'y a pas d'ambiance dans mes natures mortes—ce ne sont que des citrons et des pamplemousses', disait-il.`
+  },
+
 export default { mastersBasicInfo, mastersLoadingEducation, mastersResultEducation };

@@ -215,7 +215,7 @@ export const ui = {
 
     login: {
     tagline: 'Kecantikanmu, dalam sebuah mahakarya',
-    sub: 'Para maestro lintas abad. Satu foto.',
+    sub: 'Keindahanmu, ditangkap melalui mata sang maestro',
     continueWithGoogle: 'Lanjutkan dengan Google',
     continueWithApple: 'Lanjutkan dengan Apple',
     email: 'Email',

@@ -215,7 +215,7 @@ export const ui = {
 
     login: {
     tagline: 'Ta beauté, dans un chef-d'œuvre',
-    sub: 'Les maîtres à travers les siècles. Une photo.',
+    sub: 'Ta beauté, capturée à travers les yeux d'un maître',
     continueWithGoogle: 'Continuer avec Google',
     continueWithApple: 'Continuer avec Apple',
     email: 'E-mail',

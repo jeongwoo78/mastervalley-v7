@@ -12,7 +12,7 @@ export const ui = {
     eastAsianArt: 'East Asian Art',
     eastAsianArtDesc: '1000 Years of Eastern Beauty',
     tagline: 'Turn Your Beauty into a Masterpiece',
-    subTagline: 'Captured through the eyes of a master'
+    subTagline: 'The master of the century captures you'
   },
 
   // ===== PhotoStyleScreen =====
@@ -214,7 +214,7 @@ export const ui = {
 
     login: {
     tagline: 'Your beauty, captured in masterworks',
-    sub: 'Masters across centuries. One photo.',
+    sub: 'Captured through the eyes of a master',
     continueWithGoogle: 'Continue with Google',
     continueWithApple: 'Continue with Apple',
     email: 'Email',

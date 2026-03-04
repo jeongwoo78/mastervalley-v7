@@ -205,7 +205,7 @@ export const ui = {
 
     login: {
     tagline: 'Güzelliğin, bir başyapıtta',
-    sub: 'Yüzyılların ustaları. Tek bir fotoğraf.',
+    sub: 'Güzelliğin, bir ustanın gözünden yakalandı',
     continueWithGoogle: 'Google ile devam et',
     continueWithApple: 'Apple ile devam et',
     email: 'E-posta',

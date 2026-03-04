@@ -160,7 +160,7 @@ export const ui = {
 
     login: {
     tagline: 'ความงามของคุณ ในผลงานชิ้นเอก',
-    sub: 'ปรมาจารย์ข้ามยุคสมัย ภาพเดียว',
+    sub: 'ความงามของคุณ ถ่ายทอดผ่านสายตาของปรมาจารย์',
     continueWithGoogle: 'ดำเนินการต่อด้วย Google',
     continueWithApple: 'ดำเนินการต่อด้วย Apple',
     email: 'อีเมล',

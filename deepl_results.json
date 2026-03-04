@@ -10,11 +10,11 @@
     },
     {
       "key": "sub",
-      "original": "Masters across centuries. One photo.",
-      "translated": "세기의 거장이 당신을 담습니다",
-      "back": "The master of the century captures you",
-      "score": 0.0,
-      "status": "⚠️"
+      "original": "Captured through the eyes of a master",
+      "translated": "거장의 눈으로 담긴 당신",
+      "back": "You through the eyes of a master",
+      "score": 0.86,
+      "status": "✅"
     },
     {
       "key": "logIn",
@@ -124,11 +124,11 @@
     },
     {
       "key": "sub",
-      "original": "Masters across centuries. One photo.",
-      "translated": "巨匠たちが、あなたを描く",
-      "back": "The masters paint you",
-      "score": 0.2,
-      "status": "⚠️"
+      "original": "Captured through the eyes of a master",
+      "translated": "巨匠の瞳に映るあなた",
+      "back": "You in the eyes of a master",
+      "score": 0.71,
+      "status": "✅"
     },
     {
       "key": "logIn",
@@ -238,11 +238,11 @@
     },
     {
       "key": "sub",
-      "original": "Masters across centuries. One photo.",
+      "original": "Captured through the eyes of a master",
       "translated": "Para maestro lintas abad. Satu foto.",
       "back": "Maestros across the centuries. One photo.",
-      "score": 0.8,
-      "status": "✅"
+      "score": 0.14,
+      "status": "⚠️"
     },
     {
       "key": "logIn",
@@ -352,10 +352,10 @@
     },
     {
       "key": "sub",
-      "original": "Masters across centuries. One photo.",
+      "original": "Captured through the eyes of a master",
       "translated": "ปรมาจารย์ข้ามยุคสมัย ภาพเดียว",
       "back": "The Grandmaster Across Eras: A Single Image",
-      "score": 0.2,
+      "score": 0.29,
       "status": "⚠️"
     },
     {
@@ -378,7 +378,7 @@
       "key": "pleaseWait",
       "original": "Please wait...",
       "translated": "กรุณารอสักครู่...",
-      "back": "Please wait a moment...",
+      "back": "Please wait a moment.",
       "score": 1.0,
       "status": "✅"
     },
@@ -466,11 +466,11 @@
     },
     {
       "key": "sub",
-      "original": "Masters across centuries. One photo.",
+      "original": "Captured through the eyes of a master",
       "translated": "Yüzyılların ustaları. Tek bir fotoğraf.",
       "back": "Masters of centuries. A single photograph.",
-      "score": 0.4,
-      "status": "✅"
+      "score": 0.29,
+      "status": "⚠️"
     },
     {
       "key": "logIn",
@@ -580,11 +580,11 @@
     },
     {
       "key": "sub",
-      "original": "Masters across centuries. One photo.",
+      "original": "Captured through the eyes of a master",
       "translated": "عباقرة عبر القرون. صورة واحدة.",
       "back": "Geniuses across the centuries. One photo.",
-      "score": 0.8,
-      "status": "✅"
+      "score": 0.14,
+      "status": "⚠️"
     },
     {
       "key": "logIn",
@@ -694,10 +694,10 @@
     },
     {
       "key": "sub",
-      "original": "Masters across centuries. One photo.",
+      "original": "Captured through the eyes of a master",
       "translated": "Maestros a través de los siglos. Una foto.",
       "back": "Masters through the centuries. A photo.",
-      "score": 0.6,
+      "score": 0.43,
       "status": "✅"
     },
     {
@@ -808,11 +808,11 @@
     },
     {
       "key": "sub",
-      "original": "Masters across centuries. One photo.",
+      "original": "Captured through the eyes of a master",
       "translated": "Les maîtres à travers les siècles. Une photo.",
       "back": "Masters through the centuries. One photo.",
-      "score": 0.8,
-      "status": "✅"
+      "score": 0.29,
+      "status": "⚠️"
     },
     {
       "key": "logIn",
@@ -922,11 +922,11 @@
     },
     {
       "key": "sub",
-      "original": "Masters across centuries. One photo.",
+      "original": "Captured through the eyes of a master",
       "translated": "Mestres através dos séculos. Uma foto.",
       "back": "Masters through the centuries. Photo.",
-      "score": 0.6,
-      "status": "✅"
+      "score": 0.29,
+      "status": "⚠️"
     },
     {
       "key": "logIn",
@@ -1036,11 +1036,11 @@
     },
     {
       "key": "sub",
-      "original": "Masters across centuries. One photo.",
+      "original": "Captured through the eyes of a master",
       "translated": "跨越世紀的大師。一張照片。",
       "back": "Masters across the centuries. A photograph.",
-      "score": 0.6,
-      "status": "✅"
+      "score": 0.29,
+      "status": "⚠️"
     },
     {
       "key": "logIn",

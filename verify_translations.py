@@ -13,7 +13,7 @@ translator = deepl.Translator(API_KEY)
 # 영어 원문
 originals = {
     'tagline':          'Your beauty, captured in masterworks',
-    'sub':              'Masters across centuries. One photo.',
+    'sub':              'Captured through the eyes of a master',
     'logIn':            'Log In',
     'signUp':           'Sign Up',
     'pleaseWait':       'Please wait...',
@@ -30,8 +30,8 @@ originals = {
 
 # 각 언어 번역본
 translations = {
-    'ko': ['당신의 아름다움을 명화로 남기세요','세기의 거장이 당신을 담습니다','로그인','회원가입','잠시만요...','로그인 취소됨','네트워크 오류. 다시 시도해주세요.','Google 로그인 실패','Apple 로그인 실패','이미 사용 중인 이메일','올바르지 않은 이메일 형식','비밀번호는 6자 이상이어야 합니다','이메일 또는 비밀번호가 올바르지 않습니다','로그인 실패. 다시 시도해주세요.'],
-    'ja': ['あなたの美しさを、名画に','巨匠たちが、あなたを描く','ログイン','新規登録','お待ちください...','ログインがキャンセルされました','ネットワークエラー。再試行してください。','Googleログインに失敗しました','Appleログインに失敗しました','すでに使用中のメールアドレスです','メールアドレスの形式が正しくありません','パスワードは6文字以上にしてください','メールアドレスまたはパスワードが正しくありません','ログインに失敗しました。再試行してください。'],
+    'ko': ['당신의 아름다움을 명화로 남기세요','거장의 눈으로 담긴 당신','로그인','회원가입','잠시만요...','로그인 취소됨','네트워크 오류. 다시 시도해주세요.','Google 로그인 실패','Apple 로그인 실패','이미 사용 중인 이메일','올바르지 않은 이메일 형식','비밀번호는 6자 이상이어야 합니다','이메일 또는 비밀번호가 올바르지 않습니다','로그인 실패. 다시 시도해주세요.'],
+    'ja': ['あなたの美しさを、名画に','巨匠の瞳に映るあなた','ログイン','新規登録','お待ちください...','ログインがキャンセルされました','ネットワークエラー。再試行してください。','Googleログインに失敗しました','Appleログインに失敗しました','すでに使用中のメールアドレスです','メールアドレスの形式が正しくありません','パスワードは6文字以上にしてください','メールアドレスまたはパスワードが正しくありません','ログインに失敗しました。再試行してください。'],
     'id': ['Kecantikanmu, dalam sebuah mahakarya','Para maestro lintas abad. Satu foto.','Masuk','Daftar','Harap tunggu...','Login dibatalkan','Kesalahan jaringan. Coba lagi.','Login Google gagal','Login Apple gagal','Email sudah digunakan','Format email tidak valid','Kata sandi minimal 6 karakter','Email atau kata sandi salah','Login gagal. Coba lagi.'],
     'th': ['ความงามของคุณ ในผลงานชิ้นเอก','ปรมาจารย์ข้ามยุคสมัย ภาพเดียว','เข้าสู่ระบบ','สมัครสมาชิก','กรุณารอสักครู่...','ยกเลิกการเข้าสู่ระบบ','เกิดข้อผิดพลาดเครือข่าย กรุณาลองใหม่','เข้าสู่ระบบด้วย Google ล้มเหลว','เข้าสู่ระบบด้วย Apple ล้มเหลว','อีเมลนี้ถูกใช้งานแล้ว','รูปแบบอีเมลไม่ถูกต้อง','รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร','อีเมลหรือรหัสผ่านไม่ถูกต้อง','เข้าสู่ระบบล้มเหลว กรุณาลองใหม่'],
     'tr': ['Güzelliğin, bir başyapıtta','Yüzyılların ustaları. Tek bir fotoğraf.','Giriş Yap','Kayıt Ol','Lütfen bekleyin...','Giriş iptal edildi','Ağ hatası. Lütfen tekrar deneyin.','Google girişi başarısız','Apple girişi başarısız','Bu e-posta zaten kullanımda','Geçersiz e-posta formatı','Şifre en az 6 karakter olmalıdır','E-posta veya şifre hatalı','Giriş başarısız. Lütfen tekrar deneyin.'],

@@ -55,7 +55,7 @@ const ALL_LANGS = [
   { code: 'id',    native: 'Bahasa Indonesia',  active: true },
   { code: 'th',    native: 'ไทย',               active: true },
   { code: 'tr',    native: 'Türkçe',            active: true },
-  { code: 'vi',    native: 'Tiếng Việt',        active: true },
+
   { code: 'ar',    native: 'العربية',           active: true },
   { code: 'es',    native: 'Español',           active: true },
   { code: 'fr',    native: 'Français',          active: true },

@@ -586,4 +586,124 @@ La esencia del Pop Art que borró la frontera entre el museo y la cultura de mas
   }
 };
 
+  'vangogh-starrynight': {
+    description: `Se ha aplicado la técnica de impasto arremolinado de 〈La noche estrellada〉.
+El intenso contraste del azul cobalto y el amarillo cromo libera la energía de la noche.
+
+〈La noche estrellada〉 fue la visión reimaginada de Van Gogh del paisaje más allá de la ventana del sanatorio en Saint-Rémy.
+En lugar de pintar el cielo nocturno real, proyectó su tormento interior sobre las estrellas.`
+  },
+  'vangogh-cafe': {
+    description: `Se ha aplicado la técnica de paisaje nocturno de colores complementarios de 〈Terraza del café por la noche〉, sin usar negro.
+Las luces de gas amarillas y el cielo azul oscuro expresan la oscuridad solo a través del contraste de colores.
+
+〈Terraza del café por la noche〉 fue la primera escena nocturna al aire libre que Van Gogh pintó bajo la luz de las estrellas en la Place du Forum de Arlés.
+Las sillas vacías en la terraza y las figuras que pasan guardan tanto la quietud como el calor de la noche.`
+  },
+  'vangogh-sunflowers': {
+    description: `Se han aplicado las sutiles variaciones tonales del amarillo cromo único en 〈Girasoles〉.
+La pintura aplicada en capas gruesas captura la textura de los pétalos tal como son.
+
+〈Girasoles〉 es una serie que Van Gogh pintó para decorar la Casa Amarilla en Arlés antes de la llegada de Gauguin.
+Flores en plena floración, flores marchitas y semillas juntas revelan el ciclo de la vida.`
+  },
+  'vangogh-wheatfield': {
+    description: `Se han aplicado las pinceladas curvas dinámicas y los contrastes de colores complementarios de 〈Campo de trigo con cipreses〉.
+El trigo agitado por el viento y los cipreses como llamas transmiten la energía vital de la naturaleza.
+
+〈Campo de trigo con cipreses〉 es un paisaje que Van Gogh pintó repetidamente cerca del sanatorio en Saint-Rémy.
+El horizonte dorado del campo de trigo y el ciprés vertical conectan la tierra y el cielo.`
+  },
+  'matisse-greenstripe': {
+    description: `Se ha aplicado la audaz división de planos de color que bisecta el rostro en 〈La raya verde〉.
+Rosa, amarillo y verde coexisten en la piel, ignorando completamente el color natural.
+
+〈La raya verde〉 es un retrato que Matisse pintó de su esposa Amélie, provocando los gritos de '¡bestias salvajes!' en el Salón de 1905.
+Una sola raya verde en el centro del rostro divide la luz y la sombra solo a través del color.`
+  },
+  'matisse-purplecoat': {
+    description: `Se han aplicado los intensos planos de color y la composición plana decorativa de 〈Mujer con abrigo morado〉.
+El límite entre la figura y el fondo se disuelve, con el color mismo creando espacio.
+
+〈Mujer con abrigo morado〉 es una obra donde Matisse transmitió emoción a través de formas simplificadas y color puro.
+El vasto plano de color del abrigo morado domina el lienzo, fusionándose con los patrones del fondo como uno solo.`
+  },
+  'matisse-derain': {
+    description: `Se han aplicado las pinceladas ásperas y los colores de piel antinaturales de 〈Retrato de André Derain〉.
+Sombras verdes y piel naranja, con colores primarios audaces, representan al sujeto de manera salvaje y fauvista.
+
+〈Retrato de André Derain〉 es un retrato de amistad que Matisse pintó de su compañero artista André Derain.
+Los dos pintores intercambiaron retratos el uno del otro al mismo tiempo, compartiendo sus experimentos fauvistas juntos.`
+  },
+  'chagall-lovers': {
+    description: `Se han aplicado los colores oníricos y las imágenes superpuestas de 〈Los amantes〉.
+El rosa, el azul cobalto y el violeta se mezclan, borrando el límite entre el sueño y la realidad.
+
+〈Los amantes〉 es una obra que Chagall pintó sobre su amor por Bella, su musa y esposa de toda la vida.
+Los amantes superpuestos como un sueño sobre un fondo real expresan la embriaguez del amor.`
+  },
+  'chagall-lamariee': {
+    description: `Se ha aplicado el contraste onírico de los ramos rojos y el cielo nocturno azul en 〈La Mariée〉.
+Animales y figuras se mezclan como apariciones, desplegando una fantasía festiva.
+
+〈La Mariée〉 captura los tejados y las agujas de la iglesia de la ciudad natal de Chagall, Vitebsk, como un paisaje de memoria.
+La novia sosteniendo un ramo rojo, superpuesta con la escena del pueblo, guarda tanto nostalgia como alegría.`
+  },
+  'chagall-village': {
+    description: `Se han aplicado las múltiples perspectivas y las imágenes superpuestas transparentemente de 〈Yo y el pueblo〉.
+Personas, animales y escenarios del pueblo se entremezclan como en un sueño, desafiando escala y proporción.
+
+〈Yo y el pueblo〉 fue pintado en París mientras Chagall añoraba su ciudad natal de Vitebsk.
+La realidad y la memoria se fusionan en un solo lienzo, capturando un anhelo interminable por el hogar.`
+  },
+  'munch-danceoflife': {
+    description: `Se ha aplicado el contraste simbólico de colores claros y oscuros en 〈La danza de la vida〉.
+Con la mujer central en vestido rojo como eje, la inocencia y la desesperación se colocan a cada lado.
+
+〈La danza de la vida〉 es la obra autobiográfica de Munch que comprime recuerdos de amor y corazón roto en un solo lienzo.
+Colores claros y oscuros se alternan en un solo lienzo, capturando tanto el comienzo como el fin del amor.`
+  },
+  'frida-parrots': {
+    description: `Se han aplicado la intensa mirada frontal y los colores populares mexicanos de 〈Yo y mis pericos〉.
+Rojos, verdes y azules vívidos llenan el lienzo junto con el follaje tropical.
+
+〈Yo y mis pericos〉 es un autorretrato en el que Frida está rodeada de cuatro pericos.
+Los pericos son mensajeros de amor en el folclore mexicano, y fieles compañeros en la soledad de Frida.`
+  },
+  'frida-monkeys': {
+    description: `Se han aplicado la mirada frontal y el exuberante fondo tropical de 〈Autorretrato con monos〉.
+Entre hojas verde oscuro, sus intensos ojos y cejas unidas revelan su identidad.
+
+〈Autorretrato con monos〉 es un autorretrato que Frida pintó con sus monos mascota.
+En la mitología mexicana los monos simbolizan el deseo, pero para Frida eran sustitutos de los hijos que nunca pudo tener.`
+  },
+  'lichtenstein-mmaybe': {
+    description: `Se han aplicado los puntos Ben-Day y la narrativa de cómic de los globos de diálogo en 〈M-Quizás〉.
+Los colores primarios llenan planos dentro de contornos gruesos, recreando la textura de una página impresa.
+
+〈M-Quizás〉 fue una obra que Lichtenstein conservó en su colección personal, que se vendió por $30,000—cinco veces el precio habitual.
+Ahora se exhibe como pieza central de la colección de Pop Art en el Museum Ludwig de Colonia, Alemania.`
+  },
+  'lichtenstein-forgetit': {
+    description: `Se han aplicado los puntos Ben-Day y los intensos contrastes de colores primarios de 〈¡Olvídalo!〉.
+Los gruesos contornos negros fijan la forma como un panel de cómic, comprimiendo la emoción dramáticamente.
+
+〈¡Olvídalo!〉 es una obra maestra temprana creada justo después de la primera exposición individual de Lichtenstein en 1962.
+Ese mismo año, la revista Life publicó el titular: '¿Es el Peor Artista de EE.UU.?'—sobre él.`
+  },
+  'lichtenstein-ohhhalright': {
+    description: `Se han aplicado los puntos Ben-Day y la composición de planos de color plano de 〈Ohhh...Está bien...〉.
+El rojo, el azul y el amarillo se separan limpiamente dentro de contornos negros, tan nítidos como una página impresa.
+
+〈Ohhh...Está bien...〉 es una obra de 1964 tomada del número #88 de Secret Hearts.
+Se vendió por $42,6 millones en Christie's en 2010, revirtiendo el valor de lo que él llamó 'lienzo usado'.`
+  },
+  'lichtenstein-stilllife': {
+    description: `Se han aplicado los puntos Ben-Day y los contornos gruesos que crean expresión plana en 〈Naturaleza muerta〉.
+Los planos de colores primarios simplifican los objetos de manera similar a un cómic, recreando la textura de la impresión.
+
+〈Naturaleza muerta〉 es parte de una serie de los años 70 en la que Lichtenstein reinterpretó un género tradicional como homenaje a Picasso.
+'No hay estado de ánimo en mis naturalezas muertas—solo limones y toronjas', dijo.`
+  },
+
 export default { mastersBasicInfo, mastersLoadingEducation, mastersResultEducation };

@@ -213,8 +213,8 @@ export const ui = {
   },
 
     login: {
-    tagline: '당신의 아름다움을 명화로 남기세요',
-    sub: '세기의 거장이 당신을 담습니다',
+    tagline: '세기의 거장이 당신을 담습니다',
+    sub: '거장의 눈으로 담긴 당신',
     continueWithGoogle: 'Google로 계속하기',
     continueWithApple: 'Apple로 계속하기',
     email: '이메일',

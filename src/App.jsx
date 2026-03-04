@@ -59,7 +59,7 @@ const App = () => {
         const { value } = await Preferences.get({ key: 'mastervalley-lang' });
         if (value) {
           setLang(value);
-          await setLanguage(value);
+          setLanguage(value);
         }
       } catch (e) {
         console.log('Failed to load language setting');
@@ -71,7 +71,7 @@ const App = () => {
   // 언어 변경 핸들러 (저장 포함)
   const handleLanguageChange = async (newLang) => {
     setLang(newLang);
-    await setLanguage(newLang);
+    setLanguage(newLang);
     try {
       await Preferences.set({ key: 'mastervalley-lang', value: newLang });
     } catch (e) {

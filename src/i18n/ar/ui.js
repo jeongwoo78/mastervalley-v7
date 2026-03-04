@@ -215,7 +215,7 @@ export const ui = {
 
     login: {
     tagline: 'جمالك، في لوحة فنية خالدة',
-    sub: 'عباقرة عبر القرون. صورة واحدة.',
+    sub: 'جمالك، من خلال عيون المعلم',
     continueWithGoogle: 'المتابعة عبر Google',
     continueWithApple: 'المتابعة عبر Apple',
     email: 'البريد الإلكتروني',

@@ -13,7 +13,7 @@ export const ui = {
     eastAsianArt: '東洋画',
     eastAsianArtDesc: '千年に息づく東洋の美',
     tagline: 'あなたの美しさを、名画に刻んでください',
-    subTagline: '世紀の巨匠があなたを描きます'
+    subTagline: '世紀の巨匠が、あなたを映す'
   },
 
   // ===== PhotoStyleScreen =====
@@ -215,7 +215,7 @@ export const ui = {
 
     login: {
     tagline: 'あなたの美しさを、名画に',
-    sub: '巨匠たちが、あなたを描く',
+        sub: '巨匠の瞳に映るあなた',
     continueWithGoogle: 'Googleで続ける',
     continueWithApple: 'Appleで続ける',
     email: 'メール',

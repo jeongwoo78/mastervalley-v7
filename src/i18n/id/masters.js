@@ -87,4 +87,124 @@ export const mastersResultEducation = {
   'lichtenstein_default': { description: `Gaya Pop Art Lichtenstein dengan titik Ben-Day dan kontur tebal telah diterapkan.\nPola titik teratur dan warna primer datar mengubah estetika komik menjadi seni.\n\nHitam, merah, biru, dan kuning dalam komposisi grafis yang mempertanyakan apa itu seni dan apa itu budaya populer.\nEsensi Pop Art yang menghapus batas antara museum dan budaya massa.` }
 };
 
+  'vangogh-starrynight': {
+    description: `Teknik impasto berputar dari 〈The Starry Night〉 telah diterapkan.
+Kontrast intens biru kobalt dan kuning krom melepaskan energi malam.
+
+〈The Starry Night〉 adalah visi reimajinasi Van Gogh atas lanskap di luar jendela rumah sakitnya di Saint-Rémy.
+Alih-alih melukis langit malam nyata, ia memproyeksikan gejolak batinnya ke bintang-bintang.`
+  },
+  'vangogh-cafe': {
+    description: `Teknik pemandangan malam warna komplementer dari 〈Café Terrace at Night〉 telah diterapkan—tanpa menggunakan hitam.
+Lampu gas kuning dan langit biru gelap mengekspresikan kegelapan melalui kontras warna saja.
+
+〈Café Terrace at Night〉 adalah pemandangan malam luar ruangan pertama yang dilukis Van Gogh di bawah cahaya bintang di Place du Forum, Arles.
+Kursi kosong di teras dan sosok yang berlalu menyimpan ketenangan sekaligus kehangatan malam.`
+  },
+  'vangogh-sunflowers': {
+    description: `Variasi nada halus kuning krom tunggal dalam 〈Sunflowers〉 telah diterapkan.
+Cat yang dilapis tebal menangkap tekstur kelopak apa adanya.
+
+〈Sunflowers〉 adalah seri yang dilukis Van Gogh untuk mendekorasi Yellow House di Arles menyambut kedatangan Gauguin.
+Bunga mekar penuh, bunga layu, dan biji bersama-sama mengungkap siklus kehidupan.`
+  },
+  'vangogh-wheatfield': {
+    description: `Sapuan kuas melengkung dinamis dan kontras warna komplementer dari 〈Wheat Field with Cypresses〉 telah diterapkan.
+Gandum yang tertiup angin dan cemara seperti nyala api menyampaikan energi vital alam.
+
+〈Wheat Field with Cypresses〉 adalah lanskap yang berulang kali dilukis Van Gogh di dekat rumah sakit jiwa Saint-Rémy.
+Horizon emas ladang gandum dan cemara vertikal menghubungkan bumi dan langit.`
+  },
+  'matisse-greenstripe': {
+    description: `Pembagian bidang warna tebal yang membelah wajah dalam 〈The Green Stripe〉 telah diterapkan.
+Merah muda, kuning, dan hijau berdampingan di kulit, sama sekali mengabaikan warna alami.
+
+〈The Green Stripe〉 adalah potret yang dilukis Matisse untuk istrinya Amélie, memicu seruan 'binatang buas!' di Salon 1905.
+Satu garis hijau di tengah wajah membagi cahaya dan bayangan hanya melalui warna.`
+  },
+  'matisse-purplecoat': {
+    description: `Bidang warna intens dan komposisi datar dekoratif dari 〈Woman in a Purple Coat〉 telah diterapkan.
+Batas antara figur dan latar belakang larut, dengan warna itu sendiri menciptakan ruang.
+
+〈Woman in a Purple Coat〉 adalah karya Matisse yang menyampaikan emosi melalui bentuk yang disederhanakan dan warna murni.
+Bidang warna ungu yang luas mendominasi kanvas, menyatu dengan pola latar belakang menjadi satu.`
+  },
+  'matisse-derain': {
+    description: `Sapuan kuas kasar dan warna kulit tidak alami dari 〈Portrait of André Derain〉 telah diterapkan.
+Bayangan hijau dan kulit oranye, dengan warna primer tebal, merender subjek dengan cara liar ala Fauvis.
+
+〈Portrait of André Derain〉 adalah potret persahabatan yang dilukis Matisse untuk sesama seniman André Derain.
+Kedua pelukis saling bertukar potret satu sama lain pada waktu yang sama, berbagi eksperimen Fauvisme bersama.`
+  },
+  'chagall-lovers': {
+    description: `Warna seperti mimpi dan gambar yang saling tumpang tindih dari 〈The Lovers〉 telah diterapkan.
+Merah muda, biru kobalt, dan violet berpadu, menghapus batas antara mimpi dan kenyataan.
+
+〈The Lovers〉 adalah karya Chagall yang dilukis tentang cintanya pada Bella, muse dan istrinya seumur hidup.
+Kekasih yang berlapis seperti mimpi di atas latar nyata mengekspresikan mabuk cinta.`
+  },
+  'chagall-lamariee': {
+    description: `Kontras seperti mimpi buket merah dan langit malam biru dalam 〈La Mariée〉 telah diterapkan.
+Hewan dan figur berpadu seperti penampakan, menggelar fantasi meriah.
+
+〈La Mariée〉 menangkap atap dan menara gereja kota asal Chagall, Vitebsk, sebagai lanskap memori.
+Mempelai yang memegang buket merah, dilapisi adegan desa, menyimpan nostalgia sekaligus kegembiraan.`
+  },
+  'chagall-village': {
+    description: `Perspektif berganda dan gambar yang transparan saling tumpang tindih dari 〈I and the Village〉 telah diterapkan.
+Orang, hewan, dan pemandangan desa bercampur seperti mimpi, menentang skala dan proporsi.
+
+〈I and the Village〉 dilukis di Paris saat Chagall merindukan kampung halamannya Vitebsk.
+Realitas dan memori menyatu di satu kanvas, menangkap kerinduan tak berujung akan rumah.`
+  },
+  'munch-danceoflife': {
+    description: `Kontras simbolis warna terang dan gelap dalam 〈The Dance of Life〉 telah diterapkan.
+Dengan wanita berbaju merah di tengah sebagai poros, kepolosan dan keputusasaan ditempatkan di kedua sisi.
+
+〈The Dance of Life〉 adalah karya autobiografi Munch yang memampatkan kenangan cinta dan patah hati dalam satu kanvas.
+Warna terang dan gelap bergantian dalam satu kanvas, menangkap awal dan akhir cinta.`
+  },
+  'frida-parrots': {
+    description: `Tatapan frontal intens dan warna folk Meksiko dari 〈Me and My Parrots〉 telah diterapkan.
+Merah, hijau, dan biru cerah memenuhi kanvas bersama dedaunan tropis.
+
+〈Me and My Parrots〉 adalah potret diri di mana Frida dikelilingi empat ekor burung beo.
+Burung beo adalah pembawa pesan cinta dalam cerita rakyat Meksiko, dan teman setia dalam kesendirian Frida.`
+  },
+  'frida-monkeys': {
+    description: `Tatapan frontal dan latar belakang tropis subur dari 〈Self-Portrait with Monkeys〉 telah diterapkan.
+Di antara daun hijau gelap, matanya yang intens dan alis yang menyatu mengungkapkan identitasnya.
+
+〈Self-Portrait with Monkeys〉 adalah potret diri yang dilukis Frida bersama monyet peliharaannya.
+Dalam mitologi Meksiko monyet melambangkan hasrat, namun bagi Frida mereka adalah pengganti anak yang tidak pernah bisa ia miliki.`
+  },
+  'lichtenstein-mmaybe': {
+    description: `Titik Ben-Day dan narasi buku komik balon ucapan dalam 〈M-Maybe〉 telah diterapkan.
+Warna primer mengisi datar dalam kontur tebal, merekonstruksi tekstur halaman cetak.
+
+〈M-Maybe〉 adalah karya yang disimpan Lichtenstein dalam koleksi pribadinya, terjual $30.000—lima kali harga pasar.
+Kini dipajang sebagai pusat koleksi Pop Art di Museum Ludwig di Cologne, Jerman.`
+  },
+  'lichtenstein-forgetit': {
+    description: `Titik Ben-Day dan kontras warna primer intens dari 〈Forget It!〉 telah diterapkan.
+Kontur hitam tebal memfikasikan bentuk seperti panel komik, mengompres emosi secara dramatis.
+
+〈Forget It!〉 adalah mahakarya awal yang dibuat sesaat setelah pameran solo pertama Lichtenstein pada 1962.
+Tahun yang sama, majalah Life menulis judul: 'Apakah Dia Seniman Terburuk di AS?'—tentang dirinya.`
+  },
+  'lichtenstein-ohhhalright': {
+    description: `Titik Ben-Day dan komposisi bidang warna datar dari 〈Ohhh...Alright...〉 telah diterapkan.
+Merah, biru, dan kuning terpisah bersih dalam kontur hitam, setajam halaman cetak.
+
+〈Ohhh...Alright...〉 adalah karya 1964 yang dipinjam dari edisi #88 Secret Hearts.
+Terjual $42,6 juta di Christie's pada 2010, membalik nilai apa yang pernah ia sebut 'kanvas bekas'.`
+  },
+  'lichtenstein-stilllife': {
+    description: `Titik Ben-Day dan kontur tebal yang menciptakan ekspresi datar dalam 〈Still Life〉 telah diterapkan.
+Bidang warna primer menyederhanakan objek dengan cara seperti komik, merekonstruksi tekstur cetakan.
+
+〈Still Life〉 adalah bagian dari seri 1970-an di mana Lichtenstein menafsirkan ulang genre tradisional sebagai penghormatan kepada Picasso.
+'Tidak ada suasana dalam still life saya—hanya lemon dan jeruk bali,' katanya.`
+  },
+
 export default { mastersBasicInfo, mastersLoadingEducation, mastersResultEducation };
