@@ -186,9 +186,7 @@ export const mastersResultEducation = {
   'chagall_default': { description: `夏卡爾的夢幻風格——粉彩色調與飄浮人物已被應用。\n戀人、動物和屋頂在無重力的空間中飄浮，染上鄉愁。\n\n粉紅、紫色和藍色融合如夢中交錯的記憶。\n愛與記憶挑戰物理法則和時間的世界。` },
   'picasso_default': { description: `畢卡索的立體派風格——幾何形體與多重視角已被應用。\n面部與身體碎裂為稜角面，同時展現多個角度。\n\n大膽的線條與對比色構建被解構又重新組裝的現實。\n摧毀五百年傳統透視的視覺革命。` },
   'frida_default': { description: `芙烈達的象徵風格——墨西哥色彩與強烈正面凝視已被應用。\n紅、綠、黃的墨西哥傳統色彩框住極度個人的圖像學。\n\n每個元素——荊棘、動物、植物——都是痛苦、抵抗和愛的密碼符號。\n破碎的身體成為身分認同與鬥爭領域的告白藝術。` },
-  'lichtenstein_default': { description: `乃乞登斯坦的普普風格——本戴點與粗輪廓已被應用。\n規則的點狀圖案與平塗原色將漫畫美學轉化為藝術。\n\n黑、紅、藍、黃在圖形構圖中質疑什麼是藝術、什麼是流行文化。\n消除美術館與大眾文化界線的普普藝術精髓。` }
-};
-
+  'lichtenstein_default': { description: `乃乞登斯坦的普普風格——本戴點與粗輪廓已被應用。\n規則的點狀圖案與平塗原色將漫畫美學轉化為藝術。\n\n黑、紅、藍、黃在圖形構圖中質疑什麼是藝術、什麼是流行文化。\n消除美術館與大眾文化界線的普普藝術精髓。` },
   'vangogh-starrynight': {
     description: `〈星夜〉的漩渦厚塗筆觸已被應用。
 鈷藍與鉻黃的強烈對比釋放出夜晚的能量。
@@ -308,5 +306,7 @@ export const mastersResultEducation = {
 〈靜物〉是乃乞登斯坦1970年代向畢卡索致敬、重新詮釋傳統類型的系列作品之一。
 「我的靜物沒有情緒——就只是檸檬和葡萄柚，」他如此說道。`
   },
+
+};
 
 export default { mastersBasicInfo, mastersLoadingEducation, mastersResultEducation };
