@@ -156,7 +156,7 @@ export const ui = {
   },
 
   menu: {
-    title: 'Profil',
+    title: 'BEN',
     myGallery: 'Galerim',
     language: 'Dil',
     addFunds: 'Kredi Yükle',

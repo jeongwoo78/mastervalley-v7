@@ -118,7 +118,7 @@ export const ui = {
 
   // ===== Menu =====
   menu: {
-    title: 'เมนู',
+    title: 'ของฉัน',
     myGallery: 'แกลเลอรีของฉัน',
     language: 'ภาษา',
     addFunds: 'เติมเครดิต',

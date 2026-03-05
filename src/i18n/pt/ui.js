@@ -156,7 +156,7 @@ export const ui = {
   },
 
   menu: {
-    title: 'Perfil',
+    title: 'MEU',
     myGallery: 'A Minha Galeria',
     language: 'Idioma',
     addFunds: 'Carregar Créditos',
