@@ -18,19 +18,22 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
       id: 'movements',
       name: t.westernArt,
       description: t.westernArtDesc,
-      thumbnail: movementsThumbnail
+      thumbnail: movementsThumbnail,
+      accent: '#a855f7'
     },
     {
       id: 'masters',
       name: t.masterCollection,
       description: t.masterCollectionDesc,
-      thumbnail: mastersThumbnail
+      thumbnail: mastersThumbnail,
+      accent: '#daa520'
     },
     {
       id: 'oriental',
       name: t.eastAsianArt,
       description: t.eastAsianArtDesc,
-      thumbnail: orientalThumbnail
+      thumbnail: orientalThumbnail,
+      accent: '#f472b6'
     }
   ];
 
@@ -70,7 +73,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
               <img src={cat.thumbnail} alt={cat.name} />
             </div>
             <div className="card-info">
-              <span className="card-name">{cat.name}</span>
+              <span className="card-name" style={{ color: cat.accent }}>{cat.name}</span>
               <span className="card-desc">{cat.description}</span>
             </div>
             <span className="card-arrow">›</span>
