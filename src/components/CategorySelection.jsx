@@ -84,8 +84,6 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
       </div>
 
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap');
-
         .main-screen {
           min-height: 100vh;
           background: #0d0d0d;
