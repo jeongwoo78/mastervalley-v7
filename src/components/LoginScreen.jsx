@@ -115,7 +115,7 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
         </h1>
 
         {/* Sub */}
-        <p style={s.sub}>{t.sub}</p>
+        <p style={s.sub}>{t.tagline}</p>
 
         {/* Google */}
         <button style={{ ...s.socialBtn, opacity: loading ? 0.6 : 1 }} onClick={handleGoogleLogin} disabled={loading}>

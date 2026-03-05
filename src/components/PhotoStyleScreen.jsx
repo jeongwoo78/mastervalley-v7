@@ -403,7 +403,8 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, userCredits = 0, lan
 
       {/* Subscription Info */}
       <div className="subscription-info">
-        <p>{ui.subscriptionInfo.line1}. {ui.subscriptionInfo.line2}.</p>
+        <p>{ui.subscriptionInfo.line1}</p>
+        <p>{ui.subscriptionInfo.line2}</p>
       </div>
 
       <style>{`

@@ -69,7 +69,8 @@ const AddFundsScreen = ({ onBack, userCredits = 2.50, onPurchase, lang = 'en' })
 
       {/* Info Text */}
       <div className="info-text">
-        <p>{t.info1} · {t.info2}</p>
+        <p>{t.info1}</p>
+        <p>{t.info2}</p>
       </div>
 
       <style>{`
