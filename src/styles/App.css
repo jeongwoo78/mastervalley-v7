@@ -1075,3 +1075,169 @@ body {
   color: white;
   border-color: #667eea;
 }
+
+/* ========================================
+   RTL (Arabic) Layout Support
+   ======================================== */
+
+[dir="rtl"] {
+  text-align: right;
+}
+
+/* 뒤로가기 화살표 반전 */
+[dir="rtl"] .back-btn svg,
+[dir="rtl"] .header-back svg,
+[dir="rtl"] .back-arrow svg {
+  transform: scaleX(-1);
+}
+
+/* 헤더 레이아웃 */
+[dir="rtl"] .screen-header,
+[dir="rtl"] .header,
+[dir="rtl"] .top-bar {
+  flex-direction: row-reverse;
+}
+
+/* 크레딧 헤더 우측→좌측 */
+[dir="rtl"] .header-right {
+  left: 16px;
+  right: auto;
+}
+[dir="rtl"] .header-left {
+  right: 16px;
+  left: auto;
+}
+
+/* 메뉴 아이템 */
+[dir="rtl"] .menu-item,
+[dir="rtl"] .menu-item-row {
+  flex-direction: row-reverse;
+}
+[dir="rtl"] .menu-item svg:first-child {
+  margin-left: 12px;
+  margin-right: 0;
+}
+
+/* chevron 화살표 반전 */
+[dir="rtl"] .chevron-right,
+[dir="rtl"] .menu-chevron {
+  transform: scaleX(-1);
+}
+
+/* 카테고리 카드 */
+[dir="rtl"] .category-card,
+[dir="rtl"] .style-card {
+  flex-direction: row-reverse;
+}
+
+/* 구독 정보, 텍스트 */
+[dir="rtl"] .subscription-info,
+[dir="rtl"] .card-description {
+  text-align: right;
+}
+
+/* 결과화면 버튼 행 */
+[dir="rtl"] .result-actions,
+[dir="rtl"] .action-buttons {
+  flex-direction: row-reverse;
+}
+
+/* 로딩 교육 콘텐츠 */
+[dir="rtl"] .single-loading-edu,
+[dir="rtl"] .edu-content {
+  text-align: right;
+}
+
+/* 워터마크 위치 (좌우 반전) */
+[dir="rtl"] .watermark-bottom-right {
+  right: auto;
+  left: 12px;
+}
+
+/* 갤러리 선택 체크박스 */
+[dir="rtl"] .gallery-checkbox {
+  right: auto;
+  left: 8px;
+}
+
+/* 닫기(X) 버튼 위치 유지 - 아랍어도 우상단 */
+[dir="rtl"] .close-btn,
+[dir="rtl"] .popup-close {
+  left: auto;
+  right: 16px;
+}
+
+/* input placeholder 정렬 */
+[dir="rtl"] input,
+[dir="rtl"] textarea {
+  text-align: right;
+}
+
+/* 프로그레스 바 방향 */
+[dir="rtl"] .progress-bar {
+  direction: ltr; /* 진행 방향은 유지 */
+}
+
+/* RTL 세부 수정 */
+
+/* 갤러리 체크박스: 좌상단→우상단 */
+[dir="rtl"] .select-checkbox {
+  left: auto;
+  right: 6px;
+}
+
+/* 이미지 모달 X버튼: RTL에도 우상단 유지 */
+[dir="rtl"] .image-modal-close {
+  right: 10px;
+  left: auto;
+}
+
+/* 카테고리 카드 - 이미지+텍스트 행 반전 */
+[dir="rtl"] .category-card {
+  flex-direction: row-reverse;
+}
+[dir="rtl"] .card-image {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* 언어 목록 dash 마진 반전 */
+[dir="rtl"] .lang-dash {
+  margin-right: 0;
+  margin-left: 10px;
+}
+
+/* 메뉴 value(현재 언어 표시) 마진 반전 */
+[dir="rtl"] .menu-value {
+  margin-right: 0;
+  margin-left: 4px;
+}
+
+/* PhotoStyleScreen 스타일 카드 */
+[dir="rtl"] .style-item {
+  flex-direction: row-reverse;
+}
+
+/* 프로세싱 스크린 진행 텍스트 */
+[dir="rtl"] .progress-text,
+[dir="rtl"] .status-text {
+  text-align: right;
+}
+
+/* MasterChat 입력창 */
+[dir="rtl"] .chat-input-row {
+  flex-direction: row-reverse;
+}
+[dir="rtl"] .chat-message.user {
+  align-items: flex-start;
+}
+[dir="rtl"] .chat-message.assistant {
+  align-items: flex-end;
+}
+
+/* 아랍어 전용 폰트 */
+[dir="rtl"] body,
+[dir="rtl"] * {
+  font-family: 'Noto Sans Arabic', 'Arabic UI Text',
+               'Geeza Pro', 'Segoe UI', sans-serif;
+}

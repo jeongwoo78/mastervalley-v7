@@ -240,7 +240,7 @@ const App = () => {
   }
 
   return (
-    <div className="app">
+    <div className="app" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
       {/* 잔액 부족 팝업 */}
       {showInsufficientPopup && (
         <InsufficientBalancePopup
