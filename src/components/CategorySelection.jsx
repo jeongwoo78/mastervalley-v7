@@ -51,6 +51,8 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
         </button>
         <button className="credits-btn" onClick={() => onAddFunds?.()}>${userCredits.toFixed(2)}</button>
       </header>
+
+      <div className="branding">
         <h1 className="brand-title">Master Valley</h1>
         <p className="brand-tagline">{t.tagline}</p>
         <p className="brand-sub-tagline">{t.subTagline}</p>
