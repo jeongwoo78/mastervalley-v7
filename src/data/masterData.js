@@ -5,6 +5,7 @@
 // StyleSelection, ProcessingScreen, ResultScreen 등에서 import해서 사용
 // =====================================================
 
+import { getMastersBasicInfo } from '../i18n';
 // ========== 카테고리 아이콘 (원클릭용) ==========
 export const CATEGORY_ICONS = {
   movements: '🎨',
@@ -1231,7 +1232,7 @@ export const getOrientalDisplayInfo = (artistName) => {
  * @returns {[string, string]} [부제1, 부제2]
  */
 export const getStyleSubtitles = (category, styleId, mode, displayArtist, displayWork, artistName, lang = 'ko') => {
-  const isEn = lang === 'en';
+  const isKo = lang === 'ko';
   
   // 원클릭 변환중-원본 → 현행유지 (1줄만)
   if (mode === 'loading-oneclick') {
@@ -1247,11 +1248,11 @@ export const getStyleSubtitles = (category, styleId, mode, displayArtist, displa
       if (!artist) return null;
       if (styleId === 'neoclassicism_vs_romanticism_vs_realism' && artist.movementId) {
         const sub = NINETEENTH_CENTURY_SUB[artist.movementId];
-        if (sub) return isEn ? (sub.descriptionEn || sub.description) : sub.description;
+        if (sub) return !isKo ? (sub.descriptionEn || sub.description) : sub.description;
       }
       if (styleId === 'modernism' && artist.sub) {
         const sub = MODERNISM_SUB[artist.sub];
-        if (sub) return isEn ? (sub.descriptionEn || sub.description) : sub.description;
+        if (sub) return !isKo ? (sub.descriptionEn || sub.description) : sub.description;
       }
       return null;
     };
@@ -1259,20 +1260,20 @@ export const getStyleSubtitles = (category, styleId, mode, displayArtist, displa
     // 변환중 또는 결과-원본: 대표화가 + 사조 화풍
     if (mode === 'loading-single' || mode === 'result-original') {
       return [
-        isEn ? (movement?.subtitleEn || movement?.subtitle || '') : (movement?.subtitle || ''),
-        isEn ? (movement?.descriptionEn || movement?.description || '') : (movement?.description || '')
+        !isKo ? (movement?.subtitleEn || movement?.subtitle || '') : (movement?.subtitle || ''),
+        !isKo ? (movement?.descriptionEn || movement?.description || '') : (movement?.description || '')
       ];
     } 
     // 결과-결과 또는 완료 미리보기: 매칭화가 + 세부사조명 · 화풍
     else {
       const artist = findArtistByName(displayArtist);
       const artistDisplay = artist 
-        ? (isEn ? (artist.en || artist.ko) : `${artist.ko}(${artist.en})`)
+        ? (!isKo ? (artist.en || artist.ko) : `${artist.ko}(${artist.en})`)
         : displayArtist || '';
       // 복합사조: 세부 SUB description 우선 → 화가 description → 부모 사조 description
       const subDesc = getSubDescription(artist);
       const artistStyle = subDesc 
-        || (isEn 
+        || (!isKo 
           ? (artist?.descriptionEn || movement?.descriptionEn || artist?.description || movement?.description || '')
           : (artist?.description || movement?.description || ''));
       
@@ -1281,14 +1282,14 @@ export const getStyleSubtitles = (category, styleId, mode, displayArtist, displa
       if (styleId === 'modernism' && artist?.sub) {
         const sub = MODERNISM_SUB[artist.sub];
         if (sub) {
-          const subName = isEn ? sub.en : sub.ko;
+          const subName = !isKo ? sub.en : sub.ko;
           sub2 = `${subName} · ${artistStyle}`;
         }
       }
       if (styleId === 'neoclassicism_vs_romanticism_vs_realism' && artist?.movementId) {
         const sub = NINETEENTH_CENTURY_SUB[artist.movementId];
         if (sub) {
-          const subName = isEn ? sub.en : sub.ko;
+          const subName = !isKo ? sub.en : sub.ko;
           sub2 = `${subName} · ${artistStyle}`;
         }
       }
@@ -1304,42 +1305,51 @@ export const getStyleSubtitles = (category, styleId, mode, displayArtist, displa
   if (category === 'masters') {
     const result = findMasterByNameOrWork(artistName || styleId, displayWork);
     const master = result?.master;
-    
-    if (!master) {
-      return ['', ''];
-    }
-    
-    // 변환중 또는 결과-원본: 사조 + 화풍
+
+    if (!master) return ['', ''];
+
+    // i18n 언어별 거장 데이터
+    const i18nBasic = getMastersBasicInfo(lang) || {};
+    const masterKey = master.key || master.id?.replace('-master', '');
+    const i18nMaster = i18nBasic[masterKey];
+
+    // 변환중 또는 결과-원본: 사조 + 태그라인
     if (mode === 'loading-single' || mode === 'result-original') {
-      return [
-        isEn ? (master.movementEn || master.movement || '') : (master.movement || ''),
-        isEn ? (master.taglineEn || master.tagline || '') : (master.tagline || '')
-      ];
-    }
-    // 결과-결과 또는 완료 미리보기: 매칭 작품 또는 대표작 + 화풍
-    else {
-      // 원클릭 결과: 항상 전체 대표작 표시
-      if (mode === 'result-oneclick') {
+      if (i18nMaster?.loading) {
         return [
-          isEn ? (master.featuredWorksEn || master.featuredWorks || '') : (master.featuredWorks || ''),
-          isEn ? (master.taglineEn || master.tagline || '') : (master.tagline || '')
+          i18nMaster.loading.subtitle1 || '',
+          i18nMaster.loading.subtitle2 || ''
         ];
       }
-      // 단독 결과: 작품 매칭 성공 시 해당 작품명만 표시
-      if (result?.workKey && master.works?.[result.workKey]) {
-        const workNames = master.works[result.workKey];
-        const workName = isEn ? (workNames[0] || '') : (workNames[1] || workNames[0] || '');
-        return [
-          workName,
-          isEn ? (master.taglineEn || master.tagline || '') : (master.tagline || '')
-        ];
-      }
-      // fallback: 전체 대표작
+      // fallback: ko/en
       return [
-        isEn ? (master.featuredWorksEn || master.featuredWorks || '') : (master.featuredWorks || ''),
-        isEn ? (master.taglineEn || master.tagline || '') : (master.tagline || '')
+        isKo ? (master.movement || '') : (master.movementEn || master.movement || ''),
+        isKo ? (master.tagline || '') : (master.taglineEn || master.tagline || '')
       ];
     }
+
+    // 결과: i18n result 데이터 사용
+    const i18nResult = i18nMaster?.result;
+
+    // 원클릭 결과: 전체 대표작
+    if (mode === 'result-oneclick') {
+      return [
+        i18nResult?.subtitle1 || (isKo ? master.featuredWorks : master.featuredWorksEn) || '',
+        i18nResult?.subtitle2 || (isKo ? master.tagline : master.taglineEn) || ''
+      ];
+    }
+
+    // 단독 결과: 작품 매칭 → i18n works 사용
+    if (result?.workKey && i18nResult?.works?.[result.workKey]) {
+      const w = i18nResult.works[result.workKey];
+      return [w.subtitle1 || '', w.subtitle2 || ''];
+    }
+
+    // fallback: 전체 대표작
+    return [
+      i18nResult?.subtitle1 || (isKo ? master.featuredWorks : master.featuredWorksEn) || '',
+      i18nResult?.subtitle2 || (isKo ? master.tagline : master.taglineEn) || ''
+    ];
   }
   
   // ===== 동양화 =====
@@ -1351,11 +1361,11 @@ export const getStyleSubtitles = (category, styleId, mode, displayArtist, displa
     if (mode === 'loading-single' || mode === 'result-original') {
       if (result?.country) {
         const styleList = result.country.styles 
-          ? Object.values(result.country.styles).map(s => isEn ? (s.en || s.ko) : s.ko).join(' · ')
+          ? Object.values(result.country.styles).map(s => !isKo ? (s.en || s.ko) : s.ko).join(' · ')
           : '';
         return [
           styleList,
-          isEn ? (result.country.descriptionEn || result.country.description || '') : (result.country.description || '')
+          !isKo ? (result.country.descriptionEn || result.country.description || '') : (result.country.description || '')
         ];
       }
     } 
@@ -1363,8 +1373,8 @@ export const getStyleSubtitles = (category, styleId, mode, displayArtist, displa
     else {
       if (result?.style) {
         return [
-          isEn ? (result.style.en || result.style.ko || '') : (result.style.ko || ''),
-          isEn ? (result.style.descriptionEn || result.style.description || result.country?.descriptionEn || result.country?.description || '') 
+          !isKo ? (result.style.en || result.style.ko || '') : (result.style.ko || ''),
+          !isKo ? (result.style.descriptionEn || result.style.description || result.country?.descriptionEn || result.country?.description || '') 
                : (result.style.description || result.country?.description || '')
         ];
       }

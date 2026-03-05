@@ -192,6 +192,73 @@ export const ALIASES = {
   '리히텐슈타인': 'lichtenstein',
   '로이 리히텐슈타인': 'lichtenstein',
   '로이리히텐슈타인': 'lichtenstein',
+
+  // ===== 일본어 거장 별칭 =====
+  'ファン・ゴッホ': 'vangogh',
+  'ゴッホ': 'vangogh',
+  'フィンセント・ファン・ゴッホ': 'vangogh',
+  'クリムト': 'klimt',
+  'グスタフ・クリムト': 'klimt',
+  'ムンク': 'munch',
+  'エドヴァルド・ムンク': 'munch',
+  'マティス': 'matisse',
+  'アンリ・マティス': 'matisse',
+  'シャガール': 'chagall',
+  'マルク・シャガール': 'chagall',
+  'ピカソ': 'picasso',
+  'パブロ・ピカソ': 'picasso',
+  'フリーダ・カーロ': 'frida',
+  'リキテンスタイン': 'lichtenstein',
+  'ロイ・リキテンスタイン': 'lichtenstein',
+
+  // ===== 아랍어 거장 별칭 =====
+  'فان غوخ': 'vangogh',
+  'فينسنت فان غوخ': 'vangogh',
+  'كليمت': 'klimt',
+  'غوستاف كليمت': 'klimt',
+  'مونك': 'munch',
+  'إدفارد مونك': 'munch',
+  'ماتيس': 'matisse',
+  'هنري ماتيس': 'matisse',
+  'شاغال': 'chagall',
+  'مارك شاغال': 'chagall',
+  'بيكاسو': 'picasso',
+  'بابلو بيكاسو': 'picasso',
+  'فريدا كاهلو': 'frida',
+  'ليختنشتاين': 'lichtenstein',
+  'روي ليختنشتاين': 'lichtenstein',
+
+  // ===== 태국어 거장 별칭 =====
+  'ฟาน โกะห์': 'vangogh',
+  'วินเซนต์ ฟาน โกะห์': 'vangogh',
+  'คลิมท์': 'klimt',
+  'กุสตาฟ คลิมท์': 'klimt',
+  'มุงก์': 'munch',
+  'เอดวาร์ด มุงก์': 'munch',
+  'มาติส': 'matisse',
+  'อองรี มาติส': 'matisse',
+  'ชาร์กาล': 'chagall',
+  'มาร์ก ชาร์กาล': 'chagall',
+  'ปิกัสโซ': 'picasso',
+  'ฟรีดา คาห์โล': 'frida',
+  'ลิคเทนสไตน์': 'lichtenstein',
+
+  // ===== 중국어(번체) 거장 별칭 =====
+  '梵谷': 'vangogh',
+  '文森·梵谷': 'vangogh',
+  '克林姆': 'klimt',
+  '古斯塔夫·克林姆': 'klimt',
+  '孟克': 'munch',
+  '愛德華·孟克': 'munch',
+  '馬諦斯': 'matisse',
+  '亨利·馬諦斯': 'matisse',
+  '夏卡爾': 'chagall',
+  '馬克·夏卡爾': 'chagall',
+  '畢卡索': 'picasso',
+  '巴勃羅·畢卡索': 'picasso',
+  '芙烈達·卡蘿': 'frida',
+  '乃乞登斯坦': 'lichtenstein',
+  '羅伊·乃乞登斯坦': 'lichtenstein',
   
   // ===== 동양화 별칭 =====
   // 한국 - 민화
@@ -1069,12 +1136,18 @@ export function getCategoryIcon(category) {
  */
 export function getStyleIcon(category, styleId, artistName) {
   if (category === 'masters') {
-    const key = normalizeKey(artistName || styleId);
-    for (const [id, value] of Object.entries(MASTERS)) {
-      if (value.key === key || id.includes(key)) {
-        return value.icon;
+    // artistName 먼저 시도, 실패하면 styleId로 fallback
+    const key = normalizeKey(artistName) || normalizeKey(styleId);
+    if (key) {
+      for (const [id, value] of Object.entries(MASTERS)) {
+        if (value.key === key || id === `${key}-master`) {
+          return value.icon;
+        }
       }
     }
+    // styleId가 직접 key인 경우 (vangogh, klimt 등)
+    const directMatch = MASTERS[`${styleId}-master`] || MASTERS[styleId];
+    if (directMatch) return directMatch.icon;
     return '🎨';
   } else if (category === 'movements') {
     return MOVEMENTS[styleId]?.icon || '🎨';

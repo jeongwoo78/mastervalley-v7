@@ -28,7 +28,13 @@ const InsufficientBalancePopup = ({
   return (
     <div className="popup-overlay" onClick={onClose}>
       <div className="popup-card" onClick={(e) => e.stopPropagation()}>
-        <div className="popup-emoji">😢</div>
+        <div className="popup-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/>
+            <path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/>
+            <path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/>
+          </svg>
+        </div>
         <div className="popup-title">{t.title}</div>
         <div className="popup-info">
           {t.requires} <span className="need">${requiredAmount.toFixed(2)}</span>
@@ -81,9 +87,15 @@ const InsufficientBalancePopup = ({
           text-align: center;
         }
 
-        .popup-emoji {
-          font-size: 56px;
-          margin-bottom: 16px;
+        .popup-icon {
+          width: 64px;
+          height: 64px;
+          border-radius: 50%;
+          background: #2a2a2a;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0 auto 16px;
         }
 
         .popup-title {
