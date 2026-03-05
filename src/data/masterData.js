@@ -5,7 +5,7 @@
 // StyleSelection, ProcessingScreen, ResultScreen 등에서 import해서 사용
 // =====================================================
 
-import { getMastersBasicInfo } from '../i18n';
+import { getMastersBasicInfo, getMovementsBasicInfo } from '../i18n';
 // ========== 카테고리 아이콘 (원클릭용) ==========
 export const CATEGORY_ICONS = {
   movements: '🎨',
@@ -1259,9 +1259,19 @@ export const getStyleSubtitles = (category, styleId, mode, displayArtist, displa
     
     // 변환중 또는 결과-원본: 대표화가 + 사조 화풍
     if (mode === 'loading-single' || mode === 'result-original') {
+      // i18n 언어별 movements 데이터 우선 사용
+      const i18nMovements = getMovementsBasicInfo(lang) || {};
+      const i18nMov = i18nMovements[styleId];
+      if (i18nMov?.loading) {
+        return [
+          i18nMov.loading.subtitle1 || '',
+          i18nMov.loading.subtitle2 || ''
+        ];
+      }
+      // fallback: ko/en
       return [
-        !isKo ? (movement?.subtitleEn || movement?.subtitle || '') : (movement?.subtitle || ''),
-        !isKo ? (movement?.descriptionEn || movement?.description || '') : (movement?.description || '')
+        isKo ? (movement?.subtitle || '') : (movement?.subtitleEn || movement?.subtitle || ''),
+        isKo ? (movement?.description || '') : (movement?.descriptionEn || movement?.description || '')
       ];
     } 
     // 결과-결과 또는 완료 미리보기: 매칭화가 + 세부사조명 · 화풍

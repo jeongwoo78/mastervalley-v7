@@ -14,6 +14,7 @@
 
 // v73: masterData에서 스타일 정보 import
 import { MOVEMENTS, ORIENTAL, MASTERS, getStyleSubtitles as getStyleSubtitlesFromMaster } from '../data/masterData';
+import { getMovementsBasicInfo, getOrientalBasicInfo } from '../i18n';
 
 // ========================================
 // 1. 표준 키 목록
@@ -1169,14 +1170,22 @@ export function getStyleTitle(category, styleId, artistName, lang = 'en') {
     const masterInfo = getMasterInfo(artistName || styleId, lang);
     return masterInfo.fullName;
   } else if (category === 'movements') {
-    // 복합사조도 부모 카테고리 제목 유지 (세부사조는 부제2에서 표시)
+    // i18n 언어별 name 우선
+    const i18nMovements = getMovementsBasicInfo ? getMovementsBasicInfo(lang) : null;
+    const i18nMov = i18nMovements?.[styleId];
+    if (i18nMov?.loading?.name) return i18nMov.loading.name;
+    // fallback
     const m = MOVEMENTS[styleId];
     if (!m) return lang === 'ko' ? '미술사조' : 'Art Movement';
     const period = lang === 'ko' ? m.period : (m.periodEn || m.period);
-    return lang === 'ko' 
+    return lang === 'ko'
       ? `${m.ko}(${m.en}, ${period})`
       : `${m.en} (${period})`;
   } else if (category === 'oriental') {
+    const i18nOriental = getOrientalBasicInfo ? getOrientalBasicInfo(lang) : null;
+    const i18nOri = i18nOriental?.[styleId];
+    if (i18nOri?.loading?.name) return i18nOri.loading.name;
+    // fallback
     const o = ORIENTAL[styleId];
     if (!o) return lang === 'ko' ? '동양화' : 'East Asian Art';
     return lang === 'ko' ? `${o.ko}(${o.en})` : o.en;
