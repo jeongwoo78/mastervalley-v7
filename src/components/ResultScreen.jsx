@@ -252,14 +252,33 @@ const ResultScreen = ({
   const getMasterKey = (artistName) => {
     if (!artistName) return null;
     const name = artistName.toUpperCase();
-    if (name.includes('VAN GOGH') || name.includes('GOGH') || name.includes('고흐')) return 'VAN GOGH';
-    if (name.includes('KLIMT') || name.includes('클림트')) return 'KLIMT';
-    if (name.includes('MUNCH') || name.includes('뭉크')) return 'MUNCH';
-    if (name.includes('CHAGALL') || name.includes('샤갈')) return 'CHAGALL';
-    if (name.includes('PICASSO') || name.includes('피카소')) return 'PICASSO';
-    if (name.includes('MATISSE') || name.includes('마티스')) return 'MATISSE';
-    if (name.includes('FRIDA') || name.includes('KAHLO') || name.includes('프리다') || name.includes('칼로')) return 'FRIDA';
-    if (name.includes('LICHTENSTEIN') || name.includes('리히텐')) return 'LICHTENSTEIN';
+    // VAN GOGH — ko/ja/ar/th/tr/id/pt/fr/es/zh-TW
+    if (name.includes('VAN GOGH') || name.includes('GOGH') || name.includes('고흐') ||
+        name.includes('ゴッホ') || name.includes('غوغ') || name.includes('غوخ') ||
+        name.includes('โก๊ะ') || name.includes('VAN GOG') || name.includes('GOGH')) return 'VAN GOGH';
+    // KLIMT
+    if (name.includes('KLIMT') || name.includes('클림트') || name.includes('クリムト') ||
+        name.includes('كليمت') || name.includes('คลิมต์') || name.includes('KLİMT')) return 'KLIMT';
+    // MUNCH
+    if (name.includes('MUNCH') || name.includes('뭉크') || name.includes('ムンク') ||
+        name.includes('مونك') || name.includes('มุงค์') || name.includes('MUNK') ||
+        name.includes('MUNCK')) return 'MUNCH';
+    // CHAGALL
+    if (name.includes('CHAGALL') || name.includes('샤갈') || name.includes('シャガール') ||
+        name.includes('شاغال') || name.includes('ชากาล') || name.includes('ŞAGAL')) return 'CHAGALL';
+    // MATISSE
+    if (name.includes('MATISSE') || name.includes('마티스') || name.includes('マティス') ||
+        name.includes('ماتيس') || name.includes('มาติส') || name.includes('MATİS')) return 'MATISSE';
+    // FRIDA
+    if (name.includes('FRIDA') || name.includes('KAHLO') || name.includes('프리다') || name.includes('칼로') ||
+        name.includes('フリーダ') || name.includes('カーロ') || name.includes('فريدا') || name.includes('كاهلو') ||
+        name.includes('ฟรีดา') || name.includes('คาห์โล') || name.includes('FRİDA')) return 'FRIDA';
+    // LICHTENSTEIN
+    if (name.includes('LICHTENSTEIN') || name.includes('리히텐') || name.includes('リキテンスタイン') ||
+        name.includes('ليختنشتاين') || name.includes('ลิกเตนสไตน์') || name.includes('LİCHTENSTEİN')) return 'LICHTENSTEIN';
+    // PICASSO (마지막 — 다른 이름과 충돌 없음)
+    if (name.includes('PICASSO') || name.includes('피카소') || name.includes('ピカソ') ||
+        name.includes('بيكاسو') || name.includes('ปิกาสโซ') || name.includes('PİKASO')) return 'PICASSO';
     return null;
   };
   
