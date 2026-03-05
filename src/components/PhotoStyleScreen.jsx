@@ -168,7 +168,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, userCredits = 0, lan
     if (trackRef.current?.parentElement) {
       PAGE_W_REF.current = trackRef.current.parentElement.offsetWidth;
     }
-    setTrackTransform(-idx * PAGE_W_REF.current, true);
+    const _dir = lang === 'ar' ? 1 : -1; setTrackTransform(_dir * idx * PAGE_W_REF.current, true);
   }, [activeCategory]);
 
   const handlePhotoClick = () => {
@@ -208,7 +208,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, userCredits = 0, lan
       setSelectedStyle(null); // 카테고리 전환 시 선택 해제
     }
     setActiveCategory(categoryOrder[clamped]);
-    setTrackTransform(-clamped * PAGE_W_REF.current, true);
+    const _dir2 = lang === 'ar' ? 1 : -1; setTrackTransform(_dir2 * clamped * PAGE_W_REF.current, true);
   }, [activeCategory, setTrackTransform]);
 
   const handleTouchStart = useCallback((e) => {
@@ -246,7 +246,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, userCredits = 0, lan
 
     const idx = categoryOrder.indexOf(activeCategory);
     const pw = PAGE_W_REF.current;
-    let targetX = -idx * pw + dx;
+    const _dirD = lang === 'ar' ? 1 : -1; let targetX = _dirD * idx * pw + dx;
 
     if (targetX > 0) {
       targetX *= 0.25;
