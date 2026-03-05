@@ -52,8 +52,8 @@ const InsufficientBalancePopup = ({
         
         {/* Subscription Info */}
         <div className="popup-sub-info">
-          <p>{tFunds.info1}</p>
-          <p>{tFunds.info2}</p>
+          <p>{tFunds.info1}.</p>
+          <p>{tFunds.info2}.</p>
         </div>
       </div>
 

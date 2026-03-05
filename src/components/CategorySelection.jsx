@@ -83,8 +83,8 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
 
       {/* Subscription Info */}
       <div className="subscription-info">
-        <p>{ui.subscriptionInfo.line1}</p>
-        <p>{ui.subscriptionInfo.line2}</p>
+        <p>{ui.subscriptionInfo.line1}.</p>
+        <p>{ui.subscriptionInfo.line2}.</p>
       </div>
 
       <style>{`
