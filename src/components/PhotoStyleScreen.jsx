@@ -436,8 +436,9 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, userCredits = 0, lan
         .header-title {
           flex: 1;
           color: #fff;
-          font-size: 17px;
-          font-weight: 600;
+          font-size: 20px;
+          font-weight: 400;
+          font-family: 'Cormorant Garamond', Georgia, serif;
         }
 
         .photo-section {
