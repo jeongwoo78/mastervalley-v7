@@ -9,14 +9,17 @@ import {
 } from 'firebase/auth';
 import { auth, googleProvider, appleProvider } from '../config/firebase';
 import { Capacitor } from '@capacitor/core';
+import { getUi } from '../i18n';
 
-const LoginScreen = ({ onLoginSuccess }) => {
+const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
   const [email, setEmail]       = useState('');
   const [password, setPassword] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
   const [error, setError]       = useState('');
   const [loading, setLoading]   = useState(false);
   const [isNative, setIsNative] = useState(false);
+
+  const t = getUi(lang).login;
 
   useEffect(() => {
     const initGoogleAuth = async () => {
@@ -53,9 +56,9 @@ const LoginScreen = ({ onLoginSuccess }) => {
       }
     } catch (err) {
       console.error('Google login error:', err);
-      if (err.message?.includes('popup_closed'))  setError('Login cancelled');
-      else if (err.message?.includes('network'))  setError('Network error. Please try again.');
-      else                                         setError('Google login failed');
+      if (err.message?.includes('popup_closed'))  setError(t.loginCancelled);
+      else if (err.message?.includes('network'))  setError(t.networkError);
+      else                                         setError(t.googleFailed);
     } finally {
       setLoading(false);
     }
@@ -69,7 +72,7 @@ const LoginScreen = ({ onLoginSuccess }) => {
       onLoginSuccess(result.user);
     } catch (err) {
       console.error('Apple login error:', err);
-      setError('Apple login failed');
+      setError(t.appleFailed);
     } finally {
       setLoading(false);
     }
@@ -86,12 +89,12 @@ const LoginScreen = ({ onLoginSuccess }) => {
       onLoginSuccess(result.user);
     } catch (err) {
       console.error('Email auth error:', err);
-      if      (err.code === 'auth/email-already-in-use')  setError('Email already in use');
-      else if (err.code === 'auth/invalid-email')          setError('Invalid email format');
-      else if (err.code === 'auth/weak-password')          setError('Password must be at least 6 characters');
+      if      (err.code === 'auth/email-already-in-use')  setError(t.emailInUse);
+      else if (err.code === 'auth/invalid-email')          setError(t.invalidEmail);
+      else if (err.code === 'auth/weak-password')          setError(t.weakPassword);
       else if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password')
-                                                           setError('Invalid email or password');
-      else                                                 setError('Login failed. Please try again.');
+                                                           setError(t.wrongCredentials);
+      else                                                 setError(t.loginFailed);
     } finally {
       setLoading(false);
     }
@@ -122,7 +125,7 @@ const LoginScreen = ({ onLoginSuccess }) => {
             <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/>
             <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
           </svg>
-          Continue with Google
+          {t.continueWithGoogle}
         </button>
 
         {/* Apple */}
@@ -130,7 +133,7 @@ const LoginScreen = ({ onLoginSuccess }) => {
           <svg width="16" height="16" viewBox="0 0 24 24" fill="rgba(255,255,255,0.7)">
             <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
           </svg>
-          Continue with Apple
+          {t.continueWithApple}
         </button>
 
         {/* Divider */}
@@ -139,14 +142,14 @@ const LoginScreen = ({ onLoginSuccess }) => {
         {/* Form */}
         <form onSubmit={handleEmailSubmit} style={s.form}>
           <input
-            type="email" placeholder="Email" value={email} required
+            type="email" placeholder={t.email} value={email} required
             onChange={(e) => setEmail(e.target.value)}
             style={s.input}
             onFocus={(e) => e.target.style.borderBottomColor = 'rgba(255,255,255,0.3)'}
             onBlur={(e)  => e.target.style.borderBottomColor = 'rgba(255,255,255,0.09)'}
           />
           <input
-            type="password" placeholder="Password" value={password} required minLength={6}
+            type="password" placeholder={t.password} value={password} required minLength={6}
             onChange={(e) => setPassword(e.target.value)}
             style={s.input}
             onFocus={(e) => e.target.style.borderBottomColor = 'rgba(255,255,255,0.3)'}
@@ -157,10 +160,10 @@ const LoginScreen = ({ onLoginSuccess }) => {
 
           <div style={s.row}>
             <button type="submit" disabled={loading} style={{ ...s.submitBtn, opacity: loading ? 0.6 : 1 }}>
-              {loading ? 'Please wait...' : (isSignUp ? 'Sign Up' : 'Log In')}
+              {loading ? t.pleaseWait : (isSignUp ? t.signUp : t.logIn)}
             </button>
             <span style={s.signupLink} onClick={() => { setIsSignUp(!isSignUp); setError(''); }}>
-              {isSignUp ? 'Log In' : 'Sign Up'}
+              {isSignUp ? t.logIn : t.signUp}
             </span>
           </div>
         </form>
