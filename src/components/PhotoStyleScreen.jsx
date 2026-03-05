@@ -119,7 +119,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, userCredits = 0, lan
       priceLabel: '$0.20/transform',
       gradient: 'linear-gradient(135deg, #ffe4e6 0%, #f472b6 100%)',
       boxShadow: '0 4px 15px rgba(244, 114, 182, 0.3)',
-      color: '#1e293b',
+      color: '#4a1530',
       accent: '#f472b6',
       fullTransform: {
         id: 'oriental-all',
@@ -352,7 +352,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, userCredits = 0, lan
       {/* Header */}
       <header className="style-header">
         <button className="back-btn" onClick={onBack}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
-        <span className="header-title">{categoryData[activeCategory].name}</span>
+        <span className="header-title" style={{ color: categoryData[activeCategory].accent }}>{categoryData[activeCategory].name}</span>
       </header>
 
       {/* Photo Section (고정, 스와이프 밖) */}
