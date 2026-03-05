@@ -14,7 +14,7 @@
 
 // v73: masterData에서 스타일 정보 import
 import { MOVEMENTS, ORIENTAL, MASTERS, getStyleSubtitles as getStyleSubtitlesFromMaster } from '../data/masterData';
-import { getMovementsBasicInfo, getOrientalBasicInfo } from '../i18n';
+import { getMovementsBasicInfo, getOrientalBasicInfo, getMastersBasicInfo } from '../i18n';
 
 // ========================================
 // 1. 표준 키 목록
@@ -1093,7 +1093,7 @@ export function getMasterInfo(artistName, lang = 'en') {
     'picasso': { fullName: '파블로 피카소(Pablo Picasso, 1881~1973)', movement: '입체주의', tagline: '형태를 해체한 혁명가' },
     'lichtenstein': { fullName: '로이 리히텐슈타인(Roy Lichtenstein, 1923~1997)', movement: '팝아트', tagline: '만화로 묻는 예술' }
   };
-  
+
   const masterDataEn = {
     'vangogh': { fullName: 'Vincent van Gogh (1853-1890)', movement: 'Post-Impressionism', tagline: 'Swirling passion of the brush' },
     'klimt': { fullName: 'Gustav Klimt (1862-1918)', movement: 'Art Nouveau', tagline: 'A world of golden sensuality' },
@@ -1104,12 +1104,24 @@ export function getMasterInfo(artistName, lang = 'en') {
     'picasso': { fullName: 'Pablo Picasso (1881-1973)', movement: 'Cubism', tagline: 'Revolutionary who deconstructed vision' },
     'lichtenstein': { fullName: 'Roy Lichtenstein (1923-1997)', movement: 'Pop Art', tagline: 'Dots that changed art' }
   };
-  
-  const masterData = lang === 'ko' ? masterDataKo : masterDataEn;
-  const fallback = lang === 'ko' ? { fullName: '거장', movement: '', tagline: '' } : { fullName: 'Master', movement: '', tagline: '' };
-  
-  if (!artistName) return fallback;
+
+  if (!artistName) return lang === 'ko' ? { fullName: '거장', movement: '', tagline: '' } : { fullName: 'Master', movement: '', tagline: '' };
   const key = normalizeKey(artistName);
+
+  // i18n 언어별 name 우선 사용
+  if (lang !== 'ko' && lang !== 'en') {
+    const i18nBasic = getMastersBasicInfo(lang) || {};
+    const i18nMaster = key ? i18nBasic[key] : null;
+    if (i18nMaster?.loading?.name) {
+      return {
+        fullName: i18nMaster.loading.name,
+        movement: i18nMaster.loading.subtitle1 || '',
+        tagline: i18nMaster.loading.subtitle2 || ''
+      };
+    }
+  }
+
+  const masterData = lang === 'ko' ? masterDataKo : masterDataEn;
   return masterData[key] || { fullName: artistName, movement: '', tagline: '' };
 }
 
