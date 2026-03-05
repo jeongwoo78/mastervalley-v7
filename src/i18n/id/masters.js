@@ -187,8 +187,7 @@ Lukisan ini mempertanyakan: apakah kita benar-benar terhubung, atau hanya gambar
   'picasso_default': { description: `Gaya kubis Picasso dengan bentuk geometris dan perspektif ganda telah diterapkan.\nWajah dan tubuh terfragmentasi menjadi bidang bersudut, menampilkan beberapa sudut pandang secara bersamaan.\n\nGaris berani dan warna kontras membangun kenyataan yang didekonstruksi dan dirangkai ulang.\nRevolusi visual yang menghancurkan 500 tahun perspektif tradisional.` },
   'frida_default': { description: `Gaya simbolis Frida dengan warna Meksiko dan tatapan frontal intens telah diterapkan.\nMerah, hijau, dan kuning tradisi Meksiko membingkai ikonografi yang sangat personal.\n\nSetiap elemen — duri, hewan, tanaman — adalah simbol berkode dari rasa sakit, perlawanan, dan cinta.\nSeni pengakuan di mana tubuh yang patah menjadi wilayah identitas dan perjuangan.` },
   'lichtenstein_default': { description: `Gaya Pop Art Lichtenstein dengan titik Ben-Day dan kontur tebal telah diterapkan.\nPola titik teratur dan warna primer datar mengubah estetika komik menjadi seni.\n\nHitam, merah, biru, dan kuning dalam komposisi grafis yang mempertanyakan apa itu seni dan apa itu budaya populer.\nEsensi Pop Art yang menghapus batas antara museum dan budaya massa.` }
-};
-
+},
   'vangogh-starrynight': {
     description: `Teknik impasto berputar dari 〈The Starry Night〉 telah diterapkan.
 Kontrast intens biru kobalt dan kuning krom melepaskan energi malam.
@@ -308,5 +307,7 @@ Bidang warna primer menyederhanakan objek dengan cara seperti komik, merekonstru
 〈Still Life〉 adalah bagian dari seri 1970-an di mana Lichtenstein menafsirkan ulang genre tradisional sebagai penghormatan kepada Picasso.
 'Tidak ada suasana dalam still life saya—hanya lemon dan jeruk bali,' katanya.`
   },
+
+};
 
 export default { mastersBasicInfo, mastersLoadingEducation, mastersResultEducation };
