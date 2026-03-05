@@ -43,7 +43,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
       {/* Header */}
       <header className="main-header">
         <button className="menu-btn" onClick={handleMenuClick}>
-          <svg className="menu-icon-svg" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="28" height="28">
+          <svg className="menu-icon-svg" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="28" height="28">
             <circle cx="12" cy="8" r="4"/>
             <path d="M20 21a8 8 0 1 0-16 0"/>
           </svg>
@@ -51,19 +51,6 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
         </button>
         <button className="credits-btn" onClick={() => onAddFunds?.()}>${userCredits.toFixed(2)}</button>
       </header>
-
-      {/* Branding - ①번: 팔레트 왼쪽, 텍스트 정중앙 */}
-      <div className="branding">
-        <div className="brand-icon-left">
-          <svg width="40" height="40" viewBox="0 0 48 48" fill="none">
-            <circle cx="24" cy="24" r="20" stroke="rgba(255,255,255,0.15)" strokeWidth="1.5"/>
-            <circle cx="16" cy="18" r="3" fill="#e8d5b7"/>
-            <circle cx="28" cy="14" r="2.5" fill="#a78bfa"/>
-            <circle cx="32" cy="22" r="2" fill="#6ee7b7"/>
-            <circle cx="28" cy="30" r="2.5" fill="#fbbf24"/>
-            <path d="M14 32 C14 32 18 20 24 18 C30 16 34 28 34 28" stroke="rgba(255,255,255,0.25)" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
-          </svg>
-        </div>
         <h1 className="brand-title">Master Valley</h1>
         <p className="brand-tagline">{t.tagline}</p>
         <p className="brand-sub-tagline">{t.subTagline}</p>
@@ -95,6 +82,8 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
       </div>
 
       <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
         .main-screen {
           min-height: 100vh;
           background: #0d0d0d;
@@ -129,7 +118,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
 
         .menu-label {
           font-size: 10px;
-          color: #fff;
+          color: rgba(255,255,255,0.3);
           font-weight: 600;
           letter-spacing: 0.5px;
         }
@@ -154,23 +143,21 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           padding: 52px 20px 8px;
         }
 
-        .brand-icon-left {
-          text-align: left;
-          padding-left: 12px;
-          margin-bottom: 12px;
-        }
-
         .brand-title {
-          font-size: 26px;
+          font-family: 'Cormorant Garamond', Georgia, serif;
+          font-size: 40px;
+          font-weight: 400;
           color: #fff;
-          font-weight: 700;
           margin: 0 0 8px;
-          letter-spacing: -0.5px;
+          letter-spacing: 0.5px;
         }
 
         .brand-tagline {
+          font-family: 'Cormorant Garamond', Georgia, serif;
+          font-style: italic;
+          font-weight: 300;
           color: rgba(255,255,255,0.5);
-          font-size: 14px;
+          font-size: 16px;
           margin: 0;
         }
 
@@ -235,10 +222,11 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
         }
 
         .card-name {
-          color: #fff;
-          font-size: 17px;
-          font-weight: 600;
+          font-family: 'Cormorant Garamond', Georgia, serif;
+          font-size: 22px;
+          font-weight: 400;
           text-align: left;
+          letter-spacing: 0.2px;
         }
 
         .card-desc {
