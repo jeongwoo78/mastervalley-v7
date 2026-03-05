@@ -609,9 +609,7 @@ Des trames de points réguliers et des couleurs primaires en aplat transforment 
 
 Noir, rouge, bleu et jaune en compositions graphiques qui questionnent ce qui est art et ce qui est culture populaire.
 L'essence du Pop Art qui effaça la frontière entre le musée et la culture de masse.`
-  }
-};
-
+  },
   'vangogh-starrynight': {
     description: `La technique d'impasto tourbillonnant de 〈La Nuit étoilée〉 a été appliquée.
 Le contraste intense du bleu cobalt et du jaune chrome libère l'énergie de la nuit.
@@ -732,4 +730,5 @@ Les plans de couleurs primaires simplifient les objets à la manière d'une band
 'Il n'y a pas d'ambiance dans mes natures mortes—ce ne sont que des citrons et des pamplemousses', disait-il.`
   },
 
+};
 export default { mastersBasicInfo, mastersLoadingEducation, mastersResultEducation };

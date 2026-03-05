@@ -609,9 +609,7 @@ Patrones de puntos regulares y colores primarios planos transforman la estética
 
 Negro, rojo, azul y amarillo en composiciones gráficas que cuestionan qué es arte y qué es cultura popular.
 La esencia del Pop Art que borró la frontera entre el museo y la cultura de masas.`
-  }
-};
-
+  },
   'vangogh-starrynight': {
     description: `Se ha aplicado la técnica de impasto arremolinado de 〈La noche estrellada〉.
 El intenso contraste del azul cobalto y el amarillo cromo libera la energía de la noche.
@@ -732,4 +730,5 @@ Los planos de colores primarios simplifican los objetos de manera similar a un c
 'No hay estado de ánimo en mis naturalezas muertas—solo limones y toronjas', dijo.`
   },
 
+};
 export default { mastersBasicInfo, mastersLoadingEducation, mastersResultEducation };
