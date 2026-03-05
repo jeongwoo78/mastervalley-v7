@@ -47,19 +47,18 @@ const IconCheck = () => (
   </svg>
 );
 
-// 12 languages
+// 11 languages (alphabetical by native name)
 const ALL_LANGS = [
-  { code: 'en',    native: 'English',           active: true },
-  { code: 'ko',    native: '한국어',             active: true },
-  { code: 'ja',    native: '日本語',             active: true },
-  { code: 'id',    native: 'Bahasa Indonesia',  active: true },
-  { code: 'th',    native: 'ไทย',               active: true },
-  { code: 'tr',    native: 'Türkçe',            active: true },
-
   { code: 'ar',    native: 'العربية',           active: true },
+  { code: 'id',    native: 'Bahasa Indonesia',  active: true },
+  { code: 'en',    native: 'English',           active: true },
   { code: 'es',    native: 'Español',           active: true },
   { code: 'fr',    native: 'Français',          active: true },
+  { code: 'ja',    native: '日本語',             active: true },
+  { code: 'ko',    native: '한국어',             active: true },
   { code: 'pt',    native: 'Português',         active: true },
+  { code: 'th',    native: 'ไทย',               active: true },
+  { code: 'tr',    native: 'Türkçe',            active: true },
   { code: 'zh-TW', native: '繁體中文',           active: true },
 ];
 
@@ -161,10 +160,10 @@ const MenuScreen = ({
         {supportOpen && (
           <div className="support-accordion">
             <div className="support-option" onClick={onSupport}>
-              <span className="support-text">Contact Us</span>
+              <span className="support-text">{t.contactUs}</span>
             </div>
             <div className="support-option">
-              <span className="support-text">FAQ</span>
+              <span className="support-text">{t.faq}</span>
             </div>
           </div>
         )}

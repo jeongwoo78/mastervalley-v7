@@ -168,6 +168,8 @@ export const ui = {
     addFunds: 'チャージ',
     support: 'サポート',
     logOut: 'ログアウト',
+    contactUs: 'お問い合わせ',
+    faq: 'よくある質問',
     deleteAccount: 'アカウント削除'
   },
 

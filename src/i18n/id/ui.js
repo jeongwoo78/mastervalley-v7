@@ -168,6 +168,8 @@ export const ui = {
     addFunds: 'Isi saldo',
     support: 'Dukungan',
     logOut: 'Keluar',
+    contactUs: 'Hubungi Kami',
+    faq: 'Pertanyaan Umum',
     deleteAccount: 'Hapus akun'
   },
 

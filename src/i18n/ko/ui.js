@@ -167,6 +167,8 @@ export const ui = {
     addFunds: '충전',
     support: '고객 지원',
     logOut: '로그아웃',
+    contactUs: '문의하기',
+    faq: '자주 묻는 질문',
     deleteAccount: '계정 삭제'
   },
 

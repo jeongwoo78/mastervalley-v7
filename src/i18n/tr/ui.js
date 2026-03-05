@@ -162,6 +162,8 @@ export const ui = {
     addFunds: 'Kredi Yükle',
     support: 'Destek',
     logOut: 'Çıkış Yap',
+    contactUs: 'Bize Ulaşın',
+    faq: 'Sık Sorulan Sorular',
     deleteAccount: 'Hesabı Sil'
   },
 

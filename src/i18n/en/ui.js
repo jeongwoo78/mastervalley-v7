@@ -167,6 +167,8 @@ export const ui = {
     addFunds: 'Add Funds',
     support: 'Support',
     logOut: 'Log Out',
+    contactUs: 'Contact Us',
+    faq: 'FAQ',
     deleteAccount: 'Delete Account'
   },
 

@@ -124,6 +124,8 @@ export const ui = {
     addFunds: 'เติมเครดิต',
     support: 'ฝ่ายสนับสนุน',
     logOut: 'ออกจากระบบ',
+    contactUs: 'ติดต่อเรา',
+    faq: 'คำถามที่พบบ่อย',
     deleteAccount: 'ลบบัญชี'
   },
 

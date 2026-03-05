@@ -168,6 +168,8 @@ export const ui = {
     addFunds: 'شحن الرصيد',
     support: 'الدعم',
     logOut: 'تسجيل الخروج',
+    contactUs: 'اتصل بنا',
+    faq: 'الأسئلة الشائعة',
     deleteAccount: 'حذف الحساب'
   },
 

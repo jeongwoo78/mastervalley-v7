@@ -162,6 +162,8 @@ export const ui = {
     addFunds: 'Carregar Créditos',
     support: 'Suporte',
     logOut: 'Terminar Sessão',
+    contactUs: 'Fale Conosco',
+    faq: 'Perguntas Frequentes',
     deleteAccount: 'Eliminar Conta'
   },
 

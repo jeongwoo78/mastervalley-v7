@@ -168,6 +168,8 @@ export const ui = {
     addFunds: '儲值',
     support: '客服支援',
     logOut: '登出',
+    contactUs: '聯絡我們',
+    faq: '常見問題',
     deleteAccount: '刪除帳號'
   },
 

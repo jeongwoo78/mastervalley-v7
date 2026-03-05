@@ -168,6 +168,8 @@ export const ui = {
     addFunds: 'Recharger',
     support: 'Support',
     logOut: 'Se déconnecter',
+    contactUs: 'Contactez-nous',
+    faq: 'Questions Fréquentes',
     deleteAccount: 'Supprimer le compte'
   },
 
