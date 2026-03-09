@@ -247,6 +247,10 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           padding-inline-end: 4px;
         }
 
+        [dir="rtl"] .category-card {
+          flex-direction: row-reverse;
+        }
+
         [dir="rtl"] .card-arrow {
           transform: scaleX(-1);
         }
