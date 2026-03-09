@@ -68,6 +68,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
             key={cat.id}
             className="category-card"
             onClick={() => onSelect(cat.id)}
+            style={lang === 'ar' ? { flexDirection: 'row-reverse' } : undefined}
           >
             <div className="card-thumbnail">
               <img src={cat.thumbnail} alt={cat.name} />
@@ -76,7 +77,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
               <span className="card-name" style={{ color: cat.accent }}>{cat.name}</span>
               <span className="card-desc">{cat.description}</span>
             </div>
-            <span className="card-arrow">›</span>
+            <span className="card-arrow" style={lang === 'ar' ? { transform: 'scaleX(-1)' } : undefined}>›</span>
           </button>
         ))}
       </div>
