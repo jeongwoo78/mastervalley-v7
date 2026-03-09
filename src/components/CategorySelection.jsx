@@ -186,12 +186,13 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           border: none;
           border-radius: 12px;
           padding: 8px 0;
+          min-height: 104px;
           display: flex;
           align-items: center;
           gap: 12px;
           cursor: pointer;
           transition: all 0.2s;
-          text-align: left;
+          text-align: start;
         }
 
         .category-card:hover {
@@ -222,28 +223,32 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           display: flex;
           flex-direction: column;
           gap: 6px;
-          text-align: left;
+          text-align: start;
         }
 
         .card-name {
           font-family: 'Cormorant Garamond', Georgia, serif;
-          font-size: 22px;
+          font-size: 20px;
           font-weight: 400;
-          text-align: left;
+          text-align: start;
           letter-spacing: 0.2px;
         }
 
         .card-desc {
           color: rgba(255,255,255,0.5);
           font-size: 13px;
-          text-align: left;
+          text-align: start;
         }
 
         .card-arrow {
           color: rgba(255,255,255,0.3);
           font-size: 20px;
           font-weight: 300;
-          padding-right: 4px;
+          padding-inline-end: 4px;
+        }
+
+        [dir="rtl"] .card-arrow {
+          transform: scaleX(-1);
         }
 
         /* Subscription Info */

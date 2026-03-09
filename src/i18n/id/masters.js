@@ -5,14 +5,87 @@
 // ========================================
 
 export const mastersBasicInfo = {
-  'vangogh': { loading: { name: 'Vincent van Gogh (1853–1890)', subtitle1: 'Malam Berbintang · Bunga Matahari · Potret Diri', subtitle2: 'Gairah kuas yang berputar spiral' } },
-  'klimt': { loading: { name: 'Gustav Klimt (1862–1918)', subtitle1: 'Ciuman · Judith · Pohon Kehidupan', subtitle2: 'Dunia emas penuh sensualitas' } },
-  'munch': { loading: { name: 'Edvard Munch (1863–1944)', subtitle1: 'Jeritan · Madonna · Pubertas', subtitle2: 'Melukis jeritan batin' } },
-  'matisse': { loading: { name: 'Henri Matisse (1869–1954)', subtitle1: 'Tarian · Kamar Merah · Wanita Bertopi', subtitle2: 'Pesulap warna' } },
-  'chagall': { loading: { name: 'Marc Chagall (1887–1985)', subtitle1: 'Di Atas Kota · Aku dan Desa · Buket dengan Kekasih Terbang', subtitle2: 'Penyair cinta dan mimpi' } },
-  'picasso': { loading: { name: 'Pablo Picasso (1881–1973)', subtitle1: 'Les Demoiselles d\'Avignon · Guernica · Potret Dora Maar', subtitle2: 'Revolusioner yang mendekonstruksi pandangan' } },
-  'frida': { loading: { name: 'Frida Kahlo (1907–1954)', subtitle1: 'Kolom Patah · Potret Diri dengan Kalung Duri dan Kolibri', subtitle2: 'Potret diri yang menghadapi rasa sakit' } },
-  'lichtenstein': { loading: { name: 'Roy Lichtenstein (1923–1997)', subtitle1: 'Drowning Girl · Whaam! · In the Car', subtitle2: 'Pria yang mengubah komik menjadi seni' } },
+  'vangogh': { loading: { name: 'Vincent van Gogh (1853–1890)', subtitle1: 'Post-Impresionisme · Belanda', subtitle2: 'Gairah kuas yang berputar spiral' },
+    result: {
+      name: 'Vincent van Gogh (1853–1890)',
+      subtitle1: 'Post-Impresionisme · Belanda',
+      subtitle2: 'Gairah kuas yang berputar spiral',
+      works: {
+        'starrynight': { subtitle1: 'Malam Berbintang (The Starry Night)', subtitle2: 'Langit malam dilukis dalam pusaran' },
+        'cafe': { subtitle1: 'Teras Kafe di Malam Hari (Café Terrace at Night)', subtitle2: 'Cahaya kuning hangat di bawah sinar bintang' },
+        'sunflowers': { subtitle1: 'Bunga Matahari (Sunflowers)', subtitle2: 'Bunga yang dicium matahari, membara penuh gairah' },
+        'selfportrait': { subtitle1: 'Potret Diri dengan Topi Felt Abu-abu (Self-Portrait with Grey Felt Hat)', subtitle2: 'Menatap cermin jiwa' },
+        'wheatfield': { subtitle1: 'Ladang Gandum dengan Cemara (Wheat Field with Cypresses)', subtitle2: 'Ladang emas menari di angin' },
+      }
+    }, },
+  'klimt': { loading: { name: 'Gustav Klimt (1862–1918)', subtitle1: 'Art Nouveau · Austria', subtitle2: 'Dunia emas penuh sensualitas' },
+    result: {
+      name: 'Gustav Klimt (1862–1918)',
+      subtitle1: 'Art Nouveau · Austria',
+      subtitle2: 'Dunia sensualitas keemasan',
+      works: {
+        'kiss': { subtitle1: 'Ciuman (The Kiss)', subtitle2: 'Ciuman abadi yang larut dalam emas' },
+        'treeoflife': { subtitle1: 'Pohon Kehidupan (The Tree of Life)', subtitle2: 'Dahan emas menyanyikan lagu kehidupan' },
+        'judith': { subtitle1: 'Judith I', subtitle2: 'Antara yang sakral dan sensual, pesona emas' },
+      }
+    }, },
+  'munch': { loading: { name: 'Edvard Munch (1863–1944)', subtitle1: 'Ekspresionisme · Norwegia', subtitle2: 'Melukis jeritan batin' },
+    result: {
+      name: 'Edvard Munch (1863–1944)',
+      subtitle1: 'Ekspresionisme · Norwegia',
+      subtitle2: 'Melukis jeritan batin',
+      works: {
+        'scream': { subtitle1: 'Jeritan (The Scream)', subtitle2: 'Jiwa yang menangis di bawah langit merah darah' },
+        'madonna': { subtitle1: 'Madonna', subtitle2: 'Sosok misterius antara hidup dan mati' },
+        'danceoflife': { subtitle1: 'Tarian Kehidupan (The Dance of Life)', subtitle2: 'Waltz cinta dan kehilangan' },
+      }
+    }, },
+  'matisse': { loading: { name: 'Henri Matisse (1869–1954)', subtitle1: 'Fauvisme · Prancis', subtitle2: 'Pesulap warna' },
+    result: {
+      name: 'Henri Matisse (1869–1954)',
+      subtitle1: 'Fauvisme · Prancis',
+      subtitle2: 'Pesulap warna',
+      works: {
+        'greenstripe': { subtitle1: 'Garis Hijau (The Green Stripe)', subtitle2: 'Satu garis hijau yang mendeklarasikan revolusi warna' },
+        'purplecoat': { subtitle1: 'Wanita Berjas Ungu (Woman in a Purple Coat)', subtitle2: 'Keanggunan terbungkus warna cerah' },
+        'redroom': { subtitle1: 'Kamar Merah (The Red Room)', subtitle2: 'Pesta dekorasi yang dikuasai merah' },
+        'derain': { subtitle1: 'Potret André Derain (Portrait of André Derain)', subtitle2: 'Rekan Fauviis dilukis dengan warna alam liar' },
+      }
+    }, },
+  'chagall': { loading: { name: 'Marc Chagall (1887–1985)', subtitle1: 'Surealisme · Rusia/Prancis', subtitle2: 'Penyair cinta dan mimpi' },
+    result: {
+      name: 'Marc Chagall (1887–1985)',
+      subtitle1: 'Surealisme · Rusia/Prancis',
+      subtitle2: 'Penyair cinta dan mimpi',
+      works: {
+        'lovers': { subtitle1: 'Hari Ulang Tahun (The Birthday)', subtitle2: 'Sepasang kekasih yang mabuk cinta hingga melupakan gravitasi' },
+        'lamariee': { subtitle1: 'La Mariée', subtitle2: 'Pengantin yang melayang antara mimpi dan kenyataan' },
+        'village': { subtitle1: 'Aku dan Desa (I and the Village)', subtitle2: 'Kenangan rumah yang melayang seperti mimpi' },
+      }
+    }, },
+  'picasso': { loading: { name: 'Pablo Picasso (1881–1973)', subtitle1: 'Kubisme · Spanyol', subtitle2: 'Revolusioner yang mendekonstruksi pandangan' },
+    result: {
+      name: 'Pablo Picasso (1881–1973)',
+      subtitle1: 'Les Demoiselles d\'Avignon · Guernica · Potret Dora Maar',
+      subtitle2: 'Revolusioner yang mendekonstruksi penglihatan',
+      works: {
+        'demoiselles': { subtitle1: 'Les Demoiselles d\'Avignon', subtitle2: 'Lima wanita yang menghancurkan perspektif' },
+        'guernica': { subtitle1: 'Guernica', subtitle2: 'Teriakan perang yang meledak dalam hitam putih' },
+        'doramaar': { subtitle1: 'Potret Dora Maar (Portrait of Dora Maar)', subtitle2: 'Potret terdekonstruksi di mana depan bertemu samping' },
+      }
+    }, },
+  'frida': { loading: { name: 'Frida Kahlo (1907–1954)', subtitle1: 'Surealisme · Meksiko', subtitle2: 'Potret diri yang menghadapi rasa sakit' },
+    result: {
+      name: 'Frida Kahlo (1907–1954)',
+      subtitle1: 'Surealisme · Meksiko',
+      subtitle2: 'Potret diri menatap rasa sakit',
+      works: {
+        'parrots': { subtitle1: 'Aku dan Beo-beoku (Me and My Parrots)', subtitle2: 'Potret diri dalam kesepian, bersama burung beo' },
+        'brokencolumn': { subtitle1: 'Kolom yang Patah (The Broken Column)', subtitle2: 'Tatapan tak tergoyahkan dari tubuh yang remuk' },
+        'monkeys': { subtitle1: 'Potret Diri dengan Monyet (Self-Portrait with Monkeys)', subtitle2: 'Potret rasa sakit, dirangkul oleh monyet' },
+      }
+    }, },
+  'lichtenstein': { loading: { name: 'Roy Lichtenstein (1923–1997)', subtitle1: 'Pop Art · Amerika Serikat', subtitle2: 'Pria yang mengubah komik menjadi seni' } },
 
   'vangogh-starry': { result: { name: 'Vincent van Gogh (1853–1890)', subtitle1: 'Malam Berbintang (The Starry Night)', subtitle2: 'Cemara dan bintang dalam spiral' } },
   'vangogh-sunflower': { result: { name: 'Vincent van Gogh (1853–1890)', subtitle1: 'Bunga Matahari (Sunflowers)', subtitle2: 'Lima belas matahari dalam vas' } },
@@ -153,11 +226,11 @@ Dinding merah dan meja merah menyatu menjadi satu—pola arabesque menyelimuti s
 Bahkan pemandangan melalui jendela tampak sebagai dekorasi datar—menghapus batas dalam dan luar.
 
 Ini adalah bukti keberanian Matisse: bahwa warna bisa lebih kuat dari realitas.` },
-  'matisse-hat': { description: `Warna wajah non-naturalistis dan sapuan kuas berani Wanita Bertopi telah diterapkan.\nHijau di hidung, ungu di dahi, oranye di leher — warna yang mengejutkan publik.\n\nKarya yang di Salon d'Automne 1905 memicu teriakan "Binatang buas!" dan membaptis Fauvisme.\nManifesto Matisse: warna tidak mendeskripsikan, melainkan mengekspresikan.` },
+  'matisse-hat': { description: `Warna wajah non-naturalistis dan sapuan kuas berani Wanita Bertopi telah diterapkan.\nHijau di hidung, ungu di dahi, oranye di leher — warna yang mengejutkan publik.\n\nKarya yang di Salon d\'Automne 1905 memicu teriakan "Binatang buas!" dan membaptis Fauvisme.\nManifesto Matisse: warna tidak mendeskripsikan, melainkan mengekspresikan.` },
   'chagall-overthecity': { description: `Melayang dalam mimpi dan palet pastel Di Atas Kota telah diterapkan.\nPasangan kekasih melayang bebas di atas atap-atap desa, menantang gravitasi.\n\nAtap Vitebsk membentang di bawah dalam nada redup; di atas, Chagall dan Bella terbang dalam ekstasi warna.\nPernyataan paling murni bahwa cinta mampu membuat kita terbang.` },
   'chagall-iandthevillage': { description: `Multi-perspektif mimpi dan tumpang tindih kenangan Aku dan Desa telah diterapkan.\nWajah manusia hijau dan kambing putih saling menatap; di dalam kambing muncul adegan pemerahan susu.\n\nAtap terbalik, figur melayang, dan adegan simultan merajut memori dan mimpi.\nJendela ke masa kecil Chagall, di mana segalanya berbaur dalam mimpi tanpa gravitasi.` },
   'chagall-bouquet': { description: `Bunga cerah dan kekasih terbang Buket dengan Kekasih Terbang telah diterapkan.\nBuket bunga raksasa menyembur ke langit sementara kekasih melayang di antara kelopak.\n\nMerah, biru, kuning, dan hijau meledak bagai kembang api warna di atas latar gelap.\nKarya di mana Chagall merayakan cinta sebagai musim semi abadi yang melayang di udara.` },
-  'picasso-demoiselles': { description: `Dekonstruksi radikal dan topeng Afrika Les Demoiselles d'Avignon telah diterapkan.\nLima tubuh terfragmentasi dalam sudut mustahil menghancurkan perspektif Renaisans.\n\nDua wajah di kanan, terinspirasi topeng Afrika, mengumumkan kelahiran Kubisme.\nDetonasi yang meresmikan seni abad ke-20, di mana representasi menyerah pada dekonstruksi.` },
+  'picasso-demoiselles': { description: `Dekonstruksi radikal dan topeng Afrika Les Demoiselles d\'Avignon telah diterapkan.\nLima tubuh terfragmentasi dalam sudut mustahil menghancurkan perspektif Renaisans.\n\nDua wajah di kanan, terinspirasi topeng Afrika, mengumumkan kelahiran Kubisme.\nDetonasi yang meresmikan seni abad ke-20, di mana representasi menyerah pada dekonstruksi.` },
   'picasso-guernica': { description: `Komposisi monumental dan chiaroscuro merobek Guernica telah diterapkan.\nSkala abu-abu, hitam dan putih — ketiadaan warna memperkuat horor perang.\n\nBanteng, kuda terluka, bola lampu, dan ibu dengan anak yang mati membentuk jeritan visual setinggi tiga setengah meter.\nTuntutan anti-perang paling kuat dalam sejarah seni, dilukis dalam enam minggu kemarahan.` },
   'picasso-doramaar': { description: `Tampilan depan dan samping secara bersamaan dari 〈Portrait of Dora Maar〉 telah diterapkan.
 Warna primer intens mengisi bidang-bidang geometris.
@@ -297,7 +370,7 @@ Tahun yang sama, majalah Life menulis judul: 'Apakah Dia Seniman Terburuk di AS?
 Merah, biru, dan kuning terpisah bersih dalam kontur hitam, setajam halaman cetak.
 
 〈Ohhh...Alright...〉 adalah karya 1964 yang dipinjam dari edisi #88 Secret Hearts.
-Terjual $42,6 juta di Christie's pada 2010, membalik nilai apa yang pernah ia sebut 'kanvas bekas'.`
+Terjual $42,6 juta di Christie\'s pada 2010, membalik nilai apa yang pernah ia sebut 'kanvas bekas'.`
   },
   'lichtenstein-stilllife': {
     description: `Titik Ben-Day dan kontur tebal yang menciptakan ekspresi datar dalam 〈Still Life〉 telah diterapkan.

@@ -16,7 +16,7 @@ export const oneclickMovementsPrimary = {
 
 Ahora, tu foto se encuentra con esas preguntas.
 
-Hace 2.500 años, en Grecia, el cuerpo humano se convirtió en piedra.
+Hace 2800 años, en Grecia, el cuerpo humano se convirtió en piedra.
 El Medievo eligió a Dios; el Renacimiento, al ser humano.
 La luz se hizo Barroco; el sueño se hizo Rococó.
 
@@ -265,7 +265,7 @@ export const oneclickMovementsSecondary = {
 La escultura de proporciones perfectas y los mosaicos refinados fueron el punto de partida del arte occidental.
 
 La escultura griega plasmó el equilibrio corporal con la proporción áurea y el contrapposto.
-Se convirtió en el referente de 2.500 años de arte occidental.`
+Se convirtió en el referente de 2800 años de arte occidental.`
   },
 
   'roman-mosaic': {

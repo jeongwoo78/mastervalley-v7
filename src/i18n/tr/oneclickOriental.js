@@ -42,7 +42,7 @@ export const oneclickOrientalBasicInfo = {
 };
 
 export const oneclickOrientalPrimary = {
-  content: `Batı doldurunca Doğu boşalttı.\nResmetmeyerek konuşmanın sanatı.\n\nKore mürekkep ve boşluk arasında,\nÇin manzara ve süsleme arasında,\nJapon'da geçicilik ve ihtişam bir arada.\n\nÜç ülke, üç fırça darbesi.\nŞimdi sen burada duruyorsun.`
+  content: `Batı doldurunca Doğu boşalttı.\nResmetmeyerek konuşmanın sanatı.\n\nKore mürekkep ve boşluk arasında,\nÇin manzara ve süsleme arasında,\nJapon\'da geçicilik ve ihtişam bir arada.\n\nÜç ülke, üç fırça darbesi.\nŞimdi sen burada duruyorsun.`
 };
 
 export const oneclickOrientalSecondary = {
@@ -56,7 +56,7 @@ export const oneclickOrientalSecondary = {
   },
 
   'korean-jingyeong': {
-    content: `Kore geleneksel resmi, boşluğu kucaklayan ve fırça aracılığıyla ruhu yakalayan bir sanattır.\nAydınlar mürekkepte, halk renkle boyadı.\n\nJingyeong sansu, doğrudan gözlemle çizilen Kore'nin gerçek dağlarının resimleridir.\nJeong Seon bu üslubu dikey doku darbeleri ve cesur kompozisyonlarla mükemmelleştirdi.`
+    content: `Kore geleneksel resmi, boşluğu kucaklayan ve fırça aracılığıyla ruhu yakalayan bir sanattır.\nAydınlar mürekkepte, halk renkle boyadı.\n\nJingyeong sansu, doğrudan gözlemle çizilen Kore\'nin gerçek dağlarının resimleridir.\nJeong Seon bu üslubu dikey doku darbeleri ve cesur kompozisyonlarla mükemmelleştirdi.`
   },
 
   'chinese-ink': {

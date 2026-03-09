@@ -88,22 +88,22 @@ Wrestling, washing, and village school scenes were recorded with lively brushwor
     content: `Korean traditional painting is an art that embraces empty space and captures spirit through the brush.
 Scholars painted with ink, common people painted with color.
 
-Jingyeong sansu are paintings of Korea's actual mountains drawn from direct observation.
+Jingyeong sansu are paintings of Korea\'s actual mountains drawn from direct observation.
 Jeong Seon perfected this style with vertical texture strokes and bold compositions.`
   },
 
   // ========== China ==========
   'chinese-ink': {
     content: `Chinese traditional painting is an art that captures the spirit of the universe through ink gradations.
-The literati's spirit and court's technique coexisted for a thousand years.
+The literati\'s spirit and court\'s technique coexisted for a thousand years.
 
-Ink wash painting is the literati's art of depicting the world using only ink gradations.
+Ink wash painting is the literati\'s art of depicting the world using only ink gradations.
 The unpainted empty space speaks the most.`
   },
 
   'chinese-gongbi': {
     content: `Chinese traditional painting is an art that captures the spirit of the universe through ink gradations.
-The literati's spirit and court's technique coexisted for a thousand years.
+The literati\'s spirit and court\'s technique coexisted for a thousand years.
 
 Gongbi is court painting executed with meticulous precision, without a single stray stroke.
 Transparent colors are layered to create depth and luster.`

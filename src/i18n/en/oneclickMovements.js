@@ -16,7 +16,7 @@ What shape does sorrow take?
 
 Now your photo meets these questions.
 
-2,500 years ago in Greece, the human body became stone.
+2800 years ago in Greece, the human body became stone.
 The Middle Ages chose God, the Renaissance chose humanity.
 Light became Baroque, dreams became Rococo.
 
@@ -25,7 +25,7 @@ Then the camera asked: "What shall we paint now?"
 
 Light and structure, color and soul, and choices that break the rules.
 
-11 movements—now it's your turn.`
+11 movements—now it\'s your turn.`
 };
 
 // ==================== Basic Info (for Secondary/Result) ====================
@@ -265,7 +265,7 @@ export const oneclickMovementsSecondary = {
 Perfectly proportioned sculptures and intricate mosaics became the starting point of Western art.
 
 Greek sculpture achieved bodily balance through the golden ratio and contrapposto.
-It became the standard for Western art for the next 2,500 years.`
+It became the standard for Western art for the next 2800 years.`
   },
 
   'roman-mosaic': {
@@ -455,7 +455,7 @@ The founder of Impressionism who chased light until the end.`
 Painting outdoors, they captured impressions of light with short brushstrokes and pure color juxtaposition.
 
 Renoir is characterized by warm colors and soft light.
-He captured life's happy moments on canvas.`
+He captured life\'s happy moments on canvas.`
   },
 
   'degas': {
@@ -555,7 +555,7 @@ A painter who transformed portraits into psychological battlegrounds.`
 The traditions of perspective, form, and color were deconstructed and reconstructed.
 
 Picasso geometrically deconstructed subjects and made viewers see them simultaneously.
-Founding Cubism, he dismantled 500 years of perspective's order.`
+Founding Cubism, he dismantled 500 years of perspective\'s order.`
   },
 
   'magritte': {

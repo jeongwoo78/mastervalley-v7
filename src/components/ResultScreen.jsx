@@ -105,20 +105,19 @@ const ResultScreen = ({
   const [showModalSaveShare, setShowModalSaveShare] = useState(false);
   
   // v79: Original 이미지 URL (useMemo로 동기 생성 → 갤러리 왕복 시 깜빡임 완전 제거)
-  const originalPhotoUrl = useMemo(() => {
-    if (originalPhoto) {
-      return URL.createObjectURL(originalPhoto);
-    }
-    return null;
-  }, [originalPhoto]);
+  const [originalPhotoUrl, setOriginalPhotoUrl] = useState(null);
   
   useEffect(() => {
+    if (!originalPhoto) {
+      setOriginalPhotoUrl(null);
+      return;
+    }
+    const url = URL.createObjectURL(originalPhoto);
+    setOriginalPhotoUrl(url);
     return () => {
-      if (originalPhotoUrl) {
-        URL.revokeObjectURL(originalPhotoUrl);
-      }
+      URL.revokeObjectURL(url);
     };
-  }, [originalPhotoUrl]);
+  }, [originalPhoto]);
   
   // v72: viewIndex - Original/결과 스와이프용 (-1: Original, 0~n: 결과)
   // 단독 변환: 항상 0 (결과만 표시, 목업 준수)
@@ -254,31 +253,32 @@ const ResultScreen = ({
     const name = artistName.toUpperCase();
     // VAN GOGH — ko/ja/ar/th/tr/id/pt/fr/es/zh-TW
     if (name.includes('VAN GOGH') || name.includes('GOGH') || name.includes('고흐') ||
-        name.includes('ゴッホ') || name.includes('غوغ') || name.includes('غوخ') ||
+        name.includes('ゴッホ') || name.includes('梵谷') || name.includes('梵高') || name.includes('غوغ') || name.includes('غوخ') ||
         name.includes('โก๊ะ') || name.includes('VAN GOG') || name.includes('GOGH')) return 'VAN GOGH';
     // KLIMT
-    if (name.includes('KLIMT') || name.includes('클림트') || name.includes('クリムト') ||
+    if (name.includes('KLIMT') || name.includes('클림트') || name.includes('クリムト') || name.includes('克林姆') || name.includes('克里姆特') ||
         name.includes('كليمت') || name.includes('คลิมต์') || name.includes('KLİMT')) return 'KLIMT';
     // MUNCH
-    if (name.includes('MUNCH') || name.includes('뭉크') || name.includes('ムンク') ||
+    if (name.includes('MUNCH') || name.includes('뭉크') || name.includes('ムンク') || name.includes('孟克') || name.includes('蒙克') ||
         name.includes('مونك') || name.includes('มุงค์') || name.includes('MUNK') ||
         name.includes('MUNCK')) return 'MUNCH';
     // CHAGALL
-    if (name.includes('CHAGALL') || name.includes('샤갈') || name.includes('シャガール') ||
+    if (name.includes('CHAGALL') || name.includes('샤갈') || name.includes('シャガール') || name.includes('夏卡爾') || name.includes('夏加尔') ||
         name.includes('شاغال') || name.includes('ชากาล') || name.includes('ŞAGAL')) return 'CHAGALL';
     // MATISSE
-    if (name.includes('MATISSE') || name.includes('마티스') || name.includes('マティス') ||
+    if (name.includes('MATISSE') || name.includes('마티스') || name.includes('マティス') || name.includes('馬蒂斯') || name.includes('马蒂斯') ||
         name.includes('ماتيس') || name.includes('มาติส') || name.includes('MATİS')) return 'MATISSE';
     // FRIDA
     if (name.includes('FRIDA') || name.includes('KAHLO') || name.includes('프리다') || name.includes('칼로') ||
-        name.includes('フリーダ') || name.includes('カーロ') || name.includes('فريدا') || name.includes('كاهلو') ||
+        name.includes('フリーダ') || name.includes('芙烈達') || name.includes('弗里达') || name.includes('カーロ') || name.includes('فريدا') || name.includes('كاهلو') ||
         name.includes('ฟรีดา') || name.includes('คาห์โล') || name.includes('FRİDA')) return 'FRIDA';
     // LICHTENSTEIN
-    if (name.includes('LICHTENSTEIN') || name.includes('리히텐') || name.includes('リキテンスタイン') ||
+    if (name.includes('LICHTENSTEIN') || name.includes('리히텐') || name.includes('リキテンスタイン') || name.includes('李奇登斯坦') || name.includes('利希滕斯坦') ||
         name.includes('ليختنشتاين') || name.includes('ลิกเตนสไตน์') || name.includes('LİCHTENSTEİN')) return 'LICHTENSTEIN';
     // PICASSO (마지막 — 다른 이름과 충돌 없음)
     if (name.includes('PICASSO') || name.includes('피카소') || name.includes('ピカソ') ||
-        name.includes('بيكاسو') || name.includes('ปิกาสโซ') || name.includes('PİKASO')) return 'PICASSO';
+        name.includes('بيكاسو') || name.includes('ปิกาสโซ') || name.includes('PİKASO') ||
+        name.includes('畢卡索') || name.includes('毕加索')) return 'PICASSO';
     return null;
   };
   
@@ -433,12 +433,12 @@ const ResultScreen = ({
         isRetransform: false
       });
       if (saved) {
-        hasSavedRef.current = true;
         setSavedToGallery(true);
         // console.log('✅ 갤러리에 자동 저장 완료 (IndexedDB):', styleName);
       }
     };
     
+    hasSavedRef.current = true;  // 비동기 호출 전에 설정 (중복 저장 방지)
     saveToGalleryAsync();
   }, [resultImage, selectedStyle, aiSelectedArtist, fullTransformResults, isFullTransform]);
 
@@ -1368,24 +1368,11 @@ const ResultScreen = ({
 
         {/* Toggle Button - 단독 변환 거장(masters)만 표시 (목업 준수) */}
         {/* 원클릭은 oneclick-edu-section에서 자체 토글 사용 */}
-        {!isFullTransform && viewIndex >= 0 && displayCategory === 'masters' && (
-          <div className="info-toggle">
-            <button 
-              className="toggle-button"
-              onClick={() => setShowInfo(!showInfo)}
-            >
-              {showInfo 
-                ? `▼ ${t.hide}`
-                : `▶ ${t.show}`
-              }
-            </button>
-          </div>
-        )}
 
         {/* v72: 결과 화면 - 2차 교육자료 (단독 변환만) */}
         {/* 목업 준수: masters는 showInfo로 토글, 사조/동양화는 항상 표시 */}
         {/* 원클릭은 oneclick-result-section에서 교육 표시 */}
-        {!isFullTransform && viewIndex >= 0 && (displayCategory !== 'masters' || showInfo) && (
+        {!isFullTransform && viewIndex >= 0 && (
           <div className="technique-card">
             
             {/* Card Header - ProcessingScreen과 동일 구조 */}
@@ -1402,7 +1389,10 @@ const ResultScreen = ({
                   const category = isFullTransform ? currentResult?.style?.category : selectedStyle.category;
                   const styleId = isFullTransform ? currentResult?.style?.id : selectedStyle?.id;
                   const artistName = displayArtist || (isFullTransform ? currentResult?.style?.name : selectedStyle?.name);
-                  const [sub1, sub2] = getStyleSubtitles(category, styleId, 'result-transformed', displayArtist, displayWork, artistName, lang);
+                  const i18nMovRes = category === 'movements' ? movementsBasicInfo?.[styleId]?.result : null;
+                  const [sub1, sub2] = i18nMovRes?.subtitle2
+                    ? [i18nMovRes.subtitle1 || artistName, i18nMovRes.subtitle2]
+                    : getStyleSubtitles(category, styleId, 'result-transformed', displayArtist, displayWork, artistName, lang);
                   return (
                     <>
                       {sub1 && <div className="subtitle1">{sub1}</div>}
@@ -1410,9 +1400,24 @@ const ResultScreen = ({
                     </>
                   );
                 })()}
+                {/* 거장 단독변환: 숨김 토글 - subtitle2 다음 */}
+                {displayCategory === 'masters' && (
+                  <div className="info-toggle">
+                    <button
+                      className="toggle-button"
+                      onClick={() => setShowInfo(!showInfo)}
+                    >
+                      {showInfo
+                        ? `▼ ${t.hide}`
+                        : `▶ ${t.show}`
+                      }
+                    </button>
+                  </div>
+                )}
             </div>
 
             {/* Card Content */}
+            {(displayCategory !== 'masters' || showInfo) && (
             <div className="card-content">
               {(() => {
                 // console.log('');
@@ -1445,6 +1450,7 @@ const ResultScreen = ({
                 </div>
               )}
             </div>
+            )}
             
           </div>
         )}
@@ -1774,7 +1780,7 @@ const ResultScreen = ({
           font-size: 13px;
           color: rgba(255,255,255,0.65);
           line-height: 1.75;
-          text-align: left;
+          text-align: start;
           white-space: pre-line;
         }
 
@@ -1790,7 +1796,7 @@ const ResultScreen = ({
         }
 
         .info-toggle {
-          text-align: right;
+          text-align: end;
           margin-bottom: 8px;
           max-width: 340px;
           margin-left: auto;
@@ -1954,7 +1960,7 @@ const ResultScreen = ({
           line-height: 1.75;
           font-size: 13px;
           margin: 0 0 10px 0;
-          text-align: left;
+          text-align: start;
         }
         
         .technique-explanation p:last-child {
@@ -2074,7 +2080,7 @@ const ResultScreen = ({
         }
 
         .menu-icon {
-          margin-right: 8px;
+          margin-inline-end: 8px;
           font-size: 18px;
         }
 
@@ -2266,7 +2272,7 @@ const ResultScreen = ({
         .nav-count {
           font-size: 10px;
           color: rgba(255,255,255,0.4);
-          margin-left: 2px;
+          margin-inline-start: 2px;
         }
         
         /* 원클릭 이미지 */
@@ -2304,7 +2310,7 @@ const ResultScreen = ({
         }
         .preview-card .preview-info {
           padding: 16px;
-          text-align: left;
+          text-align: start;
           border-bottom: 1px solid rgba(255,255,255,0.1);
         }
         .preview-card .preview-header {

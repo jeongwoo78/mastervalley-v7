@@ -64,7 +64,7 @@ export const masterChat = {
     'LICHTENSTEIN': 'C\'est fait ! Qu\'en pensez-vous ? Dites-moi si vous souhaitez d\'autres modifications.'
   },
 
-  // ===== Messages d'au revoir (7) =====
+  // ===== Messages d\'au revoir (7) =====
   farewellMessages: {
     'VAN GOGH': 'Bien, je retourne à mon atelier.',
     'KLIMT': 'Bien, je regagne mon atelier.',

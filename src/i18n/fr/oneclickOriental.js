@@ -52,15 +52,15 @@ export const oneclickOrientalBasicInfo = {
 // ==================== 1re Éducation (écran de chargement) ====================
 
 export const oneclickOrientalPrimary = {
-  content: `Quand l'Occident remplissait, l'Orient vidait.
-L'art de dire sans peindre.
+  content: `Quand l\'Occident remplissait, l\'Orient vidait.
+L\'art de dire sans peindre.
 
-La Corée, entre l'encre et le vide.
-La Chine, entre le paysage et l'ornement.
-Le Japon, où l'éphémère et le splendide coexistent.
+La Corée, entre l\'encre et le vide.
+La Chine, entre le paysage et l\'ornement.
+Le Japon, où l\'éphémère et le splendide coexistent.
 
 Trois pays, trois pointes de pinceau.
-Maintenant, c'est vous qui vous arrêtez ici.`
+Maintenant, c\'est vous qui vous arrêtez ici.`
 };
 
 // ==================== 2e Éducation (écran de résultat) ====================
@@ -69,24 +69,24 @@ export const oneclickOrientalSecondary = {
 
   // ========== Corée ==========
   'korean-minhwa': {
-    content: `La peinture traditionnelle coréenne est un art qui honore le vide et abrite l'esprit dans le pinceau.
-Les lettrés peignaient à l'encre ; le peuple, en couleur.
+    content: `La peinture traditionnelle coréenne est un art qui honore le vide et abrite l\'esprit dans le pinceau.
+Les lettrés peignaient à l\'encre ; le peuple, en couleur.
 
 La minhwa est la peinture où le peuple de Joseon exprima ses vœux de vie.
-Tigres, pies, pivoines et d'autres motifs symboliques sont disposés librement.`
+Tigres, pies, pivoines et d\'autres motifs symboliques sont disposés librement.`
   },
 
   'korean-pungsokdo': {
-    content: `La peinture traditionnelle coréenne est un art qui honore le vide et abrite l'esprit dans le pinceau.
-Les lettrés peignaient à l'encre ; le peuple, en couleur.
+    content: `La peinture traditionnelle coréenne est un art qui honore le vide et abrite l\'esprit dans le pinceau.
+Les lettrés peignaient à l\'encre ; le peuple, en couleur.
 
 La pungsokdo est la peinture qui enregistre le quotidien des gens ordinaires de Joseon.
-Lutte, lessive et scènes d'école, captées par des traits agiles et légers.`
+Lutte, lessive et scènes d\'école, captées par des traits agiles et légers.`
   },
 
   'korean-jingyeong': {
-    content: `La peinture traditionnelle coréenne est un art qui honore le vide et abrite l'esprit dans le pinceau.
-Les lettrés peignaient à l'encre ; le peuple, en couleur.
+    content: `La peinture traditionnelle coréenne est un art qui honore le vide et abrite l\'esprit dans le pinceau.
+Les lettrés peignaient à l\'encre ; le peuple, en couleur.
 
 La jingyeong sansuhwa est la peinture qui dépeint directement les montagnes réelles de Joseon.
 Gyeomjae Jeong Seon la perfectionna avec des traits verticaux et des compositions audacieuses.`
@@ -94,19 +94,19 @@ Gyeomjae Jeong Seon la perfectionna avec des traits verticaux et des composition
 
   // ========== Chine ==========
   'chinese-ink': {
-    content: `La peinture traditionnelle chinoise est un art qui capte le qi de l'univers par les dégradés de l'encre.
-L'esprit du lettré et la technique de la cour coexistèrent pendant mille ans.
+    content: `La peinture traditionnelle chinoise est un art qui capte le qi de l\'univers par les dégradés de l\'encre.
+L\'esprit du lettré et la technique de la cour coexistèrent pendant mille ans.
 
-La peinture à l'encre est l'art du lettré qui peignait le monde avec les seuls dégradés de l'encre.
+La peinture à l\'encre est l\'art du lettré qui peignait le monde avec les seuls dégradés de l\'encre.
 Le vide non peint est ce qui dit le plus.`
   },
 
   'chinese-gongbi': {
-    content: `La peinture traditionnelle chinoise est un art qui capte le qi de l'univers par les dégradés de l'encre.
-L'esprit du lettré et la technique de la cour coexistèrent pendant mille ans.
+    content: `La peinture traditionnelle chinoise est un art qui capte le qi de l\'univers par les dégradés de l\'encre.
+L\'esprit du lettré et la technique de la cour coexistèrent pendant mille ans.
 
-La gongbi est la peinture de cour d'une précision impeccable, sans un seul trait de travers.
-Des couches de couleur transparente superposées créent la profondeur et l'éclat.`
+La gongbi est la peinture de cour d\'une précision impeccable, sans un seul trait de travers.
+Des couches de couleur transparente superposées créent la profondeur et l\'éclat.`
   },
 
   // ========== Japon ==========
@@ -114,7 +114,7 @@ Des couches de couleur transparente superposées créent la profondeur et l'écl
     content: `La peinture traditionnelle japonaise est un art où la sensibilité populaire et la splendeur de la cour coexistent.
 Les estampes des rues et la peinture décorative dorée firent fleurir chacune leur beauté.
 
-L'ukiyo-e est l'estampe sur bois que le peuple d'Edo appréciait.
+L\'ukiyo-e est l\'estampe sur bois que le peuple d\'Edo appréciait.
 Ses contours épais et ses aplats de couleur inspirèrent les impressionnistes.`
   },
 
@@ -122,7 +122,7 @@ Ses contours épais et ses aplats de couleur inspirèrent les impressionnistes.`
     content: `La peinture traditionnelle japonaise est un art où la sensibilité populaire et la splendeur de la cour coexistent.
 Les estampes des rues et la peinture décorative dorée firent fleurir chacune leur beauté.
 
-La rinpa est la peinture de cour qui décora la nature avec splendeur sur feuille d'or.
+La rinpa est la peinture de cour qui décora la nature avec splendeur sur feuille d\'or.
 Des couches de couleur superposées créent dans les fleurs et les vagues une diffusion naturelle.`
   }
 };

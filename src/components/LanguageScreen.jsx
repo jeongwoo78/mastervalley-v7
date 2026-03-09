@@ -119,7 +119,7 @@ const LanguageScreen = ({ onBack, onSelect, currentLang = 'en' }) => {
 
         .lang-flag {
           font-size: 28px;
-          margin-right: 14px;
+          margin-inline-end: 14px;
         }
 
         .lang-info {

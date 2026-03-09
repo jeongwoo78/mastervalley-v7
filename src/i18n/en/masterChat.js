@@ -32,13 +32,13 @@ export const masterChat = {
 
   // ===== Greetings (7) =====
   greetings: {
-    'VAN GOGH': "I am Van Gogh of Arles. I've been revived through AI. I've completed your portrait—what do you think?",
-    'KLIMT': "I am Klimt of Vienna. I've been revived through AI. I've completed your portrait—what do you think?",
-    'MUNCH': "I am Munch of Oslo. I've been revived through AI. I've completed your portrait—what do you think?",
-    'CHAGALL': "I am Chagall of Vitebsk. I've been revived through AI. I've completed your portrait—what do you think?",
-    'MATISSE': "I am Matisse of Nice. I've been revived through AI. I've completed your portrait—what do you think?",
-    'FRIDA': "I'm Frida from Mexico. I've been revived through AI. I've finished your portrait—what do you think?",
-    'LICHTENSTEIN': "I'm Lichtenstein from New York. I've been revived through AI. I've finished your portrait—what do you think?"
+    'VAN GOGH': "I am Van Gogh of Arles. I\'ve been revived through AI. I\'ve completed your portrait—what do you think?",
+    'KLIMT': "I am Klimt of Vienna. I\'ve been revived through AI. I\'ve completed your portrait—what do you think?",
+    'MUNCH': "I am Munch of Oslo. I\'ve been revived through AI. I\'ve completed your portrait—what do you think?",
+    'CHAGALL': "I am Chagall of Vitebsk. I\'ve been revived through AI. I\'ve completed your portrait—what do you think?",
+    'MATISSE': "I am Matisse of Nice. I\'ve been revived through AI. I\'ve completed your portrait—what do you think?",
+    'FRIDA': "I\'m Frida from Mexico. I\'ve been revived through AI. I\'ve finished your portrait—what do you think?",
+    'LICHTENSTEIN': "I\'m Lichtenstein from New York. I\'ve been revived through AI. I\'ve finished your portrait—what do you think?"
   },
 
   // ===== Suggested Questions (7 × 3 = 21) =====
@@ -54,11 +54,11 @@ export const masterChat = {
 
   // ===== Result Messages (7) =====
   resultMessages: {
-    'VAN GOGH': "Done! What do you think? Let me know if you'd like more changes.",
-    'KLIMT': "Done. What do you think? Let me know if you'd like more changes.",
-    'MUNCH': "Done. What do you think? Let me know if you'd like more changes.",
-    'CHAGALL': "Done! What do you think? Let me know if you'd like more changes.",
-    'MATISSE': "Done! What do you think? Let me know if you'd like more changes.",
+    'VAN GOGH': "Done! What do you think? Let me know if you\'d like more changes.",
+    'KLIMT': "Done. What do you think? Let me know if you\'d like more changes.",
+    'MUNCH': "Done. What do you think? Let me know if you\'d like more changes.",
+    'CHAGALL': "Done! What do you think? Let me know if you\'d like more changes.",
+    'MATISSE': "Done! What do you think? Let me know if you\'d like more changes.",
     'FRIDA': "Done. What do you think? Let me know if you want more changes.",
     'LICHTENSTEIN': "Done! What do you think? Let me know if you want more changes."
   },
@@ -70,8 +70,8 @@ export const masterChat = {
     'MUNCH': "Well, I must return to my studio now.",
     'CHAGALL': "Well, I must return to my studio now.",
     'MATISSE': "Well, I must return to my studio now.",
-    'FRIDA': "Well, I'm heading back to my studio now.",
-    'LICHTENSTEIN': "Well, I'm heading back to my studio now."
+    'FRIDA': "Well, I\'m heading back to my studio now.",
+    'LICHTENSTEIN': "Well, I\'m heading back to my studio now."
   }
 };
 

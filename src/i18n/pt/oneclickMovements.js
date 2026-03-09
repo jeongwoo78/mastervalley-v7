@@ -4,7 +4,7 @@
 // ========================================
 
 export const oneclickMovementsPrimary = {
-  content: `Como parece o corpo ideal?\nComo devemos pintar o divino?\nQual é a cor da luz?\nQual é a forma da tristeza?\n\nAgora a tua fotografia encontra estas perguntas.\n\nHá 2.500 anos na Grécia, o corpo humano tornou-se pedra.\nA Idade Média escolheu Deus; o Renascimento, a humanidade.\nA luz tornou-se Barroco; os sonhos, Rococó.\n\nApós a Revolução, razão, emoção e realidade divergiram.\nDepois a câmara perguntou: "O que pintamos agora?"\n\nLuz e estrutura, cor e alma, escolhas que quebram as regras.\n\n11 movimentos — agora é a tua vez.`
+  content: `Como parece o corpo ideal?\nComo devemos pintar o divino?\nQual é a cor da luz?\nQual é a forma da tristeza?\n\nAgora a tua fotografia encontra estas perguntas.\n\nHá 2800 anos na Grécia, o corpo humano tornou-se pedra.\nA Idade Média escolheu Deus; o Renascimento, a humanidade.\nA luz tornou-se Barroco; os sonhos, Rococó.\n\nApós a Revolução, razão, emoção e realidade divergiram.\nDepois a câmara perguntou: "O que pintamos agora?"\n\nLuz e estrutura, cor e alma, escolhas que quebram as regras.\n\n11 movimentos — agora é a tua vez.`
 };
 
 export const oneclickMovementsBasicInfo = {
@@ -213,7 +213,7 @@ export const oneclickMovementsBasicInfo = {
 
 export const oneclickMovementsSecondary = {
 
-  'classical-sculpture': { content: `Uma era que explorou a beleza ideal do corpo humano.\nEstátuas perfeitamente proporcionadas e mosaicos intrincados tornaram-se o ponto de partida da arte ocidental.\n\nA escultura grega alcançou o equilíbrio corporal através da proporção áurea e do contrapposto.\nTornou-se o padrão da arte ocidental pelos seguintes 2.500 anos.` },
+  'classical-sculpture': { content: `Uma era que explorou a beleza ideal do corpo humano.\nEstátuas perfeitamente proporcionadas e mosaicos intrincados tornaram-se o ponto de partida da arte ocidental.\n\nA escultura grega alcançou o equilíbrio corporal através da proporção áurea e do contrapposto.\nTornou-se o padrão da arte ocidental pelos seguintes 2800 anos.` },
   'roman-mosaic': { content: `Uma era que explorou a beleza ideal do corpo humano.\nEstátuas perfeitamente proporcionadas e mosaicos intrincados tornaram-se o ponto de partida da arte ocidental.\n\nOs mosaicos romanos registaram mitos e vida quotidiana com milhares de pedras.\nAs cores e cenas permanecem vívidas mesmo após 2.000 anos.` },
 
   'byzantine': { content: `Uma era em que o centro da arte se deslocou da humanidade para Deus.\nMosaicos dourados, arquitetura de luz e miniaturas intrincadas revelaram o mundo divino.\n\nA arte bizantina caracteriza-se por fundos dourados e olhos serenos a encarar de frente.\nIluminou a fé do Império Romano do Oriente durante mil anos.` },

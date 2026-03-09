@@ -106,6 +106,8 @@ export const mastersBasicInfo = {
       subtitle1: 'In the Car · M-Maybe · Forget It!',
       subtitle2: 'الرجل الذي حوّل الكوميكس إلى فن',
       works: {
+        'drowninggirl': { subtitle1: 'الفتاة الغارقة (Drowning Girl)', subtitle2: 'دراما الكوميكس على القماش' },
+        'whaam': { subtitle1: 'وهام! (Whaam!)', subtitle2: 'انفجار الكوميكس يصبح فناً' },
         'inthecar': { subtitle1: 'في السيارة (In the Car)', subtitle2: 'توتّر صامت، مشاعر منطلقة بسرعة' },
         'mmaybe': { subtitle1: 'ربما (M-Maybe)', subtitle2: 'كلمة تردّد تحوّلت إلى دراما بوب آرت' },
         'forgetit': { subtitle1: 'انسَ الأمر! (Forget It!)', subtitle2: 'صرخة وداع أُسرت في مربّع كوميكس واحد' },

@@ -557,7 +557,7 @@ const StyleSelection = ({ onSelect }) => {
         .full-transform-desc {
           font-size: 0.9rem;
           color: rgba(30, 41, 59, 0.8);
-          text-align: left;
+          text-align: start;
         }
 
         .styles-grid {

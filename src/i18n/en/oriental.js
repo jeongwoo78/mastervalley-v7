@@ -91,7 +91,7 @@ export const orientalLoadingEducation = {
   korean: {
     description: `Korean painters learned Chinese brushwork, but what they painted was their own land and people.
 Minhwa wished for fortune through magpies and tigers, while Pungsokdo captured the daily lives of common folk.
-Jingyeong Sansuhwa depicted not idealized landscapes, but the real mountains and rivers before the painter's eyes.
+Jingyeong Sansuhwa depicted not idealized landscapes, but the real mountains and rivers before the painter\'s eyes.
 
 Empty space speaks, and spirit flows through the brush tip — that is the art of Korean traditional painting.
 Wishes, daily life, and landscapes captured by the brush — meet Korean painting, bloomed from its own soil.`
@@ -124,7 +124,7 @@ export const orientalResultEducation = {
 
   // ── Korean: Minhwa ──
   'korean-minhwa': {
-    description: `Minhwa's vibrant palette and free-spirited composition have been applied to your image.
+    description: `Minhwa\'s vibrant palette and free-spirited composition have been applied to your image.
 Painted in the five cardinal colors (blue, red, yellow, white, black) and arranged freely without perspective.
 
 Peonies symbolize wealth, carp represent success, and tigers ward off evil.
@@ -133,7 +133,7 @@ This is Joseon folk art — hung on folding screens in every home, each painting
 
   // ── Korean: Pungsokdo ──
   'korean-pungsokdo': {
-    description: `Pungsokdo's swift brushwork and restrained coloring have been applied to your image.
+    description: `Pungsokdo\'s swift brushwork and restrained coloring have been applied to your image.
 Fine-brush light-wash technique captures gestures and expressions, while empty space opens up the scene.
 
 Wrestling men, women doing laundry, children dozing in village schools — everyday Joseon life comes alive.
@@ -142,16 +142,16 @@ This is Korean realism, brought to bloom by Kim Hong-do and Shin Yun-bok through
 
   // ── Korean: Jingyeong Sansuhwa ──
   'korean-jingyeong': {
-    description: `Jingyeong Sansuhwa's vigorous texture strokes and bold composition have been applied to your image.
+    description: `Jingyeong Sansuhwa\'s vigorous texture strokes and bold composition have been applied to your image.
 Breaking free from idealized landscapes, painters sketched the real mountains and rivers before their eyes.
 
 The jagged peaks of Geumgangsan and rain falling over Inwangsan come alive through powerful brushstrokes.
-This is the aesthetics of real landscape, perfected by Gyeomjae Jeong Seon — Korea's own vision of nature.`
+This is the aesthetics of real landscape, perfected by Gyeomjae Jeong Seon — Korea\'s own vision of nature.`
   },
 
   // ── Chinese: Gongbi ──
   'chinese-gongbi': {
-    description: `Gongbi's meticulous brushwork and luminous layered coloring have been applied to your image.
+    description: `Gongbi\'s meticulous brushwork and luminous layered coloring have been applied to your image.
 Fine brushes draw the outline first, then transparent colors are layered to build depth.
 
 Flowers, birds, and figures are rendered strand by strand, captivating the imperial eye.
@@ -160,7 +160,7 @@ This is the pinnacle of East Asian fine painting — the height of color mastery
 
   // ── Chinese: Ink Wash ──
   'chinese-ink': {
-    description: `Ink Wash painting's fluid washes and contemplative empty space have been applied to your image.
+    description: `Ink Wash painting\'s fluid washes and contemplative empty space have been applied to your image.
 Mountains, water, mist, and clouds are expressed through nothing but gradations of ink, and empty space becomes infinite.
 
 The splashed-ink technique scatters ink like rain, capturing the vitality of nature.
@@ -169,19 +169,19 @@ This is the purest form of East Asian painting — scholars transferred spirit, 
 
   // ── Japanese: Ukiyo-e ──
   'japanese-ukiyoe': {
-    description: `Ukiyo-e's striking outlines and vivid flat colors have been applied to your image.
+    description: `Ukiyo-e\'s striking outlines and vivid flat colors have been applied to your image.
 Bold outlines define the form, and flat planes of color fill within — pure graphic impact.
 
-Like Hokusai's *The Great Wave off Kanagawa*, a split second of nature's fury is carved into a single impression.
+Like Hokusai\'s *The Great Wave off Kanagawa*, a split second of nature\'s fury is carved into a single impression.
 This is the vision that traveled from East to West, inspiring the Impressionists to see art anew.`
   },
 
   // ── Japanese: Rinpa ──
   'japanese-rinpa': {
-    description: `Rinpa's gold leaf decoration and bold composition have been applied to your image.
+    description: `Rinpa\'s gold leaf decoration and bold composition have been applied to your image.
 Pigment is laid over gold leaf, with colors pooled layer upon layer to create natural texture.
 
-Like Ogata Korin's *Irises Screen*, vibrant nature blooms upon a field of gold.
+Like Ogata Korin\'s *Irises Screen*, vibrant nature blooms upon a field of gold.
 Born from aristocratic taste and inspiring Art Nouveau — the essence of Japanese decorative painting.`
   },
 
@@ -198,7 +198,7 @@ This is the crystallization of 500 years of Joseon aesthetics, from Minhwa to Ji
     description: `Chinese traditional ink and color harmony have been applied to your image.
 A single brushstroke raises mountains, and a single empty space conjures mist.
 
-The literati's spirit and the court's mastery coexist in Chinese painting.
+The literati\'s spirit and the court\'s mastery coexist in Chinese painting.
 This is the wellspring of East Asian art, flowing through Gongbi and Ink Wash for over a millennium.`
   },
   'japanese_default': {

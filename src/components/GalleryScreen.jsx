@@ -217,7 +217,7 @@ const GalleryScreen = ({ onBack, onHome, lang = 'en' }) => {
 
   // i18n 갤러리 표시 함수 (displayConfig 활용)
   // 갤러리 카드용: 괄호 내용 제거 (간결한 표시)
-  const stripParens = (text) => text ? text.replace(/\s*\(.*?\)/g, '').trim() : '';
+  const stripParens = (text) => text ? text.replace(/\s*[\(（].*?[\)）]/g, '').trim() : '';
 
   const getGalleryDisplay = (item) => {
     // 신규 포맷: category + artistName 있으면 i18n 표시
@@ -234,9 +234,10 @@ const GalleryScreen = ({ onBack, onHome, lang = 'en' }) => {
       }
       if (item.category === 'masters') {
         const info = getMasterInfo(item.artistName, lang);
+        const movementOnly = stripParens(info.movement).split(' · ')[0].split(' / ')[0].trim();
         return { 
           title: stripParens(info.fullName), 
-          subtitle: stripParens(info.movement),
+          subtitle: movementOnly,
           badge: item.isRetransform ? 'Re.' : null
         };
       }
@@ -249,7 +250,20 @@ const GalleryScreen = ({ onBack, onHome, lang = 'en' }) => {
         };
       }
     }
-    // 레거시 포맷: styleName 그대로 표시
+    // 레거시 포맷: styleName으로 i18n lookup 시도
+    if (item.styleName) {
+      const info = getMovementDisplayInfo(item.styleName, '', lang);
+      // lookup 성공 시 (영문 그대로 반환 안된 경우)
+      if (info.title && info.title !== item.styleName) {
+        return { title: stripParens(info.title), subtitle: stripParens(info.subtitle), badge: null };
+      }
+      // masters lookup 시도
+      const masterInfo = getMasterInfo(item.styleName, lang);
+      if (masterInfo.fullName && masterInfo.fullName !== item.styleName) {
+        const movOnly = stripParens(masterInfo.movement).split(' · ')[0].split(' / ')[0].trim();
+        return { title: stripParens(masterInfo.fullName), subtitle: movOnly, badge: null };
+      }
+    }
     return { 
       title: item.styleName || 'Converted Image', 
       subtitle: item.categoryName || '',

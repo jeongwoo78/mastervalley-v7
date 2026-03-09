@@ -5,7 +5,7 @@
 // StyleSelection, ProcessingScreen, ResultScreen 등에서 import해서 사용
 // =====================================================
 
-import { getMastersBasicInfo, getMovementsBasicInfo } from '../i18n';
+import { getMastersBasicInfo, getMovementsBasicInfo, getMovementsResultEducation, getOrientalBasicInfo } from '../i18n';
 // ========== 카테고리 아이콘 (원클릭용) ==========
 export const CATEGORY_ICONS = {
   movements: '🎨',
@@ -186,11 +186,11 @@ export const MASTERS = {
     description: '1853-1890 | 후기인상주의',
     featuredWorks: '별이 빛나는 밤 · 해바라기 · 자화상',
     featuredWorksEn: 'The Starry Night · Sunflowers · Self-Portrait',
-    aliases: ['van gogh', 'gogh', 'vincent', '고흐', '반 고흐'],
+    aliases: ['van gogh', 'gogh', 'vincent', '고흐', '반 고흐', 'ゴッホ', 'ファン・ゴッホ', 'غوخ', 'فان غوخ', 'โก๊ะ', 'แวน โก๊ะ', 'فينسنت', '梵谷', '文森·梵谷', '梵高'],
     works: {
       'starrynight': ['The Starry Night, 1889', '별이 빛나는 밤, 1889', 'Starry Night'],
-      'cafe': ['Café Terrace at Night, 1888', '밤의 카페 테라스, 1888', 'Cafe Terrace'],
-      'sunflowers': ['Sunflowers, 1888', '해바라기, 1888'],
+      'cafe': ['Café Terrace at Night, 1888', '밤의 카페 테라스, 1888', 'Cafe Terrace', 'Café Terrace at Night', 'Cafe Terrace at Night'],
+      'sunflowers': ['Sunflowers, 1888', '해바라기, 1888', 'Sunflowers'],
       'selfportrait': ['Self-Portrait with Grey Felt Hat, 1887', '회색 펠트 모자 자화상, 1887', 'Grey Felt Hat'],
       'wheatfield': ['Wheat Field with Cypresses, 1889', '사이프러스 밀밭, 1889', 'Cypresses']
     }
@@ -209,7 +209,7 @@ export const MASTERS = {
     description: '1862-1918 | 아르누보',
     featuredWorks: '키스 · 유디트 · 생명의 나무',
     featuredWorksEn: 'The Kiss · Judith · The Tree of Life',
-    aliases: ['gustav', 'gustav klimt', '클림트'],
+    aliases: ['gustav', 'gustav klimt', '클림트', 'クリムト', 'グスタフ・クリムト', 'كليمت', 'غوستاف كليمت', 'คลิมต์', '克林姆', '古斯塔夫·克林姆'],
     works: {
       'kiss': ['The Kiss, 1907', '키스, 1907', 'Kiss'],
       'treeoflife': ['The Tree of Life, 1909', '생명의 나무, 1909', 'Tree of Life'],
@@ -230,10 +230,10 @@ export const MASTERS = {
     description: '1863-1944 | 표현주의',
     featuredWorks: '절규 · 마돈나 · 생의 춤',
     featuredWorksEn: 'The Scream · Madonna · The Dance of Life',
-    aliases: ['edvard', 'edvard munch', '뭉크'],
+    aliases: ['edvard', 'edvard munch', '뭉크', 'ムンク', 'エドヴァルド・ムンク', 'مونك', 'إدفارد مونك', 'มุงค์', '孟克', '愛德華·孟克'],
     works: {
       'scream': ['The Scream, 1893', '절규, 1893', 'Scream'],
-      'madonna': ['Madonna, 1894', '마돈나, 1894', 'Munch Madonna'],
+      'madonna': ['Madonna, 1894', '마돈나, 1894', 'Munch Madonna', 'Madonna'],
       'danceoflife': ['The Dance of Life, 1899', '생의 춤, 1899', 'Dance of Life']
     }
   },
@@ -251,12 +251,12 @@ export const MASTERS = {
     description: '1869-1954 | 야수파',
     featuredWorks: '춤 · 붉은 방 · 초록 줄무늬',
     featuredWorksEn: 'The Dance · The Red Room · The Green Stripe',
-    aliases: ['henri', 'henri matisse', '마티스'],
+    aliases: ['henri', 'henri matisse', '마티스', 'マティス', 'アンリ・マティス', 'ماتيس', 'هنري ماتيس', 'มาติส', '馬蒂斯', '亨利·馬蒂斯'],
     works: {
       'greenstripe': ['The Green Stripe, 1905', '초록 줄무늬, 1905', 'Green Stripe', 'Portrait of Madame Matisse'],
       'purplecoat': ['Woman in a Purple Coat, 1937', '보라색 코트, 1937', 'Purple Coat'],
       'redroom': ['The Red Room, 1908', '붉은 방, 1908', 'Red Room', 'Harmony in Red'],
-      'derain': ['Portrait of André Derain, 1905', '드랭의 초상, 1905', 'Portrait of Derain']
+      'derain': ['Portrait of André Derain, 1905', '드랭의 초상, 1905', 'Portrait of Derain', 'Portrait of André Derain', 'Portrait of Andre Derain'],
     }
   },
   'chagall-master': {
@@ -273,10 +273,10 @@ export const MASTERS = {
     description: '1887-1985 | 초현실주의',
     featuredWorks: '생일 · 나와 마을 · 신부',
     featuredWorksEn: 'The Birthday · I and the Village · La Mariée',
-    aliases: ['marc', 'marc chagall', '샤갈', '마르크 샤갈'],
+    aliases: ['marc', 'marc chagall', '샤갈', '마르크 샤갈', 'シャガール', 'マルク・シャガール', 'شاغال', 'مارك شاغال', 'ชากาล', '夏卡爾', '馬克·夏卡爾'],
     works: {
-      'lovers': ['The Birthday, 1915', '생일, 1915', 'Lovers with Flowers', '꽃다발과 연인들'],
-      'lamariee': ['La Mariée, 1950', 'La Mariee', '신부, 1950', 'The Bride'],
+      'lovers': ['The Birthday, 1915', '생일, 1915', 'Lovers with Flowers', '꽃다발과 연인들', 'The Birthday'],
+      'lamariee': ['La Mariée, 1950', 'La Mariee', '신부, 1950', 'The Bride', 'La Mariée'],
       'village': ['I and the Village, 1911', '나와 마을, 1911', 'Village']
     }
   },
@@ -294,9 +294,9 @@ export const MASTERS = {
     description: '1907-1954 | 초현실주의',
     featuredWorks: '나와 앵무새들 · 부러진 기둥 · 원숭이와 자화상',
     featuredWorksEn: 'Me and My Parrots · The Broken Column · Self-Portrait with Monkeys',
-    aliases: ['kahlo', 'frida kahlo', '프리다', '프리다 칼로'],
+    aliases: ['kahlo', 'frida kahlo', '프리다', '프리다 칼로', 'フリーダ', 'フリーダ・カーロ', 'فريدا', 'فريدا كاهلو', 'ฟรีดา', '芙烈達', '芙烈達·卡蘿'],
     works: {
-      'parrots': ['Me and My Parrots, 1941', '나와 앵무새들, 1941', 'Self-Portrait with Parrots'],
+      'parrots': ['Me and My Parrots, 1941', '나와 앵무새들, 1941', 'Self-Portrait with Parrots', 'Me and My Parrots'],
       'monkeys': ['Self-Portrait with Monkeys, 1943', '원숭이와 자화상, 1943', 'Monkeys']
     }
   },
@@ -314,7 +314,7 @@ export const MASTERS = {
     description: '1881-1973 | 입체주의',
     featuredWorks: '아비뇽의 처녀들 · 게르니카 · 도라 마르의 초상',
     featuredWorksEn: "Les Demoiselles d'Avignon · Guernica · Portrait of Dora Maar",
-    aliases: ['pablo', 'pablo picasso', '피카소'],
+    aliases: ['pablo', 'pablo picasso', '피카소', 'ピカソ', 'パブロ・ピカソ', 'بيكاسو', 'بابلو بيكاسو', 'ปิกาสโซ', '畢卡索', '巴勃羅·畢卡索'],
     works: {
       'doramaar': ['Portrait of Dora Maar, 1937', '도라 마르의 초상, 1937', 'Dora Maar']
     }
@@ -333,12 +333,12 @@ export const MASTERS = {
     description: '1923-1997 | 팝아트',
     featuredWorks: '차 안에서 · 아마도 · 날 잊어',
     featuredWorksEn: 'In the Car · M-Maybe · Forget It!',
-    aliases: ['roy', 'roy lichtenstein', '리히텐슈타인', '로이 리히텐슈타인'],
+    aliases: ['roy', 'roy lichtenstein', '리히텐슈타인', '로이 리히텐슈타인', 'リキテンスタイン', 'ロイ・リキテンスタイン', 'ليختنشتاين', 'ลิกเตนสไตน์', '李奇登斯坦', '羅伊·李奇登斯坦'],
     works: {
-      'inthecar': ['In the Car, 1963', '차 안에서, 1963', 'In Car'],
+      'inthecar': ['In the Car, 1963', '차 안에서, 1963', 'In Car', 'In the Car'],
       'mmaybe': ['M-Maybe, 1965', '아마도, 1965', 'Maybe'],
       'forgetit': ['Forget It!, 1962', 'Forget It', '날 잊어, 1962'],
-      'ohhhalright': ['Ohhh...Alright..., 1964', 'Ohhh Alright', '오 알았어, 1964'],
+      'ohhhalright': ['Ohhh...Alright..., 1964', 'Ohhh Alright', '오 알았어, 1964', 'Ohhh...Alright...'],
       'stilllife': ['Still Life with Crystal Bowl, 1973', 'Still Life', '정물화, 1973']
     }
   }
@@ -1280,6 +1280,17 @@ export const getStyleSubtitles = (category, styleId, mode, displayArtist, displa
       const artistDisplay = artist 
         ? (!isKo ? (artist.en || artist.ko) : `${artist.ko}(${artist.en})`)
         : displayArtist || '';
+
+      // i18n result 데이터 우선 사용
+      const i18nMovements = getMovementsResultEducation(lang) || {};
+      const i18nMov = i18nMovements[styleId];
+      if (i18nMov?.result?.subtitle2) {
+        return [
+          i18nMov.result.subtitle1 || artistDisplay,
+          i18nMov.result.subtitle2
+        ];
+      }
+
       // 복합사조: 세부 SUB description 우선 → 화가 description → 부모 사조 description
       const subDesc = getSubDescription(artist);
       const artistStyle = subDesc 
@@ -1364,13 +1375,29 @@ export const getStyleSubtitles = (category, styleId, mode, displayArtist, displa
   
   // ===== 동양화 =====
   if (category === 'oriental') {
+    // i18n 언어별 데이터 우선 조회
+    const i18nOriental = getOrientalBasicInfo(lang) || {};
+
     // displayArtist에서 국가/스타일 정보 추출
     const result = findOrientalStyle(displayArtist || styleId);
-    
-    // 변환중 또는 결과-원본: 스타일들 + 국가 화풍
+
+    // key에서 국가키 추출 (예: "chinese-gongbi" → "chinese")
+    const countryKey = result?.key ? result.key.split('-')[0] : styleId;
+    // 장르 풀 키 (예: "chinese-gongbi")
+    const genreKey = result?.key || styleId;
+
+    // 변환중 또는 결과-원본: 국가 레벨 loading 데이터
     if (mode === 'loading-single' || mode === 'result-original') {
+      const i18nCountry = i18nOriental[countryKey];
+      if (i18nCountry?.loading?.subtitle1) {
+        return [
+          i18nCountry.loading.subtitle1,
+          i18nCountry.loading.subtitle2 || ''
+        ];
+      }
+      // fallback: ko/en
       if (result?.country) {
-        const styleList = result.country.styles 
+        const styleList = result.country.styles
           ? Object.values(result.country.styles).map(s => !isKo ? (s.en || s.ko) : s.ko).join(' · ')
           : '';
         return [
@@ -1378,18 +1405,26 @@ export const getStyleSubtitles = (category, styleId, mode, displayArtist, displa
           !isKo ? (result.country.descriptionEn || result.country.description || '') : (result.country.description || '')
         ];
       }
-    } 
-    // 결과-결과 또는 완료 미리보기: 매칭 스타일 + 스타일 특징
+    }
+    // 결과-결과 또는 완료 미리보기: 장르 레벨 result 데이터
     else {
+      const i18nGenre = i18nOriental[genreKey];
+      if (i18nGenre?.result?.subtitle1) {
+        return [
+          i18nGenre.result.subtitle1,
+          i18nGenre.result.subtitle2 || ''
+        ];
+      }
+      // fallback: ko/en
       if (result?.style) {
         return [
           !isKo ? (result.style.en || result.style.ko || '') : (result.style.ko || ''),
-          !isKo ? (result.style.descriptionEn || result.style.description || result.country?.descriptionEn || result.country?.description || '') 
+          !isKo ? (result.style.descriptionEn || result.style.description || result.country?.descriptionEn || result.country?.description || '')
                : (result.style.description || result.country?.description || '')
         ];
       }
     }
-    
+
     return ['', ''];
   }
   

@@ -216,7 +216,7 @@ const AddFundsScreen = ({ onBack, userCredits = 2.50, onPurchase, lang = 'en' })
           cursor: pointer;
           min-width: 72px;
           text-align: center;
-          margin-left: 16px;
+          margin-inline-start: 16px;
           transition: all 0.2s;
         }
 

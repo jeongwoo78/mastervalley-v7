@@ -576,7 +576,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           font-size: 13px;
           color: rgba(255,255,255,0.65);
           line-height: 1.8;
-          text-align: left;
+          text-align: start;
           white-space: pre-line;
         }
         
@@ -695,7 +695,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         .single-loading-edu {
           width: 100%;
           max-width: 340px;
-          text-align: left;
+          text-align: start;
         }
         .single-loading-edu p {
           color: rgba(255,255,255,0.7);
@@ -723,7 +723,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         .preview img { width: 100%; display: block; }
         .preview-info { 
           padding: 16px; 
-          text-align: left;
+          text-align: start;
           border-bottom: 1px solid rgba(255,255,255,0.1);
         }
         .preview-header {
@@ -807,7 +807,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         .count {
           font-size: 10px;
           color: rgba(255,255,255,0.4);
-          margin-left: 2px;
+          margin-inline-start: 2px;
         }
       `}</style>
     </div>

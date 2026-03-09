@@ -13,56 +13,129 @@ export const mastersBasicInfo = {
   'vangogh': {
     loading: {
       name: 'Vincent van Gogh (1853–1890)',
-      subtitle1: 'La noche estrellada · Los girasoles · Autorretrato',
+      subtitle1: 'Postimpresionismo · Países Bajos',
       subtitle2: 'La pasión del pincel en espiral'
-    }
+    },
+    result: {
+      name: 'Vincent van Gogh (1853–1890)',
+      subtitle1: 'La noche estrellada · Los girasoles · Autorretrato',
+      subtitle2: 'La pasión del pincel en espiral',
+      works: {
+        'starrynight': { subtitle1: 'La noche estrellada (The Starry Night)', subtitle2: 'El cielo nocturno pintado en espirales' },
+        'cafe': { subtitle1: 'Terraza del café por la noche (Café Terrace at Night)', subtitle2: 'Un cálido resplandor amarillo bajo la luz de las estrellas' },
+        'sunflowers': { subtitle1: 'Girasoles (Sunflowers)', subtitle2: 'Flores bañadas de sol, ardiendo de pasión' },
+        'selfportrait': { subtitle1: 'Autorretrato con sombrero de fieltro gris (Self-Portrait with Grey Felt Hat)', subtitle2: 'Una mirada al espejo del alma' },
+        'wheatfield': { subtitle1: 'Campo de trigo con cipreses (Wheat Field with Cypresses)', subtitle2: 'Campos dorados danzando en el viento' },
+      }
+    },
   },
   'klimt': {
     loading: {
       name: 'Gustav Klimt (1862–1918)',
-      subtitle1: 'El beso · Judit · El árbol de la vida',
+      subtitle1: 'Art Nouveau · Austria',
       subtitle2: 'El mundo dorado de la sensualidad'
-    }
+    },
+    result: {
+      name: 'Gustav Klimt (1862–1918)',
+      subtitle1: 'El beso · Judith · El árbol de la vida',
+      subtitle2: 'Un mundo de sensualidad dorada',
+      works: {
+        'kiss': { subtitle1: 'El beso (The Kiss)', subtitle2: 'Un beso eterno disuelto en oro' },
+        'treeoflife': { subtitle1: 'El árbol de la vida (The Tree of Life)', subtitle2: 'Ramas doradas cantando la canción de la vida' },
+        'judith': { subtitle1: 'Judith I (Judith I)', subtitle2: 'Entre lo sagrado y lo sensual, seducción dorada' },
+      }
+    },
   },
   'munch': {
     loading: {
       name: 'Edvard Munch (1863–1944)',
-      subtitle1: 'El grito · Madonna · Pubertad',
+      subtitle1: 'Expresionismo · Noruega',
       subtitle2: 'Pintar el grito interior'
-    }
+    },
+    result: {
+      name: 'Edvard Munch (1863–1944)',
+      subtitle1: 'El grito · Madonna · La danza de la vida',
+      subtitle2: 'Pintando el grito interior',
+      works: {
+        'scream': { subtitle1: 'El grito (The Scream)', subtitle2: 'Un alma llorando bajo un cielo rojo sangre' },
+        'madonna': { subtitle1: 'Madonna (Madonna)', subtitle2: 'Una figura misteriosa entre la vida y la muerte' },
+        'danceoflife': { subtitle1: 'La danza de la vida (The Dance of Life)', subtitle2: 'Un vals de amor y pérdida' },
+      }
+    },
   },
   'matisse': {
     loading: {
       name: 'Henri Matisse (1869–1954)',
-      subtitle1: 'La danza · La habitación roja · La mujer del sombrero',
+      subtitle1: 'Fauvismo · Francia',
       subtitle2: 'El mago del color'
-    }
+    },
+    result: {
+      name: 'Henri Matisse (1869–1954)',
+      subtitle1: 'La danza · La habitación roja · La raya verde',
+      subtitle2: 'Maestro del color',
+      works: {
+        'greenstripe': { subtitle1: 'La raya verde (The Green Stripe)', subtitle2: 'Una sola línea verde que declaró una revolución cromática' },
+        'purplecoat': { subtitle1: 'Mujer con abrigo violeta (Woman in a Purple Coat)', subtitle2: 'Elegancia envuelta en color vibrante' },
+        'redroom': { subtitle1: 'La habitación roja (The Red Room)', subtitle2: 'Un festín de decoración dominado por el rojo' },
+        'derain': { subtitle1: 'Retrato de André Derain (Portrait of André Derain)', subtitle2: 'Un colega fauvista pintado con los colores de lo salvaje' },
+      }
+    },
   },
   'chagall': {
     loading: {
       name: 'Marc Chagall (1887–1985)',
-      subtitle1: 'Sobre la ciudad · Yo y la aldea · Ramo de flores con amantes',
+      subtitle1: 'Surrealismo · Rusia/Francia',
       subtitle2: 'Poeta del amor y los sueños'
-    }
+    },
+    result: {
+      name: 'Marc Chagall (1887–1985)',
+      subtitle1: 'El cumpleaños · Yo y la aldea · La novia',
+      subtitle2: 'Poeta del amor y los sueños',
+      works: {
+        'lovers': { subtitle1: 'El cumpleaños (The Birthday)', subtitle2: 'Amantes tan ebrios de amor que olvidaron la gravedad' },
+        'lamariee': { subtitle1: 'La novia (La Mariée)', subtitle2: 'Una novia flotando entre el sueño y la realidad' },
+        'village': { subtitle1: 'Yo y la aldea (I and the Village)', subtitle2: 'Recuerdos del hogar a la deriva como un sueño' },
+      }
+    },
   },
   'picasso': {
     loading: {
       name: 'Pablo Picasso (1881–1973)',
-      subtitle1: 'Las señoritas de Avignon · Guernica · Retrato de Dora Maar',
+      subtitle1: 'Cubismo · España',
       subtitle2: 'El revolucionario que deconstruyó la mirada'
-    }
+    },
+    result: {
+      name: 'Pablo Picasso (1881–1973)',
+      subtitle1: 'Las señoritas de Avignon · Guernica · Retrato de Dora Maar',
+      subtitle2: 'Un revolucionario que deconstruyó la visión',
+      works: {
+        'demoiselles': { subtitle1: 'Las señoritas de Avignon (Les Demoiselles d\'Avignon)', subtitle2: 'Cinco mujeres que destrozaron la perspectiva' },
+        'guernica': { subtitle1: 'Guernica (Guernica)', subtitle2: 'Un grito de guerra que estalla en blanco y negro' },
+        'doramaar': { subtitle1: 'Retrato de Dora Maar (Portrait of Dora Maar)', subtitle2: 'Un retrato deconstruido donde el frente se encuentra con el perfil' },
+      }
+    },
   },
   'frida': {
     loading: {
       name: 'Frida Kahlo (1907–1954)',
-      subtitle1: 'La columna rota · Autorretrato con collar de espinas y colibrí',
+      subtitle1: 'Surrealismo · México',
       subtitle2: 'El autorretrato que enfrentó el dolor'
-    }
+    },
+    result: {
+      name: 'Frida Kahlo (1907–1954)',
+      subtitle1: 'Yo y mis pericos · La columna rota · Autorretrato con monos',
+      subtitle2: 'Autorretrato mirando el dolor',
+      works: {
+        'parrots': { subtitle1: 'Yo y mis pericos (Me and My Parrots)', subtitle2: 'Un autorretrato en soledad, con loros' },
+        'brokencolumn': { subtitle1: 'La columna rota (The Broken Column)', subtitle2: 'Una mirada inquebrantable desde un cuerpo destrozado' },
+        'monkeys': { subtitle1: 'Autorretrato con monos (Self-Portrait with Monkeys)', subtitle2: 'Un retrato de dolor, abrazado por monos' },
+      }
+    },
   },
   'lichtenstein': {
     loading: {
       name: 'Roy Lichtenstein (1923–1997)',
-      subtitle1: 'Chica ahogándose · ¡Whaam! · En el coche',
+      subtitle1: 'Pop Art · Estados Unidos',
       subtitle2: 'El hombre que convirtió el cómic en arte'
     }
   },
@@ -720,7 +793,7 @@ Ese mismo año, la revista Life publicó el titular: '¿Es el Peor Artista de EE
 El rojo, el azul y el amarillo se separan limpiamente dentro de contornos negros, tan nítidos como una página impresa.
 
 〈Ohhh...Está bien...〉 es una obra de 1964 tomada del número #88 de Secret Hearts.
-Se vendió por $42,6 millones en Christie's en 2010, revirtiendo el valor de lo que él llamó 'lienzo usado'.`
+Se vendió por $42,6 millones en Christie\'s en 2010, revirtiendo el valor de lo que él llamó 'lienzo usado'.`
   },
   'lichtenstein-stilllife': {
     description: `Se han aplicado los puntos Ben-Day y los contornos gruesos que crean expresión plana en 〈Naturaleza muerta〉.

@@ -109,13 +109,10 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
 
         {/* Title */}
         <h1 style={s.title}>
-          Your beauty,<br />
-          captured in<br />
-          <em style={s.em}>masterworks</em>
+          One photo.<br />
+          2800 years.<br />
+          <em style={s.em}>One click.</em>
         </h1>
-
-        {/* Sub */}
-        <p style={s.sub}>{t.tagline}</p>
 
         {/* Google */}
         <button style={{ ...s.socialBtn, opacity: loading ? 0.6 : 1 }} onClick={handleGoogleLogin} disabled={loading}>
@@ -204,7 +201,7 @@ const s = {
     fontWeight: 300,
     color: '#fff',
     lineHeight: 1.1,
-    marginBottom: '12px',
+    marginBottom: '48px',
     fontStyle: 'normal',
   },
   em: {

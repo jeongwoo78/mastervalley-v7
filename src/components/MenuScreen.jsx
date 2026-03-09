@@ -251,7 +251,7 @@ const menuStyles = `
     flex-shrink: 0;
   }
   .menu-label { flex: 1; color: #e5e5e5; font-size: 14px; }
-  .menu-value { color: #555; font-size: 14px; margin-right: 4px; }
+  .menu-value { color: #555; font-size: 14px; margin-inline-end: 4px; }
   .menu-chevron-svg {
     color: #333;
     display: flex;
@@ -278,7 +278,7 @@ const menuStyles = `
   .lang-option:hover { background: rgba(255,255,255,0.05); }
   .lang-option.active { background: rgba(139, 92, 246, 0.1); }
   .lang-option.inactive:hover { background: transparent; }
-  .lang-dash { color: rgba(255,255,255,0.3); font-size: 14px; margin-right: 10px; }
+  .lang-dash { color: rgba(255,255,255,0.3); font-size: 14px; margin-inline-end: 10px; }
   .lang-option.inactive .lang-dash { color: rgba(255,255,255,0.12); }
   .lang-name { color: rgba(255,255,255,0.85); font-size: 14px; flex: 1; }
   .lang-check { color: #7c3aed; display: flex; }

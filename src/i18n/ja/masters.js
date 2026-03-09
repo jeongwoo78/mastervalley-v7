@@ -139,6 +139,8 @@ export const mastersBasicInfo = {
       subtitle1: '車の中で · たぶん · 忘れて',
       subtitle2: '漫画を芸術に変えた男',
       works: {
+        'drowninggirl': { subtitle1: '溺れる女（Drowning Girl）', subtitle2: 'キャンバスに移された漫画のドラマ' },
+        'whaam': { subtitle1: 'ワーム！（Whaam!）', subtitle2: '漫画の爆発がアートになる' },
         'inthecar': { subtitle1: '車の中で（In the Car）', subtitle2: '吹き出しのない沈黙、疾走する感情' },
         'mmaybe': { subtitle1: 'たぶん（M-Maybe）', subtitle2: 'ためらいの一言に詰まったポップアートのドラマ' },
         'forgetit': { subtitle1: '忘れて！（Forget It!）', subtitle2: '漫画のひとコマに込められた別れの叫び' },

@@ -57,7 +57,7 @@ export const oneclickMastersSecondary = {
   },
 
   'klimt': {
-    content: `Klimt, fin de siècle Viyana'sının altın düşlerini resmeden sanatçıydı.\nTuvale gerçek altın yaprak uyguladı; Bizans mozaiklerinden ilham alan geometrik desenlerle.\n\nSpiral kıvrımlar, daireler ve üçgenler tüm yüzey boyunca dekoratif ritimler yaratıyor.\nO altının altında duyusallık ve kutsallık tek bütün olarak birleşiyor.`
+    content: `Klimt, fin de siècle Viyana\'sının altın düşlerini resmeden sanatçıydı.\nTuvale gerçek altın yaprak uyguladı; Bizans mozaiklerinden ilham alan geometrik desenlerle.\n\nSpiral kıvrımlar, daireler ve üçgenler tüm yüzey boyunca dekoratif ritimler yaratıyor.\nO altının altında duyusallık ve kutsallık tek bütün olarak birleşiyor.`
   },
 
   'munch': {
@@ -69,11 +69,11 @@ export const oneclickMastersSecondary = {
   },
 
   'chagall': {
-    content: `Chagall, aşkı ve düşleri tuvale aktaran sanatçıydı.\nHafıza ve fantezi dünyalarını düşsel renkler ve gerçeküstü kompozisyonlarla resmetti.\n\nPembe, yumuşak mor ve kobalt mavi anavatanı Vitebsk'in anılarını sarıyor.\nTablelarında gerçeklik ve düşler sınırsızca iç içe geçiyor.`
+    content: `Chagall, aşkı ve düşleri tuvale aktaran sanatçıydı.\nHafıza ve fantezi dünyalarını düşsel renkler ve gerçeküstü kompozisyonlarla resmetti.\n\nPembe, yumuşak mor ve kobalt mavi anavatanı Vitebsk\'in anılarını sarıyor.\nTablelarında gerçeklik ve düşler sınırsızca iç içe geçiyor.`
   },
 
   'picasso': {
-    content: `Picasso, Kübizm'in kurucusu 20. yüzyılın en büyük devrimcisiydi.\nNesneleri geometrik düzlemlere ayrıştırdı ve birden fazla bakış açısını tek tuvalde yeniden derledi.\n\nİmzası, ön ve yan görünümün aynı anda var olduğu çok perspektifli yapı.\n500 yıllık perspektifin yerleşik düzenini yerle bir etti.`
+    content: `Picasso, Kübizm\'in kurucusu 20. yüzyılın en büyük devrimcisiydi.\nNesneleri geometrik düzlemlere ayrıştırdı ve birden fazla bakış açısını tek tuvalde yeniden derledi.\n\nİmzası, ön ve yan görünümün aynı anda var olduğu çok perspektifli yapı.\n500 yıllık perspektifin yerleşik düzenini yerle bir etti.`
   },
 
   'frida': {

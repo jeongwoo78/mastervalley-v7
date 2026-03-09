@@ -409,14 +409,14 @@ const MasterChat = ({
           font-size: 10px;
           color: rgba(255,255,255,0.5);
           font-weight: 400;
-          margin-left: 4px;
+          margin-inline-start: 4px;
         }
 
         .chat-area {
           max-height: 180px;
           overflow-y: auto;
           margin-bottom: 12px;
-          padding-right: 4px;
+          padding-inline-end: 4px;
         }
 
         .chat-message {
@@ -450,7 +450,7 @@ const MasterChat = ({
         }
 
         .chat-message.user .sender {
-          text-align: right;
+          text-align: end;
         }
 
         .chat-message.system {
@@ -504,7 +504,7 @@ const MasterChat = ({
           font-size: 13px;
           line-height: 1.5;
           max-width: 85%;
-          text-align: left;
+          text-align: start;
         }
 
         .chat-message.user {

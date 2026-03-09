@@ -5,14 +5,103 @@
 // ========================================
 
 export const mastersBasicInfo = {
-  'vangogh': { loading: { name: '文森·梵谷 (1853–1890)', subtitle1: '星夜 · 向日葵 · 自畫像', subtitle2: '旋轉的筆觸與熾烈的激情' } },
-  'klimt': { loading: { name: '古斯塔夫·克林姆 (1862–1918)', subtitle1: '吻 · 乞蒂 · 生命之樹', subtitle2: '金色的官能世界' } },
-  'munch': { loading: { name: '愛德華·孟克 (1863–1944)', subtitle1: '吶喊 · 聖母 · 青春期', subtitle2: '畫下內心的吶喊' } },
-  'matisse': { loading: { name: '亨利·馬諦斯 (1869–1954)', subtitle1: '舞蹈 · 紅色房間 · 戴帽的女人', subtitle2: '色彩的魔術師' } },
-  'chagall': { loading: { name: '馬克·夏卡爾 (1887–1985)', subtitle1: '在城市上空 · 我與村莊 · 花束與飛翔的戀人', subtitle2: '愛與夢的詩人' } },
-  'picasso': { loading: { name: '巴勃羅·畢卡索 (1881–1973)', subtitle1: '亞維儂的少女 · 格爾尼卡 · 朵拉·瑪爾肖像', subtitle2: '解構視角的革命者' } },
-  'frida': { loading: { name: '芙烈達·卡蘿 (1907–1954)', subtitle1: '斷裂的圓柱 · 帶荊棘項鍊與蜂鳥的自畫像', subtitle2: '直面痛苦的自畫像' } },
-  'lichtenstein': { loading: { name: '羅伊·乃乞登斯坦 (1923–1997)', subtitle1: 'Drowning Girl · Whaam! · In the Car', subtitle2: '將漫畫變成藝術的人' } },
+  'vangogh': { loading: { name: '文森·梵谷 (1853–1890)', subtitle1: '後期印象主義 · 荷蘭', subtitle2: '旋轉的筆觸與熾烈的激情' },
+    result: {
+      name: '文森·梵谷 (1853–1890)',
+      subtitle1: '星夜 · 向日葵 · 自畫像',
+      subtitle2: '旋轉的筆觸與熾烈的激情',
+      works: {
+        'starrynight': { subtitle1: '星夜 (The Starry Night)', subtitle2: '柏樹與星辰在螺旋中' },
+        'cafe': { subtitle1: '夜晚的咖啡館露臺 (Café Terrace at Night)', subtitle2: '星光下溫暖的黃色光芒' },
+        'sunflowers': { subtitle1: '向日葵 (Sunflowers)', subtitle2: '沐浴陽光的花朵，燃燒著熱情' },
+        'selfportrait': { subtitle1: '戴灰色氈帽的自畫像 (Self-Portrait with Grey Felt Hat)', subtitle2: '凝視靈魂之鏡' },
+        'wheatfield': { subtitle1: '麥田與柏樹 (Wheat Field with Cypresses)', subtitle2: '金色麥田在風中搖曳' },
+      }
+    }, },
+  'klimt': { loading: { name: '古斯塔夫·克林姆 (1862–1918)', subtitle1: '新藝術 · 奧地利', subtitle2: '金色的官能世界' },
+    result: {
+      name: '古斯塔夫·克林姆 (1862–1918)',
+      subtitle1: '吻 · 乞蒂 · 生命之樹',
+      subtitle2: '金色官能的世界',
+      works: {
+        'kiss': { subtitle1: '吻 (The Kiss)', subtitle2: '溶入金色的永恆之吻' },
+        'treeoflife': { subtitle1: '生命之樹 (The Tree of Life)', subtitle2: '金色枝椏唱響生命之歌' },
+        'judith': { subtitle1: '乞蒂一世 (Judith I)', subtitle2: '在神聖與官能之間，金色誘惑' },
+      }
+    }, },
+  'munch': { loading: { name: '愛德華·孟克 (1863–1944)', subtitle1: '表現主義 · 挪威', subtitle2: '畫下內心的吶喊' },
+    result: {
+      name: '愛德華·孟克 (1863–1944)',
+      subtitle1: '吶喊 · 聖母 · 生命之舞',
+      subtitle2: '畫下內心的吶喊',
+      works: {
+        'scream': { subtitle1: '吶喊 (The Scream)', subtitle2: '血紅天空下靈魂的哭泣' },
+        'madonna': { subtitle1: '聖母 (Madonna)', subtitle2: '生死之間的神秘人物' },
+        'danceoflife': { subtitle1: '生命之舞 (The Dance of Life)', subtitle2: '愛與失落的華爾滋' },
+      }
+    }, },
+  'matisse': { loading: { name: '亨利·馬諦斯 (1869–1954)', subtitle1: '野獸派 · 法國', subtitle2: '色彩的魔術師' },
+    result: {
+      name: '亨利·馬諦斯 (1869–1954)',
+      subtitle1: '舞蹈 · 紅色房間 · 綠色條紋',
+      subtitle2: '色彩的魔術師',
+      works: {
+        'greenstripe': { subtitle1: '綠色條紋 (The Green Stripe)', subtitle2: '宣告色彩革命的一道綠線' },
+        'purplecoat': { subtitle1: '穿紫色外套的女人 (Woman in a Purple Coat)', subtitle2: '包裹在鮮豔色彩中的優雅' },
+        'redroom': { subtitle1: '紅色房間 (The Red Room)', subtitle2: '被紅色主宰的裝飾盛宴' },
+        'derain': { subtitle1: '安德烈·德朗肖像 (Portrait of André Derain)', subtitle2: '用野性色彩描繪的野獸派同儕' },
+      }
+    }, },
+  'chagall': { loading: { name: '馬克·夏卡爾 (1887–1985)', subtitle1: '超現實主義 · 俄羅斯／法國', subtitle2: '愛與夢的詩人' },
+    result: {
+      name: '馬克·夏卡爾 (1887–1985)',
+      subtitle1: '生日 · 我與村莊 · 新娘',
+      subtitle2: '愛與夢的詩人',
+      works: {
+        'lovers': { subtitle1: '生日 (The Birthday)', subtitle2: '沉醉在愛中忘記重力的戀人' },
+        'lamariee': { subtitle1: '新娘 (La Mariée)', subtitle2: '漂浮在夢與現實之間的新娘' },
+        'village': { subtitle1: '我與村莊 (I and the Village)', subtitle2: '如夢般漂流的故鄉記憶' },
+      }
+    }, },
+  'picasso': { loading: { name: '巴勃羅·畢卡索 (1881–1973)', subtitle1: '立體主義 · 西班牙', subtitle2: '解構視角的革命者' },
+    result: {
+      name: '巴勃羅·畢卡索 (1881–1973)',
+      subtitle1: '亞維儂的少女 · 格爾尼卡 · 朵拉·瑪爾肖像',
+      subtitle2: '解構視角的革命者',
+      works: {
+        'demoiselles': { subtitle1: '亞維儂的少女 (Les Demoiselles d\'Avignon)', subtitle2: '打破透視法的五位女性' },
+        'guernica': { subtitle1: '格爾尼卡 (Guernica)', subtitle2: '在黑白中爆發的戰爭吶喊' },
+        'doramaar': { subtitle1: '朵拉·瑪爾肖像 (Portrait of Dora Maar)', subtitle2: '正面與側面交匯的解構肖像' },
+      }
+    }, },
+  'frida': { loading: { name: '芙烈達·卡蘿 (1907–1954)', subtitle1: '超現實主義 · 墨西哥', subtitle2: '直面痛苦的自畫像' },
+    result: {
+      name: '芙烈達·卡蘿 (1907–1954)',
+      subtitle1: '我和我的鸚鵡們 · 破碎的柱子 · 與猴子的自畫像',
+      subtitle2: '凝視痛苦的自畫像',
+      works: {
+        'parrots': { subtitle1: '我和我的鸚鵡們 (Me and My Parrots)', subtitle2: '與鸚鵡相伴的孤獨自畫像' },
+        'brokencolumn': { subtitle1: '破碎的柱子 (The Broken Column)', subtitle2: '破碎身體中堅定不移的凝視' },
+        'monkeys': { subtitle1: '與猴子的自畫像 (Self-Portrait with Monkeys)', subtitle2: '被猴子擁抱的痛苦肖像' },
+      }
+    }, },
+  'lichtenstein': {
+    loading: { name: '羅伊·乃乞登斯坦 (1923–1997)', subtitle1: '普普藝術 · 美國', subtitle2: '將漫畫變成藝術的人' },
+    result: {
+      name: '羅伊·乃乞登斯坦 (1923–1997)',
+      subtitle1: 'Drowning Girl · Whaam! · In the Car',
+      subtitle2: '將漫畫變成藝術的人',
+      works: {
+        'drowninggirl': { subtitle1: 'Drowning Girl (Drowning Girl)', subtitle2: '漫畫的戲劇搬上畫布' },
+        'whaam': { subtitle1: 'Whaam! (Whaam!)', subtitle2: '漫畫爆炸即藝術' },
+        'inthecar': { subtitle1: '在車內 (In the Car)', subtitle2: '漫畫中凝結的瞬間' },
+        'mmaybe': { subtitle1: 'M-或許 (M-Maybe)', subtitle2: '猶豫一瞬間的普普戲劇' },
+        'forgetit': { subtitle1: '算了！(Forget It!)', subtitle2: '一格漫畫裡的告別吶喊' },
+        'ohhhalright': { subtitle1: '哦……好吧…… (Ohhh...Alright...)', subtitle2: '一句話盡道妥協與接受' },
+        'stilllife': { subtitle1: '靜物 (Still Life with Crystal Bowl)', subtitle2: '本戴點重生的靜物世界' },
+      }
+    }
+  },
 
   'vangogh-starry': { result: { name: '文森·梵谷 (1853–1890)', subtitle1: '星夜 (The Starry Night)', subtitle2: '柏樹與星辰在螺旋中' } },
   'vangogh-sunflower': { result: { name: '文森·梵谷 (1853–1890)', subtitle1: '向日葵 (Sunflowers)', subtitle2: '花瓶中的十五個太陽' } },

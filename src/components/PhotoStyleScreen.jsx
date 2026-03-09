@@ -248,10 +248,12 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, userCredits = 0, lan
     const pw = PAGE_W_REF.current;
     const _dirD = lang === 'ar' ? 1 : -1; let targetX = _dirD * idx * pw + dx;
 
-    if (targetX > 0) {
-      targetX *= 0.25;
-    } else if (targetX < -2 * pw) {
-      targetX = -2 * pw + (targetX + 2 * pw) * 0.25;
+    const minX = Math.min(0, _dirD * 2 * pw);
+    const maxX = Math.max(0, _dirD * 2 * pw);
+    if (targetX > maxX) {
+      targetX = maxX + (targetX - maxX) * 0.25;
+    } else if (targetX < minX) {
+      targetX = minX + (targetX - minX) * 0.25;
     }
 
     setTrackTransform(targetX, false);
@@ -554,7 +556,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, userCredits = 0, lan
           display: flex;
           align-items: center;
           gap: 12px;
-          text-align: left;
+          text-align: start;
         }
 
         .full-transform-btn:hover {
@@ -604,7 +606,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, userCredits = 0, lan
 
         .ft-emojis {
           font-size: 18px;
-          margin-left: 8px;
+          margin-inline-start: 8px;
         }
 
         .select-price-row {
@@ -666,7 +668,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, userCredits = 0, lan
           right: 0;
           padding: 8px 10px;
           background: none;
-          text-align: left;
+          text-align: start;
         }
 
         .style-name {

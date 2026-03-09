@@ -11,7 +11,7 @@ Apa bentuk kesedihan?
 
 Kini, foto Anda bertemu pertanyaan-pertanyaan ini.
 
-2.500 tahun lalu, di Yunani, tubuh manusia menjadi batu.
+2800 tahun lalu, di Yunani, tubuh manusia menjadi batu.
 Abad Pertengahan memilih Tuhan; Renaisans, manusia.
 Cahaya menjadi Barok; mimpi menjadi Rokoko.
 
@@ -67,7 +67,7 @@ export const oneclickMovementsBasicInfo = {
 };
 
 export const oneclickMovementsSecondary = {
-  'classical-sculpture': { content: `Sebuah era yang mengeksplorasi keindahan ideal tubuh manusia.\nPatung berproporsi sempurna dan mosaik yang indah menjadi titik awal seni Barat.\n\nPatung Yunani mewujudkan keseimbangan tubuh dengan rasio emas dan contrapposto.\nIa menjadi acuan 2.500 tahun seni Barat.` },
+  'classical-sculpture': { content: `Sebuah era yang mengeksplorasi keindahan ideal tubuh manusia.\nPatung berproporsi sempurna dan mosaik yang indah menjadi titik awal seni Barat.\n\nPatung Yunani mewujudkan keseimbangan tubuh dengan rasio emas dan contrapposto.\nIa menjadi acuan 2800 tahun seni Barat.` },
   'roman-mosaic': { content: `Sebuah era yang mengeksplorasi keindahan ideal tubuh manusia.\nPatung berproporsi sempurna dan mosaik yang indah menjadi titik awal seni Barat.\n\nMosaik Romawi mencatat mitos dan kehidupan sehari-hari dengan ribuan tessela.\nSetelah 2.000 tahun, warna dan adegannya tetap hidup.` },
   'byzantine': { content: `Sebuah era di mana pusat seni berpindah dari manusia ke yang ilahi.\nMosaik emas, arsitektur cahaya, dan miniatur eksquisit mengungkapkan dunia Tuhan.\n\nSeni Bizantium dicirikan oleh latar emas dan tatapan frontal yang khidmat.\nSelama seribu tahun, ia menerangi iman Kekaisaran Romawi Timur.` },
   'gothic': { content: `Sebuah era di mana pusat seni berpindah dari manusia ke yang ilahi.\nMosaik emas, arsitektur cahaya, dan miniatur eksquisit mengungkapkan dunia Tuhan.\n\nSeni Gotik dicirikan oleh kaca patri dan menara yang menembus langit.\nBuku cahaya bagi umat yang tidak bisa membaca.` },

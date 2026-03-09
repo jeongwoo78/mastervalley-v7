@@ -1,125 +1,170 @@
 // ========================================
 // UI Text — ภาษาไทย (th)
-// v70 - 2026-03-04
+// v71 - 2026-03-09 (synced to 196-key structure)
 // ========================================
 
 export const ui = {
-
   // ===== CategorySelection =====
   category: {
     westernArt: 'ประวัติศาสตร์ศิลปะตะวันตก',
+    westernArtDesc: 'เจาะลึก 2800 ปี',
     masterCollection: 'คอลเลกชันศิลปินเอก',
-    easternArt: 'จิตรกรรมตะวันออก',
-    fullJourney: 'การเดินทาง 2,500 ปี',
-    movements: '11 ยุคสมัย / $2.00',
-    meetMasters: 'พบกับศิลปิน 7 ท่าน',
-    mastersSubtitle: '7 ศิลปินเอก / $1.50',
-    easternExplore: 'สำรวจเอเชียตะวันออก',
-    easternSubtitle: 'เกาหลี · จีน · ญี่ปุ่น / $0.60',
-    tapPhoto: 'แตะเพื่อเลือกรูปภาพ'
+    masterCollectionDesc: 'พบกับ 7 ปรมาจารย์',
+    eastAsianArt: 'จิตรกรรมตะวันออก',
+    eastAsianArtDesc: 'สัมผัสสุนทรียะพันปีแห่งตะวันออก',
+    tagline: 'การเดินทางข้ามกาลเวลาและพื้นที่',
+    subTagline: 'พบกับปรมาจารย์แห่งตะวันออกและตะวันตก'
   },
 
   // ===== PhotoStyleScreen =====
   photoStyle: {
-    ancient: 'กรีก-โรมัน',
+    tapToSelectPhoto: 'แตะเพื่อเลือกรูปภาพ',
+    movementsName: 'ศิลปะตะวันตก',
+    mastersName: 'คอลเลกชันศิลปินเอก',
+    orientalName: 'จิตรกรรมตะวันออก',
+    fullTransform: 'แปลงทั้งหมด',
+    movementsFullTitle: 'เดินทาง 2800 ปีแห่งศิลปะ',
+    movementsFullDesc: '11 ยุคสมัย',
+    mastersFullTitle: 'สู่โลกของ 7 ศิลปินเอก',
+    mastersFullDesc: 'พบกับ 7 ศิลปินเอก',
+    orientalFullTitle: '1,000 ปีแห่งความงามตะวันออก',
+    orientalFullDesc: 'เกาหลี · จีน · ญี่ปุ่น',
+    selectMovement: 'เลือกยุคสมัย',
+    selectMaster: 'เลือกศิลปินเอก',
+    selectStyle: 'เลือกสไตล์',
+    grecoRoman: 'กรีก-โรมัน',
     medieval: 'ยุคกลาง',
     renaissance: 'เรอเนสซองส์',
     baroque: 'บาโรก',
     rococo: 'โรโกโก',
-    neoRomanticRealism: 'นีโอคลาสสิก-โรแมนติก-เรียลิสต์',
+    neoRomanReal: 'นีโอ·โรแมนติก·เรียล',
     impressionism: 'อิมเพรสชันนิสม์',
-    postImpressionism: 'โพสต์-อิมเพรสชันนิสม์',
+    postImpressionism: 'โพสต์-อิมเพรส',
     fauvism: 'โฟวิสม์',
     expressionism: 'เอ็กซ์เพรสชันนิสม์',
     modernism: 'โมเดิร์นนิสม์',
-    vangogh: 'แวน โก๊ะ',
+    vanGogh: 'แวน โก๊ะ',
     klimt: 'คลิมต์',
     munch: 'มุงก์',
     matisse: 'มาติส',
     chagall: 'ชาการ์ล',
     frida: 'ฟรีดา',
     lichtenstein: 'ลิชเทนสไตน์',
-    korean: 'จิตรกรรมเกาหลีดั้งเดิม',
-    chinese: 'จิตรกรรมจีนดั้งเดิม',
-    japanese: 'จิตรกรรมญี่ปุ่นดั้งเดิม',
-    koreanSub: 'มินฮวา · ภาพชีวิตประจำวัน',
-    chineseSub: 'ภาพหมึก · กงบีฮวา',
-    japaneseSub: 'อุกิโยเอะ'
+    korean: 'เกาหลี',
+    chinese: 'จีน',
+    japanese: 'ญี่ปุ่น',
+    koreanSub: 'มินฮวา · พุงซกโด',
+    chineseSub: 'หมึกจีน · กงบีฮวา',
+    japaneseSub: 'อุกิโยเอะ · รินปะ'
   },
 
-  // ===== ProcessingScreen =====
+  // ===== Processing =====
   processing: {
     analyzing: 'กำลังวิเคราะห์ภาพ...',
-    converting: 'กำลังแปลง...',
-    verifying: 'กำลังตรวจสอบผลงาน...',
+    inProgress: 'กำลังแปลง...',
+    checkingArtwork: 'กำลังตรวจสอบผลงาน...',
     done: 'เสร็จแล้ว!',
     movementsComplete: 'ยุคสมัยแปลงเสร็จแล้ว',
     mastersComplete: 'ศิลปินเอกแปลงเสร็จแล้ว',
-    orientalComplete: 'ประเทศแปลงเสร็จแล้ว',
+    nationsComplete: 'ชาติแปลงเสร็จแล้ว',
     fullTransform: '✨ แปลงทั้งหมด',
-    processing: '🎨 กำลังประมวลผล',
-    tapToView: '👆 แตะเพื่อดูผลลัพธ์ที่เสร็จแล้ว',
-    error: 'ข้อผิดพลาด'
+    processingTitle: 'กำลังประมวลผล',
+    tapToView: 'แตะเพื่อดูผลลัพธ์ที่เสร็จแล้ว',
+    error: 'ข้อผิดพลาด',
+    movementsLabel: 'ยุคสมัย',
+    mastersLabel: 'ศิลปินเอก',
+    nationsLabel: 'ชาติตะวันออก',
+    movementsSub1: 'จากกรีกถึงโมเดิร์นนิสม์',
+    movementsSub2: 'ข้ามผ่าน 2800 ปีของศิลปะตะวันตก',
+    mastersSub1: 'ศิลปินผู้วาดโลกใหม่ด้วยภาษาของตน',
+    mastersSub2: 'ตั้งคำถาม ทำลาย และสร้างใหม่',
+    orientalSub1: 'เกาหลี · จีน · ญี่ปุ่น',
+    orientalSub2: 'สามชาติ คล้ายกันแต่แตกต่าง',
+    prev: '◀ ก่อนหน้า',
+    next: 'ถัดไป ▶',
+    downloading: 'กำลังดาวน์โหลด...'
   },
 
-  // ===== ResultScreen =====
+  // ===== Result =====
   result: {
     save: 'บันทึก',
     share: 'แชร์',
     gallery: 'แกลเลอรี',
-    newPhoto: 'ใหม่',
+    newPhoto: 'หน้าหลัก',
     modify: 'แก้ไข',
     retry: 'ลองใหม่',
     retryAll: 'ลองใหม่ทั้งหมด',
-    cancel: 'ยกเลิก',
-    saveToDevice: 'บันทึกไปยังอุปกรณ์',
-    shareArt: 'แชร์งานศิลปะ',
     retrying: 'กำลังลองใหม่...',
     conversionFailed: 'การแปลงล้มเหลว',
-    aiRetrying: '🎨 AI กำลังลองใหม่...',
+    aiRetrying: 'ปรมาจารย์กำลังลองใหม่...',
     noImageToSave: 'ไม่มีรูปภาพให้บันทึก',
-    savedToGallery: '✅ บันทึกไปยังแกลเลอรีแล้ว!',
-    saved: '✅ บันทึกแล้ว!',
-    savedToFiles: '📁 แอป Files → Documents → MasterValley',
+    savedToGallery: 'บันทึกไปยังแกลเลอรีแล้ว!',
+    saved: 'บันทึกแล้ว!',
+    filesLocation: '📁 แอป Files → Documents → MasterValley',
     saveFailed: 'การบันทึกล้มเหลว',
     saveFailedRetry: 'การบันทึกล้มเหลว กรุณาลองใหม่',
     noImageToShare: 'ไม่มีรูปภาพให้แชร์',
     linkCopied: 'คัดลอกลิงก์ไปยังคลิปบอร์ดแล้ว!',
     retrySuccess: 'ลองใหม่สำเร็จ!',
-    retryFailed: 'การลองใหม่ล้มเหลว'
+    cancel: 'ยกเลิก',
+    close: 'ปิด',
+    retryFailed: 'การลองใหม่ล้มเหลว',
+    saveToDevice: 'บันทึก',
+    shareArt: 'แชร์',
+    original: 'ต้นฉบับ',
+    tapToSwipe: '← ปัดเพื่อดูผลลัพธ์ →',
+    hide: 'ซ่อน',
+    show: 'แสดง',
+    shareTitle: 'Master Valley Art',
+    shareText: '— Master Valley',
+    loadingEducation: 'กำลังโหลดคำอธิบายผลงาน...',
+    conversionFailedRetry: 'การแปลงล้มเหลว กรุณาแตะลองใหม่ด้านล่าง',
+    convertedInStyle: 'ผลงานนี้ถูกแปลงในสไตล์ {style}'
   },
 
-  // ===== GalleryScreen =====
+  // ===== Gallery =====
   gallery: {
-    title: 'แกลเลอรีของฉัน',
-    empty: 'ยังไม่มีผลงาน\nลองแปลงรูปภาพดูสิ!',
+    title: 'แกลเลอรี',
+    deleteAll: 'ลบทั้งหมด',
+    saved: 'บันทึกแล้ว',
+    empty: 'ยังไม่มีรูปภาพที่บันทึก',
+    emptySubtext: 'รูปภาพที่แปลงจะถูกบันทึกที่นี่',
+    saveShare: 'บันทึก/แชร์',
+    save: 'บันทึก',
+    share: 'แชร์',
+    close: 'ปิด',
+    confirmDelete: 'ลบรูปภาพนี้?',
     confirmDeleteAll: 'ลบรูปภาพทั้งหมด?\nไม่สามารถยกเลิกได้',
-    savedToGallery: '✅ บันทึกไปยังแกลเลอรีแล้ว!',
-    savedToFiles: '✅ บันทึกแล้ว!\n📁 แอป Files → Documents → MasterValley',
+    savedToGallery: 'บันทึกไปยังแกลเลอรีแล้ว!',
+    savedToFiles: 'บันทึกแล้ว!\n📁 แอป Files → Documents → MasterValley',
     saveFailed: 'การบันทึกล้มเหลว',
     shareTitle: 'Master Valley Art',
-    shareText: 'ดูผลงาน AI ของฉันจาก Master Valley!',
+    shareText: 'ผลงานชิ้นเอกใหม่จาก Master Valley',
     linkCopied: 'คัดลอกลิงก์ไปยังคลิปบอร์ดแล้ว!',
     loading: 'กำลังโหลดแกลเลอรี...',
     back: 'กลับ',
     home: 'หน้าหลัก',
-    deviceNote: '💡 รูปภาพถูกบันทึกในอุปกรณ์ของคุณ',
+    deviceNote: 'รูปภาพถูกบันทึกในอุปกรณ์ของคุณ',
     countUnit: '',
     delete: 'ลบ',
     saveToDevice: 'บันทึก',
+    shareArt: 'แชร์',
     select: 'เลือก',
     selectAll: 'เลือกทั้งหมด',
-    deselectAll: 'ยกเลิกการเลือกทั้งหมด',
+    deselectAll: 'ยกเลิกทั้งหมด',
     deleteSelected: 'ลบที่เลือก',
     cancel: 'ยกเลิก',
     confirmDeleteSelected: 'ลบ {count} รูปภาพที่เลือก?',
-    selectedCount: 'เลือก {count} รูปแล้ว'
+    selectedCount: 'เลือก {count} รูปแล้ว',
+    saving: 'กำลังบันทึก...',
+    batchSaveComplete: 'บันทึก {count} รูปเสร็จแล้ว!',
+    batchSavePartial: 'บันทึก {success} สำเร็จ, {fail} ล้มเหลว'
   },
 
   // ===== Menu =====
   menu: {
     title: 'ของฉัน',
-    myGallery: 'แกลเลอรีของฉัน',
+    myGallery: 'แกลเลอรี',
     language: 'ภาษา',
     addFunds: 'เติมเครดิต',
     support: 'ฝ่ายสนับสนุน',
@@ -133,23 +178,34 @@ export const ui = {
   addFunds: {
     title: 'เติมเครดิต',
     balance: 'ยอดคงเหลือ',
-    mini: 'มินิ',
-    basic: 'พื้นฐาน',
-    standard: 'มาตรฐาน',
-    plus: 'พลัส',
-    pro: 'โปร',
+    mini: 'Mini',
+    basic: 'Basic',
+    standard: 'Standard',
+    plus: 'Plus',
+    pro: 'Pro',
     bonus: 'โบนัส',
     bestValue: 'คุ้มที่สุด',
-    info1: '💡 เครดิตไม่มีวันหมดอายุ',
-    info2: 'ไม่ต้องสมัครสมาชิก'
+    get: 'รับ',
+    bonusLabel: 'โบนัส',
+    tagStarter: 'เริ่มการเดินทางข้ามเวลา',
+    tagStandard: 'สัมผัสโลกของปรมาจารย์',
+    tagPlus: 'และค้นพบแรงบันดาลใจ',
+    info1: 'ไม่มีการสมัครสมาชิก',
+    info2: 'ยอดคงเหลือไม่มีวันหมดอายุ'
+  },
+
+  // ===== Subscription Info =====
+  subscriptionInfo: {
+    line1: 'ไม่มีการสมัครสมาชิก',
+    line2: 'จ่ายเฉพาะเมื่อต้องการใช้งาน'
   },
 
   // ===== InsufficientBalance =====
   insufficientBalance: {
     title: 'เครดิตไม่เพียงพอ',
-    requires: 'การแปลงนี้ต้องการ',
+    requires: 'การแปลงนี้ต้องการ:',
     yourBalance: 'ยอดคงเหลือของคุณ:',
-    recommended: '💡 แนะนำ',
+    recommended: 'แนะนำ',
     addFundsNow: 'เติมเครดิตเดี๋ยวนี้',
     maybeLater: 'ภายหลัง'
   },
@@ -161,8 +217,8 @@ export const ui = {
   },
 
     login: {
-    tagline: 'ความงามของคุณ ในผลงานชิ้นเอก',
-    sub: 'ความงามของคุณ ถ่ายทอดผ่านสายตาของปรมาจารย์',
+    tagline: 'ภาพถ่ายหนึ่งใบ การเดินทาง 2800 ปีข้ามเวลา',
+    sub: 'มองโลกผ่านสายตาของปรมาจารย์',
     continueWithGoogle: 'ดำเนินการต่อด้วย Google',
     continueWithApple: 'ดำเนินการต่อด้วย Apple',
     email: 'อีเมล',

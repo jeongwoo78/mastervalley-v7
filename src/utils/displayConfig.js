@@ -1020,20 +1020,50 @@ export function getMovementDisplayInfo(styleName, artistName, lang = 'en') {
   // movementData 조회 (정규화 적용)
   const resolvedActual = resolveMovement(actualMovement);
   const mvInfo = (resolvedActual ? movementData[resolvedActual] : null) || { ko: styleName, en: styleName, period: '' };
-  const period = lang === 'ko' ? mvInfo.period : (mvInfo.periodEn || mvInfo.period);
-  const title = lang === 'ko'
-    ? (period ? `${mvInfo.ko}(${mvInfo.en}, ${period})` : `${mvInfo.ko}(${mvInfo.en})`)
-    : (period ? `${mvInfo.en} (${period})` : mvInfo.en);
+
+  // title: ko/en 하드코딩, 나머지는 i18n movements.js 우선
+  let title;
+  if (lang === 'ko') {
+    const period = mvInfo.period;
+    title = period ? `${mvInfo.ko}(${mvInfo.en}, ${period})` : `${mvInfo.ko}(${mvInfo.en})`;
+  } else if (lang === 'en') {
+    const period = mvInfo.periodEn || mvInfo.period;
+    title = period ? `${mvInfo.en} (${period})` : mvInfo.en;
+  } else {
+    // i18n movements.js의 loading.name 사용 (전각/반각 괄호 제거)
+    const i18nMovements = getMovementsBasicInfo ? getMovementsBasicInfo(lang) : null;
+    const resolvedKey = resolvedActual || normalizeKey(styleName);
+    // movements.js 키 매핑 (displayConfig ↔ i18n 키 불일치 보정)
+    const i18nKeyMap = {
+      'post-impressionism': 'postImpressionism',
+      'postimpressionism': 'postImpressionism',
+      'neoclassicism-romanticism-realism': 'neoclassicism_vs_romanticism_vs_realism',
+      'medieval-art': 'medieval',
+      'greco-roman': 'ancient'
+    };
+    const i18nKey = i18nKeyMap[resolvedKey] || resolvedKey;
+    const i18nMov = i18nMovements?.[i18nKey];
+    const rawName = i18nMov?.loading?.name || i18nMov?.result?.name || '';
+    const i18nTitle = rawName.replace(/\s*[(\（].*?[)\）]/g, '').trim();
+    title = i18nTitle || mvInfo.en;
+  }
   
   // 부제: 화가명
   let subtitle = '';
   if (artistName) {
     const artistKey = normalizeKey(artistName);
     const artistInfo = DISPLAY_INFO.artists[artistKey];
-    if (artistInfo) {
-      subtitle = lang === 'ko' ? `${artistInfo.name}(${artistInfo.fullName})` : artistInfo.fullName;
+    if (lang === 'ko') {
+      subtitle = artistInfo ? `${artistInfo.name}(${artistInfo.fullName})` : artistName;
+    } else if (lang === 'en') {
+      subtitle = artistInfo ? artistInfo.fullName : artistName;
     } else {
-      subtitle = artistName;
+      // i18n: movements.js에서 화가명 조회 (result.subtitle1 → 괄호 제거)
+      const i18nMovements = getMovementsBasicInfo ? getMovementsBasicInfo(lang) : null;
+      const i18nArtist = i18nMovements?.[artistKey];
+      const rawArtist = i18nArtist?.result?.subtitle1 || '';
+      const i18nName = rawArtist.replace(/\s*[(\（].*?[)\）]/g, '').trim();
+      subtitle = i18nName || (artistInfo ? artistInfo.fullName : artistName);
     }
   }
   
@@ -1048,32 +1078,47 @@ export function getMovementDisplayInfo(styleName, artistName, lang = 'en') {
  */
 export function getOrientalDisplayInfo(artistName, lang = 'en') {
   const orientalDataKo = {
-    'korean-minhwa': { title: '한국 전통회화(Korean Traditional Art)', subtitle: '민화(Minhwa)' },
-    'korean-pungsokdo': { title: '한국 전통회화(Korean Traditional Art)', subtitle: '풍속도(Pungsokdo)' },
-    'korean-jingyeong': { title: '한국 전통회화(Korean Traditional Art)', subtitle: '진경산수화(Jingyeong)' },
-    'chinese-ink': { title: '중국 전통회화(Chinese Traditional Art)', subtitle: '수묵화(Ink Wash)' },
-    'chinese-gongbi': { title: '중국 전통회화(Chinese Traditional Art)', subtitle: '공필화(Gongbi)' },
-    'japanese-ukiyoe': { title: '일본 전통회화(Japanese Traditional Art)', subtitle: '우키요에(Ukiyo-e)' },
-    'japanese-rinpa': { title: '일본 전통회화(Japanese Traditional Art)', subtitle: '린파(Rinpa)' }
+    'korean-minhwa': { title: '한국 전통회화', subtitle: '민화' },
+    'korean-pungsokdo': { title: '한국 전통회화', subtitle: '풍속도' },
+    'korean-jingyeong': { title: '한국 전통회화', subtitle: '진경산수화' },
+    'chinese-ink': { title: '중국 전통회화', subtitle: '수묵화' },
+    'chinese-gongbi': { title: '중국 전통회화', subtitle: '공필화' },
+    'japanese-ukiyoe': { title: '일본 전통회화', subtitle: '우키요에' },
+    'japanese-rinpa': { title: '일본 전통회화', subtitle: '린파' }
   };
-  
   const orientalDataEn = {
     'korean-minhwa': { title: 'Korean Traditional Art', subtitle: 'Minhwa' },
     'korean-pungsokdo': { title: 'Korean Traditional Art', subtitle: 'Pungsokdo' },
-    'korean-jingyeong': { title: 'Korean Traditional Art', subtitle: 'Jingyeong Sansuhwa' },
-    'chinese-ink': { title: 'Chinese Traditional Art', subtitle: 'Ink Wash Painting' },
+    'korean-jingyeong': { title: 'Korean Traditional Art', subtitle: 'Jingyeong' },
+    'chinese-ink': { title: 'Chinese Traditional Art', subtitle: 'Ink Wash' },
     'chinese-gongbi': { title: 'Chinese Traditional Art', subtitle: 'Gongbi' },
     'japanese-ukiyoe': { title: 'Japanese Traditional Art', subtitle: 'Ukiyo-e' },
     'japanese-rinpa': { title: 'Japanese Traditional Art', subtitle: 'Rinpa' }
   };
-  
-  const orientalData = lang === 'ko' ? orientalDataKo : orientalDataEn;
-  const fallback = lang === 'ko' 
-    ? { title: '동양화', subtitle: artistName || '' }
-    : { title: 'East Asian Art', subtitle: artistName || '' };
-  
+
   const key = normalizeKey(artistName);
-  return orientalData[key] || fallback;
+
+  // ko/en: 하드코딩 사용
+  if (lang === 'ko') return orientalDataKo[key] || { title: '동양화', subtitle: artistName || '' };
+  if (lang === 'en') return orientalDataEn[key] || { title: 'East Asian Art', subtitle: artistName || '' };
+
+  // 기타 언어: i18n oriental.js 우선
+  const i18nOriental = getOrientalBasicInfo ? getOrientalBasicInfo(lang) : null;
+  if (i18nOriental) {
+    const entry = i18nOriental[key];
+    if (entry) {
+      // title: loading.name 또는 result.name (전각/반각 괄호 제거)
+      const rawName = entry.loading?.name || entry.result?.name || '';
+      const title = rawName.replace(/\s*[(\（].*?[)\）]/g, '').trim();
+      // subtitle: result.subtitle1 (기법명, 괄호 제거)
+      const rawSub = entry.result?.subtitle1 || entry.loading?.subtitle1 || '';
+      const subtitle = rawSub.replace(/\s*[(\（].*?[)\）]/g, '').trim();
+      if (title) return { title, subtitle };
+    }
+  }
+
+  // fallback: en
+  return orientalDataEn[key] || { title: 'East Asian Art', subtitle: artistName || '' };
 }
 
 /**
@@ -1184,7 +1229,14 @@ export function getStyleTitle(category, styleId, artistName, lang = 'en') {
   } else if (category === 'movements') {
     // i18n 언어별 name 우선
     const i18nMovements = getMovementsBasicInfo ? getMovementsBasicInfo(lang) : null;
-    const i18nMov = i18nMovements?.[styleId];
+    const i18nKeyMap = {
+      'post-impressionism': 'postImpressionism',
+      'postimpressionism': 'postImpressionism',
+      'neoclassicism-romanticism-realism': 'neoclassicism_vs_romanticism_vs_realism',
+      'medieval-art': 'medieval',
+      'greco-roman': 'ancient'
+    };
+    const i18nMov = i18nMovements?.[i18nKeyMap[styleId] || styleId];
     if (i18nMov?.loading?.name) return i18nMov.loading.name;
     // fallback
     const m = MOVEMENTS[styleId];

@@ -6,13 +6,13 @@ export const ui = {
   // ===== CategorySelection =====
   category: {
     westernArt: '서양 미술사',
-    westernArtDesc: '2500년 서양 미술의 여정',
+    westernArtDesc: '2800년을 관통하다',
     masterCollection: '거장 컬렉션',
-    masterCollectionDesc: '시대를 초월한 7인의 거장',
+    masterCollectionDesc: '7인의 거장을 만나다',
     eastAsianArt: '동양화',
-    eastAsianArtDesc: '천 년을 이어온 동양의 아름다움',
-    tagline: '당신의 아름다움을, 명화로 남기세요',
-    subTagline: '세기의 거장이 당신을 담습니다'
+    eastAsianArtDesc: '천년 동양의 미를 경험하다',
+    tagline: '시·공간을 건너는 여정',
+    subTagline: '동서양 세기의 거장을 만나다'
   },
 
   // ===== PhotoStyleScreen =====
@@ -22,7 +22,7 @@ export const ui = {
     mastersName: '거장 컬렉션',
     orientalName: '동양화',
     fullTransform: '전체 변환',
-    movementsFullTitle: '2500년 미술 여행',
+    movementsFullTitle: '2800년 미술 여행',
     movementsFullDesc: '11개 사조',
     mastersFullTitle: '7인 거장의 세계로',
     mastersFullDesc: '7인 거장과의 만남',
@@ -74,7 +74,7 @@ export const ui = {
     mastersLabel: '명 거장',
     nationsLabel: '개국 동양화',
     movementsSub1: '그리스에서 모더니즘까지',
-    movementsSub2: '서양미술 2,500년을 관통하다',
+    movementsSub2: '서양미술 2800년을 관통하다',
     mastersSub1: '각자의 언어로 세상을 다시 그린 화가들',
     mastersSub2: '묻고, 부수고, 다시 세우다',
     orientalSub1: '한국 · 중국 · 일본',
@@ -115,7 +115,7 @@ export const ui = {
     hide: '숨기기',
     show: '보기',
     shareTitle: 'Master Valley 작품',
-    shareText: '스타일 작품',
+    shareText: '— Master Valley',
     loadingEducation: '작품 설명을 생성하고 있습니다...',
     conversionFailedRetry: '변환에 실패하였습니다. 아래 다시 시도를 눌러주세요.',
     convertedInStyle: '{style} 스타일로 변환된 작품입니다.'
@@ -138,7 +138,7 @@ export const ui = {
     savedToFiles: '저장되었습니다!\n📁 파일 앱 → Documents → MasterValley',
     saveFailed: '저장에 실패했습니다',
     shareTitle: 'Master Valley 작품',
-    shareText: 'Master Valley로 만든 AI 명화를 확인해보세요!',
+    shareText: 'Master Valley로 만든 거장의 새로운 명화',
     linkCopied: '링크가 클립보드에 복사되었습니다!',
     loading: '갤러리 로딩 중...',
     back: '뒤로',
@@ -147,6 +147,7 @@ export const ui = {
     countUnit: '개',
     delete: '삭제',
     saveToDevice: '저장하기',
+    shareArt: '공유하기',
     select: '선택',
     selectAll: '전체 선택',
     deselectAll: '전체 해제',
@@ -185,16 +186,16 @@ export const ui = {
     bestValue: '인기',
     get: '적용',
     bonusLabel: '보너스',
-    tagStarter: '지금 시작하세요',
-    tagStandard: '당신의 아름다움을 공유하세요',
-    tagPlus: '영감을 얻으세요',
-    info1: '정기 결제 없음',
+    tagStarter: '시간여행을 시작하세요',
+    tagStandard: '거장의 세계를 경험하세요',
+    tagPlus: '그리고 영감을 얻으세요',
+    info1: '정기 구독 없음',
     info2: '잔액 만기 없음'
   },
 
   // ===== Subscription Info (Track A - 탐색 화면용) =====
   subscriptionInfo: {
-    line1: '정기 구독은 없습니다',
+    line1: '정기 구독 없음',
     line2: '필요할 때만 결제하세요'
   },
 
@@ -215,8 +216,8 @@ export const ui = {
   },
 
     login: {
-    tagline: '세기의 거장이 당신을 담습니다',
-    sub: '거장의 눈으로 담긴 당신',
+    tagline: '당신의 한 장의 사진, 2800년의 시간여행',
+    sub: '거장의 눈으로 세상을 보다',
     continueWithGoogle: 'Google로 계속하기',
     continueWithApple: 'Apple로 계속하기',
     email: '이메일',

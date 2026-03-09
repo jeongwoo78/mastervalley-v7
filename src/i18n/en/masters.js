@@ -1,497 +1,807 @@
 // ========================================
-// Masters Education Content — English (en)
-// i18n structure · 9-line 2-paragraph (Loading 3+2 / Result 2+2)
-// v70 - 2026-02-03 (subtitle1, subtitle2 separated)
+// Grandes Maestros — Español (es)
+// Estructura i18n · 9 líneas 2 párrafos (1º 5 líneas 3+2 / 2º 4 líneas 2+2)
+// 1ª(carga) = pasado (narrativa histórica)
+// 2ª(resultado) = presente (descripción de técnicas aplicadas)
+// v70 - 2026-02-03 (subtitle1, subtitle2 separados)
 // ========================================
 
-// ========== Basic Info ==========
+// ========== Información básica ==========
 export const mastersBasicInfo = {
+
+  // ===== Nivel de maestro (pantalla de carga) =====
   'vangogh': {
     loading: {
       name: 'Vincent van Gogh (1853–1890)',
-      subtitle1: 'Post-Impressionism · Netherlands',
-      subtitle2: 'Immortal beauty born from suffering'
+      subtitle1: 'Postimpresionismo · Países Bajos',
+      subtitle2: 'La pasión del pincel en espiral'
     },
     result: {
       name: 'Vincent van Gogh (1853–1890)',
-      subtitle1: 'The Starry Night · Sunflowers · Self-Portrait',
-      subtitle2: 'Swirling passion of the brush',
+      subtitle1: 'La noche estrellada · Los girasoles · Autorretrato',
+      subtitle2: 'La pasión del pincel en espiral',
       works: {
-        'starrynight': { subtitle1: 'The Starry Night', subtitle2: 'The night sky painted in swirls' },
-        'cafe': { subtitle1: 'Café Terrace at Night', subtitle2: 'A warm glow of yellow under starlight' },
-        'sunflowers': { subtitle1: 'Sunflowers', subtitle2: 'Sun-kissed blooms, blazing with passion' },
-        'selfportrait': { subtitle1: 'Self-Portrait with Grey Felt Hat', subtitle2: 'Gazing into the mirror of the soul' },
-        'wheatfield': { subtitle1: 'Wheat Field with Cypresses', subtitle2: 'Golden fields dancing in the wind' }
+        'starrynight': { subtitle1: 'La noche estrellada (The Starry Night)', subtitle2: 'El cielo nocturno pintado en espirales' },
+        'cafe': { subtitle1: 'Terraza del café por la noche (Café Terrace at Night)', subtitle2: 'Un cálido resplandor amarillo bajo la luz de las estrellas' },
+        'sunflowers': { subtitle1: 'Girasoles (Sunflowers)', subtitle2: 'Flores bañadas de sol, ardiendo de pasión' },
+        'selfportrait': { subtitle1: 'Autorretrato con sombrero de fieltro gris (Self-Portrait with Grey Felt Hat)', subtitle2: 'Una mirada al espejo del alma' },
+        'wheatfield': { subtitle1: 'Campo de trigo con cipreses (Wheat Field with Cypresses)', subtitle2: 'Campos dorados danzando en el viento' },
       }
-    }
+    },
   },
   'klimt': {
     loading: {
       name: 'Gustav Klimt (1862–1918)',
       subtitle1: 'Art Nouveau · Austria',
-      subtitle2: 'Golden dream of fin-de-siècle Vienna'
+      subtitle2: 'El mundo dorado de la sensualidad'
     },
     result: {
       name: 'Gustav Klimt (1862–1918)',
-      subtitle1: 'The Kiss · Judith · The Tree of Life',
-      subtitle2: 'A world of golden sensuality',
+      subtitle1: 'El beso · Judith · El árbol de la vida',
+      subtitle2: 'Un mundo de sensualidad dorada',
       works: {
-        'kiss': { subtitle1: 'The Kiss', subtitle2: 'An eternal kiss dissolved in gold' },
-        'treeoflife': { subtitle1: 'The Tree of Life', subtitle2: 'Golden branches singing the song of life' },
-        'judith': { subtitle1: 'Judith I', subtitle2: 'Between the sacred and sensual, golden allure' }
+        'kiss': { subtitle1: 'El beso (The Kiss)', subtitle2: 'Un beso eterno disuelto en oro' },
+        'treeoflife': { subtitle1: 'El árbol de la vida (The Tree of Life)', subtitle2: 'Ramas doradas cantando la canción de la vida' },
+        'judith': { subtitle1: 'Judith I (Judith I)', subtitle2: 'Entre lo sagrado y lo sensual, seducción dorada' },
       }
-    }
+    },
   },
   'munch': {
     loading: {
       name: 'Edvard Munch (1863–1944)',
-      subtitle1: 'Expressionism · Norway',
-      subtitle2: 'An artist of the soul, born from loss'
+      subtitle1: 'Expresionismo · Noruega',
+      subtitle2: 'Pintar el grito interior'
     },
     result: {
       name: 'Edvard Munch (1863–1944)',
-      subtitle1: 'The Scream · Madonna · The Dance of Life',
-      subtitle2: 'Painting the inner scream',
+      subtitle1: 'El grito · Madonna · La danza de la vida',
+      subtitle2: 'Pintando el grito interior',
       works: {
-        'scream': { subtitle1: 'The Scream', subtitle2: "A soul's cry beneath a blood-red sky" },
-        'madonna': { subtitle1: 'Madonna', subtitle2: 'A mysterious figure between life and death' },
-        'danceoflife': { subtitle1: 'The Dance of Life', subtitle2: 'A waltz of love and loss' }
+        'scream': { subtitle1: 'El grito (The Scream)', subtitle2: 'Un alma llorando bajo un cielo rojo sangre' },
+        'madonna': { subtitle1: 'Madonna (Madonna)', subtitle2: 'Una figura misteriosa entre la vida y la muerte' },
+        'danceoflife': { subtitle1: 'La danza de la vida (The Dance of Life)', subtitle2: 'Un vals de amor y pérdida' },
       }
-    }
+    },
   },
   'matisse': {
     loading: {
       name: 'Henri Matisse (1869–1954)',
-      subtitle1: 'Fauvism · France',
-      subtitle2: 'Singing joy through color'
+      subtitle1: 'Fauvismo · Francia',
+      subtitle2: 'El mago del color'
     },
     result: {
       name: 'Henri Matisse (1869–1954)',
-      subtitle1: 'The Dance · The Red Room · The Green Stripe',
-      subtitle2: 'Master of color',
+      subtitle1: 'La danza · La habitación roja · La raya verde',
+      subtitle2: 'Maestro del color',
       works: {
-        'greenstripe': { subtitle1: 'The Green Stripe', subtitle2: 'A single green line that declared a color revolution' },
-        'purplecoat': { subtitle1: 'Woman in a Purple Coat', subtitle2: 'Elegance wrapped in vibrant color' },
-        'redroom': { subtitle1: 'The Red Room', subtitle2: 'A feast of decoration ruled by red' },
-        'derain': { subtitle1: 'Portrait of André Derain', subtitle2: 'A Fauvist colleague painted in the colors of the wild' }
+        'greenstripe': { subtitle1: 'La raya verde (The Green Stripe)', subtitle2: 'Una sola línea verde que declaró una revolución cromática' },
+        'purplecoat': { subtitle1: 'Mujer con abrigo violeta (Woman in a Purple Coat)', subtitle2: 'Elegancia envuelta en color vibrante' },
+        'redroom': { subtitle1: 'La habitación roja (The Red Room)', subtitle2: 'Un festín de decoración dominado por el rojo' },
+        'derain': { subtitle1: 'Retrato de André Derain (Portrait of André Derain)', subtitle2: 'Un colega fauvista pintado con los colores de lo salvaje' },
       }
-    }
+    },
   },
   'chagall': {
     loading: {
       name: 'Marc Chagall (1887–1985)',
-      subtitle1: 'Surrealism · Russia/France',
-      subtitle2: 'A painter of 100 years of love'
+      subtitle1: 'Surrealismo · Rusia/Francia',
+      subtitle2: 'Poeta del amor y los sueños'
     },
     result: {
       name: 'Marc Chagall (1887–1985)',
-      subtitle1: 'The Birthday · I and the Village · La Mariée',
-      subtitle2: 'Poet of love and dreams',
+      subtitle1: 'El cumpleaños · Yo y la aldea · La novia',
+      subtitle2: 'Poeta del amor y los sueños',
       works: {
-        'lovers': { subtitle1: 'The Birthday', subtitle2: 'Lovers so drunk on love, they forgot gravity' },
-        'lamariee': { subtitle1: 'La Mariée', subtitle2: 'A bride floating between dream and reality' },
-        'village': { subtitle1: 'I and the Village', subtitle2: 'Memories of home drifting like a dream' }
+        'lovers': { subtitle1: 'El cumpleaños (The Birthday)', subtitle2: 'Amantes tan ebrios de amor que olvidaron la gravedad' },
+        'lamariee': { subtitle1: 'La novia (La Mariée)', subtitle2: 'Una novia flotando entre el sueño y la realidad' },
+        'village': { subtitle1: 'Yo y la aldea (I and the Village)', subtitle2: 'Recuerdos del hogar a la deriva como un sueño' },
       }
-    }
+    },
   },
   'picasso': {
     loading: {
       name: 'Pablo Picasso (1881–1973)',
-      subtitle1: 'Cubism · Spain',
-      subtitle2: 'Genius of endless transformation'
+      subtitle1: 'Cubismo · España',
+      subtitle2: 'El revolucionario que deconstruyó la mirada'
     },
     result: {
       name: 'Pablo Picasso (1881–1973)',
-      subtitle1: "Les Demoiselles d'Avignon · Guernica · Portrait of Dora Maar",
-      subtitle2: 'Revolutionary who deconstructed vision',
+      subtitle1: 'Las señoritas de Avignon · Guernica · Retrato de Dora Maar',
+      subtitle2: 'Un revolucionario que deconstruyó la visión',
       works: {
-        'demoiselles': { subtitle1: "Les Demoiselles d'Avignon", subtitle2: 'Five women who flung open the door to Cubism' },
-        'guernica': { subtitle1: 'Guernica', subtitle2: 'A scream of war exploding in black and white' },
-        'doramaar': { subtitle1: 'Portrait of Dora Maar', subtitle2: 'A deconstructed portrait where front meets side' }
+        'demoiselles': { subtitle1: 'Las señoritas de Avignon (Les Demoiselles d\'Avignon)', subtitle2: 'Cinco mujeres que destrozaron la perspectiva' },
+        'guernica': { subtitle1: 'Guernica (Guernica)', subtitle2: 'Un grito de guerra que estalla en blanco y negro' },
+        'doramaar': { subtitle1: 'Retrato de Dora Maar (Portrait of Dora Maar)', subtitle2: 'Un retrato deconstruido donde el frente se encuentra con el perfil' },
       }
-    }
+    },
   },
   'frida': {
     loading: {
       name: 'Frida Kahlo (1907–1954)',
-      subtitle1: 'Surrealism · Mexico',
-      subtitle2: 'Broken body, unbroken brush'
+      subtitle1: 'Surrealismo · México',
+      subtitle2: 'El autorretrato que enfrentó el dolor'
     },
     result: {
       name: 'Frida Kahlo (1907–1954)',
-      subtitle1: 'Me and My Parrots · The Broken Column · Self-Portrait with Monkeys',
-      subtitle2: 'Self-portrait gazing at pain',
+      subtitle1: 'Yo y mis pericos · La columna rota · Autorretrato con monos',
+      subtitle2: 'Autorretrato mirando el dolor',
       works: {
-        'parrots': { subtitle1: 'Me and My Parrots', subtitle2: 'A self-portrait in solitude, with parrots' },
-        'brokencolumn': { subtitle1: 'The Broken Column', subtitle2: 'An unbroken gaze from a shattered body' },
-        'monkeys': { subtitle1: 'Self-Portrait with Monkeys', subtitle2: 'A portrait of pain, embraced by monkeys' }
+        'parrots': { subtitle1: 'Yo y mis pericos (Me and My Parrots)', subtitle2: 'Un autorretrato en soledad, con loros' },
+        'brokencolumn': { subtitle1: 'La columna rota (The Broken Column)', subtitle2: 'Una mirada inquebrantable desde un cuerpo destrozado' },
+        'monkeys': { subtitle1: 'Autorretrato con monos (Self-Portrait with Monkeys)', subtitle2: 'Un retrato de dolor, abrazado por monos' },
       }
-    }
+    },
   },
   'lichtenstein': {
     loading: {
       name: 'Roy Lichtenstein (1923–1997)',
-      subtitle1: 'Pop Art · United States',
-      subtitle2: 'Revolution that started with Mickey Mouse'
-    },
-    result: {
-      name: 'Roy Lichtenstein (1923–1997)',
-      subtitle1: 'In the Car · M-Maybe · Forget It!',
-      subtitle2: 'Turning comics into art',
-      works: {
-        'inthecar': { subtitle1: 'In the Car', subtitle2: 'Silent tension, speeding emotions' },
-        'mmaybe': { subtitle1: 'M-Maybe', subtitle2: 'A single word of hesitation, a Pop Art drama' },
-        'forgetit': { subtitle1: 'Forget It!', subtitle2: 'A farewell cry captured in a comic panel' },
-        'ohhhalright': { subtitle1: 'Ohhh...Alright...', subtitle2: 'Resignation and acceptance in one breath' },
-        'stilllife': { subtitle1: 'Still Life with Crystal Bowl', subtitle2: 'Still life reborn through Ben-Day dots' }
-      }
+      subtitle1: 'Pop Art · Estados Unidos',
+      subtitle2: 'El hombre que convirtió el cómic en arte'
     }
-  }
-};
-
-// ========== Loading Education (Biography) ==========
-export const mastersLoadingEducation = {
-  'vangogh': {
-    name: 'Van Gogh',
-    description: `Van Gogh is a defining figure of Post-Impressionism.
-He began painting at 27 and produced 900 oil paintings in just ten years, yet only one sold during his lifetime.
-Masterpieces like The Starry Night, Sunflowers, and Café Terrace at Night were all born in poverty and mental anguish.
-
-He died at 37, but his art profoundly influenced Expressionism and Fauvism.
-"I put my heart and soul into my work." — A painter who forged immortal beauty from suffering.`
   },
-  'klimt': {
-    name: 'Klimt',
-    description: `Klimt was the leading Art Nouveau painter of fin-de-siècle Vienna.
-Born the son of a goldsmith, he applied real gold leaf to canvas, creating an opulent decorative world inspired by Byzantine mosaics.
-He left behind golden masterpieces where sensuality and divinity coexist, including The Kiss, Judith, and The Tree of Life.
 
-He founded the Vienna Secession, challenging the conservative art establishment.
-"To every age its art, to every art its freedom." — A painter who captured fin-de-siècle beauty in gold.`
+  // ===== Nivel de obra (pantalla de resultado) =====
+
+  // --- Van Gogh ---
+  'vangogh-starry': {
+    result: {
+      name: 'Vincent van Gogh (1853–1890)',
+      subtitle1: 'La noche estrellada (The Starry Night)',
+      subtitle2: 'Cipreses y estrellas en espiral'
+    }
   },
-  'munch': {
-    name: 'Munch',
-    description: `Munch is the defining Expressionist painter from Norway.
-He lost his mother at five and his sister at fourteen, and the memory of these losses dominated his canvases for life.
-His works, including The Scream, Madonna, and The Dance of Life, form "The Frieze of Life" — a cycle of love, death, and anxiety.
-
-"I paint not what I see, but what I saw," he declared, exploring the deepest human emotions.
-"Illness, madness, and death were the dark angels that watched over my cradle." — A painter who transformed inner darkness into art.`
-  },
-  'matisse': {
-    name: 'Matisse',
-    description: `Matisse is the leading Fauvist painter of France.
-At 21, he began painting with a box of colors his mother gave him while bedridden, later recalling it felt like "discovering paradise."
-The 1905 cry of "Wild beasts!" became the birth of Fauvism, and he left behind color-revolutionary masterpieces like The Dance, The Green Stripe, and The Red Room.
-
-He conveyed emotion through pure color alone, pushing the decorative potential of painting to its limit.
-"The purpose of color is not to describe form but to express emotion." — A painter who sang joy through color.`
-  },
-  'chagall': {
-    name: 'Chagall',
-    description: `Chagall was a painter of love and dreams.
-Born in a Russian Jewish village, he moved to Paris and never put down his brush through two World Wars and exile.
-His love for his wife Bella was a lifelong source of his art, leaving behind masterpieces like The Birthday, La Mariée, and I and the Village — canvases where bouquets and lovers float in midair.
-
-He worked until 97, enchanting the world with the Paris Opéra ceiling and stained glass windows.
-"In our life there is a single color, as on an artist's palette, which provides the meaning of life and art — the color of love." — A poet who erased the boundary between dream and reality.`
-  },
-  'picasso': {
-    name: 'Picasso',
-    description: `Picasso co-founded Cubism and changed the direction of modern art.
-In his 91-year life, he left approximately 50,000 works. Legend has it that at 13, his art teacher father saw his talent and broke his own brushes.
-He opened Cubism with Les Demoiselles d'Avignon, denounced war with Guernica, and reached the pinnacle of deconstruction with Portrait of Dora Maar.
-
-Through Blue Period, Rose Period, Cubism, and Surrealism, he constantly reinvented himself.
-"Good artists copy, great artists steal." — A painter who broke all rules and created new ones.`
-  },
-  'frida': {
-    name: 'Frida Kahlo',
-    description: `Frida Kahlo is Mexico's most original painter and a feminist icon.
-She contracted polio at 6 and at 18 suffered a bus accident that shattered her spine and pelvis, enduring over 30 surgeries throughout her life.
-She began painting while bedridden, looking at a mirror on the ceiling — and much of her work, including Me and My Parrots, The Broken Column, and Self-Portrait with Monkeys, are self-portraits.
-
-Her art, with its honest portrayal of pain, love, and identity, continues to resonate deeply today.
-"Feet, what do I need them for if I have wings to fly?" — A painter who transformed pain into art.`
-  },
-  'lichtenstein': {
-    name: 'Lichtenstein',
-    description: `Lichtenstein was a Pop Art master who broke the boundaries of fine art with comic book panels.
-When his son pointed to a Mickey Mouse comic and asked, "Can you draw as well as this, Dad?", he actually began transferring comics to canvas.
-With In the Car, M-Maybe, and Forget It!, he shook the art world by blowing up comic panels onto massive canvases.
-
-With Ben-Day dots and bold outlines, he overturned the hierarchy between popular culture and high art.
-"I don't draw comics, I paint pictures about comics." — A painter who erased the line between pop culture and fine art.`
-  }
-};
-
-// ========== Result Education (Style/Technique) ==========
-export const mastersResultEducation = {
-  // ===== Work-specific education (2nd result screen) =====
-
-  // ── Van Gogh ──
-  'vangogh-starrynight': {
-    description: `The swirling impasto brushstrokes of 〈The Starry Night〉 have been applied.
-The intense contrast of cobalt blue and chrome yellow unleashes the energy of the night.
-
-〈The Starry Night〉 was Van Gogh's reimagined vision of the landscape beyond his asylum window at Saint-Rémy.
-Rather than painting the actual night sky, he projected his inner turmoil onto the stars.`
-  },
-  'vangogh-cafe': {
-    description: `The complementary color nightscape technique of 〈Café Terrace at Night〉—without using black—has been applied.
-Yellow gaslights and deep blue night sky express darkness through color contrast alone.
-
-〈Café Terrace at Night〉 is the first outdoor night scene Van Gogh painted under starlight at Arles' Place du Forum.
-The empty chairs on the terrace and passing figures hold both the stillness and warmth of the night.`
-  },
-  'vangogh-sunflowers': {
-    description: `The subtle tonal variations of a single chrome yellow in 〈Sunflowers〉 have been applied.
-Thickly layered paint captures the texture of the petals as they are.
-
-〈Sunflowers〉 is a series Van Gogh painted to decorate the Yellow House in Arles for Gauguin's arrival.
-Full blooms, wilted flowers, and seeds together reveal the cycle of life.`
+  'vangogh-sunflower': {
+    result: {
+      name: 'Vincent van Gogh (1853–1890)',
+      subtitle1: 'Los girasoles (Sunflowers)',
+      subtitle2: 'Quince soles en un jarrón'
+    }
   },
   'vangogh-selfportrait': {
-    description: `The swirling background and thick impasto brushstrokes of 〈Self-Portrait〉 have been applied.
-Cool tones of blue and green convey both solitude and resolve.
-
-〈Self-Portrait〉 was painted when Van Gogh, too poor to afford models, used himself as subject.
-The eyes gazing directly forward and tightly closed lips show unwavering will amid suffering.`
+    result: {
+      name: 'Vincent van Gogh (1853–1890)',
+      subtitle1: 'Autorretrato (Self-Portrait)',
+      subtitle2: 'La mirada más honesta del mundo'
+    }
   },
-  'vangogh-wheatfield': {
-    description: `The dynamic curved brushstrokes and complementary color contrasts of 〈Wheat Field with Cypresses〉 have been applied.
-Wind-blown wheat and flame-like cypresses convey nature's vital energy.
 
-〈Wheat Field with Cypresses〉 is a landscape Van Gogh repeatedly painted near the asylum at Saint-Rémy.
-The golden horizon of the wheat field and the vertical cypress connect earth and sky.`
+  // --- Klimt ---
+  'klimt-kiss': {
+    result: {
+      name: 'Gustav Klimt (1862–1918)',
+      subtitle1: 'El beso (The Kiss)',
+      subtitle2: 'Amor envuelto en oro'
+    }
+  },
+  'klimt-judith': {
+    result: {
+      name: 'Gustav Klimt (1862–1918)',
+      subtitle1: 'Judit I (Judith I)',
+      subtitle2: 'Seducción y poder'
+    }
+  },
+  'klimt-treeoflife': {
+    result: {
+      name: 'Gustav Klimt (1862–1918)',
+      subtitle1: 'El árbol de la vida (The Tree of Life)',
+      subtitle2: 'Espirales de eternidad'
+    }
+  },
+
+  // --- Munch ---
+  'munch-scream': {
+    result: {
+      name: 'Edvard Munch (1863–1944)',
+      subtitle1: 'El grito (The Scream)',
+      subtitle2: 'La angustia hecha imagen'
+    }
+  },
+  'munch-madonna': {
+    result: {
+      name: 'Edvard Munch (1863–1944)',
+      subtitle1: 'Madonna (Madonna)',
+      subtitle2: 'Donde la santidad y la sensualidad se cruzan'
+    }
+  },
+  'munch-puberty': {
+    result: {
+      name: 'Edvard Munch (1863–1944)',
+      subtitle1: 'Pubertad (Puberty)',
+      subtitle2: 'La inquietud de la inocencia'
+    }
+  },
+
+  // --- Matisse ---
+  'matisse-dance': {
+    result: {
+      name: 'Henri Matisse (1869–1954)',
+      subtitle1: 'La danza (The Dance)',
+      subtitle2: 'El ritmo primordial del cuerpo'
+    }
+  },
+  'matisse-redroom': {
+    result: {
+      name: 'Henri Matisse (1869–1954)',
+      subtitle1: 'La habitación roja (The Red Room)',
+      subtitle2: 'Un mundo inundado de rojo'
+    }
+  },
+  'matisse-hat': {
+    result: {
+      name: 'Henri Matisse (1869–1954)',
+      subtitle1: 'La mujer del sombrero (Woman with a Hat)',
+      subtitle2: 'El disparo de salida del Fauvismo'
+    }
+  },
+
+  // --- Chagall ---
+  'chagall-overthecity': {
+    result: {
+      name: 'Marc Chagall (1887–1985)',
+      subtitle1: 'Sobre la ciudad (Over the Town)',
+      subtitle2: 'Volar sobre la ciudad con el ser amado'
+    }
+  },
+  'chagall-iandthevillage': {
+    result: {
+      name: 'Marc Chagall (1887–1985)',
+      subtitle1: 'Yo y la aldea (I and the Village)',
+      subtitle2: 'Nostalgia de un pueblo natal en sueños'
+    }
+  },
+  'chagall-bouquet': {
+    result: {
+      name: 'Marc Chagall (1887–1985)',
+      subtitle1: 'Ramo de flores con amantes (Bouquet with Flying Lovers)',
+      subtitle2: 'Flores que florecen en el amor'
+    }
+  },
+
+  // --- Picasso ---
+  'picasso-demoiselles': {
+    result: {
+      name: 'Pablo Picasso (1881–1973)',
+      subtitle1: 'Las señoritas de Avignon (Les Demoiselles d\'Avignon)',
+      subtitle2: 'La detonación del Cubismo'
+    }
+  },
+  'picasso-guernica': {
+    result: {
+      name: 'Pablo Picasso (1881–1973)',
+      subtitle1: 'Guernica (Guernica)',
+      subtitle2: 'El grito contra la guerra'
+    }
+  },
+  'picasso-doramaar': {
+    result: {
+      name: 'Pablo Picasso (1881–1973)',
+      subtitle1: 'Retrato de Dora Maar (Portrait of Dora Maar)',
+      subtitle2: 'Frente y perfil en un solo rostro'
+    }
+  },
+
+  // --- Frida ---
+  'frida-brokencolumn': {
+    result: {
+      name: 'Frida Kahlo (1907–1954)',
+      subtitle1: 'La columna rota (The Broken Column)',
+      subtitle2: 'Un cuerpo abierto, un alma inquebrantable'
+    }
+  },
+  'frida-thornnecklace': {
+    result: {
+      name: 'Frida Kahlo (1907–1954)',
+      subtitle1: 'Autorretrato con collar de espinas y colibrí (Self-Portrait with Thorn Necklace and Hummingbird)',
+      subtitle2: 'El dolor como corona'
+    }
+  },
+  'frida-twofridaskahlo': {
+    result: {
+      name: 'Frida Kahlo (1907–1954)',
+      subtitle1: 'Las dos Fridas (The Two Fridas)',
+      subtitle2: 'Dos corazones, una Frida'
+    }
+  },
+
+  // --- Lichtenstein ---
+  'lichtenstein-drowninggirl': {
+    result: {
+      name: 'Roy Lichtenstein (1923–1997)',
+      subtitle1: 'Chica ahogándose (Drowning Girl)',
+      subtitle2: 'Un drama de cómic en el lienzo'
+    }
+  },
+  'lichtenstein-whaam': {
+    result: {
+      name: 'Roy Lichtenstein (1923–1997)',
+      subtitle1: '¡Whaam! (Whaam!)',
+      subtitle2: 'La explosión del cómic como arte'
+    }
+  },
+  'lichtenstein-inthecar': {
+    result: {
+      name: 'Roy Lichtenstein (1923–1997)',
+      subtitle1: 'En el coche (In the Car)',
+      subtitle2: 'Un momento congelado del cómic'
+    }
+  }
+};
+
+
+// ========== 1ª Educación: Carga (narrativa biográfica) ==========
+export const mastersLoadingEducation = {
+
+  // ── Van Gogh ──
+  'vangogh': {
+    description: `La técnica de impasto grueso y las pinceladas arremolinadas han sido aplicadas.
+El intenso contraste de amarillo y azul expresa directamente la emoción del alma.
+
+Van Gogh es una figura definitoria del Post-Impresionismo.
+Comenzó a pintar a los 27 años y produjo 900 pinturas al óleo en solo diez años, pero solo una se vendió durante su vida.
+Obras maestras como La noche estrellada, Girasoles y Terraza del café por la noche nacieron en la pobreza y la angustia mental.
+
+Murió a los 37 años—pobre y sin reconocimiento—pero ahora es el pintor más amado de la historia.`
+  },
+
+  // ── Klimt ──
+  'klimt': {
+    description: `Láminas de oro real y patrones geométricos inspirados en mosaicos bizantinos han sido aplicados.
+Rectángulos a los lados y círculos arriba—los detalles decorativos ahora envuelven tu figura.
+
+Klimt fue el principal pintor Art Nouveau de la Viena de finales del siglo XIX.
+Creó una técnica única que combina pintura al óleo con incrustaciones de oro.
+
+Su obra más famosa, 〈El beso〉, representa a una pareja de amantes envueltos en oro y se ha convertido en un ícono del romanticismo.`
+  },
+
+  // ── Munch ──
+  'munch': {
+    description: `Curvas arremolinadas, formas distorsionadas y colores intensos han sido aplicados.
+Cielos de color rojo sangre y líneas ondulantes expresan ansiedad y emociones profundas.
+
+Munch fue el pionero del Expresionismo que pintó no lo que veía, sino lo que sentía.
+Perdió a su madre a los 5 años y a su hermana favorita a los 14—ese trauma se convirtió en la fuente perenne de su obra.
+
+〈El Grito〉 es una expresión visual del terror existencial que se ha convertido en una de las imágenes más icónicas de la historia del arte.`
+  },
+
+  // ── Matisse ──
+  'matisse': {
+    description: `Formas simplificadas y colores primarios audaces han sido aplicados.
+En lugar de la precisión anatómica, el enfoque está en expresar la emoción a través del color.
+
+Matisse fue el líder del Fauvismo—movimiento que usó colores salvajes para expresar sentimientos en lugar de realidad.
+Descubrió la pintura mientras se recuperaba de una apendicitis a los 20 años y nunca se detuvo.
+
+Al final de su vida, cuando ya no podía pintar, creó obras con recortes de papel de colores—demostrando que el arte no tiene límites.`
+  },
+
+  // ── Chagall ──
+  'chagall': {
+    description: `Una atmósfera onírica de rosa, azul cobalto y colores joya ha sido aplicada.
+Bouquets, amantes flotantes y animales fantásticos flotan entre el sueño y la realidad.
+
+Chagall nació en Vitebsk, Bielorrusia, y encontró allí todos los colores de su vida.
+Su amor por Bella, su esposa de toda la vida, se convirtió en el tema eterno de su obra.
+
+Pintó los colores del amor y la nostalgia a lo largo de sus 97 años de vida—convirtiéndose en el poeta del color sin igual.`
+  },
+
+  // ── Picasso ──
+  'picasso': {
+    description: `Las técnicas cubistas que deconstruyen los sujetos en planos geométricos y muestran el frente y el lado simultáneamente han sido aplicadas.
+Tu rostro ahora está en todas partes a la vez—visto desde todos los ángulos simultáneamente.
+
+Picasso fue el artista más influyente del siglo XX.
+A los 13 años, ya pintaba mejor que su padre, que era profesor de arte.
+
+Junto con Braque, desarrolló el Cubismo—una revolución que destruyó la perspectiva tradicional y abrió la puerta al arte abstracto.`
+  },
+
+  // ── Frida ──
+  'frida': {
+    description: `Colores folclóricos mexicanos tradicionales, follaje tropical y comunión con animales han sido aplicados.
+En Autorretrato con collar de espinas, el dolor se convierte en arte.
+
+A los 18 años, Frida Kahlo sufrió un terrible accidente de autobús que le destrozó la columna vertebral.
+Durante la recuperación, comenzó a pintar—transformando el dolor en arte.
+
+De sus 143 pinturas, la mayoría son autorretratos. 'Me pinto a mí misma porque estoy sola con frecuencia', dijo.`
+  },
+
+  // ── Lichtenstein ──
+  'lichtenstein': {
+    description: `Las técnicas del pop art que usan puntos Ben-Day de cómics impresos, contornos negros gruesos y colores primarios han sido aplicadas.
+Tu rostro ahora parece un panel de cómic—brillante, audaz y lleno de expresión dramática.
+
+En 1961, Lichtenstein pintó un cómic de Mickey Mouse y el mundo del arte se sacudió.
+La revista Life preguntó: '¿Es el peor artista de EE.UU.?'
+
+Ahora sus obras se venden por decenas de millones de dólares—demostrando que la cultura pop es arte.`
+  }
+};
+
+
+// ========== 2ª Educación: Resultado (técnicas por obra) ==========
+export const mastersResultEducation = {
+
+  // ── Van Gogh ──
+  'vangogh-starry': {
+    description: `Se han aplicado las espirales cósmicas de La Noche Estrellada.
+Pinceladas en espiral arrastran estrellas, luna y cielo nocturno creando una ilusión de movimiento cósmico.
+
+Los cipreses oscuros se alzan como llamas negras, y cada estrella pulsa con energía propia.
+La obra maestra que Van Gogh pintó desde su ventana del sanatorio de Saint-Rémy, la más famosa del Postimpresionismo.`
+  },
+  'vangogh-sunflower': {
+    description: `Se ha aplicado el empaste grueso y el cromo dorado de Los Girasoles.
+Amarillo sobre amarillo, la pintura se aplica tan espesa que adquiere textura escultórica.
+
+Desde el pleno florecimiento hasta el marchitamiento, se expresan simultáneamente la vitalidad y la decadencia.
+Un estallido de vida que Van Gogh pintó como regalo de bienvenida para su amigo Gauguin.`
+  },
+  'vangogh-selfportrait': {
+    description: `El fondo arremolinado y las gruesas pinceladas de impasto de 〈Autorretrato〉 han sido aplicados.
+Los tonos fríos de verde y azul crean una intensidad psicológica.
+
+〈Autorretrato〉 es el espejo en el que Van Gogh se miraba a sí mismo—y nosotros con él.
+Durante sus 10 años de carrera, pintó más de 30 autorretratos, cada uno revelando diferentes capas del alma.
+
+Este retrato, con su fondo azul arremolinado, es considerado la cúspide de su capacidad técnica y expresión interior.`
   },
 
   // ── Klimt ──
   'klimt-kiss': {
-    description: `The gold leaf background and geometric decorative patterns of 〈The Kiss〉 have been applied.
-Rectangles on the man's robe contrast with curves and circles on the woman's, creating opposition and harmony.
+    description: `El fondo de lámina de oro y los patrones decorativos geométricos de 〈El beso〉 han sido aplicados.
+Rectángulos y círculos se alternan creando un manto dorado que envuelve a dos figuras.
 
-〈The Kiss〉 is Klimt's masterpiece from his "Golden Phase," inspired by Byzantine mosaics.
-The lovers' embrace wrapped in gold holds both the ecstasy of love and the anxiety of its passing.`
-  },
-  'klimt-treeoflife': {
-    description: `The spiral curves and golden decorative patterns of 〈The Tree of Life〉 have been applied.
-Triangles, circles, and spirals repeat, creating a rhythmic flow of life's energy.
+〈El beso〉 es la obra maestra del Art Nouveau que ahora es una de las pinturas más amadas del mundo.
+El oro real brilla sobre el lienzo—Klimt mezcló técnicas de pintura tradicional con materiales lujosos.
 
-〈The Tree of Life〉 was created as a dining room mural for the Stoclet Palace in Brussels.
-The endlessly branching spiral limbs are a metaphor for birth, death, and the cycle of life.`
+Dos figuras que se abrazan en el borde de un precipicio se han convertido en símbolo universal del amor y la vulnerabilidad.`
   },
   'klimt-judith': {
-    description: `The gold leaf decoration and jewel-like sensual colors of 〈Judith〉 have been applied.
-Transparent veils and gold necklaces create tension between the sacred and the sensual.
+    description: `La decoración de lámina de oro y los colores sensuales joya de 〈Judith〉 han sido aplicados.
+Terciopelo transparente y manto dorado crean una expresión contradictoria de poder y deseo.
 
-〈Judith〉 is Klimt's reinterpretation of the biblical heroine as a sensual woman.
-Half-closed eyes and a provocative smile completely overturn the piety of traditional religious painting.`
+〈Judith〉 es la guerrera del Antiguo Testamento que decapitó a Holofernes—pero Klimt la pintó no como heroína, sino como femme fatale en éxtasis.
+
+Los ojos entrecerrados y la expresión de labios entreabiertos crean una ambigüedad entre el placer y la victoria que es la marca distintiva de Klimt.`
+  },
+  'klimt-treeoflife': {
+    description: `Las curvas espirales y los patrones decorativos dorados de 〈El árbol de la vida〉 han sido aplicados.
+Triángulos, ojos y espirales superpuestos crean un tapiz de vida y muerte.
+
+〈El árbol de la vida〉 es la pieza central del Friso Stoclet—una decoración mural monumental que Klimt creó para un palacio en Bruselas.
+El árbol de ramas en espiral simboliza el ciclo eterno de la vida.
+
+Es el ejemplo perfecto del Gesamtkunstwerk—obra de arte total que une pintura, arquitectura y artesanía.`
   },
 
   // ── Munch ──
   'munch-scream': {
-    description: `The undulating curves and distorted forms of 〈The Scream〉 have been applied.
-A blood-red sky and rippling background contrast with the straight railing, creating extreme anxiety.
+    description: `Las curvas ondulantes y las formas distorsionadas de 〈El Grito〉 han sido aplicadas.
+Un cielo rojo sangre y líneas temblorosas expresan pura ansiedad existencial.
 
-〈The Scream〉 captures the terror Munch felt when the sky turned blood-red during a walk.
-The open-mouthed figure's cry is expressed not as sound but as a tremor passing through all existence.`
+〈El Grito〉 nació de una experiencia real de Munch—una tarde en Oslo, sintió que la naturaleza 'le gritaba'.
+Tres versiones en pintura y una en pastel—cada una capturando el momento en que el ser humano siente el vacío del universo.
+
+Ahora es el símbolo visual de la ansiedad moderna más reconocido en el mundo.`
   },
   'munch-madonna': {
-    description: `The red halo and undulating sensual curves of 〈Madonna〉 have been applied.
-At the boundary between open and closed eyes, life and death merge into one.
+    description: `El halo rojo y las curvas sensuales ondulantes de 〈Madonna〉 han sido aplicados.
+En la frontera entre la vida y la muerte, la figura se alza con los ojos cerrados.
 
-〈Madonna〉 is Munch's reinterpretation of the Virgin Mary as a moment where sensuality and death intersect.
-Closed eyes, parted lips, and a red halo reveal human desire rather than holiness.`
+〈Madonna〉 no es una Madonna religiosa—es la celebración de Munch del nacimiento, el amor y la muerte en una sola figura.
+Olas rojas envuelven la figura desnuda, mientras el marco muestra un feto y una calavera.
+
+Es una meditación sobre el ciclo eterno de la vida que solo Munch podía expresar con tal valentía.`
   },
-  'munch-danceoflife': {
-    description: `The symbolic contrast of light and dark colors in 〈The Dance of Life〉 has been applied.
-With the central woman in a red dress as axis, innocence and despair are placed on either side.
+  'munch-puberty': {
+    description: `Se han aplicado la vulnerabilidad expuesta y la sombra amenazante de Pubertad.
+La adolescente desnuda sentada en la cama mira al espectador con miedo e inocencia.
 
-〈The Dance of Life〉 is Munch's autobiographical work compressing memories of love and heartbreak into one canvas.
-Light and dark colors alternate on a single canvas, capturing both the beginning and end of love.`
+La sombra oscura detrás de ella se alza como una presencia amenazadora, encarnando la angustia de crecer.
+Una de las primeras obras que capturó el terror silencioso de la transición de la infancia a la adultez.`
   },
 
   // ── Matisse ──
-  'matisse-greenstripe': {
-    description: `The bold color plane division that bisects the face in 〈The Green Stripe〉 has been applied.
-Pink, yellow, and green coexist on the skin, completely ignoring natural color.
+  'matisse-dance': {
+    description: `Se han aplicado las figuras rítmicas y los colores primarios audaces de La Danza.
+Cuerpos rojos danzan en un espacio mínimo de azul y verde con energía primordial.
 
-〈The Green Stripe〉 is a portrait Matisse painted of his wife Amélie, drawing cries of "Wild beasts!" at the 1905 Salon.
-A single green stripe down the center of the face divides light and shadow through color alone.`
-  },
-  'matisse-purplecoat': {
-    description: `The intense color planes and decorative flat composition of 〈Woman in a Purple Coat〉 have been applied.
-The boundary between figure and background dissolves, with color itself creating space.
-
-〈Woman in a Purple Coat〉 is a work where Matisse conveyed emotion through simplified forms and pure color.
-The vast color plane of the purple coat dominates the canvas, merging with the background patterns as one.`
+Cinco figuras forman un círculo de movimiento puro, simplificado hasta el gesto esencial.
+La declaración de Matisse de que el color es ritmo y la línea es emoción.`
   },
   'matisse-redroom': {
-    description: `The flat color plane composition that defies perspective in 〈The Red Room〉 has been applied.
-The red wall and red table merge into one as arabesque patterns blanket the entire space.
+    description: `La composición de planos de color plano que desafía la perspectiva en 〈La habitación roja〉 ha sido aplicada.
+La pared roja y la mesa roja se fusionan en una sola—los patrones de arabescos cubren todo el espacio.
 
-〈The Red Room〉 was originally painted in blue, but Matisse repainted it red just before completion.
-Even the view through the window appears as flat decoration, erasing the boundary between inside and out.`
+〈La habitación roja〉 fue originalmente pintada en azul, pero Matisse la repintó de rojo justo antes de terminar.
+Incluso la vista por la ventana aparece como decoración plana—borrando el límite entre interior y exterior.
+
+Esto es prueba de la valentía de Matisse: que el color puede ser más poderoso que la realidad.`
   },
-  'matisse-derain': {
-    description: `The rough brushstrokes and unnatural skin colors of 〈Portrait of André Derain〉 have been applied.
-Green shadows and orange skin, with bold primary colors, render the subject in a wild, Fauvist manner.
+  'matisse-hat': {
+    description: `Se han aplicado los colores faciales no naturalistas y la pincelada audaz de La Mujer del Sombrero.
+Verde en la nariz, violeta en la frente, naranja en el cuello — colores que escandalizaron al público.
 
-〈Portrait of André Derain〉 is a portrait of friendship Matisse painted of his fellow artist André Derain.
-The two painters exchanged portraits of each other at the same time, sharing their Fauvist experiments together.`
+La obra que en el Salón de Otoño de 1905 provocó el grito de "¡Fieras!" y bautizó al Fauvismo.
+El manifiesto de Matisse: el color no describe, sino que expresa.`
   },
 
   // ── Chagall ──
-  'chagall-lovers': {
-    description: `The dreamlike colors and overlapping images of 〈The Lovers〉 have been applied.
-Pink, cobalt blue, and violet blend together, erasing the boundary between dream and reality.
+  'chagall-overthecity': {
+    description: `Se ha aplicado la flotación onírica y la paleta pastel de Sobre la Ciudad.
+Los amantes flotan libremente sobre los tejados del pueblo, desafiando la gravedad.
 
-〈The Lovers〉 is a work Chagall painted of his love for Bella, his lifelong muse and wife.
-Lovers layered like a dream over a real background express the intoxication of love.`
+Los tejados de Vitebsk se extienden abajo en tonos apagados; arriba, Chagall y Bella vuelan en éxtasis de color.
+La declaración más pura de que el amor es capaz de hacernos volar.`
   },
-  'chagall-lamariee': {
-    description: `The dreamlike contrast of red bouquets and blue night sky in 〈La Mariée〉 has been applied.
-Animals and figures blend like apparitions, unfolding a festive fantasy.
+  'chagall-iandthevillage': {
+    description: `Se han aplicado la multiperspectiva onírica y la superposición de recuerdos de Yo y la Aldea.
+Un rostro humano verde y una cabra blanca se miran; dentro de la cabra aparece una escena de ordeño.
 
-〈La Mariée〉 captures the rooftops and church spires of Chagall's hometown Vitebsk as a landscape of memory.
-The bride holding a red bouquet, overlaid with the village scene, holds both nostalgia and joy.`
+Tejados invertidos, figuras flotantes y escenas simultáneas tejen la memoria y el sueño.
+La ventana a la infancia de Chagall, donde todo se mezcla en un sueño sin gravedad.`
   },
-  'chagall-village': {
-    description: `The multiple perspectives and transparently overlapping images of 〈I and the Village〉 have been applied.
-People, animals, and village scenery intermingle dreamlike, defying scale and proportion.
+  'chagall-bouquet': {
+    description: `Se han aplicado las flores vibrantes y los amantes flotantes de Ramo de Flores con Amantes.
+Un enorme ramo de flores irrumpe en el cielo mientras los amantes flotan entre los pétalos.
 
-〈I and the Village〉 was painted in Paris as Chagall longed for his hometown of Vitebsk.
-Reality and memory merge on a single canvas, capturing an endless yearning for home.`
+Rojos, azules, amarillos y verdes estallan como fuegos artificiales de color sobre fondo oscuro.
+La obra en que Chagall celebra el amor como una eterna primavera suspendida en el aire.`
   },
 
   // ── Picasso ──
+  'picasso-demoiselles': {
+    description: `Se ha aplicado la deconstrucción radical y las máscaras africanas de Las Señoritas de Avignon.
+Cinco cuerpos fragmentados en ángulos imposibles destruyen la perspectiva renacentista.
+
+Los dos rostros de la derecha, inspirados en máscaras africanas, anuncian el nacimiento del Cubismo.
+La detonación que inauguró el arte del siglo XX, donde la representación cedió ante la deconstrucción.`
+  },
+  'picasso-guernica': {
+    description: `Se ha aplicado la composición monumental y el claroscuro desgarrador del Guernica.
+Escala de grises, negro y blanco — la ausencia de color amplifica el horror de la guerra.
+
+El toro, el caballo herido, la bombilla y la madre con el niño muerto forman un grito visual de tres metros y medio de alto.
+El alegato antibélico más poderoso de la historia del arte, pintado en seis semanas de furia.`
+  },
   'picasso-doramaar': {
-    description: `The simultaneous front and side view of 〈Portrait of Dora Maar〉 has been applied.
-Intense primary color planes divide the face geometrically, creating Cubist tension.
+    description: `La vista simultánea de frente y de lado de 〈Retrato de Dora Maar〉 ha sido aplicada.
+Colores primarios intensos llenan los planos geométricos.
 
-〈Portrait of Dora Maar〉 was painted by Picasso of his lover and fellow photographer Dora Maar.
-The seated woman's front and side coexist in one face, revealing the complexity within.`
+Dora Maar era fotógrafa y artista que se convirtió en musa y amante de Picasso durante la Segunda Guerra Mundial.
+〈Retrato de Dora Maar〉 captura su rostro desde múltiples ángulos simultáneamente—expresión visual de la complejidad psicológica de una persona.
+
+Picasso luego dijo: 'Dora, para mí, siempre estaba llorando.' Esta pintura es un monumento a su inteligencia y sufrimiento.`
   },
 
-  // ── Frida Kahlo ──
-  'frida-parrots': {
-    description: `The intense frontal gaze and Mexican folk colors of 〈Me and My Parrots〉 have been applied.
-Vivid reds, greens, and blues fill the canvas alongside tropical foliage.
+  // ── Frida ──
+  'frida-brokencolumn': {
+    description: `Se ha aplicado la disección anatómica y el simbolismo crudo de La Columna Rota.
+El torso abierto revela una columna jónica rota; clavos perforan la piel desnuda; lágrimas caen de ojos secos.
 
-〈Me and My Parrots〉 is a self-portrait in which Frida is surrounded by four parrots.
-Parrots are messengers of love in Mexican folklore, and faithful companions in Frida's solitude.`
+Un corsé de metal sostiene un cuerpo que se desmorona, pero la mirada permanece desafiante.
+La obra más visceral de Frida, donde el dolor se convierte en mapa del cuerpo y declaración de resistencia.`
   },
-  'frida-monkeys': {
-    description: `The frontal gaze and lush tropical background of 〈Self-Portrait with Monkeys〉 have been applied.
-Amid dark green leaves, her intense eyes and connected eyebrows reveal her identity.
+  'frida-thornnecklace': {
+    description: `Se ha aplicado la frontalidad icónica y la simbología natural del Autorretrato con Collar de Espinas y Colibrí.
+Frida mira directamente al espectador; espinas le rodean el cuello como collar de dolor, y un colibrí muerto pende como amuleto.
 
-〈Self-Portrait with Monkeys〉 is a self-portrait Frida painted with her pet monkeys.
-In Mexican mythology monkeys symbolize desire, but for Frida they were surrogates for the children she could never have.`
+Un mono sobre el hombro, un gato negro al acecho — cada elemento es un símbolo codificado de su sufrimiento.
+El autorretrato que sintetiza la estética de Frida: la naturaleza mexicana, el dolor y la resistencia.`
+  },
+  'frida-twofridaskahlo': {
+    description: `Se han aplicado la dualidad simbólica y el realismo emocional de Las Dos Fridas.
+Dos Fridas sentadas lado a lado, conectadas por una arteria que une sus corazones expuestos.
+
+La Frida europea de vestido blanco tiene el corazón roto y sangra; la Frida mexicana sostiene un retrato de Diego y tiene el corazón intacto.
+La obra maestra de la fractura interior, pintada durante el divorcio de Diego Rivera.`
   },
 
   // ── Lichtenstein ──
-  'lichtenstein-inthecar': {
-    description: `The Ben-Day dots and thick black outlines of 〈In the Car〉 have been applied.
-Only pure primary colors—red, blue, and yellow—fill the canvas like a comic book panel.
+  'lichtenstein-drowninggirl': {
+    description: `Se han aplicado los puntos Ben-Day y el drama de cómic de Chica Ahogándose.
+Puntos regulares crean las sombras de la piel; contornos negros gruesos definen la silueta emocional.
 
-〈In the Car〉 was created by enlarging a panel from the comic Girls' Romances onto canvas.
-Lichtenstein deliberately removed the speech bubble from the original, leaving only the power of the image instead of narrative.`
+La protagonista piensa: "No me importa... ¡Prefiero hundirme antes que pedir ayuda a Brad!" — el melodrama del cómic elevado a arte.
+La obra que demostró que una viñeta de cómic puede contener toda la intensidad del arte.`
+  },
+  'lichtenstein-whaam': {
+    description: `Se han aplicado la explosión gráfica y la escala monumental de ¡Whaam!
+Dos paneles: un avión dispara a la izquierda; una explosión de puntos y líneas estalla a la derecha.
+
+Onomatopeyas gigantes, líneas de velocidad y estrellas de impacto convierten la guerra en espectáculo pop.
+La obra icónica del Pop Art que transformó el cómic bélico en comentario cultural a gran escala.`
+  },
+  'lichtenstein-inthecar': {
+    description: `Los puntos Ben-Day y los contornos negros gruesos de 〈En el coche〉 han sido aplicados.
+Solo colores primarios puros llenan los contornos gruesos—como un panel de cómic ampliado.
+
+〈En el coche〉 captura a una pareja en un automóvil en el estilo de cómic característico de Lichtenstein.
+Las expresiones faciales planas y la distancia emocional entre las dos figuras crean la ironía fría característica de Lichtenstein.
+
+Esta pintura pregunta: ¿estamos realmente conectados, o solo somos imágenes de conexión?`
+  },
+
+  // ===== Respaldo por artista (cuando no se identifica obra específica) =====
+  'vangogh_default': {
+    description: `Se ha aplicado el estilo expresivo de Van Gogh, con sus pinceladas en espiral y colores intensos.
+Las pinceladas fuertes y direccionales crean texturas vibrantes llenas de energía emocional.
+
+El contraste entre azul profundo y amarillo brillante define la paleta de un artista que pintó con el corazón.
+Un estilo inconfundible donde cada trazo revela el alma atormentada y apasionada del pintor.`
+  },
+  'klimt_default': {
+    description: `Se ha aplicado el estilo decorativo de Klimt, con pan de oro y patrones geométricos.
+Los mosaicos dorados y las espirales ornamentales crean un mundo de lujo sensual.
+
+Figuras planas envueltas en patrones donde lo orgánico y lo geométrico se entrelazan.
+La estética de la Secesión vienesa, donde la decoración se convierte en expresión del alma.`
+  },
+  'munch_default': {
+    description: `Se ha aplicado el estilo expresionista de Munch, con colores inquietantes y formas ondulantes.
+Las líneas sinuosas y los tonos enfermizos transmiten directamente la angustia psicológica.
+
+Paisajes que se distorsionan al ritmo de las emociones internas, donde nada permanece estable.
+El lenguaje visual de la ansiedad, pionero en convertir el interior del alma en imagen.`
+  },
+  'matisse_default': {
+    description: `Se ha aplicado el estilo fauvista de Matisse, con colores puros y formas simplificadas.
+Primarios audaces se disponen sin respetar la realidad, y las formas se reducen a su esencia.
+
+La línea se convierte en danza y el color en música — cada elemento canta con independencia.
+El arte de la alegría pura, donde el color es libre de toda obligación descriptiva.`
+  },
+  'chagall_default': {
+    description: `Se ha aplicado el estilo onírico de Chagall, con colores pastel y figuras flotantes.
+Amantes, animales y tejados flotan en un espacio sin gravedad, teñido de nostalgia.
+
+Rosas, violetas y azules se funden como recuerdos que se mezclan en sueños.
+Un mundo donde el amor y la memoria desafían las leyes de la física y del tiempo.`
+  },
+  'picasso_default': {
+    description: `Se ha aplicado el estilo cubista de Picasso, con formas geométricas y perspectiva múltiple.
+Rostros y cuerpos se fragmentan en planos angulares, mostrando varios puntos de vista simultáneamente.
+
+Líneas audaces y colores contrastantes construyen una realidad deconstruida y recompuesta.
+La revolución visual que destruyó 500 años de perspectiva tradicional.`
+  },
+  'frida_default': {
+    description: `Se ha aplicado el estilo simbólico de Frida, con colores mexicanos y una mirada frontal intensa.
+Rojos, verdes y amarillos de la tradición mexicana enmarcan una iconografía profundamente personal.
+
+Cada elemento — espinas, animales, plantas — es un símbolo codificado de dolor, resistencia y amor.
+El arte de la confesión donde el cuerpo roto se convierte en territorio de identidad y lucha.`
+  },
+  'lichtenstein_default': {
+    description: `Se ha aplicado el estilo Pop Art de Lichtenstein, con puntos Ben-Day y contornos gruesos.
+Patrones de puntos regulares y colores primarios planos transforman la estética del cómic en arte.
+
+Negro, rojo, azul y amarillo en composiciones gráficas que cuestionan qué es arte y qué es cultura popular.
+La esencia del Pop Art que borró la frontera entre el museo y la cultura de masas.`
+  },
+  'vangogh-starrynight': {
+    description: `Se ha aplicado la técnica de impasto arremolinado de 〈La noche estrellada〉.
+El intenso contraste del azul cobalto y el amarillo cromo libera la energía de la noche.
+
+〈La noche estrellada〉 fue la visión reimaginada de Van Gogh del paisaje más allá de la ventana del sanatorio en Saint-Rémy.
+En lugar de pintar el cielo nocturno real, proyectó su tormento interior sobre las estrellas.`
+  },
+  'vangogh-cafe': {
+    description: `Se ha aplicado la técnica de paisaje nocturno de colores complementarios de 〈Terraza del café por la noche〉, sin usar negro.
+Las luces de gas amarillas y el cielo azul oscuro expresan la oscuridad solo a través del contraste de colores.
+
+〈Terraza del café por la noche〉 fue la primera escena nocturna al aire libre que Van Gogh pintó bajo la luz de las estrellas en la Place du Forum de Arlés.
+Las sillas vacías en la terraza y las figuras que pasan guardan tanto la quietud como el calor de la noche.`
+  },
+  'vangogh-sunflowers': {
+    description: `Se han aplicado las sutiles variaciones tonales del amarillo cromo único en 〈Girasoles〉.
+La pintura aplicada en capas gruesas captura la textura de los pétalos tal como son.
+
+〈Girasoles〉 es una serie que Van Gogh pintó para decorar la Casa Amarilla en Arlés antes de la llegada de Gauguin.
+Flores en plena floración, flores marchitas y semillas juntas revelan el ciclo de la vida.`
+  },
+  'vangogh-wheatfield': {
+    description: `Se han aplicado las pinceladas curvas dinámicas y los contrastes de colores complementarios de 〈Campo de trigo con cipreses〉.
+El trigo agitado por el viento y los cipreses como llamas transmiten la energía vital de la naturaleza.
+
+〈Campo de trigo con cipreses〉 es un paisaje que Van Gogh pintó repetidamente cerca del sanatorio en Saint-Rémy.
+El horizonte dorado del campo de trigo y el ciprés vertical conectan la tierra y el cielo.`
+  },
+  'matisse-greenstripe': {
+    description: `Se ha aplicado la audaz división de planos de color que bisecta el rostro en 〈La raya verde〉.
+Rosa, amarillo y verde coexisten en la piel, ignorando completamente el color natural.
+
+〈La raya verde〉 es un retrato que Matisse pintó de su esposa Amélie, provocando los gritos de '¡bestias salvajes!' en el Salón de 1905.
+Una sola raya verde en el centro del rostro divide la luz y la sombra solo a través del color.`
+  },
+  'matisse-purplecoat': {
+    description: `Se han aplicado los intensos planos de color y la composición plana decorativa de 〈Mujer con abrigo morado〉.
+El límite entre la figura y el fondo se disuelve, con el color mismo creando espacio.
+
+〈Mujer con abrigo morado〉 es una obra donde Matisse transmitió emoción a través de formas simplificadas y color puro.
+El vasto plano de color del abrigo morado domina el lienzo, fusionándose con los patrones del fondo como uno solo.`
+  },
+  'matisse-derain': {
+    description: `Se han aplicado las pinceladas ásperas y los colores de piel antinaturales de 〈Retrato de André Derain〉.
+Sombras verdes y piel naranja, con colores primarios audaces, representan al sujeto de manera salvaje y fauvista.
+
+〈Retrato de André Derain〉 es un retrato de amistad que Matisse pintó de su compañero artista André Derain.
+Los dos pintores intercambiaron retratos el uno del otro al mismo tiempo, compartiendo sus experimentos fauvistas juntos.`
+  },
+  'chagall-lovers': {
+    description: `Se han aplicado los colores oníricos y las imágenes superpuestas de 〈Los amantes〉.
+El rosa, el azul cobalto y el violeta se mezclan, borrando el límite entre el sueño y la realidad.
+
+〈Los amantes〉 es una obra que Chagall pintó sobre su amor por Bella, su musa y esposa de toda la vida.
+Los amantes superpuestos como un sueño sobre un fondo real expresan la embriaguez del amor.`
+  },
+  'chagall-lamariee': {
+    description: `Se ha aplicado el contraste onírico de los ramos rojos y el cielo nocturno azul en 〈La Mariée〉.
+Animales y figuras se mezclan como apariciones, desplegando una fantasía festiva.
+
+〈La Mariée〉 captura los tejados y las agujas de la iglesia de la ciudad natal de Chagall, Vitebsk, como un paisaje de memoria.
+La novia sosteniendo un ramo rojo, superpuesta con la escena del pueblo, guarda tanto nostalgia como alegría.`
+  },
+  'chagall-village': {
+    description: `Se han aplicado las múltiples perspectivas y las imágenes superpuestas transparentemente de 〈Yo y el pueblo〉.
+Personas, animales y escenarios del pueblo se entremezclan como en un sueño, desafiando escala y proporción.
+
+〈Yo y el pueblo〉 fue pintado en París mientras Chagall añoraba su ciudad natal de Vitebsk.
+La realidad y la memoria se fusionan en un solo lienzo, capturando un anhelo interminable por el hogar.`
+  },
+  'munch-danceoflife': {
+    description: `Se ha aplicado el contraste simbólico de colores claros y oscuros en 〈La danza de la vida〉.
+Con la mujer central en vestido rojo como eje, la inocencia y la desesperación se colocan a cada lado.
+
+〈La danza de la vida〉 es la obra autobiográfica de Munch que comprime recuerdos de amor y corazón roto en un solo lienzo.
+Colores claros y oscuros se alternan en un solo lienzo, capturando tanto el comienzo como el fin del amor.`
+  },
+  'frida-parrots': {
+    description: `Se han aplicado la intensa mirada frontal y los colores populares mexicanos de 〈Yo y mis pericos〉.
+Rojos, verdes y azules vívidos llenan el lienzo junto con el follaje tropical.
+
+〈Yo y mis pericos〉 es un autorretrato en el que Frida está rodeada de cuatro pericos.
+Los pericos son mensajeros de amor en el folclore mexicano, y fieles compañeros en la soledad de Frida.`
+  },
+  'frida-monkeys': {
+    description: `Se han aplicado la mirada frontal y el exuberante fondo tropical de 〈Autorretrato con monos〉.
+Entre hojas verde oscuro, sus intensos ojos y cejas unidas revelan su identidad.
+
+〈Autorretrato con monos〉 es un autorretrato que Frida pintó con sus monos mascota.
+En la mitología mexicana los monos simbolizan el deseo, pero para Frida eran sustitutos de los hijos que nunca pudo tener.`
   },
   'lichtenstein-mmaybe': {
-    description: `The Ben-Day dots and comic-book narrative of speech bubbles in 〈M-Maybe〉 have been applied.
-Primary colors fill flatly within thick outlines, recreating the texture of a printed page.
+    description: `Se han aplicado los puntos Ben-Day y la narrativa de cómic de los globos de diálogo en 〈M-Quizás〉.
+Los colores primarios llenan planos dentro de contornos gruesos, recreando la textura de una página impresa.
 
-〈M-Maybe〉 was a work Lichtenstein kept in his personal collection, which sold for $30,000—five times the going rate.
-It is now displayed as a centerpiece of the Pop Art collection at Museum Ludwig in Cologne, Germany.`
+〈M-Quizás〉 fue una obra que Lichtenstein conservó en su colección personal, que se vendió por $30,000—cinco veces el precio habitual.
+Ahora se exhibe como pieza central de la colección de Pop Art en el Museum Ludwig de Colonia, Alemania.`
   },
   'lichtenstein-forgetit': {
-    description: `The Ben-Day dots and intense primary color contrasts of 〈Forget It!〉 have been applied.
-Thick black outlines fix the form like a comic panel, compressing emotion dramatically.
+    description: `Se han aplicado los puntos Ben-Day y los intensos contrastes de colores primarios de 〈¡Olvídalo!〉.
+Los gruesos contornos negros fijan la forma como un panel de cómic, comprimiendo la emoción dramáticamente.
 
-〈Forget It!〉 is an early masterwork created just after Lichtenstein's first solo show in 1962.
-That same year, Life magazine ran the headline: "Is He the Worst Artist in the U.S.?"—about him.`
+〈¡Olvídalo!〉 es una obra maestra temprana creada justo después de la primera exposición individual de Lichtenstein en 1962.
+Ese mismo año, la revista Life publicó el titular: '¿Es el Peor Artista de EE.UU.?'—sobre él.`
   },
   'lichtenstein-ohhhalright': {
-    description: `The Ben-Day dots and flat color plane composition of 〈Ohhh...Alright...〉 have been applied.
-Red, blue, and yellow separate cleanly within black outlines, as crisp as a printed page.
+    description: `Se han aplicado los puntos Ben-Day y la composición de planos de color plano de 〈Ohhh...Está bien...〉.
+El rojo, el azul y el amarillo se separan limpiamente dentro de contornos negros, tan nítidos como una página impresa.
 
-〈Ohhh...Alright...〉 is a 1964 work borrowed from issue #88 of Secret Hearts.
-It sold for $42.6 million at Christie's in 2010, overturning the value of what he once called "used canvas."`
+〈Ohhh...Está bien...〉 es una obra de 1964 tomada del número #88 de Secret Hearts.
+Se vendió por $42,6 millones en Christie\'s en 2010, revirtiendo el valor de lo que él llamó 'lienzo usado'.`
   },
   'lichtenstein-stilllife': {
-    description: `The Ben-Day dots and thick outlines creating flat expression in 〈Still Life〉 have been applied.
-Primary color planes simplify objects in a comic-like manner, recreating the texture of print.
+    description: `Se han aplicado los puntos Ben-Day y los contornos gruesos que crean expresión plana en 〈Naturaleza muerta〉.
+Los planos de colores primarios simplifican los objetos de manera similar a un cómic, recreando la textura de la impresión.
 
-〈Still Life〉 is part of a 1970s series in which Lichtenstein reinterpreted a traditional genre as homage to Picasso.
-"There's no mood in my still lifes—it's just lemons and grapefruits," he said.`
+〈Naturaleza muerta〉 es parte de una serie de los años 70 en la que Lichtenstein reinterpretó un género tradicional como homenaje a Picasso.
+'No hay estado de ánimo en mis naturalezas muertas—solo limones y toronjas', dijo.`
   },
 
-  // ===== Master-level fallback (when work match fails) =====
-  'vangogh': {
-    name: 'Van Gogh Style',
-    description: `Thick impasto technique and swirling brushstrokes have been applied.
-The intense contrast of yellow and blue reveals inner emotions.
-
-He left over 40 self-portraits, confronting his inner self most honestly through them.
-The eyes gazing directly forward show unwavering will even amid suffering.`
-  },
-  'klimt': {
-    name: 'Klimt Style',
-    description: `Real gold leaf and geometric patterns inspired by Byzantine mosaics have been applied.
-Rectangles on men's clothing contrast with curves and circles on women's, expressing both opposition and harmony.
-
-Spiral curves and ornate decoration wrap the figure in a mystical golden world.
-Within this decoration, sensuality and divinity coexist.`
-  },
-  'munch': {
-    name: 'Munch Style',
-    description: `Swirling curves, distorted forms, and intense colors have been applied.
-Blood-red skies and wavering landscapes visualize inner emotions.
-
-He wrote in his diary that while walking by the Oslo fjord, he "heard an enormous scream pass through nature."
-Before his paintings, the colors themselves become vibrations of emotion.`
-  },
-  'matisse': {
-    name: 'Matisse Style',
-    description: `Simplified forms and bold primary colors have been applied.
-Rather than anatomical accuracy, focus is on the energy of movement, with color directly conveying emotion.
-
-Just as The Red Room erased the boundary between table and wall, he chose harmony of color planes over perspective.
-Before his canvas, colors sing out.`
-  },
-  'chagall': {
-    name: 'Chagall Style',
-    description: `A dreamlike atmosphere of pink, cobalt blue, and jewel-like colors has been applied.
-Bouquets, lovers, and hometown scenes blend together like memories, lifting the weight of reality.
-
-He composed his canvases with the logic of emotion rather than perspective or anatomy.
-In his paintings, time and space halt before love, and the world fills with dreamlike light.`
-  },
-  'picasso': {
-    name: 'Picasso Style',
-    description: `Cubist techniques that deconstruct subjects into geometric planes and show front and side simultaneously have been applied.
-Like Portrait of Dora Maar, multiple viewpoints coexist in a single face.
-
-In Guernica, using only black and white, he conveyed the terror of war immediately. This destructive deconstruction was itself creation.
-Five centuries of perspective rules shattered on his canvas.`
-  },
-  'frida': {
-    name: 'Frida Kahlo Style',
-    description: `Traditional Mexican colors, tropical foliage, and communion with animals have been applied.
-In Self-Portrait with Thorn Necklace and Hummingbird, thorns symbolize pain and the dead hummingbird represents lost love.
-
-Unable to have children, she treated her parrots and monkeys as family.
-In her self-portraits, animals are not mere backgrounds but companions offering comfort amid suffering.`
-  },
-  'lichtenstein': {
-    name: 'Lichtenstein Style',
-    description: `Pop art techniques using Ben-Day dots from printed comics, thick black outlines, and primary colors have been applied.
-Like the glamorous couple In the Car, every image becomes a comic book panel.
-
-Like the dramatic expressions and speech bubbles of comic heroines, everyday moments transform into dramatic scenes.
-Emotion exploding within mechanical dots and lines—that is Lichtenstein's paradox.`
-  }
 };
-
 export default { mastersBasicInfo, mastersLoadingEducation, mastersResultEducation };

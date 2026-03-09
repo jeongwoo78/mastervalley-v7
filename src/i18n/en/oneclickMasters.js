@@ -70,7 +70,7 @@ Frida faced herself with a broken body,
 Lichtenstein questioned the world with a single comic panel.
 
 They asked, they broke, they rebuilt.
-Seven worlds—now it's your turn to respond.`
+Seven worlds—now it\'s your turn to respond.`
 };
 
 // ==================== Secondary Education (Result Screen) ====================
@@ -122,7 +122,7 @@ In his paintings, reality and dreams blend without boundaries.`
 He deconstructed objects into geometric planes and reassembled multiple viewpoints on a single canvas.
 
 His signature is the multi-perspective structure where front and side views exist simultaneously.
-He dismantled 500 years of perspective's established order.`
+He dismantled 500 years of perspective\'s established order.`
   },
 
   'frida': {
