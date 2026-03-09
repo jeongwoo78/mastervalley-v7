@@ -66,32 +66,19 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
         {categories.map(cat => (
           <button
             key={cat.id}
-            className="category-card"
+            className={`category-card${lang === 'ar' ? ' category-card-rtl' : ''}`}
             onClick={() => onSelect(cat.id)}
           >
-            {lang === 'ar' ? (
-              <>
-                <span className="card-arrow" style={{ transform: 'scaleX(-1)' }}>›</span>
-                <div className="card-info">
-                  <span className="card-name" style={{ color: cat.accent }}>{cat.name}</span>
-                  <span className="card-desc">{cat.description}</span>
-                </div>
-                <div className="card-thumbnail">
-                  <img src={cat.thumbnail} alt={cat.name} />
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="card-thumbnail">
-                  <img src={cat.thumbnail} alt={cat.name} />
-                </div>
-                <div className="card-info">
-                  <span className="card-name" style={{ color: cat.accent }}>{cat.name}</span>
-                  <span className="card-desc">{cat.description}</span>
-                </div>
-                <span className="card-arrow">›</span>
-              </>
-            )}
+            <div className="card-thumbnail">
+              <img src={cat.thumbnail} alt={cat.name} />
+            </div>
+            <div className="card-info">
+              <span className="card-name" style={{ color: cat.accent }}>{cat.name}</span>
+              <span className="card-desc">{cat.description}</span>
+            </div>
+            <svg className="card-arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
+              <path d="M9 6l6 6-6 6" />
+            </svg>
           </button>
         ))}
       </div>
@@ -255,11 +242,28 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           text-align: start;
         }
 
-        .card-arrow {
+        .card-arrow-svg {
           color: rgba(255,255,255,0.3);
-          font-size: 20px;
-          font-weight: 300;
+          flex-shrink: 0;
           padding-inline-end: 4px;
+        }
+
+        /* RTL: 카드 순서 반전 + 텍스트 정렬 + 화살표 반전 */
+        .category-card-rtl {
+          flex-direction: row-reverse;
+        }
+
+        .category-card-rtl .card-info {
+          text-align: end;
+        }
+
+        .category-card-rtl .card-name,
+        .category-card-rtl .card-desc {
+          text-align: end;
+        }
+
+        .category-card-rtl .card-arrow-svg {
+          transform: scaleX(-1);
         }
 
         /* Subscription Info */
