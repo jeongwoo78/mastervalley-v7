@@ -68,16 +68,30 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
             key={cat.id}
             className="category-card"
             onClick={() => onSelect(cat.id)}
-            style={lang === 'ar' ? { flexDirection: 'row-reverse' } : undefined}
           >
-            <div className="card-thumbnail">
-              <img src={cat.thumbnail} alt={cat.name} />
-            </div>
-            <div className="card-info">
-              <span className="card-name" style={{ color: cat.accent }}>{cat.name}</span>
-              <span className="card-desc">{cat.description}</span>
-            </div>
-            <span className="card-arrow" style={lang === 'ar' ? { transform: 'scaleX(-1)' } : undefined}>›</span>
+            {lang === 'ar' ? (
+              <>
+                <span className="card-arrow" style={{ transform: 'scaleX(-1)' }}>›</span>
+                <div className="card-info">
+                  <span className="card-name" style={{ color: cat.accent }}>{cat.name}</span>
+                  <span className="card-desc">{cat.description}</span>
+                </div>
+                <div className="card-thumbnail">
+                  <img src={cat.thumbnail} alt={cat.name} />
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="card-thumbnail">
+                  <img src={cat.thumbnail} alt={cat.name} />
+                </div>
+                <div className="card-info">
+                  <span className="card-name" style={{ color: cat.accent }}>{cat.name}</span>
+                  <span className="card-desc">{cat.description}</span>
+                </div>
+                <span className="card-arrow">›</span>
+              </>
+            )}
           </button>
         ))}
       </div>
@@ -246,14 +260,6 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           font-size: 20px;
           font-weight: 300;
           padding-inline-end: 4px;
-        }
-
-        [dir="rtl"] .category-card {
-          flex-direction: row-reverse;
-        }
-
-        [dir="rtl"] .card-arrow {
-          transform: scaleX(-1);
         }
 
         /* Subscription Info */
