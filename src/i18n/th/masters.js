@@ -139,8 +139,6 @@ export const mastersBasicInfo = {
       subtitle1: 'In the Car · M-Maybe · Forget It!',
       subtitle2: 'ชายผู้เปลี่ยนการ์ตูนเป็นศิลปะ',
       works: {
-        'drowninggirl': { subtitle1: 'หญิงกำลังจมน้ำ (Drowning Girl)', subtitle2: 'ดราม่าการ์ตูนที่ยกขึ้นสู่ผืนผ้าใบ' },
-        'whaam': { subtitle1: 'วูม! (Whaam!)', subtitle2: 'การระเบิดการ์ตูนกลายเป็นศิลปะ' },
         'inthecar': { subtitle1: 'ในรถ (In the Car)', subtitle2: 'ความเงียบไร้ฟองคำ ความรู้สึกที่พุ่งทะยาน' },
         'mmaybe': { subtitle1: 'เอ็ม-บางที (M-Maybe)', subtitle2: 'ดราม่าป็อปอาร์ตในคำลังเล' },
         'forgetit': { subtitle1: 'ลืมมันซะ! (Forget It!)', subtitle2: 'เสียงร้องแห่งการอำลาในช่องการ์ตูน' },

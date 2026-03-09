@@ -106,8 +106,6 @@ export const mastersBasicInfo = {
       subtitle1: 'In the Car · M-Maybe · Forget It!',
       subtitle2: 'Çizgi romanı sanata dönüştüren adam',
       works: {
-        'drowninggirl': { subtitle1: 'Boğulan Kız (Drowning Girl)', subtitle2: 'Tuvale taşınan çizgi roman draması' },
-        'whaam': { subtitle1: 'Bam! (Whaam!)', subtitle2: 'Çizgi roman patlaması sanat oluyor' },
         'inthecar': { subtitle1: 'Arabada (In the Car)', subtitle2: 'Sessiz gerilim, hız yapan duygular' },
         'mmaybe': { subtitle1: 'Belki (M-Maybe)', subtitle2: 'Bir tereddüt kelimesi Pop Art dramasına dönüşüyor' },
         'forgetit': { subtitle1: 'Unut Gitsin! (Forget It!)', subtitle2: 'Tek bir çizgi roman karesinde yakalanan bir veda çığlığı' },

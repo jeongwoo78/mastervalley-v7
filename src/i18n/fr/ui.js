@@ -12,8 +12,8 @@ export const ui = {
     masterCollectionDesc: '7 maîtres intemporels',
     eastAsianArt: 'Peinture orientale',
     eastAsianArtDesc: 'La beauté millénaire de l\'Orient',
-    tagline: 'Immortalisez votre beauté dans un chef-d\'œuvre',
-    subTagline: 'Les grands maîtres vous portraiturent'
+    tagline: "Un voyage à travers le temps et l'espace",
+    subTagline: "Rencontrez les maîtres d'Orient et d'Occident"
   },
 
   // ===== PhotoStyleScreen =====
@@ -116,7 +116,7 @@ export const ui = {
     hide: 'Masquer',
     show: 'Voir',
     shareTitle: 'Œuvre Master Valley',
-    shareText: 'œuvre de style',
+    shareText: '— Master Valley',
     loadingEducation: 'Génération de la description de l\'œuvre...',
     conversionFailedRetry: 'La transformation a échoué. Veuillez toucher Réessayer.',
     convertedInStyle: 'Œuvre transformée dans le style {style}.'
@@ -187,9 +187,9 @@ export const ui = {
     bestValue: 'Populaire',
     get: 'Appliquer',
     bonusLabel: 'Bonus',
-    tagStarter: 'Commencez maintenant',
-    tagStandard: 'Partagez votre beauté',
-    tagPlus: 'Inspirez-vous',
+    tagStarter: 'Commencez votre voyage dans le temps',
+    tagStandard: 'Explorez le monde des maîtres',
+    tagPlus: 'Et trouvez votre inspiration',
     info1: 'Sans abonnement récurrent',
     info2: 'Solde sans expiration'
   },
@@ -217,8 +217,8 @@ export const ui = {
   },
 
     login: {
-    tagline: "Ta beauté, dans un chef-d\'œuvre",
-    sub: "Ta beauté, capturée à travers les yeux d\'un maître",
+    tagline: 'Une photo, un voyage de 2800 ans à travers le temps',
+    sub: 'Voir le monde à travers les yeux des maîtres',
     continueWithGoogle: 'Continuer avec Google',
     continueWithApple: 'Continuer avec Apple',
     email: 'E-mail',

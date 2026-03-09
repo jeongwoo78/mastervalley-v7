@@ -11,8 +11,8 @@ export const ui = {
     masterCollectionDesc: 'Çağı aşan 7 büyük usta',
     eastAsianArt: 'Doğu Resmi',
     eastAsianArtDesc: 'Bin yıllık Doğu güzelliği',
-    tagline: 'Güzelliğini bir başyapıtta ölümsüzleştir',
-    subTagline: 'Çağın büyük ustaları seni resmediyor'
+    tagline: 'Zamanda ve mekânda bir yolculuk',
+    subTagline: "Doğu ve Batı'nın büyük ustalarıyla tanış"
   },
 
   photoStyle: {
@@ -112,7 +112,7 @@ export const ui = {
     hide: 'Gizle',
     show: 'Göster',
     shareTitle: 'Master Valley Eseri',
-    shareText: 'stilinde eser',
+    shareText: '— Master Valley',
     loadingEducation: 'Eser açıklaması oluşturuluyor...',
     conversionFailedRetry: 'Dönüşüm başarısız. Lütfen yeniden dene\'ye basın.',
     convertedInStyle: '{style} stilinde dönüştürülmüş eser.'
@@ -180,9 +180,9 @@ export const ui = {
     bestValue: 'En Popüler',
     get: 'Uygula',
     bonusLabel: 'Bonus',
-    tagStarter: 'Hemen Başla',
-    tagStandard: 'Güzelliğini Paylaş',
-    tagPlus: 'İlham Al',
+    tagStarter: 'Zaman yolculuğuna başla',
+    tagStandard: 'Ustaların dünyasını deneyimle',
+    tagPlus: 'Ve ilhamını bul',
     info1: 'Tekrar eden ödeme yok',
     info2: 'Bakiye süresiz geçerli'
   },
@@ -207,8 +207,8 @@ export const ui = {
   },
 
     login: {
-    tagline: 'Güzelliğin, bir başyapıtta',
-    sub: 'Güzelliğin, bir ustanın gözünden yakalandı',
+    tagline: 'Bir fotoğraf, 2800 yıllık bir zaman yolculuğu',
+    sub: 'Dünyayı ustaların gözünden gör',
     continueWithGoogle: 'Google ile devam et',
     continueWithApple: 'Apple ile devam et',
     email: 'E-posta',

@@ -12,8 +12,8 @@ export const ui = {
     masterCollectionDesc: '超越時代的7位大師',
     eastAsianArt: '東洋畫',
     eastAsianArtDesc: '傳承千年的東方之美',
-    tagline: '將您的美麗，留存於名畫之中',
-    subTagline: '世紀大師為您留下身影'
+    tagline: '跨越時空的旅程',
+    subTagline: '邂逅東西方的世紀巨匠'
   },
 
   // ===== PhotoStyleScreen =====
@@ -116,7 +116,7 @@ export const ui = {
     hide: '隱藏',
     show: '顯示',
     shareTitle: 'Master Valley 作品',
-    shareText: '風格作品',
+    shareText: '— Master Valley',
     loadingEducation: '正在生成作品說明...',
     conversionFailedRetry: '轉換失敗，請點擊下方重試。',
     convertedInStyle: '以{style}風格轉換的作品。'
@@ -187,9 +187,9 @@ export const ui = {
     bestValue: '熱門',
     get: '套用',
     bonusLabel: '紅利',
-    tagStarter: '立即開始',
-    tagStandard: '分享您的美麗',
-    tagPlus: '獲得靈感',
+    tagStarter: '開始你的時光之旅',
+    tagStandard: '體驗大師的世界',
+    tagPlus: '然後找到你的靈感',
     info1: '無定期扣款',
     info2: '餘額永久有效'
   },
@@ -217,8 +217,8 @@ export const ui = {
   },
 
     login: {
-    tagline: '您的美麗，在傑作中永恆',
-    sub: '您的美麗，透過大師的眼睛被捕捉',
+    tagline: '一張照片，2800年的時光之旅',
+    sub: '透過大師的目光看世界',
     continueWithGoogle: '使用 Google 繼續',
     continueWithApple: '使用 Apple 繼續',
     email: '電子郵件',

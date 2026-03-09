@@ -12,8 +12,8 @@ export const ui = {
     masterCollectionDesc: '時代を超えた7人の巨匠',
     eastAsianArt: '東洋画',
     eastAsianArtDesc: '千年に息づく東洋の美',
-    tagline: 'あなたの美しさを、名画に刻んでください',
-    subTagline: '世紀の巨匠が、あなたを映す'
+    tagline: '時空を超える旅',
+    subTagline: '東西の巨匠に出会う'
   },
 
   // ===== PhotoStyleScreen =====
@@ -116,7 +116,7 @@ export const ui = {
     hide: '非表示',
     show: '表示',
     shareTitle: 'Master Valley 作品',
-    shareText: 'スタイル作品',
+    shareText: '— Master Valley',
     loadingEducation: '作品の説明を生成中...',
     conversionFailedRetry: '変換に失敗しました。下の再試行をタップしてください。',
     convertedInStyle: '{style}スタイルに変換された作品です。'
@@ -187,9 +187,9 @@ export const ui = {
     bestValue: '人気',
     get: '適用',
     bonusLabel: 'ボーナス',
-    tagStarter: '今すぐ始める',
-    tagStandard: 'あなたの美しさをシェアしよう',
-    tagPlus: 'インスピレーションを得よう',
+    tagStarter: '時間旅行を始めよう',
+    tagStandard: '巨匠の世界を体験しよう',
+    tagPlus: 'そしてインスピレーションを見つけよう',
     info1: '定期課金なし',
     info2: '残高有効期限なし'
   },
@@ -217,8 +217,8 @@ export const ui = {
   },
 
     login: {
-    tagline: 'あなたの美しさを、名画に',
-        sub: '巨匠の瞳に映るあなた',
+    tagline: '一枚の写真、2800年の時間旅行',
+        sub: '巨匠の目で世界を見る',
     continueWithGoogle: 'Googleで続ける',
     continueWithApple: 'Appleで続ける',
     email: 'メール',

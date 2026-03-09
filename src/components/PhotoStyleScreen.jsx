@@ -309,7 +309,11 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, userCredits = 0, lan
           </span>
           <div className="ft-content">
             <div className="ft-row-1">
-              <span className="ft-label">{ps.fullTransform}</span>
+              <span className="ft-label-inline">
+                <span className="ft-label">One-Click</span>
+                <span className="ft-pipe">|</span>
+                <span className="ft-sub">{ps.fullTransform}</span>
+              </span>
               <span className="ft-price">{cat.fullPrice}</span>
             </div>
             <div className="ft-row-2">
@@ -583,9 +587,27 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, userCredits = 0, lan
           align-items: center;
         }
 
+        .ft-label-inline {
+          display: flex;
+          align-items: baseline;
+          gap: 8px;
+        }
+
         .ft-label {
-          font-size: 14px;
+          font-family: 'Cormorant Garamond', Georgia, serif;
+          font-style: italic;
+          font-size: 20px;
           font-weight: 700;
+        }
+
+        .ft-pipe {
+          font-size: 11px;
+          opacity: 0.25;
+        }
+
+        .ft-sub {
+          font-size: 11px;
+          opacity: 0.5;
         }
 
         .ft-price {

@@ -87,11 +87,11 @@ export const movementsBasicInfo = {
   },
 
   // ===== 第2次 結果（藝術家/風格層級）=====
-  'classical-sculpture': { result: { name: '古希臘與羅馬 (Ancient Greek & Roman, 800 BC–500 AD)', subtitle1: '希臘雕塑 (Classical Sculpture)', subtitle2: '完美比例的起源' } },
-  'roman-mosaic': { result: { name: '古希臘與羅馬 (Ancient Greek & Roman, 800 BC–500 AD)', subtitle1: '羅馬馬賽克 (Roman Mosaic)', subtitle2: '鑲嵌於石中的故事' } },
-  'byzantine': { result: { name: '中世紀藝術 (Medieval Art, 4–14世紀)', subtitle1: '拜占庭 (Byzantine)', subtitle2: '金色的神聖世界' } },
-  'gothic': { result: { name: '中世紀藝術 (Medieval Art, 4–14世紀)', subtitle1: '哥德 (Gothic)', subtitle2: '以光建造的天穹' } },
-  'islamic-miniature': { result: { name: '中世紀藝術 (Medieval Art, 4–14世紀)', subtitle1: '伊斯蘭細密畫 (Islamic Miniature)', subtitle2: '寶石般的精緻' } },
+  'classical-sculpture': { result: { name: '古希臘與羅馬 (Ancient Greek & Roman, 800 BC–500 AD)', subtitle1: '希臘雕塑', subtitle2: '完美比例的起源' } },
+  'roman-mosaic': { result: { name: '古希臘與羅馬 (Ancient Greek & Roman, 800 BC–500 AD)', subtitle1: '羅馬馬賽克', subtitle2: '鑲嵌於石中的故事' } },
+  'byzantine': { result: { name: '中世紀藝術 (Medieval Art, 4–14世紀)', subtitle1: '拜占庭', subtitle2: '金色的神聖世界' } },
+  'gothic': { result: { name: '中世紀藝術 (Medieval Art, 4–14世紀)', subtitle1: '哥德', subtitle2: '以光建造的天穹' } },
+  'islamic-miniature': { result: { name: '中世紀藝術 (Medieval Art, 4–14世紀)', subtitle1: '伊斯蘭細密畫', subtitle2: '寶石般的精緻' } },
   'leonardo': { result: { name: '文藝復興 (Renaissance, 14–16世紀)', subtitle1: '李奧納多·達文西', subtitle2: '科學與藝術的交融' } },
   'michelangelo': { result: { name: '文藝復興 (Renaissance, 14–16世紀)', subtitle1: '米開朗基羅', subtitle2: '從石頭中解放靈魂' } },
   'raphael': { result: { name: '文藝復興 (Renaissance, 14–16世紀)', subtitle1: '拉斐爾', subtitle2: '完美均衡的畫家' } },

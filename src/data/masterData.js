@@ -430,7 +430,7 @@ export const ORIENTAL = {
 // ========== 사조별 화가 데이터 (AI 선택용) ==========
 export const MOVEMENT_ARTISTS = {
   ancient: {
-    'greek-sculpture': { 
+    'classical-sculpture': { 
       ko: '고대 그리스 조각', 
       en: 'Greek Sculpture',
       description: '이상적 인체 비례와 균형잡힌 조형미',
@@ -1277,11 +1277,24 @@ export const getStyleSubtitles = (category, styleId, mode, displayArtist, displa
     // 결과-결과 또는 완료 미리보기: 매칭화가 + 세부사조명 · 화풍
     else {
       const artist = findArtistByName(displayArtist);
+
+      // ★ i18n 통합: 11개 언어 동일 경로 — movementsBasicInfo[artistId].result
+      if (artist?.artistId) {
+        const i18nBasic = getMovementsBasicInfo(lang) || {};
+        const i18nArtistResult = i18nBasic[artist.artistId]?.result;
+        if (i18nArtistResult?.subtitle2) {
+          return [
+            i18nArtistResult.subtitle1 || artist.en || displayArtist || '',
+            i18nArtistResult.subtitle2
+          ];
+        }
+      }
+
       const artistDisplay = artist 
         ? (!isKo ? (artist.en || artist.ko) : `${artist.ko}(${artist.en})`)
         : displayArtist || '';
 
-      // i18n result 데이터 우선 사용
+      // fallback: i18n 데이터 없을 때 하드코딩
       const i18nMovements = getMovementsResultEducation(lang) || {};
       const i18nMov = i18nMovements[styleId];
       if (i18nMov?.result?.subtitle2) {

@@ -140,199 +140,28 @@ export const mastersBasicInfo = {
     },
     result: {
       name: 'Roy Lichtenstein (1923–1997)',
-      subtitle1: 'In the Car · Maybe · I Can See the Whole Room',
+      subtitle1: 'In the Car · M-Maybe · Forget It!',
       subtitle2: 'Transformer les bandes dessinées en art',
       works: {
         'inthecar': { subtitle1: 'In the Car', subtitle2: 'Silence sans bulles, émotions à grande vitesse' },
+        'mmaybe': { subtitle1: 'M-Maybe', subtitle2: "Un mot d'hésitation, un drame Pop Art" },
+        'forgetit': { subtitle1: 'Forget It!', subtitle2: "Un cri d'adieu capturé en une case" },
+        'ohhhalright': { subtitle1: 'Ohhh...Alright...', subtitle2: "Résignation et acceptation en un souffle" },
+        'stilllife': { subtitle1: 'Still Life with Crystal Bowl', subtitle2: 'Nature morte renaissant par les points Ben-Day' }
       }
-    },
+    }
   },
 
   // ===== Niveau œuvre (écran de résultat) =====
 
   // --- Van Gogh ---
-  'vangogh-starry': {
-    result: {
-      name: 'Vincent van Gogh (1853–1890)',
-      subtitle1: 'La Nuit étoilée (The Starry Night)',
-      subtitle2: 'Cyprès et étoiles en spirale'
-    }
-  },
-  'vangogh-sunflower': {
-    result: {
-      name: 'Vincent van Gogh (1853–1890)',
-      subtitle1: 'Les Tournesols (Sunflowers)',
-      subtitle2: 'Quinze soleils dans un vase'
-    }
-  },
-  'vangogh-selfportrait': {
-    result: {
-      name: 'Vincent van Gogh (1853–1890)',
-      subtitle1: 'Autoportrait (Self-Portrait)',
-      subtitle2: 'Le regard le plus sincère du monde'
-    }
-  },
-
   // --- Klimt ---
-  'klimt-kiss': {
-    result: {
-      name: 'Gustav Klimt (1862–1918)',
-      subtitle1: 'Le Baiser (The Kiss)',
-      subtitle2: 'L\'amour enveloppé d\'or'
-    }
-  },
-  'klimt-judith': {
-    result: {
-      name: 'Gustav Klimt (1862–1918)',
-      subtitle1: 'Judith I (Judith I)',
-      subtitle2: 'Séduction et pouvoir'
-    }
-  },
-  'klimt-treeoflife': {
-    result: {
-      name: 'Gustav Klimt (1862–1918)',
-      subtitle1: 'L\'Arbre de vie (The Tree of Life)',
-      subtitle2: 'Spirales d\'éternité'
-    }
-  },
-
   // --- Munch ---
-  'munch-scream': {
-    result: {
-      name: 'Edvard Munch (1863–1944)',
-      subtitle1: 'Le Cri (The Scream)',
-      subtitle2: 'L\'angoisse faite image'
-    }
-  },
-  'munch-madonna': {
-    result: {
-      name: 'Edvard Munch (1863–1944)',
-      subtitle1: 'Madonna (Madonna)',
-      subtitle2: 'Là où sainteté et sensualité se croisent'
-    }
-  },
-  'munch-puberty': {
-    result: {
-      name: 'Edvard Munch (1863–1944)',
-      subtitle1: 'Puberté (Puberty)',
-      subtitle2: 'L\'inquiétude de l\'innocence'
-    }
-  },
-
-  // --- Matisse ---
-  'matisse-dance': {
-    result: {
-      name: 'Henri Matisse (1869–1954)',
-      subtitle1: 'La Danse (The Dance)',
-      subtitle2: 'Le rythme primordial du corps'
-    }
-  },
-  'matisse-redroom': {
-    result: {
-      name: 'Henri Matisse (1869–1954)',
-      subtitle1: 'La Chambre rouge (The Red Room)',
-      subtitle2: 'Un monde inondé de rouge'
-    }
-  },
-  'matisse-hat': {
-    result: {
-      name: 'Henri Matisse (1869–1954)',
-      subtitle1: 'La Femme au chapeau (Woman with a Hat)',
-      subtitle2: 'Le coup d\'envoi du Fauvisme'
-    }
-  },
-
-  // --- Chagall ---
-  'chagall-overthecity': {
-    result: {
-      name: 'Marc Chagall (1887–1985)',
-      subtitle1: 'Au-dessus de la ville (Over the Town)',
-      subtitle2: 'Survoler la ville avec l\'être aimé'
-    }
-  },
-  'chagall-iandthevillage': {
-    result: {
-      name: 'Marc Chagall (1887–1985)',
-      subtitle1: 'Moi et le Village (I and the Village)',
-      subtitle2: 'La nostalgie d\'un village natal en rêve'
-    }
-  },
-  'chagall-bouquet': {
-    result: {
-      name: 'Marc Chagall (1887–1985)',
-      subtitle1: 'Bouquet aux amoureux volants (Bouquet with Flying Lovers)',
-      subtitle2: 'Des fleurs qui s\'épanouissent dans l\'amour'
-    }
-  },
-
-  // --- Picasso ---
-  'picasso-demoiselles': {
-    result: {
-      name: 'Pablo Picasso (1881–1973)',
-      subtitle1: 'Les Demoiselles d\'Avignon (Les Demoiselles d\'Avignon)',
-      subtitle2: 'La détonation du Cubisme'
-    }
-  },
-  'picasso-guernica': {
-    result: {
-      name: 'Pablo Picasso (1881–1973)',
-      subtitle1: 'Guernica (Guernica)',
-      subtitle2: 'Le cri contre la guerre'
-    }
-  },
-  'picasso-doramaar': {
-    result: {
-      name: 'Pablo Picasso (1881–1973)',
-      subtitle1: 'Portrait de Dora Maar (Portrait of Dora Maar)',
-      subtitle2: 'Face et profil en un seul visage'
-    }
-  },
-
+// --- Matisse ---
+// --- Chagall ---
+// --- Picasso ---
   // --- Frida ---
-  'frida-brokencolumn': {
-    result: {
-      name: 'Frida Kahlo (1907–1954)',
-      subtitle1: 'La Colonne brisée (The Broken Column)',
-      subtitle2: 'Un corps ouvert, une âme inébranlable'
-    }
-  },
-  'frida-thornnecklace': {
-    result: {
-      name: 'Frida Kahlo (1907–1954)',
-      subtitle1: 'Autoportrait au collier d\'épines et colibri (Self-Portrait with Thorn Necklace and Hummingbird)',
-      subtitle2: 'La douleur comme couronne'
-    }
-  },
-  'frida-twofridaskahlo': {
-    result: {
-      name: 'Frida Kahlo (1907–1954)',
-      subtitle1: 'Les Deux Fridas (The Two Fridas)',
-      subtitle2: 'Deux cœurs, une seule Frida'
-    }
-  },
-
   // --- Lichtenstein ---
-  'lichtenstein-drowninggirl': {
-    result: {
-      name: 'Roy Lichtenstein (1923–1997)',
-      subtitle1: 'Drowning Girl (Drowning Girl)',
-      subtitle2: 'Un drame de bande dessinée sur la toile'
-    }
-  },
-  'lichtenstein-whaam': {
-    result: {
-      name: 'Roy Lichtenstein (1923–1997)',
-      subtitle1: 'Whaam! (Whaam!)',
-      subtitle2: 'L\'explosion de la bande dessinée en art'
-    }
-  },
-  'lichtenstein-inthecar': {
-    result: {
-      name: 'Roy Lichtenstein (1923–1997)',
-      subtitle1: 'In the Car (In the Car)',
-      subtitle2: 'Un instant figé de bande dessinée'
-    }
-  }
 };
 
 
@@ -341,6 +170,7 @@ export const mastersLoadingEducation = {
 
   // ── Van Gogh ──
   'vangogh': {
+    name: 'Van Gogh',
     description: `La technique de l\'impasto épais et les coups de pinceau tourbillonnants ont été appliqués.
 L\'intense contraste du jaune et du bleu exprime directement l\'émotion de l\'âme.
 
@@ -353,6 +183,7 @@ Il est mort à 37 ans—pauvre et non reconnu—mais il est aujourd\'hui le pein
 
   // ── Klimt ──
   'klimt': {
+    name: 'Klimt',
     description: `De vraies feuilles d\'or et des motifs géométriques inspirés des mosaïques byzantines ont été appliqués.
 Des rectangles sur les côtés et des cercles en haut—les détails décoratifs enveloppent maintenant votre silhouette.
 
@@ -364,6 +195,7 @@ Son œuvre la plus célèbre, 〈Le Baiser〉, représente un couple d\'amoureux
 
   // ── Munch ──
   'munch': {
+    name: 'Munch',
     description: `Des courbes tourbillonnantes, des formes distordues et des couleurs intenses ont été appliquées.
 Des ciels rouge sang et des lignes ondulantes expriment l\'anxiété et les émotions profondes.
 
@@ -375,6 +207,7 @@ Il a perdu sa mère à 5 ans et sa sœur préférée à 14 ans—ce traumatisme 
 
   // ── Matisse ──
   'matisse': {
+    name: 'Matisse',
     description: `Des formes simplifiées et des couleurs primaires audacieuses ont été appliquées.
 Plutôt que la précision anatomique, l\'accent est mis sur l\'expression des émotions à travers la couleur.
 
@@ -386,6 +219,7 @@ Il a découvert la peinture en se remettant d\'une appendicite à l\'âge de 20 
 
   // ── Chagall ──
   'chagall': {
+    name: 'Chagall',
     description: `Une atmosphère onirique de rose, de bleu cobalt et de couleurs chatoyantes a été appliquée.
 Des bouquets, des amoureux flottants et des animaux fantastiques flottent entre rêve et réalité.
 
@@ -397,6 +231,7 @@ Il a peint les couleurs de l\'amour et de la nostalgie tout au long de ses 97 an
 
   // ── Picasso ──
   'picasso': {
+    name: 'Picasso',
     description: `Les techniques cubistes qui déconstruisent les sujets en plans géométriques et montrent le devant et le côté simultanément ont été appliquées.
 Votre visage est maintenant partout à la fois—vu sous tous les angles simultanément.
 
@@ -408,6 +243,7 @@ Avec Braque, il a développé le Cubisme—une révolution qui a brisé la persp
 
   // ── Frida ──
   'frida': {
+    name: 'Frida Kahlo',
     description: `Des couleurs folkloriques mexicaines traditionnelles, du feuillage tropical et une communion avec les animaux ont été appliqués.
 Dans Autoportrait au collier d\'épines, la douleur devient art.
 
@@ -419,6 +255,7 @@ Sur ses 143 tableaux, la plupart sont des autoportraits. 'Je me peins moi-même 
 
   // ── Lichtenstein ──
   'lichtenstein': {
+    name: 'Lichtenstein',
     description: `Les techniques du pop art utilisant des points Ben-Day de bandes dessinées imprimées, des contours noirs épais et des couleurs primaires ont été appliquées.
 Votre visage ressemble maintenant à un panneau de bande dessinée—brillant, audacieux et plein d\'expression dramatique.
 
@@ -432,259 +269,155 @@ Ses œuvres se vendent maintenant pour des dizaines de millions de dollars—pro
 
 // ========== 2e Éducation : Résultat (techniques par œuvre) ==========
 export const mastersResultEducation = {
-
-  // ── Van Gogh ──
-  'vangogh-starry': {
-    description: `Les spirales cosmiques de La Nuit étoilée ont été appliquées.
-Des touches en spirale entraînent étoiles, lune et ciel nocturne, créant une illusion de mouvement cosmique.
-
-Les cyprès sombres se dressent comme des flammes noires, et chaque étoile pulse de sa propre énergie.
-Le chef-d\'œuvre que Van Gogh peignit depuis sa fenêtre de l\'asile de Saint-Rémy, le plus célèbre du Postimpressionnisme.`
-  },
-  'vangogh-sunflower': {
-    description: `L\'empâtement épais et le jaune chrome des Tournesols ont été appliqués.
-Du jaune sur du jaune, la peinture est appliquée si épaisse qu\'elle acquiert une texture sculpturale.
-
-De la pleine floraison au flétrissement, la vitalité et le déclin sont exprimés simultanément.
-Un éclat de vie que Van Gogh peignit comme cadeau de bienvenue pour son ami Gauguin.`
-  },
   'vangogh-selfportrait': {
-    description: `Le fond tourbillonnant et les épaisses touches d\'impasto de 〈Autoportrait〉 ont été appliqués.
+    description: `Le fond tourbillonnant et les épaisses touches d'impasto de 〈Autoportrait〉 ont été appliqués.
 Les tons froids de vert et de bleu créent une intensité psychologique.
 
 〈Autoportrait〉 est le miroir dans lequel Van Gogh se regardait lui-même—et nous avec lui.
-Au cours de ses 10 années de carrière, il a peint plus de 30 autoportraits, chacun révélant différentes couches de l\'âme.
+Au cours de ses 10 années de carrière, il a peint plus de 30 autoportraits, chacun révélant différentes couches de l'âme.
 
 Ce portrait, avec son fond bleu tourbillonnant, est considéré comme le sommet de ses capacités techniques et de son expression intérieure.`
   },
-
-  // ── Klimt ──
   'klimt-kiss': {
-    description: `Le fond de feuille d\'or et les motifs décoratifs géométriques de 〈Le Baiser〉 ont été appliqués.
+    description: `Le fond de feuille d'or et les motifs décoratifs géométriques de 〈Le Baiser〉 ont été appliqués.
 Des rectangles et des cercles alternent pour créer un manteau doré enveloppant deux silhouettes.
 
-〈Le Baiser〉 est le chef-d\'œuvre de l\'Art Nouveau qui est maintenant l\'une des peintures les plus aimées au monde.
-L\'or véritable brille sur la toile—Klimt a mélangé les techniques de peinture traditionnelles avec des matériaux luxueux.
+〈Le Baiser〉 est le chef-d'œuvre de l'Art Nouveau qui est maintenant l'une des peintures les plus aimées au monde.
+L'or véritable brille sur la toile—Klimt a mélangé les techniques de peinture traditionnelles avec des matériaux luxueux.
 
-Deux silhouettes qui s\'étreignent au bord d\'un précipice sont devenues un symbole universel de l\'amour et de la vulnérabilité.`
+Deux silhouettes qui s'étreignent au bord d'un précipice sont devenues un symbole universel de l'amour et de la vulnérabilité.`
   },
   'klimt-judith': {
-    description: `La décoration en feuille d\'or et les couleurs sensuelles chatoyantes de 〈Judith〉 ont été appliquées.
+    description: `La décoration en feuille d'or et les couleurs sensuelles chatoyantes de 〈Judith〉 ont été appliquées.
 Du velours transparent et un manteau doré créent une expression contradictoire de pouvoir et de désir.
 
-〈Judith〉 est la guerrière de l\'Ancien Testament qui a décapité Holopherne—mais Klimt l\'a peinte non comme une héroïne, mais comme une femme fatale en extase.
+〈Judith〉 est la guerrière de l'Ancien Testament qui a décapité Holopherne—mais Klimt l'a peinte non comme une héroïne, mais comme une femme fatale en extase.
 
-Les yeux mi-clos et l\'expression des lèvres entrouvertes créent une ambiguïté entre plaisir et victoire qui est la marque distinctive de Klimt.`
+Les yeux mi-clos et l'expression des lèvres entrouvertes créent une ambiguïté entre plaisir et victoire qui est la marque distinctive de Klimt.`
   },
   'klimt-treeoflife': {
-    description: `Les courbes spirales et les motifs décoratifs dorés de 〈L\'Arbre de vie〉 ont été appliqués.
+    description: `Les courbes spirales et les motifs décoratifs dorés de 〈L'Arbre de vie〉 ont été appliqués.
 Des triangles, des yeux et des spirales superposés créent une tapisserie de vie et de mort.
 
-〈L\'Arbre de vie〉 est la pièce centrale de la Frise Stoclet—une décoration murale monumentale que Klimt a créée pour un palais à Bruxelles.
-L\'arbre aux branches en spirale symbolise le cycle éternel de la vie.
+〈L'Arbre de vie〉 est la pièce centrale de la Frise Stoclet—une décoration murale monumentale que Klimt a créée pour un palais à Bruxelles.
+L'arbre aux branches en spirale symbolise le cycle éternel de la vie.
 
-C\'est l\'exemple parfait du Gesamtkunstwerk—œuvre d\'art totale unissant peinture, architecture et artisanat.`
+C'est l'exemple parfait du Gesamtkunstwerk—œuvre d'art totale unissant peinture, architecture et artisanat.`
   },
-
-  // ── Munch ──
   'munch-scream': {
     description: `Les courbes ondulantes et les formes distordues de 〈Le Cri〉 ont été appliquées.
 Un ciel rouge sang et des lignes tremblantes expriment une pure anxiété existentielle.
 
-〈Le Cri〉 est né d\'une expérience réelle de Munch—un soir à Oslo, il a senti que la nature lui 'criait dessus'.
-Trois versions en peinture et une en pastel—chacune capturant le moment où l\'être humain ressent le vide de l\'univers.
+〈Le Cri〉 est né d'une expérience réelle de Munch—un soir à Oslo, il a senti que la nature lui 'criait dessus'.
+Trois versions en peinture et une en pastel—chacune capturant le moment où l'être humain ressent le vide de l'univers.
 
-C\'est maintenant le symbole visuel de l\'anxiété moderne le plus reconnu au monde.`
+C'est maintenant le symbole visuel de l'anxiété moderne le plus reconnu au monde.`
   },
   'munch-madonna': {
     description: `Le halo rouge et les courbes sensuelles ondulantes de 〈Madonna〉 ont été appliqués.
 À la frontière entre la vie et la mort, la silhouette se dresse les yeux fermés.
 
-〈Madonna〉 n\'est pas une Madonna religieuse—c\'est la célébration par Munch de la naissance, de l\'amour et de la mort en une seule figure.
+〈Madonna〉 n'est pas une Madonna religieuse—c'est la célébration par Munch de la naissance, de l'amour et de la mort en une seule figure.
 Des vagues rouges enveloppent la silhouette nue, tandis que le cadre montre un fœtus et un crâne.
 
-C\'est une méditation sur le cycle éternel de la vie que seul Munch pouvait exprimer avec un tel courage.`
-  },
-  'munch-puberty': {
-    description: `La vulnérabilité exposée et l\'ombre menaçante de Puberté ont été appliquées.
-L\'adolescente nue assise sur le lit regarde le spectateur avec peur et innocence.
-
-L\'ombre sombre derrière elle se dresse comme une présence menaçante, incarnant l\'angoisse de grandir.
-L\'une des premières œuvres à capter la terreur silencieuse du passage de l\'enfance à l\'âge adulte.`
-  },
-
-  // ── Matisse ──
-  'matisse-dance': {
-    description: `Les figures rythmiques et les couleurs primaires audacieuses de La Danse ont été appliquées.
-Des corps rouges dansent dans un espace minimal de bleu et de vert avec une énergie primordiale.
-
-Cinq figures forment un cercle de mouvement pur, simplifié jusqu\'au geste essentiel.
-La déclaration de Matisse que la couleur est rythme et la ligne est émotion.`
+C'est une méditation sur le cycle éternel de la vie que seul Munch pouvait exprimer avec un tel courage.`
   },
   'matisse-redroom': {
     description: `La composition en plans de couleur plate qui défie la perspective dans 〈La Chambre rouge〉 a été appliquée.
-Le mur rouge et la table rouge fusionnent en un seul—les motifs d\'arabesques recouvrent tout l\'espace.
+Le mur rouge et la table rouge fusionnent en un seul—les motifs d'arabesques recouvrent tout l'espace.
 
-〈La Chambre rouge〉 a d\'abord été peinte en bleu, mais Matisse l\'a repeinte en rouge juste avant de terminer.
+〈La Chambre rouge〉 a d'abord été peinte en bleu, mais Matisse l'a repeinte en rouge juste avant de terminer.
 Même la vue par la fenêtre apparaît comme une décoration plate—effaçant la frontière entre intérieur et extérieur.
 
-C\'est la preuve du courage de Matisse : que la couleur peut être plus puissante que la réalité.`
-  },
-  'matisse-hat': {
-    description: `Les couleurs faciales non naturalistes et la touche audacieuse de La Femme au chapeau ont été appliquées.
-Du vert sur le nez, du violet sur le front, de l\'orange sur le cou — des couleurs qui scandalisèrent le public.
-
-L\'œuvre qui au Salon d\'Automne de 1905 provoqua le cri « Des fauves ! » et baptisa le Fauvisme.
-Le manifeste de Matisse : la couleur ne décrit pas, elle exprime.`
-  },
-
-  // ── Chagall ──
-  'chagall-overthecity': {
-    description: `La flottaison onirique et la palette pastel d\'Au-dessus de la ville ont été appliquées.
-Les amoureux flottent librement au-dessus des toits du village, défiant la gravité.
-
-Les toits de Vitebsk s\'étendent en dessous en tons sourds ; au-dessus, Chagall et Bella volent dans une extase de couleur.
-La déclaration la plus pure que l\'amour peut nous faire voler.`
-  },
-  'chagall-iandthevillage': {
-    description: `La multiperspective onirique et la superposition de souvenirs de Moi et le Village ont été appliquées.
-Un visage humain vert et une chèvre blanche se regardent ; à l\'intérieur de la chèvre apparaît une scène de traite.
-
-Des toits inversés, des figures flottantes et des scènes simultanées tissent la mémoire et le rêve.
-La fenêtre sur l\'enfance de Chagall, où tout se mêle en un rêve sans gravité.`
-  },
-  'chagall-bouquet': {
-    description: `Les fleurs vibrantes et les amoureux volants du Bouquet aux amoureux volants ont été appliqués.
-Un énorme bouquet de fleurs jaillit dans le ciel tandis que les amoureux flottent parmi les pétales.
-
-Rouges, bleus, jaunes et verts éclatent comme un feu d\'artifice de couleur sur fond sombre.
-L\'œuvre où Chagall célèbre l\'amour comme un éternel printemps suspendu dans les airs.`
-  },
-
-  // ── Picasso ──
-  'picasso-demoiselles': {
-    description: `La déconstruction radicale et les masques africains des Demoiselles d\'Avignon ont été appliqués.
-Cinq corps fragmentés en angles impossibles détruisent la perspective de la Renaissance.
-
-Les deux visages de droite, inspirés de masques africains, annoncent la naissance du Cubisme.
-La détonation qui inaugura l\'art du XXe siècle, où la représentation céda devant la déconstruction.`
-  },
-  'picasso-guernica': {
-    description: `La composition monumentale et le clair-obscur déchirant de Guernica ont été appliqués.
-Nuances de gris, noir et blanc — l\'absence de couleur amplifie l\'horreur de la guerre.
-
-Le taureau, le cheval blessé, l\'ampoule et la mère avec l\'enfant mort forment un cri visuel de trois mètres et demi de haut.
-Le réquisitoire antiguerre le plus puissant de l\'histoire de l\'art, peint en six semaines de fureur.`
+C'est la preuve du courage de Matisse : que la couleur peut être plus puissante que la réalité.`
   },
   'picasso-doramaar': {
     description: `La vue simultanée de face et de profil de 〈Portrait de Dora Maar〉 a été appliquée.
 Des couleurs primaires intenses remplissent les plans géométriques.
 
-Dora Maar était photographe et artiste qui est devenue la muse et l\'amante de Picasso pendant la Seconde Guerre mondiale.
-〈Portrait de Dora Maar〉 capture son visage sous plusieurs angles simultanément—expression visuelle de la complexité psychologique d\'une personne.
+Dora Maar était photographe et artiste qui est devenue la muse et l'amante de Picasso pendant la Seconde Guerre mondiale.
+〈Portrait de Dora Maar〉 capture son visage sous plusieurs angles simultanément—expression visuelle de la complexité psychologique d'une personne.
 
 Picasso a ensuite dit : 'Dora, pour moi, pleurait toujours.' Ce tableau est un monument à son intelligence et à sa souffrance.`
-  },
-
-  // ── Frida ──
-  'frida-brokencolumn': {
-    description: `La dissection anatomique et le symbolisme cru de La Colonne brisée ont été appliqués.
-Le torse ouvert révèle une colonne ionique brisée ; des clous percent la peau nue ; des larmes coulent d\'yeux secs.
-
-Un corset métallique soutient un corps qui s\'effondre, mais le regard reste défiant.
-L\'œuvre la plus viscérale de Frida, où la douleur se fait carte du corps et déclaration de résistance.`
-  },
-  'frida-thornnecklace': {
-    description: `La frontalité iconique et la symbolique naturelle de l\'Autoportrait au collier d\'épines et colibri ont été appliquées.
-Frida regarde directement le spectateur ; des épines lui entourent le cou comme un collier de douleur, et un colibri mort pend comme une amulette.
-
-Un singe sur l\'épaule, un chat noir aux aguets — chaque élément est un symbole codé de sa souffrance.
-L\'autoportrait qui synthétise l\'esthétique de Frida : la nature mexicaine, la douleur et la résistance.`
-  },
-  'frida-twofridaskahlo': {
-    description: `La dualité symbolique et le réalisme émotionnel des Deux Fridas ont été appliqués.
-Deux Fridas assises côte à côte, reliées par une artère qui unit leurs cœurs exposés.
-
-La Frida européenne en robe blanche a le cœur brisé et saigne ; la Frida mexicaine tient un portrait de Diego et a le cœur intact.
-Le chef-d\'œuvre de la fracture intérieure, peint pendant le divorce avec Diego Rivera.`
-  },
-
-  // ── Lichtenstein ──
-  'lichtenstein-drowninggirl': {
-    description: `Les points Ben-Day et le drame de bande dessinée de Drowning Girl ont été appliqués.
-Des points réguliers créent les ombres de la peau ; d\'épais contours noirs définissent la silhouette émotionnelle.
-
-L\'héroïne pense : « Peu m\'importe… je préfère couler plutôt que d\'appeler Brad à l\'aide ! » — le mélodrame de la bande dessinée élevé au rang d\'art.
-L\'œuvre qui prouva qu\'une case de bande dessinée peut contenir toute l\'intensité de l\'art.`
-  },
-  'lichtenstein-whaam': {
-    description: `L\'explosion graphique et l\'échelle monumentale de Whaam! ont été appliquées.
-Deux panneaux : un avion tire à gauche ; une explosion de points et de lignes éclate à droite.
-
-Onomatopées géantes, lignes de vitesse et étoiles d\'impact transforment la guerre en spectacle pop.
-L\'œuvre emblématique du Pop Art qui transforma la bande dessinée de guerre en commentaire culturel à grande échelle.`
   },
   'lichtenstein-inthecar': {
     description: `Les points Ben-Day et les contours noirs épais de 〈Dans la voiture〉 ont été appliqués.
 Seules des couleurs primaires pures remplissent les contours épais—comme un panneau de bande dessinée agrandi.
 
 〈Dans la voiture〉 capture un couple dans une voiture dans le style de bande dessinée caractéristique de Lichtenstein.
-Les expressions faciales plates et la distance émotionnelle entre les deux figures créent l\'ironie froide caractéristique de Lichtenstein.
+Les expressions faciales plates et la distance émotionnelle entre les deux figures créent l'ironie froide caractéristique de Lichtenstein.
 
 Cette peinture pose la question : sommes-nous vraiment connectés, ou ne sommes-nous que des images de connexion ?`
   },
 
+
+  // ── Van Gogh ──
+  // ── Klimt ──
+  // ── Munch ──
+// ── Matisse ──
+// ── Chagall ──
+// ── Picasso ──
+  // ── Frida ──
+  // ── Lichtenstein ──
   // ===== Secours par artiste (quand aucune œuvre spécifique n\'est identifiée) =====
-  'vangogh_default': {
+  'vangogh': {
+    name: 'Style Van Gogh',
     description: `Le style expressif de Van Gogh, avec ses touches en spirale et ses couleurs intenses, a été appliqué.
 Les touches fortes et directionnelles créent des textures vibrantes pleines d\'énergie émotionnelle.
 
 Le contraste entre bleu profond et jaune éclatant définit la palette d\'un artiste qui peignit avec le cœur.
 Un style inimitable où chaque trace révèle l\'âme tourmentée et passionnée du peintre.`
   },
-  'klimt_default': {
+  'klimt': {
+    name: 'Style Klimt',
     description: `Le style décoratif de Klimt, avec feuille d\'or et motifs géométriques, a été appliqué.
 Les mosaïques dorées et les spirales ornementales créent un monde de luxe sensuel.
 
 Des figures planes enveloppées de motifs où l\'organique et le géométrique s\'entrelacent.
 L\'esthétique de la Sécession viennoise, où la décoration devient expression de l\'âme.`
   },
-  'munch_default': {
+  'munch': {
+    name: 'Style Munch',
     description: `Le style expressionniste de Munch, avec ses couleurs inquiétantes et ses formes ondulantes, a été appliqué.
 Les lignes sinueuses et les tons maladifs transmettent directement l\'angoisse psychologique.
 
 Des paysages qui se distordent au rythme des émotions internes, où rien ne reste stable.
 Le langage visuel de l\'anxiété, pionnier dans la conversion de l\'intérieur de l\'âme en image.`
   },
-  'matisse_default': {
+  'matisse': {
+    name: 'Style Matisse',
     description: `Le style fauviste de Matisse, avec ses couleurs pures et ses formes simplifiées, a été appliqué.
 Des primaires audacieux sont disposés sans respecter la réalité, et les formes sont réduites à leur essence.
 
 La ligne se fait danse et la couleur se fait musique — chaque élément chante avec indépendance.
 L\'art de la joie pure, où la couleur est libre de toute obligation descriptive.`
   },
-  'chagall_default': {
+  'chagall': {
+    name: 'Style Chagall',
     description: `Le style onirique de Chagall, avec ses couleurs pastel et ses figures flottantes, a été appliqué.
 Amoureux, animaux et toits flottent dans un espace sans gravité, teinté de nostalgie.
 
 Roses, violets et bleus se fondent comme des souvenirs qui se mêlent en rêves.
 Un monde où l\'amour et la mémoire défient les lois de la physique et du temps.`
   },
-  'picasso_default': {
+  'picasso': {
+    name: 'Style Picasso',
     description: `Le style cubiste de Picasso, avec ses formes géométriques et sa perspective multiple, a été appliqué.
 Les visages et les corps se fragmentent en plans angulaires, montrant plusieurs points de vue simultanément.
 
 Des lignes audacieuses et des couleurs contrastées construisent une réalité déconstruite et recomposée.
 La révolution visuelle qui détruisit 500 ans de perspective traditionnelle.`
   },
-  'frida_default': {
+  'frida': {
+    name: 'Style Frida Kahlo',
     description: `Le style symbolique de Frida, avec ses couleurs mexicaines et son regard frontal intense, a été appliqué.
 Les rouges, verts et jaunes de la tradition mexicaine encadrent une iconographie profondément personnelle.
 
 Chaque élément — épines, animaux, plantes — est un symbole codé de douleur, de résistance et d\'amour.
 L\'art de la confession où le corps brisé devient territoire d\'identité et de lutte.`
   },
-  'lichtenstein_default': {
+  'lichtenstein': {
+    name: 'Style Lichtenstein',
     description: `Le style Pop Art de Lichtenstein, avec ses points Ben-Day et ses contours épais, a été appliqué.
 Des trames de points réguliers et des couleurs primaires en aplat transforment l\'esthétique de la bande dessinée en art.
 

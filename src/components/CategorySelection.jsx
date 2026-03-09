@@ -66,19 +66,36 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
         {categories.map(cat => (
           <button
             key={cat.id}
-            className={`category-card${lang === 'ar' ? ' category-card-rtl' : ''}`}
+            className="category-card"
             onClick={() => onSelect(cat.id)}
           >
-            <div className="card-thumbnail">
-              <img src={cat.thumbnail} alt={cat.name} />
-            </div>
-            <div className="card-info">
-              <span className="card-name" style={{ color: cat.accent }}>{cat.name}</span>
-              <span className="card-desc">{cat.description}</span>
-            </div>
-            <svg className="card-arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
-              <path d="M9 6l6 6-6 6" />
-            </svg>
+            {lang === 'ar' ? (
+              <>
+                <svg className="card-arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
+                  <path d="M15 6l-6 6 6 6" />
+                </svg>
+                <div className="card-info">
+                  <span className="card-name" style={{ color: cat.accent }}>{cat.name}</span>
+                  <span className="card-desc">{cat.description}</span>
+                </div>
+                <div className="card-thumbnail">
+                  <img src={cat.thumbnail} alt={cat.name} />
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="card-thumbnail">
+                  <img src={cat.thumbnail} alt={cat.name} />
+                </div>
+                <div className="card-info">
+                  <span className="card-name" style={{ color: cat.accent }}>{cat.name}</span>
+                  <span className="card-desc">{cat.description}</span>
+                </div>
+                <svg className="card-arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
+                  <path d="M9 6l6 6-6 6" />
+                </svg>
+              </>
+            )}
           </button>
         ))}
       </div>
@@ -248,34 +265,20 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           padding-inline-end: 4px;
         }
 
-        /* RTL: 카드 순서 반전 + 텍스트 정렬 + 화살표 반전 */
-        .category-card-rtl {
-          flex-direction: row-reverse;
-        }
-
-        .category-card-rtl .card-info {
-          text-align: end;
-        }
-
-        .category-card-rtl .card-name,
-        .category-card-rtl .card-desc {
-          text-align: end;
-        }
-
-        .category-card-rtl .card-arrow-svg {
-          transform: scaleX(-1);
-        }
-
         /* Subscription Info */
         .subscription-info {
-          text-align: center;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
           padding: 16px 24px 20px;
+          width: 100%;
         }
 
         .subscription-info p {
           color: rgba(255,255,255,0.35);
           font-size: 14px;
           margin: 0 0 2px;
+          text-align: center;
         }
 
         /* Mobile Responsive */

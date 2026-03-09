@@ -11,8 +11,8 @@ export const ui = {
     masterCollectionDesc: '7 Masters Beyond Time',
     eastAsianArt: 'East Asian Art',
     eastAsianArtDesc: '1000 Years of Eastern Beauty',
-    tagline: 'Turn Your Beauty into a Masterpiece',
-    subTagline: 'The master of the century captures you'
+    tagline: 'A journey across time and space',
+    subTagline: 'Meet the masters of East and West'
   },
 
   // ===== PhotoStyleScreen =====
@@ -115,7 +115,7 @@ export const ui = {
     hide: 'Hide',
     show: 'Show',
     shareTitle: 'Master Valley Art',
-    shareText: 'style artwork',
+    shareText: '— Master Valley',
     loadingEducation: 'Loading artwork description...',
     conversionFailedRetry: 'Conversion failed. Please tap Retry below.',
     convertedInStyle: 'This artwork was converted in {style} style.'
@@ -186,9 +186,9 @@ export const ui = {
     bestValue: 'Best Value',
     get: 'Get',
     bonusLabel: 'bonus',
-    tagStarter: 'Get started',
-    tagStandard: 'Share your beauty',
-    tagPlus: 'Get inspired',
+    tagStarter: 'Begin your time travel',
+    tagStandard: 'Experience the world of masters',
+    tagPlus: 'And find your inspiration',
     info1: 'No recurring payments',
     info2: 'Balance never expires'
   },
@@ -216,8 +216,8 @@ export const ui = {
   },
 
     login: {
-    tagline: 'Your beauty, captured in masterworks',
-    sub: 'Captured through the eyes of a master',
+    tagline: 'One photo, a 2800-year journey through time',
+    sub: 'See the world through the eyes of masters',
     continueWithGoogle: 'Continue with Google',
     continueWithApple: 'Continue with Apple',
     email: 'Email',

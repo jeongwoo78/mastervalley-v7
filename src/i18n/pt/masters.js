@@ -106,8 +106,6 @@ export const mastersBasicInfo = {
       subtitle1: 'In the Car · M-Maybe · Forget It!',
       subtitle2: 'O homem que transformou quadrinhos em arte',
       works: {
-        'drowninggirl': { subtitle1: 'Menina se Afogando (Drowning Girl)', subtitle2: 'Drama de quadrinhos elevado à tela' },
-        'whaam': { subtitle1: 'Whaam! (Whaam!)', subtitle2: 'Explosão em quadrinhos vira arte' },
         'inthecar': { subtitle1: 'No Carro (In the Car)', subtitle2: 'Tensão silenciosa, sentimentos em alta velocidade' },
         'mmaybe': { subtitle1: 'Talvez (M-Maybe)', subtitle2: 'Uma palavra de hesitação virou drama pop art' },
         'forgetit': { subtitle1: 'Esqueça! (Forget It!)', subtitle2: 'Um grito de adeus capturado num único quadro de quadrinhos' },

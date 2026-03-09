@@ -12,8 +12,8 @@ export const ui = {
     masterCollectionDesc: '7 maestro abadi sepanjang zaman',
     eastAsianArt: 'Lukisan Oriental',
     eastAsianArtDesc: 'Keindahan timur yang telah berlangsung seribu tahun',
-    tagline: 'Abadikan kecantikanmu dalam sebuah mahakarya',
-    subTagline: 'Para maestro agung melukismu'
+    tagline: 'Perjalanan melintasi ruang dan waktu',
+    subTagline: 'Temui para maestro Timur dan Barat'
   },
 
   // ===== PhotoStyleScreen =====
@@ -116,7 +116,7 @@ export const ui = {
     hide: 'Sembunyikan',
     show: 'Tampilkan',
     shareTitle: 'Karya Master Valley',
-    shareText: 'karya bergaya',
+    shareText: '— Master Valley',
     loadingEducation: 'Membuat deskripsi karya...',
     conversionFailedRetry: 'Transformasi gagal. Silakan ketuk Coba lagi.',
     convertedInStyle: 'Karya yang ditransformasi ke gaya {style}.'
@@ -187,9 +187,9 @@ export const ui = {
     bestValue: 'Populer',
     get: 'Terapkan',
     bonusLabel: 'Bonus',
-    tagStarter: 'Mulai sekarang',
-    tagStandard: 'Bagikan kecantikanmu',
-    tagPlus: 'Dapatkan inspirasi',
+    tagStarter: 'Mulai perjalanan waktu Anda',
+    tagStandard: 'Rasakan dunia para maestro',
+    tagPlus: 'Dan temukan inspirasi Anda',
     info1: 'Tanpa langganan berkala',
     info2: 'Saldo tidak kedaluwarsa'
   },
@@ -217,8 +217,8 @@ export const ui = {
   },
 
     login: {
-    tagline: 'Kecantikanmu, dalam sebuah mahakarya',
-    sub: 'Keindahanmu, ditangkap melalui mata sang maestro',
+    tagline: 'Satu foto, perjalanan 2800 tahun melintasi waktu',
+    sub: 'Melihat dunia melalui mata para maestro',
     continueWithGoogle: 'Lanjutkan dengan Google',
     continueWithApple: 'Lanjutkan dengan Apple',
     email: 'Email',

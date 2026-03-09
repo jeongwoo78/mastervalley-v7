@@ -12,8 +12,8 @@ export const ui = {
     masterCollectionDesc: '7 أساتذة عظام عبر الزمن',
     eastAsianArt: 'الرسم الشرقي',
     eastAsianArtDesc: 'جمال الشرق الممتد ألف عام',
-    tagline: 'احتفظي بجمالك في لوحة فنية خالدة',
-    subTagline: 'أعظم أساتذة العصر يرسمونك'
+    tagline: 'رحلة عبر الزمان والمكان',
+    subTagline: 'التقِ بعظماء الشرق والغرب'
   },
 
   // ===== PhotoStyleScreen =====
@@ -116,7 +116,7 @@ export const ui = {
     hide: 'إخفاء',
     show: 'إظهار',
     shareTitle: 'عمل Master Valley',
-    shareText: 'عمل فني بأسلوب',
+    shareText: '— Master Valley',
     loadingEducation: 'جارٍ إنشاء وصف العمل...',
     conversionFailedRetry: 'فشل التحويل. يرجى الضغط على إعادة المحاولة.',
     convertedInStyle: 'عمل فني محوَّل إلى أسلوب {style}.'
@@ -187,9 +187,9 @@ export const ui = {
     bestValue: 'الأكثر شعبية',
     get: 'تطبيق',
     bonusLabel: 'مكافأة',
-    tagStarter: 'ابدأ الآن',
-    tagStandard: 'شاركي جمالك',
-    tagPlus: 'احصلي على الإلهام',
+    tagStarter: 'ابدأ رحلتك عبر الزمن',
+    tagStandard: 'عِش عالم العظماء',
+    tagPlus: 'واعثر على إلهامك',
     info1: 'لا اشتراكات متكرّرة',
     info2: 'الرصيد لا تنتهي صلاحيته'
   },
@@ -217,8 +217,8 @@ export const ui = {
   },
 
     login: {
-    tagline: 'جمالك، في لوحة فنية خالدة',
-    sub: 'جمالك، من خلال عيون المعلم',
+    tagline: 'صورة واحدة، رحلة 2800 عام عبر الزمن',
+    sub: 'شاهد العالم من خلال عيون العظماء',
     continueWithGoogle: 'المتابعة عبر Google',
     continueWithApple: 'المتابعة عبر Apple',
     email: 'البريد الإلكتروني',

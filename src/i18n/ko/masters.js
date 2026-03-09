@@ -139,8 +139,6 @@ export const mastersBasicInfo = {
       subtitle1: '차 안에서 · 아마도 · 날 잊어',
       subtitle2: '만화를 예술로 바꾸다',
       works: {
-        'drowninggirl': { subtitle1: '익사하는 소녀(Drowning Girl)', subtitle2: '캔버스 위로 옮겨진 만화의 드라마' },
-        'whaam': { subtitle1: '쾅!(Whaam!)', subtitle2: '만화 폭발이 예술이 되다' },
         'inthecar': { subtitle1: '차 안에서(In the Car)', subtitle2: '말풍선 없는 침묵, 속도감 있는 감정' },
         'mmaybe': { subtitle1: '아마도(M-Maybe)', subtitle2: '망설임 한 마디에 담긴 팝아트의 드라마' },
         'forgetit': { subtitle1: '날 잊어(Forget It!)', subtitle2: '만화 한 컷에 담긴 이별의 외침' },

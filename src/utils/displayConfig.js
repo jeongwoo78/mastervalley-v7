@@ -369,6 +369,7 @@ export const ALIASES = {
   // ===== 화가 별칭 (37명) =====
   // 그리스·로마
   'classical sculpture': 'classical-sculpture',
+  'greek sculpture': 'classical-sculpture',
   'classical-sculpture': 'classical-sculpture',
   'ancient-greek-sculpture': 'classical-sculpture',
   '고대 그리스 조각': 'classical-sculpture',

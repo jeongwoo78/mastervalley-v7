@@ -11,8 +11,8 @@ export const ui = {
     masterCollectionDesc: '7 grandes mestres além do tempo',
     eastAsianArt: 'Pintura Oriental',
     eastAsianArtDesc: 'Mil anos de beleza oriental',
-    tagline: 'Eterniza a tua beleza numa obra-prima',
-    subTagline: 'Os grandes mestres da era pintam-te'
+    tagline: 'Uma viagem através do tempo e do espaço',
+    subTagline: 'Conheça os mestres do Oriente e do Ocidente'
   },
 
   photoStyle: {
@@ -112,7 +112,7 @@ export const ui = {
     hide: 'Ocultar',
     show: 'Mostrar',
     shareTitle: 'Obra Master Valley',
-    shareText: 'obra no estilo de',
+    shareText: '— Master Valley',
     loadingEducation: 'A gerar descrição da obra...',
     conversionFailedRetry: 'Conversão falhou. Por favor prime tentar novamente.',
     convertedInStyle: 'Obra convertida no estilo {style}.'
@@ -180,9 +180,9 @@ export const ui = {
     bestValue: 'Mais Popular',
     get: 'Aplicar',
     bonusLabel: 'Bónus',
-    tagStarter: 'Começa Já',
-    tagStandard: 'Mostra a Tua Beleza',
-    tagPlus: 'Inspira-te',
+    tagStarter: 'Comece a sua viagem no tempo',
+    tagStandard: 'Experimente o mundo dos mestres',
+    tagPlus: 'E encontre a sua inspiração',
     info1: 'Sem pagamentos recorrentes',
     info2: 'O saldo não expira'
   },
@@ -207,8 +207,8 @@ export const ui = {
   },
 
     login: {
-    tagline: 'Sua beleza, em uma obra-prima',
-    sub: 'Sua beleza, capturada pelos olhos de um mestre',
+    tagline: 'Uma foto, uma viagem de 2800 anos através do tempo',
+    sub: 'Ver o mundo através dos olhos dos mestres',
     continueWithGoogle: 'Continuar com Google',
     continueWithApple: 'Continuar com Apple',
     email: 'E-mail',

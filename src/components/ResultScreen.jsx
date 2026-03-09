@@ -1389,10 +1389,7 @@ const ResultScreen = ({
                   const category = isFullTransform ? currentResult?.style?.category : selectedStyle.category;
                   const styleId = isFullTransform ? currentResult?.style?.id : selectedStyle?.id;
                   const artistName = displayArtist || (isFullTransform ? currentResult?.style?.name : selectedStyle?.name);
-                  const i18nMovRes = category === 'movements' ? movementsBasicInfo?.[styleId]?.result : null;
-                  const [sub1, sub2] = i18nMovRes?.subtitle2
-                    ? [i18nMovRes.subtitle1 || artistName, i18nMovRes.subtitle2]
-                    : getStyleSubtitles(category, styleId, 'result-transformed', displayArtist, displayWork, artistName, lang);
+                  const [sub1, sub2] = getStyleSubtitles(category, styleId, 'result-transformed', displayArtist, displayWork, artistName, lang);
                   return (
                     <>
                       {sub1 && <div className="subtitle1">{sub1}</div>}
