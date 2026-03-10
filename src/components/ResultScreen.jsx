@@ -1947,6 +1947,7 @@ const ResultScreen = ({
           justify-content: center;
           gap: 6px;
           color: rgba(255,255,255,0.7);
+          width: auto;
         }
 
         .btn-save-share {
