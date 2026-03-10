@@ -1,5 +1,5 @@
-// CategorySelection.jsx - Main Screen (Dark Theme)
-// Based on mockup: 02-main(썸네일).jpg
+// CategorySelection.jsx - Main Screen (Dark Theme + Luxury Deco)
+// Design A: 골드+퍼플 장식 + 넓은 골드 그라데이션 타이틀
 import React from 'react';
 import { getUi } from '../i18n';
 
@@ -43,10 +43,73 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
 
   return (
     <div className="main-screen">
+      {/* 배경 장식 SVG */}
+      <div className="deco-layer" aria-hidden="true">
+        <svg width="100%" height="100%" viewBox="0 0 400 900" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg">
+          {/* 골드 곡선: 우상단 */}
+          <path d="M 430 -20 C 380 50, 400 130, 350 190 C 300 250, 370 310, 330 380" stroke="url(#decoGold1)" strokeWidth="1" fill="none"/>
+          <path d="M 415 0 C 365 65, 385 140, 335 200 C 285 260, 355 320, 315 390" stroke="url(#decoGold2)" strokeWidth="0.6" fill="none"/>
+          {/* 골드 곡선: 좌하단 */}
+          <path d="M -20 720 C 40 660, 15 590, 70 530" stroke="url(#decoGold3)" strokeWidth="0.8" fill="none"/>
+          {/* 퍼플 곡선: 우하단 */}
+          <path d="M 430 580 C 380 620, 350 660, 320 700 C 290 740, 250 770, 180 820" stroke="url(#decoPurp1)" strokeWidth="1.2" fill="none"/>
+          <path d="M 420 610 C 370 640, 335 680, 305 720 C 275 760, 235 790, 160 840" stroke="url(#decoPurp2)" strokeWidth="0.7" fill="none"/>
+          {/* 퍼플 곡선: 좌상단 미세 */}
+          <path d="M -15 100 C 15 140, 0 180, 20 225 C 40 270, 15 300, 35 340" stroke="url(#decoPurp3)" strokeWidth="0.6" fill="none"/>
+          {/* 골드 원 */}
+          <circle cx="370" cy="250" r="90" stroke="url(#decoGoldC)" strokeWidth="1" fill="none"/>
+          <circle cx="35" cy="650" r="45" stroke="rgba(218,165,32,0.07)" strokeWidth="0.7" fill="none"/>
+          {/* 글로우 */}
+          <ellipse cx="380" cy="110" rx="110" ry="90" fill="url(#decoGoldGlow)"/>
+          <ellipse cx="390" cy="720" rx="130" ry="110" fill="url(#decoPurpGlow)"/>
+
+          <defs>
+            <linearGradient id="decoGold1" x1="0%" y1="0%" x2="50%" y2="100%">
+              <stop offset="0%" stopColor="rgba(218,165,32,0.35)"/>
+              <stop offset="50%" stopColor="rgba(218,165,32,0.18)"/>
+              <stop offset="100%" stopColor="rgba(218,165,32,0)"/>
+            </linearGradient>
+            <linearGradient id="decoGold2" x1="0%" y1="0%" x2="50%" y2="100%">
+              <stop offset="0%" stopColor="rgba(218,165,32,0.18)"/>
+              <stop offset="100%" stopColor="rgba(218,165,32,0)"/>
+            </linearGradient>
+            <linearGradient id="decoGold3" x1="0%" y1="100%" x2="50%" y2="0%">
+              <stop offset="0%" stopColor="rgba(218,165,32,0.2)"/>
+              <stop offset="100%" stopColor="rgba(218,165,32,0)"/>
+            </linearGradient>
+            <linearGradient id="decoPurp1" x1="100%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="rgba(147,102,240,0.35)"/>
+              <stop offset="50%" stopColor="rgba(147,102,240,0.15)"/>
+              <stop offset="100%" stopColor="rgba(147,102,240,0)"/>
+            </linearGradient>
+            <linearGradient id="decoPurp2" x1="100%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="rgba(147,102,240,0.2)"/>
+              <stop offset="100%" stopColor="rgba(147,102,240,0)"/>
+            </linearGradient>
+            <linearGradient id="decoPurp3" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="rgba(147,102,240,0.18)"/>
+              <stop offset="100%" stopColor="rgba(147,102,240,0)"/>
+            </linearGradient>
+            <linearGradient id="decoGoldC" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="rgba(218,165,32,0.14)"/>
+              <stop offset="100%" stopColor="rgba(218,165,32,0.03)"/>
+            </linearGradient>
+            <radialGradient id="decoGoldGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="rgba(218,165,32,0.05)"/>
+              <stop offset="100%" stopColor="rgba(218,165,32,0)"/>
+            </radialGradient>
+            <radialGradient id="decoPurpGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="rgba(147,102,240,0.06)"/>
+              <stop offset="100%" stopColor="rgba(147,102,240,0)"/>
+            </radialGradient>
+          </defs>
+        </svg>
+      </div>
+
       {/* Header */}
       <header className="main-header">
         <button className="menu-btn" onClick={handleMenuClick}>
-          <svg className="menu-icon-svg" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="28" height="28">
+          <svg className="menu-icon-svg" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.45)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="28" height="28">
             <circle cx="12" cy="8" r="4"/>
             <path d="M20 21a8 8 0 1 0-16 0"/>
           </svg>
@@ -59,6 +122,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
         <h1 className="brand-title">Master Valley</h1>
         <p className="brand-tagline">{t.tagline}</p>
         <p className="brand-sub-tagline">{t.subTagline}</p>
+        <div className="gold-divider" />
       </div>
 
       {/* Category Grid */}
@@ -66,7 +130,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
         {categories.map(cat => (
           <button
             key={cat.id}
-            className="category-card"
+            className={`category-card category-card--${cat.id}`}
             onClick={() => onSelect(cat.id)}
           >
             {lang === 'ar' ? (
@@ -114,14 +178,26 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           flex-direction: column;
           max-width: 400px;
           margin: 0 auto;
+          position: relative;
+          overflow: hidden;
         }
 
-        /* Header - 목업: 투명 배경 스타일 */
+        /* 배경 장식 레이어 */
+        .deco-layer {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        /* Header */
         .main-header {
           display: flex;
           justify-content: space-between;
           align-items: center;
           padding: 16px 20px 16px;
+          position: relative;
+          z-index: 1;
         }
 
         .menu-btn {
@@ -141,7 +217,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
 
         .menu-label {
           font-size: 10px;
-          color: rgba(255,255,255,0.3);
+          color: rgba(255,255,255,0.45);
           font-weight: 600;
           letter-spacing: 0.5px;
         }
@@ -150,10 +226,11 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           background: transparent;
           border: none;
           padding: 8px 0;
-          color: #fff;
-          font-size: 17px;
-          font-weight: 600;
+          color: rgba(147,102,240,0.9);
+          font-size: 15px;
+          font-weight: 500;
           cursor: pointer;
+          letter-spacing: 0.3px;
         }
 
         .credits-btn:active {
@@ -163,55 +240,81 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
         /* Branding */
         .branding {
           text-align: center;
-          padding: 52px 20px 8px;
+          padding: 40px 20px 0;
+          position: relative;
+          z-index: 1;
         }
 
         .brand-title {
           font-family: 'Cormorant Garamond', Georgia, serif;
           font-size: 40px;
-          font-weight: 400;
-          color: #fff;
-          margin: 0 0 8px;
-          letter-spacing: 0.5px;
+          font-weight: 600;
+          margin: 0 0 10px;
+          letter-spacing: 1px;
+          background: linear-gradient(135deg, #a855f7 0%, #daa520 50%, #f472b6 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
         }
 
         .brand-tagline {
           font-family: 'Cormorant Garamond', Georgia, serif;
           font-style: italic;
           font-weight: 300;
-          color: rgba(255,255,255,0.5);
-          font-size: 16px;
+          color: rgba(255,255,255,0.45);
+          font-size: 15px;
           margin: 0;
+          letter-spacing: 0.5px;
         }
 
         .brand-sub-tagline {
-          color: rgba(255,255,255,0.35);
-          font-size: 13px;
+          color: rgba(255,255,255,0.3);
+          font-size: 12px;
           margin: 6px 0 0;
         }
 
-        /* Category Grid - 목업: 좌우 padding 20px */
+        .gold-divider {
+          width: 48px;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, rgba(218,165,32,0.4), transparent);
+          margin: 28px auto 0;
+        }
+
+        /* Category Grid */
         .category-grid {
           flex: 1;
-          padding: 76px 20px 32px;
+          padding: 28px 20px 16px;
           display: flex;
           flex-direction: column;
           justify-content: flex-start;
           gap: 12px;
+          position: relative;
+          z-index: 1;
         }
 
         .category-card {
-          background: transparent;
-          border: none;
-          border-radius: 12px;
-          padding: 8px 0;
+          background: rgba(255,255,255,0.02);
+          border: 1px solid rgba(255,255,255,0.04);
+          border-radius: 14px;
+          padding: 12px;
           min-height: 104px;
           display: flex;
           align-items: center;
-          gap: 12px;
+          gap: 16px;
           cursor: pointer;
           transition: all 0.2s;
           text-align: start;
+        }
+
+        /* 카테고리별 악센트 보더 */
+        .category-card--movements {
+          border-left: 2px solid rgba(168,85,247,0.4);
+        }
+        .category-card--masters {
+          border-left: 2px solid rgba(218,165,32,0.4);
+        }
+        .category-card--oriental {
+          border-left: 2px solid rgba(244,114,182,0.4);
         }
 
         .category-card:hover {
@@ -222,13 +325,14 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           transform: scale(0.98);
         }
 
-        /* 썸네일 - 88×88 정사각형 */
+        /* 썸네일 - 96×96 */
         .card-thumbnail {
-          width: 88px;
-          height: 88px;
-          border-radius: 8px;
+          width: 96px;
+          height: 96px;
+          border-radius: 10px;
           overflow: hidden;
           flex-shrink: 0;
+          box-shadow: 0 4px 16px rgba(0,0,0,0.4);
         }
 
         .card-thumbnail img {
@@ -247,20 +351,21 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
 
         .card-name {
           font-family: 'Cormorant Garamond', Georgia, serif;
-          font-size: 20px;
-          font-weight: 400;
+          font-size: 22px;
+          font-weight: 500;
           text-align: start;
-          letter-spacing: 0.2px;
+          letter-spacing: 0.3px;
         }
 
         .card-desc {
-          color: rgba(255,255,255,0.5);
-          font-size: 13px;
+          color: rgba(255,255,255,0.4);
+          font-size: 12.5px;
           text-align: start;
+          line-height: 1.4;
         }
 
         .card-arrow-svg {
-          color: rgba(255,255,255,0.3);
+          color: rgba(255,255,255,0.2);
           flex-shrink: 0;
           padding-inline-end: 4px;
         }
@@ -270,15 +375,18 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           display: flex;
           flex-direction: column;
           align-items: center;
-          padding: 16px 24px 20px;
+          padding: 8px 24px 20px;
           width: 100%;
+          position: relative;
+          z-index: 1;
         }
 
         .subscription-info p {
-          color: rgba(255,255,255,0.35);
-          font-size: 14px;
+          color: rgba(255,255,255,0.25);
+          font-size: 12.5px;
           margin: 0 0 2px;
           text-align: center;
+          line-height: 1.7;
         }
 
         /* Mobile Responsive */
@@ -288,21 +396,16 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           }
 
           .branding {
-            padding: 40px 16px 6px;
+            padding: 32px 16px 0;
           }
 
           .brand-title {
-            font-size: 24px;
+            font-size: 36px;
           }
 
           .category-grid {
-            padding: 48px 16px 24px;
+            padding: 24px 16px 16px;
             gap: 10px;
-          }
-
-          .card-thumbnail {
-            width: 88px;
-            height: 88px;
           }
         }
       `}</style>
