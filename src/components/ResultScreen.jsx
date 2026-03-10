@@ -1928,7 +1928,6 @@ const ResultScreen = ({
         .action-buttons {
           display: flex;
           justify-content: space-evenly;
-          max-width: 340px;
           margin: 0 auto;
           padding: 14px 0 20px;
           border-top: 1px solid rgba(255,255,255,0.08);
