@@ -886,7 +886,7 @@ const styles = {
   selectButton: {
     background: 'none',
     border: 'none',
-    color: '#7c3aed',
+    color: '#9366f0',
     padding: '4px 0',
     cursor: 'pointer',
     fontSize: '14px',
@@ -1082,7 +1082,7 @@ const styles = {
   saveShareButton: {
     background: 'none',
     border: 'none',
-    color: '#7c3aed',
+    color: '#9366f0',
     padding: '8px 4px',
     borderRadius: '0',
     cursor: 'pointer',
@@ -1139,7 +1139,7 @@ const styles = {
     padding: '16px 40px',
     border: 'none',
     background: 'transparent',
-    color: '#7c3aed',
+    color: '#9366f0',
     fontSize: '14px',
     fontWeight: '600',
     cursor: 'pointer',

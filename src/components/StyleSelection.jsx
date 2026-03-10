@@ -431,7 +431,7 @@ const StyleSelection = ({ onSelect }) => {
         }
 
         .sub-category-tab.active .tab-name {
-          color: #7c3aed;
+          color: #9366f0;
         }
 
         .sub-category-tab .tab-period {
@@ -440,7 +440,7 @@ const StyleSelection = ({ onSelect }) => {
         }
 
         .sub-category-tab.active .tab-period {
-          color: #7c3aed;
+          color: #9366f0;
           opacity: 0.8;
         }
 
@@ -455,7 +455,7 @@ const StyleSelection = ({ onSelect }) => {
 
         .sub-category-tab.active .tab-count {
           background: rgba(124, 58, 237, 0.15);
-          color: #7c3aed;
+          color: #9366f0;
         }
 
         /* 3단계: 화가 선택 */

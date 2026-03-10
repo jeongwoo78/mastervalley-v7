@@ -281,7 +281,7 @@ const menuStyles = `
   .lang-dash { color: rgba(255,255,255,0.3); font-size: 14px; margin-inline-end: 10px; }
   .lang-option.inactive .lang-dash { color: rgba(255,255,255,0.12); }
   .lang-name { color: rgba(255,255,255,0.85); font-size: 14px; flex: 1; }
-  .lang-check { color: #7c3aed; display: flex; }
+  .lang-check { color: #9366f0; display: flex; }
   .lang-soon { font-size: 10px; color: #333; font-style: italic; }
 
   .support-accordion {

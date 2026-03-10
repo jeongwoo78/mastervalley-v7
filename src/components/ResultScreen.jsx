@@ -1191,34 +1191,28 @@ const ResultScreen = ({
 
         {/* ===== 원클릭 결과 화면 (목업 07-result-oneclick.html 준수) ===== */}
         {/* 원클릭: viewIndex === -1 → 1차 교육 + Original */}
+        {/* v81: 가운데 정렬 통일 (technique-card와 동일 구조) */}
         {isFullTransform && viewIndex === -1 && getPrimaryEducation() && (
           <div className="preview-card">
             <img src={originalPhotoUrl} alt="Original 사진" className="preview-image" />
-            <div className="preview-info">
-              <div className="preview-header">
-                <span className="preview-icon">
-                  {getStyleIcon(selectedStyle?.category, selectedStyle?.id, selectedStyle?.name)}
-                </span>
-                <div className="preview-text">
-                  <div className="preview-style">
-                    {displayCategory === 'movements' ? tPhotoStyle.movementsFullTitle :
-                     displayCategory === 'masters' ? tPhotoStyle.mastersFullTitle :
-                     tPhotoStyle.orientalFullTitle}
-                  </div>
-                  <div className="preview-subtitle">
-                    {displayCategory === 'movements' ? tProcessing.movementsSub1 :
-                     displayCategory === 'masters' ? tProcessing.mastersSub1 :
-                     tProcessing.orientalSub1}
-                  </div>
-                  <div className="preview-subtitle sub2">
-                    {displayCategory === 'movements' ? tProcessing.movementsSub2 :
-                     displayCategory === 'masters' ? tProcessing.mastersSub2 :
-                     tProcessing.orientalSub2}
-                  </div>
-                </div>
+            <div className="card-header" style={{ padding: '16px 0 0' }}>
+              <h2>
+                {displayCategory === 'movements' ? tPhotoStyle.movementsFullTitle :
+                 displayCategory === 'masters' ? tPhotoStyle.mastersFullTitle :
+                 tPhotoStyle.orientalFullTitle}
+              </h2>
+              <div className="subtitle1">
+                {displayCategory === 'movements' ? tProcessing.movementsSub1 :
+                 displayCategory === 'masters' ? tProcessing.mastersSub1 :
+                 tProcessing.orientalSub1}
+              </div>
+              <div className="subtitle2">
+                {displayCategory === 'movements' ? tProcessing.movementsSub2 :
+                 displayCategory === 'masters' ? tProcessing.mastersSub2 :
+                 tProcessing.orientalSub2}
               </div>
             </div>
-            <div className="edu-card primary">
+            <div className="technique-explanation">
               <p>{getPrimaryEducation().content}</p>
             </div>
           </div>
@@ -1933,8 +1927,7 @@ const ResultScreen = ({
 
         .action-buttons {
           display: flex;
-          justify-content: center;
-          gap: 28px;
+          justify-content: space-evenly;
           max-width: 340px;
           margin: 0 auto;
           padding: 14px 0 20px;
@@ -1958,7 +1951,7 @@ const ResultScreen = ({
         }
 
         .btn-save-share {
-          color: #7c3aed;
+          color: #9366f0;
           font-weight: 600;
         }
 
@@ -2032,7 +2025,7 @@ const ResultScreen = ({
           background: transparent;
           font-size: 14px;
           font-weight: 600;
-          color: #7c3aed;
+          color: #9366f0;
           cursor: pointer;
           border-radius: 0;
           letter-spacing: 0.3px;
@@ -2049,7 +2042,7 @@ const ResultScreen = ({
         }
 
         .menu-cancel {
-          color: rgba(255, 255, 255, 0.35);
+          color: rgba(255, 255, 255, 0.5);
           justify-content: center;
           font-size: 14px;
           font-weight: 500;
@@ -2095,7 +2088,7 @@ const ResultScreen = ({
         .btn-retry-inline {
           background: rgba(124, 58, 237, 0.12);
           border: 1px solid rgba(124, 58, 237, 0.25);
-          color: #a78bfa;
+          color: #9366f0;
           padding: 8px 20px;
           border-radius: 20px;
           font-size: 12px;
@@ -2162,10 +2155,6 @@ const ResultScreen = ({
 
           .card-header h2 {
             font-size: 1.25rem;
-          }
-
-          .action-buttons {
-            gap: 20px;
           }
         }
 
@@ -2271,60 +2260,6 @@ const ResultScreen = ({
           object-fit: cover;
           display: block;
         }
-        .preview-card .preview-info {
-          padding: 16px;
-          text-align: start;
-          border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        .preview-card .preview-header {
-          display: flex;
-          align-items: flex-start;
-          gap: 12px;
-        }
-        .preview-card .preview-icon {
-          font-size: 2.2rem;
-          line-height: 1;
-        }
-        .preview-card .preview-text {
-          flex: 1;
-        }
-        .preview-card .preview-style {
-          font-size: 1.35rem;
-          font-weight: 600;
-          color: #fff;
-          margin-bottom: 6px;
-          line-height: 1.3;
-        }
-        .preview-card .preview-subtitle {
-          font-size: 0.95rem;
-          color: rgba(255,255,255,0.6);
-          font-weight: 500;
-        }
-        .preview-card .preview-subtitle.sub2 {
-          font-size: 14px;
-          color: #888;
-          margin-top: 4px;
-        }
-        .preview-card .edu-card {
-          padding: 16px;
-          border-radius: 0;
-          margin: 0;
-        }
-        .preview-card .edu-card.primary {
-          background: transparent;
-        }
-        .preview-card .edu-card h3 {
-          color: #fff;
-          margin: 0 0 10px;
-          font-size: 15px;
-        }
-        .preview-card .edu-card p {
-          color: rgba(255,255,255,0.7);
-          line-height: 1.8;
-          font-size: 13px;
-          margin: 0;
-          white-space: pre-line;
-        }
         /* 카드 모달 - 이미지 크게 보기 */
         .image-modal-overlay {
           position: fixed;
@@ -2393,7 +2328,7 @@ const ResultScreen = ({
         .image-modal-btn.save-share {
           background: none;
           border: none;
-          color: #7c3aed;
+          color: #9366f0;
         }
         .image-modal-btn.gallery {
           background: none;
