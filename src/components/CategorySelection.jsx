@@ -177,12 +177,9 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           font-family: 'Cormorant Garamond', Georgia, serif;
           font-size: 44px;
           font-weight: 600;
+          color: #fff;
           margin: 0 0 10px;
           letter-spacing: 1px;
-          background: linear-gradient(135deg, #a855f7 0%, #b77df7 36%, #daa520 50%, #e88aaf 64%, #f472b6 100%);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
         }
 
         .brand-tagline {
