@@ -1139,7 +1139,7 @@ const styles = {
     padding: '16px 40px',
     border: 'none',
     background: 'transparent',
-    color: '#9366f0',
+    color: '#a078f3',
     fontSize: '14px',
     fontWeight: '600',
     cursor: 'pointer',
@@ -1154,7 +1154,7 @@ const styles = {
   },
   
   menuCancel: {
-    color: 'rgba(255,255,255,0.35)',
+    color: 'rgba(255,255,255,0.5)',
     justifyContent: 'center',
     fontSize: '14px',
     fontWeight: '500',

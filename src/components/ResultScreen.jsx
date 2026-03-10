@@ -2025,7 +2025,7 @@ const ResultScreen = ({
           background: transparent;
           font-size: 14px;
           font-weight: 600;
-          color: #9366f0;
+          color: #a078f3;
           cursor: pointer;
           border-radius: 0;
           letter-spacing: 0.3px;
