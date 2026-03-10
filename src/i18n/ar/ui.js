@@ -61,7 +61,8 @@ export const ui = {
   // ===== Processing =====
   processing: {
     analyzing: 'جارٍ تحليل الصورة...',
-    inProgress: 'جارٍ التحويل...',
+    inProgress: 'قيد العمل...',
+    masterInProgress: 'الفنان يعمل...',
     checkingArtwork: 'جارٍ التحقق من العمل...',
     done: 'اكتمل!',
     movementsComplete: ' حركات فنية تم تحويلها',

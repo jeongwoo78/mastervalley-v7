@@ -61,7 +61,8 @@ export const ui = {
   // ===== Processing =====
   processing: {
     analyzing: 'กำลังวิเคราะห์ภาพ...',
-    inProgress: 'กำลังแปลง...',
+    inProgress: 'กำลังสร้างสรรค์...',
+    masterInProgress: 'ปรมาจารย์ กำลังสร้างสรรค์...',
     checkingArtwork: 'กำลังตรวจสอบผลงาน...',
     done: 'เสร็จแล้ว!',
     movementsComplete: 'ยุคสมัยแปลงเสร็จแล้ว',

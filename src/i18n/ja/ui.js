@@ -61,7 +61,8 @@ export const ui = {
   // ===== Processing =====
   processing: {
     analyzing: '写真を分析中...',
-    inProgress: '変換中...',
+    inProgress: '制作中...',
+    masterInProgress: '巨匠 制作中...',
     checkingArtwork: '作品を確認中...',
     done: '完了！',
     movementsComplete: '様式の変換完了',

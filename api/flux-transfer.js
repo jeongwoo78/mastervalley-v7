@@ -3689,22 +3689,16 @@ export default async function handler(req, res) {
     // ========================================
     
     // ========================================
-    // 매력적 표현 대전제 (Attractive Enhancement)
+    // v81: 매력 조항 (Attractive Enhancement)
     // 고통/왜곡이 핵심인 작품은 제외
     // ========================================
     const excludeAttractive = [
-      'munch-scream',      // 절규 - 공포/불안 왜곡
-      'picasso-guernica',  // 게르니카 - 전쟁 참상
-      'picasso-weepingwoman', // 우는 여인 - 슬픔 왜곡
-      'frida-brokencolumn' // 부러진 기둥 - 고통 시각화
+      'munch-scream'       // 절규 - 공포/불안 왜곡
     ];
     
-    // v66: artistEnhancements.js 삭제됨 - excludeAttractive 리스트만 사용
     const workKey = categoryType === 'masters' && selectedWork ? 
       convertToWorkKey(selectedArtist, selectedWork) : null;
-    const hasAttractiveException = excludeAttractive.includes(workKey);
-    
-    const shouldApplyAttractive = !hasAttractiveException;
+    const shouldApplyAttractive = !excludeAttractive.includes(workKey);
     
     // ========================================
     // v71: 붓터치 크기 적용 (화풍 바로 다음, 대전제 앞)
@@ -3766,10 +3760,39 @@ export default async function handler(req, res) {
     logData.prompt.applied.coreRules = true;
     
     // ========================================
-    // v68: 매력 조항 (간소화)
+    // v81: 매력 조항 (피사체별 분기)
+    // 아기/아이 → 사랑스러움, 동물 → 아름다움/위엄, 노인 → 품위/지혜, 성인 → 기존
     // ========================================
     if (shouldApplyAttractive) {
-      const attractiveEnhancement = ' Render stunningly beautiful - male as handsome, dignified; female as gorgeous, elegant, graceful. Idealized flattering portrait.';
+      const subjectType = visionAnalysis?.subject_type || 'person';
+      const ageRange = visionAnalysis?.age_range || 'adult';
+      const gender = visionAnalysis?.gender || null;
+      
+      let attractiveEnhancement;
+      
+      if (subjectType === 'animal') {
+        // 동물
+        attractiveEnhancement = ' Render cute and friendly - animal as adorable, approachable, with bright sparkling eyes and heartwarming charming expression.';
+      } else if (ageRange === 'baby') {
+        // 아기
+        attractiveEnhancement = ' Render adorably beautiful - baby as cherubic, angelic, with rosy glowing cheeks, sparkling innocent eyes, and irresistibly sweet expression. Idealized heartwarming portrait.';
+      } else if (ageRange === 'child') {
+        // 아이
+        attractiveEnhancement = ' Render adorably cute - child as bright-eyed, carefree, with radiant innocent smile, warm healthy glow, and pure joyful energy. Idealized endearing portrait.';
+      } else if (ageRange === 'elderly') {
+        // 노인
+        attractiveEnhancement = ' Render with quiet dignity - elderly as wise, with graceful distinguished features, warm knowing eyes, and serene composed presence. Portrait of timeless dignity.';
+      } else {
+        // 성인 (기존)
+        if (gender === 'male') {
+          attractiveEnhancement = ' Render stunningly handsome - male as dignified, charismatic, with strong refined features. Idealized flattering portrait.';
+        } else if (gender === 'female') {
+          attractiveEnhancement = ' Render stunningly gorgeous - female as elegant, graceful, with luminous refined beauty. Idealized flattering portrait.';
+        } else {
+          attractiveEnhancement = ' Render stunningly beautiful - male as handsome, dignified; female as gorgeous, elegant, graceful. Idealized flattering portrait.';
+        }
+      }
+      
       finalPrompt = finalPrompt + attractiveEnhancement;
       logData.prompt.applied.attractive = true;
     }

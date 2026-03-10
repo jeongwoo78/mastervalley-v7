@@ -60,7 +60,8 @@ export const ui = {
   // ===== Processing =====
   processing: {
     analyzing: '사진 분석 중...',
-    inProgress: '변환 중...',
+    inProgress: '작업 중...',
+    masterInProgress: '거장 작업 중...',
     checkingArtwork: '작품 확인 중...',
     done: '완료!',
     movementsComplete: '개 사조 변환 완료',

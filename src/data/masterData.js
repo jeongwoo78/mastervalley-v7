@@ -1311,26 +1311,26 @@ export const getStyleSubtitles = (category, styleId, mode, displayArtist, displa
           ? (artist?.descriptionEn || movement?.descriptionEn || artist?.description || movement?.description || '')
           : (artist?.description || movement?.description || ''));
       
-      // 복합사조: 부제2에 세부사조명 접두 (예: "Cubism · Deconstructing...")
+      // 복합사조: 부제2에 세부사조명 접두 (예: "[Cubism] Deconstructing...")
       let sub2 = artistStyle;
       if (styleId === 'modernism' && artist?.sub) {
         const sub = MODERNISM_SUB[artist.sub];
         if (sub) {
           const subName = !isKo ? sub.en : sub.ko;
-          sub2 = `${subName} · ${artistStyle}`;
+          sub2 = `[${subName}] ${artistStyle}`;
         }
       }
       if (styleId === 'neoclassicism_vs_romanticism_vs_realism' && artist?.movementId) {
         const sub = NINETEENTH_CENTURY_SUB[artist.movementId];
         if (sub) {
           const subName = !isKo ? sub.en : sub.ko;
-          sub2 = `${subName} · ${artistStyle}`;
+          sub2 = `[${subName}] ${artistStyle}`;
         }
       }
       
       return [
         artistDisplay,  // 부제1: 매칭화가
-        sub2            // 부제2: [세부사조명 · ] 화풍 설명
+        sub2            // 부제2: [세부사조명] 화풍 설명
       ];
     }
   }

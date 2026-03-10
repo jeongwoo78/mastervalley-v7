@@ -1290,39 +1290,7 @@ const ResultScreen = ({
           </div>
         )}
 
-        {/* 단일 변환: viewIndex에 따라 Original/결과 표시 */}
-        {/* v72: Original 화면 - ProcessingScreen 카드형 레이아웃 */}
-        {/* v73: 통합 함수 사용 */}
-        {!isFullTransform && viewIndex === -1 && getPrimaryEducation() && (
-          <div className="preview-card">
-            <img src={originalPhotoUrl} alt="Original 사진" className="preview-image" />
-            <div className="preview-info">
-              <div className="preview-header">
-                <span className="preview-icon">
-                  {getStyleIcon(selectedStyle?.category, selectedStyle?.id, selectedStyle?.name)}
-                </span>
-                <div className="preview-text">
-                  <div className="preview-style">
-                    {getStyleTitle(selectedStyle?.category, selectedStyle?.id, selectedStyle?.name, lang)}
-                  </div>
-                  {/* v74: 단독 Original 화면 3줄 표기 (result-original) */}
-                  {(() => {
-                    const [sub1, sub2] = getStyleSubtitles(selectedStyle?.category, selectedStyle?.id, 'result-original', null, null, selectedStyle?.name, lang);
-                    return (
-                      <>
-                        {sub1 && <div className="preview-subtitle">{sub1}</div>}
-                        {sub2 && <div className="preview-subtitle sub2">{sub2}</div>}
-                      </>
-                    );
-                  })()}
-                </div>
-              </div>
-            </div>
-            <div className="edu-card primary">
-              <p>{getPrimaryEducation().content || getPrimaryEducation().desc}</p>
-            </div>
-          </div>
-        )}
+        {/* v81: 단독 변환 원본 탭 제거 (죽은 코드) - 스와이프 없어서 viewIndex === -1 도달 불가 */}
         {!isFullTransform && viewIndex >= 0 && finalDisplayImage && (
           <div className="single-result-section">
             <div className="ba-section">
@@ -1775,8 +1743,8 @@ const ResultScreen = ({
 
         .oneclick-edu-section .edu-content {
           font-size: 13px;
-          color: rgba(255,255,255,0.65);
-          line-height: 1.75;
+          color: rgba(255,255,255,0.7);
+          line-height: 1.8;
           text-align: start;
           white-space: pre-line;
         }
@@ -1944,7 +1912,6 @@ const ResultScreen = ({
           padding: 0;
           border-radius: 0;
           border-left: none;
-          max-width: 340px;
           margin: 0 auto;
         }
 
@@ -1953,10 +1920,10 @@ const ResultScreen = ({
         }
 
         .technique-explanation p {
-          color: rgba(255,255,255,0.65);
-          line-height: 1.75;
+          color: rgba(255,255,255,0.7);
+          line-height: 1.8;
           font-size: 13px;
-          margin: 0 0 10px 0;
+          margin: 0 0 12px 0;
           text-align: start;
         }
         
@@ -2185,7 +2152,7 @@ const ResultScreen = ({
           }
 
           .technique-card {
-            padding: 1.5rem;
+            padding: 0;
           }
 
           .technique-icon {
@@ -2291,13 +2258,12 @@ const ResultScreen = ({
 
         /* v72: Original 화면 - ProcessingScreen 카드형 레이아웃 */
         .preview-card {
-          background: #1a1a1a;
+          background: #0d0d0d;
           border-radius: 12px;
           overflow: hidden;
           margin: 16px auto;
           width: 100%;
           max-width: 340px;
-          box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
         .preview-card .preview-image {
           width: 100%;
@@ -2353,7 +2319,7 @@ const ResultScreen = ({
           font-size: 15px;
         }
         .preview-card .edu-card p {
-          color: rgba(255,255,255,0.65);
+          color: rgba(255,255,255,0.7);
           line-height: 1.8;
           font-size: 13px;
           margin: 0;

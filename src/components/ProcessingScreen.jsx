@@ -74,7 +74,11 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         const style = styles[i];
         // 진행 메시지: displayConfig에서 적절한 이름 가져오기
         const progressName = style.name;  // 진행바: 이름만 (연도 제외)
-        setStatusText(`${progressName} ${t.inProgress} [${i + 1}/${totalCount}]`);
+        // v81: 카테고리별 진행 텍스트 (사조/동양화: 거장 작업 중 / 거장: 작업 중)
+        const progressLabel = (category === 'movements' || category === 'oriental')
+          ? `${progressName} ${t.masterInProgress}`
+          : `${progressName} ${t.inProgress}`;
+        setStatusText(`${progressLabel} [${i + 1}/${totalCount}]`);
         
         const result = await processSingleStyle(style, i, totalCount);
         results.push(result);
@@ -131,11 +135,18 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
       
       const { status, progress } = progressObj;
       
+      // v81: 카테고리별 진행 텍스트 분기
+      // 사조/동양화: "르네상스 거장 작업 중..." / 거장: "반 고흐 작업 중..."
+      const cat = style.category;
+      const progressText = (cat === 'movements' || cat === 'oriental')
+        ? `${styleName} ${t.masterInProgress}`
+        : `${styleName} ${t.inProgress}`;
+      
       switch (status) {
         case 'analyzing':   return t.analyzing;
         case 'downloading': return t.downloading || t.done;
         case 'processing':  
-        default:            return `${styleName} ${t.inProgress}`;
+        default:            return progressText;
       }
     };
 

@@ -58,7 +58,8 @@ export const ui = {
 
   processing: {
     analyzing: 'Fotoğraf analiz ediliyor...',
-    inProgress: 'Dönüştürülüyor...',
+    inProgress: 'işleniyor...',
+    masterInProgress: 'usta çalışıyor...',
     checkingArtwork: 'Eser kontrol ediliyor...',
     done: 'Tamamlandı!',
     movementsComplete: ' akım dönüştürüldü',
