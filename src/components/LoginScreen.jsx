@@ -199,14 +199,16 @@ const s = {
     fontFamily: "'Cormorant Garamond', Georgia, serif",
     fontSize: '42px',
     fontWeight: 300,
-    color: '#fff',
     lineHeight: 1.1,
     marginBottom: '48px',
     fontStyle: 'normal',
+    background: 'linear-gradient(225deg, #a855f7 0%, #b77df7 36%, #daa520 50%, #e88aaf 64%, #f472b6 100%)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    backgroundClip: 'text',
   },
   em: {
     fontStyle: 'italic',
-    color: 'rgba(255,255,255,0.38)',
   },
   sub: {
     fontSize: '12px',

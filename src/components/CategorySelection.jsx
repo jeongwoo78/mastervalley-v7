@@ -168,7 +168,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
         /* Branding */
         .branding {
           text-align: center;
-          padding: 56px 20px 0;
+          padding: 80px 20px 0;
           position: relative;
           z-index: 1;
         }
@@ -306,7 +306,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           }
 
           .branding {
-            padding: 48px 16px 0;
+            padding: 72px 16px 0;
           }
 
           .brand-title {
