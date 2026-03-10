@@ -43,69 +43,6 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
 
   return (
     <div className="main-screen">
-      {/* 배경 장식 SVG */}
-      <div className="deco-layer" aria-hidden="true">
-        <svg width="100%" height="100%" viewBox="0 0 400 900" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg">
-          {/* 골드 곡선: 우상단 */}
-          <path d="M 430 -20 C 380 50, 400 130, 350 190 C 300 250, 370 310, 330 380" stroke="url(#decoGold1)" strokeWidth="2.5" fill="none"/>
-          <path d="M 415 0 C 365 65, 385 140, 335 200 C 285 260, 355 320, 315 390" stroke="url(#decoGold2)" strokeWidth="1.6" fill="none"/>
-          {/* 골드 곡선: 좌하단 */}
-          <path d="M -20 720 C 40 660, 15 590, 70 530" stroke="url(#decoGold3)" strokeWidth="2" fill="none"/>
-          {/* 퍼플 곡선: 우하단 */}
-          <path d="M 430 580 C 380 620, 350 660, 320 700 C 290 740, 250 770, 180 820" stroke="url(#decoPurp1)" strokeWidth="2.8" fill="none"/>
-          <path d="M 420 610 C 370 640, 335 680, 305 720 C 275 760, 235 790, 160 840" stroke="url(#decoPurp2)" strokeWidth="1.6" fill="none"/>
-          {/* 퍼플 곡선: 좌상단 미세 */}
-          <path d="M -15 100 C 15 140, 0 180, 20 225 C 40 270, 15 300, 35 340" stroke="url(#decoPurp3)" strokeWidth="1.4" fill="none"/>
-          {/* 골드 원 */}
-          <circle cx="370" cy="250" r="90" stroke="url(#decoGoldC)" strokeWidth="2" fill="none"/>
-          <circle cx="35" cy="650" r="45" stroke="rgba(218,165,32,0.18)" strokeWidth="1.4" fill="none"/>
-          {/* 글로우 */}
-          <ellipse cx="380" cy="110" rx="110" ry="90" fill="url(#decoGoldGlow)"/>
-          <ellipse cx="390" cy="720" rx="130" ry="110" fill="url(#decoPurpGlow)"/>
-
-          <defs>
-            <linearGradient id="decoGold1" x1="0%" y1="0%" x2="50%" y2="100%">
-              <stop offset="0%" stopColor="rgba(218,165,32,0.6)"/>
-              <stop offset="50%" stopColor="rgba(218,165,32,0.35)"/>
-              <stop offset="100%" stopColor="rgba(218,165,32,0)"/>
-            </linearGradient>
-            <linearGradient id="decoGold2" x1="0%" y1="0%" x2="50%" y2="100%">
-              <stop offset="0%" stopColor="rgba(218,165,32,0.35)"/>
-              <stop offset="100%" stopColor="rgba(218,165,32,0)"/>
-            </linearGradient>
-            <linearGradient id="decoGold3" x1="0%" y1="100%" x2="50%" y2="0%">
-              <stop offset="0%" stopColor="rgba(218,165,32,0.4)"/>
-              <stop offset="100%" stopColor="rgba(218,165,32,0)"/>
-            </linearGradient>
-            <linearGradient id="decoPurp1" x1="100%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="rgba(147,102,240,0.6)"/>
-              <stop offset="50%" stopColor="rgba(147,102,240,0.3)"/>
-              <stop offset="100%" stopColor="rgba(147,102,240,0)"/>
-            </linearGradient>
-            <linearGradient id="decoPurp2" x1="100%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="rgba(147,102,240,0.4)"/>
-              <stop offset="100%" stopColor="rgba(147,102,240,0)"/>
-            </linearGradient>
-            <linearGradient id="decoPurp3" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="rgba(147,102,240,0.35)"/>
-              <stop offset="100%" stopColor="rgba(147,102,240,0)"/>
-            </linearGradient>
-            <linearGradient id="decoGoldC" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="rgba(218,165,32,0.3)"/>
-              <stop offset="100%" stopColor="rgba(218,165,32,0.06)"/>
-            </linearGradient>
-            <radialGradient id="decoGoldGlow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="rgba(218,165,32,0.1)"/>
-              <stop offset="100%" stopColor="rgba(218,165,32,0)"/>
-            </radialGradient>
-            <radialGradient id="decoPurpGlow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="rgba(147,102,240,0.12)"/>
-              <stop offset="100%" stopColor="rgba(147,102,240,0)"/>
-            </radialGradient>
-          </defs>
-        </svg>
-      </div>
-
       {/* Header */}
       <header className="main-header">
         <button className="menu-btn" onClick={handleMenuClick}>
@@ -122,7 +59,6 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
         <h1 className="brand-title">Master Valley</h1>
         <p className="brand-tagline">{t.tagline}</p>
         <p className="brand-sub-tagline">{t.subTagline}</p>
-        <div className="gold-divider" />
       </div>
 
       {/* Category Grid */}
@@ -182,14 +118,6 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           overflow: hidden;
         }
 
-        /* 배경 장식 레이어 */
-        .deco-layer {
-          position: absolute;
-          inset: 0;
-          pointer-events: none;
-          z-index: 0;
-        }
-
         /* Header */
         .main-header {
           display: flex;
@@ -240,7 +168,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
         /* Branding */
         .branding {
           text-align: center;
-          padding: 40px 20px 0;
+          padding: 56px 20px 0;
           position: relative;
           z-index: 1;
         }
@@ -273,17 +201,10 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           margin: 6px 0 0;
         }
 
-        .gold-divider {
-          width: 48px;
-          height: 1px;
-          background: linear-gradient(90deg, transparent, rgba(218,165,32,0.4), transparent);
-          margin: 28px auto 0;
-        }
-
         /* Category Grid */
         .category-grid {
           flex: 1;
-          padding: 28px 20px 16px;
+          padding: 40px 20px 16px;
           display: flex;
           flex-direction: column;
           justify-content: flex-start;
@@ -385,7 +306,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           }
 
           .branding {
-            padding: 32px 16px 0;
+            padding: 48px 16px 0;
           }
 
           .brand-title {
@@ -393,7 +314,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           }
 
           .category-grid {
-            padding: 24px 16px 16px;
+            padding: 36px 16px 16px;
             gap: 10px;
           }
         }
