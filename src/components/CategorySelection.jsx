@@ -47,59 +47,59 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
       <div className="deco-layer" aria-hidden="true">
         <svg width="100%" height="100%" viewBox="0 0 400 900" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg">
           {/* 골드 곡선: 우상단 */}
-          <path d="M 430 -20 C 380 50, 400 130, 350 190 C 300 250, 370 310, 330 380" stroke="url(#decoGold1)" strokeWidth="1" fill="none"/>
-          <path d="M 415 0 C 365 65, 385 140, 335 200 C 285 260, 355 320, 315 390" stroke="url(#decoGold2)" strokeWidth="0.6" fill="none"/>
+          <path d="M 430 -20 C 380 50, 400 130, 350 190 C 300 250, 370 310, 330 380" stroke="url(#decoGold1)" strokeWidth="2.5" fill="none"/>
+          <path d="M 415 0 C 365 65, 385 140, 335 200 C 285 260, 355 320, 315 390" stroke="url(#decoGold2)" strokeWidth="1.6" fill="none"/>
           {/* 골드 곡선: 좌하단 */}
-          <path d="M -20 720 C 40 660, 15 590, 70 530" stroke="url(#decoGold3)" strokeWidth="0.8" fill="none"/>
+          <path d="M -20 720 C 40 660, 15 590, 70 530" stroke="url(#decoGold3)" strokeWidth="2" fill="none"/>
           {/* 퍼플 곡선: 우하단 */}
-          <path d="M 430 580 C 380 620, 350 660, 320 700 C 290 740, 250 770, 180 820" stroke="url(#decoPurp1)" strokeWidth="1.2" fill="none"/>
-          <path d="M 420 610 C 370 640, 335 680, 305 720 C 275 760, 235 790, 160 840" stroke="url(#decoPurp2)" strokeWidth="0.7" fill="none"/>
+          <path d="M 430 580 C 380 620, 350 660, 320 700 C 290 740, 250 770, 180 820" stroke="url(#decoPurp1)" strokeWidth="2.8" fill="none"/>
+          <path d="M 420 610 C 370 640, 335 680, 305 720 C 275 760, 235 790, 160 840" stroke="url(#decoPurp2)" strokeWidth="1.6" fill="none"/>
           {/* 퍼플 곡선: 좌상단 미세 */}
-          <path d="M -15 100 C 15 140, 0 180, 20 225 C 40 270, 15 300, 35 340" stroke="url(#decoPurp3)" strokeWidth="0.6" fill="none"/>
+          <path d="M -15 100 C 15 140, 0 180, 20 225 C 40 270, 15 300, 35 340" stroke="url(#decoPurp3)" strokeWidth="1.4" fill="none"/>
           {/* 골드 원 */}
-          <circle cx="370" cy="250" r="90" stroke="url(#decoGoldC)" strokeWidth="1" fill="none"/>
-          <circle cx="35" cy="650" r="45" stroke="rgba(218,165,32,0.07)" strokeWidth="0.7" fill="none"/>
+          <circle cx="370" cy="250" r="90" stroke="url(#decoGoldC)" strokeWidth="2" fill="none"/>
+          <circle cx="35" cy="650" r="45" stroke="rgba(218,165,32,0.18)" strokeWidth="1.4" fill="none"/>
           {/* 글로우 */}
           <ellipse cx="380" cy="110" rx="110" ry="90" fill="url(#decoGoldGlow)"/>
           <ellipse cx="390" cy="720" rx="130" ry="110" fill="url(#decoPurpGlow)"/>
 
           <defs>
             <linearGradient id="decoGold1" x1="0%" y1="0%" x2="50%" y2="100%">
-              <stop offset="0%" stopColor="rgba(218,165,32,0.35)"/>
-              <stop offset="50%" stopColor="rgba(218,165,32,0.18)"/>
+              <stop offset="0%" stopColor="rgba(218,165,32,0.6)"/>
+              <stop offset="50%" stopColor="rgba(218,165,32,0.35)"/>
               <stop offset="100%" stopColor="rgba(218,165,32,0)"/>
             </linearGradient>
             <linearGradient id="decoGold2" x1="0%" y1="0%" x2="50%" y2="100%">
-              <stop offset="0%" stopColor="rgba(218,165,32,0.18)"/>
+              <stop offset="0%" stopColor="rgba(218,165,32,0.35)"/>
               <stop offset="100%" stopColor="rgba(218,165,32,0)"/>
             </linearGradient>
             <linearGradient id="decoGold3" x1="0%" y1="100%" x2="50%" y2="0%">
-              <stop offset="0%" stopColor="rgba(218,165,32,0.2)"/>
+              <stop offset="0%" stopColor="rgba(218,165,32,0.4)"/>
               <stop offset="100%" stopColor="rgba(218,165,32,0)"/>
             </linearGradient>
             <linearGradient id="decoPurp1" x1="100%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="rgba(147,102,240,0.35)"/>
-              <stop offset="50%" stopColor="rgba(147,102,240,0.15)"/>
+              <stop offset="0%" stopColor="rgba(147,102,240,0.6)"/>
+              <stop offset="50%" stopColor="rgba(147,102,240,0.3)"/>
               <stop offset="100%" stopColor="rgba(147,102,240,0)"/>
             </linearGradient>
             <linearGradient id="decoPurp2" x1="100%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="rgba(147,102,240,0.2)"/>
+              <stop offset="0%" stopColor="rgba(147,102,240,0.4)"/>
               <stop offset="100%" stopColor="rgba(147,102,240,0)"/>
             </linearGradient>
             <linearGradient id="decoPurp3" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="rgba(147,102,240,0.18)"/>
+              <stop offset="0%" stopColor="rgba(147,102,240,0.35)"/>
               <stop offset="100%" stopColor="rgba(147,102,240,0)"/>
             </linearGradient>
             <linearGradient id="decoGoldC" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="rgba(218,165,32,0.14)"/>
-              <stop offset="100%" stopColor="rgba(218,165,32,0.03)"/>
+              <stop offset="0%" stopColor="rgba(218,165,32,0.3)"/>
+              <stop offset="100%" stopColor="rgba(218,165,32,0.06)"/>
             </linearGradient>
             <radialGradient id="decoGoldGlow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="rgba(218,165,32,0.05)"/>
+              <stop offset="0%" stopColor="rgba(218,165,32,0.1)"/>
               <stop offset="100%" stopColor="rgba(218,165,32,0)"/>
             </radialGradient>
             <radialGradient id="decoPurpGlow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="rgba(147,102,240,0.06)"/>
+              <stop offset="0%" stopColor="rgba(147,102,240,0.12)"/>
               <stop offset="100%" stopColor="rgba(147,102,240,0)"/>
             </radialGradient>
           </defs>
@@ -130,7 +130,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
         {categories.map(cat => (
           <button
             key={cat.id}
-            className={`category-card category-card--${cat.id}`}
+            className="category-card"
             onClick={() => onSelect(cat.id)}
           >
             {lang === 'ar' ? (
@@ -227,8 +227,8 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           border: none;
           padding: 8px 0;
           color: rgba(147,102,240,0.9);
-          font-size: 15px;
-          font-weight: 500;
+          font-size: 17px;
+          font-weight: 600;
           cursor: pointer;
           letter-spacing: 0.3px;
         }
@@ -247,11 +247,11 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
 
         .brand-title {
           font-family: 'Cormorant Garamond', Georgia, serif;
-          font-size: 40px;
+          font-size: 44px;
           font-weight: 600;
           margin: 0 0 10px;
           letter-spacing: 1px;
-          background: linear-gradient(135deg, #a855f7 0%, #daa520 50%, #f472b6 100%);
+          background: linear-gradient(135deg, #a855f7 0%, #b77df7 36%, #daa520 50%, #e88aaf 64%, #f472b6 100%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
@@ -293,10 +293,10 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
         }
 
         .category-card {
-          background: rgba(255,255,255,0.02);
-          border: 1px solid rgba(255,255,255,0.04);
-          border-radius: 14px;
-          padding: 12px;
+          background: transparent;
+          border: none;
+          border-radius: 12px;
+          padding: 8px 0;
           min-height: 104px;
           display: flex;
           align-items: center;
@@ -304,17 +304,6 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           cursor: pointer;
           transition: all 0.2s;
           text-align: start;
-        }
-
-        /* 카테고리별 악센트 보더 */
-        .category-card--movements {
-          border-left: 2px solid rgba(168,85,247,0.4);
-        }
-        .category-card--masters {
-          border-left: 2px solid rgba(218,165,32,0.4);
-        }
-        .category-card--oriental {
-          border-left: 2px solid rgba(244,114,182,0.4);
         }
 
         .category-card:hover {
@@ -400,7 +389,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           }
 
           .brand-title {
-            font-size: 36px;
+            font-size: 44px;
           }
 
           .category-grid {

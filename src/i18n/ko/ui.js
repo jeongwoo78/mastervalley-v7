@@ -190,13 +190,13 @@ export const ui = {
     tagStarter: '시간여행을 시작하세요',
     tagStandard: '거장의 세계를 경험하세요',
     tagPlus: '그리고 영감을 얻으세요',
-    info1: '정기 구독 없음',
+    info1: '정기 구독은 필요없습니다',
     info2: '잔액 만기 없음'
   },
 
   // ===== Subscription Info (Track A - 탐색 화면용) =====
   subscriptionInfo: {
-    line1: '정기 구독 없음',
+    line1: '정기 구독은 필요없습니다',
     line2: '필요할 때만 결제하세요'
   },
 
