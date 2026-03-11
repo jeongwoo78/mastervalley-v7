@@ -1,6 +1,6 @@
 // ========================================
 // One-Click Movimientos — Español (es)
-// v69 - 2026-02-03 (estructura: movimiento→artista)
+// 2026-03-11
 // ----------------------------------------
 // 1ª: tono poético (carga, expectación)
 // 2ª: definición/características del movimiento (fijo) → presentación del artista (variable)

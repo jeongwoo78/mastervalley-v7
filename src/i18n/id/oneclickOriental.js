@@ -1,6 +1,6 @@
 // ========================================
 // One-Click Lukisan Oriental — Bahasa Indonesia (id)
-// v69 - 2026-02-03 (struktur: negara→gaya)
+// 2026-03-11
 // ========================================
 
 export const oneclickOrientalBasicInfo = {
@@ -64,7 +64,7 @@ Ruang kosong yang tidak dilukis justru berkata paling banyak.`
 Jiwa cendekiawan dan teknik istana berdampingan selama seribu tahun.
 
 Gongbi adalah lukisan istana dengan presisi sempurna, tanpa satu goresan pun yang melenceng.
-Lapisan demi lapisan warna transparan ditumpuk untuk menciptakan kedalaman dan kilauan.`
+Lapisan demi lapisan warna transparan ditumpuk untuk menciptakan kedalaman.`
   },
 
   'japanese-ukiyoe': {

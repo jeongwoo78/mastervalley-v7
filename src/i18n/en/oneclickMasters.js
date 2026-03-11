@@ -1,6 +1,6 @@
 // ========================================
 // OneClick Masters Education Content
-// v69 - 2026-02-03 (2-paragraph prose, BasicInfo added)
+// 2026-03-11
 // ----------------------------------------
 // Primary: Poetic tone (loading, anticipation)
 // Secondary: Explanatory (definition → technique → features → significance)
@@ -21,12 +21,12 @@ export const oneclickMastersBasicInfo = {
   },
   'munch': {
     name: 'Edvard Munch (1863–1944)',
-    subtitle1: 'The Scream · Madonna · Puberty',
+    subtitle1: 'The Scream · Madonna · The Dance of Life',
     subtitle2: 'Painting the inner scream'
   },
   'matisse': {
     name: 'Henri Matisse (1869–1954)',
-    subtitle1: 'The Dance · The Red Room · Woman with a Hat',
+    subtitle1: 'The Dance · The Red Room · The Green Stripe',
     subtitle2: 'Master of color'
   },
   'chagall': {

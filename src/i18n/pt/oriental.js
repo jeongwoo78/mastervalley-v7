@@ -1,7 +1,7 @@
 // ========================================
 // Arte Oriental — Português (pt)
 // estrutura i18n · 9 linhas 2 parágrafos
-// v70 - 2026-03-04
+// 2026-03-11 수정 반영본
 // ========================================
 
 export const orientalBasicInfo = {
@@ -85,7 +85,7 @@ export const orientalLoadingEducation = {
   },
 
   chinese: {
-    description: `Diante de um rolo de paisagem, os letrados chineses leram o mundo através da tinta.\nA pintura de tinta e aguada ergueu montanhas apenas com gradações de tinta e evocou a neblina através do espaço vazio.\nO Gongbi renderizou cada pétala com meticulosa precisão, oferecida ao imperador.\n\nA fonte da arte do Leste Asiático, fluindo há mais de mil anos, é a pintura tradicional chinesa.\nAtravés de tinta e cor ao longo de mil anos — conheça a pintura chinesa, a origem da arte do Leste Asiático.`
+    description: `Diante de um rolo de paisagem, os letrados chineses leram o mundo através da tinta.\nA pintura de tinta e aguada ergueu montanhas apenas com gradações de tinta e evocou a neblina através do espaço vazio.\nO Gongbi renderizou cada pétala com meticulosa precisão, oferecida ao imperador.\n\nA fonte da arte do Leste Asiático, fluindo há mais de mil anos, é a pintura tradicional chinesa.\nConheça a profundidade de mil anos, forjada em tinta e cor.`
   },
 
   japanese: {
@@ -96,35 +96,35 @@ export const orientalLoadingEducation = {
 export const orientalResultEducation = {
 
   'korean-minhwa': {
-    description: `A paleta vibrante e a composição livre do Minhwa foram aplicadas à sua imagem.\nPintado nas cinco cores fundamentais (azul, vermelho, amarelo, branco, preto) e disposto livremente sem perspetiva.\n\nAs peônias simbolizam riqueza, as carpas representam o sucesso, e os tigres espantam o mal.\nEsta é a arte popular de Joseon — pendurada nas biombos de cada casa, cada pintura carregando um desejo.`
+    description: `A paleta vibrante e a composição livre do Minhwa foram aplicadas à sua imagem.\nPintado nas cinco cores fundamentais (azul, vermelho, amarelo, branco, preto) e disposto livremente sem perspetiva.\n\nAs peônias simbolizam riqueza, as carpas representam o sucesso, e os tigres espantam o mal.\nMinhwa é a arte popular de Joseon — pendurada nas biombos de cada casa, cada pintura carregando um desejo.`
   },
 
   'korean-pungsokdo': {
-    description: `As pinceladas rápidas e a coloração contida do Pungsokdo foram aplicadas à sua imagem.\nA técnica de aguada leve com pincel fino captura gestos e expressões; o espaço vazio abre a cena.\n\nHomens a lutar, mulheres a lavar roupa, crianças a dormitar em escolas de aldeia — a vida quotidiana de Joseon ganha vida.\nEste é o realismo coreano, desabrochado pela ponta do pincel de Kim Hong-do e Shin Yun-bok.`
+    description: `As pinceladas rápidas e a coloração contida do Pungsokdo foram aplicadas à sua imagem.\nA técnica de aguada leve com pincel fino captura gestos e expressões; o espaço vazio abre a cena.\n\nHomens a lutar, mulheres a lavar roupa, crianças a dormitar em escolas de aldeia — a vida quotidiana de Joseon ganha vida.\nPungsokdo é o realismo coreano, desabrochado pela ponta do pincel de Kim Hong-do e Shin Yun-bok.`
   },
 
   'korean-jingyeong': {
-    description: `As vigorosas pinceladas de textura e a composição ousada do Jingyeong Sansuhwa foram aplicadas à sua imagem.\nLibertando-se das paisagens idealizadas, os pintores esboçavam as montanhas e rios reais diante dos seus olhos.\n\nOs picos dentados do Geumgangsan e a chuva caindo sobre o Inwangsan ganham vida através de pinceladas poderosas.\nEsta é a estética da paisagem real, aperfeiçoada por Gyeomjae Jeong Seon — a visão da Coreia sobre a natureza.`
+    description: `As vigorosas pinceladas de textura e a composição ousada do Jingyeong Sansuhwa foram aplicadas à sua imagem.\nLibertando-se das paisagens idealizadas, os pintores esboçavam as montanhas e rios reais diante dos seus olhos.\n\nOs picos dentados do Geumgangsan e a chuva caindo sobre o Inwangsan ganham vida através de pinceladas poderosas.\nJingyeong Sansuhwa é a estética da paisagem real, aperfeiçoada por Gyeomjae Jeong Seon — a visão da Coreia sobre a natureza.`
   },
 
   'chinese-gongbi': {
-    description: `A pincelada meticulosa e a coloração em camadas luminosas do Gongbi foram aplicadas à sua imagem.\nPincéis finos traçam primeiro o contorno; depois cores transparentes são sobrepostas para criar profundidade.\n\nFlores, pássaros e figuras são renderizados fio a fio, cativando o olhar imperial.\nEste é o cume da pintura fina do Leste Asiático — o auge do domínio da cor, aperfeiçoado pela corte.`
+    description: `A pincelada meticulosa e a coloração em camadas luminosas do Gongbi foram aplicadas à sua imagem.\nPincéis finos traçam primeiro o contorno; depois cores transparentes são sobrepostas para criar profundidade.\n\nFlores, pássaros e figuras são renderizados fio a fio, cativando o olhar imperial.\nGongbi é o cume da pintura fina do Leste Asiático — o auge do domínio da cor, aperfeiçoado pela corte.`
   },
 
   'chinese-ink': {
-    description: `As aguadas fluidas e o espaço vazio contemplativo da pintura de tinta e aguada foram aplicados à sua imagem.\nMontanhas, água, neblina e nuvens são expressos apenas com gradações de tinta; o espaço vazio torna-se infinito.\n\nA técnica de salpicadura de tinta espalha a tinta como chuva, capturando a vitalidade da natureza.\nEsta é a forma mais pura da pintura do Leste Asiático — os letrados transferiram o espírito, não a forma, para a seda.`
+    description: `As aguadas fluidas e o espaço vazio contemplativo da pintura de tinta e aguada foram aplicados à sua imagem.\nMontanhas, água, neblina e nuvens são expressos apenas com gradações de tinta; o espaço vazio torna-se infinito.\n\nA técnica de salpicadura de tinta espalha a tinta como chuva, capturando a vitalidade da natureza.\nA pintura a tinta é a forma mais pura da pintura do Leste Asiático — os letrados transferiram o espírito, não a forma, para a seda.`
   },
 
   'japanese-ukiyoe': {
-    description: `Os contornos marcantes e as cores planas vibrantes do Ukiyo-e foram aplicados à sua imagem.\nContornos ousados definem a forma; planos de cor preenchem o interior — puro impacto gráfico.\n\nComo "A Grande Onda de Kanagawa" de Hokusai, uma fração de segundo da fúria da natureza é gravada numa única impressão.\nEsta é a visão que viajou do Oriente para o Ocidente, inspirando os impressionistas a ver a arte de novo.`
+    description: `Os contornos marcantes e as cores planas vibrantes do Ukiyo-e foram aplicados à sua imagem.\nContornos ousados definem a forma; planos de cor preenchem o interior — puro impacto gráfico.\n\nComo "A Grande Onda de Kanagawa" de Hokusai, uma fração de segundo da fúria da natureza é gravada numa única impressão.\nUkiyo-e é a visão que viajou do Oriente para o Ocidente, inspirando os impressionistas a ver a arte de novo.`
   },
 
   'japanese-rinpa': {
-    description: `A decoração em folha de ouro e a composição ousada do Rinpa foram aplicadas à sua imagem.\nO pigmento é depositado sobre folha de ouro; as cores acumulam-se camada sobre camada para criar textura natural.\n\nComo o "Biombo das Íris" de Ogata Korin, a natureza vibrante desabrocha sobre um campo de ouro.\nNascido do gosto aristocrático e inspirando o Art Nouveau — a essência da pintura decorativa japonesa.`
+    description: `A decoração em folha de ouro e a composição ousada do Rinpa foram aplicadas à sua imagem.\nO pigmento é depositado sobre folha de ouro; as cores acumulam-se camada sobre camada para criar textura natural.\n\nComo o "Biombo das Íris" de Ogata Korin, a natureza vibrante desabrocha sobre um campo de ouro.\nRinpa é nascido do gosto aristocrático e inspirando o Art Nouveau — a essência da pintura decorativa japonesa.`
   },
 
   'korean_default': {
-    description: `A pincelada tradicional coreana e a beleza do espaço vazio foram aplicadas à sua imagem.\nOs letrados pintavam com gradações de tinta; o povo comum, com cores vibrantes — ambos dando vida ao seu mundo.\n\nO espaço vazio fala, e o espírito flui pela ponta do pincel — a estética da pintura coreana.\nEsta é a cristalização de 500 anos de estética de Joseon, do Minhwa ao Jingyeong Sansuhwa.`
+    description: `A pincelada tradicional coreana e a beleza do espaço vazio foram aplicadas à sua imagem.\nOs letrados pintavam com gradações de tinta; o povo comum, com cores vibrantes — ambos dando vida ao seu mundo.\n\nO espaço vazio fala, e o espírito flui pela ponta do pincel — a estética da pintura coreana.\nA pintura tradicional coreana, representada por Minhwa, Pungsokdo e Jingyeong Sansuhwa, é uma arte que floresceu durante 500 anos de Joseon.`
   },
   'chinese_default': {
     description: `A harmonia de tinta e cor tradicional chinesa foi aplicada à sua imagem.\nUma única pincelada ergue montanhas; um único espaço vazio evoca neblina.\n\nO espírito do letrado e o domínio da corte coexistem na pintura chinesa.\nEsta é a fonte da arte do Leste Asiático, fluindo através do Gongbi e da tinta e aguada há mais de mil anos.`

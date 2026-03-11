@@ -1,6 +1,6 @@
 // ========================================
 // Tek Tıkla Ustalar — Türkçe (tr)
-// v69 - 2026-03-04
+// 2026-03-11
 // ========================================
 
 export const oneclickMastersBasicInfo = {
@@ -16,12 +16,12 @@ export const oneclickMastersBasicInfo = {
   },
   'munch': {
     name: 'Edvard Munch (1863–1944)',
-    subtitle1: 'Çığlık · Madonna · Ergenlik',
+    subtitle1: 'Çığlık · Madonna · Yaşam Dansı',
     subtitle2: 'İç çığlığı resmetmek'
   },
   'matisse': {
     name: 'Henri Matisse (1869–1954)',
-    subtitle1: 'Dans · Kırmızı Oda · Şapkalı Kadın',
+    subtitle1: 'Dans · Kırmızı Oda · Yeşil Çizgi',
     subtitle2: 'Rengin ustası'
   },
   'chagall': {

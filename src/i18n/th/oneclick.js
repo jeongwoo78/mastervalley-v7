@@ -1,3 +1,3 @@
 // oneclick — th (placeholder)
-// TODO: Translate from en/ version
+// placeholder — en fallback 사용 중
 

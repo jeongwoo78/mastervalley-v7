@@ -1,6 +1,6 @@
 // ========================================
 // One-Click Grands Maîtres — Français (fr)
-// v69 - 2026-02-03 (2 paragraphes prose, BasicInfo ajouté)
+// 2026-03-11
 // ----------------------------------------
 // 1re : ton poétique (chargement, attente)
 // 2e : explicatif (définition → technique/style → caractéristiques → sens/évaluation)
@@ -21,12 +21,12 @@ export const oneclickMastersBasicInfo = {
   },
   'munch': {
     name: 'Edvard Munch (1863–1944)',
-    subtitle1: 'Le Cri · Madonna · Puberté',
+    subtitle1: 'Le Cri · Madonna · La Danse de la vie',
     subtitle2: 'Peindre le cri intérieur'
   },
   'matisse': {
     name: 'Henri Matisse (1869–1954)',
-    subtitle1: 'La Danse · La Chambre rouge · La Femme au chapeau',
+    subtitle1: 'La Danse · La Chambre rouge · La Raie verte',
     subtitle2: 'Le magicien de la couleur'
   },
   'chagall': {

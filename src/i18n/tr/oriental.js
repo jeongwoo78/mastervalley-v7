@@ -1,7 +1,7 @@
 // ========================================
 // Doğu Sanatı — Türkçe (tr)
 // i18n yapısı · 9 satır 2 paragraf
-// v70 - 2026-03-04
+// 2026-03-11 수정 반영본
 // ========================================
 
 export const orientalBasicInfo = {
@@ -85,7 +85,7 @@ export const orientalLoadingEducation = {
   },
 
   chinese: {
-    description: `Bir manzara tomarının karşısında Çinli aydınlar mürekkep aracılığıyla dünyayı okudu.\nMürekkep yıkama resmi, yalnızca mürekkep tonlamalarıyla dağlar yükseltti ve boşlukla sis yarattı.\nGongbi her yaprağı titiz bir hassasiyetle çizdi ve imparatora sundu.\n\nBin yılı aşkın süredir akan Doğu Asya sanatının kaynağı Çin geleneksel resmidir.\nBin yıl boyunca mürekkep ve renk aracılığıyla — Doğu Asya sanatının kökeni Çin resmiyle tanış.`
+    description: `Bir manzara tomarının karşısında Çinli aydınlar mürekkep aracılığıyla dünyayı okudu.\nMürekkep yıkama resmi, yalnızca mürekkep tonlamalarıyla dağlar yükseltti ve boşlukla sis yarattı.\nGongbi her yaprağı titiz bir hassasiyetle çizdi ve imparatora sundu.\n\nBin yılı aşkın süredir akan Doğu Asya sanatının kaynağı Çin geleneksel resmidir.\nMürekkep ve rengin yoğurduğu bin yılın derinliğiyle tanış.`
   },
 
   japanese: {
@@ -96,31 +96,31 @@ export const orientalLoadingEducation = {
 export const orientalResultEducation = {
 
   'korean-minhwa': {
-    description: `Minhwa\'nın canlı paleti ve özgür kompozisyonu görüntüne uygulandı.\nBeş temel renkte (mavi, kırmızı, sarı, beyaz, siyah) boyandı; perspektif olmaksızın özgürce düzenlendi.\n\nŞakayıklar serveti, sazan başarıyı, kaplanlar kötülüğü kovalar.\nBu Joseon halk sanatıdır — her evin ekran bölmelerine asıldı; her tablo bir dilek taşıdı.`
+    description: `Minhwa\'nın canlı paleti ve özgür kompozisyonu görüntüne uygulandı.\nBeş temel renkte (mavi, kırmızı, sarı, beyaz, siyah) boyandı; perspektif olmaksızın özgürce düzenlendi.\n\nŞakayıklar serveti, sazan başarıyı, kaplanlar kötülüğü kovalar.\nMinhwa, Joseon halk sanatıdır — her evin ekran bölmelerine asıldı; her tablo bir dilek taşıdı.`
   },
 
   'korean-pungsokdo': {
-    description: `Pungsokdo\'nun hızlı fırça darbeleri ve ölçülü renklendirmesi görüntüne uygulandı.\nİnce fırçalı hafif yıkama tekniği jest ve ifadeleri yakalar; boşluk sahneyi açar.\n\nGüreşen erkekler, çamaşır yıkayan kadınlar, köy okullarında uyuklayan çocuklar — günlük Joseon yaşamı canlanıyor.\nBu Kore gerçekçiliğidir; Kim Hong-do ve Shin Yun-bok\'un fırça ucundan açtığı çiçek.`
+    description: `Pungsokdo\'nun hızlı fırça darbeleri ve ölçülü renklendirmesi görüntüne uygulandı.\nİnce fırçalı hafif yıkama tekniği jest ve ifadeleri yakalar; boşluk sahneyi açar.\n\nGüreşen erkekler, çamaşır yıkayan kadınlar, köy okullarında uyuklayan çocuklar — günlük Joseon yaşamı canlanıyor.\nPungsokdo, Kore gerçekçiliğidir; Kim Hong-do ve Shin Yun-bok\'un fırça ucundan açtığı çiçek.`
   },
 
   'korean-jingyeong': {
-    description: `Jingyeong Sansuhwa\'nın güçlü doku darbeleri ve cesur kompozisyonu görüntüne uygulandı.\nİdealize manzaralardan özgürleşerek ressamlar gözleri önündeki gerçek dağları ve nehirleri çizdi.\n\nGeumgangsan\'ın girintili zirveleri ve Inwangsan üzerinde yağan yağmur güçlü fırça darbeleriyle canlanıyor.\nBu gerçek manzara estetiğidir; Gyeomjae Jeong Seon tarafından mükemmelleştirilen — Kore\'nin doğaya özgü vizyonu.`
+    description: `Jingyeong Sansuhwa\'nın güçlü doku darbeleri ve cesur kompozisyonu görüntüne uygulandı.\nİdealize manzaralardan özgürleşerek ressamlar gözleri önündeki gerçek dağları ve nehirleri çizdi.\n\nGeumgangsan\'ın girintili zirveleri ve Inwangsan üzerinde yağan yağmur güçlü fırça darbeleriyle canlanıyor.\nJingyeong Sansuhwa, gerçek manzara estetiğidir; Gyeomjae Jeong Seon tarafından mükemmelleştirilen — Kore\'nin doğaya özgü vizyonu.`
   },
 
   'chinese-gongbi': {
-    description: `Gongbi\'nin titiz fırça işçiliği ve parlak katmanlı renklendirmesi görüntüne uygulandı.\nİnce fırçalar önce konturu çiziyor, ardından şeffaf renkler derinlik oluşturmak için katmanlı uygulanıyor.\n\nÇiçekler, kuşlar ve figürler saç saç boyandı; imparatorluk gözünü büyledi.\nBu Doğu Asya ince resminin zirvesidir — saray tarafından mükemmelleştirilen renk ustalığının doruk noktası.`
+    description: `Gongbi\'nin titiz fırça işçiliği ve parlak katmanlı renklendirmesi görüntüne uygulandı.\nİnce fırçalar önce konturu çiziyor, ardından şeffaf renkler derinlik oluşturmak için katmanlı uygulanıyor.\n\nÇiçekler, kuşlar ve figürler saç saç boyandı; imparatorluk gözünü büyledi.\nGongbi, Doğu Asya ince resminin zirvesidir — saray tarafından mükemmelleştirilen renk ustalığının doruk noktası.`
   },
 
   'chinese-ink': {
-    description: `Mürekkep yıkama resminin akışkan tonlamaları ve derin boşluğu görüntüne uygulandı.\nDağlar, su, sis ve bulutlar yalnızca mürekkep tonlamalarıyla ifade ediliyor; boşluk sonsuzlaşıyor.\n\nSıçratma tekniği mürekkebi yağmur gibi saçarak doğanın canlılığını yakalıyor.\nBu Doğu Asya resminin en saf formudur — aydınlar forma değil, ruha ipek üzerine aktardı.`
+    description: `Mürekkep yıkama resminin akışkan tonlamaları ve derin boşluğu görüntüne uygulandı.\nDağlar, su, sis ve bulutlar yalnızca mürekkep tonlamalarıyla ifade ediliyor; boşluk sonsuzlaşıyor.\n\nSıçratma tekniği mürekkebi yağmur gibi saçarak doğanın canlılığını yakalıyor.\nMürekkep yıkama resmi, Doğu Asya resminin en saf formudur — aydınlar forma değil, ruha ipek üzerine aktardı.`
   },
 
   'japanese-ukiyoe': {
-    description: `Ukiyo-e\'nin çarpıcı konturları ve canlı düz renkleri görüntüne uygulandı.\nCesur konturlar formu tanımlar ve renk düzlemleri içini doldurur — saf grafik güç.\n\nHokusai\'nin "Kanagawa\'da Büyük Dalga"sı gibi doğanın öfkesinin bir anlık parçası tek bir baskıya kazınmış.\nDoğu\'dan Batı\'ya seyahat ederek İzlenimcileri sanata yeniden bakmaya ilham veren vizyon bu.`
+    description: `Ukiyo-e\'nin çarpıcı konturları ve canlı düz renkleri görüntüne uygulandı.\nCesur konturlar formu tanımlar ve renk düzlemleri içini doldurur — saf grafik güç.\n\nHokusai\'nin "Kanagawa\'da Büyük Dalga"sı gibi doğanın öfkesinin bir anlık parçası tek bir baskıya kazınmış.\nUkiyo-e Doğu\'dan Batı\'ya seyahat ederek İzlenimcileri sanata yeniden bakmaya ilham veren vizyon bu.`
   },
 
   'japanese-rinpa': {
-    description: `Rinpa\'nın altın yaprak süslemesi ve cesur kompozisyonu görüntüne uygulandı.\nAltın yaprak üzerine boya uygulandı; doğal doku oluşturmak için renkler katman üstüne katman birikti.\n\nOgata Korin\'in "Süsbezelyeler Ekranı" gibi canlı doğa bir altın alan üzerinde açıyor.\nAristokrat zevkten doğup Art Nouveau\'ya ilham veren — Japon dekoratif resminin özü.`
+    description: `Rinpa\'nın altın yaprak süslemesi ve cesur kompozisyonu görüntüne uygulandı.\nAltın yaprak üzerine boya uygulandı; doğal doku oluşturmak için renkler katman üstüne katman birikti.\n\nOgata Korin\'in "Süsbezelyeler Ekranı" gibi canlı doğa bir altın alan üzerinde açıyor.\nRinpa Aristokrat zevkten doğup Art Nouveau\'ya ilham veren — Japon dekoratif resminin özü.`
   },
 
   'korean_default': {

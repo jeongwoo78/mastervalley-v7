@@ -1,5 +1,5 @@
 // ========================================
 // aliases — English (en)
-// TODO: Translate from ko/ version
+// placeholder — en fallback 사용 중
 // ========================================
 

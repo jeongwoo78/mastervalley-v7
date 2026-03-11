@@ -1,7 +1,7 @@
 // ========================================
 // Maestro Besar — Bahasa Indonesia (id)
 // Struktur i18n · 9 baris 2 paragraf
-// v70 - 2026-02-03
+// 2026-03-11 수정 반영본
 // ========================================
 
 export const mastersBasicInfo = {
@@ -58,7 +58,7 @@ export const mastersBasicInfo = {
       subtitle1: 'Surealisme · Rusia/Prancis',
       subtitle2: 'Penyair cinta dan mimpi',
       works: {
-        'lovers': { subtitle1: 'Hari Ulang Tahun (The Birthday)', subtitle2: 'Sepasang kekasih yang mabuk cinta hingga melupakan gravitasi' },
+        'lovers': { subtitle1: 'Kekasih (The Lovers)', subtitle2: 'Sepasang kekasih yang mabuk cinta hingga melupakan gravitasi' },
         'lamariee': { subtitle1: 'La Mariée', subtitle2: 'Pengantin yang melayang antara mimpi dan kenyataan' },
         'village': { subtitle1: 'Aku dan Desa (I and the Village)', subtitle2: 'Kenangan rumah yang melayang seperti mimpi' },
       }
@@ -69,8 +69,6 @@ export const mastersBasicInfo = {
       subtitle1: 'Les Demoiselles d\'Avignon · Guernica · Potret Dora Maar',
       subtitle2: 'Revolusioner yang mendekonstruksi penglihatan',
       works: {
-        'demoiselles': { subtitle1: 'Les Demoiselles d\'Avignon', subtitle2: 'Lima wanita yang menghancurkan perspektif' },
-        'guernica': { subtitle1: 'Guernica', subtitle2: 'Teriakan perang yang meledak dalam hitam putih' },
         'doramaar': { subtitle1: 'Potret Dora Maar (Portrait of Dora Maar)', subtitle2: 'Potret terdekonstruksi di mana depan bertemu samping' },
       }
     }, },
@@ -81,7 +79,6 @@ export const mastersBasicInfo = {
       subtitle2: 'Potret diri menatap rasa sakit',
       works: {
         'parrots': { subtitle1: 'Aku dan Beo-beoku (Me and My Parrots)', subtitle2: 'Potret diri dalam kesepian, bersama burung beo' },
-        'brokencolumn': { subtitle1: 'Kolom yang Patah (The Broken Column)', subtitle2: 'Tatapan tak tergoyahkan dari tubuh yang remuk' },
         'monkeys': { subtitle1: 'Potret Diri dengan Monyet (Self-Portrait with Monkeys)', subtitle2: 'Potret rasa sakit, dirangkul oleh monyet' },
       }
     }, },
@@ -177,7 +174,7 @@ Kini karya-karyanya terjual dengan harga puluhan juta dolar—membuktikan bahwa 
 
 export const mastersResultEducation = {
   'vangogh-selfportrait': {
-    description: `Latar belakang berputar dan sapuan impasto tebal dari 〈Self-Portrait〉 telah diterapkan.
+    description: `Latar belakang berputar dan sapuan impasto tebal dari 〈Self-Portrait with Grey Felt Hat〉 telah diterapkan.
 Tona dingin hijau dan biru menciptakan intensitas psikologis.
 
 〈Self-Portrait〉 adalah cermin di mana Van Gogh menatap dirinya sendiri—dan kita.

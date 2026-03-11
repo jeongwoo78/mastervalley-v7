@@ -7,7 +7,7 @@
 src/i18n/
 ├── index.js              언어 선택 로직
 ├── ko/                   한국어 (8개 언어 중 1순위 아님, 하지만 원본)
-│   ├── masters.js        ✅ 완료 (거장 8명 교육)
+│   ├── masters.js        ✅ 완료 (거장 7명 활성 + 피카소 예비)
 │   ├── movements.js      ⬜ TODO
 │   ├── oriental.js       ⬜ TODO
 │   ├── oneclick.js       ⬜ TODO

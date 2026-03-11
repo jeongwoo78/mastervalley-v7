@@ -1,7 +1,7 @@
 // ========================================
 // 藝術大師 — 繁體中文 (zh-TW)
 // i18n 結構 · 9行2段 (compact格式)
-// v70 - 2026-03-04
+// 2026-03-11 수정 반영본
 // ========================================
 
 export const mastersBasicInfo = {
@@ -58,7 +58,7 @@ export const mastersBasicInfo = {
       subtitle1: '生日 · 我與村莊 · 新娘',
       subtitle2: '愛與夢的詩人',
       works: {
-        'lovers': { subtitle1: '生日 (The Birthday)', subtitle2: '沉醉在愛中忘記重力的戀人' },
+        'lovers': { subtitle1: '戀人 (The Lovers)', subtitle2: '沉醉在愛中忘記重力的戀人' },
         'lamariee': { subtitle1: '新娘 (La Mariée)', subtitle2: '漂浮在夢與現實之間的新娘' },
         'village': { subtitle1: '我與村莊 (I and the Village)', subtitle2: '如夢般漂流的故鄉記憶' },
       }
@@ -69,8 +69,6 @@ export const mastersBasicInfo = {
       subtitle1: '亞維儂的少女 · 格爾尼卡 · 朵拉·瑪爾肖像',
       subtitle2: '解構視角的革命者',
       works: {
-        'demoiselles': { subtitle1: '亞維儂的少女 (Les Demoiselles d\'Avignon)', subtitle2: '打破透視法的五位女性' },
-        'guernica': { subtitle1: '格爾尼卡 (Guernica)', subtitle2: '在黑白中爆發的戰爭吶喊' },
         'doramaar': { subtitle1: '朵拉·瑪爾肖像 (Portrait of Dora Maar)', subtitle2: '正面與側面交匯的解構肖像' },
       }
     }, },
@@ -81,7 +79,6 @@ export const mastersBasicInfo = {
       subtitle2: '凝視痛苦的自畫像',
       works: {
         'parrots': { subtitle1: '我和我的鸚鵡們 (Me and My Parrots)', subtitle2: '與鸚鵡相伴的孤獨自畫像' },
-        'brokencolumn': { subtitle1: '破碎的柱子 (The Broken Column)', subtitle2: '破碎身體中堅定不移的凝視' },
         'monkeys': { subtitle1: '與猴子的自畫像 (Self-Portrait with Monkeys)', subtitle2: '被猴子擁抱的痛苦肖像' },
       }
     }, },
@@ -173,10 +170,10 @@ export const mastersLoadingEducation = {
 
 export const mastersResultEducation = {
   'vangogh-selfportrait': {
-    description: `〈自畫像〉的漩渦背景與厚重的厚塗筆觸已被應用。
+    description: `〈戴灰色氈帽的自畫像〉的漩渦背景與厚重的厚塗筆觸已被應用。
 冷調的綠與藍創造出心理的強度。
 
-〈自畫像〉是梵谷凝視自己的鏡子——也是我們凝視他的窗口。
+〈戴灰色氈帽的自畫像〉是梵谷凝視自己的鏡子——也是我們凝視他的窗口。
 在十年的創作生涯中，他繪製了超過30幅自畫像，每幅都揭示靈魂的不同層面。
 
 這幅以漩渦藍色為背景的自畫像，被視為他技巧能力與內心表達的巔峰之作。`

@@ -3781,7 +3781,7 @@ export default async function handler(req, res) {
         attractiveEnhancement = ' Render adorably cute - child as bright-eyed, carefree, with radiant innocent smile, warm healthy glow, and pure joyful energy. Idealized endearing portrait.';
       } else if (ageRange === 'elderly') {
         // 노인
-        attractiveEnhancement = ' Render with quiet dignity - elderly as wise, with graceful distinguished features, warm knowing eyes, and serene composed presence. Portrait of timeless dignity.';
+        attractiveEnhancement = ' Render with quiet dignity - elderly as wise, with graceful distinguished features, warm knowing eyes, and serene composed presence. Idealized portrait of timeless dignity.';
       } else {
         // 성인 (기존)
         if (gender === 'male') {

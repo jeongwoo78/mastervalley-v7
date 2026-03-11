@@ -1,6 +1,6 @@
 // ========================================
 // One-Click Peinture orientale — Français (fr)
-// v69 - 2026-02-03 (structure : pays→style)
+// 2026-03-11
 // ----------------------------------------
 // 1re : ton poétique (chargement, attente)
 // 2e : définition du pays (fixe) → présentation du style (variable)
@@ -106,7 +106,7 @@ Le vide non peint est ce qui dit le plus.`
 L\'esprit du lettré et la technique de la cour coexistèrent pendant mille ans.
 
 La gongbi est la peinture de cour d\'une précision impeccable, sans un seul trait de travers.
-Des couches de couleur transparente superposées créent la profondeur et l\'éclat.`
+Des couches de couleur transparente superposées créent la profondeur.`
   },
 
   // ========== Japon ==========

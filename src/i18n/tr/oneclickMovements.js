@@ -1,6 +1,6 @@
 // ========================================
 // Tek Tıkla Sanat Akımları — Türkçe (tr)
-// v69 - 2026-03-04
+// 2026-03-11
 // ========================================
 
 export const oneclickMovementsPrimary = {

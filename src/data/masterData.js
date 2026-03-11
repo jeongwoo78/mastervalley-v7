@@ -170,7 +170,8 @@ export const ART_NOUVEAU = {
   period: '19세기 말~20세기 초'
 };
 
-// ========== 거장 데이터 ==========
+// ========== 거장 데이터 (7명 활성) ==========
+// ※ 피카소는 RESERVE_MASTERS에 예비 보관 중
 export const MASTERS = {
   'vangogh-master': {
     id: 'vangogh-master',
@@ -300,25 +301,6 @@ export const MASTERS = {
       'monkeys': ['Self-Portrait with Monkeys, 1943', '원숭이와 자화상, 1943', 'Monkeys']
     }
   },
-  'picasso-master': {
-    id: 'picasso-master',
-    key: 'picasso',
-    ko: '파블로 피카소',
-    en: 'Pablo Picasso',
-    years: '1881~1973',
-    movement: '입체주의',
-    movementEn: 'Cubism',
-    tagline: '형태를 해체한 혁명가',
-    taglineEn: 'Revolutionary who deconstructed vision',
-    icon: '💎',
-    description: '1881-1973 | 입체주의',
-    featuredWorks: '아비뇽의 처녀들 · 게르니카 · 도라 마르의 초상',
-    featuredWorksEn: "Les Demoiselles d'Avignon · Guernica · Portrait of Dora Maar",
-    aliases: ['pablo', 'pablo picasso', '피카소', 'ピカソ', 'パブロ・ピカソ', 'بيكاسو', 'بابلو بيكاسو', 'ปิกาสโซ', '畢卡索', '巴勃羅·畢卡索'],
-    works: {
-      'doramaar': ['Portrait of Dora Maar, 1937', '도라 마르의 초상, 1937', 'Dora Maar']
-    }
-  },
   'lichtenstein-master': {
     id: 'lichtenstein-master',
     key: 'lichtenstein',
@@ -340,6 +322,32 @@ export const MASTERS = {
       'forgetit': ['Forget It!, 1962', 'Forget It', '날 잊어, 1962'],
       'ohhhalright': ['Ohhh...Alright..., 1964', 'Ohhh Alright', '오 알았어, 1964', 'Ohhh...Alright...'],
       'stilllife': ['Still Life with Crystal Bowl, 1973', 'Still Life', '정물화, 1973']
+    }
+  }
+};
+
+// ========== 예비 거장 (RESERVE) ==========
+// 활성화하려면 → MASTERS 객체로 이동하면 됨 (스위치)
+// ※ 교육자료(i18n/*/masters.js, oneclickMasters.js)는 이미 준비되어 있음
+// ※ MOVEMENT_ARTISTS.modernism.picasso (사조 모드)에는 영향 없음
+export const RESERVE_MASTERS = {
+  'picasso-master': {
+    id: 'picasso-master',
+    key: 'picasso',
+    ko: '파블로 피카소',
+    en: 'Pablo Picasso',
+    years: '1881~1973',
+    movement: '입체주의',
+    movementEn: 'Cubism',
+    tagline: '형태를 해체한 혁명가',
+    taglineEn: 'Revolutionary who deconstructed vision',
+    icon: '💎',
+    description: '1881-1973 | 입체주의',
+    featuredWorks: '아비뇽의 처녀들 · 게르니카 · 도라 마르의 초상',
+    featuredWorksEn: "Les Demoiselles d'Avignon · Guernica · Portrait of Dora Maar",
+    aliases: ['pablo', 'pablo picasso', '피카소', 'ピカソ', 'パブロ・ピカソ', 'بيكاسو', 'بابلو بيكاسو', 'ปิกาสโซ', '畢卡索', '巴勃羅·畢卡索'],
+    works: {
+      'doramaar': ['Portrait of Dora Maar, 1937', '도라 마르의 초상, 1937', 'Dora Maar']
     }
   }
 };
@@ -515,13 +523,6 @@ export const MOVEMENT_ARTISTS = {
       description: '빛으로 드러나는 인간 내면의 깊이',
       aliases: ['rembrandt van rijn', '렘브란트']
     },
-    'vermeer': { 
-      ko: '요하네스 페르메이르', 
-      en: 'Vermeer', 
-      years: '1632~1675',
-      description: '고요한 일상 속 빛의 시학',
-      aliases: ['johannes vermeer', 'jan vermeer', '페르메이르', '베르메르']
-    },
     'velazquez': { 
       ko: '디에고 벨라스케스', 
       en: 'Velázquez', 
@@ -551,13 +552,6 @@ export const MOVEMENT_ARTISTS = {
       years: '1703~1770',
       description: '감각적 색채와 화려한 장식미',
       aliases: ['françois boucher', 'francois boucher', '부셰']
-    },
-    'fragonard': { 
-      ko: '장 오노레 프라고나르', 
-      en: 'Fragonard', 
-      years: '1732~1806',
-      description: '경쾌한 붓놀림과 로맨틱한 순간 포착',
-      aliases: ['jean-honoré fragonard', '프라고나르']
     }
   },
   neoclassicism: {
@@ -590,13 +584,6 @@ export const MOVEMENT_ARTISTS = {
       years: '1775~1851',
       description: '빛과 대기를 용해시킨 숭고한 자연',
       aliases: ['j.m.w. turner', 'joseph mallord william turner', 'william turner', '터너']
-    },
-    'goya': { 
-      ko: '프란시스코 고야', 
-      en: 'Goya', 
-      years: '1746~1828',
-      description: '인간의 어둠과 광기를 파헤친 통찰',
-      aliases: ['francisco goya', 'francisco de goya', '고야']
     }
   },
   realism: {
@@ -606,13 +593,6 @@ export const MOVEMENT_ARTISTS = {
       years: '1819~1877',
       description: '있는 그대로의 현실을 담담하게 직시',
       aliases: ['gustave courbet', '쿠르베']
-    },
-    'millet': { 
-      ko: '장 프랑수아 밀레', 
-      en: 'Millet', 
-      years: '1814~1875',
-      description: '노동하는 농민의 숭고한 일상',
-      aliases: ['jean-françois millet', 'jean-francois millet', '밀레']
     }
   },
   impressionism: {
@@ -643,13 +623,6 @@ export const MOVEMENT_ARTISTS = {
       years: '1832~1883',
       description: '현대적 시선으로 포착한 도시 일상',
       aliases: ['édouard manet', 'edouard manet', '마네']
-    },
-    'morisot': { 
-      ko: '베르트 모리조', 
-      en: 'Morisot', 
-      years: '1841~1895',
-      description: '부드러운 붓터치와 친밀한 일상의 시학',
-      aliases: ['berthe morisot', '모리조']
     },
     'caillebotte': { 
       ko: '귀스타브 카유보트', 
@@ -744,14 +717,6 @@ export const MOVEMENT_ARTISTS = {
       sub: 'popArt',
       description: '만화적 점묘와 대중문화의 아이러니',
       aliases: ['roy lichtenstein', '리히텐슈타인']
-    },
-    'haring': { 
-      ko: '키스 해링', 
-      en: 'Keith Haring', 
-      years: '1958~1990', 
-      sub: 'popArt',
-      description: '단순한 선과 역동적 인물의 그래피티',
-      aliases: ['keith haring', '해링']
     },
     'miro': { 
       ko: '호안 미로', 
@@ -1452,6 +1417,7 @@ export default {
   NINETEENTH_CENTURY_SUB,
   ART_NOUVEAU,
   MASTERS,
+  RESERVE_MASTERS,
   ORIENTAL,
   MOVEMENT_ARTISTS,
   getMovementFullName,

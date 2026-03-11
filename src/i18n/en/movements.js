@@ -1,7 +1,7 @@
 // ========================================
 // Art Movements Education Content — English (en)
 // i18n structure · 9 lines 2 paragraphs (Loading 5 lines 3+2 / Result 4 lines 2+2)
-// v70 - 2026-02-03 (BasicInfo added)
+// 2026-03-11 수정 반영본
 // ========================================
 
 // ========== Basic Info ==========
@@ -19,7 +19,7 @@ export const movementsBasicInfo = {
     loading: {
       name: 'Medieval Art (4th–14th Century)',
       subtitle1: 'Byzantine · Gothic · Islamic Miniature',
-      subtitle2: 'Golden art for the divine'
+      subtitle2: 'Art of light, born from faith'
     }
   },
   'renaissance': {
@@ -139,7 +139,7 @@ export const movementsBasicInfo = {
     result: {
       name: 'Renaissance (14th–16th Century)',
       subtitle1: 'Michelangelo',
-      subtitle2: 'Freeing souls from stone'
+      subtitle2: 'A sculptor who breathed life into painting'
     }
   },
   'raphael': {
@@ -411,7 +411,7 @@ Rediscovered in the Renaissance, it became the standard for all Western art that
 Byzantine art expressed divine glory through golden mosaics, Gothic art captured heavenly light through stained glass.
 Islamic art depicted courtly beauty through jewel-toned miniatures.
 
-An era that embodied the sacred through flat, symbolic imagery.
+The Medieval era embodied the sacred through flat, symbolic imagery.
 A thousand years of aesthetics where faith and decoration became one.`
   },
 
@@ -423,7 +423,7 @@ Da Vinci created mysterious shadows with sfumato, Michelangelo embodied heroic h
 Botticelli painted myths with flowing lines, Titian opened a world of sensation with golden colors.
 
 Perspective and anatomy merged with painting, and art became a discipline of observation and reason.
-A cultural rebirth beyond the Middle Ages — the era when humanity began to see the world anew.`
+The Renaissance is a cultural rebirth beyond the Middle Ages — the era when humanity began to see the world anew.`
   },
 
   // ===== Baroque =====
@@ -434,7 +434,7 @@ Caravaggio founded tenebrism, pouring a single beam of light into pitch darkness
 Rembrandt recorded the era with golden chiaroscuro, Velázquez with spatial magic.
 
 Painters answered the Church\'s demand to move the faithful with light and shadow.
-Art born of an era of religion and power, where emotion and drama exploded.`
+Baroque is art born of an era of religion and power, where emotion and drama exploded.`
   },
 
   // ===== Rococo =====
@@ -445,7 +445,7 @@ Watteau painted dreamy garden parties of nobles, Boucher depicted rosy fantasies
 Pastel tones and graceful curves filled the canvas.
 
 Instead of Baroque\'s heavy drama, lightness and pleasure ruled art.
-The final golden age of aristocratic culture, just before the French Revolution.`
+Rococo was the final golden age of aristocratic culture, just before the French Revolution.`
   },
 
   // ===== Neoclassicism vs Romanticism vs Realism =====
@@ -455,8 +455,7 @@ The final golden age of aristocratic culture, just before the French Revolution.
 David and Ingres pursued ancient ideals, Delacroix and Turner unleashed emotional storms on canvas.
 Courbet and Manet rejected both ideals and fantasy, placing raw reality before us.
 
-Neoclassicism, Romanticism, Realism — three movements clashed and evolved in the age of revolution.
-An era of collision and innovation that opened the door to modern art.`
+Neoclassicism, Romanticism, Realism — three movements whose collision opened the door to modern art.`
   },
 
   // ===== Impressionism =====
@@ -467,7 +466,7 @@ Monet captured moments of light, Renoir happy colors, Degas moments of movement.
 Caillebotte recorded the streets of Paris with photographic precision.
 
 The first painters to leave the studio and paint under sunlight.
-The beginning of a painterly revolution where light and color replaced form.`
+Impressionism was the beginning of a painterly revolution where light and color replaced form.`
   },
 
   // ===== Post-Impressionism =====
@@ -500,7 +499,7 @@ Munch painted existential terror, Kirchner urban alienation, Kokoschka the turmo
 Painters who depicted not "what is seen" but "what is felt."
 
 Distorted forms and violent colors revealed the truth of the human interior.
-Art of the soul, born in the shadow of two World Wars.`
+Expressionism is art of the soul, born in the shadow of two World Wars.`
   },
 
   // ===== Modernism =====
@@ -511,7 +510,7 @@ Picasso deconstructed form, Miró played with symbols, Magritte inverted reality
 Lichtenstein put comics on canvas, Chagall painted love and dreams.
 
 Cubism, Surrealism, Pop Art — an era of boundless experimentation.
-The question 'What is art?' itself became art.`
+In the Modernist era, the question 'What is art?' itself became art.`
   }
 };
 
@@ -524,15 +523,15 @@ export const movementsResultEducation = {
 Weight shifts through contrapposto stance, and the human body is mathematically composed using the golden ratio.
 
 The ideal proportions shown in "Venus de Milo," the dramatic tension emanating from "Laocoön and His Sons" — pure white marble becomes the form of gods and heroes.
-The starting point of Western art, which found perfect beauty in the human body.`
+Greek sculpture is the starting point of Western art, which found perfect beauty in the human body.`
   },
   'roman-mosaic': {
     name: 'Roman Mosaic',
     description: `The refined tessera technique and vibrant colors of Roman mosaics have been applied.
 Thousands of small colored stone pieces are arranged one by one to create scenes of myth and daily life.
 
-From the grand battle scene of "Alexander Mosaic" to the humble daily life depicted in "Cave Canem," colors that have crossed 2,000 years can be confirmed.
-The essence of ancient decorative art, where each stone carries the touch of a craftsman.`
+From the grand battle scene of "Alexander Mosaic" to the humble daily life depicted in "Cave Canem," colors spanning 2,000 years remain alive.
+Roman mosaic is the essence of ancient decorative art, where each stone carries the touch of a craftsman.`
   },
 
   // ===== Medieval =====
@@ -542,7 +541,7 @@ The essence of ancient decorative art, where each stone carries the touch of a c
 Flat, symbolic figures are placed on gold leaf backgrounds to express divinity transcending humanity.
 
 In the brilliant gold of Hagia Sophia, "Emperor Justinian" conveys imperial majesty, "Christ Pantocrator" conveys the divine gaze.
-Golden religious art that deeply influenced Russian icons and Western European medieval art.`
+Byzantine art is Golden religious art that deeply influenced Russian icons and Western European medieval art.`
   },
   'gothic': {
     name: 'Gothic',
@@ -550,7 +549,7 @@ Golden religious art that deeply influenced Russian icons and Western European m
 Colored light pouring through stained glass embodies the glory of heaven throughout the space.
 
 The cobalt light filling "Blue Virgin of Chartres," the kaleidoscopic rays passing through "Notre-Dame Rose Window" inscribe the yearning to reach heaven.
-A glass textbook that taught the Bible to illiterate believers, and the mystery of light itself.`
+Gothic art was a glass textbook that taught the Bible to illiterate believers, and the mystery of light itself.`
   },
   'islamic-miniature': {
     name: 'Islamic Miniature',
@@ -558,7 +557,7 @@ A glass textbook that taught the Bible to illiterate believers, and the mystery 
 Jewel-like refined colors and intricate details unfold worlds of court life and literature.
 
 In "Shahnameh (Book of Kings)," "Rustam Slaying the Dragon" unfolds heroic epics, "Lovers in a Garden" presents courtly romance in jewel-toned colors.
-The flower of Islamic art that inspired Art Nouveau and Orientalism.`
+Islamic miniature painting is the flower of Islamic art that inspired Art Nouveau and Orientalism.`
   },
 
   // ===== Renaissance =====
@@ -568,7 +567,7 @@ The flower of Islamic art that inspired Art Nouveau and Orientalism.`
 Boundaries are blurred like smoke, creating soft, natural transitions of light and shadow.
 
 The smile of "Mona Lisa" has remained an enigma for centuries, "The Last Supper" carved a moment of dramatic tension onto the wall.
-The essence of the Renaissance universal genius who unified science and art.`
+Da Vinci is the essence of the Renaissance universal genius who unified science and art.`
   },
   'michelangelo': {
     name: 'Michelangelo',
@@ -576,7 +575,7 @@ The essence of the Renaissance universal genius who unified science and art.`
 With perfect understanding of human anatomy, god-like heroic humans are expressed.
 
 An indomitable artistic spirit who painted the Sistine Chapel ceiling alone, lying on his back for four years.
-A sculptor who freed angels from marble, a painter who breathed life into fresco.`
+Michelangelo is a sculptor who freed angels from marble, a painter who breathed life into fresco.`
   },
   'raphael': {
     name: 'Raphael',
@@ -584,7 +583,7 @@ A sculptor who freed angels from marble, a painter who breathed life into fresco
 Ideal beauty and classical harmony are embodied in their purest form.
 
 In "The School of Athens" he gathered ancient philosophers in one space, in "Sistine Madonna" he reached the pinnacle of sublime beauty.
-Though his life was brief at 37, he remains the pinnacle of Renaissance ideal beauty and the model for later classicism.`
+Though his life was brief at 37, he remains Raphael remains the pinnacle of Renaissance ideal beauty and the foundation for later classicism.`
   },
   'botticelli': {
     name: 'Botticelli',
@@ -592,15 +591,15 @@ Though his life was brief at 37, he remains the pinnacle of Renaissance ideal be
 Flowing lines and transparent colors express mythological beauty.
 
 Golden hair blown by the wind in "The Birth of Venus," the mystical garden in "Primavera" unfold dreamlike ideal beauty.
-A poetic painter who represented Florence\'s golden age under the patronage of the Medici.`
+Botticelli is a poetic painter who represented Florence\'s golden age under the patronage of the Medici.`
   },
   'titian': {
     name: 'Titian',
     description: `Titian\'s golden colors and Venetian opulence have been applied.
 Rich colors and bold brushstrokes express sensuous, dramatic scenes.
 
-He showed the height of sensuous color in "Venus of Urbino," majestic vertical composition in "Assumption of the Virgin," completing the Venetian school until age 90.
-A pioneer of colorism who profoundly influenced Baroque and Impressionism.`
+From the sensuality of "Venus of Urbino" to the majesty of "Assumption of the Virgin," he led the Venetian school until age 90.
+Titian is a pioneer of colorism who profoundly influenced Baroque and Impressionism.`
   },
 
   // ===== Baroque =====
@@ -610,7 +609,7 @@ A pioneer of colorism who profoundly influenced Baroque and Impressionism.`
 A single beam of light pours into pitch darkness, revealing the decisive moment.
 
 In "The Calling of Saint Matthew," the light cutting through darkness was the divine call itself; in "Medusa," he froze a moment of horror on a shield.
-The catalyst of Baroque art who left a revolutionary style amid a life of murder and flight.`
+Caravaggio was the catalyst of Baroque art who left a revolutionary style amid a life of murder and flight.`
   },
   'rembrandt': {
     name: 'Rembrandt',
@@ -618,7 +617,7 @@ The catalyst of Baroque art who left a revolutionary style amid a life of murder
 Dramatic contrast of light and dark creates psychological depth that reveals emotions and even the soul.
 
 In "The Night Watch" he transformed group portraiture into dramatic theater; in "The Return of the Prodigal Son" he wrapped a moment of forgiveness in light.
-A master of psychological portraiture who explored the human interior through chiaroscuro.`
+Rembrandt is a master of psychological portraiture who explored the human interior through chiaroscuro.`
   },
   'velazquez': {
     name: 'Velázquez',
@@ -626,7 +625,7 @@ A master of psychological portraiture who explored the human interior through ch
 Atmospheric perspective and brushwork express spatial depth and realism alongside the dignity of subjects.
 
 In "Las Meninas," the gazes of painter, king, and viewer intersect in one space; in "Pope Innocent X," he penetrated even a powerful figure\'s inner self.
-A master of Spain\'s Golden Age, said to have painted even the air with a single brushstroke.`
+Velázquez is a master of Spain\'s Golden Age, said to have painted even the air with a single brushstroke.`
   },
   'rubens': {
     name: 'Rubens',
@@ -634,7 +633,7 @@ A master of Spain\'s Golden Age, said to have painted even the air with a single
 Full-bodied figures and powerful composition capture the joy of life on canvas.
 
 In "Marie de' Medici cycle" he unfolded history on a grand scale; in "The Three Graces" he showed the height of abundant physical beauty.
-A master of Baroque who enjoyed both honor and wealth, leaving approximately 1,400 works.`
+Rubens is a master of Baroque who enjoyed both honor and wealth, leaving approximately 1,400 works.`
   },
 
   // ===== Rococo =====
@@ -644,7 +643,7 @@ A master of Baroque who enjoyed both honor and wealth, leaving approximately 1,4
 Garden parties of aristocrats are expressed in poetic, melancholic atmosphere.
 
 In "Pilgrimage to Cythera" he painted nobles' dreams of departing for the island of love; in "The Feast of Love" he captured a moment of elegant revelry.
-A painter of aristocratic dreams who established the Rococo style in his brief 37 years of life.`
+Watteau is a painter of aristocratic dreams who established the Rococo style in his brief 36 years of life.`
   },
   'boucher': {
     name: 'Boucher',
@@ -652,7 +651,7 @@ A painter of aristocratic dreams who established the Rococo style in his brief 3
 Pink flesh tones and goddesses floating on clouds paint courtly fantasies.
 
 In "Portrait of Madame de Pompadour" he captured the splendor of the court\'s most powerful woman; in "Diana Bathing" he perfected the idealized beauty of goddesses.
-The pinnacle of Rococo sensuality, favored by Louis XV while pursuing idealized beauty.`
+Boucher is the pinnacle of Rococo sensuality, favored by Louis XV while pursuing idealized beauty.`
   },
 
   // ===== Neoclassicism vs Romanticism vs Realism =====
@@ -662,7 +661,7 @@ The pinnacle of Rococo sensuality, favored by Louis XV while pursuing idealized 
 Form is established with clear lines, heroic figures composed with ideal proportions.
 
 In "The Coronation of Napoleon" he recorded history\'s grandeur; in "The Death of Marat" the tragedy of revolution.
-A painter of revolution who recorded history in paint, from the French Revolution to Napoleon.`
+David is a painter of revolution who recorded history in paint, from the French Revolution to Napoleon.`
   },
   'ingres': {
     name: 'Ingres',
@@ -670,7 +669,7 @@ A painter of revolution who recorded history in paint, from the French Revolutio
 Flowing lines and smooth skin express classical purity.
 
 In "Grande Odalisque" he painted an impossibly long back; in "The Valpinçon Bather" the height of curved beauty.
-A master of Neoclassicism who persisted in the purity of line over color, rivaling Romanticism\'s Delacroix.`
+Ingres is a master of Neoclassicism who persisted in the purity of line over color, rivaling Romanticism\'s Delacroix.`
   },
   'delacroix': {
     name: 'Delacroix',
@@ -678,7 +677,7 @@ A master of Neoclassicism who persisted in the purity of line over color, rivali
 Rough brushstrokes and vivid primary colors explode passionate emotion on the canvas.
 
 With "Liberty Leading the People" he captured revolutionary fervor; with "Women of Algiers" exotic colors on canvas.
-A pioneer of the color revolution who decisively influenced Impressionism and Fauvism.`
+Delacroix is a pioneer of the color revolution who decisively influenced Impressionism and Fauvism.`
   },
   'turner': {
     name: 'J.M.W. Turner',
@@ -686,7 +685,7 @@ A pioneer of the color revolution who decisively influenced Impressionism and Fa
 Form-dissolving mist and golden beams of light express nature\'s overwhelming moments.
 
 He tied himself to a ship\'s mast to paint "Snow Storm"; in "Rain, Steam and Speed" he dissolved the Industrial Revolution\'s energy into light.
-A revolutionary of light who heralded Impressionism, dissolving form into light.`
+Turner is a revolutionary of light who heralded Impressionism, dissolving form into light.`
   },
   'courbet': {
     name: 'Courbet',
@@ -694,7 +693,7 @@ A revolutionary of light who heralded Impressionism, dissolving form into light.
 Rejecting idealization, visible reality is captured in thick impasto.
 
 Painting the rough labor of "The Stone Breakers," the ordinary funeral in "A Burial at Ornans," he declared "I cannot paint angels because I have never seen one."
-A declarant of Realism and revolutionary who elevated reality to art.`
+Courbet is a declarant of Realism and revolutionary who elevated reality to art.`
   },
   'manet': {
     name: 'Manet',
@@ -702,7 +701,7 @@ A declarant of Realism and revolutionary who elevated reality to art.`
 Middle tones are boldly eliminated; confident brushwork captures modern urban life.
 
 "Luncheon on the Grass" and "Olympia" sparked fierce scandal upon release, defying tradition.
-A bridge between Realism and Impressionism, the father of modern art.`
+Manet is a bridge between Realism and Impressionism, the father of modern art.`
   },
 
   // ===== Impressionism =====
@@ -712,7 +711,7 @@ A bridge between Realism and Impressionism, the father of modern art.`
 Short brushstrokes place colors side by side, allowing light to mix in the viewer\'s eye.
 
 With "Impression, Sunrise" he gave Impressionism its name; losing his sight to cataracts, he still completed 250 "Water Lilies."
-The symbol of Impressionism who devoted 86 years of life to light.`
+Monet is the symbol of Impressionism who devoted 86 years of life to light.`
   },
   'renoir': {
     name: 'Renoir',
@@ -720,7 +719,7 @@ The symbol of Impressionism who devoted 86 years of life to light.`
 Rosy skin tones and sunlight filtering through leaves capture moments of happiness.
 
 The luminous crowd of "Bal du moulin de la Galette," the warm daily life of "Luncheon of the Boating Party."
-A painter of happiness who never let go of beauty, even with brushes tied to hands crippled by rheumatism.`
+Renoir is a painter of happiness who never let go of beauty, even with brushes tied to hands crippled by rheumatism.`
   },
   'degas': {
     name: 'Degas',
@@ -728,7 +727,7 @@ A painter of happiness who never let go of beauty, even with brushes tied to han
 Asymmetrical composition and unexpected viewpoints capture moments of movement.
 
 In "The Star" he captured calculated moments; in "L\'Absinthe" urban solitude.
-A painter of movement who never stopped working even as he lost his sight.`
+Degas is a painter of movement who never stopped working even as he lost his sight.`
   },
   'caillebotte': {
     name: 'Caillebotte',
@@ -736,7 +735,7 @@ A painter of movement who never stopped working even as he lost his sight.`
 Bird\'s-eye viewpoints and realistic depiction express the modern city.
 
 In "Paris Street; Rainy Day" dramatic perspective; in "The Floor Scrapers" realistic depiction of labor.
-A pioneer of urban landscape who was both painter and patron of Impressionist artists.`
+Caillebotte is a pioneer of urban landscape who was both painter and patron of Impressionist artists.`
   },
 
   // ===== Post-Impressionism =====
@@ -746,7 +745,7 @@ A pioneer of urban landscape who was both painter and patron of Impressionist ar
 Intense contrast of cobalt blue and chrome yellow directly expresses inner emotion.
 
 In "The Starry Night" he twisted the night sky into swirls; in "Sunflowers" he set yellow ablaze with life.
-He created immortal art in a brief, intense 37 years of life.`
+Van Gogh He created immortal art in a brief, intense 37 years of life.`
   },
   'cezanne': {
     name: 'Cézanne',
@@ -762,7 +761,7 @@ Called the father of modern art, Picasso and Braque discovered Cubism in his wor
 Thick black outlines filled with saturated colors create exotic, symbolic compositions.
 
 Abandoning a stable life as a stockbroker, he departed for Tahiti to paint "Tahitian Women" and "The Yellow Christ."
-A painter of escape who pursued primitive beauty, turning his back on civilization.`
+Gauguin is a painter of escape who pursued primitive beauty, turning his back on civilization.`
   },
 
   // ===== Fauvism =====
@@ -772,7 +771,7 @@ A painter of escape who pursued primitive beauty, turning his back on civilizati
 Primary colors are boldly arranged, forms simplified to create intensely decorative compositions.
 
 From the primal rhythm of "Dance" to the color field experiments of "The Red Studio," from oils to paper cut-outs, he expanded color\'s possibilities throughout his life.
-A master of Fauvism who never let go of color\'s possibilities until age 84.`
+Matisse is a master of Fauvism who never let go of color\'s possibilities until age 84.`
   },
   'derain': {
     name: 'Derain',
@@ -780,7 +779,7 @@ A master of Fauvism who never let go of color\'s possibilities until age 84.`
 Vivid colors as if squeezed straight from the tube are roughly applied to the canvas.
 
 Unreal primary colors in "London Bridge," bold color planes in "Boats at Collioure" — with Matisse, he gave birth to Fauvism in southern France.
-A warrior who boldly shattered tradition and ignited a color revolution.`
+Derain was a warrior who boldly shattered tradition and ignited a color revolution.`
   },
   'vlaminck': {
     name: 'Vlaminck',
@@ -788,7 +787,7 @@ A warrior who boldly shattered tradition and ignited a color revolution.`
 Thick paint aggressively built up radiates the most intense energy among the Fauves.
 
 Explosive colors in "Houses at Chatou," rough texture in "Red Trees" — from bicycle racer to painter without art education.
-The most feral painter who set canvas ablaze with instinct alone, without formal training.`
+Vlaminck is the most feral painter who set canvas ablaze with instinct alone, without formal training.`
   },
 
   // ===== Expressionism =====
@@ -798,7 +797,7 @@ The most feral painter who set canvas ablaze with instinct alone, without formal
 Swirling lines twist forms; blood-red skies and sickly yellows express anxiety.
 
 In "The Scream" existential terror, in "Madonna" dark sensuality — trauma from losing his mother at 5 and sister at 14 became the lifelong source of his work.
-A pioneer of Expressionism who painted not what is seen but what is felt.`
+Munch is a pioneer of Expressionism who painted not what is seen but what is felt.`
   },
   'kirchner': {
     name: 'Kirchner',
@@ -806,7 +805,7 @@ A pioneer of Expressionism who painted not what is seen but what is felt.`
 Jaggedly twisted forms and roughly colliding colors express urban anxiety and alienation.
 
 In "Berlin Street Scene" sharp crowds; in "Five Women in the Street" primitive forms.
-Founder of German Expressionism\'s "Die Brücke," branded degenerate by the Nazis and ending his life by suicide.`
+Kirchner is the Founder of German Expressionism\'s "Die Brücke," branded degenerate by the Nazis and ending his life by suicide.`
   },
   'kokoschka': {
     name: 'Kokoschka',
@@ -814,7 +813,7 @@ Founder of German Expressionism\'s "Die Brücke," branded degenerate by the Nazi
 Roughly sweeping brushwork and feverish tones explosively reveal the psychology of subjects.
 
 In "The Bride of the Wind" the passion of love; in "Self-Portrait series" inner anxiety.
-An anatomist of the interior, branded degenerate by the Nazis with 400 works confiscated.`
+Kokoschka is an anatomist of the interior, branded degenerate by the Nazis with 400 works confiscated.`
   },
 
   // ===== Modernism =====
@@ -824,7 +823,7 @@ An anatomist of the interior, branded degenerate by the Nazis with 400 works con
 Faces and bodies are broken into angular planes, showing front and side simultaneously.
 
 With "Les Demoiselles d\'Avignon" he opened Cubism; in "Portrait of Dora Maar" he completed multi-perspective deconstruction, leaving over 50,000 works in 91 years of life.
-20th-century art itself, painting not as seen but as thought.`
+Picasso is 20th-century art itself, painting not as seen but as thought.`
   },
   'lichtenstein': {
     name: 'Lichtenstein',
@@ -832,7 +831,7 @@ With "Les Demoiselles d\'Avignon" he opened Cubism; in "Portrait of Dora Maar" h
 Comic printing techniques enlarged to painting, flat primary colors and dot patterns transform popular culture into art.
 
 In "Whaam!" fighter jet explosions; in "Happy Tears" comic emotions transferred to canvas, sparking debate: "Is this art?"
-A master of Pop Art who erased the boundary between popular culture and fine art.`
+Lichtenstein is a master of Pop Art who erased the boundary between popular culture and fine art.`
   },
   'miro': {
     name: 'Miró',
@@ -840,7 +839,7 @@ A master of Pop Art who erased the boundary between popular culture and fine art
 Childlike free lines and primary-colored forms float on white backgrounds.
 
 In "The Catalan Landscape" he unraveled hometown memories into symbols; in "Toward the Stars" he unfolded cosmic imagination.
-A free spirit of art who crossed genre boundaries to create his own world of symbols.`
+Miró is a free spirit of art who crossed genre boundaries to create his own world of symbols.`
   },
   'magritte': {
     name: 'Magritte',
@@ -848,7 +847,7 @@ A free spirit of art who crossed genre boundaries to create his own world of sym
 Realistically depicted, yet combined in ways impossible in reality, shattering frameworks of perception.
 
 In "The Treachery of Images" he questioned the nature of representation; in "Golconda" he inverted the everyday into surreality.
-A thinking painter who pursued mystery beyond what the eye can see.`
+Magritte is a thinking painter who pursued mystery beyond what the eye can see.`
   },
   'chagall': {
     name: 'Chagall',
@@ -856,7 +855,7 @@ A thinking painter who pursued mystery beyond what the eye can see.`
 Soft pastel tones and dreamlike atmosphere unfold worlds of love and nostalgia.
 
 In "I and the Village" memories of his hometown Vitebsk; in "Over the Town" his love for wife Bella — painted throughout his life.
-A poet on canvas who sang of love and nostalgia in color until age 97.`
+Chagall is a poet on canvas who sang of love and nostalgia in color until age 97.`
   }
 };
 

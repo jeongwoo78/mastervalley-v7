@@ -3,7 +3,7 @@
 // Structure i18n · 9 lignes 2 paragraphes (1er 3+2 / 2e 2+2)
 // 1re(chargement) = passé (récit historique)
 // 2e(résultat) = présent (techniques appliquées)
-// v70 - 2026-02-03 (subtitle1, subtitle2 séparés)
+// 2026-03-11 수정 반영본
 // ========================================
 
 // ========== Informations de base ==========
@@ -114,7 +114,7 @@ L\'ukiyo-e gravait acteurs, beautés et paysages célèbres sur des blocs de boi
 La rinpa peignait des iris et des dieux du vent sur feuille d\'or, captivant l\'aristocratie.
 
 Un art où la sensibilité populaire et la splendeur de la cour coexistent : telle est la peinture traditionnelle japonaise.
-Née dans les rues et les cours, elle traversa les mers et ébranla l\'Occident.`
+La peinture traditionnelle japonaise, née dans les rues et les cours, traversa les mers et influença profondément l\'art occidental.`
   }
 };
 
@@ -128,7 +128,7 @@ export const orientalResultEducation = {
 Peinte avec les cinq couleurs cardinales (bleu, rouge, jaune, blanc, noir) et disposée librement sans perspective.
 
 La pivoine symbolise la richesse, la carpe l\'ascension sociale et le tigre chasse les mauvais esprits.
-Art populaire de Joseon qui ornait les paravents de chaque foyer, porteur de vœux et d\'espérances.`
+Minhwa est art populaire de Joseon qui ornait les paravents de chaque foyer, porteur de vœux et d\'espérances.`
   },
 
   // ── Corée : Pungsokdo ──
@@ -137,7 +137,7 @@ Art populaire de Joseon qui ornait les paravents de chaque foyer, porteur de vœ
 La technique du pinceau fin et de la couleur légère capte le mouvement et les expressions, laissant de l\'espace avec le vide.
 
 Lutteurs, lavandières, un enfant endormi à l\'école — le quotidien de Joseon prend vie.
-Le réalisme coréen que Kim Hong-do et Shin Yun-bok firent fleurir à la pointe du pinceau.`
+Pungsokdo est le réalisme coréen que Kim Hong-do et Shin Yun-bok firent fleurir à la pointe du pinceau.`
   },
 
   // ── Corée : Jingyeong Sansuhwa ──
@@ -146,7 +146,7 @@ Le réalisme coréen que Kim Hong-do et Shin Yun-bok firent fleurir à la pointe
 Abandonnant le paysage idéalisé, on peint directement ce que l\'on voit : les montagnes réelles devant les yeux.
 
 Les pics acérés du mont Geumgang et la pluie tombant sur l\'Inwangsan revivent à travers des traits puissants.
-L\'esthétique que Gyeomjae Jeong Seon perfectionna : le vrai paysage de cette terre.`
+Jingyeong Sansuhwa est l\'esthétique que Gyeomjae Jeong Seon perfectionna : le vrai paysage de cette terre.`
   },
 
   // ── Chine : Gongbi ──
@@ -155,7 +155,7 @@ L\'esthétique que Gyeomjae Jeong Seon perfectionna : le vrai paysage de cette t
 On trace d\'abord le contour au pinceau fin, puis on superpose des couches de couleur transparente pour créer la profondeur.
 
 Fleurs, oiseaux et figures sont peints avec une précision minutieuse, captivant l\'empereur.
-Le sommet de la miniature orientale et l\'exquise subtilité chromatique née à la cour.`
+Gongbi est le sommet de la miniature orientale et l\'exquise subtilité chromatique née à la cour.`
   },
 
   // ── Chine : Encre ──
@@ -173,7 +173,7 @@ La quintessence de mille ans de peinture orientale, où le lettré transposa l\'
 Des lignes audacieuses définissent la forme et l\'intérieur est rempli de zones de couleur plate.
 
 Comme La Grande Vague de Kanagawa de Hokusai, un instant de dynamisme est gravé sur une seule planche.
-Le regard qui traversa d\'Orient en Occident, inspirant les impressionnistes.`
+Ukiyo-e est le regard qui traversa d\'Orient en Occident, inspirant les impressionnistes.`
   },
 
   // ── Japon : Rinpa ──
@@ -182,7 +182,7 @@ Le regard qui traversa d\'Orient en Occident, inspirant les impressionnistes.`
 Sur la feuille d\'or, on dépose des pigments et on laisse couler des couches de couleur pour créer des textures naturelles.
 
 Comme les Iris d\'Ogata Kōrin, une nature splendide s\'épanouit sur le doré.
-La quintessence de la peinture décorative japonaise, née du goût aristocratique et source d\'inspiration de l\'Art nouveau.`
+Rinpa est la quintessence de la peinture décorative japonaise, née du goût aristocratique et source d\'inspiration de l\'Art nouveau.`
   },
 
 
@@ -192,7 +192,7 @@ La quintessence de la peinture décorative japonaise, née du goût aristocratiq
 Les lettrés peignaient à l\'encre ; le peuple, en couleur — chacun exprimant la vie à sa manière.
 
 Un art où le vide parle et le pinceau abrite l\'esprit : telle est l\'esthétique coréenne.
-La cristallisation de cinq cents ans de Joseon qui coule à travers minhwa, pungsokdo et jingyeong sansuhwa.`
+La peinture traditionnelle coréenne, représentée par minhwa, pungsokdo et jingyeong sansuhwa, est un art qui a fleuri pendant 500 ans de Joseon.`
   },
   'chinese_default': {
     description: `L\'harmonie de l\'encre et de la couleur de la peinture traditionnelle chinoise a été appliquée.
@@ -206,7 +206,7 @@ La source millénaire de la peinture orientale qui coule à travers gongbi et en
 Des contours audacieux et des couleurs brillantes sur feuille d\'or gravent la beauté.
 
 Un art où les estampes populaires d\'Edo et la peinture décorative de cour coexistent.
-Née dans les rues et les cours, elle traversa les mers et ébranla l\'Occident.`
+La peinture traditionnelle japonaise, née dans les rues et les cours, traversa les mers et influença profondément l\'art occidental.`
   }
 };
 

@@ -3,7 +3,7 @@
 // Structure i18n · 9 lignes 2 paragraphes (1er 5 lignes 3+2 / 2e 4 lignes 2+2)
 // 1re(chargement) = passé (récit historique)
 // 2e(résultat) = présent (description des techniques appliquées)
-// v70 - 2026-02-03 (subtitle1, subtitle2 séparés)
+// 2026-03-11 수정 반영본
 // ========================================
 
 // ========== Informations de base ==========
@@ -92,7 +92,7 @@ export const mastersBasicInfo = {
       subtitle1: 'L\'Anniversaire · Moi et le village · La Mariée',
       subtitle2: 'Poète de l\'amour et des rêves',
       works: {
-        'lovers': { subtitle1: 'L\'Anniversaire (The Birthday)', subtitle2: 'Des amants si ivres d\'amour qu\'ils ont oublié la gravité' },
+        'lovers': { subtitle1: 'Les Amoureux (The Lovers)', subtitle2: 'Des amants si ivres d\'amour qu\'ils ont oublié la gravité' },
         'lamariee': { subtitle1: 'La Mariée (La Mariée)', subtitle2: 'Une mariée flottant entre rêve et réalité' },
         'village': { subtitle1: 'Moi et le village (I and the Village)', subtitle2: 'Des souvenirs du foyer dérivant comme un rêve' },
       }
@@ -109,8 +109,6 @@ export const mastersBasicInfo = {
       subtitle1: 'Les Demoiselles d\'Avignon · Guernica · Portrait de Dora Maar',
       subtitle2: 'Un révolutionnaire qui a déconstruit la vision',
       works: {
-        'demoiselles': { subtitle1: 'Les Demoiselles d\'Avignon', subtitle2: 'Cinq femmes qui ont fracturé la perspective' },
-        'guernica': { subtitle1: 'Guernica', subtitle2: 'Un cri de guerre éclatant en noir et blanc' },
         'doramaar': { subtitle1: 'Portrait de Dora Maar (Portrait of Dora Maar)', subtitle2: 'Un portrait déconstruit où le face-à-face rencontre le profil' },
       }
     },
@@ -127,7 +125,6 @@ export const mastersBasicInfo = {
       subtitle2: 'Autoportrait face à la douleur',
       works: {
         'parrots': { subtitle1: 'Moi et mes perroquets (Me and My Parrots)', subtitle2: 'Un autoportrait dans la solitude, avec des perroquets' },
-        'brokencolumn': { subtitle1: 'La Colonne brisée (The Broken Column)', subtitle2: 'Un regard inébranlable depuis un corps brisé' },
         'monkeys': { subtitle1: 'Autoportrait aux singes (Self-Portrait with Monkeys)', subtitle2: 'Un portrait de douleur, embrassé par des singes' },
       }
     },
@@ -270,7 +267,7 @@ Ses œuvres se vendent maintenant pour des dizaines de millions de dollars—pro
 // ========== 2e Éducation : Résultat (techniques par œuvre) ==========
 export const mastersResultEducation = {
   'vangogh-selfportrait': {
-    description: `Le fond tourbillonnant et les épaisses touches d'impasto de 〈Autoportrait〉 ont été appliqués.
+    description: `Le fond tourbillonnant et les épaisses touches d'impasto de 〈Autoportrait au chapeau de feutre gris〉 ont été appliqués.
 Les tons froids de vert et de bleu créent une intensité psychologique.
 
 〈Autoportrait〉 est le miroir dans lequel Van Gogh se regardait lui-même—et nous avec lui.

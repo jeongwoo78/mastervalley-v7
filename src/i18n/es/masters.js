@@ -3,7 +3,7 @@
 // Estructura i18n · 9 líneas 2 párrafos (1º 5 líneas 3+2 / 2º 4 líneas 2+2)
 // 1ª(carga) = pasado (narrativa histórica)
 // 2ª(resultado) = presente (descripción de técnicas aplicadas)
-// v70 - 2026-02-03 (subtitle1, subtitle2 separados)
+// 2026-03-11 수정 반영본
 // ========================================
 
 // ========== Información básica ==========
@@ -92,7 +92,7 @@ export const mastersBasicInfo = {
       subtitle1: 'El cumpleaños · Yo y la aldea · La novia',
       subtitle2: 'Poeta del amor y los sueños',
       works: {
-        'lovers': { subtitle1: 'El cumpleaños (The Birthday)', subtitle2: 'Amantes tan ebrios de amor que olvidaron la gravedad' },
+        'lovers': { subtitle1: 'Los amantes (The Lovers)', subtitle2: 'Amantes tan ebrios de amor que olvidaron la gravedad' },
         'lamariee': { subtitle1: 'La novia (La Mariée)', subtitle2: 'Una novia flotando entre el sueño y la realidad' },
         'village': { subtitle1: 'Yo y la aldea (I and the Village)', subtitle2: 'Recuerdos del hogar a la deriva como un sueño' },
       }
@@ -109,8 +109,6 @@ export const mastersBasicInfo = {
       subtitle1: 'Las señoritas de Avignon · Guernica · Retrato de Dora Maar',
       subtitle2: 'Un revolucionario que deconstruyó la visión',
       works: {
-        'demoiselles': { subtitle1: 'Las señoritas de Avignon (Les Demoiselles d\'Avignon)', subtitle2: 'Cinco mujeres que destrozaron la perspectiva' },
-        'guernica': { subtitle1: 'Guernica (Guernica)', subtitle2: 'Un grito de guerra que estalla en blanco y negro' },
         'doramaar': { subtitle1: 'Retrato de Dora Maar (Portrait of Dora Maar)', subtitle2: 'Un retrato deconstruido donde el frente se encuentra con el perfil' },
       }
     },
@@ -127,7 +125,6 @@ export const mastersBasicInfo = {
       subtitle2: 'Autorretrato mirando el dolor',
       works: {
         'parrots': { subtitle1: 'Yo y mis pericos (Me and My Parrots)', subtitle2: 'Un autorretrato en soledad, con loros' },
-        'brokencolumn': { subtitle1: 'La columna rota (The Broken Column)', subtitle2: 'Una mirada inquebrantable desde un cuerpo destrozado' },
         'monkeys': { subtitle1: 'Autorretrato con monos (Self-Portrait with Monkeys)', subtitle2: 'Un retrato de dolor, abrazado por monos' },
       }
     },
@@ -270,7 +267,7 @@ Ahora sus obras se venden por decenas de millones de dólares—demostrando que 
 // ========== 2ª Educación: Resultado (técnicas por obra) ==========
 export const mastersResultEducation = {
   'vangogh-selfportrait': {
-    description: `El fondo arremolinado y las gruesas pinceladas de impasto de 〈Autorretrato〉 han sido aplicados.
+    description: `El fondo arremolinado y las gruesas pinceladas de impasto de 〈Autorretrato con sombrero de fieltro gris〉 han sido aplicados.
 Los tonos fríos de verde y azul crean una intensidad psicológica.
 
 〈Autorretrato〉 es el espejo en el que Van Gogh se miraba a sí mismo—y nosotros con él.

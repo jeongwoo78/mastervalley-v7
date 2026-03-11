@@ -1,6 +1,6 @@
 // ========================================
 // UI Text — Bahasa Indonesia (id)
-// v70 - 2026-03-04
+// 2026-03-11
 // ========================================
 
 export const ui = {
@@ -197,7 +197,7 @@ export const ui = {
 
   // ===== Subscription Info =====
   subscriptionInfo: {
-    line1: 'Tidak ada langganan',
+    line1: 'Tidak perlu berlangganan',
     line2: 'Bayar hanya saat diperlukan'
   },
 

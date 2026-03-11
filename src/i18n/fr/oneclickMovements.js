@@ -1,6 +1,6 @@
 // ========================================
 // One-Click Mouvements — Français (fr)
-// v69 - 2026-02-03 (structure : mouvement→artiste)
+// 2026-03-11
 // ----------------------------------------
 // 1re : ton poétique (chargement, attente)
 // 2e : définition/caractéristiques du mouvement (fixe) → présentation de l\'artiste (variable)

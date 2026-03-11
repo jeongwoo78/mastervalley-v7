@@ -1,6 +1,6 @@
 // ========================================
 // UI Text — Español (es)
-// v70 - 2026-03-04
+// 2026-03-11
 // ========================================
 
 export const ui = {
@@ -197,7 +197,7 @@ export const ui = {
 
   // ===== Subscription Info =====
   subscriptionInfo: {
-    line1: 'Sin suscripciones',
+    line1: 'No necesitas suscripción',
     line2: 'Paga solo cuando lo necesites'
   },
 

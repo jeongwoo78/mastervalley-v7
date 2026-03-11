@@ -1,6 +1,6 @@
 // ========================================
 // OneClick Movements Education Content
-// v69 - 2026-02-03 (Structure: Movement → Artist)
+// 2026-03-11
 // ----------------------------------------
 // Primary: Poetic tone (loading, anticipation)
 // Secondary: Movement definition/features (fixed) → Artist intro/evaluation (variable)

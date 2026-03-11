@@ -1,6 +1,6 @@
 // ========================================
 // UI Metinleri — Türkçe (tr)
-// v70 - 2026-03-04
+// 2026-03-11
 // ========================================
 
 export const ui = {
@@ -189,7 +189,7 @@ export const ui = {
   },
 
   subscriptionInfo: {
-    line1: 'Abonelik yok',
+    line1: 'Abonelik gerekmez',
     line2: 'Sadece ihtiyaç duyduğunda öde'
   },
 

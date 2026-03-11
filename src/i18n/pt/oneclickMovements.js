@@ -1,6 +1,6 @@
 // ========================================
 // Um Clique Movimentos — Português (pt)
-// v69 - 2026-03-04
+// 2026-03-11
 // ========================================
 
 export const oneclickMovementsPrimary = {

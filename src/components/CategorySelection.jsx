@@ -102,8 +102,8 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
 
       {/* Subscription Info */}
       <div className="subscription-info">
-        <p>{ui.subscriptionInfo.line1}.</p>
-        <p>{ui.subscriptionInfo.line2}.</p>
+        <p>{ui.subscriptionInfo.line1}</p>
+        <p>{ui.subscriptionInfo.line2}</p>
       </div>
 
       <style>{`
@@ -176,8 +176,11 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
         .brand-title {
           font-family: 'Cormorant Garamond', Georgia, serif;
           font-size: 44px;
-          font-weight: 600;
-          color: #fff;
+          font-weight: 500;
+          background: linear-gradient(135deg, #B8922E, #F5DC82);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
           margin: 0 0 10px;
           letter-spacing: 1px;
         }
@@ -200,7 +203,6 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
 
         /* Category Grid */
         .category-grid {
-          flex: 1;
           padding: 40px 20px 16px;
           display: flex;
           flex-direction: column;
@@ -290,7 +292,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
 
         .subscription-info p {
           color: rgba(255,255,255,0.25);
-          font-size: 12.5px;
+          font-size: 14px;
           margin: 0 0 2px;
           text-align: center;
           line-height: 1.7;

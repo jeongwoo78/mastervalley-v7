@@ -1,7 +1,7 @@
 // ========================================
 // masterChat — Español (es)
 // Total 49 entradas (7 comunes + 42 por maestro)
-// v70 - 2026-03-04
+// 2026-03-11
 // ========================================
 
 export const masterChat = {
@@ -42,7 +42,7 @@ export const masterChat = {
     'LICHTENSTEIN': 'Soy Lichtenstein, de Nueva York. He resucitado a través de la IA. He terminado tu cuadro, ¿qué te parece?'
   },
 
-  // ===== Preguntas sugeridas (7 × 3 = 21) =====
+  // ===== Preguntas sugeridas (7 × 4 = 28) =====
   suggestedQuestions: {
     'VAN GOGH': ['Cambia el color de mi pelo', 'Añade pendientes', 'Cuéntame sobre tu oreja', '¿Por qué te gustan los girasoles?'],
     'KLIMT': ['Cambia el color de mis labios', 'Añade pendientes', '¿Quién fue el modelo de El beso?', '¿Por qué usas tanto el oro?'],

@@ -1,7 +1,7 @@
 // ========================================
 // Mouvements artistiques — Français (fr)
 // Structure i18n · 9 lignes 2 paragraphes (1er 5 lignes 3+2 / 2e 4 lignes 2+2)
-// v70 - 2026-02-03 (BasicInfo ajouté)
+// 2026-03-11 수정 반영본
 // ========================================
 
 // ========== Informations de base ==========
@@ -19,7 +19,7 @@ export const movementsBasicInfo = {
     loading: {
       name: 'Art médiéval (Medieval Art, IVe–XIVe siècle)',
       subtitle1: 'Byzantin · Gothique · Miniature islamique',
-      subtitle2: 'L\'art doré du divin'
+      subtitle2: 'L\'art de lumière né de la foi'
     }
   },
   'renaissance': {
@@ -139,7 +139,7 @@ export const movementsBasicInfo = {
     result: {
       name: 'Renaissance (Renaissance, XIVe–XVIe siècle)',
       subtitle1: 'Michel-Ange (Michelangelo)',
-      subtitle2: 'Libérer l\'âme de la pierre'
+      subtitle2: 'Le sculpteur qui insuffla la vie à la peinture'
     }
   },
   'raphael': {
@@ -455,8 +455,7 @@ L\'art qui orna le dernier âge d\'or de la culture aristocratique, juste avant 
 David et Ingres poursuivirent la beauté idéale de l\'Antiquité ; Delacroix et Turner déversèrent des tempêtes d\'émotion sur la toile.
 Courbet et Manet rejetèrent l\'idéal comme la fantaisie et ne présentèrent que la réalité devant leurs yeux.
 
-Néoclassicisme, Romantisme, Réalisme : trois courants qui s\'affrontèrent à l\'ère des révolutions.
-L\'ère de collision et d\'innovation qui ouvrit la porte de l\'art moderne.`
+Néoclassicisme, Romantisme, Réalisme — trois courants dont la collision ouvrit la porte de l\'art moderne.`
   },
 
   // ===== Impressionnisme =====
@@ -524,7 +523,7 @@ export const movementsResultEducation = {
 La posture du contrapposto déplace le centre de gravité, et le nombre d\'or compose mathématiquement le corps humain.
 
 Les proportions idéales de la Vénus de Milo et la tension dramatique du Groupe du Laocoon sont gravées dans le marbre pur.
-Le point de départ de l\'art occidental, qui trouva la beauté parfaite dans le corps humain.`
+La sculpture grecque est le point de départ de l\'art occidental, qui trouva la beauté parfaite dans le corps humain.`
   },
   'roman-mosaic': {
     name: 'Mosaïque romaine',
@@ -532,7 +531,7 @@ Le point de départ de l\'art occidental, qui trouva la beauté parfaite dans le
 Des milliers de petites pierres colorées s\'assemblent une à une pour créer des scènes mythologiques et quotidiennes.
 
 De la grande bataille de la Mosaïque d\'Alexandre à la vie domestique du Cave Canem, les couleurs de deux mille ans restent vives.
-L\'essence de l\'art décoratif antique, où chaque pièce conserve le savoir-faire de l\'artisan.`
+La mosaïque romaine est L\'essence de l\'art décoratif antique, où chaque pièce conserve le savoir-faire de l\'artisan.`
   },
 
   // ===== Médiéval =====
@@ -542,7 +541,7 @@ L\'essence de l\'art décoratif antique, où chaque pièce conserve le savoir-fa
 Des figures planes et symboliques se disposent sur des fonds de feuille d\'or pour exprimer une sacralité qui transcende l\'humain.
 
 L\'Empereur Justinien de Sainte-Sophie transmet la majesté impériale ; le Christ Pantocrator, le regard divin.
-Un art religieux doré qui influença profondément les icônes russes et l\'art médiéval d\'Europe occidentale.`
+L'art byzantin est un art religieux doré qui influença profondément les icônes russes et l\'art médiéval d\'Europe occidentale.`
   },
   'gothic': {
     name: 'Gothique',
@@ -550,7 +549,7 @@ Un art religieux doré qui influença profondément les icônes russes et l\'art
 La lumière colorée filtrant à travers les vitraux incarne la gloire céleste dans tout l\'espace.
 
 L\'éclat cobalt de la Vierge Bleue de Chartres et les rayons de la rose de Notre-Dame gravent l\'aspiration au ciel.
-Un livre de verre qui enseigna la Bible aux fidèles analphabètes, et le mystère de la lumière elle-même.`
+L'art gothique fut un livre de verre qui enseigna la Bible aux fidèles analphabètes, et le mystère de la lumière elle-même.`
   },
   'islamic-miniature': {
     name: 'Miniature islamique',
@@ -568,7 +567,7 @@ La fleur de l\'art islamique qui inspira l\'Art nouveau et l\'Orientalisme.`
 Les contours se fondent comme de la fumée, créant des transitions douces et naturelles de lumière et d\'ombre.
 
 Le sourire de La Joconde reste une énigme après des siècles ; La Cène grava un instant de tension dramatique sur le mur.
-L\'essence du génie universel de la Renaissance qui unifia science et art.`
+De Vinci est L\'essence du génie universel de la Renaissance qui unifia science et art.`
   },
   'michelangelo': {
     name: 'Michel-Ange',
@@ -576,7 +575,7 @@ L\'essence du génie universel de la Renaissance qui unifia science et art.`
 Avec une compréhension parfaite de l\'anatomie humaine, des figures héroïques aux proportions divines sont exprimées.
 
 Un esprit artistique inébranlable qui peignit seul, allongé sur le dos pendant quatre ans, le plafond de la chapelle Sixtine.
-Un sculpteur qui libéra les anges du marbre ; un peintre qui insuffla la vie à la fresque.`
+Michel-Ange est un sculpteur qui libéra les anges du marbre ; un peintre qui insuffla la vie à la fresque.`
   },
   'raphael': {
     name: 'Raphaël',
@@ -584,7 +583,7 @@ Un sculpteur qui libéra les anges du marbre ; un peintre qui insuffla la vie à
 La beauté idéale et l\'harmonie classique s\'incarnent dans leur forme la plus pure.
 
 Dans L\'École d\'Athènes, il réunit les philosophes antiques en un seul espace ; dans la Madone Sixtine, il atteignit le sommet de la beauté sublime.
-Bien que sa vie fût brève, seulement 37 ans, il reste le sommet de la beauté idéale de la Renaissance et le modèle du classicisme ultérieur.`
+Bien que sa vie fût brève, seulement 37 ans, il reste le sommet de la beauté idéale de la Renaissance et le fondement du classicisme ultérieur.`
   },
   'botticelli': {
     name: 'Botticelli',
@@ -592,7 +591,7 @@ Bien que sa vie fût brève, seulement 37 ans, il reste le sommet de la beauté 
 Des lignes fluides et des couleurs transparentes expriment la beauté mythologique.
 
 Les cheveux dorés au vent de La Naissance de Vénus et le jardin mystique du Printemps déploient une beauté idéale de rêve.
-Un peintre poétique qui représenta l\'âge d\'or de Florence sous le mécénat des Médicis.`
+Botticelli est un peintre poétique qui représenta l\'âge d\'or de Florence sous le mécénat des Médicis.`
   },
   'titian': {
     name: 'Titien',
@@ -600,7 +599,7 @@ Un peintre poétique qui représenta l\'âge d\'or de Florence sous le mécénat
 Des couleurs riches et des touches audacieuses expriment des scènes sensuelles et dramatiques.
 
 Il montra le sommet de la couleur sensuelle dans la Vénus d\'Urbin et une composition verticale majestueuse dans L\'Assomption de la Vierge, achevant l\'école vénitienne jusqu\'à l\'âge de 90 ans.
-Un pionnier du colorisme qui influença profondément le Baroque et l\'Impressionnisme.`
+Titien est un pionnier du colorisme qui influença profondément le Baroque et l\'Impressionnisme.`
   },
 
   // ===== Baroque =====
@@ -610,7 +609,7 @@ Un pionnier du colorisme qui influença profondément le Baroque et l\'Impressio
 Un seul rayon de lumière jaillit dans les ténèbres les plus profondes, révélant l\'instant décisif.
 
 Dans La Vocation de saint Matthieu, la lumière qui déchire l\'obscurité est l\'appel divin lui-même ; dans Méduse, il gela un instant d\'horreur sur un bouclier.
-L\'étincelle de l\'art baroque, qui laissa un style révolutionnaire au milieu d\'une vie de meurtre et de fuite.`
+Le Caravage fut L\'étincelle de l\'art baroque, qui laissa un style révolutionnaire au milieu d\'une vie de meurtre et de fuite.`
   },
   'rembrandt': {
     name: 'Rembrandt',
@@ -618,7 +617,7 @@ L\'étincelle de l\'art baroque, qui laissa un style révolutionnaire au milieu 
 Le contraste dramatique entre lumière et ombre crée une profondeur psychologique qui révèle les émotions et même l\'âme.
 
 Dans La Ronde de nuit, il transforma le portrait de groupe en théâtre dramatique ; dans Le Retour du fils prodigue, il enveloppa un instant de pardon dans la lumière.
-Un maître du portrait psychologique qui explora l\'intérieur humain à travers le clair-obscur.`
+Rembrandt est un maître du portrait psychologique qui explora l\'intérieur humain à travers le clair-obscur.`
   },
   'velazquez': {
     name: 'Vélasquez',
@@ -626,7 +625,7 @@ Un maître du portrait psychologique qui explora l\'intérieur humain à travers
 La perspective aérienne et la touche de pinceau expriment la profondeur spatiale et le réalisme ainsi que la dignité des sujets.
 
 Dans Les Ménines, les regards du peintre, du roi et du spectateur se croisent en un seul espace ; dans le Portrait du pape Innocent X, il pénétra l\'intérieur même d\'un homme puissant.
-Le maître du Siècle d\'Or espagnol, dont on dit qu\'il peignit même l\'air d\'un seul coup de pinceau.`
+Vélasquez est le maître du Siècle d\'Or espagnol, dont on dit qu\'il peignit même l\'air d\'un seul coup de pinceau.`
   },
   'rubens': {
     name: 'Rubens',
@@ -634,7 +633,7 @@ Le maître du Siècle d\'Or espagnol, dont on dit qu\'il peignit même l\'air d\
 Des figures opulentes et des compositions puissantes capturent la joie de vivre sur la toile.
 
 Dans le cycle de Marie de Médicis, il déploya l\'histoire à grande échelle ; dans Les Trois Grâces, il montra le sommet de la beauté corporelle exubérante.
-Un maître du Baroque qui jouit à la fois de l\'honneur et de la richesse, laissant environ 1 400 œuvres.`
+Rubens est un maître du Baroque qui jouit à la fois de l\'honneur et de la richesse, laissant environ 1 400 œuvres.`
   },
 
   // ===== Rococo =====
@@ -644,7 +643,7 @@ Un maître du Baroque qui jouit à la fois de l\'honneur et de la richesse, lais
 Les fêtes de jardin des aristocrates s\'expriment dans une atmosphère poétique et mélancolique.
 
 Dans Pèlerinage à Cythère, il peignit le rêve des nobles de partir vers l\'île de l\'amour ; dans La Fête d\'Amour, il captura un instant de festivité élégante.
-Un peintre des rêves aristocratiques qui établit le style rococo en seulement 37 ans de vie.`
+Watteau est un peintre des rêves aristocratiques qui établit le style rococo en seulement 37 ans de vie.`
   },
   'boucher': {
     name: 'Boucher',
@@ -652,7 +651,7 @@ Un peintre des rêves aristocratiques qui établit le style rococo en seulement 
 Des tons de peau rosés et des déesses flottant sur les nuages peignent des fantaisies de cour.
 
 Dans le Portrait de Madame de Pompadour, il captura la splendeur de la femme la plus puissante de la cour ; dans Diane au bain, il perfectionna la beauté idéalisée des déesses.
-Le sommet de la sensualité rococo, favorisé par Louis XV tout en poursuivant la beauté idéalisée.`
+Boucher est le sommet de la sensualité rococo, favorisé par Louis XV tout en poursuivant la beauté idéalisée.`
   },
 
   // ===== Néoclassicisme vs Romantisme vs Réalisme =====
@@ -662,7 +661,7 @@ Le sommet de la sensualité rococo, favorisé par Louis XV tout en poursuivant l
 La forme est établie par des lignes claires et les figures héroïques sont composées avec des proportions idéales.
 
 Dans Le Sacre de Napoléon, il fixa la grandeur de l\'histoire ; dans La Mort de Marat, la tragédie de la Révolution.
-Un peintre de la Révolution qui fixa l\'histoire par la peinture, de la Révolution française à Napoléon.`
+David est un peintre de la Révolution qui fixa l\'histoire par la peinture, de la Révolution française à Napoléon.`
   },
   'ingres': {
     name: 'Ingres',
@@ -670,7 +669,7 @@ Un peintre de la Révolution qui fixa l\'histoire par la peinture, de la Révolu
 Des lignes fluides et une peau lisse expriment la pureté classique.
 
 Dans La Grande Odalisque, il peignit un dos impossible ; dans La Baigneuse de Valpinçon, le sommet de la beauté curviligne.
-Un maître du néoclassicisme qui insista sur la pureté de la ligne face à la couleur, rivalisant avec le romantique Delacroix.`
+Ingres est un maître du néoclassicisme qui insista sur la pureté de la ligne face à la couleur, rivalisant avec le romantique Delacroix.`
   },
   'delacroix': {
     name: 'Delacroix',
@@ -678,7 +677,7 @@ Un maître du néoclassicisme qui insista sur la pureté de la ligne face à la 
 Des touches vigoureuses et des primaires vifs font éclater l\'émotion passionnée sur la toile.
 
 Avec La Liberté guidant le peuple, il captura la ferveur révolutionnaire ; avec Les Femmes d\'Alger, des couleurs exotiques sur la toile.
-Un pionnier de la révolution de la couleur qui influença décisivement l\'Impressionnisme et le Fauvisme.`
+Delacroix est un pionnier de la révolution de la couleur qui influença décisivement l\'Impressionnisme et le Fauvisme.`
   },
   'turner': {
     name: 'Turner',
@@ -686,7 +685,7 @@ Un pionnier de la révolution de la couleur qui influença décisivement l\'Impr
 Le brouillard qui dissout les formes et les rayons dorés expriment les instants bouleversants de la nature.
 
 Il s\'attacha au mât d\'un navire pour peindre Tempête de neige ; dans Pluie, vapeur et vitesse, il dissolut l\'énergie de la révolution industrielle dans la lumière.
-Un révolutionnaire de la lumière qui annonça l\'Impressionnisme en dissolvant la forme dans la lumière.`
+Turner est un révolutionnaire de la lumière qui annonça l\'Impressionnisme en dissolvant la forme dans la lumière.`
   },
   'courbet': {
     name: 'Courbet',
@@ -694,7 +693,7 @@ Un révolutionnaire de la lumière qui annonça l\'Impressionnisme en dissolvant
 Rejetant l\'idéalisation, la réalité visible est captée dans un empâtement épais.
 
 Il peignit le labeur rude des Casseurs de pierres et les funérailles ordinaires d\'Un enterrement à Ornans, déclarant : « Je ne peins pas les anges car je n\'en ai jamais vu. »
-Le déclarant du Réalisme et un révolutionnaire qui éleva la réalité au rang d\'art.`
+Courbet est le déclarant du Réalisme et un révolutionnaire qui éleva la réalité au rang d\'art.`
   },
   'manet': {
     name: 'Manet',
@@ -702,7 +701,7 @@ Le déclarant du Réalisme et un révolutionnaire qui éleva la réalité au ran
 Éliminant hardiment les demi-teintes, sa touche assurée capte la vie de la ville moderne.
 
 Le Déjeuner sur l\'herbe et Olympia provoquèrent de violents scandales lors de leur présentation, défiant la tradition.
-Le pont entre le Réalisme et l\'Impressionnisme, le lien vers l\'art moderne.`
+Manet est le pont entre le Réalisme et l\'Impressionnisme, le lien vers l\'art moderne.`
   },
 
   // ===== Impressionnisme =====
@@ -712,7 +711,7 @@ Le pont entre le Réalisme et l\'Impressionnisme, le lien vers l\'art moderne.`
 De courtes touches posent les couleurs côte à côte, laissant la lumière se mélanger dans l\'œil du spectateur.
 
 Avec Impression, soleil levant, il donna son nom à l\'Impressionnisme ; perdant la vue à cause de la cataracte, il acheva néanmoins 250 Nymphéas.
-Le symbole de l\'Impressionnisme qui consacra ses 86 années de vie à la lumière.`
+Monet est le symbole de l\'Impressionnisme qui consacra ses 86 années de vie à la lumière.`
   },
   'renoir': {
     name: 'Renoir',
@@ -720,7 +719,7 @@ Le symbole de l\'Impressionnisme qui consacra ses 86 années de vie à la lumiè
 Des tons de peau rosés et la lumière du soleil filtrant à travers le feuillage captent les instants de bonheur.
 
 La foule lumineuse du Bal du Moulin de la Galette et la vie quotidienne chaleureuse du Déjeuner des canotiers.
-Un peintre du bonheur qui ne lâcha jamais la beauté, même avec des pinceaux attachés à des mains déformées par les rhumatismes.`
+Renoir est un peintre du bonheur qui ne lâcha jamais la beauté, même avec des pinceaux attachés à des mains déformées par les rhumatismes.`
   },
   'degas': {
     name: 'Degas',
@@ -728,7 +727,7 @@ Un peintre du bonheur qui ne lâcha jamais la beauté, même avec des pinceaux a
 Des compositions asymétriques et des angles inattendus captent les instants de mouvement.
 
 Dans L\'Étoile, il captura des instants calculés ; dans L\'Absinthe, la solitude urbaine.
-Un peintre du mouvement qui ne cessa jamais de travailler même en perdant la vue.`
+Degas est un peintre du mouvement qui ne cessa jamais de travailler même en perdant la vue.`
   },
   'caillebotte': {
     name: 'Caillebotte',
@@ -736,7 +735,7 @@ Un peintre du mouvement qui ne cessa jamais de travailler même en perdant la vu
 Des vues plongeantes et une représentation réaliste expriment la ville moderne.
 
 Dans Rue de Paris, temps de pluie, une perspective dramatique ; dans Les Raboteurs de parquet, la représentation réaliste du travail.
-Un pionnier du paysage urbain qui fut à la fois peintre et mécène des artistes impressionnistes.`
+Caillebotte est un pionnier du paysage urbain qui fut à la fois peintre et mécène des artistes impressionnistes.`
   },
 
   // ===== Postimpressionnisme =====
@@ -746,7 +745,7 @@ Un pionnier du paysage urbain qui fut à la fois peintre et mécène des artiste
 Le contraste intense entre le bleu cobalt et le jaune chrome exprime directement l\'émotion intérieure.
 
 Dans La Nuit étoilée, il tordit le ciel nocturne en spirales ; dans Les Tournesols, il embrasa le jaune de vie.
-Un art immortel créé dans une vie brève et intense de 37 ans.`
+Van Gogh un art immortel créé dans une vie brève et intense de 37 ans.`
   },
   'cezanne': {
     name: 'Cézanne',
@@ -762,7 +761,7 @@ Appelé le père de l\'art moderne, Picasso et Braque découvrirent le cubisme d
 D\'épais contours noirs remplis de couleurs saturées créent des compositions exotiques et symboliques.
 
 Quittant une vie stable d\'agent de change, il partit à Tahiti pour peindre Femmes de Tahiti et Le Christ jaune.
-Un peintre de l\'évasion qui poursuivit la beauté primitive en tournant le dos à la civilisation.`
+Gauguin est un peintre de l\'évasion qui poursuivit la beauté primitive en tournant le dos à la civilisation.`
   },
 
   // ===== Fauvisme =====
@@ -772,7 +771,7 @@ Un peintre de l\'évasion qui poursuivit la beauté primitive en tournant le dos
 Les primaires sont disposés avec audace et les formes sont simplifiées pour créer des compositions intensément décoratives.
 
 Du rythme primordial de La Danse aux expérimentations de champ de couleur de L\'Atelier rouge, des huiles aux papiers découpés, il élargit les possibilités de la couleur tout au long de sa vie.
-Un maître du Fauvisme qui n\'a jamais cessé d\'explorer les possibilités de la couleur jusqu\'à 84 ans.`
+Matisse est un maître du Fauvisme qui n\'a jamais cessé d\'explorer les possibilités de la couleur jusqu\'à 84 ans.`
   },
   'derain': {
     name: 'Derain',
@@ -780,7 +779,7 @@ Un maître du Fauvisme qui n\'a jamais cessé d\'explorer les possibilités de l
 Des couleurs vives comme directement sorties du tube sont appliquées avec rudesse sur la toile.
 
 Des primaires irréels dans Le Pont de Londres, des aplats audacieux dans Bateaux à Collioure — avec Matisse, il donna naissance au Fauvisme dans le sud de la France.
-Un guerrier qui brisa la tradition avec audace et alluma une révolution de la couleur.`
+Derain fut un guerrier qui brisa la tradition avec audace et alluma une révolution de la couleur.`
   },
   'vlaminck': {
     name: 'Vlaminck',
@@ -788,7 +787,7 @@ Un guerrier qui brisa la tradition avec audace et alluma une révolution de la c
 La peinture épaisse appliquée avec agressivité dégage l\'énergie la plus intense parmi les fauves.
 
 Des couleurs explosives dans Maisons à Chatou, une texture rugueuse dans Arbres rouges — de cycliste à peintre sans formation artistique.
-Le peintre le plus fauve, qui embrasa la toile par le seul instinct, sans formation formelle.`
+Vlaminck est le peintre le plus fauve, qui embrasa la toile par le seul instinct, sans formation formelle.`
   },
 
   // ===== Expressionnisme =====
@@ -798,7 +797,7 @@ Le peintre le plus fauve, qui embrasa la toile par le seul instinct, sans format
 Des lignes en spirale tordent les formes ; des ciels rouge sang et des jaunes maladifs expriment l\'angoisse.
 
 Dans Le Cri, la terreur existentielle ; dans Madonna, la sensualité sombre — le trauma d\'avoir perdu sa mère à 5 ans et sa sœur à 14 fut la source de toute son œuvre.
-Un pionnier de l\'Expressionnisme qui peignit non ce que l\'on voit, mais ce que l\'on ressent.`
+Munch est un pionnier de l\'Expressionnisme qui peignit non ce que l\'on voit, mais ce que l\'on ressent.`
   },
   'kirchner': {
     name: 'Kirchner',
@@ -806,7 +805,7 @@ Un pionnier de l\'Expressionnisme qui peignit non ce que l\'on voit, mais ce que
 Des formes tordues et pointues et des couleurs qui se heurtent rudement expriment l\'angoisse et l\'aliénation urbaines.
 
 Dans Scène de rue à Berlin, des foules acérées ; dans Cinq femmes dans la rue, des formes primitives.
-Fondateur du groupe expressionniste allemand « Die Brücke », qualifié d\'art dégénéré par les nazis et qui mit fin à ses jours.`
+Kirchner est Fondateur du groupe expressionniste allemand « Die Brücke », qualifié d\'art dégénéré par les nazis et qui mit fin à ses jours.`
   },
   'kokoschka': {
     name: 'Kokoschka',
@@ -814,7 +813,7 @@ Fondateur du groupe expressionniste allemand « Die Brücke », qualifié d\'art
 Des touches dévastatrices et des tons fiévreux révèlent de façon explosive la psychologie des sujets.
 
 Dans La Fiancée du vent, la passion amoureuse ; dans sa série d\'Autoportraits, l\'angoisse intérieure.
-Un anatomiste de l\'intérieur, qualifié de dégénéré par les nazis avec 400 œuvres confisquées.`
+Kokoschka est un anatomiste de l\'intérieur, qualifié de dégénéré par les nazis avec 400 œuvres confisquées.`
   },
 
   // ===== Modernisme =====
@@ -824,7 +823,7 @@ Un anatomiste de l\'intérieur, qualifié de dégénéré par les nazis avec 400
 Les visages et les corps sont décomposés en plans angulaires, montrant face et profil simultanément.
 
 Avec Les Demoiselles d\'Avignon, il ouvrit le Cubisme ; dans le Portrait de Dora Maar, il acheva la déconstruction multiperspective, laissant plus de 50 000 œuvres en 91 ans de vie.
-L\'art du XXe siècle en soi : peindre non comme on voit, mais comme on pense.`
+Picasso est l\'art du XXe siècle en soi : peindre non comme on voit, mais comme on pense.`
   },
   'lichtenstein': {
     name: 'Lichtenstein',
@@ -832,7 +831,7 @@ L\'art du XXe siècle en soi : peindre non comme on voit, mais comme on pense.`
 Les techniques d\'impression de bande dessinée agrandies en peinture ; des primaires en aplat et des trames de points transforment la culture populaire en art.
 
 Dans Whaam!, des explosions d\'avions de combat ; dans Happy Tears, des émotions de bande dessinée sur la toile, provoquant le débat : « Est-ce de l\'art ? »
-Un maître du Pop Art qui effaça la frontière entre culture populaire et art.`
+Lichtenstein est un maître du Pop Art qui effaça la frontière entre culture populaire et art.`
   },
   'miro': {
     name: 'Miró',
@@ -840,7 +839,7 @@ Un maître du Pop Art qui effaça la frontière entre culture populaire et art.`
 Des lignes libres comme celles d\'un enfant et des formes de couleurs primaires flottent sur des fonds blancs.
 
 Dans Le Paysage catalan, il dénoua les souvenirs de sa terre en symboles ; dans Vers les étoiles, il déploya l\'imagination cosmique.
-Un esprit libre de l\'art qui franchit les frontières des genres pour créer son propre monde de symboles.`
+Miró est un esprit libre de l\'art qui franchit les frontières des genres pour créer son propre monde de symboles.`
   },
   'magritte': {
     name: 'Magritte',
@@ -848,7 +847,7 @@ Un esprit libre de l\'art qui franchit les frontières des genres pour créer so
 Peint de manière réaliste, mais combiné de façons impossibles dans la réalité, détruisant les cadres de la perception.
 
 Dans La Trahison des images, il questionna la nature de la représentation ; dans Golconde, il inversa le quotidien en surréalité.
-Un peintre penseur qui poursuivit le mystère au-delà de ce que l\'œil peut voir.`
+Magritte est un peintre penseur qui poursuivit le mystère au-delà de ce que l\'œil peut voir.`
   },
   'chagall': {
     name: 'Chagall',
@@ -856,7 +855,7 @@ Un peintre penseur qui poursuivit le mystère au-delà de ce que l\'œil peut vo
 Des tons pastel doux et une atmosphère de rêve déploient des mondes d\'amour et de nostalgie.
 
 Dans Moi et le Village, les souvenirs de son Vitebsk natal ; dans Au-dessus de la ville, son amour pour Bella — peints tout au long de sa vie.
-Un poète sur toile qui chanta l\'amour et la nostalgie en couleur jusqu\'à 97 ans.`
+Chagall est un poète sur toile qui chanta l\'amour et la nostalgie en couleur jusqu\'à 97 ans.`
   }
 };
 

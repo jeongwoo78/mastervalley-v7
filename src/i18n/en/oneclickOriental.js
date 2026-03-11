@@ -1,6 +1,6 @@
 // ========================================
 // OneClick Oriental Art Education Content
-// v69 - 2026-02-03 (Structure: Country → Style)
+// 2026-03-11
 // ----------------------------------------
 // Primary: Poetic tone (loading, anticipation)
 // Secondary: Country definition/features (fixed) → Style intro/features (variable)
@@ -106,7 +106,7 @@ The unpainted empty space speaks the most.`
 The literati\'s spirit and court\'s technique coexisted for a thousand years.
 
 Gongbi is court painting executed with meticulous precision, without a single stray stroke.
-Transparent colors are layered to create depth and luster.`
+Transparent colors are layered to create depth.`
   },
 
   // ========== Japan ==========

@@ -1,7 +1,7 @@
 // ========================================
 // Seni Lukis Oriental — Bahasa Indonesia (id)
 // Struktur i18n · 9 baris 2 paragraf
-// v70 - 2026-02-03
+// 2026-03-11 수정 반영본
 // ========================================
 
 export const orientalBasicInfo = {
@@ -51,49 +51,49 @@ export const orientalResultEducation = {
 Dilukis dengan lima warna pokok (biru, merah, kuning, putih, hitam) dan disusun bebas tanpa perspektif.
 
 Peoni melambangkan kekayaan, ikan mas melambangkan keberhasilan, dan harimau mengusir roh jahat.
-Seni rakyat Joseon yang menghiasi layar lipat setiap rumah, membawa harapan dan doa.`
+Minhwa adalah seni rakyat Joseon yang menghiasi layar lipat setiap rumah, membawa harapan dan doa.`
   },
   'korean-pungsokdo': {
     description: `Goresan cepat dan warna sederhana pungsokdo telah diterapkan.
 Teknik kuas halus dan warna ringan menangkap gerakan dan ekspresi, meninggalkan ruang dengan kekosongan.
 
 Pegulat, tukang cuci, anak tertidur di sekolah — keseharian Joseon menjadi hidup.
-Realisme Korea yang Kim Hong-do dan Shin Yun-bok mekarkan di ujung kuas.`
+Pungsokdo adalah realisme Korea yang Kim Hong-do dan Shin Yun-bok mekarkan di ujung kuas.`
   },
   'korean-jingyeong': {
     description: `Goresan kuat dan komposisi berani jingyeong sansuhwa telah diterapkan.
 Meninggalkan pemandangan ideal, ia melukis langsung apa yang terlihat: gunung nyata di depan mata.
 
 Puncak tajam Gunung Geumgang dan hujan yang turun di Inwangsan menghidupkan kembali melalui goresan kuat.
-Estetika yang Gyeomjae Jeong Seon sempurnakan: pemandangan sejati tanah ini.`
+Jingyeong Sansuhwa adalah estetika yang Gyeomjae Jeong Seon sempurnakan: pemandangan sejati tanah ini.`
   },
   'chinese-gongbi': {
     description: `Garis presisi dan warna transparan gongbi telah diterapkan.
 Kontur terlebih dahulu ditarik dengan kuas halus, lalu lapisan warna transparan ditumpuk untuk menciptakan kedalaman.
 
 Bunga, burung, dan figur dilukis dengan presisi cermat, memikat hati kaisar.
-Puncak miniatur oriental dan kehalusan warna yang eksquisit, lahir dari istana.`
+Gongbi adalah puncak miniatur oriental dan kehalusan warna yang eksquisit, lahir dari istana.`
   },
   'chinese-ink': {
     description: `Penyebaran tinta dan estetika kekosongan lukisan tinta telah diterapkan.
 Hanya dengan gradasi tinta, gunung, air, kabut, dan awan diekspresikan; kekosongan menjadi ruang tak terbatas.
 
 Teknik tinta yang dicipratkan menangkap daya hidup alam.
-Intisari seribu tahun seni lukis oriental, di mana sarjana menuangkan jiwa ke atas kanvas.`
+Lukisan tinta adalah intisari seribu tahun seni lukis oriental, di mana sarjana menuangkan jiwa ke atas kanvas.`
   },
   'japanese-ukiyoe': {
     description: `Kontur kuat dan bidang warna datar ukiyo-e telah diterapkan.
 Garis berani mendefinisikan bentuk dan bagian dalamnya diisi bidang warna datar.
 
 Seperti Gelombang Besar Kanagawa karya Hokusai, momen dinamis terukir di satu papan.
-Pandangan yang menyeberangi dari Timur ke Barat, menginspirasi para impresionis.`
+Ukiyo-e adalah pandangan yang menyeberangi dari Timur ke Barat, menginspirasi para impresionis.`
   },
   'japanese-rinpa': {
     description: `Dekorasi di atas lembaran emas dan komposisi berani rinpa telah diterapkan.
 Di atas lembaran emas, pigmen diendapkan dan lapisan warna dibiarkan mengalir untuk menciptakan tekstur alami.
 
 Seperti Iris karya Ogata Kōrin, alam yang megah mekar di atas emas.
-Intisari seni lukis dekoratif Jepang, lahir dari cita rasa aristokrat dan sumber inspirasi Art Nouveau.`
+Rinpa adalah intisari seni lukis dekoratif Jepang, lahir dari cita rasa aristokrat dan sumber inspirasi Art Nouveau.`
   },
 
   'korean_default': {
@@ -101,7 +101,7 @@ Intisari seni lukis dekoratif Jepang, lahir dari cita rasa aristokrat dan sumber
 Para sarjana melukis dengan tinta; rakyat, dengan warna — masing-masing mengekspresikan kehidupan dengan caranya.
 
 Seni di mana kekosongan berbicara dan kuas menyimpan jiwa: itulah estetika Korea.
-Kristalisasi lima ratus tahun Joseon yang mengalir melalui minhwa, pungsokdo, dan jingyeong sansuhwa.`
+Lukisan tradisional Korea, yang diwakili oleh minhwa, pungsokdo, dan jingyeong sansuhwa, adalah seni yang berkembang selama 500 tahun Joseon.`
   },
   'chinese_default': {
     description: `Harmoni tinta dan warna seni lukis tradisional Tiongkok telah diterapkan.

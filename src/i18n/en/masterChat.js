@@ -41,7 +41,7 @@ export const masterChat = {
     'LICHTENSTEIN': "I\'m Lichtenstein from New York. I\'ve been revived through AI. I\'ve finished your portrait—what do you think?"
   },
 
-  // ===== Suggested Questions (7 × 3 = 21) =====
+  // ===== Suggested Questions (7 × 4 = 28) =====
   suggestedQuestions: {
     'VAN GOGH': ['Change my hair color', 'Add earrings', 'Tell me about your ear', 'Why do you love sunflowers?'],
     'KLIMT': ['Change my lip color', 'Add earrings', 'Who was the model for The Kiss?', 'Why do you love gold?'],

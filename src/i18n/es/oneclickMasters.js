@@ -1,6 +1,6 @@
 // ========================================
 // One-Click Grandes Maestros — Español (es)
-// v69 - 2026-02-03 (2 párrafos prosa, BasicInfo añadido)
+// 2026-03-11
 // ----------------------------------------
 // 1ª: tono poético (carga, expectación)
 // 2ª: explicativo (definición → técnica/estilo → características → significado/valoración)
@@ -21,12 +21,12 @@ export const oneclickMastersBasicInfo = {
   },
   'munch': {
     name: 'Edvard Munch (1863–1944)',
-    subtitle1: 'El grito · Madonna · Pubertad',
+    subtitle1: 'El grito · Madonna · La danza de la vida',
     subtitle2: 'Pintar el grito interior'
   },
   'matisse': {
     name: 'Henri Matisse (1869–1954)',
-    subtitle1: 'La danza · La habitación roja · La mujer del sombrero',
+    subtitle1: 'La danza · La habitación roja · La raya verde',
     subtitle2: 'El mago del color'
   },
   'chagall': {

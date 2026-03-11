@@ -3,7 +3,7 @@
 // i18n · 9 lines, 2 paragraphs (1st 3+2 / 2nd 2+2)
 // 1st (loading) = past tense (historical narrative)
 // 2nd (result) = present tense (applied technique)
-// v70 - 2026-02-03 (subtitle1, subtitle2 separated)
+// 2026-03-11 수정 반영본
 // ========================================
 
 // ========== Basic Info ==========
@@ -104,7 +104,7 @@ Ink Wash painting raised mountains with gradations of ink alone and conjured mis
 Gongbi rendered every last petal with meticulous precision, offered to the emperor.
 
 The wellspring of East Asian art, flowing for over a millennium, is Chinese traditional painting.
-Through ink and color across a thousand years — meet Chinese painting, the origin of East Asian art.`
+Meet the depth of a thousand years, forged in ink and color.`
   },
 
   // ── Japanese ──
@@ -128,7 +128,7 @@ export const orientalResultEducation = {
 Painted in the five cardinal colors (blue, red, yellow, white, black) and arranged freely without perspective.
 
 Peonies symbolize wealth, carp represent success, and tigers ward off evil.
-This is Joseon folk art — hung on folding screens in every home, each painting carrying a wish.`
+Minhwa is Joseon folk art — hung on folding screens in every home, each painting carrying a wish.`
   },
 
   // ── Korean: Pungsokdo ──
@@ -137,7 +137,7 @@ This is Joseon folk art — hung on folding screens in every home, each painting
 Fine-brush light-wash technique captures gestures and expressions, while empty space opens up the scene.
 
 Wrestling men, women doing laundry, children dozing in village schools — everyday Joseon life comes alive.
-This is Korean realism, brought to bloom by Kim Hong-do and Shin Yun-bok through the tip of a brush.`
+Pungsokdo is Korean realism, brought to bloom by Kim Hong-do and Shin Yun-bok through the tip of a brush.`
   },
 
   // ── Korean: Jingyeong Sansuhwa ──
@@ -146,7 +146,7 @@ This is Korean realism, brought to bloom by Kim Hong-do and Shin Yun-bok through
 Breaking free from idealized landscapes, painters sketched the real mountains and rivers before their eyes.
 
 The jagged peaks of Geumgangsan and rain falling over Inwangsan come alive through powerful brushstrokes.
-This is the aesthetics of real landscape, perfected by Gyeomjae Jeong Seon — Korea\'s own vision of nature.`
+Jingyeong Sansuhwa is the aesthetics of real landscape, perfected by Gyeomjae Jeong Seon — Korea\'s own vision of nature.`
   },
 
   // ── Chinese: Gongbi ──
@@ -155,7 +155,7 @@ This is the aesthetics of real landscape, perfected by Gyeomjae Jeong Seon — K
 Fine brushes draw the outline first, then transparent colors are layered to build depth.
 
 Flowers, birds, and figures are rendered strand by strand, captivating the imperial eye.
-This is the pinnacle of East Asian fine painting — the height of color mastery, perfected by the court.`
+Gongbi is the pinnacle of East Asian fine painting — the height of color mastery, perfected by the court.`
   },
 
   // ── Chinese: Ink Wash ──
@@ -164,7 +164,7 @@ This is the pinnacle of East Asian fine painting — the height of color mastery
 Mountains, water, mist, and clouds are expressed through nothing but gradations of ink, and empty space becomes infinite.
 
 The splashed-ink technique scatters ink like rain, capturing the vitality of nature.
-This is the purest form of East Asian painting — scholars transferred spirit, not form, onto silk.`
+Ink Wash painting is the purest form of East Asian painting — scholars transferred spirit, not form, onto silk.`
   },
 
   // ── Japanese: Ukiyo-e ──
@@ -173,7 +173,7 @@ This is the purest form of East Asian painting — scholars transferred spirit, 
 Bold outlines define the form, and flat planes of color fill within — pure graphic impact.
 
 Like Hokusai\'s *The Great Wave off Kanagawa*, a split second of nature\'s fury is carved into a single impression.
-This is the vision that traveled from East to West, inspiring the Impressionists to see art anew.`
+Ukiyo-e is the vision that traveled from East to West, inspiring the Impressionists to see art anew.`
   },
 
   // ── Japanese: Rinpa ──
@@ -182,7 +182,7 @@ This is the vision that traveled from East to West, inspiring the Impressionists
 Pigment is laid over gold leaf, with colors pooled layer upon layer to create natural texture.
 
 Like Ogata Korin\'s *Irises Screen*, vibrant nature blooms upon a field of gold.
-Born from aristocratic taste and inspiring Art Nouveau — the essence of Japanese decorative painting.`
+Rinpa, born from aristocratic taste and inspiring Art Nouveau — the essence of Japanese decorative painting.`
   },
 
 
@@ -192,21 +192,21 @@ Born from aristocratic taste and inspiring Art Nouveau — the essence of Japane
 Scholars painted with ink gradations, while common folk painted with vivid color — both giving life to their world.
 
 Empty space speaks, and spirit flows through the brush tip — the aesthetics of Korean painting.
-This is the crystallization of 500 years of Joseon aesthetics, from Minhwa to Jingyeong Sansuhwa.`
+Korean traditional painting, represented by Minhwa, Pungsokdo, and Jingyeong Sansuhwa, is art that blossomed over 500 years of Joseon. aesthetics, from Minhwa to Jingyeong Sansuhwa.`
   },
   'chinese_default': {
     description: `Chinese traditional ink and color harmony have been applied to your image.
 A single brushstroke raises mountains, and a single empty space conjures mist.
 
 The literati\'s spirit and the court\'s mastery coexist in Chinese painting.
-This is the wellspring of East Asian art, flowing through Gongbi and Ink Wash for over a millennium.`
+Chinese traditional painting, flowing through Gongbi and Ink Wash, is a vital wellspring of over a millennium of East Asian art tradition.`
   },
   'japanese_default': {
     description: `Japanese traditional outlines and decorative color planes have been applied to your image.
 Bold outlines and splendid coloring over gold leaf capture beauty in distinct ways.
 
 Prints born from Edo popular culture and decorative painting of the court coexist in Japanese art.
-Born in streets and courts, crossing the ocean — Japanese painting that shook the Western art world.`
+Japanese traditional painting, born in streets and courts, crossed the ocean and profoundly influenced Western art.`
   }
 };
 

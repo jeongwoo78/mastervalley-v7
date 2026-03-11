@@ -1,7 +1,7 @@
 // ========================================
 // Movimientos artísticos — Español (es)
 // Estructura i18n · 9 líneas 2 párrafos (1º 5 líneas 3+2 / 2º 4 líneas 2+2)
-// v70 - 2026-02-03 (BasicInfo añadido)
+// 2026-03-11 수정 반영본
 // ========================================
 
 // ========== Información básica ==========
@@ -19,7 +19,7 @@ export const movementsBasicInfo = {
     loading: {
       name: 'Arte medieval (Medieval Art, siglos IV–XIV)',
       subtitle1: 'Bizantino · Gótico · Miniatura islámica',
-      subtitle2: 'Arte dorado al servicio de Dios'
+      subtitle2: 'Arte de luz nacido de la fe'
     }
   },
   'renaissance': {
@@ -139,7 +139,7 @@ export const movementsBasicInfo = {
     result: {
       name: 'Renacimiento (Renaissance, siglos XIV–XVI)',
       subtitle1: 'Miguel Ángel (Michelangelo)',
-      subtitle2: 'Liberar el alma de la piedra'
+      subtitle2: 'El escultor que insufló vida a la pintura'
     }
   },
   'raphael': {
@@ -455,8 +455,7 @@ Justo antes de la Revolución Francesa, el arte que adornó la última edad dora
 David e Ingres buscaron la belleza ideal de la Antigüedad; Delacroix y Turner volcaron la tempestad emocional en el lienzo.
 Courbet y Manet rechazaron tanto el ideal como la fantasía y presentaron la realidad tal cual.
 
-Neoclasicismo, Romanticismo, Realismo: tres corrientes que colisionaron en la era de las revoluciones.
-La época de confrontación e innovación que abrió la puerta al arte moderno.`
+Neoclasicismo, Romanticismo, Realismo — tres corrientes cuya colisión abrió la puerta al arte moderno.`
   },
 
   // ===== Impresionismo =====
@@ -524,7 +523,7 @@ export const movementsResultEducation = {
 El contrapposto desplaza el centro de gravedad; la proporción áurea compone el cuerpo de forma matemática.
 
 Las proporciones ideales de la Venus de Milo, la tensión dramática del Laocoonte y sus hijos, talladas en mármol blanco.
-El punto de partida del arte occidental, que encontró la belleza perfecta en el cuerpo humano.`
+La escultura griega es el punto de partida del arte occidental, que encontró la belleza perfecta en el cuerpo humano.`
   },
   'roman-mosaic': {
     name: 'Mosaico romano',
@@ -532,7 +531,7 @@ El punto de partida del arte occidental, que encontró la belleza perfecta en el
 Miles de pequeñas piedras de colores se disponen una a una para crear escenas de mitos y vida cotidiana.
 
 Desde las batallas del Mosaico de Alejandro hasta lo doméstico del Cave Canem, colores que llevan vivos más de dos mil años.
-La esencia del arte decorativo antiguo, donde la mano artesanal habita en cada tesela.`
+El mosaico romano es la esencia del arte decorativo antiguo, donde la mano artesanal habita en cada tesela.`
   },
 
   // ===== Medieval =====
@@ -542,7 +541,7 @@ La esencia del arte decorativo antiguo, donde la mano artesanal habita en cada t
 Figuras planas y simbólicas sobre fondo de pan de oro expresan una sacralidad que trasciende lo humano.
 
 El Emperador Justiniano de Santa Sofía transmite majestad imperial; el Pantocrátor, la mirada divina.
-Arte religioso dorado que influyó profundamente en los iconos rusos y en el arte medieval de Europa occidental.`
+El arte bizantino es Arte religioso dorado que influyó profundamente en los iconos rusos y en el arte medieval de Europa occidental.`
   },
   'gothic': {
     name: 'Gótico',
@@ -550,7 +549,7 @@ Arte religioso dorado que influyó profundamente en los iconos rusos y en el art
 La luz coloreada que atraviesa las vidrieras encarna la gloria celestial en todo el espacio.
 
 El resplandor cobalto de la Virgen Azul de Chartres, los rayos del Rosetón de Notre-Dame graban el anhelo del cielo.
-Un libro de vidrio que enseñó la Biblia a los creyentes analfabetos, y el misterio mismo de la luz.`
+El arte gótico fue un libro de vidrio que enseñó la Biblia a los creyentes analfabetos, y el misterio mismo de la luz.`
   },
   'islamic-miniature': {
     name: 'Miniatura islámica',
@@ -568,7 +567,7 @@ La flor del arte islámico que inspiró el Art Nouveau y el Orientalismo.`
 Los contornos se difuminan como humo, creando transiciones suaves y naturales de luz y sombra.
 
 La sonrisa de la Mona Lisa sigue siendo un enigma tras siglos; La última cena grabó un momento de tensión dramática en el muro.
-La esencia del genio universal del Renacimiento que unificó ciencia y arte.`
+Da Vinci es la esencia del genio universal del Renacimiento que unificó ciencia y arte.`
   },
   'michelangelo': {
     name: 'Miguel Ángel',
@@ -576,7 +575,7 @@ La esencia del genio universal del Renacimiento que unificó ciencia y arte.`
 Con un dominio perfecto de la anatomía humana, se expresan seres heroicos casi divinos.
 
 Un espíritu artístico indomable que pintó solo, tumbado boca arriba, el techo de la Capilla Sixtina durante cuatro años.
-Escultor que liberó ángeles del mármol, pintor que insufló vida al fresco.`
+Miguel Ángel es Escultor que liberó ángeles del mármol, pintor que insufló vida al fresco.`
   },
   'raphael': {
     name: 'Rafael',
@@ -584,7 +583,7 @@ Escultor que liberó ángeles del mármol, pintor que insufló vida al fresco.`
 La belleza ideal y la armonía clásica se encarnan en su forma más pura.
 
 En La escuela de Atenas reunió a los filósofos antiguos en un solo espacio; en la Madonna Sixtina alcanzó la cima de la belleza sublime.
-Aunque vivió solo 37 años, permanece como cumbre de la belleza ideal renacentista y modelo del clasicismo posterior.`
+Aunque vivió solo 37 años, permanece como cumbre de la belleza ideal renacentista y fundamento del clasicismo posterior.`
   },
   'botticelli': {
     name: 'Botticelli',
@@ -592,7 +591,7 @@ Aunque vivió solo 37 años, permanece como cumbre de la belleza ideal renacenti
 Líneas fluidas y colores transparentes expresan una belleza mitológica.
 
 Los cabellos dorados mecidos por el viento en El nacimiento de Venus, el jardín místico de La Primavera despliegan una belleza ideal y onírica.
-Un pintor-poeta que representó la edad dorada de Florencia bajo el mecenazgo de los Medici.`
+Botticelli es un pintor-poeta que representó la edad dorada de Florencia bajo el mecenazgo de los Medici.`
   },
   'titian': {
     name: 'Tiziano',
@@ -600,7 +599,7 @@ Un pintor-poeta que representó la edad dorada de Florencia bajo el mecenazgo de
 Colores ricos y pinceladas audaces expresan escenas sensuales y dramáticas.
 
 Mostró la cumbre del color sensual en la Venus de Urbino, una majestuosa composición vertical en La Asunción de la Virgen, completando la escuela veneciana hasta los 90 años.
-Un pionero del colorismo que influyó profundamente en el Barroco y el Impresionismo.`
+Tiziano es un pionero del colorismo que influyó profundamente en el Barroco y el Impresionismo.`
   },
 
   // ===== Barroco =====
@@ -610,7 +609,7 @@ Un pionero del colorismo que influyó profundamente en el Barroco y el Impresion
 Un único haz de luz se vierte en la oscuridad más absoluta, revelando el instante decisivo.
 
 En La vocación de San Mateo, la luz que corta la oscuridad es la llamada divina misma; en Medusa, congeló un instante de horror sobre un escudo.
-La mecha del arte barroco, que dejó un estilo revolucionario en medio de una vida de crímenes y huidas.`
+Caravaggio fue la mecha del arte barroco, que dejó un estilo revolucionario en medio de una vida de crímenes y huidas.`
   },
   'rembrandt': {
     name: 'Rembrandt',
@@ -618,7 +617,7 @@ La mecha del arte barroco, que dejó un estilo revolucionario en medio de una vi
 El contraste dramático entre luz y oscuridad crea una profundidad psicológica que revela emociones e incluso el alma.
 
 En La ronda de noche transformó el retrato grupal en teatro dramático; en El regreso del hijo pródigo envolvió un momento de perdón en luz.
-Un maestro del retrato psicológico que exploró el interior humano mediante el claroscuro.`
+Rembrandt es un maestro del retrato psicológico que exploró el interior humano mediante el claroscuro.`
   },
   'velazquez': {
     name: 'Velázquez',
@@ -626,7 +625,7 @@ Un maestro del retrato psicológico que exploró el interior humano mediante el 
 La perspectiva atmosférica y la pincelada expresan profundidad espacial y realismo junto a la dignidad de los retratados.
 
 En Las Meninas se cruzan las miradas de pintor, rey y espectador; en el retrato del Papa Inocencio X penetró incluso el interior de un hombre de poder.
-Maestro del Siglo de Oro español, del que se dijo que pintaba hasta el aire con una sola pincelada.`
+Velázquez es Maestro del Siglo de Oro español, del que se dijo que pintaba hasta el aire con una sola pincelada.`
   },
   'rubens': {
     name: 'Rubens',
@@ -634,7 +633,7 @@ Maestro del Siglo de Oro español, del que se dijo que pintaba hasta el aire con
 Figuras rotundas y composiciones poderosas capturan la alegría de vivir en el lienzo.
 
 En el ciclo de María de Medici desplegó la historia a gran escala; en Las tres Gracias mostró la cumbre de la belleza corporal.
-Un maestro del Barroco que disfrutó tanto de honor como de riqueza, dejando unas 1.400 obras.`
+Rubens es un maestro del Barroco que disfrutó tanto de honor como de riqueza, dejando unas 1.400 obras.`
   },
 
   // ===== Rococó =====
@@ -644,7 +643,7 @@ Un maestro del Barroco que disfrutó tanto de honor como de riqueza, dejando una
 Las fiestas de jardín aristocráticas se expresan en una atmósfera poética y melancólica.
 
 En Peregrinación a la isla de Cythera pintó el sueño de los nobles de partir hacia la isla del amor; en La fiesta del amor capturó un instante de celebración elegante.
-Un pintor de sueños aristocráticos que estableció el estilo Rococó en sus breves 37 años de vida.`
+Watteau es un pintor de sueños aristocráticos que estableció el estilo Rococó en sus breves 37 años de vida.`
   },
   'boucher': {
     name: 'Boucher',
@@ -652,7 +651,7 @@ Un pintor de sueños aristocráticos que estableció el estilo Rococó en sus br
 Tonos carnales rosados y diosas flotando sobre nubes pintan las fantasías cortesanas.
 
 En el Retrato de Madame de Pompadour capturó el esplendor de la mujer más poderosa de la corte; en Diana en el baño perfeccionó la belleza idealizada de las diosas.
-La cima de la sensualidad rococó, favorecido por Luis XV mientras perseguía la belleza idealizada.`
+Boucher es la cima de la sensualidad rococó, favorecido por Luis XV mientras perseguía la belleza idealizada.`
   },
 
   // ===== Neoclasicismo vs Romanticismo vs Realismo =====
@@ -662,7 +661,7 @@ La cima de la sensualidad rococó, favorecido por Luis XV mientras perseguía la
 Líneas claras definen la forma; proporciones ideales componen figuras heroicas.
 
 En La coronación de Napoleón registró la grandeza de la historia; en La muerte de Marat, la tragedia de la revolución.
-Un pintor de la revolución que registró la historia en pintura, desde la Revolución Francesa hasta Napoleón.`
+David es un pintor de la revolución que registró la historia en pintura, desde la Revolución Francesa hasta Napoleón.`
   },
   'ingres': {
     name: 'Ingres',
@@ -670,7 +669,7 @@ Un pintor de la revolución que registró la historia en pintura, desde la Revol
 Líneas fluidas y piel tersa expresan la pureza clásica.
 
 En La Gran Odalisca pintó una espalda imposiblemente larga; en La bañista de Valpinçon, la cima de la belleza curvilínea.
-Un maestro del Neoclasicismo que persistió en la pureza de la línea sobre el color, rival del romántico Delacroix.`
+Ingres es un maestro del Neoclasicismo que persistió en la pureza de la línea sobre el color, rival del romántico Delacroix.`
   },
   'delacroix': {
     name: 'Delacroix',
@@ -678,7 +677,7 @@ Un maestro del Neoclasicismo que persistió en la pureza de la línea sobre el c
 Pinceladas vigorosas y primarios vívidos hacen estallar la emoción apasionada en el lienzo.
 
 Con La Libertad guiando al pueblo capturó el fervor revolucionario; con Mujeres de Argel, colores exóticos en el lienzo.
-Un pionero de la revolución del color que influyó decisivamente en el Impresionismo y el Fauvismo.`
+Delacroix es un pionero de la revolución del color que influyó decisivamente en el Impresionismo y el Fauvismo.`
   },
   'turner': {
     name: 'Turner',
@@ -686,7 +685,7 @@ Un pionero de la revolución del color que influyó decisivamente en el Impresio
 Niebla que disuelve las formas y haces de luz dorada expresan los momentos sobrecogedores de la naturaleza.
 
 Se ató al mástil de un barco para pintar Tormenta de nieve; en Lluvia, vapor y velocidad disolvió la energía de la Revolución Industrial en luz.
-Un revolucionario de la luz que anticipó el Impresionismo, disolviendo la forma en luminosidad.`
+Turner es un revolucionario de la luz que anticipó el Impresionismo, disolviendo la forma en luminosidad.`
   },
   'courbet': {
     name: 'Courbet',
@@ -694,7 +693,7 @@ Un revolucionario de la luz que anticipó el Impresionismo, disolviendo la forma
 Rechazando la idealización, la realidad visible se captura con gruesos empastes.
 
 Pintó el trabajo rudo de Los picapedreros, el funeral ordinario de Un entierro en Ornans, y declaró: «No puedo pintar un ángel porque jamás he visto uno».
-El proclamador del Realismo, un revolucionario que elevó la realidad a arte.`
+Courbet es el proclamador del Realismo, un revolucionario que elevó la realidad a arte.`
   },
   'manet': {
     name: 'Manet',
@@ -702,7 +701,7 @@ El proclamador del Realismo, un revolucionario que elevó la realidad a arte.`
 Los tonos medios se eliminan con decisión; una pincelada segura captura la vida de la ciudad moderna.
 
 Almuerzo sobre la hierba y Olympia provocaron escándalos violentos al ser presentados, desafiando la tradición.
-El puente entre el Realismo y el Impresionismo, nexo del arte moderno.`
+Manet es el puente entre el Realismo y el Impresionismo, nexo del arte moderno.`
   },
 
   // ===== Impresionismo =====
@@ -712,7 +711,7 @@ El puente entre el Realismo y el Impresionismo, nexo del arte moderno.`
 Pinceladas cortas disponen los colores uno junto a otro, permitiendo que la luz se mezcle en los ojos del espectador.
 
 Con Impresión, sol naciente dio nombre al Impresionismo; perdiendo la vista por cataratas, completó 250 Nenúfares.
-El símbolo del Impresionismo, que dedicó 86 años de vida a la luz.`
+Monet es el símbolo del Impresionismo, que dedicó 86 años de vida a la luz.`
   },
   'renoir': {
     name: 'Renoir',
@@ -720,7 +719,7 @@ El símbolo del Impresionismo, que dedicó 86 años de vida a la luz.`
 Tonos rosados de piel y luz solar filtrada entre las hojas capturan momentos de felicidad.
 
 La radiante multitud del Baile en el Moulin de la Galette, la cálida vida cotidiana del Almuerzo de los remeros.
-Un pintor de la felicidad que no soltó la belleza ni con los pinceles atados a manos deformadas por el reumatismo.`
+Renoir es un pintor de la felicidad que no soltó la belleza ni con los pinceles atados a manos deformadas por el reumatismo.`
   },
   'degas': {
     name: 'Degas',
@@ -728,7 +727,7 @@ Un pintor de la felicidad que no soltó la belleza ni con los pinceles atados a 
 Una composición asimétrica y ángulos inesperados capturan el instante del movimiento.
 
 En La estrella capturó momentos calculados; en La absenta, la soledad urbana.
-Un pintor del movimiento que no dejó de trabajar ni cuando perdió la vista.`
+Degas es un pintor del movimiento que no dejó de trabajar ni cuando perdió la vista.`
   },
   'caillebotte': {
     name: 'Caillebotte',
@@ -736,7 +735,7 @@ Un pintor del movimiento que no dejó de trabajar ni cuando perdió la vista.`
 Puntos de vista elevados y representación realista expresan la ciudad moderna.
 
 En Calle de París, día lluvioso logró una perspectiva dramática; en Los acuchilladores de parqué, una representación realista del trabajo.
-Un pionero del paisaje urbano que fue a la vez pintor y mecenas de los impresionistas.`
+Caillebotte es un pionero del paisaje urbano que fue a la vez pintor y mecenas de los impresionistas.`
   },
 
   // ===== Posimpresionismo =====
@@ -746,7 +745,7 @@ Un pionero del paisaje urbano que fue a la vez pintor y mecenas de los impresion
 El intenso contraste de azul cobalto y amarillo cromo expresa directamente las emociones interiores.
 
 En La noche estrellada retorció el cielo nocturno en espirales; en Girasoles incendió el amarillo con vida.
-Creó arte inmortal en una vida breve e intensa de 37 años.`
+Van Gogh Creó arte inmortal en una vida breve e intensa de 37 años.`
   },
   'cezanne': {
     name: 'Cézanne',
@@ -762,7 +761,7 @@ Llamado el padre del arte moderno, Picasso y Braque descubrieron el Cubismo en s
 Gruesos contornos negros rellenados con colores saturados crean composiciones exóticas y simbólicas.
 
 Abandonó una vida estable como corredor de bolsa y partió a Tahití para pintar Mujeres tahitianas y El Cristo amarillo.
-Un pintor de la evasión que persiguió la belleza primitiva dando la espalda a la civilización.`
+Gauguin es un pintor de la evasión que persiguió la belleza primitiva dando la espalda a la civilización.`
   },
 
   // ===== Fauvismo =====
@@ -772,7 +771,7 @@ Un pintor de la evasión que persiguió la belleza primitiva dando la espalda a 
 Los colores primarios se disponen con valentía, las formas se simplifican creando composiciones intensamente decorativas.
 
 Desde el ritmo primordial de La danza hasta las superficies de color de El estudio rojo, de óleos a papeles recortados, amplió las posibilidades del color durante toda su vida.
-Un maestro del Fauvismo que no soltó las posibilidades del color hasta los 84 años.`
+Matisse es un maestro del Fauvismo que no soltó las posibilidades del color hasta los 84 años.`
   },
   'derain': {
     name: 'Derain',
@@ -780,7 +779,7 @@ Un maestro del Fauvismo que no soltó las posibilidades del color hasta los 84 a
 Colores vívidos como recién exprimidos del tubo se aplican crudamente sobre el lienzo.
 
 Primarios irreales en Puente de Londres, planos de color audaces en Barcas en Collioure: junto a Matisse, alumbró el Fauvismo en el sur de Francia.
-Un guerrero que destruyó la tradición con audacia e inició una revolución de color.`
+Derain fue un guerrero que destruyó la tradición con audacia e inició una revolución de color.`
   },
   'vlaminck': {
     name: 'Vlaminck',
@@ -788,7 +787,7 @@ Un guerrero que destruyó la tradición con audacia e inició una revolución de
 Pintura espesa aplicada agresivamente irradia la energía más intensa entre los Fauves.
 
 Colores explosivos en Casas en Chatou, textura cruda en Árboles rojos: de ciclista a pintor sin formación artística.
-El más feral de los pintores, que incendió el lienzo solo con instinto, sin educación formal.`
+Vlaminck es el más feral de los pintores, que incendió el lienzo solo con instinto, sin educación formal.`
   },
 
   // ===== Expresionismo =====
@@ -798,7 +797,7 @@ El más feral de los pintores, que incendió el lienzo solo con instinto, sin ed
 Líneas en espiral retuercen las formas; cielos rojo sangre y amarillos enfermizos expresan angustia.
 
 En El grito, el terror existencial; en Madonna, una sensualidad oscura. El trauma de perder a su madre a los 5 y a su hermana a los 14 fue la fuente de toda su obra.
-Un pionero del Expresionismo que pintó no lo que se ve, sino lo que se siente.`
+Munch es un pionero del Expresionismo que pintó no lo que se ve, sino lo que se siente.`
   },
   'kirchner': {
     name: 'Kirchner',
@@ -806,7 +805,7 @@ Un pionero del Expresionismo que pintó no lo que se ve, sino lo que se siente.`
 Formas puntiagudas y retorcidas y colores que colisionan bruscamente expresan angustia y alienación urbanas.
 
 En Escena de calle en Berlín, multitudes cortantes; en Cinco mujeres en la calle, formas primitivas.
-Fundador de Die Brücke del Expresionismo alemán, tachado de degenerado por los nazis y que acabó con su vida.`
+Kirchner es Fundador de Die Brücke del Expresionismo alemán, tachado de degenerado por los nazis y que acabó con su vida.`
   },
   'kokoschka': {
     name: 'Kokoschka',
@@ -814,7 +813,7 @@ Fundador de Die Brücke del Expresionismo alemán, tachado de degenerado por los
 Pinceladas arrasadoras y tonos febriles revelan explosivamente la psicología del retratado.
 
 En La novia del viento, la pasión del amor; en la serie de Autorretratos, la angustia interior.
-Un anatomista del interior, tachado de degenerado por los nazis con 400 obras confiscadas.`
+Kokoschka es un anatomista del interior, tachado de degenerado por los nazis con 400 obras confiscadas.`
   },
 
   // ===== Modernismo =====
@@ -824,7 +823,7 @@ Un anatomista del interior, tachado de degenerado por los nazis con 400 obras co
 Rostros y cuerpos se fragmentan en planos angulares, mostrando frente y perfil simultáneamente.
 
 Con Las señoritas de Avignon abrió el Cubismo; en el Retrato de Dora Maar completó la descomposición multiperspectiva, dejando más de 50.000 obras en 91 años de vida.
-El arte del siglo XX en sí mismo: pintar no como se ve, sino como se piensa.`
+Picasso es el arte del siglo XX en sí mismo: pintar no como se ve, sino como se piensa.`
   },
   'lichtenstein': {
     name: 'Lichtenstein',
@@ -832,7 +831,7 @@ El arte del siglo XX en sí mismo: pintar no como se ve, sino como se piensa.`
 Técnicas de impresión de cómic ampliadas a la pintura; colores primarios planos y patrones de puntos transforman la cultura popular en arte.
 
 En ¡Whaam!, explosiones de aviones de combate; en Happy Tears, emociones de cómic trasladadas al lienzo, provocando el debate: «¿Esto es arte?».
-Un maestro del Pop Art que borró la frontera entre cultura popular y bellas artes.`
+Lichtenstein es un maestro del Pop Art que borró la frontera entre cultura popular y bellas artes.`
   },
   'miro': {
     name: 'Miró',
@@ -840,7 +839,7 @@ Un maestro del Pop Art que borró la frontera entre cultura popular y bellas art
 Líneas infantiles y libres y formas en colores primarios flotan sobre fondos blancos.
 
 En El paisaje catalán destiló los recuerdos de su tierra en símbolos; en Hacia las estrellas desplegó una imaginación cósmica.
-Un espíritu libre del arte que cruzó fronteras de género para crear su propio mundo simbólico.`
+Miró es un espíritu libre del arte que cruzó fronteras de género para crear su propio mundo simbólico.`
   },
   'magritte': {
     name: 'Magritte',
@@ -848,7 +847,7 @@ Un espíritu libre del arte que cruzó fronteras de género para crear su propio
 Pintados con realismo, pero combinados de formas imposibles en la realidad, rompiendo los marcos de la percepción.
 
 En La traición de las imágenes cuestionó la naturaleza de la representación; en Golconda invirtió lo cotidiano en surrealidad.
-Un pintor pensante que persiguió el misterio más allá de lo que el ojo puede ver.`
+Magritte es un pintor pensante que persiguió el misterio más allá de lo que el ojo puede ver.`
   },
   'chagall': {
     name: 'Chagall',
@@ -856,7 +855,7 @@ Un pintor pensante que persiguió el misterio más allá de lo que el ojo puede 
 Tonos pastel suaves y una atmósfera de ensueño despliegan mundos de amor y nostalgia.
 
 En Yo y la aldea, los recuerdos de su Vítebsk natal; en Sobre la ciudad, su amor por su esposa Bella, pintado toda la vida.
-Un poeta sobre el lienzo que cantó amor y nostalgia en color hasta los 97 años.`
+Chagall es un poeta sobre el lienzo que cantó amor y nostalgia en color hasta los 97 años.`
   }
 };
 

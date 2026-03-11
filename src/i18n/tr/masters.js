@@ -1,7 +1,7 @@
 // ========================================
 // Büyük Ustalar — Türkçe (tr)
 // i18n yapısı · 9 satır 2 paragraf
-// v71 - 2026-03-04 (ko/en yapısı)
+// 2026-03-11 수정 반영본
 // ========================================
 
 export const mastersBasicInfo = {
@@ -67,7 +67,7 @@ export const mastersBasicInfo = {
       subtitle1: 'Doğum Günü · Ben ve Köy · Gelin',
       subtitle2: 'Aşk ve rüyaların şairi',
       works: {
-        'lovers': { subtitle1: 'Doğum Günü (The Birthday)', subtitle2: 'Aşktan sarhoş olup yerçekimini unutan âşıklar' },
+        'lovers': { subtitle1: 'Âşıklar (The Lovers)', subtitle2: 'Aşktan sarhoş olup yerçekimini unutan âşıklar' },
         'lamariee': { subtitle1: 'Gelin (La Mariée)', subtitle2: 'Rüya ile gerçek arasında süzülen bir gelin' },
         'village': { subtitle1: 'Ben ve Köy (I and the Village)', subtitle2: 'Vatanın anıları bir rüya gibi akıyor' }
       }
@@ -80,8 +80,6 @@ export const mastersBasicInfo = {
       subtitle1: 'Avignonlu Kızlar · Guernica · Dora Maar Portresi',
       subtitle2: 'Bakış açısını yapıbozuma uğratan devrimci',
       works: {
-        'demoiselles': { subtitle1: 'Avignonlu Kızlar (Les Demoiselles d\'Avignon)', subtitle2: 'Kübizmin kapısını açan beş kadın' },
-        'guernica': { subtitle1: 'Guernica (Guernica)', subtitle2: 'Siyah beyazda patlayan bir savaş çığlığı' },
         'doramaar': { subtitle1: 'Dora Maar Portresi (Portrait of Dora Maar)', subtitle2: 'Yüz ve profil tek bir yüzde bir arada' }
       }
     }
@@ -94,7 +92,6 @@ export const mastersBasicInfo = {
       subtitle2: 'Acıyla yüzleşen otoportre',
       works: {
         'parrots': { subtitle1: 'Ben ve Papağanlarım (Me and My Parrots)', subtitle2: 'Yalnızlıkta papağanlarla bir otoportre' },
-        'brokencolumn': { subtitle1: 'Kırık Sütun (The Broken Column)', subtitle2: 'Çatlak bir bedenden yenilmez bir bakış' },
         'monkeys': { subtitle1: 'Maymunlu Otoportre (Self-Portrait with Monkeys)', subtitle2: 'Maymunların kucağında bir acı portresi' }
       }
     }
@@ -121,49 +118,49 @@ export const mastersLoadingEducation = {
 27 yaşında resim yapmaya başladı ve yalnızca on yılda 900 yağlıboya üretti, ama hayattayken yalnızca bir tane sattı.
 Yıldızlı Gece, Ayçiçekleri ve Gece Kafe Terası gibi başyapıtları yoksulluk ve ruhsal sıkıntı içinde doğdu.
 
-37 yaşında hayata veda etti, ama sanatı Ekspresyonizm ve Fovizm\'i derinden etkiledi.
+Van Gogh 37 yaşında hayata veda etti, ama sanatı Ekspresyonizm ve Fovizm\'i derinden etkiledi.
 "Kalbimi ve ruhumu işime koyuyorum." — Acıdan ölümsüz güzellik dokuyan ressam.` },
   'klimt': { name: 'Klimt', description: `Klimt, yüzyıl sonu Viyana\'sında Art Nouveau\'yu temsil eden sanatçıdır.
 Bir oymacının oğlu olarak tuval üzerine gerçek altın varak yapıştırdı, Bizans mozaiklerinden ilham alarak göz kamaştırıcı bir dekoratif dünya yarattı.
 Öpücük, Judith ve Hayat Ağacı, şehvanilik ile kutsallığın bir arada yaşadığı altın başyapıtlardır.
 
-Viyana Secession\'unu kurarak muhafazakâr sanat dünyasına meydan okudu.
+Klimt, Viyana Secession\'unu kurarak muhafazakâr sanat dünyasına meydan okudu.
 "Her çağın kendi sanatı, sanatın kendi özgürlüğü vardır." — Yüzyıl sonu güzelliğini altınla yakalayan ressam.` },
   'munch': { name: 'Munch', description: `Munch, Ekspresyonizm\'i temsil eden büyük Norveçli ressamdır.
 Beş yaşında annesini, on dört yaşında ablasını kaybetti; kayıp anısı ömür boyu tuvallerine hâkim oldu.
 Çığlık, Madonna ve Hayatın Dansı, aşkı, ölümü ve kaygıyı keşfeden "Hayat Frizi" serisinin eserleridir.
 
-"Gördüğümü değil, görmüş olduğumu resmederim" diyerek insanın en ilkel duygularını keşfetti.
+Munch, "Gördüğümü değil, görmüş olduğumu resmederim" diyerek insanın en ilkel duygularını keşfetti.
 "Hastalık, delilik ve ölüm beşiğimi bekleyen kara meleklerdi." — İçindeki karanlığı sanata yücelten ressam.` },
   'matisse': { name: 'Matisse', description: `Matisse, Fransız Fovizm\'inin en büyük temsilcisidir.
 21 yaşında yatağa düştüğünde annesi bir boya kutusu verdi; "Cenneti keşfetmiş gibi oldum" diye hatırladı.
 1905'te "Vahşiler!" çığlığı Fovizm\'in başlangıcı oldu; Dans, Yeşil Çizgi ve Kırmızı Oda gibi renk devriminin başyapıtlarını bıraktı.
 
-Saf renkle duyguları aktardı ve resmin dekoratif olanaklarını sınırlarına kadar zorladı.
+Matisse saf renkle duyguları aktardı ve resmin dekoratif olanaklarını sınırlarına kadar zorladı.
 "Rengin amacı biçim değil, duyguyu ifade etmektir." — Renklerle neşe şarkısı söyleyen ressam.` },
   'chagall': { name: 'Chagall', description: `Chagall, aşkı ve rüyaları tuvale döken bir ressamdır.
 Rusya\'daki bir Yahudi köyünde doğup Paris\'e göç etti; iki dünya savaşı ve sürgünde bile fırçasını bırakmadı.
 Eşi Bella ömür boyu sanatının kaynağıydı; Doğum Günü, Gelin ve Ben ve Köy gibi buketlerin ve âşıkların süzüldüğü başyapıtlar bıraktı.
 
-97 yaşına kadar çalıştı ve Paris Operası tavan resimleri ile vitraylarıyla dünyayı büyüledi.
+Chagall 97 yaşına kadar çalıştı ve Paris Operası tavan resimleri ile vitraylarıyla dünyayı büyüledi.
 "Hayatımızda yalnızca bir renk var — aşkın rengi." — Gerçek ile rüya arasındaki sınırı silen hayalperest şair.` },
   'picasso': { name: 'Picasso', description: `Picasso, Kübizm\'i kuran ve modern sanatın yönünü değiştiren devrimcidir.
 91 yıllık hayatında yaklaşık 50.000 eser bıraktı; 13 yaşında sanat öğretmeni babası onun yeteneğini görünce fırçayı bıraktı.
 Avignonlu Kızlar ile Kübizm\'in kapısını açtı, Guernica ile savaşı lanetledi, Dora Maar Portresi ile yapıbozumun zirvesini gösterdi.
 
-Mavi Dönem, Pembe Dönem, Kübizm, Sürrealizm\'den geçerek durmaksızın kendini yeniden yarattı.
+Picasso, Mavi Dönem, Pembe Dönem, Kübizm, Sürrealizm\'den geçerek durmaksızın kendini yeniden yarattı.
 "İyi sanatçılar taklit eder, büyük sanatçılar çalar." — Tüm kuralları yıkıp yenilerini yaratan ressam.` },
   'frida': { name: 'Frida Kahlo', description: `Frida Kahlo, Meksika\'nın en özgün ressamı ve feminizmin simgesidir.
 6 yaşında çocuk felcine yakalandı, 18 yaşında bir otobüs kazasında omurgası ve leğen kemiği parçalandı, hayatı boyunca 30'dan fazla ameliyat geçirdi.
 Yatağa düştükten sonra tavana monte edilmiş aynaya bakarak kendini çizmeye başladı; Ben ve Papağanlarım, Kırık Sütun, Maymunlu Otoportre — eserlerinin çoğu otoportredir.
 
-Acıyı, aşkı ve kimliği açıkça tuvale döktüğü sanat dünyası bugün hâlâ derin yankılar uyandırıyor.
+Frida'nın acıyı, aşkı ve kimliği açıkça tuvale döktüğü sanat dünyası bugün hâlâ derin yankılar uyandırıyor.
 "Ayaklar, sizi ne yapayım, uçacak kanatlarım varken." — Acıyı sanata yücelten yenilmez ressam.` },
   'lichtenstein': { name: 'Lichtenstein', description: `Lichtenstein, tek bir çizgi roman karesiyle güzel sanatların sınırını yıkan Pop Art ustasıdır.
 Oğlu Mickey Mouse çizgi romanını gösterip "Baba, sen de bu kadar iyi çizebilir misin?" diye sorunca, gerçekten çizgi romanları tuvale taşımaya başladı.
 Arabada, Belki ve Unut Gitsin! — çizgi roman sahnelerini dev tuvallere taşıyarak sanat dünyasını sarstı.
 
-Ben-Day noktaları ve kalın kontur çizgileriyle popüler kültür ile sanat arasındaki hiyerarşiyi altüst etti.
+Lichtenstein, Ben-Day noktaları ve kalın kontur çizgileriyle popüler kültür ile sanat arasındaki hiyerarşiyi altüst etti.
 "Çizgi roman çizmiyorum, çizgi romanı konu alan resimler yapıyorum." — Kitle kültürü ile güzel sanatlar arasındaki sınırı silen ressam.` }
 };
 
@@ -315,7 +312,7 @@ Natürmort, 1970'lerde Lichtenstein\'ın Picasso\'ya saygı olarak geleneksel ko
 "Natürmortlarımda atmosfer yok — sadece limon ve greyfurt var" dedi.` },
 
   // ===== Sanatçı yedek (belirli eser tanımlanamadığında) =====
-  'vangogh': { name: 'Van Gogh Tarzı', description: `Kalın impasto tekniği ve dönen fırça darbeleri uygulandı.
+  'vangogh': { name: 'Van Gogh Tarzı', description: `Van Gogh'un kalın impasto tekniği ve dönen fırça darbeleri uygulandı.
 Sarı ile mavi arasındaki yoğun kontrast iç dünyanın duygularını açığa çıkarıyor.
 
 40'tan fazla otoportre bıraktı; iç dünyasıyla en büyük dürüstlükle yüzleşti.

@@ -1,6 +1,6 @@
 // ========================================
 // One-Click Pintura oriental — Español (es)
-// v69 - 2026-02-03 (estructura: país→estilo)
+// 2026-03-11
 // ----------------------------------------
 // 1ª: tono poético (carga, expectación)
 // 2ª: definición del país (fijo) → presentación del estilo (variable)
@@ -106,7 +106,7 @@ El vacío que no se pinta es lo que más dice.`
 El espíritu del literato y la técnica cortesana coexistieron durante mil años.
 
 La gongbi es la pintura cortesana de precisión impecable, sin un solo trazo fuera de lugar.
-Capas de color transparente superpuestas crean profundidad y brillo.`
+Capas de color transparente superpuestas crean profundidad.`
   },
 
   // ========== Japón ==========

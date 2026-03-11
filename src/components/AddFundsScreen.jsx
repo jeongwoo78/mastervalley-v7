@@ -69,8 +69,8 @@ const AddFundsScreen = ({ onBack, userCredits = 2.50, onPurchase, lang = 'en' })
 
       {/* Info Text */}
       <div className="info-text">
-        <p>{t.info1}.</p>
-        <p>{t.info2}.</p>
+        <p>{t.info1}</p>
+        <p>{t.info2}</p>
       </div>
 
       <style>{`
@@ -121,7 +121,7 @@ const AddFundsScreen = ({ onBack, userCredits = 2.50, onPurchase, lang = 'en' })
 
         .balance-label {
           color: #888;
-          font-size: 13px;
+          font-size: 14px;
           margin-bottom: 8px;
         }
 
@@ -175,13 +175,13 @@ const AddFundsScreen = ({ onBack, userCredits = 2.50, onPurchase, lang = 'en' })
           padding: 2px 8px;
           background: #22c55e;
           border-radius: 10px;
-          font-size: 11px;
+          font-size: 12px;
           color: #fff;
           font-weight: 600;
         }
 
         .pack-desc {
-          font-size: 13px;
+          font-size: 14px;
           color: #666;
           line-height: 1.5;
         }
@@ -189,7 +189,7 @@ const AddFundsScreen = ({ onBack, userCredits = 2.50, onPurchase, lang = 'en' })
         .get-amount {
           color: #fff;
           font-weight: 700;
-          font-size: 13px;
+          font-size: 15px;
         }
 
         .bonus-text {
@@ -200,7 +200,7 @@ const AddFundsScreen = ({ onBack, userCredits = 2.50, onPurchase, lang = 'en' })
         .tagline {
           display: block;
           margin-top: 4px;
-          font-size: 11px;
+          font-size: 12px;
           color: rgba(255,255,255,0.85);
           font-style: italic;
         }

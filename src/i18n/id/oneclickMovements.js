@@ -1,6 +1,6 @@
 // ========================================
 // One-Click Aliran Seni — Bahasa Indonesia (id)
-// v69 - 2026-02-03
+// 2026-03-11
 // ========================================
 
 export const oneclickMovementsPrimary = {

@@ -1,6 +1,6 @@
 // ========================================
 // Um Clique Arte Oriental — Português (pt)
-// v69 - 2026-03-04
+// 2026-03-11
 // ========================================
 
 export const oneclickOrientalBasicInfo = {
@@ -64,7 +64,7 @@ export const oneclickOrientalSecondary = {
   },
 
   'chinese-gongbi': {
-    content: `A pintura tradicional chinesa é uma arte que captura o espírito do universo com gradações de tinta.\nO espírito do letrado e a técnica da corte coexistiram durante mil anos.\n\nO Gongbi é a pintura de corte executada com meticulosa precisão, sem uma pincelada errada.\nCores transparentes são sobrepostas em camadas para criar profundidade e brilho.`
+    content: `A pintura tradicional chinesa é uma arte que captura o espírito do universo com gradações de tinta.\nO espírito do letrado e a técnica da corte coexistiram durante mil anos.\n\nO Gongbi é a pintura de corte executada com meticulosa precisão, sem uma pincelada errada.\nCores transparentes são sobrepostas em camadas para criar profundidade.`
   },
 
   'japanese-ukiyoe': {

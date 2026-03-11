@@ -58,8 +58,8 @@ const InsufficientBalancePopup = ({
         
         {/* Subscription Info */}
         <div className="popup-sub-info">
-          <p>{tFunds.info1}.</p>
-          <p>{tFunds.info2}.</p>
+          <p>{tFunds.info1}</p>
+          <p>{tFunds.info2}</p>
         </div>
       </div>
 
@@ -137,7 +137,7 @@ const InsufficientBalancePopup = ({
         }
 
         .rec-label {
-          font-size: 11px;
+          font-size: 12px;
           color: #888;
           margin-bottom: 6px;
         }

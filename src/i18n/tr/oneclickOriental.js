@@ -1,6 +1,6 @@
 // ========================================
 // Tek Tıkla Doğu Sanatı — Türkçe (tr)
-// v69 - 2026-03-04
+// 2026-03-11
 // ========================================
 
 export const oneclickOrientalBasicInfo = {
@@ -64,7 +64,7 @@ export const oneclickOrientalSecondary = {
   },
 
   'chinese-gongbi': {
-    content: `Çin geleneksel resmi, mürekkep tonlamalarıyla evrenin ruhunu yakalayan bir sanattır.\nAydının ruhu ve sarayın tekniği bin yıl boyunca bir arada yaşadı.\n\nGongbi, tek bir yanlış fırça darbesi olmaksızın titiz hassasiyetle yapılan saray resmidir.\nŞeffaf renkler derinlik ve parlaklık oluşturmak için katman katman uygulanır.`
+    content: `Çin geleneksel resmi, mürekkep tonlamalarıyla evrenin ruhunu yakalayan bir sanattır.\nAydının ruhu ve sarayın tekniği bin yıl boyunca bir arada yaşadı.\n\nGongbi, tek bir yanlış fırça darbesi olmaksızın titiz hassasiyetle yapılan saray resmidir.\nŞeffaf renkler derinlik oluşturmak için katman katman uygulanır.`
   },
 
   'japanese-ukiyoe': {
