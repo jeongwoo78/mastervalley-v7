@@ -38,7 +38,7 @@ export const ui = {
     renaissance: 'عصر النهضة',
     baroque: 'الباروك',
     rococo: 'الروكوكو',
-    neoRomanReal: 'الكلاسيكية الجديدة · الرومانسية · الواقعية',
+    neoRomanReal: 'نيو·رومان·الواقعية',
     impressionism: 'الانطباعية',
     postImpressionism: 'ما بعد الانطباعية',
     fauvism: 'الوحشية',

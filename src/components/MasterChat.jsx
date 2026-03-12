@@ -48,8 +48,9 @@ const MasterChat = ({
   const [isChatEnded, setIsChatEnded] = useState(savedChatData?.isChatEnded || false);
   const chatAreaRef = useRef(null);
   const hasGreeted = useRef(savedChatData?.messages?.length > 0);
+  const isChatEndedRef = useRef(savedChatData?.isChatEnded || false);
   
-  const MAX_MESSAGES = 30; // 최대 대화 횟수
+  const MAX_MESSAGES = 5; // 테스트용 (출시 시 20으로 변경)
 
   // 테마 색상
   const theme = MASTER_THEMES[masterKey] || MASTER_THEMES['VAN GOGH'];
@@ -112,6 +113,7 @@ const MasterChat = ({
     // 30회 제한 체크
     if (messageCount >= MAX_MESSAGES) {
       setIsChatEnded(true);
+      isChatEndedRef.current = true;
       return;
     }
 
@@ -126,6 +128,7 @@ const MasterChat = ({
     // 30회 도달 시 종료 처리
     if (newCount >= MAX_MESSAGES) {
       setIsChatEnded(true);
+      isChatEndedRef.current = true;
       // 잠시 후 종료 메시지 표시
       setTimeout(() => {
         setMessages(prev => [...prev, { 
@@ -165,8 +168,8 @@ const MasterChat = ({
       
       console.log('Master feedback response:', data);
       
-      // 대화 종료 후 도착한 응답은 무시
-      if (isChatEnded) return;
+      // 대화 종료 후 도착한 응답은 무시 (ref로 최신값 확인)
+      if (isChatEndedRef.current) return;
       
       if (data.success && data.masterResponse) {
         // 거장 응답 추가

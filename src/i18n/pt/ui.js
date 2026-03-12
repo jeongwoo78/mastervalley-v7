@@ -36,7 +36,7 @@ export const ui = {
     renaissance: 'Renascimento',
     baroque: 'Barroco',
     rococo: 'Rococó',
-    neoRomanReal: 'Neoclassicismo · Romantismo · Realismo',
+    neoRomanReal: 'Neo·Romântico·Realismo',
     impressionism: 'Impressionismo',
     postImpressionism: 'Pós-impressionismo',
     fauvism: 'Fauvismo',
