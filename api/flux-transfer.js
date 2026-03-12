@@ -2867,6 +2867,8 @@ export default async function handler(req, res) {
     // 🎨 풍경/정물/동물일 때 control_strength 높여서 원본 구도 유지
     // (나중에 visionAnalysis 확인 후 조정됨)
     let landscapeStrengthBoost = false;
+    let visionAnalysis = null;
+    let identityPrompt = '';
     
     // v79: 일본도 한국/중국과 동일하게 AI 경로 사용 (Vision-only 경로 제거)
     // 모든 동양화가 동일한 selectArtistWithAI → curated prompt 매핑 구조
@@ -2884,8 +2886,7 @@ export default async function handler(req, res) {
       );
       
       // Vision 분석 결과 추출 (통합됨)
-      let visionAnalysis = null;
-      let identityPrompt = '';
+      // visionAnalysis, identityPrompt는 상위 스코프에서 선언됨
       
       if (aiResult.success && aiResult.visionData) {
         visionAnalysis = aiResult.visionData;
