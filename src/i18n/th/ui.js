@@ -38,7 +38,7 @@ export const ui = {
     renaissance: 'เรอเนสซองส์',
     baroque: 'บาโรก',
     rococo: 'โรโกโก',
-    neoRomanReal: 'นีโอ·โรแมนติก·เรียลลิสม์',
+    neoRomanReal: 'นีโอ · โรแมนติก · เรียลลิสม์',
     impressionism: 'อิมเพรสชันนิสม์',
     postImpressionism: 'โพสต์-อิมเพรส',
     fauvism: 'โฟวิสม์',
