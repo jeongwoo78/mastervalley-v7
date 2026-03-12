@@ -434,7 +434,7 @@ const MasterChat = ({
                 alt={masterName}
               />
             </div>
-            <div style={{ textAlign: 'center', fontSize: 18, fontWeight: 600, color: 'rgba(255,255,255,0.85)', marginBottom: 8 }}>
+            <div style={{ textAlign: 'center', fontSize: 18, fontWeight: 500, color: 'rgba(255,255,255,0.75)', marginBottom: 8 }}>
               {profile.fullName || masterName}
             </div>
             <div style={{ textAlign: 'center', fontSize: 13, color: 'rgba(255,255,255,0.45)', marginBottom: 4 }}>
@@ -444,7 +444,7 @@ const MasterChat = ({
               {profile.origin || ''}
             </div>
             <div style={{ width: 32, height: 1, background: 'rgba(255,255,255,0.1)', margin: '0 auto 18px' }} />
-            <div style={{ textAlign: 'center', fontSize: 14, color: 'rgba(255,255,255,0.65)', fontStyle: 'italic', lineHeight: 1.7, padding: '0 8px' }}>
+            <div style={{ textAlign: 'center', fontSize: 14, color: 'rgba(255,255,255,0.70)', fontStyle: 'italic', lineHeight: 1.7, padding: '0 8px' }}>
               {profile.quote || ''}
             </div>
           </div>

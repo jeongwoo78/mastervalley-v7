@@ -236,6 +236,16 @@ export const ui = {
     weakPassword: '비밀번호는 6자 이상이어야 합니다',
     wrongCredentials: '이메일 또는 비밀번호가 올바르지 않습니다',
     loginFailed: '로그인 실패. 다시 시도해주세요.',
+    // Developer message
+    devMsg1: '저는 Master Valley의 개발자이자, 첫 번째 유저입니다.',
+    devMsg2: '르네상스의 예술가들은 천 년간 이어진 신 중심의 관습을 깨고, 인간의 이상을 다시 세웠습니다.',
+    devMsg3: '혁명이 지나고 카메라가 등장했을 때, 카메라는 물었습니다.',
+    devMsg4: '"이제 무엇을 그릴 것인가?"',
+    devMsg5: '누군가는 빛으로, 누군가는 색으로, 또 누군가는 감정과 새로운 시각으로 답했습니다.',
+    devMsgHi1: '지금 AI가 같은 질문을 던집니다.',
+    devMsgHi2: '"우리는 무엇을 할 것인가?"',
+    devMsg6: '서양 2800년의 변화와 거장의 시선, 동양 천 년의 철학.',
+    devMsg7: 'Master Valley에 그 실마리가 있습니다.',
   },
 
   // ===== Common =====
