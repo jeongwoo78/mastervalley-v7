@@ -29,6 +29,7 @@ export const ui = {
     mastersFullDesc: 'لقاء مع 7 أساتذة عظام',
     orientalFullTitle: 'جماليات الشرق لألف عام',
     orientalFullDesc: 'الصين · اليابان · كوريا',
+    perTransform: 'تحويل',
     selectMovement: 'اختر الحركة الفنية',
     selectMaster: 'اختر الأستاذ',
     selectStyle: 'اختر الأسلوب',

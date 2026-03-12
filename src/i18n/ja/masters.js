@@ -20,7 +20,7 @@ export const mastersBasicInfo = {
         'starrynight': { subtitle1: '星月夜（The Starry Night）', subtitle2: '夜空を渦巻きに染め上げる' },
         'cafe': { subtitle1: '夜のカフェテラス（Café Terrace at Night）', subtitle2: '星明かりの下に輝く黄色い夜' },
         'sunflowers': { subtitle1: 'ひまわり（Sunflowers）', subtitle2: '太陽に似た花、情熱の色彩' },
-        'selfportrait': { subtitle1: '灰色のフェルト帽の自画像（Self-Portrait with Grey Felt Hat）', subtitle2: '鏡の中の魂を見つめる' },
+        'selfportrait': { subtitle1: '自画像（Self-Portrait, 1889）', subtitle2: '鏡の中の魂を見つめる' },
         'wheatfield': { subtitle1: '糸杉のある麦畑（Wheat Field with Cypresses）', subtitle2: '風にうねる金色の大地' }
       }
     }
@@ -249,10 +249,10 @@ export const mastersResultEducation = {
 花瓶のひまわりは南仏の太陽そのものであり、友人ゴーギャンを迎えるための歓迎の花でした。`
   },
   'vangogh-selfportrait': {
-    description: `〈灰色のフェルト帽の自画像〉に見られる方向性のある筆致と補色対比の心理的表現が適用されています。
+    description: `〈自画像〉に見られる方向性のある筆致と補色対比の心理的表現が適用されています。
 背景の青い渦巻きと顔の暖色系の色彩が互いにぶつかり、内面の葛藤を浮かび上がらせています。
 
-〈灰色のフェルト帽の自画像〉はファン・ゴッホがモデルを雇えない貧困の中で自らを対象として描いた作品です。
+〈自画像〉はファン・ゴッホがモデルを雇えない貧困の中で自らを対象として描いた作品です。
 正面を見据える眼差しと固く結んだ口が、苦悩の中でも揺るがない意志を示しています。`
   },
   'vangogh-wheatfield': {

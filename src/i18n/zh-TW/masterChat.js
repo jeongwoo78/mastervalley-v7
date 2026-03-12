@@ -9,13 +9,13 @@ export const masterChat = {
   common: {
     chatWith: '與{masterName}（AI）對話',
     helpText: '請大師修改結果，或詢問任何問題。',
-    chatEnded: '對話已結束。',
+    chatEnded: '與大師的對話已結束。',
     retransformComplete: '💡 重新轉換完成！先前的圖片已儲存至相簿。',
     requestModify: '修改',
     errorMessage: '...抱歉，思緒有些紊亂，可以再說一次嗎？',
     modifying: '正在修改{masterName}的畫作。',
     senderMe: '我',
-    placeholderEnded: '對話已結束',
+    placeholderEnded: '與大師的對話已結束',
     placeholderConverting: '轉換中...',
     placeholderDefault: '與{masterName}對話...'
   },
@@ -26,7 +26,7 @@ export const masterChat = {
     'KLIMT': '克林姆',
     'MUNCH': '孟克',
     'CHAGALL': '夏卡爾',
-    'MATISSE': '馬諦斯',
+    'MATISSE': '馬蒂斯',
     'FRIDA': '芙烈達・卡蘿',
     'LICHTENSTEIN': '李奇登斯坦'
   },
@@ -37,7 +37,7 @@ export const masterChat = {
     'KLIMT': '我是來自維也納的克林姆，透過AI復活了。我完成了你的畫作，你覺得如何？',
     'MUNCH': '我是來自奧斯陸的孟克，透過AI復活了。我完成了你的畫作，你覺得如何？',
     'CHAGALL': '我是來自維捷布斯克的夏卡爾，透過AI復活了。我完成了你的畫作，你覺得如何？',
-    'MATISSE': '我是來自尼斯的馬諦斯，透過AI復活了。我完成了你的畫作，你覺得如何？',
+    'MATISSE': '我是來自尼斯的馬蒂斯，透過AI復活了。我完成了你的畫作，你覺得如何？',
     'FRIDA': '我是來自墨西哥的芙烈達，透過AI復活了。我完成了你的畫作，你覺得如何？',
     'LICHTENSTEIN': '我是來自紐約的李奇登斯坦，透過AI復活了。我完成了你的畫作，你覺得如何？'
   },
@@ -66,13 +66,13 @@ export const masterChat = {
 
   // ===== 道別訊息 (7) =====
   farewellMessages: {
-    'VAN GOGH': '那麼，我先回工作室了。',
-    'KLIMT': '那麼，我先回工作室了。',
-    'MUNCH': '那麼，我先回工作室了。',
-    'CHAGALL': '那麼，我先回工作室了。',
-    'MATISSE': '那麼，我先回工作室了。',
-    'FRIDA': '那麼，我先回工作室了。',
-    'LICHTENSTEIN': '那麼，我先回工作室了。'
+    'VAN GOGH': '與你的對話很愉快。可惜，星星在呼喚我——我得回到畫布前了。',
+    'KLIMT': '與你的對話令人愉悅。可惜，金色的夢在等待著我——我得回去了。',
+    'MUNCH': '與你的對話很愉快。可惜，內心的聲音再次呼喚我——我得走了。',
+    'CHAGALL': '與你的對話很愉快。可惜，該飛回我的夢境了。',
+    'MATISSE': '與你的對話很愉快。可惜，色彩在等待著我——我得走了。',
+    'FRIDA': '與你的對話很開心。但該回到我的鏡子前了。',
+    'LICHTENSTEIN': '與你的對話很開心。但圓點們在等我呢！'
   }
 };
 

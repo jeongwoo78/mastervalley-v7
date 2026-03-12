@@ -9,13 +9,13 @@ export const masterChat = {
   common: {
     chatWith: 'Discuter avec {masterName} (IA)',
     helpText: 'Demandez au maître de modifier le résultat ou posez-lui n\'importe quelle question.',
-    chatEnded: 'La conversation est terminée.',
+    chatEnded: 'La conversation avec le maître est terminée.',
     retransformComplete: '💡 Retransformation terminée ! L\'image précédente est sauvegardée dans votre galerie.',
     requestModify: 'Modifier',
     errorMessage: '...Pardonnez-moi, j\'ai perdu le fil un instant. Pourriez-vous répéter ?',
     modifying: 'Modification du tableau de {masterName}.',
     senderMe: 'Moi',
-    placeholderEnded: 'Conversation terminée',
+    placeholderEnded: 'Conversation avec le maître terminée',
     placeholderConverting: 'Transformation en cours...',
     placeholderDefault: 'Converser avec {masterName}...'
   },
@@ -66,13 +66,13 @@ export const masterChat = {
 
   // ===== Messages d\'au revoir (7) =====
   farewellMessages: {
-    'VAN GOGH': 'Bien, je retourne à mon atelier.',
-    'KLIMT': 'Bien, je regagne mon atelier.',
-    'MUNCH': 'Bien, je retourne à mon atelier.',
-    'CHAGALL': 'Bien, je retourne à mon atelier.',
-    'MATISSE': 'Bien, je retourne à mon atelier.',
-    'FRIDA': 'Bien, je retourne à mon atelier.',
-    'LICHTENSTEIN': 'Bien, je retourne à mon atelier.'
+    'VAN GOGH': 'J\'ai apprécié notre conversation. Mais les étoiles m\'appellent — je dois retourner à ma toile.',
+    'KLIMT': 'Notre conversation fut un plaisir. Mais les rêves dorés m\'attendent — je dois partir.',
+    'MUNCH': 'J\'ai apprécié notre conversation. Mais les voix intérieures m\'appellent à nouveau — je dois partir.',
+    'CHAGALL': 'J\'ai apprécié notre conversation. Mais il est temps de revoler dans mes rêves.',
+    'MATISSE': 'J\'ai apprécié notre conversation. Mais les couleurs m\'attendent — je dois partir.',
+    'FRIDA': 'J\'ai apprécié notre échange. Mais il est temps de retourner devant mon miroir.',
+    'LICHTENSTEIN': 'J\'ai apprécié notre échange. Mais les points m\'attendent !'
   }
 };
 

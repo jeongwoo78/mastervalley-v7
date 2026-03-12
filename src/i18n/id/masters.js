@@ -14,7 +14,7 @@ export const mastersBasicInfo = {
         'starrynight': { subtitle1: 'Malam Berbintang (The Starry Night)', subtitle2: 'Langit malam dilukis dalam pusaran' },
         'cafe': { subtitle1: 'Teras Kafe di Malam Hari (Café Terrace at Night)', subtitle2: 'Cahaya kuning hangat di bawah sinar bintang' },
         'sunflowers': { subtitle1: 'Bunga Matahari (Sunflowers)', subtitle2: 'Bunga yang dicium matahari, membara penuh gairah' },
-        'selfportrait': { subtitle1: 'Potret Diri dengan Topi Felt Abu-abu (Self-Portrait with Grey Felt Hat)', subtitle2: 'Menatap cermin jiwa' },
+        'selfportrait': { subtitle1: 'Potret Diri (Self-Portrait, 1889)', subtitle2: 'Menatap cermin jiwa' },
         'wheatfield': { subtitle1: 'Ladang Gandum dengan Cemara (Wheat Field with Cypresses)', subtitle2: 'Ladang emas menari di angin' },
       }
     }, },
@@ -174,7 +174,7 @@ Kini karya-karyanya terjual dengan harga puluhan juta dolar—membuktikan bahwa 
 
 export const mastersResultEducation = {
   'vangogh-selfportrait': {
-    description: `Latar belakang berputar dan sapuan impasto tebal dari 〈Self-Portrait with Grey Felt Hat〉 telah diterapkan.
+    description: `Latar belakang berputar dan sapuan impasto tebal dari 〈Self-Portrait〉 telah diterapkan.
 Tona dingin hijau dan biru menciptakan intensitas psikologis.
 
 〈Self-Portrait〉 adalah cermin di mana Van Gogh menatap dirinya sendiri—dan kita.

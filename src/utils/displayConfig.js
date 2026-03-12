@@ -251,15 +251,15 @@ export const ALIASES = {
   '古斯塔夫·克林姆': 'klimt',
   '孟克': 'munch',
   '愛德華·孟克': 'munch',
-  '馬諦斯': 'matisse',
-  '亨利·馬諦斯': 'matisse',
+  '馬蒂斯': 'matisse',
+  '亨利·馬蒂斯': 'matisse',
   '夏卡爾': 'chagall',
   '馬克·夏卡爾': 'chagall',
   '畢卡索': 'picasso',
   '巴勃羅·畢卡索': 'picasso',
   '芙烈達·卡蘿': 'frida',
-  '乃乞登斯坦': 'lichtenstein',
-  '羅伊·乃乞登斯坦': 'lichtenstein',
+  '李奇登斯坦': 'lichtenstein',
+  '羅伊·李奇登斯坦': 'lichtenstein',
   
   // ===== 동양화 별칭 =====
   // 한국 - 민화
@@ -572,7 +572,20 @@ export const ALIASES = {
   'joan miró': 'miro',
   'joanmiro': 'miro',
   '미로': 'miro',
-  '호안미로': 'miro'
+  '호안미로': 'miro',
+
+  // v81: 누락 비라틴 alias 추가 (th/ar/ja/zh-TW)
+  'غوخ': 'vangogh',
+  'โก๊ะ': 'vangogh',
+  'แวน โก๊ะ': 'vangogh',
+  'คลิมต์': 'klimt',
+  'มุงค์': 'munch',
+  'ชากาล': 'chagall',
+  'フリーダ': 'frida',
+  'فريدا': 'frida',
+  'ฟรีดา': 'frida',
+  '芙烈達': 'frida',
+  'ลิกเตนสไตน์': 'lichtenstein'
 };
 
 // ========================================

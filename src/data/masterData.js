@@ -192,7 +192,7 @@ export const MASTERS = {
       'starrynight': ['The Starry Night, 1889', '별이 빛나는 밤, 1889', 'Starry Night'],
       'cafe': ['Café Terrace at Night, 1888', '밤의 카페 테라스, 1888', 'Cafe Terrace', 'Café Terrace at Night', 'Cafe Terrace at Night'],
       'sunflowers': ['Sunflowers, 1888', '해바라기, 1888', 'Sunflowers'],
-      'selfportrait': ['Self-Portrait with Grey Felt Hat, 1887', '회색 펠트 모자 자화상, 1887', 'Grey Felt Hat'],
+      'selfportrait': ['Self-Portrait, 1889', '자화상, 1889', 'Self-Portrait'],
       'wheatfield': ['Wheat Field with Cypresses, 1889', '사이프러스 밀밭, 1889', 'Cypresses']
     }
   },
@@ -902,18 +902,17 @@ export const findMasterByNameOrWork = (artistName, workName) => {
   const normalizedArtist = artistName?.toLowerCase().trim();
   const normalizedWork = workName?.toLowerCase().trim();
   
+  // 1차: 화가명 매칭 우선 (전체 순회)
   for (const [masterId, master] of Object.entries(MASTERS)) {
-    // 화가명 매칭 (masterId, key, aliases 포함)
     const artistMatch = 
-      masterId === normalizedArtist ||                              // masterId 직접 매칭 (예: 'frida-master')
-      masterId.replace('-master', '') === normalizedArtist ||       // masterId에서 -master 제거 후 매칭
+      masterId === normalizedArtist ||
+      masterId.replace('-master', '') === normalizedArtist ||
       master.key === normalizedArtist ||
       master.en?.toLowerCase() === normalizedArtist ||
       master.ko === artistName ||
       master.aliases?.some(a => a.toLowerCase() === normalizedArtist);
     
     if (artistMatch) {
-      // 작품명도 있으면 작품 매칭
       if (workName && master.works) {
         for (const [workKey, workNames] of Object.entries(master.works)) {
           if (workNames.some(w => w.toLowerCase() === normalizedWork || normalizedWork?.includes(w.toLowerCase()))) {
@@ -921,19 +920,23 @@ export const findMasterByNameOrWork = (artistName, workName) => {
           }
         }
       }
-      // 작품명 없으면 화가만 반환
       return { master, workKey: null, masterId };
     }
-    
-    // 작품명으로만 검색
-    if (workName && master.works) {
-      for (const [workKey, workNames] of Object.entries(master.works)) {
-        if (workNames.some(w => w.toLowerCase() === normalizedWork || normalizedWork?.includes(w.toLowerCase()))) {
-          return { master, workKey, masterId };
+  }
+  
+  // 2차: 화가명 매칭 실패 시에만 작품명으로 검색
+  if (workName) {
+    for (const [masterId, master] of Object.entries(MASTERS)) {
+      if (master.works) {
+        for (const [workKey, workNames] of Object.entries(master.works)) {
+          if (workNames.some(w => w.toLowerCase() === normalizedWork || normalizedWork?.includes(w.toLowerCase()))) {
+            return { master, workKey, masterId };
+          }
         }
       }
     }
   }
+  
   return null;
 };
 

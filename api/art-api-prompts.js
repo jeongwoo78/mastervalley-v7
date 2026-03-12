@@ -863,10 +863,10 @@ export const POST_IMPRESSIONISM_PROMPTS = {
     prompt: `Hand-painted oil painting of the subject by Vincent van Gogh. Thick impasto paint swirls and builds across the canvas. Intense complementary colors clash and vibrate intensely. Outlines ripple within heavy ridges of paint. The surface rises roughly in thick paint ridges. Edges between forms twist inside swirling strokes. Chrome yellow dominates almost the entire surface with burning heat. Chrome yellow 40%, ochre yellow 25%, orange 20%, ivory 15%. A simple flat yellow fills the background. Thick brushstrokes cover the skin in yellow and ochre. Bright chrome yellow light catches on the raised paint ridges. Brushwork follows the curves of the petals and swirls into the seed heads. Warm light illuminates evenly from the front. Ochre and orange sink into the paint valleys and lower areas. Chrome yellow claims 80% of the surface with ochre and orange filling the rest.`
   },
 
-  // ★ 회색 펠트 모자 자화상 — 104w
+  // ★ 자화상 — 104w
   'vangogh-selfportrait': {
-    name: '회색 펠트 모자 자화상',
-    nameEn: 'Self-Portrait with Grey Felt Hat',
+    name: '자화상',
+    nameEn: 'Self-Portrait',
     prompt: `Hand-painted oil painting of the subject by Vincent van Gogh. Thick impasto paint swirls and builds across the canvas. Intense complementary colors clash and vibrate intensely. Outlines ripple within heavy ridges of paint. The surface rises roughly in thick paint ridges. Edges between forms twist inside swirling strokes. Intense brushstrokes explode radially outward from the center. Cobalt blue 30%, chrome yellow 25%, olive green 25%, ivory 20%. Swirling blue and green brushstrokes fill the background. Radial brushstrokes cover the skin intensely in yellow, green, and blue. Chrome yellow light catches strongly on the forehead and nose. Brushwork radiates outward from the center. Warm light from the left illuminates one side of the form. Cobalt blue and olive green sink into the right side and background. Yellow and green placed on the bright side with blue reserved for the dark side and background.`
   },
 
@@ -1581,7 +1581,7 @@ export const masterworkNameMapping = {
   // 반 고흐 (vangogh-seascape 삭제됨)
   'the starry night': 'vangogh-starrynight', '별이 빛나는 밤': 'vangogh-starrynight', 'starry night': 'vangogh-starrynight',
   'sunflowers': 'vangogh-sunflowers', '해바라기': 'vangogh-sunflowers',
-  'self-portrait with grey felt hat': 'vangogh-selfportrait', '회색 펠트 모자 자화상': 'vangogh-selfportrait', 'grey felt hat': 'vangogh-selfportrait',
+  'self-portrait': 'vangogh-selfportrait', '자화상': 'vangogh-selfportrait', 'self portrait': 'vangogh-selfportrait',
   'café terrace at night': 'vangogh-cafe', 'cafe terrace': 'vangogh-cafe', '밤의 카페 테라스': 'vangogh-cafe',
   'wheat field with cypresses': 'vangogh-wheatfield', '사이프러스 밀밭': 'vangogh-wheatfield', 'cypresses': 'vangogh-wheatfield',
   

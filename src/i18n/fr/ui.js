@@ -29,6 +29,7 @@ export const ui = {
     mastersFullDesc: 'Rencontre avec 7 maîtres',
     orientalFullTitle: 'Esthétique orientale millénaire',
     orientalFullDesc: 'Chine · Japon · Corée',
+    perTransform: 'conversion',
     selectMovement: 'Sélectionnez un mouvement',
     selectMaster: 'Sélectionnez un maître',
     selectStyle: 'Sélectionnez un style',

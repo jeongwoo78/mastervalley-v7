@@ -20,7 +20,7 @@ export const mastersBasicInfo = {
         'starrynight': { subtitle1: 'The Starry Night', subtitle2: 'The night sky painted in swirls' },
         'cafe': { subtitle1: 'Café Terrace at Night', subtitle2: 'A warm glow of yellow under starlight' },
         'sunflowers': { subtitle1: 'Sunflowers', subtitle2: 'Sun-kissed blooms, blazing with passion' },
-        'selfportrait': { subtitle1: 'Self-Portrait with Grey Felt Hat', subtitle2: 'Gazing into the mirror of the soul' },
+        'selfportrait': { subtitle1: 'Self-Portrait (1889)', subtitle2: 'Gazing into the mirror of the soul' },
         'wheatfield': { subtitle1: 'Wheat Field with Cypresses', subtitle2: 'Golden fields dancing in the wind' }
       }
     }
@@ -249,10 +249,10 @@ Thickly layered paint captures the texture of the petals as they are.
 Full blooms, wilted flowers, and seeds together reveal the cycle of life.`
   },
   'vangogh-selfportrait': {
-    description: `The swirling background and thick impasto brushstrokes of 〈Self-Portrait with Grey Felt Hat〉 have been applied.
+    description: `The swirling background and thick impasto brushstrokes of 〈Self-Portrait〉 have been applied.
 Cool tones of blue and green convey both solitude and resolve.
 
-〈Self-Portrait with Grey Felt Hat〉 was painted when Van Gogh, too poor to afford models, used himself as subject.
+〈Self-Portrait〉 was painted when Van Gogh, too poor to afford models, used himself as subject.
 The eyes gazing directly forward and tightly closed lips show unwavering will amid suffering.`
   },
   'vangogh-wheatfield': {

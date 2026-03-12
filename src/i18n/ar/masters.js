@@ -15,7 +15,7 @@ export const mastersBasicInfo = {
         'starrynight': { subtitle1: 'ليلة النجوم (The Starry Night)', subtitle2: 'سماء ليلية مرسومة بدوامات' },
         'cafe': { subtitle1: 'شرفة المقهى ليلاً (Café Terrace at Night)', subtitle2: 'ليلة ذهبية تتلألأ تحت النجوم' },
         'sunflowers': { subtitle1: 'عباد الشمس (Sunflowers)', subtitle2: 'زهور تشبه الشمس، ألوان ملتهبة' },
-        'selfportrait': { subtitle1: 'بورتريه ذاتي بقبعة لبّاد رمادية (Self-Portrait with Grey Felt Hat)', subtitle2: 'نظرة في مرآة الروح' },
+        'selfportrait': { subtitle1: 'بورتريه ذاتي (Self-Portrait, 1889)', subtitle2: 'نظرة في مرآة الروح' },
         'wheatfield': { subtitle1: 'حقل القمح مع أشجار السرو (Wheat Field with Cypresses)', subtitle2: 'أرض ذهبية تتموّج في الريح' }
       }
     }
@@ -181,7 +181,7 @@ export const mastersResultEducation = {
 
 عباد الشمس هي هدية ترحيب رسمها فان غوخ لصديقه غوغان انتظاراً لزيارته في آرل.
 من التفتّح الكامل إلى الذبول، الحيوية والانحلال يُعبَّر عنهما في آن واحد.` },
-  'vangogh-selfportrait': { description: `ضربات الفرشاة القصيرة والخلفيات الحلزونية من بورتريه ذاتي بقبعة لبّاد رمادية تم تطبيقها.
+  'vangogh-selfportrait': { description: `ضربات الفرشاة القصيرة والخلفيات الحلزونية من بورتريه ذاتي تم تطبيقها.
 اللوحة الباردة وضربات الفرشاة الدوّارة تخلق جوّاً من التوتّر النفسي.
 
 البورتريه الذاتي عمل وُلد من الفقر، حين لم يستطع فان غوخ دفع أجر عارض فرسم نفسه.

@@ -15,7 +15,7 @@ export const mastersBasicInfo = {
         'starrynight': { subtitle1: 'Yıldızlı Gece (The Starry Night)', subtitle2: 'Girdaplarla boyanmış bir gece gökyüzü' },
         'cafe': { subtitle1: 'Gece Kafe Terası (Café Terrace at Night)', subtitle2: 'Yıldızlar altında parlayan altın bir gece' },
         'sunflowers': { subtitle1: 'Ayçiçekleri (Sunflowers)', subtitle2: 'Güneşe benzeyen çiçekler, alevli renkler' },
-        'selfportrait': { subtitle1: 'Gri Keçe Şapkalı Otoportre (Self-Portrait with Grey Felt Hat)', subtitle2: 'Ruhun aynasına bakış' },
+        'selfportrait': { subtitle1: 'Otoportre (Self-Portrait, 1889)', subtitle2: 'Ruhun aynasına bakış' },
         'wheatfield': { subtitle1: 'Selvili Buğday Tarlası (Wheat Field with Cypresses)', subtitle2: 'Rüzgârda dalgalanan altın topraklar' }
       }
     }
@@ -181,7 +181,7 @@ Sarı üstüne sarı, boya o kadar kalın ki tuval üzerinde heykelsi bir doku k
 
 Ayçiçekleri, Van Gogh\'un yakın dostu Gauguin\'i Arles\'a gelişinde karşılamak için yaptığı hoşgeldin hediyesidir.
 Tam açmıştan solmuşa, canlılık ve çürüme aynı anda ifade ediliyor.` },
-  'vangogh-selfportrait': { description: `Gri Keçe Şapkalı Otoportre\'nin kısa fırça darbeleri ve sarmal arka planı uygulandı.
+  'vangogh-selfportrait': { description: `Otoportre\'nin kısa fırça darbeleri ve sarmal arka planı uygulandı.
 Soğuk tonlar ve dönen fırça darbeleri psikolojik bir gerilim atmosferi yaratıyor.
 
 Otoportre, Van Gogh\'un model tutacak parası olmadığında kendini çizerek ürettiği bir eserdir.

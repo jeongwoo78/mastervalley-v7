@@ -9,13 +9,13 @@ export const masterChat = {
   common: {
     chatWith: 'Chatear con {masterName} (IA)',
     helpText: 'Pídele al maestro que modifique el resultado o hazle cualquier pregunta.',
-    chatEnded: 'La conversación ha finalizado.',
+    chatEnded: 'La conversación con el maestro ha finalizado.',
     retransformComplete: '💡 ¡Retransformación completada! La imagen anterior está guardada en tu galería.',
     requestModify: 'Modificar',
     errorMessage: '...Perdona, me he distraído un momento. ¿Podrías repetirlo?',
     modifying: 'Modificando el cuadro de {masterName}.',
     senderMe: 'Yo',
-    placeholderEnded: 'Conversación finalizada',
+    placeholderEnded: 'Conversación con el maestro finalizada',
     placeholderConverting: 'Transformando...',
     placeholderDefault: 'Conversar con {masterName}...'
   },
@@ -66,13 +66,13 @@ export const masterChat = {
 
   // ===== Despedidas (7) =====
   farewellMessages: {
-    'VAN GOGH': 'Bueno, vuelvo a mi estudio.',
-    'KLIMT': 'Bien, regreso a mi estudio.',
-    'MUNCH': 'Bueno, vuelvo a mi estudio.',
-    'CHAGALL': 'Bueno, vuelvo a mi estudio.',
-    'MATISSE': 'Bueno, vuelvo a mi estudio.',
-    'FRIDA': 'Bueno, vuelvo a mi estudio.',
-    'LICHTENSTEIN': 'Bueno, vuelvo a mi estudio.'
+    'VAN GOGH': 'Disfruté nuestra conversación. Pero las estrellas me llaman — debo volver a mi lienzo.',
+    'KLIMT': 'Nuestra conversación fue un placer. Pero los sueños dorados me esperan — debo regresar.',
+    'MUNCH': 'Disfruté nuestra conversación. Pero las voces interiores me llaman de nuevo — debo irme.',
+    'CHAGALL': 'Disfruté nuestra conversación. Pero es hora de volar de vuelta a mis sueños.',
+    'MATISSE': 'Disfruté nuestra conversación. Pero los colores me esperan — debo irme.',
+    'FRIDA': 'Disfruté nuestra charla. Pero es hora de volver a mi espejo.',
+    'LICHTENSTEIN': 'Disfruté nuestra charla. ¡Pero los puntos me están esperando!'
   }
 };
 

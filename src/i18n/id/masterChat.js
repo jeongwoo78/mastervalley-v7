@@ -9,13 +9,13 @@ export const masterChat = {
   common: {
     chatWith: 'Bicara dengan {masterName} (AI)',
     helpText: 'Minta maestro untuk memodifikasi hasilnya, atau tanyakan apa saja.',
-    chatEnded: 'Percakapan telah berakhir.',
+    chatEnded: 'Percakapan dengan maestro telah berakhir.',
     retransformComplete: '💡 Retransformasi selesai! Gambar sebelumnya tersimpan di galeri.',
     requestModify: 'Modifikasi',
     errorMessage: '...Maaf, pikiranku sempat teralihkan. Bisakah kau ulangi?',
     modifying: 'Memodifikasi lukisan {masterName}.',
     senderMe: 'Saya',
-    placeholderEnded: 'Percakapan telah berakhir',
+    placeholderEnded: 'Percakapan dengan maestro telah berakhir',
     placeholderConverting: 'Mentransformasi...',
     placeholderDefault: 'Bicara dengan {masterName}...'
   },
@@ -66,13 +66,13 @@ export const masterChat = {
 
   // ===== Pesan Perpisahan (7) =====
   farewellMessages: {
-    'VAN GOGH': 'Baiklah, aku kembali ke studioku.',
-    'KLIMT': 'Baiklah, aku kembali ke studioku.',
-    'MUNCH': 'Baiklah, aku kembali ke studioku.',
-    'CHAGALL': 'Baiklah, aku kembali ke studioku.',
-    'MATISSE': 'Baiklah, aku kembali ke studioku.',
-    'FRIDA': 'Baiklah, aku kembali ke studioku.',
-    'LICHTENSTEIN': 'Baiklah, aku kembali ke studioku.'
+    'VAN GOGH': 'Aku menikmati percakapan kita. Tapi bintang-bintang memanggilku — aku harus kembali ke kanvasku.',
+    'KLIMT': 'Percakapan kita sangat menyenangkan. Tapi mimpi keemasan menungguku — aku harus pergi.',
+    'MUNCH': 'Aku menikmati percakapan kita. Tapi suara-suara dalam diri memanggilku lagi — aku harus pergi.',
+    'CHAGALL': 'Aku menikmati percakapan kita. Tapi sudah waktunya terbang kembali ke dunia mimpiku.',
+    'MATISSE': 'Aku menikmati percakapan kita. Tapi warna-warna menungguku — aku harus pergi.',
+    'FRIDA': 'Aku menikmati obrolan kita. Tapi sudah waktunya kembali ke cerminku.',
+    'LICHTENSTEIN': 'Aku menikmati obrolan kita. Tapi titik-titik sudah memanggilku!'
   }
 };
 

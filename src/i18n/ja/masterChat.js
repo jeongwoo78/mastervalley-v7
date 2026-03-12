@@ -9,13 +9,13 @@ export const masterChat = {
   common: {
     chatWith: '{masterName}（AI）と話す',
     helpText: '巨匠に結果の修正を依頼したり、何でも質問してください。',
-    chatEnded: '会話が終了しました。',
+    chatEnded: '巨匠との会話が終了しました。',
     retransformComplete: '💡 再変換完了！前の画像はギャラリーに保存されています。',
     requestModify: '修正',
     errorMessage: '...すまない、少し考えが乱れた。もう一度言ってくれるか？',
     modifying: '{masterName}の絵を修正中です。',
     senderMe: '私',
-    placeholderEnded: '会話が終了しました',
+    placeholderEnded: '巨匠との会話が終了しました',
     placeholderConverting: '変換中...',
     placeholderDefault: '{masterName}と話す...'
   },
@@ -66,13 +66,13 @@ export const masterChat = {
 
   // ===== 別れの挨拶 (7) =====
   farewellMessages: {
-    'VAN GOGH': 'では、私はアトリエに戻るとしよう。',
-    'KLIMT': 'では、私はアトリエに戻ります。',
-    'MUNCH': 'では、私はアトリエに戻るとしよう。',
-    'CHAGALL': 'では、私はアトリエに戻るとしよう。',
-    'MATISSE': 'では、私はアトリエに戻るとしよう。',
-    'FRIDA': 'では、私はアトリエに戻るわ。',
-    'LICHTENSTEIN': 'では、私はアトリエに戻るとしよう。'
+    'VAN GOGH': '君との会話は楽しかった。残念だが、星が呼んでいる――キャンバスに戻るとしよう。',
+    'KLIMT': 'あなたとの会話は楽しゅうございました。残念ですが、黄金の夢が待っています。',
+    'MUNCH': '君との会話は楽しかった。残念だが、内なる声が再び呼んでいる――行かねばならない。',
+    'CHAGALL': '君との会話は楽しかった。残念だが、夢の中へ飛んでいく時間だ。',
+    'MATISSE': '君との会話は楽しかった。残念だが、色彩たちが待っている――行かねばならない。',
+    'FRIDA': 'あなたとの会話は楽しかったわ。でも、鏡の前に戻る時間よ。',
+    'LICHTENSTEIN': '君との会話は楽しかった。でもドットたちが俺を待ってるんだ！'
   }
 };
 

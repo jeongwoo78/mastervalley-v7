@@ -8,13 +8,13 @@ export const masterChat = {
   common: {
     chatWith: '{masterName}(AI)와 대화하기',
     helpText: '거장에게 결과 수정을 요청하거나, 무엇이든 질문하세요.',
-    chatEnded: '대화가 종료되었습니다.',
+    chatEnded: '거장과의 대화가 종료되었습니다.',
     retransformComplete: '💡 재변환 완료! 이전 이미지는 갤러리에 저장되어 있습니다.',
     requestModify: '수정',
     errorMessage: '...미안하네, 잠시 생각이 흐트러졌어. 다시 말해주겠나?',
     modifying: '{masterName} 그림을 수정 중입니다.',
     senderMe: '나',
-    placeholderEnded: '대화가 종료되었습니다',
+    placeholderEnded: '거장과의 대화가 종료되었습니다',
     placeholderConverting: '변환 중...',
     placeholderDefault: '{masterName}{withParticle} 대화...'
   },
@@ -65,13 +65,13 @@ export const masterChat = {
 
   // ===== 작별 인사 (7개) =====
   farewellMessages: {
-    'VAN GOGH': '그럼 난 이만 작업실로 돌아가 보겠네.',
-    'KLIMT': '그럼 난 이만 작업실로 돌아가겠소.',
-    'MUNCH': '그럼 난 이만 작업실로 돌아가 보겠네.',
-    'CHAGALL': '그럼 난 이만 작업실로 돌아가 보겠네.',
-    'MATISSE': '그럼 난 이만 작업실로 돌아가 보겠네.',
-    'FRIDA': '그럼 난 이만 작업실로 돌아갈게.',
-    'LICHTENSTEIN': '그럼 난 이만 작업실로 돌아갈게.'
+    'VAN GOGH': '자네와의 대화 즐거웠네. 아쉽지만, 별이 부르고 있어 이만 가보겠네.',
+    'KLIMT': '그대와의 대화 즐거웠소. 아쉽지만, 금빛 꿈이 기다리고 있으니 이만 가겠소.',
+    'MUNCH': '자네와의 대화 즐거웠네. 아쉽지만, 내 안의 소리가 다시 부르고 있어 이만 가보겠네.',
+    'CHAGALL': '자네와의 대화 즐거웠네. 아쉽지만, 꿈속으로 다시 날아가 볼 시간이라네.',
+    'MATISSE': '자네와의 대화 즐거웠네. 아쉽지만, 색채들이 나를 기다리고 있어 이만 가보겠네.',
+    'FRIDA': '너와의 대화 즐거웠어. 아쉽지만, 거울 앞으로 돌아갈 시간이야.',
+    'LICHTENSTEIN': '너와의 대화 즐거웠어. 아쉽지만, 점들이 날 기다리고 있거든!'
   }
 };
 

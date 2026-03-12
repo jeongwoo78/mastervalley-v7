@@ -8,13 +8,13 @@ export const masterChat = {
   common: {
     chatWith: 'Chat with {masterName}(AI)',
     helpText: 'Ask the master to refine the result — or ask anything.',
-    chatEnded: 'Chat has ended.',
+    chatEnded: 'Chat with the master has ended.',
     retransformComplete: '💡 Retransform complete! Previous image saved to gallery.',
     requestModify: 'Modify',
     errorMessage: "...Sorry, my thoughts wandered. Could you say that again?",
     modifying: '{masterName} is modifying the artwork.',
     senderMe: 'Me',
-    placeholderEnded: 'Chat ended',
+    placeholderEnded: 'Chat with the master has ended',
     placeholderConverting: 'Converting...',
     placeholderDefault: 'Chat with {masterName}...'
   },
@@ -65,13 +65,13 @@ export const masterChat = {
 
   // ===== Farewell Messages (7) =====
   farewellMessages: {
-    'VAN GOGH': "Well, I must return to my studio now.",
-    'KLIMT': "Well, I must return to my studio now.",
-    'MUNCH': "Well, I must return to my studio now.",
-    'CHAGALL': "Well, I must return to my studio now.",
-    'MATISSE': "Well, I must return to my studio now.",
-    'FRIDA': "Well, I\'m heading back to my studio now.",
-    'LICHTENSTEIN': "Well, I\'m heading back to my studio now."
+    'VAN GOGH': 'I enjoyed our conversation. But alas, the stars are calling — I must return to my canvas.',
+    'KLIMT': 'Our conversation was a pleasure. But alas, golden dreams await — I must return to my studio.',
+    'MUNCH': 'I enjoyed our conversation. But alas, the voices within call again — I must go.',
+    'CHAGALL': 'I enjoyed our conversation. But alas, it is time to fly back into my dreams.',
+    'MATISSE': 'I enjoyed our conversation. But alas, the colors are waiting for me — I must go.',
+    'FRIDA': 'I enjoyed our chat. But it\'s time to go back to my mirror.',
+    'LICHTENSTEIN': 'I enjoyed our chat. But the dots are calling me back!'
   }
 };
 

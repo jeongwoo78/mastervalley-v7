@@ -45,7 +45,7 @@ export const movementsBasicInfo = {
   },
   'neoclassicism_vs_romanticism_vs_realism': {
     loading: {
-      name: '신고전·낭만·사실(18~19세기)',
+      name: '신고전·낭만·사실주의(18~19세기)',
       subtitle1: '다비드 · 들라크루아 · 쿠르베',
       subtitle2: '이성, 감정, 현실의 분화'
     }
@@ -450,7 +450,7 @@ export const movementsLoadingEducation = {
 
   // ===== 신고전·낭만·사실 =====
   'neoclassicism_vs_romanticism_vs_realism': {
-    name: '신고전·낭만·사실',
+    name: '신고전·낭만·사실주의',
     description: `18세기 후반, 이성과 감정과 현실이 격렬하게 충돌한 시대가 열렸습니다.
 다비드와 앵그르는 고대의 이상미를, 들라크루아와 터너는 감정의 폭풍을 캔버스에 담았습니다.
 쿠르베와 마네는 이상도 환상도 거부하고 눈앞의 현실을 올렸습니다.

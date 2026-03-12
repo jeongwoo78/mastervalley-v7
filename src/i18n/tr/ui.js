@@ -27,6 +27,7 @@ export const ui = {
     mastersFullDesc: '7 ustayla buluşma',
     orientalFullTitle: 'Bin Yıllık Doğu Estetiği',
     orientalFullDesc: 'Çin · Japonya · Kore',
+    perTransform: 'dönüşüm',
     selectMovement: 'Akım seçin',
     selectMaster: 'Usta seçin',
     selectStyle: 'Stil seçin',

@@ -20,7 +20,7 @@ export const mastersBasicInfo = {
         'starrynight': { subtitle1: '별이 빛나는 밤(The Starry Night)', subtitle2: '밤하늘을 소용돌이로 물들이다' },
         'cafe': { subtitle1: '밤의 카페 테라스(Café Terrace at Night)', subtitle2: '별빛 아래 빛나는 노란 밤' },
         'sunflowers': { subtitle1: '해바라기(Sunflowers)', subtitle2: '태양을 닮은 꽃, 열정의 색채' },
-        'selfportrait': { subtitle1: '회색 펠트 모자 자화상(Self-Portrait with Grey Felt Hat)', subtitle2: '거울 속 영혼을 응시하다' },
+        'selfportrait': { subtitle1: '자화상 (Self-Portrait, 1889)', subtitle2: '거울 속 영혼을 응시하다' },
         'wheatfield': { subtitle1: '사이프러스 밀밭(Wheat Field with Cypresses)', subtitle2: '바람에 일렁이는 금빛 대지' }
       }
     }
@@ -249,10 +249,10 @@ export const mastersResultEducation = {
 만개한 꽃, 시든 꽃, 씨앗이 함께 담겨 생명의 순환을 보여줍니다.`
   },
   'vangogh-selfportrait': {
-    description: `〈회색 펠트 모자 자화상〉에서 나타난 소용돌이치는 배경과 두꺼운 임파스토 붓터치가 적용되었습니다.
+    description: `〈자화상〉에서 나타난 소용돌이치는 배경과 두꺼운 임파스토 붓터치가 적용되었습니다.
 파란색과 초록색의 차가운 색조가 고독과 결의를 동시에 전합니다.
 
-〈회색 펠트 모자 자화상〉은 반 고흐가 모델을 구할 수 없었던 가난 속에서 자신을 대상으로 그린 작품입니다.
+〈자화상〉은 반 고흐가 모델을 구할 수 없었던 가난 속에서 자신을 대상으로 그린 작품입니다.
 정면을 응시하는 눈빛과 굳게 다문 입이 고통 속 흔들리지 않는 의지를 보여줍니다.`
   },
   'vangogh-wheatfield': {

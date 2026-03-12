@@ -22,8 +22,8 @@ const MASTER_THEMES = {
   'KLIMT': { primary: '#D4AF37', gradient: 'linear-gradient(135deg, #D4AF37, #b8962e)', icon: '✨', avatar: klimtAvatar },
   'MUNCH': { primary: '#C4784A', gradient: 'linear-gradient(135deg, #C4784A, #a5623b)', icon: '😱', avatar: munchAvatar },
   'CHAGALL': { primary: '#E6A8D7', gradient: 'linear-gradient(135deg, #E6A8D7, #7EB6D8)', icon: '🎻', avatar: chagallAvatar },
-  'MATISSE': { primary: '#FF6B6B', gradient: 'linear-gradient(135deg, #FF6B6B, #ee5a5a)', icon: '💃', avatar: matisseAvatar },
-  'FRIDA': { primary: '#4EC9A0', gradient: 'linear-gradient(135deg, #4EC9A0, #3db88e)', icon: '🦜', avatar: fridaAvatar },
+  'MATISSE': { primary: '#8E44AD', gradient: 'linear-gradient(135deg, #8E44AD, #7D3C98)', icon: '💃', avatar: matisseAvatar },
+  'FRIDA': { primary: '#2D8B57', gradient: 'linear-gradient(135deg, #2D8B57, #247048)', icon: '🦜', avatar: fridaAvatar },
   'LICHTENSTEIN': { primary: '#F5A623', gradient: 'linear-gradient(135deg, #F5A623, #e8941a)', icon: '💥', avatar: lichtensteinAvatar }
 };
 
@@ -109,7 +109,7 @@ const MasterChat = ({
   const sendMessage = async () => {
     if (!inputValue.trim() || isLoading || isRetransforming || isChatEnded) return;
     
-    // 20회 제한 체크
+    // 30회 제한 체크
     if (messageCount >= MAX_MESSAGES) {
       setIsChatEnded(true);
       return;
@@ -123,7 +123,7 @@ const MasterChat = ({
     const newCount = messageCount + 1;
     setMessageCount(newCount);
     
-    // 20회 도달 시 종료 처리
+    // 30회 도달 시 종료 처리
     if (newCount >= MAX_MESSAGES) {
       setIsChatEnded(true);
       // 잠시 후 종료 메시지 표시
@@ -163,6 +163,9 @@ const MasterChat = ({
       const data = await response.json();
       
       console.log('Master feedback response:', data);
+      
+      // 대화 종료 후 도착한 응답은 무시
+      if (isChatEnded) return;
       
       if (data.success && data.masterResponse) {
         // 거장 응답 추가
@@ -235,7 +238,11 @@ const MasterChat = ({
   };
 
   return (
-    <div className="master-chat-section" style={{ '--master-color': theme.primary }}>
+    <div className="master-chat-section" style={{ 
+      '--master-color': theme.primary,
+      background: `${theme.primary}14`,
+      borderColor: `${theme.primary}40`
+    }}>
       {/* 헤더 (v79: 원형 아바타 이미지) */}
       <div className="master-chat-header">
         <img className="master-avatar-img" src={theme.avatar} alt={masterName} />
@@ -257,8 +264,10 @@ const MasterChat = ({
               </div>
             ) : (
               <div>
-                <div className="sender">{msg.role === 'master' ? `${masterName}(AI)` : chatText.common.senderMe}</div>
-                <div className="bubble" style={msg.role === 'master' ? { 
+                <div className="sender" style={{ textAlign: msg.role === 'user' ? 'right' : 'left' }}>
+                  {msg.role === 'master' ? `${masterName}(AI)` : chatText.common.senderMe}
+                </div>
+                <div className="bubble" dir="auto" style={msg.role === 'master' ? { 
                   background: `${theme.primary}20`,
                   borderColor: `${theme.primary}40`
                 } : {}}>
@@ -376,11 +385,11 @@ const MasterChat = ({
         .master-chat-section {
           width: 100%;
           max-width: 340px;
-          background: rgba(245, 166, 35, 0.08);
-          border: 1px solid rgba(245, 166, 35, 0.25);
+          border: 1px solid;
           border-radius: 16px;
           padding: 14px;
           margin: 0 auto 16px;
+          direction: ltr;
         }
 
         .master-chat-header {
@@ -432,6 +441,7 @@ const MasterChat = ({
         .chat-message.master {
           display: flex;
           gap: 8px;
+          justify-content: flex-start;
         }
 
         .chat-message.master .avatar-img-small {
@@ -447,10 +457,6 @@ const MasterChat = ({
           font-size: 10px;
           color: rgba(255,255,255,0.5);
           margin-bottom: 4px;
-        }
-
-        .chat-message.user .sender {
-          text-align: end;
         }
 
         .chat-message.system {
@@ -508,9 +514,9 @@ const MasterChat = ({
         }
 
         .chat-message.user {
-          display: flex;
-          flex-direction: column;
-          align-items: flex-end;
+          width: fit-content;
+          max-width: 85%;
+          margin-left: auto;
         }
 
         .chat-message.user .bubble {
@@ -520,7 +526,7 @@ const MasterChat = ({
           color: rgba(255,255,255,0.9);
           font-size: 13px;
           line-height: 1.5;
-          max-width: 85%;
+          text-align: right;
         }
 
         .chat-message .bubble.typing {
@@ -570,7 +576,7 @@ const MasterChat = ({
         }
 
         .chat-input:focus {
-          border-color: rgba(245, 166, 35, 0.5);
+          border-color: var(--master-color, rgba(245, 166, 35, 0.5));
         }
 
         .chat-input:disabled {

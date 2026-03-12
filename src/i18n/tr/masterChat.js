@@ -8,13 +8,13 @@ export const masterChat = {
   common: {
     chatWith: '{masterName} (AI) ile sohbet',
     helpText: 'Ustadan sonucu düzenlemesini isteyin ya da istediğinizi sorun.',
-    chatEnded: 'Sohbet sona erdi.',
+    chatEnded: 'Usta ile sohbet sona erdi.',
     retransformComplete: '💡 Yeniden dönüşüm tamamlandı! Önceki görsel galeriye kaydedildi.',
     requestModify: 'Düzenle',
     errorMessage: '...Özür dilerim, düşüncelerim biraz dağıldı. Tekrar söyler misiniz?',
     modifying: '{masterName} tablosu düzenleniyor.',
     senderMe: 'Ben',
-    placeholderEnded: 'Sohbet sona erdi',
+    placeholderEnded: 'Usta ile sohbet sona erdi',
     placeholderConverting: 'Dönüştürülüyor...',
     placeholderDefault: '{masterName} ile sohbet et...'
   },
@@ -60,13 +60,13 @@ export const masterChat = {
   },
 
   farewellMessages: {
-    'VAN GOGH': 'Peki, atölyeme dönüyorum.',
-    'KLIMT': 'Peki, atölyeme dönüyorum.',
-    'MUNCH': 'Peki, atölyeme dönüyorum.',
-    'CHAGALL': 'Peki, atölyeme dönüyorum.',
-    'MATISSE': 'Peki, atölyeme dönüyorum.',
-    'FRIDA': 'Peki, atölyeme dönüyorum.',
-    'LICHTENSTEIN': 'Peki, atölyeme dönüyorum.'
+    'VAN GOGH': 'Sohbetimiz keyifliydi. Ama yıldızlar beni çağırıyor — tualime dönmeliyim.',
+    'KLIMT': 'Sohbetimiz bir zevkti. Ama altın rüyalar beni bekliyor — gitmeliyim.',
+    'MUNCH': 'Sohbetimiz keyifliydi. Ama içimdeki sesler yine çağırıyor — gitmeliyim.',
+    'CHAGALL': 'Sohbetimiz keyifliydi. Ama rüyalarıma geri uçma zamanı geldi.',
+    'MATISSE': 'Sohbetimiz keyifliydi. Ama renkler beni bekliyor — gitmeliyim.',
+    'FRIDA': 'Sohbetimiz keyifliydi. Ama aynaının karşısına dönme zamanı geldi.',
+    'LICHTENSTEIN': 'Sohbetimiz keyifliydi. Ama noktalar beni bekliyor!'
   }
 };
 

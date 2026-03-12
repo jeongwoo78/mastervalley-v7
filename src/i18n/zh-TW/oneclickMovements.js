@@ -53,7 +53,7 @@ export const oneclickMovementsBasicInfo = {
   'vangogh': { name: '後印象派 (Post-Impressionism, 1880–1910)', subtitle1: '文森·梵谷', subtitle2: '旋轉的筆觸與熾烈的激情' },
   'gauguin': { name: '後印象派 (Post-Impressionism, 1880–1910)', subtitle1: '保羅·高更', subtitle2: '拋棄文明追尋純粹' },
   'cezanne': { name: '後印象派 (Post-Impressionism, 1880–1910)', subtitle1: '保羅·塞尚', subtitle2: '以結構重建自然' },
-  'matisse': { name: '野獸派 (Fauvism, 1905–1910)', subtitle1: '亨利·馬諦斯', subtitle2: '色彩的魔術師' },
+  'matisse': { name: '野獸派 (Fauvism, 1905–1910)', subtitle1: '亨利·馬蒂斯', subtitle2: '色彩的魔術師' },
   'derain': { name: '野獸派 (Fauvism, 1905–1910)', subtitle1: '安德烈·德蘭', subtitle2: '色彩的爆發' },
   'vlaminck': { name: '野獸派 (Fauvism, 1905–1910)', subtitle1: '莫里斯·德·弗拉曼克', subtitle2: '以本能引爆色彩' },
   'munch': { name: '表現主義 (Expressionism, 1905–1930)', subtitle1: '愛德華·孟克', subtitle2: '畫下內心的吶喊' },
@@ -63,7 +63,7 @@ export const oneclickMovementsBasicInfo = {
   'magritte': { name: '超現實主義 (Surrealism, 1920–1960)', subtitle1: '乃內·馬格利特', subtitle2: '眼見的陷阱' },
   'miro': { name: '超現實主義 (Surrealism, 1920–1960)', subtitle1: '乔安·乃洛', subtitle2: '情感先於形體' },
   'chagall': { name: '超現實主義 (Surrealism, 1920–1960)', subtitle1: '馬克·夏卡爾', subtitle2: '愛與夢的詩人' },
-  'lichtenstein': { name: '普普藝術 (Pop Art, 1950–1970)', subtitle1: '羅伊·乃乞登斯坦', subtitle2: '將漫畫變成藝術的人' }
+  'lichtenstein': { name: '普普藝術 (Pop Art, 1950–1970)', subtitle1: '羅伊·李奇登斯坦', subtitle2: '將漫畫變成藝術的人' }
 };
 
 export const oneclickMovementsSecondary = {
@@ -95,9 +95,9 @@ export const oneclickMovementsSecondary = {
   'caillebotte': { content: `一個捕捉光化為色彩瞬間的時代。\n以短促的筆觸與純色並置在戶外寫生，他們捕捉光的印象。\n\n卡耶博特以大膽的透視描繪巴黎的日常。\n以攝影式構圖與城市風景為印象派帶來新視角。` },
   'vangogh': { content: `一個超越印象派的光、走入內心的時代。\n他們以色彩和形體表現情感與內在世界。\n\n梵谷以螺旋筆觸與強烈色彩揭露內心。\n37歲逝世，他的色彩至今仍在燃燒。` },
   'gauguin': { content: `一個超越印象派的光、走入內心的時代。\n他們以色彩和形體表現情感與內在世界。\n\n高更以平塗色面與象徵性色彩為特徵。\n他拋棄文明，在大溪地完成了對純粹的追尋。` },
-  'cezanne': { content: `一個超越印象派的光、走入內心的時代。\n他們以色彩和形體表現情感與內在世界。\n\n塞尚以幾何結構重建自然。\n現代繪畫之父，畢卡索與馬諦斯從他開始了旅程。` },
-  'matisse': { content: `一個色彩如野獸般咆哮的時代。\n大膽的純原色超越現實，主宰了畫布。\n\n馬諦斯不追隨現實的色彩，而是放置情感的色彩。\n他領導野獸派，將色彩解放為情感的語言。` },
-  'derain': { content: `一個色彩如野獸般咆哮的時代。\n大膽的純原色超越現實，主宰了畫布。\n\n德蘭以爆發的色彩與大膽的筆觸為特徵。\n與馬諦斯一起領導了野獸派的理論與實踐。` },
+  'cezanne': { content: `一個超越印象派的光、走入內心的時代。\n他們以色彩和形體表現情感與內在世界。\n\n塞尚以幾何結構重建自然。\n現代繪畫之父，畢卡索與馬蒂斯從他開始了旅程。` },
+  'matisse': { content: `一個色彩如野獸般咆哮的時代。\n大膽的純原色超越現實，主宰了畫布。\n\n馬蒂斯不追隨現實的色彩，而是放置情感的色彩。\n他領導野獸派，將色彩解放為情感的語言。` },
+  'derain': { content: `一個色彩如野獸般咆哮的時代。\n大膽的純原色超越現實，主宰了畫布。\n\n德蘭以爆發的色彩與大膽的筆觸為特徵。\n與馬蒂斯一起領導了野獸派的理論與實踐。` },
   'vlaminck': { content: `一個色彩如野獸般咆哮的時代。\n大膽的純原色超越現實，主宰了畫布。\n\n弗拉曼克以如直接從顏料管擠出般的原色與粗獷的筆觸為特徵。\n不靠理性而靠本能引爆色彩的畫家。` },
   'munch': { content: `一個不畫所見而畫所感的時代。\n扭曲的形體與尖銳的色彩引爆了內心的情感。\n\n孟克以螺旋曲線與令人不安的色彩為特徵。\n將焦慮凝結為圖像的表現主義先驅。` },
   'kirchner': { content: `一個不畫所見而畫所感的時代。\n扭曲的形體與尖銳的色彩引爆了內心的情感。\n\n乞希納以尖銳的線條與強烈的原色對比為特徵。\n控訴都市文明的緊張與焦慮的畫家。` },
@@ -106,7 +106,7 @@ export const oneclickMovementsSecondary = {
   'magritte': { content: `一個所有規則崩塌並被重寫的時代。\n透視、形體和色彩的傳統被解構並重新組裝。\n\n馬格利特以日常物體與語言的碰撞顛覆思維。\n他揭露所見與所信之間的陷阱。` },
   'miro': { content: `一個所有規則崩塌並被重寫的時代。\n透視、形體和色彩的傳統被解構並重新組裝。\n\n乃洛以自由的線條和原色符號漂浮在畫布上。\n他將形體之前的情感視覺化。` },
   'chagall': { content: `一個所有規則崩塌並被重寫的時代。\n透視、形體和色彩的傳統被解構並重新組裝。\n\n夏卡爾以夢幻的色彩與非現實的構圖為特徵。\n將夢疊加在現實上的愛之畫家。` },
-  'lichtenstein': { content: `一個所有規則崩塌並被重寫的時代。\n透視、形體和色彩的傳統被解構並重新組裝。\n\n乃乞登斯坦以本戴點、粗輪廓和強烈原色為特徵。\n他將漫畫搬上畫布，消除了藝術與流行文化的界線。` }
+  'lichtenstein': { content: `一個所有規則崩塌並被重寫的時代。\n透視、形體和色彩的傳統被解構並重新組裝。\n\n李奇登斯坦以本戴點、粗輪廓和強烈原色為特徵。\n他將漫畫搬上畫布，消除了藝術與流行文化的界線。` }
 };
 
 export default { oneclickMovementsPrimary, oneclickMovementsBasicInfo, oneclickMovementsSecondary };

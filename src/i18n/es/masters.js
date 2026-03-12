@@ -24,7 +24,7 @@ export const mastersBasicInfo = {
         'starrynight': { subtitle1: 'La noche estrellada (The Starry Night)', subtitle2: 'El cielo nocturno pintado en espirales' },
         'cafe': { subtitle1: 'Terraza del café por la noche (Café Terrace at Night)', subtitle2: 'Un cálido resplandor amarillo bajo la luz de las estrellas' },
         'sunflowers': { subtitle1: 'Girasoles (Sunflowers)', subtitle2: 'Flores bañadas de sol, ardiendo de pasión' },
-        'selfportrait': { subtitle1: 'Autorretrato con sombrero de fieltro gris (Self-Portrait with Grey Felt Hat)', subtitle2: 'Una mirada al espejo del alma' },
+        'selfportrait': { subtitle1: 'Autorretrato (Self-Portrait, 1889)', subtitle2: 'Una mirada al espejo del alma' },
         'wheatfield': { subtitle1: 'Campo de trigo con cipreses (Wheat Field with Cypresses)', subtitle2: 'Campos dorados danzando en el viento' },
       }
     },
@@ -267,7 +267,7 @@ Ahora sus obras se venden por decenas de millones de dólares—demostrando que 
 // ========== 2ª Educación: Resultado (técnicas por obra) ==========
 export const mastersResultEducation = {
   'vangogh-selfportrait': {
-    description: `El fondo arremolinado y las gruesas pinceladas de impasto de 〈Autorretrato con sombrero de fieltro gris〉 han sido aplicados.
+    description: `El fondo arremolinado y las gruesas pinceladas de impasto de 〈Autorretrato〉 han sido aplicados.
 Los tonos fríos de verde y azul crean una intensidad psicológica.
 
 〈Autorretrato〉 es el espejo en el que Van Gogh se miraba a sí mismo—y nosotros con él.
