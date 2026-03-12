@@ -136,6 +136,7 @@ const MasterChat = ({
           content: chatText.common.chatEnded
         }]);
       }, 500);
+      return;  // API 호출 차단
     }
     
     setIsLoading(true);

@@ -1251,8 +1251,18 @@ export const getStyleSubtitles = (category, styleId, mode, displayArtist, displa
         const i18nBasic = getMovementsBasicInfo(lang) || {};
         const i18nArtistResult = i18nBasic[artist.artistId]?.result;
         if (i18nArtistResult?.subtitle2) {
+          // 복합사조: 부제1에 세부사조명 접두어 추가
+          let sub1 = i18nArtistResult.subtitle1 || artist.en || displayArtist || '';
+          if (styleId === 'modernism' && artist?.sub) {
+            const sub = MODERNISM_SUB[artist.sub];
+            if (sub) sub1 = `[${!isKo ? sub.en : sub.ko}] ${sub1}`;
+          }
+          if (styleId === 'neoclassicism_vs_romanticism_vs_realism' && artist?.movementId) {
+            const sub = NINETEENTH_CENTURY_SUB[artist.movementId];
+            if (sub) sub1 = `[${!isKo ? sub.en : sub.ko}] ${sub1}`;
+          }
           return [
-            i18nArtistResult.subtitle1 || artist.en || displayArtist || '',
+            sub1,
             i18nArtistResult.subtitle2
           ];
         }
@@ -1266,8 +1276,18 @@ export const getStyleSubtitles = (category, styleId, mode, displayArtist, displa
       const i18nMovements = getMovementsResultEducation(lang) || {};
       const i18nMov = i18nMovements[styleId];
       if (i18nMov?.result?.subtitle2) {
+        // 복합사조: 부제1에 세부사조명 접두어 추가
+        let sub1fb = i18nMov.result.subtitle1 || artistDisplay;
+        if (styleId === 'modernism' && artist?.sub) {
+          const sub = MODERNISM_SUB[artist.sub];
+          if (sub) sub1fb = `[${!isKo ? sub.en : sub.ko}] ${sub1fb}`;
+        }
+        if (styleId === 'neoclassicism_vs_romanticism_vs_realism' && artist?.movementId) {
+          const sub = NINETEENTH_CENTURY_SUB[artist.movementId];
+          if (sub) sub1fb = `[${!isKo ? sub.en : sub.ko}] ${sub1fb}`;
+        }
         return [
-          i18nMov.result.subtitle1 || artistDisplay,
+          sub1fb,
           i18nMov.result.subtitle2
         ];
       }
@@ -1279,26 +1299,26 @@ export const getStyleSubtitles = (category, styleId, mode, displayArtist, displa
           ? (artist?.descriptionEn || movement?.descriptionEn || artist?.description || movement?.description || '')
           : (artist?.description || movement?.description || ''));
       
-      // 복합사조: 부제2에 세부사조명 접두 (예: "[Cubism] Deconstructing...")
-      let sub2 = artistStyle;
+      // 복합사조: 부제1에 세부사조명 접두 (예: "[Cubism] Picasso")
+      let sub1final = artistDisplay;
       if (styleId === 'modernism' && artist?.sub) {
         const sub = MODERNISM_SUB[artist.sub];
         if (sub) {
           const subName = !isKo ? sub.en : sub.ko;
-          sub2 = `[${subName}] ${artistStyle}`;
+          sub1final = `[${subName}] ${artistDisplay}`;
         }
       }
       if (styleId === 'neoclassicism_vs_romanticism_vs_realism' && artist?.movementId) {
         const sub = NINETEENTH_CENTURY_SUB[artist.movementId];
         if (sub) {
           const subName = !isKo ? sub.en : sub.ko;
-          sub2 = `[${subName}] ${artistStyle}`;
+          sub1final = `[${subName}] ${artistDisplay}`;
         }
       }
       
       return [
-        artistDisplay,  // 부제1: 매칭화가
-        sub2            // 부제2: [세부사조명] 화풍 설명
+        sub1final,      // 부제1: [세부사조명] 매칭화가
+        artistStyle     // 부제2: 화풍 설명
       ];
     }
   }
