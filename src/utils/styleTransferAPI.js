@@ -2,7 +2,7 @@
 import { MODEL_CONFIG } from './modelConfig';
 
 // API 기본 URL (앱에서는 절대 경로 필요)
-const API_BASE_URL = 'https://mastervalley-v6.vercel.app';
+const API_BASE_URL = 'https://mastervalley-v7.vercel.app';
 
 // v80: 이중 차감 방지 - 이미 차감된 transformId 추적
 const chargedTransformIds = new Set();
