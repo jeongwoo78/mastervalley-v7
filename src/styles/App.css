@@ -1087,7 +1087,8 @@ body {
 /* 뒤로가기 화살표 반전 */
 [dir="rtl"] .back-btn svg,
 [dir="rtl"] .header-back svg,
-[dir="rtl"] .back-arrow svg {
+[dir="rtl"] .back-arrow svg,
+[dir="rtl"] .select-header-back svg {
   transform: scaleX(-1);
 }
 

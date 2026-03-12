@@ -175,7 +175,7 @@ Van Gogh es una figura definitoria del Post-Impresionismo.
 Comenzó a pintar a los 27 años y produjo 900 pinturas al óleo en solo diez años, pero solo una se vendió durante su vida.
 Obras maestras como La noche estrellada, Girasoles y Terraza del café por la noche nacieron en la pobreza y la angustia mental.
 
-Murió a los 37 años—pobre y sin reconocimiento—pero ahora es el pintor más amado de la historia.`
+"Pongo mi corazón y mi alma en mi trabajo." — Un pintor que forjó belleza inmortal desde el sufrimiento.`
   },
 
   // ── Klimt ──
@@ -187,7 +187,7 @@ Rectángulos a los lados y círculos arriba—los detalles decorativos ahora env
 Klimt fue el principal pintor Art Nouveau de la Viena de finales del siglo XIX.
 Creó una técnica única que combina pintura al óleo con incrustaciones de oro.
 
-Su obra más famosa, 〈El beso〉, representa a una pareja de amantes envueltos en oro y se ha convertido en un ícono del romanticismo.`
+"A cada época su arte, a cada arte su libertad." — Un pintor que capturó la belleza del fin de siglo en oro.`
   },
 
   // ── Munch ──
@@ -199,7 +199,7 @@ Cielos de color rojo sangre y líneas ondulantes expresan ansiedad y emociones p
 Munch fue el pionero del Expresionismo que pintó no lo que veía, sino lo que sentía.
 Perdió a su madre a los 5 años y a su hermana favorita a los 14—ese trauma se convirtió en la fuente perenne de su obra.
 
-〈El Grito〉 es una expresión visual del terror existencial que se ha convertido en una de las imágenes más icónicas de la historia del arte.`
+"La enfermedad, la locura y la muerte fueron los ángeles negros que vigilaron mi cuna." — Un pintor que transformó su oscuridad interior en arte.`
   },
 
   // ── Matisse ──
@@ -211,7 +211,7 @@ En lugar de la precisión anatómica, el enfoque está en expresar la emoción a
 Matisse fue el líder del Fauvismo—movimiento que usó colores salvajes para expresar sentimientos en lugar de realidad.
 Descubrió la pintura mientras se recuperaba de una apendicitis a los 20 años y nunca se detuvo.
 
-Al final de su vida, cuando ya no podía pintar, creó obras con recortes de papel de colores—demostrando que el arte no tiene límites.`
+"El propósito del color no es describir la forma, sino expresar la emoción." — Un pintor que cantó la alegría a través del color.`
   },
 
   // ── Chagall ──
@@ -223,7 +223,7 @@ Bouquets, amantes flotantes y animales fantásticos flotan entre el sueño y la 
 Chagall nació en Vitebsk, Bielorrusia, y encontró allí todos los colores de su vida.
 Su amor por Bella, su esposa de toda la vida, se convirtió en el tema eterno de su obra.
 
-Pintó los colores del amor y la nostalgia a lo largo de sus 97 años de vida—convirtiéndose en el poeta del color sin igual.`
+"En nuestra vida solo hay un color: el color del amor." — Un poeta que borró la frontera entre el sueño y la realidad.`
   },
 
   // ── Picasso ──
@@ -247,7 +247,7 @@ En Autorretrato con collar de espinas, el dolor se convierte en arte.
 A los 18 años, Frida Kahlo sufrió un terrible accidente de autobús que le destrozó la columna vertebral.
 Durante la recuperación, comenzó a pintar—transformando el dolor en arte.
 
-De sus 143 pinturas, la mayoría son autorretratos. 'Me pinto a mí misma porque estoy sola con frecuencia', dijo.`
+"Pies, ¿para qué los quiero si tengo alas para volar?" — Una pintora invencible que transformó el dolor en arte.`
   },
 
   // ── Lichtenstein ──
@@ -259,7 +259,7 @@ Tu rostro ahora parece un panel de cómic—brillante, audaz y lleno de expresi�
 En 1961, Lichtenstein pintó un cómic de Mickey Mouse y el mundo del arte se sacudió.
 La revista Life preguntó: '¿Es el peor artista de EE.UU.?'
 
-Ahora sus obras se venden por decenas de millones de dólares—demostrando que la cultura pop es arte.`
+"No dibujo cómics, pinto cuadros sobre cómics." — Un pintor que borró la línea entre la cultura pop y las bellas artes.`
   }
 };
 

@@ -68,6 +68,17 @@ export const masterChat = {
     'FRIDA': 'Sohbetimiz keyifliydi. Ama atölyeme dönme zamanı geldi.',
     'LICHTENSTEIN': 'Sohbetimiz keyifliydi. Ama noktalar beni atölyeye geri çağırıyor!'
   }
+,
+  // ===== 거장 프로필 (아바타 탭 모달) =====
+  profile: {
+    'VAN GOGH': { fullName: 'Vincent van Gogh', years: '1853~1890', origin: 'Hollanda · Post-Empresyonizm', quote: '"Kalbimi ve ruhumu işime koyarım."' },
+    'KLIMT': { fullName: 'Gustav Klimt', years: '1862~1918', origin: 'Avusturya · Art Nouveau', quote: '"Her çağa sanatını, her sanata özgürlüğünü."' },
+    'MUNCH': { fullName: 'Edvard Munch', years: '1863~1944', origin: 'Norveç · Ekspresyonizm', quote: '"Hastalık, delilik ve ölüm beşiğimi bekleyen kara meleklerdi."' },
+    'MATISSE': { fullName: 'Henri Matisse', years: '1869~1954', origin: 'Fransa · Fovizm', quote: '"Rengin amacı biçim değil, duyguyu ifade etmektir."' },
+    'CHAGALL': { fullName: 'Marc Chagall', years: '1887~1985', origin: 'Rusya/Fransa · Sürrealizm', quote: '"Hayatımızda yalnızca bir renk var — aşkın rengi."' },
+    'FRIDA': { fullName: 'Frida Kahlo', years: '1907~1954', origin: 'Meksika · Sürrealizm', quote: '"Ayaklar, sizi ne yapayım, uçacak kanatlarım varken."' },
+    'LICHTENSTEIN': { fullName: 'Roy Lichtenstein', years: '1923~1997', origin: 'ABD · Pop Art', quote: '"Çizgi roman çizmiyorum, çizgi romanı konu alan resimler yapıyorum."' },
+  }
 };
 
 export default masterChat;

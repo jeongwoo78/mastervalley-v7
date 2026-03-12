@@ -74,6 +74,17 @@ export const masterChat = {
     'FRIDA': '與你的對話很開心。但該回到我的工作室了。',
     'LICHTENSTEIN': '與你的對話很開心。但圓點們在工作室等我呢！'
   }
+,
+  // ===== 거장 프로필 (아바타 탭 모달) =====
+  profile: {
+    'VAN GOGH': { fullName: '文森·梵谷', years: '1853~1890', origin: '荷蘭 · 後期印象主義', quote: '"我把心和靈魂都傾注在作品中。"' },
+    'KLIMT': { fullName: '古斯塔夫·克林姆', years: '1862~1918', origin: '奧地利 · 新藝術', quote: '"每個時代有其藝術，每種藝術有其自由。"' },
+    'MUNCH': { fullName: '愛德華·孟克', years: '1863~1944', origin: '挪威 · 表現主義', quote: '"我不畫我所見的，而是畫我所看見過的。"' },
+    'MATISSE': { fullName: '亨利·馬蒂斯', years: '1869~1954', origin: '法國 · 野獸派', quote: '"色彩的目的不是描繪形狀，而是表達情感。"' },
+    'CHAGALL': { fullName: '馬克·夏卡爾', years: '1887~1985', origin: '俄羅斯/法國 · 超現實主義', quote: '"生命中只有一種顏色——愛的顏色。"' },
+    'FRIDA': { fullName: '芙烈達·卡蘿', years: '1907~1954', origin: '墨西哥 · 超現實主義', quote: '"要腳做什麼？我有翅膀可以飛。"' },
+    'LICHTENSTEIN': { fullName: '羅伊·李奇登斯坦', years: '1923~1997', origin: '美國 · 普普藝術', quote: '"我不是在畫漫畫，我是在畫以漫畫為主題的畫。"' },
+  }
 };
 
 export default masterChat;

@@ -175,7 +175,7 @@ Van Gogh est une figure déterminante du Post-Impressionnisme.
 Il a commencé à peindre à 27 ans et a produit 900 peintures à l\'huile en seulement dix ans, mais une seule s\'est vendue de son vivant.
 Des chefs-d\'œuvre comme La Nuit étoilée, Les Tournesols et La Terrasse du café le soir sont tous nés dans la pauvreté et la souffrance mentale.
 
-Il est mort à 37 ans—pauvre et non reconnu—mais il est aujourd\'hui le peintre le plus aimé de l\'histoire.`
+"Je mets mon cœur et mon âme dans mon travail." — Un peintre qui forgea une beauté immortelle à partir de la souffrance.`
   },
 
   // ── Klimt ──
@@ -187,7 +187,7 @@ Des rectangles sur les côtés et des cercles en haut—les détails décoratifs
 Klimt était le principal peintre Art Nouveau de la Vienne de la fin du XIXe siècle.
 Il a créé une technique unique combinant peinture à l\'huile et incrustations d\'or.
 
-Son œuvre la plus célèbre, 〈Le Baiser〉, représente un couple d\'amoureux enveloppé d\'or et est devenu une icône du romantisme.`
+"À chaque époque son art, à chaque art sa liberté." — Un peintre qui captura la beauté du fin de siècle en or.`
   },
 
   // ── Munch ──
@@ -199,7 +199,7 @@ Des ciels rouge sang et des lignes ondulantes expriment l\'anxiété et les émo
 Munch fut le pionnier de l\'Expressionnisme qui peignait non ce qu\'il voyait, mais ce qu\'il ressentait.
 Il a perdu sa mère à 5 ans et sa sœur préférée à 14 ans—ce traumatisme est devenu la source permanente de son œuvre.
 
-〈Le Cri〉 est une expression visuelle de la terreur existentielle qui est devenue l\'une des images les plus emblématiques de l\'histoire de l\'art.`
+"La maladie, la folie et la mort furent les anges noirs qui veillèrent sur mon berceau." — Un peintre qui transforma ses ténèbres intérieures en art.`
   },
 
   // ── Matisse ──
@@ -211,7 +211,7 @@ Plutôt que la précision anatomique, l\'accent est mis sur l\'expression des é
 Matisse était le chef de file du Fauvisme—mouvement utilisant des couleurs sauvages pour exprimer les sentiments plutôt que la réalité.
 Il a découvert la peinture en se remettant d\'une appendicite à l\'âge de 20 ans et ne s\'est jamais arrêté.
 
-À la fin de sa vie, quand il ne pouvait plus peindre, il créait des œuvres avec des découpages de papier coloré—prouvant que l\'art n\'a pas de limites.`
+"Le but de la couleur n'est pas de décrire la forme mais d'exprimer l'émotion." — Un peintre qui chanta la joie par la couleur.`
   },
 
   // ── Chagall ──
@@ -223,7 +223,7 @@ Des bouquets, des amoureux flottants et des animaux fantastiques flottent entre 
 Chagall est né à Vitebsk, en Biélorussie, et y a trouvé toutes les couleurs de sa vie.
 Son amour pour Bella, sa femme toute sa vie, est devenu le thème éternel de son œuvre.
 
-Il a peint les couleurs de l\'amour et de la nostalgie tout au long de ses 97 années de vie—devenant le poète des couleurs sans égal.`
+"Dans notre vie, il n'y a qu'une seule couleur : celle de l'amour." — Un poète qui effaça la frontière entre rêve et réalité.`
   },
 
   // ── Picasso ──
@@ -247,7 +247,7 @@ Dans Autoportrait au collier d\'épines, la douleur devient art.
 À 18 ans, Frida Kahlo a subi un terrible accident de bus qui lui a brisé la colonne vertébrale.
 Pendant sa convalescence, elle a commencé à peindre—transformant la douleur en art.
 
-Sur ses 143 tableaux, la plupart sont des autoportraits. 'Je me peins moi-même parce que je suis souvent seule', disait-elle.`
+"Des pieds, pourquoi en voudrais-je si j'ai des ailes pour voler ?" — Une peintre invincible qui transforma la douleur en art.`
   },
 
   // ── Lichtenstein ──
@@ -259,7 +259,7 @@ Votre visage ressemble maintenant à un panneau de bande dessinée—brillant, a
 En 1961, Lichtenstein a peint une bande dessinée de Mickey Mouse et le monde de l\'art a tremblé.
 Le magazine Life a demandé : 'Est-il le pire artiste des États-Unis ?'
 
-Ses œuvres se vendent maintenant pour des dizaines de millions de dollars—prouvant que la culture pop est de l\'art.`
+"Je ne dessine pas des BD, je peins des tableaux sur les BD." — Un peintre qui effaça la ligne entre culture pop et beaux-arts.`
   }
 };
 

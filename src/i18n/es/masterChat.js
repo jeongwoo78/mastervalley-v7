@@ -74,6 +74,17 @@ export const masterChat = {
     'FRIDA': 'Disfruté nuestra charla. Pero es hora de volver a mi estudio.',
     'LICHTENSTEIN': 'Disfruté nuestra charla. ¡Pero los puntos me esperan en el estudio!'
   }
+,
+  // ===== 거장 프로필 (아바타 탭 모달) =====
+  profile: {
+    'VAN GOGH': { fullName: 'Vincent van Gogh', years: '1853~1890', origin: 'Países Bajos · Postimpresionismo', quote: '"Pongo mi corazón y mi alma en mi trabajo."' },
+    'KLIMT': { fullName: 'Gustav Klimt', years: '1862~1918', origin: 'Austria · Art Nouveau', quote: '"A cada época su arte, a cada arte su libertad."' },
+    'MUNCH': { fullName: 'Edvard Munch', years: '1863~1944', origin: 'Noruega · Expresionismo', quote: '"No pinto lo que veo, sino lo que vi."' },
+    'MATISSE': { fullName: 'Henri Matisse', years: '1869~1954', origin: 'Francia · Fauvismo', quote: '"El propósito del color no es describir la forma, sino expresar la emoción."' },
+    'CHAGALL': { fullName: 'Marc Chagall', years: '1887~1985', origin: 'Rusia/Francia · Surrealismo', quote: '"En nuestra vida solo hay un color: el color del amor."' },
+    'FRIDA': { fullName: 'Frida Kahlo', years: '1907~1954', origin: 'México · Surrealismo', quote: '"Pies, ¿para qué los quiero si tengo alas para volar?"' },
+    'LICHTENSTEIN': { fullName: 'Roy Lichtenstein', years: '1923~1997', origin: 'EE.UU. · Pop Art', quote: '"No dibujo cómics, pinto cuadros sobre cómics."' },
+  }
 };
 
 export default masterChat;

@@ -113,7 +113,7 @@ Van Gogh adalah tokoh penentu Post-Impressionisme.
 Ia mulai melukis pada usia 27 dan menghasilkan 900 lukisan minyak hanya dalam sepuluh tahun, namun hanya satu yang terjual semasa hidupnya.
 Karya agung seperti The Starry Night, Sunflowers, dan Café Terrace at Night semuanya lahir dalam kemiskinan dan penderitaan jiwa.
 
-Ia meninggal pada usia 37 tahun—miskin dan tidak diakui—namun kini menjadi pelukis yang paling dicintai dalam sejarah.` },
+"Aku menaruh hati dan jiwaku dalam karyaku." — Pelukis yang menempa keindahan abadi dari penderitaan.` },
   'klimt': {
     name: 'Klimt', description: `Daun emas nyata dan pola geometris terinspirasi mosaik Byzantium telah diterapkan.
 Persegi panjang di sisi dan lingkaran di atas, detail dekoratif kini menyelimuti tubuh Anda.
@@ -121,7 +121,7 @@ Persegi panjang di sisi dan lingkaran di atas, detail dekoratif kini menyelimuti
 Klimt adalah pelukis Art Nouveau terkemuka di Wina akhir abad ke-19.
 Ia menciptakan teknik unik yang menggabungkan lukisan minyak dengan potongan emas.
 
-Karyanya yang paling terkenal, 〈The Kiss〉, menggambarkan sepasang kekasih yang dibalut emas dan menjadi simbol ikonis romantisme.` },
+"Setiap zaman seninya, setiap seni kebebasannya." — Pelukis yang menangkap keindahan akhir abad dalam emas.` },
   'munch': {
     name: 'Munch', description: `Kurva berputar, bentuk terdistorsi, dan warna intens telah diterapkan.
 Langit merah darah dan garis bergelombang mengekspresikan kecemasan dan emosi yang mendalam.
@@ -129,7 +129,7 @@ Langit merah darah dan garis bergelombang mengekspresikan kecemasan dan emosi ya
 Munch adalah pelopor Ekspresionisme yang melukis bukan apa yang dilihat, melainkan apa yang dirasakan.
 Ia kehilangan ibunya pada usia 5 tahun dan kakak perempuannya pada usia 14 tahun—trauma itu menjadi sumber abadi karyanya.
 
-〈The Scream〉 adalah ekspresi visual dari ketakutan eksistensial yang telah menjadi salah satu gambar paling ikonik dalam sejarah seni.` },
+"Penyakit, kegilaan, dan kematian adalah malaikat hitam yang menjaga ayunanku." — Pelukis yang mengubah kegelapan batin menjadi seni.` },
   'matisse': {
     name: 'Matisse', description: `Bentuk yang disederhanakan dan warna primer yang berani telah diterapkan.
 Alih-alih akurasi anatomis, fokusnya adalah pada ekspresi emosi melalui warna.
@@ -137,7 +137,7 @@ Alih-alih akurasi anatomis, fokusnya adalah pada ekspresi emosi melalui warna.
 Matisse adalah pemimpin Fauvisme—gerakan yang menggunakan warna liar untuk mengekspresikan perasaan daripada realitas.
 Ia menemukan lukisan saat pulih dari sakit usus buntu pada usia 20 tahun dan tidak pernah berhenti sejak saat itu.
 
-Di akhir hidupnya, saat tidak bisa lagi melukis, ia menciptakan karya gunting kertas berwarna—membuktikan bahwa seni tidak mengenal batas.` },
+"Tujuan warna bukan menggambarkan bentuk, tapi mengekspresikan emosi." — Pelukis yang menyanyikan kegembiraan melalui warna.` },
   'chagall': {
     name: 'Chagall', description: `Atmosfer seperti mimpi dari merah muda, biru kobalt, dan warna permata telah diterapkan.
 Buket, kekasih yang melayang, dan hewan fantasi mengapung di antara batas mimpi dan kenyataan.
@@ -145,7 +145,7 @@ Buket, kekasih yang melayang, dan hewan fantasi mengapung di antara batas mimpi 
 Chagall lahir di Vitebsk, Belarus, dan menemukan semua warna hidupnya di sana.
 Cintanya pada Bella, istrinya seumur hidup, menjadi tema abadi dalam karyanya.
 
-Ia melukis warna-warna cinta dan kerinduan sepanjang 97 tahun hidupnya—menjadi penyair warna yang tiada duanya.` },
+"Dalam hidup kita hanya ada satu warna — warna cinta." — Penyair yang menghapus batas antara mimpi dan kenyataan.` },
   'picasso': {
     name: 'Picasso', description: `Teknik Kubisme yang mendekonstruksi subjek menjadi bidang geometris dan menampilkan depan dan samping secara bersamaan telah diterapkan.
 Wajah Anda kini ada di mana-mana sekaligus—dilihat dari segala sudut sekaligus.
@@ -161,7 +161,7 @@ Dalam Self-Portrait with Thorn Necklace, rasa sakit menjadi seni.
 Pada usia 18 tahun, Frida Kahlo mengalami kecelakaan bus mengerikan yang menghancurkan tulang belakangnya.
 Selama pemulihan, ia mulai melukis—mengubah rasa sakit menjadi seni.
 
-Sebagian besar dari 143 lukisannya adalah self-portrait. 'Saya melukis diri saya sendiri karena saya sering sendirian,' katanya.` },
+"Kaki, untuk apa jika aku punya sayap untuk terbang?" — Pelukis tak terkalahkan yang mengubah rasa sakit menjadi seni.` },
   'lichtenstein': {
     name: 'Lichtenstein', description: `Teknik pop art menggunakan titik Ben-Day dari komik cetak, kontur hitam tebal, dan warna primer telah diterapkan.
 Wajah Anda kini terasa seperti panel komik—cerah, berani, dan penuh ekspresi dramatis.
@@ -169,7 +169,7 @@ Wajah Anda kini terasa seperti panel komik—cerah, berani, dan penuh ekspresi d
 Pada tahun 1961, Lichtenstein melukis komik Mickey Mouse dan dunia seni terguncang.
 Majalah Life bertanya: 'Apakah ia seniman terburuk di AS?'
 
-Kini karya-karyanya terjual dengan harga puluhan juta dolar—membuktikan bahwa budaya pop adalah seni.` }
+"Aku tidak menggambar komik, aku melukis tentang komik." — Pelukis yang menghapus batas antara budaya pop dan seni murni.` }
 };
 
 export const mastersResultEducation = {

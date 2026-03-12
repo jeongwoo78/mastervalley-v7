@@ -74,6 +74,17 @@ export const masterChat = {
     'FRIDA': 'Aku menikmati obrolan kita. Tapi sudah waktunya kembali ke studioku.',
     'LICHTENSTEIN': 'Aku menikmati obrolan kita. Tapi titik-titik sudah memanggilku kembali ke studio!'
   }
+,
+  // ===== 거장 프로필 (아바타 탭 모달) =====
+  profile: {
+    'VAN GOGH': { fullName: 'Vincent van Gogh', years: '1853~1890', origin: 'Belanda · Post-Impresionisme', quote: '"Aku menaruh hati dan jiwaku dalam karyaku."' },
+    'KLIMT': { fullName: 'Gustav Klimt', years: '1862~1918', origin: 'Austria · Art Nouveau', quote: '"Setiap zaman seninya, setiap seni kebebasannya."' },
+    'MUNCH': { fullName: 'Edvard Munch', years: '1863~1944', origin: 'Norwegia · Ekspresionisme', quote: '"Aku tidak melukis apa yang kulihat, tapi apa yang pernah kulihat."' },
+    'MATISSE': { fullName: 'Henri Matisse', years: '1869~1954', origin: 'Prancis · Fauvisme', quote: '"Tujuan warna bukan menggambarkan bentuk, tapi mengekspresikan emosi."' },
+    'CHAGALL': { fullName: 'Marc Chagall', years: '1887~1985', origin: 'Rusia/Prancis · Surealisme', quote: '"Dalam hidup kita hanya ada satu warna — warna cinta."' },
+    'FRIDA': { fullName: 'Frida Kahlo', years: '1907~1954', origin: 'Meksiko · Surealisme', quote: '"Kaki, untuk apa jika aku punya sayap untuk terbang?"' },
+    'LICHTENSTEIN': { fullName: 'Roy Lichtenstein', years: '1923~1997', origin: 'AS · Pop Art', quote: '"Aku tidak menggambar komik, aku melukis tentang komik."' },
+  }
 };
 
 export default masterChat;

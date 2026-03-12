@@ -73,6 +73,17 @@ export const masterChat = {
     'FRIDA': '너와의 대화 즐거웠어. 아쉽지만, 거울 앞 작업실로 돌아갈 시간이야.',
     'LICHTENSTEIN': '너와의 대화 즐거웠어. 아쉽지만, 점들이 기다리고 있거든! 작업실로 돌아갈게.'
   }
+,
+  // ===== 거장 프로필 (아바타 탭 모달) =====
+  profile: {
+    'VAN GOGH': { fullName: '빈센트 반 고흐', years: '1853~1890', origin: '네덜란드 · 후기인상주의', quote: '"나는 내 작품에 심장과 영혼을 담는다."' },
+    'KLIMT': { fullName: '구스타프 클림트', years: '1862~1918', origin: '오스트리아 · 아르누보', quote: '"시대에는 예술을, 예술에는 자유를."' },
+    'MUNCH': { fullName: '에드바르 뭉크', years: '1863~1944', origin: '노르웨이 · 표현주의', quote: '"나는 보이는 것이 아니라 본 것을 그린다."' },
+    'MATISSE': { fullName: '앙리 마티스', years: '1869~1954', origin: '프랑스 · 야수파', quote: '"색채의 목적은 형태가 아니라 감정을 표현하는 것이다."' },
+    'CHAGALL': { fullName: '마르크 샤갈', years: '1887~1985', origin: '러시아/프랑스 · 초현실주의', quote: '"우리 삶에는 단 하나의 색이 있다. 사랑의 색이다."' },
+    'FRIDA': { fullName: '프리다 칼로', years: '1907~1954', origin: '멕시코 · 초현실주의', quote: '"발이 있으면 뭐 하나, 날개가 있는데."' },
+    'LICHTENSTEIN': { fullName: '로이 리히텐슈타인', years: '1923~1997', origin: '미국 · 팝아트', quote: '"나는 만화를 그리는 것이 아니라, 만화를 주제로 그림을 그린다."' },
+  }
 };
 
 export default masterChat;

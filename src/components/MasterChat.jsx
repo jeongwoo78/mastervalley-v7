@@ -16,7 +16,7 @@ import lichtensteinAvatar from '../assets/avatars/lichtenstein.webp';
 // API 기본 URL
 const API_BASE_URL = 'https://mastervalley-v7.vercel.app';
 
-// 거장별 테마 색상 (7명) - 색상은 i18n 불필요
+// 거장별 테마 색상 + 아바타 (7명)
 const MASTER_THEMES = {
   'VAN GOGH': { primary: '#2E8B7E', gradient: 'linear-gradient(135deg, #2E8B7E, #257568)', icon: '🌻', avatar: vangoghAvatar },
   'KLIMT': { primary: '#D4AF37', gradient: 'linear-gradient(135deg, #D4AF37, #b8962e)', icon: '✨', avatar: klimtAvatar },
@@ -46,11 +46,12 @@ const MasterChat = ({
   const [pendingCorrection, setPendingCorrection] = useState(savedChatData?.pendingCorrection || null);
   const [messageCount, setMessageCount] = useState(savedChatData?.messageCount || 0);
   const [isChatEnded, setIsChatEnded] = useState(savedChatData?.isChatEnded || false);
+  const [showProfile, setShowProfile] = useState(false);
   const chatAreaRef = useRef(null);
   const hasGreeted = useRef(savedChatData?.messages?.length > 0);
   const isChatEndedRef = useRef(savedChatData?.isChatEnded || false);
   
-  const MAX_MESSAGES = 5; // 테스트용 (출시 시 20으로 변경)
+  const MAX_MESSAGES = 20; // 최대 대화 횟수
 
   // 테마 색상
   const theme = MASTER_THEMES[masterKey] || MASTER_THEMES['VAN GOGH'];
@@ -249,7 +250,7 @@ const MasterChat = ({
     }}>
       {/* 헤더 (v79: 원형 아바타 이미지) */}
       <div className="master-chat-header">
-        <img className="master-avatar-img" src={theme.avatar} alt={masterName} />
+        <img className="master-avatar-img" src={theme.avatar} alt={masterName} onClick={() => setShowProfile(true)} style={{ cursor: 'pointer' }} />
         <div className="master-info">
           <h3>{masterName}<span className="ai-tag">(AI)</span></h3>
         </div>
@@ -383,6 +384,73 @@ const MasterChat = ({
           </>
         )}
       </button>
+
+      {/* 거장 프로필 모달 */}
+      {showProfile && (() => {
+        const profile = chatText.profile?.[masterKey] || {};
+        return (
+        <div
+          onClick={() => setShowProfile(false)}
+          style={{
+            position: 'fixed', inset: 0, zIndex: 9999,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            background: 'rgba(0,0,0,0.7)',
+            animation: 'profileFadeIn 0.2s ease',
+            padding: 24
+          }}
+        >
+          <div
+            onClick={e => e.stopPropagation()}
+            dir={lang === 'ar' ? 'rtl' : 'ltr'}
+            style={{
+              background: '#1a1a1a',
+              borderRadius: 20,
+              padding: '28px 24px 32px',
+              maxWidth: 320, width: '100%',
+              animation: 'profileScaleIn 0.25s ease',
+              position: 'relative'
+            }}
+          >
+            <button
+              onClick={() => setShowProfile(false)}
+              style={{
+                position: 'absolute', top: 12, [lang === 'ar' ? 'left' : 'right']: 12,
+                background: 'rgba(255,255,255,0.08)', border: 'none',
+                color: 'rgba(255,255,255,0.4)', fontSize: 16,
+                width: 30, height: 30, borderRadius: '50%',
+                cursor: 'pointer', display: 'flex',
+                alignItems: 'center', justifyContent: 'center'
+              }}
+            >✕</button>
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: 8, marginBottom: 20 }}>
+              <img
+                src={theme.avatar}
+                style={{
+                  width: 160, height: 160,
+                  borderRadius: '50%', objectFit: 'cover',
+                  border: `3px solid ${theme.primary}60`,
+                  boxShadow: `0 0 24px ${theme.primary}30`
+                }}
+                alt={masterName}
+              />
+            </div>
+            <div style={{ textAlign: 'center', fontSize: 18, fontWeight: 700, color: '#fff', marginBottom: 8 }}>
+              {profile.fullName || masterName}
+            </div>
+            <div style={{ textAlign: 'center', fontSize: 13, color: 'rgba(255,255,255,0.45)', marginBottom: 4 }}>
+              {profile.years || ''}
+            </div>
+            <div style={{ textAlign: 'center', fontSize: 13, color: theme.primary, fontWeight: 500, marginBottom: 18 }}>
+              {profile.origin || ''}
+            </div>
+            <div style={{ width: 32, height: 1, background: 'rgba(255,255,255,0.1)', margin: '0 auto 18px' }} />
+            <div style={{ textAlign: 'center', fontSize: 14, color: 'rgba(255,255,255,0.65)', fontStyle: 'italic', lineHeight: 1.7, padding: '0 8px' }}>
+              {profile.quote || ''}
+            </div>
+          </div>
+        </div>
+        );
+      })()}
 
       <style>{`
         /* ===== 마스터 챗 컨테이너 (목업 06-result-single.html 준수) ===== */
@@ -650,6 +718,16 @@ const MasterChat = ({
 
         @keyframes spin {
           to { transform: rotate(360deg); }
+        }
+
+        @keyframes profileFadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+
+        @keyframes profileScaleIn {
+          from { transform: scale(0.92); opacity: 0; }
+          to { transform: scale(1); opacity: 1; }
         }
       `}</style>
     </div>

@@ -512,7 +512,7 @@ const GalleryScreen = ({ onBack, onHome, lang = 'en' }) => {
         </div>
       ) : (
         <div style={styles.header}>
-          <button style={styles.backButton} onClick={onBack}>
+          <button className="back-btn" style={styles.backButton} onClick={onBack}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
           </button>
           <h2 style={styles.titleCenter}>{t.title}</h2>
