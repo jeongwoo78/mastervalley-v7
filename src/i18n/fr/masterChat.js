@@ -66,13 +66,13 @@ export const masterChat = {
 
   // ===== Messages d\'au revoir (7) =====
   farewellMessages: {
-    'VAN GOGH': 'J\'ai apprécié notre conversation. Mais les étoiles m\'appellent — je dois retourner à ma toile.',
-    'KLIMT': 'Notre conversation fut un plaisir. Mais les rêves dorés m\'attendent — je dois partir.',
-    'MUNCH': 'J\'ai apprécié notre conversation. Mais les voix intérieures m\'appellent à nouveau — je dois partir.',
-    'CHAGALL': 'J\'ai apprécié notre conversation. Mais il est temps de revoler dans mes rêves.',
-    'MATISSE': 'J\'ai apprécié notre conversation. Mais les couleurs m\'attendent — je dois partir.',
-    'FRIDA': 'J\'ai apprécié notre échange. Mais il est temps de retourner devant mon miroir.',
-    'LICHTENSTEIN': 'J\'ai apprécié notre échange. Mais les points m\'attendent !'
+    'VAN GOGH': 'J\'ai apprécié notre conversation. Mais les étoiles m\'appellent — je dois retourner à mon atelier.',
+    'KLIMT': 'Notre conversation fut un plaisir. Mais les rêves dorés m\'attendent — je dois retourner à mon atelier.',
+    'MUNCH': 'J\'ai apprécié notre conversation. Mais les voix intérieures m\'appellent à nouveau — je dois retourner à mon atelier.',
+    'CHAGALL': 'J\'ai apprécié notre conversation. Mais il est temps de revoler vers mon atelier de rêves.',
+    'MATISSE': 'J\'ai apprécié notre conversation. Mais les couleurs m\'attendent — je dois retourner à mon atelier.',
+    'FRIDA': 'J\'ai apprécié notre échange. Mais il est temps de retourner à mon atelier.',
+    'LICHTENSTEIN': 'J\'ai apprécié notre échange. Mais les points m\'attendent à l\'atelier !'
   }
 };
 

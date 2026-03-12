@@ -66,13 +66,13 @@ export const masterChat = {
 
   // ===== Despedidas (7) =====
   farewellMessages: {
-    'VAN GOGH': 'Disfruté nuestra conversación. Pero las estrellas me llaman — debo volver a mi lienzo.',
-    'KLIMT': 'Nuestra conversación fue un placer. Pero los sueños dorados me esperan — debo regresar.',
-    'MUNCH': 'Disfruté nuestra conversación. Pero las voces interiores me llaman de nuevo — debo irme.',
-    'CHAGALL': 'Disfruté nuestra conversación. Pero es hora de volar de vuelta a mis sueños.',
-    'MATISSE': 'Disfruté nuestra conversación. Pero los colores me esperan — debo irme.',
-    'FRIDA': 'Disfruté nuestra charla. Pero es hora de volver a mi espejo.',
-    'LICHTENSTEIN': 'Disfruté nuestra charla. ¡Pero los puntos me están esperando!'
+    'VAN GOGH': 'Disfruté nuestra conversación. Pero las estrellas me llaman — debo volver a mi estudio.',
+    'KLIMT': 'Nuestra conversación fue un placer. Pero los sueños dorados me esperan — debo volver a mi estudio.',
+    'MUNCH': 'Disfruté nuestra conversación. Pero las voces interiores me llaman de nuevo — debo volver a mi estudio.',
+    'CHAGALL': 'Disfruté nuestra conversación. Pero es hora de volar de vuelta a mi estudio de sueños.',
+    'MATISSE': 'Disfruté nuestra conversación. Pero los colores me esperan — debo volver a mi estudio.',
+    'FRIDA': 'Disfruté nuestra charla. Pero es hora de volver a mi estudio.',
+    'LICHTENSTEIN': 'Disfruté nuestra charla. ¡Pero los puntos me esperan en el estudio!'
   }
 };
 

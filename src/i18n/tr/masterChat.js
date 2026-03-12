@@ -60,13 +60,13 @@ export const masterChat = {
   },
 
   farewellMessages: {
-    'VAN GOGH': 'Sohbetimiz keyifliydi. Ama yıldızlar beni çağırıyor — tualime dönmeliyim.',
-    'KLIMT': 'Sohbetimiz bir zevkti. Ama altın rüyalar beni bekliyor — gitmeliyim.',
-    'MUNCH': 'Sohbetimiz keyifliydi. Ama içimdeki sesler yine çağırıyor — gitmeliyim.',
-    'CHAGALL': 'Sohbetimiz keyifliydi. Ama rüyalarıma geri uçma zamanı geldi.',
-    'MATISSE': 'Sohbetimiz keyifliydi. Ama renkler beni bekliyor — gitmeliyim.',
-    'FRIDA': 'Sohbetimiz keyifliydi. Ama aynaının karşısına dönme zamanı geldi.',
-    'LICHTENSTEIN': 'Sohbetimiz keyifliydi. Ama noktalar beni bekliyor!'
+    'VAN GOGH': 'Sohbetimiz keyifliydi. Ama yıldızlar beni çağırıyor — atölyeme dönmeliyim.',
+    'KLIMT': 'Sohbetimiz bir zevkti. Ama altın rüyalar beni bekliyor — atölyeme dönmeliyim.',
+    'MUNCH': 'Sohbetimiz keyifliydi. Ama içimdeki sesler yine çağırıyor — atölyeme dönmeliyim.',
+    'CHAGALL': 'Sohbetimiz keyifliydi. Ama rüyalarımın atölyesine geri uçma zamanı geldi.',
+    'MATISSE': 'Sohbetimiz keyifliydi. Ama renkler beni bekliyor — atölyeme dönmeliyim.',
+    'FRIDA': 'Sohbetimiz keyifliydi. Ama atölyeme dönme zamanı geldi.',
+    'LICHTENSTEIN': 'Sohbetimiz keyifliydi. Ama noktalar beni atölyeye geri çağırıyor!'
   }
 };
 

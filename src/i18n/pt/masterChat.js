@@ -60,13 +60,13 @@ export const masterChat = {
   },
 
   farewellMessages: {
-    'VAN GOGH': 'Apreciei a nossa conversa. Mas as estrelas me chamam — preciso voltar à minha tela.',
-    'KLIMT': 'Nossa conversa foi um prazer. Mas sonhos dourados me aguardam — preciso partir.',
-    'MUNCH': 'Apreciei a nossa conversa. Mas as vozes interiores me chamam novamente — preciso ir.',
-    'CHAGALL': 'Apreciei a nossa conversa. Mas é hora de voar de volta aos meus sonhos.',
-    'MATISSE': 'Apreciei a nossa conversa. Mas as cores me esperam — preciso ir.',
-    'FRIDA': 'Gostei da nossa conversa. Mas é hora de voltar ao meu espelho.',
-    'LICHTENSTEIN': 'Gostei da nossa conversa. Mas os pontos estão me chamando!'
+    'VAN GOGH': 'Apreciei a nossa conversa. Mas as estrelas me chamam — preciso voltar ao meu ateliê.',
+    'KLIMT': 'Nossa conversa foi um prazer. Mas sonhos dourados me aguardam — preciso voltar ao meu ateliê.',
+    'MUNCH': 'Apreciei a nossa conversa. Mas as vozes interiores me chamam novamente — preciso voltar ao meu ateliê.',
+    'CHAGALL': 'Apreciei a nossa conversa. Mas é hora de voar de volta ao meu ateliê dos sonhos.',
+    'MATISSE': 'Apreciei a nossa conversa. Mas as cores me esperam — preciso voltar ao meu ateliê.',
+    'FRIDA': 'Gostei da nossa conversa. Mas é hora de voltar ao meu ateliê.',
+    'LICHTENSTEIN': 'Gostei da nossa conversa. Mas os pontos estão me chamando de volta ao ateliê!'
   }
 };
 

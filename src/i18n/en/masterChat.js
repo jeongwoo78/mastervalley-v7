@@ -65,13 +65,13 @@ export const masterChat = {
 
   // ===== Farewell Messages (7) =====
   farewellMessages: {
-    'VAN GOGH': 'I enjoyed our conversation. But alas, the stars are calling — I must return to my canvas.',
+    'VAN GOGH': 'I enjoyed our conversation. But alas, the stars are calling — I must return to my studio.',
     'KLIMT': 'Our conversation was a pleasure. But alas, golden dreams await — I must return to my studio.',
-    'MUNCH': 'I enjoyed our conversation. But alas, the voices within call again — I must go.',
-    'CHAGALL': 'I enjoyed our conversation. But alas, it is time to fly back into my dreams.',
-    'MATISSE': 'I enjoyed our conversation. But alas, the colors are waiting for me — I must go.',
-    'FRIDA': 'I enjoyed our chat. But it\'s time to go back to my mirror.',
-    'LICHTENSTEIN': 'I enjoyed our chat. But the dots are calling me back!'
+    'MUNCH': 'I enjoyed our conversation. But alas, the voices within call again — I must return to my studio.',
+    'CHAGALL': 'I enjoyed our conversation. But alas, it is time to fly back to my studio of dreams.',
+    'MATISSE': 'I enjoyed our conversation. But alas, the colors are waiting — I must return to my studio.',
+    'FRIDA': 'I enjoyed our chat. But it\'s time to go back to my studio.',
+    'LICHTENSTEIN': 'I enjoyed our chat. But the dots are calling me back to the studio!'
   }
 };
 

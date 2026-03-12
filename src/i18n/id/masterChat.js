@@ -66,13 +66,13 @@ export const masterChat = {
 
   // ===== Pesan Perpisahan (7) =====
   farewellMessages: {
-    'VAN GOGH': 'Aku menikmati percakapan kita. Tapi bintang-bintang memanggilku — aku harus kembali ke kanvasku.',
-    'KLIMT': 'Percakapan kita sangat menyenangkan. Tapi mimpi keemasan menungguku — aku harus pergi.',
-    'MUNCH': 'Aku menikmati percakapan kita. Tapi suara-suara dalam diri memanggilku lagi — aku harus pergi.',
-    'CHAGALL': 'Aku menikmati percakapan kita. Tapi sudah waktunya terbang kembali ke dunia mimpiku.',
-    'MATISSE': 'Aku menikmati percakapan kita. Tapi warna-warna menungguku — aku harus pergi.',
-    'FRIDA': 'Aku menikmati obrolan kita. Tapi sudah waktunya kembali ke cerminku.',
-    'LICHTENSTEIN': 'Aku menikmati obrolan kita. Tapi titik-titik sudah memanggilku!'
+    'VAN GOGH': 'Aku menikmati percakapan kita. Tapi bintang-bintang memanggilku — aku harus kembali ke studio.',
+    'KLIMT': 'Percakapan kita sangat menyenangkan. Tapi mimpi keemasan menungguku — aku harus kembali ke studio.',
+    'MUNCH': 'Aku menikmati percakapan kita. Tapi suara-suara dalam diri memanggilku lagi — aku harus kembali ke studio.',
+    'CHAGALL': 'Aku menikmati percakapan kita. Tapi sudah waktunya terbang kembali ke studio mimpiku.',
+    'MATISSE': 'Aku menikmati percakapan kita. Tapi warna-warna menungguku — aku harus kembali ke studio.',
+    'FRIDA': 'Aku menikmati obrolan kita. Tapi sudah waktunya kembali ke studioku.',
+    'LICHTENSTEIN': 'Aku menikmati obrolan kita. Tapi titik-titik sudah memanggilku kembali ke studio!'
   }
 };
 
