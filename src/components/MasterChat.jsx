@@ -261,7 +261,7 @@ const MasterChat = ({
         {messages.map((msg, idx) => (
           <div key={idx} className={`chat-message ${msg.role}`}>
             {msg.role === 'master' && (
-              <img className="avatar-img-small" src={theme.avatar} alt={masterName} />
+              <img className="avatar-img-small" src={theme.avatar} alt={masterName} onClick={() => setShowProfile(true)} style={{ cursor: "pointer" }} />
             )}
             {msg.role === 'system' ? (
               <div className="system-message">
@@ -286,7 +286,7 @@ const MasterChat = ({
         {/* 타이핑 인디케이터 */}
         {isLoading && (
           <div className="chat-message master">
-            <img className="avatar-img-small" src={theme.avatar} alt={masterName} />
+            <img className="avatar-img-small" src={theme.avatar} alt={masterName} onClick={() => setShowProfile(true)} style={{ cursor: "pointer" }} />
             <div className="bubble typing" style={{ 
               background: `${theme.primary}20`,
               borderColor: `${theme.primary}40`
@@ -434,7 +434,7 @@ const MasterChat = ({
                 alt={masterName}
               />
             </div>
-            <div style={{ textAlign: 'center', fontSize: 18, fontWeight: 700, color: '#fff', marginBottom: 8 }}>
+            <div style={{ textAlign: 'center', fontSize: 18, fontWeight: 600, color: 'rgba(255,255,255,0.85)', marginBottom: 8 }}>
               {profile.fullName || masterName}
             </div>
             <div style={{ textAlign: 'center', fontSize: 13, color: 'rgba(255,255,255,0.45)', marginBottom: 4 }}>
