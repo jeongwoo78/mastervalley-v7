@@ -111,10 +111,10 @@ const MenuScreen = ({
       <div className="menu-screen">
         <header className="menu-header">
           <button className="back-btn" onClick={() => setShowTerms(false)}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
-          <span className="header-title">{ta.termsOfService}</span>
+          <span className="header-title">{lang === 'ko' ? ta.termsOfService : 'Terms of Service'}</span>
           <span className="header-spacer"></span>
         </header>
-        <div className="legal-scroll">
+        <div className="legal-scroll" dir="ltr" style={{ textAlign: 'left' }}>
           <p className="legal-updated">{lang === 'ko' ? '최종 수정일: 2026년 3월 13일' : 'Last updated: March 13, 2026'}</p>
           {sections.map((s, i) => (
             <div key={i} className="legal-section">
@@ -135,10 +135,10 @@ const MenuScreen = ({
       <div className="menu-screen">
         <header className="menu-header">
           <button className="back-btn" onClick={() => setShowPrivacy(false)}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
-          <span className="header-title">{ta.privacyPolicy}</span>
+          <span className="header-title">{lang === 'ko' ? ta.privacyPolicy : 'Privacy Policy'}</span>
           <span className="header-spacer"></span>
         </header>
-        <div className="legal-scroll">
+        <div className="legal-scroll" dir="ltr" style={{ textAlign: 'left' }}>
           <p className="legal-updated">{lang === 'ko' ? '최종 수정일: 2026년 3월 13일' : 'Last updated: March 13, 2026'}</p>
           {sections.map((s, i) => (
             <div key={i} className="legal-section">
@@ -171,19 +171,19 @@ const MenuScreen = ({
 
           {/* Terms of Service */}
           <div className="menu-item-svg" onClick={() => setShowTerms(true)}>
-            <span className="menu-label">{ta.termsOfService}</span>
+            <span className="menu-label">{lang === 'ko' ? ta.termsOfService : 'Terms of Service'}</span>
             <span className="menu-chevron-svg"><IconChevron /></span>
           </div>
 
           {/* Privacy Policy */}
           <div className="menu-item-svg" onClick={() => setShowPrivacy(true)}>
-            <span className="menu-label">{ta.privacyPolicy}</span>
+            <span className="menu-label">{lang === 'ko' ? ta.privacyPolicy : 'Privacy Policy'}</span>
             <span className="menu-chevron-svg"><IconChevron /></span>
           </div>
 
           {/* Image Credits */}
           <div className="about-credits">
-            <span className="about-credits-title">{ta.imageCredits}</span>
+            <span className="about-credits-title">{lang === 'ko' ? ta.imageCredits : 'Image Credits'}</span>
             <span className="about-credits-text">{ta.lichtensteinCredit}</span>
           </div>
         </div>
