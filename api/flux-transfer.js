@@ -2679,7 +2679,7 @@ export default async function handler(req, res) {
     const { image, selectedStyle, correctionPrompt } = req.body;
     
     // v68.3: 변수 초기화 (스코프 문제 해결) - v68: 긍정 명령어로 통일
-    let coreRulesPrefix = 'Female nipples MUST be covered by clothing. Genitals and private areas MUST be covered. Preserve identity, gender, ethnicity exactly. Keep only original elements from photo. Clean artwork, text-free, signature-free, watermark-free. ';
+    let coreRulesPrefix = 'Female nipples MUST be covered by clothing. Preserve identity, gender, ethnicity exactly. Keep only original elements from photo. Clean artwork, text-free, signature-free, watermark-free. ';
     let genderPrefixCommon = '';
     
     // v72.1: photoAnalysis 초기화 (인종 보존용)
@@ -3312,16 +3312,16 @@ export default async function handler(req, res) {
         let CORE_RULES_BASE;
         if (skipEthnicityPreserve) {
           // 고갱/마티스/드랭/블라맹크: 피부색 변환이 화풍이라 ethnicity 제외
-          CORE_RULES_BASE = 'Female nipples MUST be covered by clothing. Genitals and private areas MUST be covered. ' +
+          CORE_RULES_BASE = 'Female nipples MUST be covered by clothing. ' +
             'Preserve identity, gender exactly. ' +
             'Keep only original elements from photo.';
         } else if (allowExtraImagery) {
           // 샤갈: 환영/꿈 이미지 허용 (원본만 규칙 제외)
-          CORE_RULES_BASE = 'Female nipples MUST be covered by clothing. Genitals and private areas MUST be covered. ' +
+          CORE_RULES_BASE = 'Female nipples MUST be covered by clothing. ' +
             'Preserve identity, gender, ethnicity exactly.';
         } else {
           // 기본값
-          CORE_RULES_BASE = 'Female nipples MUST be covered by clothing. Genitals and private areas MUST be covered. ' +
+          CORE_RULES_BASE = 'Female nipples MUST be covered by clothing. ' +
             'Preserve identity, gender, ethnicity exactly. ' +
             'Keep only original elements from photo.';
         }
