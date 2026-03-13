@@ -110,31 +110,41 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, userCredits = 0, lan
         { id: 'lichtenstein-master', name: ps.lichtenstein, period: '1923 - 1997', thumbnail: lichtenstein, category: 'masters' }
       ]
     },
-    oriental: {
-      name: ps.orientalName,
-      price: '$0.20',
-      fullPrice: '$0.50',
-      emojis: '🐼🌸🐅',
-      selectLabel: ps.selectStyle,
-      priceLabel: `$0.20/${ps.perTransform}`,
-      gradient: 'linear-gradient(135deg, #ffe4e6 0%, #f472b6 100%)',
-      boxShadow: '0 4px 15px rgba(244, 114, 182, 0.3)',
-      color: '#4a1530',
-      accent: '#f472b6',
-      fullTransform: {
-        id: 'oriental-all',
-        title: ps.orientalFullTitle,
-        desc: ps.orientalFullDesc,
-        count: 3,
-        isFullTransform: true,
-        category: 'oriental'
-      },
-      styles: [
-        { id: 'chinese', name: ps.chinese, period: ps.chineseSub, thumbnail: chinese, category: 'oriental' },
-        { id: 'japanese', name: ps.japanese, period: ps.japaneseSub, thumbnail: japanese, category: 'oriental' },
-        { id: 'korean', name: ps.korean, period: ps.koreanSub, thumbnail: korean, category: 'oriental' }
-      ]
-    }
+    oriental: (() => {
+      // 동양화 순서: ko=한중일, ja=일중한, 기본=중일한
+      const koreanStyle = { id: 'korean', name: ps.korean, period: ps.koreanSub, thumbnail: korean, category: 'oriental' };
+      const chineseStyle = { id: 'chinese', name: ps.chinese, period: ps.chineseSub, thumbnail: chinese, category: 'oriental' };
+      const japaneseStyle = { id: 'japanese', name: ps.japanese, period: ps.japaneseSub, thumbnail: japanese, category: 'oriental' };
+
+      const orientalStyles = lang === 'ko' ? [koreanStyle, chineseStyle, japaneseStyle]
+        : lang === 'ja' ? [japaneseStyle, chineseStyle, koreanStyle]
+        : [chineseStyle, japaneseStyle, koreanStyle];
+      const orientalEmojis = lang === 'ko' ? '🐅🐼🌸'
+        : lang === 'ja' ? '🌸🐼🐅'
+        : '🐼🌸🐅';
+
+      return {
+        name: ps.orientalName,
+        price: '$0.20',
+        fullPrice: '$0.50',
+        emojis: orientalEmojis,
+        selectLabel: ps.selectStyle,
+        priceLabel: `$0.20/${ps.perTransform}`,
+        gradient: 'linear-gradient(135deg, #ffe4e6 0%, #f472b6 100%)',
+        boxShadow: '0 4px 15px rgba(244, 114, 182, 0.3)',
+        color: '#4a1530',
+        accent: '#f472b6',
+        fullTransform: {
+          id: 'oriental-all',
+          title: ps.orientalFullTitle,
+          desc: ps.orientalFullDesc,
+          count: 3,
+          isFullTransform: true,
+          category: 'oriental'
+        },
+        styles: orientalStyles
+      };
+    })()
   };
 
   // Auto-start when both photo and style selected

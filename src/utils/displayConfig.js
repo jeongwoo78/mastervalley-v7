@@ -46,7 +46,7 @@ export const STANDARD_KEYS = {
     'lichtenstein'
   ],
   
-  // 동양화 (7개)
+  // 동양화 (7개) - 기본 순서: 중일한
   oriental: [
     'chinese-ink',
     'chinese-gongbi',

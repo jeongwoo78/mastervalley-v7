@@ -55,9 +55,9 @@ export const oneclickOrientalPrimary = {
   content: `Quand l\'Occident remplissait, l\'Orient vidait.
 L\'art de dire sans peindre.
 
-La Corée, entre l\'encre et le vide.
 La Chine, entre le paysage et l\'ornement.
 Le Japon, où l\'éphémère et le splendide coexistent.
+La Corée, entre l\'encre et le vide.
 
 Trois pays, trois pointes de pinceau.
 Maintenant, c\'est vous qui vous arrêtez ici.`

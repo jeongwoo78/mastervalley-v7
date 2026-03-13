@@ -55,9 +55,9 @@ export const oneclickOrientalPrimary = {
   content: `When the West filled, the East emptied.
 The art of speaking by not painting.
 
-Korea between ink and empty space,
 China between landscape and decoration,
-Japan where impermanence and splendor coexist.
+Japan where impermanence and splendor coexist,
+Korea between ink and empty space.
 
 Three nations, three brushstrokes.
 Now, you pause here.`

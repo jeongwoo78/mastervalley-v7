@@ -17,9 +17,9 @@ export const oneclickOrientalPrimary = {
   content: `Ketika Barat mengisi, Timur mengosongkan.
 Seni mengungkapkan tanpa melukis.
 
-Korea, antara tinta dan kekosongan.
 Tiongkok, antara lanskap dan ornamen.
 Jepang, di mana yang fana dan yang megah berdampingan.
+Korea, antara tinta dan kekosongan.
 
 Tiga negara, tiga ujung kuas.
 Kini, giliran Anda berhenti di sini.`

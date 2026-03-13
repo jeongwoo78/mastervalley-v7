@@ -42,7 +42,7 @@ export const oneclickOrientalBasicInfo = {
 };
 
 export const oneclickOrientalPrimary = {
-  content: `Quando o Ocidente encheu, o Oriente esvaziou.\nA arte de falar não pintando.\n\nA Coreia entre tinta e espaço vazio,\na China entre paisagem e decoração,\no Japão onde transitoriedade e esplendor coexistem.\n\nTrês nações, três pinceladas.\nAgora, tu paras aqui.`
+  content: `Quando o Ocidente encheu, o Oriente esvaziou.\nA arte de falar não pintando.\n\nA China entre paisagem e decoração,\no Japão onde transitoriedade e esplendor coexistem,\na Coreia entre tinta e espaço vazio.\n\nTrês nações, três pinceladas.\nAgora, tu paras aqui.`
 };
 
 export const oneclickOrientalSecondary = {

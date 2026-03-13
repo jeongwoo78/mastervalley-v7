@@ -55,9 +55,9 @@ export const oneclickOrientalPrimary = {
   content: `Cuando Occidente llenaba, Oriente vaciaba.
 El arte de decir sin pintar.
 
-Corea, entre la tinta y el vacío.
 China, entre el paisaje y la ornamentación.
 Japón, donde lo efímero y lo espléndido coexisten.
+Corea, entre la tinta y el vacío.
 
 Tres países, tres puntas de pincel.
 Ahora, tú te detienes aquí.`

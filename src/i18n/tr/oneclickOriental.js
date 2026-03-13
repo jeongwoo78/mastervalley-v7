@@ -42,7 +42,7 @@ export const oneclickOrientalBasicInfo = {
 };
 
 export const oneclickOrientalPrimary = {
-  content: `Batı doldurunca Doğu boşalttı.\nResmetmeyerek konuşmanın sanatı.\n\nKore mürekkep ve boşluk arasında,\nÇin manzara ve süsleme arasında,\nJapon\'da geçicilik ve ihtişam bir arada.\n\nÜç ülke, üç fırça darbesi.\nŞimdi sen burada duruyorsun.`
+  content: `Batı doldurunca Doğu boşalttı.\nResmetmeyerek konuşmanın sanatı.\n\nÇin manzara ve süsleme arasında,\nJapon\'da geçicilik ve ihtişam bir arada,\nKore mürekkep ve boşluk arasında.\n\nÜç ülke, üç fırça darbesi.\nŞimdi sen burada duruyorsun.`
 };
 
 export const oneclickOrientalSecondary = {
