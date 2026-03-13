@@ -237,6 +237,16 @@ export const ui = {
     weakPassword: 'La contraseña debe tener al menos 6 caracteres',
     wrongCredentials: 'Correo o contraseña incorrectos',
     loginFailed: 'Inicio de sesión fallido. Inténtalo de nuevo.',
+    // Developer message
+    devMsg1: 'Soy el desarrollador de Master Valley — y su primer usuario.',
+    devMsg2: 'Los artistas del Renacimiento rompieron mil años de tradición centrada en Dios y restauraron los ideales de la humanidad.',
+    devMsg3: 'Cuando pasó la revolución y llegó la cámara, la cámara preguntó:',
+    devMsg4: '"¿Qué pintar ahora?"',
+    devMsg5: 'Algunos respondieron con luz, otros con color, otros con emoción y una nueva forma de ver.',
+    devMsgHi1: 'Ahora la IA nos hace la misma pregunta.',
+    devMsgHi2: '"¿Qué haremos ahora?"',
+    devMsg6: '2.800 años de flujo occidental y la mirada de los maestros, mil años de filosofía oriental.',
+    devMsg7: 'La pista está en Master Valley.',
   },
 
   // ===== Common =====

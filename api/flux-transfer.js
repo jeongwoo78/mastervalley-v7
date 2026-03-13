@@ -2867,8 +2867,6 @@ export default async function handler(req, res) {
     // 🎨 풍경/정물/동물일 때 control_strength 높여서 원본 구도 유지
     // (나중에 visionAnalysis 확인 후 조정됨)
     let landscapeStrengthBoost = false;
-    let visionAnalysis = null;
-    let identityPrompt = '';
     
     // v79: 일본도 한국/중국과 동일하게 AI 경로 사용 (Vision-only 경로 제거)
     // 모든 동양화가 동일한 selectArtistWithAI → curated prompt 매핑 구조
@@ -2886,7 +2884,8 @@ export default async function handler(req, res) {
       );
       
       // Vision 분석 결과 추출 (통합됨)
-      // visionAnalysis, identityPrompt는 상위 스코프에서 선언됨
+      let visionAnalysis = null;
+      let identityPrompt = '';
       
       if (aiResult.success && aiResult.visionData) {
         visionAnalysis = aiResult.visionData;
@@ -3782,7 +3781,7 @@ export default async function handler(req, res) {
         attractiveEnhancement = ' Render adorably cute - child as bright-eyed, carefree, with radiant innocent smile, warm healthy glow, and pure joyful energy. Idealized endearing portrait.';
       } else if (ageRange === 'elderly') {
         // 노인
-        attractiveEnhancement = ' Render with quiet dignity - elderly as wise, with graceful distinguished features, warm knowing eyes, and serene composed presence. Idealized portrait of timeless dignity.';
+        attractiveEnhancement = ' Render with quiet dignity - elderly as wise, with graceful distinguished features, warm knowing eyes, and serene composed presence. Portrait of timeless dignity.';
       } else {
         // 성인 (기존)
         if (gender === 'male') {

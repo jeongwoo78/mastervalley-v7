@@ -237,6 +237,16 @@ export const ui = {
     weakPassword: 'Le mot de passe doit contenir au moins 6 caractères',
     wrongCredentials: 'E-mail ou mot de passe incorrect',
     loginFailed: 'Connexion échouée. Veuillez réessayer.',
+    // Developer message
+    devMsg1: 'Je suis le développeur de Master Valley — et son premier utilisateur.',
+    devMsg2: 'Les artistes de la Renaissance ont brisé mille ans de pensée centrée sur Dieu et rétabli l\'idéal humain.',
+    devMsg3: 'Quand la révolution est passée et que l\'appareil photo est apparu, il a demandé :',
+    devMsg4: '« Que peindre désormais ? »',
+    devMsg5: 'Certains ont répondu par la lumière, d\'autres par la couleur, d\'autres encore par l\'émotion et un nouveau regard.',
+    devMsgHi1: 'Aujourd\'hui, l\'IA pose la même question.',
+    devMsgHi2: '« Que ferons-nous désormais ? »',
+    devMsg6: '2 800 ans de courant occidental et le regard des maîtres, mille ans de philosophie orientale.',
+    devMsg7: 'Master Valley en détient la clé.',
   },
 
   // ===== Common =====

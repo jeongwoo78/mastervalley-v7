@@ -237,6 +237,16 @@ export const ui = {
     weakPassword: '密碼至少需要 6 個字元',
     wrongCredentials: '電子郵件或密碼錯誤',
     loginFailed: '登入失敗，請再試一次。',
+    // Developer message
+    devMsg1: '我是 Master Valley 的開發者，也是它的第一位使用者。',
+    devMsg2: '文藝復興的藝術家打破了千年以神為中心的傳統，重新樹立了人類的理想。',
+    devMsg3: '革命過後相機問世時，相機問道：',
+    devMsg4: '「現在要畫什麼？」',
+    devMsg5: '有人用光回答，有人用色彩，有人用情感和全新的視角回答。',
+    devMsgHi1: '現在，AI 正在拋出同樣的問題。',
+    devMsgHi2: '「我們要做什麼？」',
+    devMsg6: '西方 2800 年的脈絡與大師的目光，東方千年的哲學。',
+    devMsg7: '答案的線索就在 Master Valley。',
   },
 
   // ===== Common =====

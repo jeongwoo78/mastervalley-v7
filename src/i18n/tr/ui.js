@@ -227,6 +227,16 @@ export const ui = {
     weakPassword: 'Şifre en az 6 karakter olmalıdır',
     wrongCredentials: 'E-posta veya şifre hatalı',
     loginFailed: 'Giriş başarısız. Lütfen tekrar deneyin.',
+    // Developer message
+    devMsg1: 'Master Valley\'in geliştiricisiyim — ve ilk kullanıcısıyım.',
+    devMsg2: 'Rönesans sanatçıları bin yıllık Tanrı merkezli geleneği yıktı ve insanlığın ideallerini yeniden kurdu.',
+    devMsg3: 'Devrim geçip fotoğraf makinesi ortaya çıktığında, makine sordu:',
+    devMsg4: '"Şimdi ne çizmeli?"',
+    devMsg5: 'Kimi ışıkla, kimi renkle, kimi de duygu ve yeni bir bakış açısıyla cevap verdi.',
+    devMsgHi1: 'Şimdi yapay zekâ aynı soruyu soruyor.',
+    devMsgHi2: '"Biz ne yapacağız?"',
+    devMsg6: '2.800 yıllık Batı akışı ve ustaların bakışı, bin yıllık Doğu felsefesi.',
+    devMsg7: 'İpucu Master Valley\'de.',
   },
 
   common: {

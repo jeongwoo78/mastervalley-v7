@@ -236,6 +236,16 @@ export const ui = {
     weakPassword: 'Password must be at least 6 characters',
     wrongCredentials: 'Invalid email or password',
     loginFailed: 'Login failed. Please try again.',
+    // Developer message
+    devMsg1: 'I am the developer of Master Valley — and its first user.',
+    devMsg2: 'Renaissance artists shattered a thousand years of God-centered tradition and restored the ideals of humanity.',
+    devMsg3: 'When revolution passed and the camera arrived, the camera asked:',
+    devMsg4: '"What to paint now?"',
+    devMsg5: 'Some answered with light, some with color, others with emotion and a new way of seeing.',
+    devMsgHi1: 'Now AI is asking the same question.',
+    devMsgHi2: '"What will we do now?"',
+    devMsg6: '2,800 years of Western flow and the masters\' gaze, a thousand years of Eastern philosophy.',
+    devMsg7: 'The clue lies in Master Valley.',
   },
 
   // ===== Common =====

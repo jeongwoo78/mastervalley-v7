@@ -237,6 +237,16 @@ export const ui = {
     weakPassword: 'Kata sandi minimal 6 karakter',
     wrongCredentials: 'Email atau kata sandi salah',
     loginFailed: 'Login gagal. Coba lagi.',
+    // Developer message
+    devMsg1: 'Saya adalah pengembang Master Valley — dan pengguna pertamanya.',
+    devMsg2: 'Seniman Renaisans menghancurkan seribu tahun tradisi berpusat pada Tuhan dan memulihkan cita-cita kemanusiaan.',
+    devMsg3: 'Ketika revolusi berlalu dan kamera hadir, kamera bertanya:',
+    devMsg4: '"Apa yang harus dilukis sekarang?"',
+    devMsg5: 'Ada yang menjawab dengan cahaya, ada dengan warna, ada pula dengan emosi dan cara pandang baru.',
+    devMsgHi1: 'Kini AI mengajukan pertanyaan yang sama.',
+    devMsgHi2: '"Apa yang akan kita lakukan sekarang?"',
+    devMsg6: '2.800 tahun arus perubahan Barat dan pandangan para maestro, seribu tahun filosofi Timur.',
+    devMsg7: 'Petunjuknya ada di Master Valley.',
   },
 
   // ===== Common =====
