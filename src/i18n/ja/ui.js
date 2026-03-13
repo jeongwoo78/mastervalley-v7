@@ -173,7 +173,19 @@ export const ui = {
     logOut: 'ログアウト',
     contactUs: 'お問い合わせ',
     faq: 'よくある質問',
-    deleteAccount: 'アカウント削除'
+    deleteAccount: 'アカウント削除',
+    about: 'アプリ情報'
+  },
+
+
+  // ===== About =====
+  about: {
+    title: 'アプリ情報',
+    version: 'バージョン',
+    termsOfService: '利用規約',
+    privacyPolicy: 'プライバシーポリシー',
+    imageCredits: '画像クレジット',
+    lichtensteinCredit: 'Lichtenstein avatar: Eric Koch / Anefo (1967), CC BY-SA 3.0'
   },
 
   // ===== AddFunds =====

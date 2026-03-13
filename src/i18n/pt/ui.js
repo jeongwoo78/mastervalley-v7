@@ -167,7 +167,18 @@ export const ui = {
     logOut: 'Terminar Sessão',
     contactUs: 'Fale Conosco',
     faq: 'Perguntas Frequentes',
-    deleteAccount: 'Eliminar Conta'
+    deleteAccount: 'Eliminar Conta',
+    about: 'Sobre'
+  },
+
+  // ===== About =====
+  about: {
+    title: 'Sobre',
+    version: 'Versão',
+    termsOfService: 'Termos de Serviço',
+    privacyPolicy: 'Política de Privacidade',
+    imageCredits: 'Créditos de imagem',
+    lichtensteinCredit: 'Lichtenstein avatar: Eric Koch / Anefo (1967), CC BY-SA 3.0'
   },
 
   addFunds: {

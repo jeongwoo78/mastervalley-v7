@@ -167,7 +167,18 @@ export const ui = {
     logOut: 'Çıkış Yap',
     contactUs: 'Bize Ulaşın',
     faq: 'Sık Sorulan Sorular',
-    deleteAccount: 'Hesabı Sil'
+    deleteAccount: 'Hesabı Sil',
+    about: 'Hakkında'
+  },
+
+  // ===== About =====
+  about: {
+    title: 'Hakkında',
+    version: 'Sürüm',
+    termsOfService: 'Kullanım Koşulları',
+    privacyPolicy: 'Gizlilik Politikası',
+    imageCredits: 'Görsel Kredileri',
+    lichtensteinCredit: 'Lichtenstein avatar: Eric Koch / Anefo (1967), CC BY-SA 3.0'
   },
 
   addFunds: {

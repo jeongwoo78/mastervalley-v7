@@ -173,7 +173,19 @@ export const ui = {
     logOut: 'Keluar',
     contactUs: 'Hubungi Kami',
     faq: 'Pertanyaan Umum',
-    deleteAccount: 'Hapus akun'
+    deleteAccount: 'Hapus akun',
+    about: 'Tentang'
+  },
+
+
+  // ===== About =====
+  about: {
+    title: 'Tentang',
+    version: 'Versi',
+    termsOfService: 'Ketentuan Layanan',
+    privacyPolicy: 'Kebijakan Privasi',
+    imageCredits: 'Kredit Gambar',
+    lichtensteinCredit: 'Lichtenstein avatar: Eric Koch / Anefo (1967), CC BY-SA 3.0'
   },
 
   // ===== AddFunds =====

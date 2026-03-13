@@ -173,7 +173,19 @@ export const ui = {
     logOut: '登出',
     contactUs: '聯絡我們',
     faq: '常見問題',
-    deleteAccount: '刪除帳號'
+    deleteAccount: '刪除帳號',
+    about: '關於'
+  },
+
+
+  // ===== About =====
+  about: {
+    title: '關於',
+    version: '版本',
+    termsOfService: '服務條款',
+    privacyPolicy: '隱私權政策',
+    imageCredits: '圖片來源',
+    lichtensteinCredit: 'Lichtenstein avatar: Eric Koch / Anefo (1967), CC BY-SA 3.0'
   },
 
   // ===== AddFunds =====

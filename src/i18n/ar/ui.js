@@ -173,7 +173,19 @@ export const ui = {
     logOut: 'تسجيل الخروج',
     contactUs: 'اتصل بنا',
     faq: 'الأسئلة الشائعة',
-    deleteAccount: 'حذف الحساب'
+    deleteAccount: 'حذف الحساب',
+    about: 'حول التطبيق'
+  },
+
+
+  // ===== About =====
+  about: {
+    title: 'حول التطبيق',
+    version: 'الإصدار',
+    termsOfService: 'شروط الخدمة',
+    privacyPolicy: 'سياسة الخصوصية',
+    imageCredits: 'حقوق الصور',
+    lichtensteinCredit: 'Lichtenstein avatar: Eric Koch / Anefo (1967), CC BY-SA 3.0'
   },
 
   // ===== AddFunds =====

@@ -173,7 +173,19 @@ export const ui = {
     logOut: 'ออกจากระบบ',
     contactUs: 'ติดต่อเรา',
     faq: 'คำถามที่พบบ่อย',
-    deleteAccount: 'ลบบัญชี'
+    deleteAccount: 'ลบบัญชี',
+    about: 'เกี่ยวกับ'
+  },
+
+
+  // ===== About =====
+  about: {
+    title: 'เกี่ยวกับ',
+    version: 'เวอร์ชัน',
+    termsOfService: 'ข้อกำหนดการใช้งาน',
+    privacyPolicy: 'นโยบายความเป็นส่วนตัว',
+    imageCredits: 'เครดิตรูปภาพ',
+    lichtensteinCredit: 'Lichtenstein avatar: Eric Koch / Anefo (1967), CC BY-SA 3.0'
   },
 
   // ===== AddFunds =====

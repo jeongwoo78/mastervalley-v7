@@ -36,6 +36,16 @@ const IconAlertTriangle = () => (
     <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
   </svg>
 );
+const IconInfo = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
+  </svg>
+);
+const IconExternalLink = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+  </svg>
+);
 const IconChevron = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <polyline points="9 18 15 12 9 6"/>
@@ -75,8 +85,10 @@ const MenuScreen = ({
 
   const [langOpen, setLangOpen] = useState(false);
   const [supportOpen, setSupportOpen] = useState(false);
+  const [showAbout, setShowAbout] = useState(false);
 
   const t = getUi(lang).menu;
+  const ta = getUi(lang).about;
 
   const currentLangName = ALL_LANGS.find(l => l.code === lang)?.native || 'English';
 
@@ -89,6 +101,48 @@ const MenuScreen = ({
     setLangOpen(false);
   };
 
+  // ===== About View =====
+  if (showAbout) {
+    return (
+      <div className="menu-screen">
+        <header className="menu-header">
+          <button className="back-btn" onClick={() => setShowAbout(false)}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+          <span className="header-title">{ta.title}</span>
+          <span className="header-spacer"></span>
+        </header>
+
+        <div className="menu-section">
+          {/* App Name & Version */}
+          <div className="about-app-info">
+            <span className="about-app-name">Master Valley</span>
+            <span className="about-version">{ta.version} 1.0.0</span>
+          </div>
+
+          {/* Terms of Service */}
+          <div className="menu-item-svg" onClick={() => window.open('https://mastervalley.app/terms', '_blank')}>
+            <span className="menu-label">{ta.termsOfService}</span>
+            <span className="menu-chevron-svg"><IconExternalLink /></span>
+          </div>
+
+          {/* Privacy Policy */}
+          <div className="menu-item-svg" onClick={() => window.open('https://mastervalley.app/privacy', '_blank')}>
+            <span className="menu-label">{ta.privacyPolicy}</span>
+            <span className="menu-chevron-svg"><IconExternalLink /></span>
+          </div>
+
+          {/* Image Credits */}
+          <div className="about-credits">
+            <span className="about-credits-title">{ta.imageCredits}</span>
+            <span className="about-credits-text">{ta.lichtensteinCredit}</span>
+          </div>
+        </div>
+
+        <style>{menuStyles}</style>
+      </div>
+    );
+  }
+
+  // ===== Menu View =====
   return (
     <div className="menu-screen">
       <header className="menu-header">
@@ -167,6 +221,13 @@ const MenuScreen = ({
             </div>
           </div>
         )}
+
+        {/* About */}
+        <div className="menu-item-svg" onClick={() => setShowAbout(true)}>
+          <span className="menu-svg-icon"><IconInfo /></span>
+          <span className="menu-label">{t.about}</span>
+          <span className="menu-chevron-svg"><IconChevron /></span>
+        </div>
 
         <div className="menu-divider"></div>
 
@@ -298,6 +359,24 @@ const menuStyles = `
   }
   .support-option:hover { background: rgba(255,255,255,0.05); }
   .support-text { color: rgba(255,255,255,0.7); font-size: 14px; }
+
+  .about-app-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 16px 20px;
+    gap: 4px;
+  }
+  .about-app-name { color: #fff; font-size: 18px; font-weight: 600; }
+  .about-version { color: #555; font-size: 13px; }
+  .about-credits {
+    margin-top: 16px;
+    padding: 14px 16px;
+    background: #1a1a1a;
+    border-radius: 12px;
+  }
+  .about-credits-title { display: block; color: #888; font-size: 12px; margin-bottom: 6px; }
+  .about-credits-text { display: block; color: rgba(255,255,255,0.5); font-size: 11px; line-height: 1.5; }
 
   @media (max-width: 400px) {
     .menu-item-svg { padding: 12px 14px; }
