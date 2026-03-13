@@ -245,7 +245,7 @@ export const ui = {
     devMsg5: 'Algunos respondieron con luz, otros con color, otros con emoción y una nueva forma de ver.',
     devMsgHi1: 'Ahora la IA nos hace la misma pregunta.',
     devMsgHi2: '"¿Qué haremos ahora?"',
-    devMsg6: '2.800 años de flujo occidental y la mirada de los maestros, mil años de filosofía oriental.',
+    devMsg6: '2800 años de flujo occidental y la mirada de los maestros, mil años de filosofía oriental.',
     devMsg7: 'La pista está en Master Valley.',
   },
 

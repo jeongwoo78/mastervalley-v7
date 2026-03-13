@@ -237,7 +237,7 @@ export const ui = {
     wrongCredentials: '이메일 또는 비밀번호가 올바르지 않습니다',
     loginFailed: '로그인 실패. 다시 시도해주세요.',
     // Developer message
-    devMsg1: '저는 Master Valley의 개발자이자, 첫 번째 유저입니다.',
+    devMsg1: '저는 Master Valley의 개발자이자, 첫 번째 사용자입니다.',
     devMsg2: '르네상스의 예술가들은 천 년간 이어진 신 중심의 관습을 깨고, 인간의 이상을 다시 세웠습니다.',
     devMsg3: '혁명이 지나고 카메라가 등장했을 때, 카메라는 물었습니다.',
     devMsg4: '"이제 무엇을 그릴 것인가?"',

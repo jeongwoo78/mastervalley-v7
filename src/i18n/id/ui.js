@@ -245,7 +245,7 @@ export const ui = {
     devMsg5: 'Ada yang menjawab dengan cahaya, ada dengan warna, ada pula dengan emosi dan cara pandang baru.',
     devMsgHi1: 'Kini AI mengajukan pertanyaan yang sama.',
     devMsgHi2: '"Apa yang akan kita lakukan sekarang?"',
-    devMsg6: '2.800 tahun arus perubahan Barat dan pandangan para maestro, seribu tahun filosofi Timur.',
+    devMsg6: '2800 tahun arus perubahan Barat dan pandangan para maestro, seribu tahun filosofi Timur.',
     devMsg7: 'Petunjuknya ada di Master Valley.',
   },
 

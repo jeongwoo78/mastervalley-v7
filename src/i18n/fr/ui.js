@@ -245,7 +245,7 @@ export const ui = {
     devMsg5: 'Certains ont répondu par la lumière, d\'autres par la couleur, d\'autres encore par l\'émotion et un nouveau regard.',
     devMsgHi1: 'Aujourd\'hui, l\'IA pose la même question.',
     devMsgHi2: '« Que ferons-nous désormais ? »',
-    devMsg6: '2 800 ans de courant occidental et le regard des maîtres, mille ans de philosophie orientale.',
+    devMsg6: '2800 ans de courant occidental et le regard des maîtres, mille ans de philosophie orientale.',
     devMsg7: 'Master Valley en détient la clé.',
   },
 

@@ -1,4 +1,4 @@
-// LoginScreen.jsx - Master Valley v75
+// LoginScreen.jsx - Master Valley v76
 import React, { useState, useEffect } from 'react';
 import {
   signInWithPopup,
@@ -11,6 +11,15 @@ import { auth, googleProvider, appleProvider } from '../config/firebase';
 import { Capacitor } from '@capacitor/core';
 import { getUi } from '../i18n';
 
+// Carousel images — public/login/ 폴더에 배치
+const CAROUSEL_SLIDES = [
+  { src: '/login/original.jpg', label: 'Your Photo' },
+  { src: '/login/chagall.jpg', label: 'Chagall · Modernism' },
+  { src: '/login/islamic.jpg', label: 'Islamic Miniature · Medieval' },
+  { src: '/login/watteau.jpg', label: 'Watteau · Rococo' },
+  { src: '/login/matisse.jpg', label: 'Matisse · Fauvism' },
+];
+
 const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
   const [email, setEmail]       = useState('');
   const [password, setPassword] = useState('');
@@ -18,8 +27,18 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
   const [error, setError]       = useState('');
   const [loading, setLoading]   = useState(false);
   const [isNative, setIsNative] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   const t = getUi(lang).login;
+
+  // Carousel auto-play — 원본 2초, 스타일 2.5초
+  useEffect(() => {
+    const delay = currentSlide === 0 ? 2000 : 2500;
+    const timer = setTimeout(() => {
+      setCurrentSlide(prev => (prev + 1) % CAROUSEL_SLIDES.length);
+    }, delay);
+    return () => clearTimeout(timer);
+  }, [currentSlide]);
 
   useEffect(() => {
     const initGoogleAuth = async () => {
@@ -113,6 +132,37 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
           2800 years.<br />
           <em style={s.em}>One click.</em>
         </h1>
+
+        {/* Carousel */}
+        <div style={s.carouselWrap}>
+          {CAROUSEL_SLIDES.map((slide, i) => (
+            <img
+              key={i}
+              src={slide.src}
+              alt={slide.label}
+              style={{
+                ...s.carouselImg,
+                opacity: i === currentSlide ? 1 : 0,
+              }}
+            />
+          ))}
+          <span style={s.carouselLabel}>
+            {CAROUSEL_SLIDES[currentSlide].label}
+          </span>
+          <div style={s.carouselDots}>
+            {CAROUSEL_SLIDES.map((_, i) => (
+              <span
+                key={i}
+                style={{
+                  ...s.dot,
+                  background: i === currentSlide
+                    ? 'rgba(255,255,255,0.85)'
+                    : 'rgba(255,255,255,0.3)',
+                }}
+              />
+            ))}
+          </div>
+        </div>
 
         {/* Developer message */}
         <p style={s.devMsg}>
@@ -223,6 +273,57 @@ const s = {
   em: {
     fontStyle: 'italic',
   },
+
+  // Carousel
+  carouselWrap: {
+    position: 'relative',
+    width: '100%',
+    aspectRatio: '3/4',
+    borderRadius: '12px',
+    overflow: 'hidden',
+    marginBottom: '16px',
+  },
+  carouselImg: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+    borderRadius: '12px',
+    transition: 'opacity 1s ease',
+  },
+  carouselLabel: {
+    position: 'absolute',
+    bottom: '10px',
+    left: '10px',
+    fontSize: '11px',
+    fontWeight: 500,
+    letterSpacing: '1.5px',
+    textTransform: 'uppercase',
+    color: 'rgba(255,255,255,0.85)',
+    background: 'rgba(0,0,0,0.45)',
+    padding: '3px 10px',
+    borderRadius: '4px',
+    backdropFilter: 'blur(4px)',
+    zIndex: 2,
+  },
+  carouselDots: {
+    position: 'absolute',
+    bottom: '10px',
+    right: '10px',
+    display: 'flex',
+    gap: '4px',
+    zIndex: 2,
+  },
+  dot: {
+    width: '5px',
+    height: '5px',
+    borderRadius: '50%',
+    transition: 'background 0.3s',
+  },
+
+  // Developer message
   devMsg: {
     fontSize: '13px',
     lineHeight: 1.7,
@@ -234,12 +335,7 @@ const s = {
   devMsgHi: {
     color: 'rgba(168,85,247,0.65)',
   },
-  sub: {
-    fontSize: '12px',
-    color: 'rgba(255,255,255,0.45)',
-    lineHeight: 1.6,
-    marginBottom: '48px',
-  },
+
   socialBtn: {
     width: '100%',
     height: '50px',

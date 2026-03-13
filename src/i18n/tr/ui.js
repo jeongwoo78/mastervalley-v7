@@ -235,7 +235,7 @@ export const ui = {
     devMsg5: 'Kimi ışıkla, kimi renkle, kimi de duygu ve yeni bir bakış açısıyla cevap verdi.',
     devMsgHi1: 'Şimdi yapay zekâ aynı soruyu soruyor.',
     devMsgHi2: '"Biz ne yapacağız?"',
-    devMsg6: '2.800 yıllık Batı akışı ve ustaların bakışı, bin yıllık Doğu felsefesi.',
+    devMsg6: '2800 yıllık Batı akışı ve ustaların bakışı, bin yıllık Doğu felsefesi.',
     devMsg7: 'İpucu Master Valley\'de.',
   },
 

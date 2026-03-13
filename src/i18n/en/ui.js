@@ -244,7 +244,7 @@ export const ui = {
     devMsg5: 'Some answered with light, some with color, others with emotion and a new way of seeing.',
     devMsgHi1: 'Now AI is asking the same question.',
     devMsgHi2: '"What will we do now?"',
-    devMsg6: '2,800 years of Western flow and the masters\' gaze, a thousand years of Eastern philosophy.',
+    devMsg6: '2800 years of Western flow and the masters\' gaze, a thousand years of Eastern philosophy.',
     devMsg7: 'The clue lies in Master Valley.',
   },
 
