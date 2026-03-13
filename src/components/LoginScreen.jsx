@@ -326,12 +326,12 @@ const s = {
 
   // Developer message
   devMsg: {
-    fontSize: '13px',
+    fontSize: '14px',
     lineHeight: 1.7,
     color: 'rgba(255,255,255,0.5)',
     marginBottom: '16px',
     fontFamily: "'DM Sans', -apple-system, sans-serif",
-    fontWeight: 400,
+    fontWeight: 500,
   },
   devMsgHi: {
     color: 'rgba(168,85,247,0.65)',
