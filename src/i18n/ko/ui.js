@@ -177,6 +177,13 @@ export const ui = {
   },
 
 
+
+  // ===== AI Consent =====
+  aiConsent: {
+    message: '사진은 AI 변환을 위해 Replicate와 Anthropic에 전송되며, 처리 후 보관되지 않습니다.',
+    confirm: '확인'
+  },
+
   // ===== About =====
   about: {
     title: '앱 정보',

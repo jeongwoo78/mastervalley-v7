@@ -35,6 +35,10 @@ const App = () => {
   const [showInsufficientPopup, setShowInsufficientPopup] = useState(false);
   const [requiredAmount, setRequiredAmount] = useState(0);
   
+  // AI 데이터 처리 동의 팝업
+  const [showAiConsent, setShowAiConsent] = useState(false);
+  const [pendingTransform, setPendingTransform] = useState(null);
+  
   // 데이터 상태
   const [mainCategory, setMainCategory] = useState(null);
   const [uploadedPhoto, setUploadedPhoto] = useState(null);
@@ -116,9 +120,28 @@ const App = () => {
 
   // 2단계: 사진 + 스타일 선택 완료 → 변환 시작
   const handlePhotoStyleSelect = (photo, style) => {
+    // AI 데이터 처리 동의 확인 (첫 1회만)
+    const consentGiven = localStorage.getItem('mv_ai_consent');
+    if (!consentGiven) {
+      setPendingTransform({ photo, style });
+      setShowAiConsent(true);
+      return;
+    }
     setUploadedPhoto(photo);
     setSelectedStyle(style);
     setCurrentScreen('processing');
+  };
+
+  // AI 동의 확인 후 변환 진행
+  const handleAiConsentConfirm = () => {
+    localStorage.setItem('mv_ai_consent', 'true');
+    setShowAiConsent(false);
+    if (pendingTransform) {
+      setUploadedPhoto(pendingTransform.photo);
+      setSelectedStyle(pendingTransform.style);
+      setPendingTransform(null);
+      setCurrentScreen('processing');
+    }
   };
 
   // 변환 완료
@@ -241,6 +264,18 @@ const App = () => {
 
   return (
     <div className="app" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
+      {/* AI 데이터 처리 동의 팝업 */}
+      {showAiConsent && (
+        <div className="ai-consent-overlay" onClick={() => {}}>
+          <div className="ai-consent-modal">
+            <p className="ai-consent-text">{getUi(lang).aiConsent.message}</p>
+            <button className="ai-consent-btn" onClick={handleAiConsentConfirm}>
+              {getUi(lang).aiConsent.confirm}
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* 잔액 부족 팝업 */}
       {showInsufficientPopup && (
         <InsufficientBalancePopup
@@ -390,6 +425,41 @@ const App = () => {
         
         .logout-btn:hover {
           background: rgba(255, 255, 255, 0.3);
+        }
+
+        .ai-consent-overlay {
+          position: fixed;
+          top: 0; left: 0; right: 0; bottom: 0;
+          background: rgba(0,0,0,0.7);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 9999;
+          padding: 20px;
+        }
+        .ai-consent-modal {
+          background: #1a1a1a;
+          border-radius: 16px;
+          padding: 24px 20px;
+          max-width: 340px;
+          width: 100%;
+        }
+        .ai-consent-text {
+          color: rgba(255,255,255,0.75);
+          font-size: 13px;
+          line-height: 1.6;
+          margin-bottom: 20px;
+        }
+        .ai-consent-btn {
+          width: 100%;
+          padding: 12px;
+          background: #9366f0;
+          color: #fff;
+          border: none;
+          border-radius: 10px;
+          font-size: 15px;
+          font-weight: 600;
+          cursor: pointer;
         }
       `}</style>
     </div>

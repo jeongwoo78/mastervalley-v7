@@ -178,6 +178,13 @@ export const ui = {
   },
 
 
+
+  // ===== AI Consent =====
+  aiConsent: {
+    message: '写真はAI変換のためReplicateとAnthropicに送信され、処理後は保存されません。',
+    confirm: '確認'
+  },
+
   // ===== About =====
   about: {
     title: 'アプリ情報',

@@ -178,6 +178,13 @@ export const ui = {
   },
 
 
+
+  // ===== AI Consent =====
+  aiConsent: {
+    message: 'سيتم إرسال صورتك إلى Replicate وAnthropic للتحويل بالذكاء الاصطناعي ولن يتم الاحتفاظ بها بعد المعالجة.',
+    confirm: 'موافق'
+  },
+
   // ===== About =====
   about: {
     title: 'حول التطبيق',

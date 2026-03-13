@@ -178,6 +178,13 @@ export const ui = {
   },
 
 
+
+  // ===== AI Consent =====
+  aiConsent: {
+    message: 'Tu foto se enviará a Replicate y Anthropic para la transformación con IA y no se conservará después del procesamiento.',
+    confirm: 'Aceptar'
+  },
+
   // ===== About =====
   about: {
     title: 'Acerca de',

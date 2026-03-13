@@ -2,6 +2,7 @@
 // v3: 12 languages all active
 import React, { useState } from 'react';
 import { getUi } from '../i18n';
+import { termsContent, privacyContent } from '../data/legalContent';
 
 // ===== SVG Icons =====
 const IconImage = () => (
@@ -86,6 +87,8 @@ const MenuScreen = ({
   const [langOpen, setLangOpen] = useState(false);
   const [supportOpen, setSupportOpen] = useState(false);
   const [showAbout, setShowAbout] = useState(false);
+  const [showTerms, setShowTerms] = useState(false);
+  const [showPrivacy, setShowPrivacy] = useState(false);
 
   const t = getUi(lang).menu;
   const ta = getUi(lang).about;
@@ -100,6 +103,54 @@ const MenuScreen = ({
     }
     setLangOpen(false);
   };
+
+  // ===== Terms View =====
+  if (showTerms) {
+    const sections = termsContent[lang] || termsContent.en;
+    return (
+      <div className="menu-screen">
+        <header className="menu-header">
+          <button className="back-btn" onClick={() => setShowTerms(false)}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+          <span className="header-title">{ta.termsOfService}</span>
+          <span className="header-spacer"></span>
+        </header>
+        <div className="legal-scroll">
+          <p className="legal-updated">{lang === 'ko' ? '최종 수정일: 2026년 3월 13일' : 'Last updated: March 13, 2026'}</p>
+          {sections.map((s, i) => (
+            <div key={i} className="legal-section">
+              <h3 className="legal-title">{s.title}</h3>
+              <p className="legal-text">{s.text}</p>
+            </div>
+          ))}
+        </div>
+        <style>{menuStyles}</style>
+      </div>
+    );
+  }
+
+  // ===== Privacy View =====
+  if (showPrivacy) {
+    const sections = privacyContent[lang] || privacyContent.en;
+    return (
+      <div className="menu-screen">
+        <header className="menu-header">
+          <button className="back-btn" onClick={() => setShowPrivacy(false)}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+          <span className="header-title">{ta.privacyPolicy}</span>
+          <span className="header-spacer"></span>
+        </header>
+        <div className="legal-scroll">
+          <p className="legal-updated">{lang === 'ko' ? '최종 수정일: 2026년 3월 13일' : 'Last updated: March 13, 2026'}</p>
+          {sections.map((s, i) => (
+            <div key={i} className="legal-section">
+              <h3 className="legal-title">{s.title}</h3>
+              <p className="legal-text">{s.text}</p>
+            </div>
+          ))}
+        </div>
+        <style>{menuStyles}</style>
+      </div>
+    );
+  }
 
   // ===== About View =====
   if (showAbout) {
@@ -119,15 +170,15 @@ const MenuScreen = ({
           </div>
 
           {/* Terms of Service */}
-          <div className="menu-item-svg" onClick={() => window.open('https://mastervalley.app/terms', '_blank')}>
+          <div className="menu-item-svg" onClick={() => setShowTerms(true)}>
             <span className="menu-label">{ta.termsOfService}</span>
-            <span className="menu-chevron-svg"><IconExternalLink /></span>
+            <span className="menu-chevron-svg"><IconChevron /></span>
           </div>
 
           {/* Privacy Policy */}
-          <div className="menu-item-svg" onClick={() => window.open('https://mastervalley.app/privacy', '_blank')}>
+          <div className="menu-item-svg" onClick={() => setShowPrivacy(true)}>
             <span className="menu-label">{ta.privacyPolicy}</span>
-            <span className="menu-chevron-svg"><IconExternalLink /></span>
+            <span className="menu-chevron-svg"><IconChevron /></span>
           </div>
 
           {/* Image Credits */}
@@ -377,6 +428,17 @@ const menuStyles = `
   }
   .about-credits-title { display: block; color: #888; font-size: 12px; margin-bottom: 6px; }
   .about-credits-text { display: block; color: rgba(255,255,255,0.5); font-size: 11px; line-height: 1.5; }
+
+  .legal-scroll {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 20px 40px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .legal-updated { color: rgba(255,255,255,0.35); font-size: 12px; margin-bottom: 20px; }
+  .legal-section { margin-bottom: 20px; }
+  .legal-title { color: #fff; font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+  .legal-text { color: rgba(255,255,255,0.6); font-size: 13px; line-height: 1.65; }
 
   @media (max-width: 400px) {
     .menu-item-svg { padding: 12px 14px; }

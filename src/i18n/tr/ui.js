@@ -171,6 +171,13 @@ export const ui = {
     about: 'Hakkında'
   },
 
+
+  // ===== AI Consent =====
+  aiConsent: {
+    message: "Fotoğrafınız AI dönüşümü için Replicate ve Anthropic'e gönderilecek ve işlem sonrasında saklanmayacaktır.",
+    confirm: 'Tamam'
+  },
+
   // ===== About =====
   about: {
     title: 'Hakkında',

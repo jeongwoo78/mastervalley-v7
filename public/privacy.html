@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — Master Valley</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0d0d0d;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.7;
+      padding: 24px 20px 60px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    h1 { color: #fff; font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+    .last-updated { color: rgba(255,255,255,0.4); font-size: 13px; margin-bottom: 32px; }
+    h2 { color: #fff; font-size: 16px; font-weight: 600; margin-top: 28px; margin-bottom: 10px; }
+    p { font-size: 14px; margin-bottom: 12px; color: rgba(255,255,255,0.75); }
+    a { color: #9366f0; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    table { width: 100%; border-collapse: collapse; margin: 12px 0 16px; }
+    th, td { text-align: left; padding: 10px 12px; font-size: 13px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    th { color: rgba(255,255,255,0.5); font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+    td { color: rgba(255,255,255,0.7); }
+  </style>
+</head>
+<body>
+
+<h1>Privacy Policy</h1>
+<p class="last-updated">Last updated: March 13, 2026</p>
+
+<h2>1. Introduction</h2>
+<p>Master Valley ("we," "our," or "the App") respects your privacy. This Privacy Policy explains what information we collect, how we use it, and your choices regarding your data.</p>
+
+<h2>2. Information We Collect</h2>
+
+<table>
+  <tr><th>Data Type</th><th>What We Collect</th><th>Purpose</th></tr>
+  <tr><td>Account Information</td><td>Email address, display name, profile photo (via Google or Apple Sign-In)</td><td>Authentication and account management</td></tr>
+  <tr><td>Transaction Data</td><td>Credit balance, purchase history, transformation IDs</td><td>Credit management and billing</td></tr>
+  <tr><td>Payment Data</td><td>Processed by Apple App Store, Google Play Store, and RevenueCat</td><td>In-app purchase processing</td></tr>
+</table>
+
+<h2>3. Photo Data and AI Processing</h2>
+<p>When you use the App's photo transformation feature, your photo is transmitted to third-party AI services for real-time processing. We collect and transmit only the minimum data necessary for the requested transformation (the photo itself and selected style parameters). This is how your photo data is handled:</p>
+<p>Your photo is sent to Replicate (for AI image generation using the FLUX model) and to Anthropic (for photo analysis and art style matching). These services process your photo solely to generate your requested transformation. Your photo is not stored on our servers; third-party retention is governed by each provider's own data retention policies. We do not extract, collect, store, or use facial geometry, biometric identifiers, or biometric information from your photos, because we do not perform facial landmark detection, embedding generation, or any form of biometric template creation. Your photos are not used to train AI models, build identification databases, or develop facial recognition technology. We implement prompt-level restrictions, output scanning, and safety classifiers to minimize the risk of generating non-consensual intimate imagery or harmful content.</p>
+
+<h2>4. Information We Do NOT Collect</h2>
+<p>We do not collect location data, contacts, browsing history, or device sensor data. We do not use advertising trackers or sell your data to third parties. We do not create or store biometric profiles or face templates from your photos.</p>
+
+<h2>5. Local Storage</h2>
+<p>Transformation results saved to your gallery are stored locally on your device using IndexedDB. This data never leaves your device unless you choose to share or export it. Clearing your browser data or uninstalling the App may remove locally stored gallery data.</p>
+
+<h2>6. Third-Party Services and AI Data Sharing</h2>
+<p>We use the following third-party services to operate the App. In accordance with Apple's App Review Guideline 5.1.2(i), we disclose that your personal data, including photo data, is shared with third-party AI services as described below:</p>
+
+<table>
+  <tr><th>Service</th><th>Purpose</th><th>Data Shared</th><th>Retention</th></tr>
+  <tr><td>Firebase Authentication</td><td>User sign-in and account management</td><td>Email, display name, profile photo</td><td>Until account deletion</td></tr>
+  <tr><td>Firebase Firestore</td><td>Credit balance and transaction records</td><td>User ID, credit balance, transaction history</td><td>Until account deletion</td></tr>
+  <tr><td>Replicate (Third-Party AI)</td><td>AI image transformation (FLUX model)</td><td>Photo data</td><td>Not retained by us; subject to Replicate's retention policy</td></tr>
+  <tr><td>Anthropic (Third-Party AI)</td><td>Photo analysis and art style matching</td><td>Photo data</td><td>Not retained by us; subject to Anthropic's retention policy</td></tr>
+  <tr><td>RevenueCat</td><td>In-app purchase management</td><td>User ID, purchase records</td><td>Per RevenueCat's retention policy</td></tr>
+  <tr><td>Vercel</td><td>App hosting and serverless API</td><td>Standard server logs (IP address, request metadata)</td><td>Per Vercel's retention policy</td></tr>
+</table>
+
+<p>Each third-party service operates under its own privacy policy. We encourage you to review their policies. By using the App's transformation feature, you consent to the transmission of your photo data to these third-party AI services as described above.</p>
+
+<h2>7. How We Use Your Information</h2>
+<p>We use the information we collect to: provide and maintain the App's functionality; process your photo transformations; manage your credit balance and purchases; communicate with you about your account or support requests; and improve the App's performance and user experience.</p>
+
+<h2>8. Data Retention</h2>
+<p>Account information and transaction data are retained as long as your account is active. If you delete your account, we will delete your data from our systems within 30 days, except where retention is required by law or for legitimate business purposes (such as fraud prevention or financial record-keeping). Photo data is never retained; it is processed in real time and immediately discarded.</p>
+
+<h2>9. Data Security</h2>
+<p>We implement industry-standard security measures to protect your information, including encrypted data transmission (HTTPS/TLS), secure authentication via Firebase, and server-side access controls. However, no method of electronic transmission or storage is 100% secure, and we cannot guarantee absolute security.</p>
+
+<h2>10. Children's Privacy</h2>
+<p>The App is not intended for use by anyone under the age of 18. We do not knowingly collect personal information from minors. If we become aware that we have collected data from a minor, we will delete it promptly. If you believe a minor has provided us with personal data, please contact us immediately.</p>
+
+<h2>11. Your Rights</h2>
+<p>Depending on your jurisdiction, you may have the right to: access the personal information we hold about you; request correction of inaccurate data; request deletion of your data; withdraw consent for data processing; and export your data in a portable format.</p>
+<p>To exercise any of these rights, please contact us at <a href="mailto:support@mastervalley.app">support@mastervalley.app</a>.</p>
+
+<h2>12. International Data Transfers</h2>
+<p>Your information may be processed in countries other than your country of residence, including the United States and the Republic of Korea. By using the App, you consent to the transfer of your information to these countries, which may have different data protection laws than your jurisdiction.</p>
+
+<h2>13. U.S. State Privacy Rights</h2>
+<p>If you are a resident of California (CCPA/CPRA), Illinois (BIPA), Texas (CUBI), or other states with biometric or consumer privacy laws: We do not sell personal information. We do not collect, capture, or store biometric identifiers or biometric information. Photos transmitted for AI processing are not retained and are not used to create face templates or biometric profiles. You have the right to request disclosure, deletion, and portability of your personal information. You have the right to opt out of the sale of personal information (we do not sell personal information). To exercise these rights, contact us at <a href="mailto:support@mastervalley.app">support@mastervalley.app</a>.</p>
+
+<h2>14. European Privacy Rights (GDPR)</h2>
+<p>If you are located in the European Economic Area, you have additional rights under the General Data Protection Regulation, including the right to access, rectification, erasure, restriction of processing, data portability, and objection. Our legal basis for processing your data is your consent (for account creation and photo processing) and legitimate interest (for service operation).</p>
+
+<h2>15. Changes to This Policy</h2>
+<p>We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated revision date. Your continued use of the App after any changes constitutes acceptance of the revised policy.</p>
+
+<h2>16. Contact Us</h2>
+<p>If you have any questions about this Privacy Policy or our data practices, please contact us at <a href="mailto:support@mastervalley.app">support@mastervalley.app</a>.</p>
+
+</body>
+</html>

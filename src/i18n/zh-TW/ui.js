@@ -178,6 +178,13 @@ export const ui = {
   },
 
 
+
+  // ===== AI Consent =====
+  aiConsent: {
+    message: '您的照片將發送至 Replicate 和 Anthropic 進行 AI 轉換，處理完成後不會被保留。',
+    confirm: '確認'
+  },
+
   // ===== About =====
   about: {
     title: '關於',
