@@ -434,7 +434,7 @@ Caravaggio vertió un haz de luz en la oscuridad más absoluta e inauguró el te
 Rembrandt registró su época con un claroscuro dorado; Velázquez, con la magia del espacio.
 
 Los fieles debían conmoverse, y los pintores respondieron a la Iglesia con luz y sombra.
-Un arte nacido de la era de la religión y el poder, donde emoción y drama estallaron.`
+El Barroco es un arte nacido de la era de la religión y el poder, donde emoción y drama estallaron.`
   },
 
   // ===== Rococó =====
@@ -445,7 +445,7 @@ Watteau pintó las fiestas oníricas de los nobles; Boucher, las fantasías rosa
 Tonos pastel y curvas fluidas llenaron los lienzos de la época.
 
 En lugar del drama solemne del Barroco, la ligereza y el placer dominaron el arte.
-Justo antes de la Revolución Francesa, el arte que adornó la última edad dorada de la cultura aristocrática.`
+El Rococó adornó la última edad dorada de la cultura aristocrática, justo antes de la Revolución Francesa.`
   },
 
   // ===== Neoclasicismo vs Romanticismo vs Realismo =====

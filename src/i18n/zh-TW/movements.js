@@ -165,7 +165,7 @@ export const movementsLoadingEducation = {
 林布蘭以金色明暗記錄時代；維拉斯奎茲以空間魔法令人驚嘆。
 
 畫家們以光與影回應教會打動信眾的需求。
-誕生於宗教與權力之間，情感與戲劇迸發的藝術。`
+巴洛克是誕生於宗教與權力之間，情感與戲劇迸發的藝術。`
   },
   'rococo': {
     name: '洛可可',
@@ -174,7 +174,7 @@ export const movementsLoadingEducation = {
 粉彩色調與優美曲線填滿畫布的時代。
 
 取代巴洛克的沉重戲劇，輕盈與歡愉主導了藝術。
-在法國大革命前夕，妝點貴族文化最後黃金時代的藝術。`
+洛可可是在法國大革命前夕，妝點貴族文化最後黃金時代的藝術。`
   },
   'neoclassicism_vs_romanticism_vs_realism': {
     name: '新古典主義 · 浪漫主義 · 寫實主義',

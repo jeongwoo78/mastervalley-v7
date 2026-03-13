@@ -434,7 +434,7 @@ Le Caravage fit jaillir un rayon de lumière dans les ténèbres les plus profon
 Rembrandt fixa l\'époque avec son clair-obscur doré ; Vélasquez avec sa magie spatiale.
 
 Les peintres répondirent par la lumière et l\'ombre à la demande de l\'Église d\'émouvoir les fidèles.
-Un art né de l\'ère de la religion et du pouvoir, où l\'émotion et le drame éclatèrent.`
+Le Baroque est un art né de l\'ère de la religion et du pouvoir, où l\'émotion et le drame éclatèrent.`
   },
 
   // ===== Rococo =====
@@ -445,7 +445,7 @@ Watteau peignit les fêtes galantes des nobles ; Boucher, les fantaisies rosées
 Une ère où les tons pastel et les courbes gracieuses envahirent la toile.
 
 Au lieu du drame pesant du Baroque, la légèreté et le plaisir dominèrent l\'art.
-L\'art qui orna le dernier âge d\'or de la culture aristocratique, juste avant la Révolution française.`
+Le Rococo orna le dernier âge d\'or de la culture aristocratique, juste avant la Révolution française.`
   },
 
   // ===== Néoclassicisme vs Romantisme vs Réalisme =====

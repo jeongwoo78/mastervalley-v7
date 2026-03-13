@@ -335,11 +335,11 @@ export const movementsLoadingEducation = {
   },
   'baroque': {
     name: 'Barroco',
-    description: `No século 17, em meio às turbulências da Reforma, a luz e a sombra dramáticas dominaram a tela.\nCaravaggio fundou o tenebrismo, derramando um único feixe de luz na escuridão total.\nRembrandt registou a época com o chiaroscuro dourado; Velázquez, com a magia espacial.\n\nOs pintores responderam ao pedido da Igreja de comover os fiéis com luz e sombra.\nArte nascida de uma era de religião e poder, onde emoção e drama explodiram.`
+    description: `No século 17, em meio às turbulências da Reforma, a luz e a sombra dramáticas dominaram a tela.\nCaravaggio fundou o tenebrismo, derramando um único feixe de luz na escuridão total.\nRembrandt registou a época com o chiaroscuro dourado; Velázquez, com a magia espacial.\n\nOs pintores responderam ao pedido da Igreja de comover os fiéis com luz e sombra.\nO Barroco é uma arte nascida de uma era de religião e poder, onde emoção e drama explodiram.`
   },
   'rococo': {
     name: 'Rococó',
-    description: `No século 18, os elegantes prazeres aristocráticos floresceram em torno do Palácio de Versalhes.\nWatteau pintou festas oníricas de jardim para nobres; Boucher retratou fantasias rosadas de deusas.\nTons pastel e curvas graciosas preencheram a tela.\n\nEm vez do drama pesado do Barroco, leveza e prazer governaram a arte.\nA última idade de ouro da cultura aristocrática, às vésperas da Revolução Francesa.`
+    description: `No século 18, os elegantes prazeres aristocráticos floresceram em torno do Palácio de Versalhes.\nWatteau pintou festas oníricas de jardim para nobres; Boucher retratou fantasias rosadas de deusas.\nTons pastel e curvas graciosas preencheram a tela.\n\nEm vez do drama pesado do Barroco, leveza e prazer governaram a arte.\nO Rococó foi a última idade de ouro da cultura aristocrática, às vésperas da Revolução Francesa.`
   },
   'neoclassicism_vs_romanticism_vs_realism': {
     name: 'Neoclassicismo · Romantismo · Realismo',

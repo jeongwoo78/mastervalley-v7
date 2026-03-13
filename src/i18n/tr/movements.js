@@ -386,12 +386,12 @@ export const movementsLoadingEducation = {
 
   'baroque': {
     name: 'Barok',
-    description: `17. yüzyılda, Reform\'un çalkantıları ortasında, dramatik ışık ve gölge tuvale hâkim oldu.\nCaravaggio, zifiri karanlığa tek bir ışık huzmesi döken tenebrism\'i kurdu.\nRembrandt çağı altın chiaroscuro ile, Velázquez ise mekânsal büyüyle kayıt altına aldı.\n\nRessamlar, Kilise\'nin inananları etkileme talebine ışık ve gölgeyle yanıt verdi.\nDuygu ve dramanın patladığı, din ve güç çağının ürünü olan sanat.`
+    description: `17. yüzyılda, Reform\'un çalkantıları ortasında, dramatik ışık ve gölge tuvale hâkim oldu.\nCaravaggio, zifiri karanlığa tek bir ışık huzmesi döken tenebrism\'i kurdu.\nRembrandt çağı altın chiaroscuro ile, Velázquez ise mekânsal büyüyle kayıt altına aldı.\n\nRessamlar, Kilise\'nin inananları etkileme talebine ışık ve gölgeyle yanıt verdi.\nBarok, duygu ve dramanın patladığı, din ve güç çağının ürünü olan sanattır.`
   },
 
   'rococo': {
     name: 'Rokoko',
-    description: `18. yüzyılda Versailles Sarayı çevresinde zarif aristokrat eğlenceleri yeşerdi.\nWatteau soyluların düşsel bahçe partilerini, Boucher ise tanrıçaların pembe fantezilerini resmetti.\nPastel tonlar ve zarif kıvrımlar tuvale doldu.\n\nBarok\'un ağır draması yerine hafiflik ve zevk sanata hükmetti.\nFransız Devrimi\'nden hemen önce aristokrat kültürünün son altın çağı.`
+    description: `18. yüzyılda Versailles Sarayı çevresinde zarif aristokrat eğlenceleri yeşerdi.\nWatteau soyluların düşsel bahçe partilerini, Boucher ise tanrıçaların pembe fantezilerini resmetti.\nPastel tonlar ve zarif kıvrımlar tuvale doldu.\n\nBarok\'un ağır draması yerine hafiflik ve zevk sanata hükmetti.\nRokoko, Fransız Devrimi\'nden hemen önce aristokrat kültürünün son altın çağını süsledi.`
   },
 
   'neoclassicism_vs_romanticism_vs_realism': {
