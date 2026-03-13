@@ -460,7 +460,7 @@ export const movementsResultEducation = {
   name: 'Rubens', description: `Rubens\'ın dramatik canlılığı ve zengin duyusal renkleri uygulandı.\nAşırı kabarık çıplak vücutlar ve görkemli giysiler son derece canlı dinamik bir kompozisyonda.\n\n"Leukippos\'un Kızlarının Kaçırılması"nda insan ve at vücutları canlılığın içinde bir girdap oluşturuyor; "Marie de Medici\'nin Gelişi" kralların tarihini destandaymış gibi resmeden bir fresk.\nRubens Etkisi Delacroix\'ya ve Amerikan Pop Art\'a uzanan Flaman Barok\'un ustası.` },
 
   'watteau': {
-  name: 'Watteau', description: `Watteau\'nun düşsel atmosferi ve köy partisi renkleri uygulandı.\nYumuşak pastel renkler ve ince fırça darbeleri eterin bir atmosfer yayıyor.\n\n"Kythera\'ya Yolculuk"ta aşk adasına gitmek üzere hazırlanan soylular özlem ve hasret dolu bir anda sarılıyor.\nWatteau Rokoko resminde en derin izi bırakan "Fête galante" türünün mucidi; 37 yaşında öldü.` },
+  name: 'Watteau', description: `Watteau\'nun düşsel atmosferi ve köy partisi renkleri uygulandı.\nYumuşak pastel renkler ve ince fırça darbeleri eterin bir atmosfer yayıyor.\n\n"Kythera\'ya Yolculuk"ta aşk adasına gitmek üzere hazırlanan soylular özlem ve hasret dolu bir anda sarılıyor.\nWatteau Rokoko resminde en derin izi bırakan "Fête galante" türünün mucidi; 36 yaşında öldü.` },
   'boucher': {
   name: 'Boucher', description: `Boucher\'ın feminen havası ve pembe fantezisi uygulandı.\nYumuşak pembe ve gök mavisi mitoloji ve pastoral sahneleri dolduruyor.\n\nAşk tanrıçalarını ve hafif dans eden ruhların dünyasını gerçeküstü bir zarafetle resmetti.\nBoucher Madame de Pompadour\'un gözde ressamı; Versailles Sarayı\'nın tamamını kendi üslubuyla donattı.` },
 

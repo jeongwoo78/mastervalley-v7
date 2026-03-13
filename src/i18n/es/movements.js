@@ -643,7 +643,7 @@ Rubens es un maestro del Barroco que disfrutó tanto de honor como de riqueza, d
 Las fiestas de jardín aristocráticas se expresan en una atmósfera poética y melancólica.
 
 En Peregrinación a la isla de Cythera pintó el sueño de los nobles de partir hacia la isla del amor; en La fiesta del amor capturó un instante de celebración elegante.
-Watteau es un pintor de sueños aristocráticos que estableció el estilo Rococó en sus breves 37 años de vida.`
+Watteau es un pintor de sueños aristocráticos que estableció el estilo Rococó en sus breves 36 años de vida.`
   },
   'boucher': {
     name: 'Boucher',

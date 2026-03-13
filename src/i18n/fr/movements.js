@@ -643,7 +643,7 @@ Rubens est un maître du Baroque qui jouit à la fois de l\'honneur et de la ric
 Les fêtes de jardin des aristocrates s\'expriment dans une atmosphère poétique et mélancolique.
 
 Dans Pèlerinage à Cythère, il peignit le rêve des nobles de partir vers l\'île de l\'amour ; dans La Fête d\'Amour, il captura un instant de festivité élégante.
-Watteau est un peintre des rêves aristocratiques qui établit le style rococo en seulement 37 ans de vie.`
+Watteau est un peintre des rêves aristocratiques qui établit le style rococo en seulement 36 ans de vie.`
   },
   'boucher': {
     name: 'Boucher',
