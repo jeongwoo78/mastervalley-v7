@@ -258,6 +258,7 @@ const s = {
     textTransform: 'uppercase',
     color: 'rgba(255,255,255,0.2)',
     marginBottom: '28px',
+    direction: 'ltr',
   },
   title: {
     fontFamily: "'Cormorant Garamond', Georgia, serif",
@@ -270,6 +271,7 @@ const s = {
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
     backgroundClip: 'text',
+    direction: 'ltr',
   },
   em: {
     fontStyle: 'italic',
@@ -308,6 +310,7 @@ const s = {
     borderRadius: '4px',
     backdropFilter: 'blur(4px)',
     zIndex: 2,
+    direction: 'ltr',
   },
   carouselDots: {
     position: 'absolute',
