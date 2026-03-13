@@ -430,34 +430,35 @@ const App = () => {
         .ai-consent-overlay {
           position: fixed;
           top: 0; left: 0; right: 0; bottom: 0;
-          background: rgba(0,0,0,0.7);
+          background: rgba(0,0,0,0.85);
           display: flex;
           align-items: center;
           justify-content: center;
           z-index: 9999;
-          padding: 20px;
+          padding: 24px;
         }
         .ai-consent-modal {
-          background: #1a1a1a;
+          background: #1e1e1e;
           border-radius: 16px;
-          padding: 24px 20px;
-          max-width: 340px;
+          padding: 20px 20px 12px;
+          max-width: 260px;
           width: 100%;
+          text-align: center;
         }
         .ai-consent-text {
-          color: rgba(255,255,255,0.75);
+          color: rgba(255,255,255,0.6);
           font-size: 13px;
-          line-height: 1.6;
-          margin-bottom: 20px;
+          line-height: 1.55;
+          margin-bottom: 16px;
+          text-align: left;
         }
         .ai-consent-btn {
           width: 100%;
-          padding: 12px;
-          background: #9366f0;
-          color: #fff;
+          padding: 10px;
+          background: transparent;
+          color: #a078f3;
           border: none;
-          border-radius: 10px;
-          font-size: 15px;
+          font-size: 14px;
           font-weight: 600;
           cursor: pointer;
         }

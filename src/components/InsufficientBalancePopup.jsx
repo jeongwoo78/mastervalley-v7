@@ -55,12 +55,6 @@ const InsufficientBalancePopup = ({
             {t.maybeLater}
           </button>
         </div>
-        
-        {/* Subscription Info */}
-        <div className="popup-sub-info">
-          <p>{tFunds.info1}</p>
-          <p>{tFunds.info2}</p>
-        </div>
       </div>
 
       <style>{`
@@ -81,7 +75,7 @@ const InsufficientBalancePopup = ({
         .popup-card {
           background: #1e1e1e;
           border-radius: 24px;
-          padding: 32px 24px;
+          padding: 32px 24px 20px;
           width: 100%;
           max-width: 320px;
           text-align: center;
@@ -151,48 +145,28 @@ const InsufficientBalancePopup = ({
         .popup-buttons {
           display: flex;
           flex-direction: column;
-          gap: 12px;
+          gap: 0;
         }
 
         .popup-btn {
-          padding: 16px;
-          border-radius: 14px;
+          padding: 12px;
+          border-radius: 0;
           font-size: 14px;
           font-weight: 600;
           cursor: pointer;
           border: none;
-          transition: all 0.2s;
+          background: transparent;
+          transition: opacity 0.2s;
         }
 
         .popup-btn.primary {
-          background: #7c3aed;
-          color: #fff;
-        }
-
-        .popup-btn.primary:hover {
-          background: #6d28d9;
+          color: #a078f3;
+          font-weight: 600;
         }
 
         .popup-btn.secondary {
-          background: transparent;
-          border: 1px solid #444;
-          color: #888;
-        }
-
-        .popup-btn.secondary:hover {
-          border-color: #666;
-          color: #aaa;
-        }
-
-        .popup-sub-info {
-          text-align: center;
-          padding-top: 16px;
-        }
-
-        .popup-sub-info p {
-          color: rgba(255,255,255,0.35);
-          font-size: 14px;
-          margin: 0;
+          color: rgba(255,255,255,0.5);
+          font-weight: 500;
         }
 
         /* Mobile */
