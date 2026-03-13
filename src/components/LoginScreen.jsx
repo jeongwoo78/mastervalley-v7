@@ -16,6 +16,7 @@ const CAROUSEL_SLIDES = [
   { src: '/login/original.jpg', label: 'Your Photo' },
   { src: '/login/chagall.jpg', label: 'Chagall · Modernism' },
   { src: '/login/islamic.jpg', label: 'Islamic Miniature · Medieval' },
+  { src: '/login/vangogh.jpg', label: 'Van Gogh · Post-Impressionism' },
   { src: '/login/watteau.jpg', label: 'Watteau · Rococo' },
   { src: '/login/matisse.jpg', label: 'Matisse · Fauvism' },
 ];
