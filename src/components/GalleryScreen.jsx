@@ -2,7 +2,8 @@
 // 대용량 이미지 저장 + 그리드 UI + 저장/공유/삭제 기능
 import React, { useState, useEffect, useRef } from 'react';
 import { saveImage as saveToDevice, shareImage, addWatermark, isNativePlatform, WATERMARK_ON_SAVE } from '../utils/mobileShare';
-import { getMovementDisplayInfo, getOrientalDisplayInfo, getMasterInfo } from '../utils/displayConfig';
+import { getMovementDisplayInfo, getOrientalDisplayInfo, getMasterInfo, normalizeKey } from '../utils/displayConfig';
+import { MOVEMENT_ARTISTS } from '../data/masterData';
 import { getUi } from '../i18n';
 // v80: 풀스크린 이미지 뷰어 (핀치줌)
 // ImageFullscreenViewer removed - using simple fullimage overlay
@@ -219,13 +220,35 @@ const GalleryScreen = ({ onBack, onHome, lang = 'en' }) => {
   // 갤러리 카드용: 괄호 내용 제거 (간결한 표시)
   const stripParens = (text) => text ? text.replace(/\s*[\(（].*?[\)）]/g, '').trim() : '';
 
+  // 복합사조 → 세부사조 해석 (갤러리 전용)
+  // masterData의 MOVEMENT_ARTISTS 구조에서 화가의 실제 세부사조를 찾음
+  const resolveSubMovement = (movementKey, artistName) => {
+    const artistKey = normalizeKey(artistName);
+    const normalized = normalizeKey(movementKey);
+    // 신고전·낭만·사실주의 복합사조
+    if (normalized === 'neoclassicism-romanticism-realism') {
+      for (const sub of ['neoclassicism', 'romanticism', 'realism']) {
+        if (MOVEMENT_ARTISTS[sub]?.[artistKey]) return sub;
+      }
+    }
+    // 모더니즘 복합사조 (sub 필드 활용)
+    if (normalized === 'modernism' || movementKey === 'modernism') {
+      const artist = MOVEMENT_ARTISTS.modernism?.[artistKey];
+      if (artist?.sub) return artist.sub;
+    }
+    return null;
+  };
+
   const getGalleryDisplay = (item) => {
     // 신규 포맷: category + artistName 있으면 i18n 표시
     if (item.category && item.artistName) {
       if (item.category === 'movements') {
         // styleId 우선 → movementName 폴백 (기존 한국어 데이터 호환)
         const movementKey = item.styleId || item.movementName || '';
-        const info = getMovementDisplayInfo(movementKey, item.artistName, lang);
+        // 갤러리: 복합사조일 때 세부사조를 제목으로 표시
+        const subKey = resolveSubMovement(movementKey, item.artistName);
+        const titleKey = subKey || movementKey;
+        const info = getMovementDisplayInfo(titleKey, item.artistName, lang);
         return { 
           title: stripParens(info.title), 
           subtitle: stripParens(info.subtitle),

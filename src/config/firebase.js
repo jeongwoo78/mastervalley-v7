@@ -1,6 +1,7 @@
 // Firebase 설정 - Master Valley
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, OAuthProvider } from 'firebase/auth';
+import { getFirestore, doc, onSnapshot, setDoc, getDoc } from 'firebase/firestore';
 
 // Firebase 설정값 (Firebase Console에서 가져옴)
 const firebaseConfig = {
@@ -16,10 +17,24 @@ const firebaseConfig = {
 // Firebase 초기화
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 
 // 로그인 제공자
 const googleProvider = new GoogleAuthProvider();
 const appleProvider = new OAuthProvider('apple.com');
 
-export { auth, googleProvider, appleProvider };
+// 유저 문서 초기화 (첫 로그인 시 credits 필드 생성)
+const ensureUserDoc = async (userId, email) => {
+  const userRef = doc(db, 'users', userId);
+  const userDoc = await getDoc(userRef);
+  if (!userDoc.exists()) {
+    await setDoc(userRef, {
+      email: email || '',
+      credits: 0,
+      createdAt: new Date().toISOString()
+    });
+  }
+};
+
+export { auth, db, googleProvider, appleProvider, doc, onSnapshot, ensureUserDoc };
 export default app;

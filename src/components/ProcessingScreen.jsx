@@ -169,6 +169,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         return {
           style,
           resultUrl: result.resultUrl,
+          transformId: result.transformId,  // 크레딧 차감용 멱등성 키
           aiSelectedArtist: result.aiSelectedArtist,
           selected_work: result.selected_work,  // 거장 모드: 선택된 작품
           success: true
@@ -177,6 +178,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         return { 
           style, 
           error: result.error, 
+          transformId: result.transformId,
           aiSelectedArtist: result.aiSelectedArtist,  // 실패해도 보존
           selected_work: result.selected_work,
           success: false 

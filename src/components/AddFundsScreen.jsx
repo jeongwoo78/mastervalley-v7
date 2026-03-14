@@ -1,22 +1,74 @@
-// AddFundsScreen.jsx - Add Funds Screen (v8 Final - 3 Packs)
+// AddFundsScreen.jsx - Add Funds Screen (RevenueCat IAP 연동)
 import React, { useState } from 'react';
 import { getUi } from '../i18n';
+import { purchasePack, isNativeIAP } from '../utils/revenueCat';
 
-const AddFundsScreen = ({ onBack, userCredits = 2.50, onPurchase, lang = 'en' }) => {
-  const [selectedPack, setSelectedPack] = useState(null);
+const API_BASE_URL = 'https://mastervalley-v7.vercel.app';
+
+const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, lang = 'en' }) => {
+  const [purchasing, setPurchasing] = useState(null);  // 구매 중인 팩 ID
 
   const t = getUi(lang).addFunds;
 
   const packs = [
-    { id: 'starter', name: 'Starter', price: 0.99, value: 0.99, bonus: null, bonusAmount: null, tagline: t.tagStarter },
-    { id: 'standard', name: 'Standard', price: 4.99, value: 5.49, bonus: '+10%', bonusAmount: 0.50, tagline: t.tagStandard },
-    { id: 'plus', name: 'Plus', price: 49.99, value: 59.99, bonus: '+20%', bonusAmount: 10.00, tagline: t.tagPlus, featured: true }
+    { id: 'starter', name: 'Starter', price: 0.99, value: 0.99, bonus: null, bonusAmount: null, productId: 'mv_starter_099', tagline: t.tagStarter },
+    { id: 'standard', name: 'Standard', price: 4.99, value: 5.49, bonus: '+10%', bonusAmount: 0.50, productId: 'mv_standard_499', tagline: t.tagStandard },
+    { id: 'plus', name: 'Plus', price: 49.99, value: 59.99, bonus: '+20%', bonusAmount: 10.00, productId: 'mv_plus_4999', tagline: t.tagPlus, featured: true }
   ];
 
-  const handlePurchase = (pack) => {
-    setSelectedPack(pack);
-    if (onPurchase) {
-      onPurchase(pack);
+  const handlePurchase = async (pack) => {
+    if (purchasing) return;  // 이중 탭 방지
+
+    // 웹 환경: IAP 불가
+    if (!isNativeIAP()) {
+      alert(lang === 'ko' 
+        ? '인앱결제는 앱에서만 가능합니다.' 
+        : 'In-app purchases are only available in the app.');
+      return;
+    }
+
+    setPurchasing(pack.id);
+
+    try {
+      // 1. RevenueCat 구매 실행 (OS 결제 시트)
+      const result = await purchasePack(pack.id);
+
+      if (!result.success) {
+        if (result.error !== 'cancelled') {
+          alert(lang === 'ko' ? '구매 처리 중 오류가 발생했습니다.' : 'An error occurred during purchase.');
+        }
+        return;
+      }
+
+      // 2. 서버에 크레딧 추가 요청
+      const transactionId = `rc_${pack.productId}_${Date.now()}`;
+      const addResult = await fetch(`${API_BASE_URL}/api/add-credit`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userId,
+          productId: pack.productId,
+          transactionId
+        })
+      });
+
+      const addData = await addResult.json();
+
+      if (addData.success) {
+        // 잔액은 Firestore onSnapshot이 자동 업데이트
+        onPurchaseComplete?.();
+      } else {
+        console.error('크레딧 추가 실패:', addData.error);
+        alert(lang === 'ko' 
+          ? '결제는 완료되었으나 크레딧 반영에 문제가 있습니다. 고객지원에 문의해 주세요.' 
+          : 'Payment completed but credits were not applied. Please contact support.');
+      }
+
+    } catch (error) {
+      console.error('Purchase error:', error);
+      alert(lang === 'ko' ? '결제 처리 중 오류가 발생했습니다.' : 'An error occurred during purchase.');
+    } finally {
+      setPurchasing(null);
     }
   };
 
@@ -60,8 +112,10 @@ const AddFundsScreen = ({ onBack, userCredits = 2.50, onPurchase, lang = 'en' })
             <button
               className="pack-price-btn"
               onClick={() => handlePurchase(pack)}
+              disabled={!!purchasing}
+              style={purchasing === pack.id ? { opacity: 0.6 } : {}}
             >
-              ${pack.price.toFixed(2)}
+              {purchasing === pack.id ? '...' : `$${pack.price.toFixed(2)}`}
             </button>
           </div>
         ))}

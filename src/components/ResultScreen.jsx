@@ -30,7 +30,8 @@ import {
 // 단독변환용 교육자료
 import { educationContent } from '../data/educationContent';
 import { saveToGallery } from './GalleryScreen';
-import { processStyleTransfer } from '../utils/styleTransferAPI';
+import { processStyleTransfer, deductCredit } from '../utils/styleTransferAPI';
+import { getTransformCost } from '../utils/pricing';
 // v73: displayConfig 통합 함수
 import { normalizeKey, getDisplayInfo, getArtistName, getMovementDisplayInfo, getOrientalDisplayInfo, getMasterInfo, getStyleIcon, getStyleTitle, getStyleSubtitle, getStyleSubtitles } from '../utils/displayConfig';
 import { getEducationKey, getEducationContent, getMasterEducationKey } from '../utils/educationMatcher';
@@ -56,6 +57,9 @@ const ResultScreen = ({
   onMasterResultImagesChange,
   retransformingMasters: appRetransformingMasters,
   onRetransformingMastersChange,
+  userId,
+  userCredits = 0,
+  onInsufficientBalance,
   lang = 'en'
 }) => {
 
@@ -310,6 +314,13 @@ const ResultScreen = ({
     // 이미 이 거장이 변환 중이면 차단
     if (!correctionPrompt || !masterKey || retransformingMasters[masterKey]) return;
     
+    // 잔액 체크 (재변환 $0.10)
+    const retransformCost = getTransformCost(selectedStyle, true);
+    if (retransformCost > 0 && userCredits < retransformCost) {
+      onInsufficientBalance?.(retransformCost);
+      return;
+    }
+
     console.log('🔴 Modify 시작!', masterKey);
     startRetransforming(masterKey);  // 이 거장 변환 시작
     
@@ -345,6 +356,12 @@ const ResultScreen = ({
       
       if (result.success && result.resultUrl) {
         success = true;
+        
+        // 크레딧 차감 (재변환)
+        if (userId && retransformCost > 0) {
+          const txId = result.transformId || `retransform-${Date.now()}`;
+          await deductCredit(txId, retransformCost, userId);
+        }
         
         // 거장별로 Modify 이미지 저장
         setMasterResultImages(prev => ({

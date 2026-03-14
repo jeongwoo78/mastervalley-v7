@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { Preferences } from '@capacitor/preferences';
-import { auth } from './config/firebase';
+import { auth, db, doc, onSnapshot, ensureUserDoc } from './config/firebase';
 import { setLanguage, getLanguage, t, getUi } from './i18n';
 import LoginScreen from './components/LoginScreen';
 import CategorySelection from './components/CategorySelection';
@@ -14,6 +14,9 @@ import AddFundsScreen from './components/AddFundsScreen';
 import MenuScreen from './components/MenuScreen';
 // LanguageScreen removed - 메뉴 아코디언에서 직접 변경
 import InsufficientBalancePopup from './components/InsufficientBalancePopup';
+import { getTransformCost } from './utils/pricing';
+import { deductCredit } from './utils/styleTransferAPI';
+import { initRevenueCat } from './utils/revenueCat';
 import './styles/App.css';
 
 const App = () => {
@@ -28,8 +31,9 @@ const App = () => {
   const [currentScreen, setCurrentScreen] = useState('category');
   const [showGallery, setShowGallery] = useState(false);
   
-  // 크레딧 상태
-  const [userCredits, setUserCredits] = useState(2.50);
+  // 크레딧 상태 (Firestore 실시간 구독)
+  const [userCredits, setUserCredits] = useState(0);
+  const [creditsLoaded, setCreditsLoaded] = useState(false);
   
   // 잔액 부족 팝업
   const [showInsufficientPopup, setShowInsufficientPopup] = useState(false);
@@ -83,17 +87,51 @@ const App = () => {
     }
   };
 
-  // Firebase 인증 상태 감시
+  // Firebase 인증 상태 감시 + Firestore 크레딧 실시간 구독
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    let unsubCredits = null;
+
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
       setAuthLoading(false);
+
+      // 이전 구독 해제
+      if (unsubCredits) {
+        unsubCredits();
+        unsubCredits = null;
+      }
+
       if (currentUser) {
         console.log('✅ User logged in:', currentUser.email);
+
+        // 유저 문서 보장 (첫 로그인 시 생성)
+        await ensureUserDoc(currentUser.uid, currentUser.email);
+
+        // RevenueCat 초기화 (네이티브 환경에서만 동작)
+        initRevenueCat(currentUser.uid);
+
+        // Firestore 실시간 잔액 구독
+        const userRef = doc(db, 'users', currentUser.uid);
+        unsubCredits = onSnapshot(userRef, (snapshot) => {
+          if (snapshot.exists()) {
+            const credits = snapshot.data().credits ?? 0;
+            setUserCredits(credits);
+            setCreditsLoaded(true);
+          }
+        }, (error) => {
+          console.error('Credits subscription error:', error);
+          setCreditsLoaded(true);  // 에러 시에도 로딩 완료 처리
+        });
+      } else {
+        setUserCredits(0);
+        setCreditsLoaded(false);
       }
     });
 
-    return () => unsubscribe();
+    return () => {
+      unsubscribe();
+      if (unsubCredits) unsubCredits();
+    };
   }, []);
 
   // 로그인 성공
@@ -118,6 +156,19 @@ const App = () => {
     setCurrentScreen('photoStyle');
   };
 
+  // 변환 시작 공통 로직 (잔액 체크 포함)
+  const startTransform = (photo, style) => {
+    const cost = getTransformCost(style);
+    if (cost > 0 && userCredits < cost) {
+      setRequiredAmount(cost);
+      setShowInsufficientPopup(true);
+      return;
+    }
+    setUploadedPhoto(photo);
+    setSelectedStyle(style);
+    setCurrentScreen('processing');
+  };
+
   // 2단계: 사진 + 스타일 선택 완료 → 변환 시작
   const handlePhotoStyleSelect = (photo, style) => {
     // AI 데이터 처리 동의 확인 (첫 1회만)
@@ -127,9 +178,7 @@ const App = () => {
       setShowAiConsent(true);
       return;
     }
-    setUploadedPhoto(photo);
-    setSelectedStyle(style);
-    setCurrentScreen('processing');
+    startTransform(photo, style);
   };
 
   // AI 동의 확인 후 변환 진행
@@ -137,15 +186,35 @@ const App = () => {
     localStorage.setItem('mv_ai_consent', 'true');
     setShowAiConsent(false);
     if (pendingTransform) {
-      setUploadedPhoto(pendingTransform.photo);
-      setSelectedStyle(pendingTransform.style);
+      startTransform(pendingTransform.photo, pendingTransform.style);
       setPendingTransform(null);
-      setCurrentScreen('processing');
     }
   };
 
-  // 변환 완료
-  const handleProcessingComplete = (style, resultImageUrl, result) => {
+  // 변환 완료 → 크레딧 차감 + 화면 전환
+  const handleProcessingComplete = async (style, resultImageUrl, result) => {
+    // 성공한 변환에 대해 크레딧 차감
+    const isSuccess = result?.isFullTransform 
+      ? result.results?.some(r => r.success)  // 원클릭: 1개라도 성공
+      : result?.success;
+
+    if (isSuccess && user) {
+      const cost = getTransformCost(style);
+      // 원클릭: 첫 성공 결과의 transformId 사용, 단일: result.transformId
+      const transformId = result?.isFullTransform
+        ? result.results.find(r => r.success)?.transformId || `oneclick-${Date.now()}`
+        : result.transformId || `single-${Date.now()}`;
+
+      if (cost > 0) {
+        const deductResult = await deductCredit(transformId, cost, user.uid);
+        if (!deductResult.success && !deductResult.alreadyCharged) {
+          console.error('💸 크레딧 차감 실패:', deductResult.error);
+          // 차감 실패해도 결과는 보여줌 (소비자 보호 우선)
+        }
+        // 잔액은 onSnapshot이 자동 업데이트
+      }
+    }
+
     if (result && result.isFullTransform) {
       setFullTransformResults(result.results);
       setResultImage(null);
@@ -319,9 +388,9 @@ const App = () => {
             <AddFundsScreen
               onBack={() => setCurrentScreen('category')}
               userCredits={userCredits}
-              onPurchase={(pack) => {
-                // 나중에 RevenueCat 연동
-                setUserCredits(prev => prev + pack.value);
+              userId={user?.uid}
+              onPurchaseComplete={() => {
+                // 잔액은 Firestore onSnapshot이 자동 반영
                 setCurrentScreen('category');
               }}
               lang={lang}
@@ -379,6 +448,12 @@ const App = () => {
               onMasterResultImagesChange={setMasterResultImages}
               retransformingMasters={retransformingMasters}
               onRetransformingMastersChange={setRetransformingMasters}
+              userId={user?.uid}
+              userCredits={userCredits}
+              onInsufficientBalance={(cost) => {
+                setRequiredAmount(cost);
+                setShowInsufficientPopup(true);
+              }}
               lang={lang}
             />
           )}
