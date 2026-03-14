@@ -1829,8 +1829,8 @@ KLIMT - SELECT ONE:
 
   'munch': `
 MUNCH - SELECT ONE:
-1. "The Scream" → portrait, solo, expressive, outdoor, vivid, dramatic, anxiety, fear, surprise → MALE or FEMALE | Style: wavy lines, blood-red sky
-2. "Madonna" → calm, dreamy, mysterious, sensual, intimate → FEMALE ONLY | Style: flowing hair, dark aura
+1. "The Scream" → anxiety, fear, distress, tension, surprise → MALE or FEMALE | Style: wavy lines, blood-red sky
+2. "Madonna" → calm, dreamy, mysterious, sensual → FEMALE ONLY | Style: flowing hair, dark aura
 3. "The Dance of Life" → GROUP (2+ people), celebration | Style: pale figures, dark shore`,
 
   'matisse': `
