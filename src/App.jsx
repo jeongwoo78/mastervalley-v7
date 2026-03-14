@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { Preferences } from '@capacitor/preferences';
-import { auth, db, doc, onSnapshot, ensureUserDoc } from './config/firebase';
+import { auth, db, doc, onSnapshot, updateDoc, ensureUserDoc } from './config/firebase';
 import { setLanguage, getLanguage, t, getUi } from './i18n';
 import LoginScreen from './components/LoginScreen';
 import CategorySelection from './components/CategorySelection';
@@ -39,7 +39,8 @@ const App = () => {
   const [showInsufficientPopup, setShowInsufficientPopup] = useState(false);
   const [requiredAmount, setRequiredAmount] = useState(0);
   
-  // AI 데이터 처리 동의 팝업
+  // AI 데이터 처리 동의 팝업 (Firestore 기반)
+  const [aiConsentGiven, setAiConsentGiven] = useState(false);
   const [showAiConsent, setShowAiConsent] = useState(false);
   const [pendingTransform, setPendingTransform] = useState(null);
   
@@ -114,8 +115,9 @@ const App = () => {
         const userRef = doc(db, 'users', currentUser.uid);
         unsubCredits = onSnapshot(userRef, (snapshot) => {
           if (snapshot.exists()) {
-            const credits = snapshot.data().credits ?? 0;
-            setUserCredits(credits);
+            const data = snapshot.data();
+            setUserCredits(data.credits ?? 0);
+            setAiConsentGiven(data.aiConsent === true);
             setCreditsLoaded(true);
           }
         }, (error) => {
@@ -171,9 +173,8 @@ const App = () => {
 
   // 2단계: 사진 + 스타일 선택 완료 → 변환 시작
   const handlePhotoStyleSelect = (photo, style) => {
-    // AI 데이터 처리 동의 확인 (첫 1회만)
-    const consentGiven = localStorage.getItem('mv_ai_consent');
-    if (!consentGiven) {
+    // AI 데이터 처리 동의 확인 (Firestore 기반, 첫 1회만)
+    if (!aiConsentGiven) {
       setPendingTransform({ photo, style });
       setShowAiConsent(true);
       return;
@@ -182,8 +183,17 @@ const App = () => {
   };
 
   // AI 동의 확인 후 변환 진행
-  const handleAiConsentConfirm = () => {
-    localStorage.setItem('mv_ai_consent', 'true');
+  const handleAiConsentConfirm = async () => {
+    // Firestore에 동의 저장 (도메인/캐시와 무관하게 영구 보존)
+    if (user) {
+      try {
+        const userRef = doc(db, 'users', user.uid);
+        await updateDoc(userRef, { aiConsent: true });
+      } catch (e) {
+        console.error('AI consent save error:', e);
+      }
+    }
+    setAiConsentGiven(true);
     setShowAiConsent(false);
     if (pendingTransform) {
       startTransform(pendingTransform.photo, pendingTransform.style);

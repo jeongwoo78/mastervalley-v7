@@ -1,7 +1,7 @@
 // Firebase 설정 - Master Valley
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, OAuthProvider } from 'firebase/auth';
-import { getFirestore, doc, onSnapshot, setDoc, getDoc } from 'firebase/firestore';
+import { getFirestore, doc, onSnapshot, setDoc, getDoc, updateDoc } from 'firebase/firestore';
 
 // Firebase 설정값 (Firebase Console에서 가져옴)
 const firebaseConfig = {
@@ -36,5 +36,5 @@ const ensureUserDoc = async (userId, email) => {
   }
 };
 
-export { auth, db, googleProvider, appleProvider, doc, onSnapshot, ensureUserDoc };
+export { auth, db, googleProvider, appleProvider, doc, onSnapshot, updateDoc, ensureUserDoc };
 export default app;
