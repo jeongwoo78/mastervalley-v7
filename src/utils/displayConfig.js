@@ -95,41 +95,56 @@ export const ALIASES = {
   'ancient-art': 'greco-roman',
   'greek-roman': 'greco-roman',
   'greco-roman': 'greco-roman',
+  '그리스·로마': 'greco-roman',
+  '그리스 로마': 'greco-roman',
+  '고대 그리스·로마': 'greco-roman',
   
   // 중세
   'medieval': 'medieval-art',
   'medieval-art': 'medieval-art',
+  '중세 미술': 'medieval-art',
+  '중세': 'medieval-art',
   
   // 르네상스
   'renaissance': 'renaissance',
+  '르네상스': 'renaissance',
   
   // 바로크
   'baroque': 'baroque',
+  '바로크': 'baroque',
   
   // 로코코
   'rococo': 'rococo',
+  '로코코': 'rococo',
   
   // 신고전·낭만·사실
   'neoclassicism_vs_romanticism_vs_realism': 'neoclassicism-romanticism-realism',
   'neoclassicism-romanticism-realism': 'neoclassicism-romanticism-realism',
   'neoclassicism': 'neoclassicism-romanticism-realism',
+  '신고전·낭만·사실주의': 'neoclassicism-romanticism-realism',
+  '신고전주의': 'neoclassicism-romanticism-realism',
   
   // 인상주의
   'impressionism': 'impressionism',
+  '인상주의': 'impressionism',
   
   // 후기인상주의
   'postImpressionism': 'post-impressionism',
   'post-impressionism': 'post-impressionism',
   'postimpressionism': 'post-impressionism',
+  '후기인상주의': 'post-impressionism',
   
   // 야수파
   'fauvism': 'fauvism',
+  '야수파': 'fauvism',
   
   // 표현주의
   'expressionism': 'expressionism',
+  '표현주의': 'expressionism',
   
   // 모더니즘
   'modernism': 'modernism',
+  '모더니즘': 'modernism',
   
   // ===== 거장 별칭 =====
   // 반 고흐

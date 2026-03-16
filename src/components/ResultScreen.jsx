@@ -671,7 +671,7 @@ const ResultScreen = ({
       
       // currentResult에서 정보 추출
       const category = currentResult?.style?.category || displayCategory;
-      const artist = currentResult?.aiSelectedArtist || displayArtist;
+      const artist = currentResult?.aiSelectedArtist || currentResult?.style?.id || displayArtist;
       const work = currentResult?.selected_work || displayWork;
       
       // console.log('   - category:', category);
@@ -698,6 +698,27 @@ const ResultScreen = ({
             oriental: oneclickOrientalSecondary
           };
           content = getEducationContent(category, key, educationData);
+          
+          // 사조 레벨 키 fallback (예: 'greco-roman' → 'classical-sculpture')
+          if (!content && category === 'movements') {
+            const MOVEMENT_FALLBACK = {
+              'greco-roman': 'classical-sculpture',
+              'medieval-art': 'byzantine',
+              'renaissance': 'leonardo',
+              'baroque': 'caravaggio',
+              'rococo': 'watteau',
+              'neoclassicism-romanticism-realism': 'david',
+              'impressionism': 'monet',
+              'post-impressionism': 'vangogh',
+              'fauvism': 'matisse',
+              'expressionism': 'munch',
+              'modernism': 'picasso'
+            };
+            const fallbackKey = MOVEMENT_FALLBACK[key];
+            if (fallbackKey) {
+              content = getEducationContent(category, fallbackKey, educationData);
+            }
+          }
         }
         
         if (content) {
