@@ -24,8 +24,19 @@ const App = () => {
   const [user, setUser] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
 
-  // 언어 상태 (기본: 영어)
-  const [lang, setLang] = useState('en');
+  // 브라우저 언어 감지 → 지원 언어 매칭
+  const SUPPORTED_LANGS = ['en', 'ko', 'ja', 'es', 'fr', 'id', 'pt', 'ar', 'tr', 'th', 'zh-TW'];
+  const detectBrowserLang = () => {
+    const browserLang = navigator.language || navigator.userLanguage || 'en';
+    // zh-TW, zh-Hant 등 → zh-TW
+    if (browserLang.startsWith('zh')) return 'zh-TW';
+    // 언어코드 앞 2자리로 매칭 (en-US → en, ko-KR → ko)
+    const short = browserLang.split('-')[0].toLowerCase();
+    return SUPPORTED_LANGS.includes(short) ? short : 'en';
+  };
+
+  // 언어 상태 (기본: 브라우저 언어 감지)
+  const [lang, setLang] = useState(detectBrowserLang);
 
   // 화면 상태: 'category' | 'photoStyle' | 'processing' | 'result' | 'addFunds' | 'menu'
   const [currentScreen, setCurrentScreen] = useState('category');

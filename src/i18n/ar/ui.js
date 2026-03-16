@@ -76,7 +76,7 @@ export const ui = {
     movementsLabel: ' حركات فنية',
     mastersLabel: ' أساتذة',
     nationsLabel: ' أساليب شرقية',
-    movementsSub1: 'من اليونان إلى الحداثة',
+    movementsSub1: 'من اليونان القديمة إلى الحداثة',
     movementsSub2: '2800 عام من الفن الغربي',
     mastersSub1: 'رسّامون أعادوا رسم العالم بلغتهم الخاصة',
     mastersSub2: 'سألوا، حطّموا، أعادوا البناء',

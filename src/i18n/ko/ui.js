@@ -75,7 +75,7 @@ export const ui = {
     movementsLabel: '개 사조',
     mastersLabel: '명 거장',
     nationsLabel: '개국 동양화',
-    movementsSub1: '그리스에서 모더니즘까지',
+    movementsSub1: '고대 그리스에서 모더니즘까지',
     movementsSub2: '서양미술 2800년을 관통하다',
     mastersSub1: '각자의 언어로 세상을 다시 그린 화가들',
     mastersSub2: '묻고, 부수고, 다시 세우다',

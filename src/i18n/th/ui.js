@@ -76,7 +76,7 @@ export const ui = {
     movementsLabel: 'ยุคสมัย',
     mastersLabel: 'ศิลปินเอก',
     nationsLabel: 'ชาติตะวันออก',
-    movementsSub1: 'จากกรีกถึงโมเดิร์นนิสม์',
+    movementsSub1: 'จากกรีกโบราณถึงโมเดิร์นนิสม์',
     movementsSub2: 'ข้ามผ่าน 2800 ปีของศิลปะตะวันตก',
     mastersSub1: 'ศิลปินผู้วาดโลกใหม่ด้วยภาษาของตน',
     mastersSub2: 'ตั้งคำถาม ทำลาย และสร้างใหม่',

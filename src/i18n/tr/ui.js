@@ -73,7 +73,7 @@ export const ui = {
     movementsLabel: ' akım',
     mastersLabel: ' usta',
     nationsLabel: ' Doğu resmi',
-    movementsSub1: 'Yunan\'dan Modernizme',
+    movementsSub1: 'Antik Yunan\'dan Modernizme',
     movementsSub2: 'Batı sanatının 2800 yılı',
     mastersSub1: 'Dünyayı kendi dilleriyle yeniden çizen ressamlar',
     mastersSub2: 'Sordular, kırdılar, yeniden inşa ettiler',

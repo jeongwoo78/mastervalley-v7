@@ -76,7 +76,7 @@ export const ui = {
     movementsLabel: ' mouvements',
     mastersLabel: ' maîtres',
     nationsLabel: ' styles orientaux',
-    movementsSub1: 'De la Grèce au Modernisme',
+    movementsSub1: 'De la Grèce antique au Modernisme',
     movementsSub2: '2800 ans d\'art occidental',
     mastersSub1: 'Des peintres qui ont redessiné le monde à leur façon',
     mastersSub2: 'Questionner, briser, reconstruire',

@@ -76,7 +76,7 @@ export const ui = {
     movementsLabel: ' aliran',
     mastersLabel: ' maestro',
     nationsLabel: ' gaya oriental',
-    movementsSub1: 'Dari Yunani hingga Modernisme',
+    movementsSub1: 'Dari Yunani Kuno hingga Modernisme',
     movementsSub2: '2800 tahun seni barat',
     mastersSub1: 'Pelukis yang menggambar ulang dunia dengan bahasa mereka sendiri',
     mastersSub2: 'Mempertanyakan, menghancurkan, membangun kembali',

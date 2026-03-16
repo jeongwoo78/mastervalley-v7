@@ -75,7 +75,7 @@ export const ui = {
     movementsLabel: 'movements',
     mastersLabel: 'masters',
     nationsLabel: 'nations',
-    movementsSub1: 'From Greece to Modernism',
+    movementsSub1: 'From Ancient Greece to Modernism',
     movementsSub2: 'Traversing 2800 years of Western art',
     mastersSub1: 'Artists who repainted the world in their own tongue',
     mastersSub2: 'Question, break, rebuild',

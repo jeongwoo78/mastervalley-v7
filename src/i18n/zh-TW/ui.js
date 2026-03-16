@@ -76,7 +76,7 @@ export const ui = {
     movementsLabel: '個流派',
     mastersLabel: '位大師',
     nationsLabel: '個東洋畫',
-    movementsSub1: '從希臘到現代主義',
+    movementsSub1: '從古希臘到現代主義',
     movementsSub2: '貫穿西洋美術2800年',
     mastersSub1: '以各自語言重新描繪世界的畫家們',
     mastersSub2: '質疑、打破、重建',

@@ -76,7 +76,7 @@ export const ui = {
     movementsLabel: '様式',
     mastersLabel: '人の巨匠',
     nationsLabel: '東洋画',
-    movementsSub1: 'ギリシャからモダニズムまで',
+    movementsSub1: '古代ギリシャからモダニズムまで',
     movementsSub2: '西洋美術2800年を駆け抜ける',
     mastersSub1: 'それぞれの言語で世界を描き直した画家たち',
     mastersSub2: '問い、壊し、再び築く',
