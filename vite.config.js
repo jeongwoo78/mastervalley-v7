@@ -18,6 +18,11 @@ export default defineConfig({
       }
     }
   },
+  resolve: {
+    alias: {
+      '@revenuecat/purchases-capacitor': '/src/utils/revenueCatStub.js'
+    }
+  },
   server: {
     port: 3000
   }
