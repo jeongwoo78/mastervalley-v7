@@ -620,8 +620,7 @@ const ARTIST_WEIGHTS = {
     ],
     landscape: [
       { name: 'CHAGALL', weight: 40 },
-      { name: 'PICASSO', weight: 10 },
-      { name: 'MAGRITTE', weight: 10 },
+      { name: 'PICASSO', weight: 20 },
       { name: 'MIRÓ', weight: 40 }
     ],
     stillLife: [
@@ -898,6 +897,11 @@ const ARTIST_WEIGHTS = {
       { name: 'MUNCH', weight: 40 },
       { name: 'KOKOSCHKA', weight: 35 },
       { name: 'KIRCHNER', weight: 25 }
+    ],
+    landscape: [
+      { name: 'MUNCH', weight: 45 },
+      { name: 'KIRCHNER', weight: 35 },
+      { name: 'KOKOSCHKA', weight: 20 }
     ],
     urban: [
       { name: 'KIRCHNER', weight: 50 },
@@ -1612,9 +1616,10 @@ Available Expressionism Artists (3명):
 ⚠️ CRITICAL: You MUST select a masterwork from the exact list above! Do NOT invent new titles!
 
 🎯 CRITICAL DECISION LOGIC - 3 ARTISTS ONLY:
-- Emotional portraits → MUNCH (35%, also in Masters)
-- Psychological depth → KOKOSCHKA 
-- Urban/city/angular → KIRCHNER 
+- Emotional portraits → MUNCH (40%)
+- Psychological depth → KOKOSCHKA (35%)
+- Urban/city/angular → KIRCHNER (50%)
+- Landscapes/nature → MUNCH 45%, KIRCHNER 35%, KOKOSCHKA 20%
 ⚠️ NEVER select Fauvism artists (Derain, Matisse, Vlaminck) for Expressionism!
 `;
 }
@@ -1671,8 +1676,8 @@ Available 20th Century Modernism Artists (6명):
    ❌ MAGRITTE, MIRÓ 제외
 
 🏞️ LANDSCAPE (풍경):
-   PICASSO 25%, MAGRITTE 30%, CHAGALL 20%, MIRÓ 25%
-   ❌ LICHTENSTEIN 제외
+   CHAGALL 40%, MIRÓ 40%, PICASSO 20%
+   ❌ MAGRITTE, LICHTENSTEIN 제외
 
 🍎 STILL LIFE (정물):
    PICASSO 30%, MAGRITTE 35%, MIRÓ 35%
@@ -3522,19 +3527,32 @@ export default async function handler(req, res) {
         }
         
         // ========================================
-        // v65: 리히텐슈타인 말풍선 추가
+        // v65: 리히텐슈타인 말풍선 추가 (v82: 풍경/정물은 제외)
         // ========================================
         if (selectedArtist.toUpperCase().trim().includes('LICHTENSTEIN') || 
             selectedArtist.includes('리히텐슈타인')) {
-          console.log('🎯 Lichtenstein detected - adding speech bubble...');
+          const photoType = detectPhotoType({
+            count: visionAnalysis?.person_count || 0,
+            subject: visionAnalysis?.subject_type || ''
+          });
+          const skipBubble = ['landscape', 'stillLife'].includes(photoType);
           
-          // 말풍선 텍스트 선택 (사진 분석 결과 기반)
-          const speechText = selectSpeechBubbleText(visionAnalysis);
-          console.log(`💬 Speech bubble text: "${speechText}"`);
+          if (skipBubble) {
+            console.log('🎯 Lichtenstein detected - landscape/still → NO speech bubble');
+            if (!finalPrompt.includes('Ben-Day dots')) {
+              finalPrompt = finalPrompt + `, EXTREMELY LARGE Ben-Day dots 15mm+ halftone pattern on ALL surfaces, ULTRA THICK BLACK OUTLINES 20mm+, COMIC PANEL FRAME with THICK BLACK BORDER around entire image`;
+            }
+          } else {
+            console.log('🎯 Lichtenstein detected - adding speech bubble...');
           
-          // 프롬프트에 말풍선 + 스타일 강화 추가
-          if (!finalPrompt.includes('speech bubble')) {
-            finalPrompt = finalPrompt + `, white comic speech bubble containing ONLY the exact text "${speechText}" in bold font, position bubble at least 3% away from image edges, EXTREMELY LARGE Ben-Day dots 15mm+ halftone pattern on ALL skin and surfaces, ULTRA THICK BLACK OUTLINES 20mm+, COMIC PANEL FRAME with THICK BLACK BORDER around entire image`;
+            // 말풍선 텍스트 선택 (사진 분석 결과 기반)
+            const speechText = selectSpeechBubbleText(visionAnalysis);
+            console.log(`💬 Speech bubble text: "${speechText}"`);
+          
+            // 프롬프트에 말풍선 + 스타일 강화 추가
+            if (!finalPrompt.includes('speech bubble')) {
+              finalPrompt = finalPrompt + `, white comic speech bubble containing ONLY the exact text "${speechText}" in bold font, position bubble at least 3% away from image edges, EXTREMELY LARGE Ben-Day dots 15mm+ halftone pattern on ALL skin and surfaces, ULTRA THICK BLACK OUTLINES 20mm+, COMIC PANEL FRAME with THICK BLACK BORDER around entire image`;
+            }
           }
         }
         
