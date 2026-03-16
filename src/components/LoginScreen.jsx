@@ -359,7 +359,7 @@ const s = {
     fontWeight: 500,
   },
   devMsgHi: {
-    color: 'rgba(168,85,247,0.65)',
+    color: 'rgba(255,255,255,0.35)',
     fontWeight: 600,
   },
 
