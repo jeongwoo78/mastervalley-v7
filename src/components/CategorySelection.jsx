@@ -115,7 +115,8 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           max-width: 400px;
           margin: 0 auto;
           position: relative;
-          overflow: hidden;
+          overflow-y: auto;
+          padding-top: env(safe-area-inset-top, 0px);
         }
 
         /* Header */
