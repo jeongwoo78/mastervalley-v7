@@ -338,6 +338,10 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, userCredits = 0, lan
           <span className="per-transform-price">{cat.priceLabel}</span>
         </div>
 
+        {catKey === 'masters' && ps.mastersGalleryDesc && (
+          <p className="masters-gallery-desc">※ {ps.mastersGalleryDesc}</p>
+        )}
+
         <div className="style-grid">
           {cat.styles.map(style => (
             <button
@@ -423,12 +427,14 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, userCredits = 0, lan
 
       <style>{`
         .style-screen {
-          min-height: 100vh;
+          height: calc(100vh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 12px);
+          height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 12px);
           background: #0d0d0d;
           display: flex;
           flex-direction: column;
           max-width: 400px;
           margin: 0 auto;
+          overflow: hidden;
         }
 
         .style-header {
@@ -534,6 +540,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, userCredits = 0, lan
           flex: 1;
           overflow: hidden;
           position: relative;
+          min-height: 0;
         }
 
         .swipe-track {
@@ -553,6 +560,9 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, userCredits = 0, lan
           display: flex;
           flex-direction: column;
           scrollbar-width: none;
+        }
+        .swipe-page > * {
+          flex-shrink: 0;
         }
         .swipe-page::-webkit-scrollbar {
           display: none;
@@ -652,8 +662,17 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, userCredits = 0, lan
         }
 
         .per-transform-price {
-          color: #555;
+          color: rgba(255,255,255,0.5);
           font-size: 13px;
+        }
+
+        .masters-gallery-desc {
+          color: rgba(255,255,255,0.45);
+          font-size: 11.5px;
+          text-align: start;
+          padding: 4px 28px 0;
+          margin: 0;
+          line-height: 1.5;
         }
 
         .style-grid {
@@ -725,7 +744,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, userCredits = 0, lan
         }
 
         .subscription-info p {
-          color: rgba(255,255,255,0.35);
+          color: rgba(255,255,255,0.45);
           font-size: 14px;
           margin: 0;
         }

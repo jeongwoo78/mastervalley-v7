@@ -32,6 +32,7 @@ export const ui = {
     perTransform: 'การแปลง',
     selectMovement: 'เลือกยุคสมัย',
     selectMaster: 'เลือกศิลปินเอก',
+    mastersGalleryDesc: 'ผลงานจริงที่แปลงเป็น 7 สไตล์ศิลปินเอกโดย Master Valley',
     selectStyle: 'เลือกสไตล์',
     grecoRoman: 'กรีก-โรมัน',
     medieval: 'ยุคกลาง',

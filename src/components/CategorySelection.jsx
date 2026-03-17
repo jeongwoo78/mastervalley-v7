@@ -108,14 +108,14 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
 
       <style>{`
         .main-screen {
-          min-height: 100vh;
+          min-height: calc(100vh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 12px);
+          min-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 12px);
           background: #0d0d0d;
           display: flex;
           flex-direction: column;
           max-width: 400px;
           margin: 0 auto;
           position: relative;
-          overflow: hidden;
         }
 
         /* Header */
@@ -168,7 +168,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
         /* Branding */
         .branding {
           text-align: center;
-          padding: 80px 20px 0;
+          padding: 56px 20px 0;
           position: relative;
           z-index: 1;
         }
@@ -197,13 +197,14 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
 
         .brand-sub-tagline {
           color: rgba(255,255,255,0.3);
-          font-size: 12px;
+          font-size: 13px;
           margin: 6px 0 0;
         }
 
         /* Category Grid */
         .category-grid {
-          padding: 40px 20px 16px;
+          flex: 1;
+          padding: 52px 20px 16px;
           display: flex;
           flex-direction: column;
           justify-content: flex-start;
@@ -291,7 +292,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
         }
 
         .subscription-info p {
-          color: rgba(255,255,255,0.25);
+          color: rgba(255,255,255,0.45);
           font-size: 14px;
           margin: 0 0 2px;
           text-align: center;
@@ -305,7 +306,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           }
 
           .branding {
-            padding: 72px 16px 0;
+            padding: 48px 16px 0;
           }
 
           .brand-title {

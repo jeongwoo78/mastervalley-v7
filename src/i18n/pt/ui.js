@@ -30,6 +30,7 @@ export const ui = {
     perTransform: 'conversão',
     selectMovement: 'Selecionar movimento',
     selectMaster: 'Selecionar mestre',
+    mastersGalleryDesc: 'Obras reais transformadas em 7 estilos de mestres pelo Master Valley',
     selectStyle: 'Selecionar estilo',
     grecoRoman: 'Grécia · Roma',
     medieval: 'Idade Média',

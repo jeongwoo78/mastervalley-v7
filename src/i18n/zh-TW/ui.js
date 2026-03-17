@@ -32,6 +32,7 @@ export const ui = {
     perTransform: '轉換',
     selectMovement: '請選擇流派',
     selectMaster: '請選擇大師',
+    mastersGalleryDesc: '透過Master Valley轉換為7位大師畫風的真實作品',
     selectStyle: '請選擇風格',
     grecoRoman: '希臘・羅馬',
     medieval: '中世紀',

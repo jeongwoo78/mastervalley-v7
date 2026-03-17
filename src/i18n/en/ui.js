@@ -31,6 +31,7 @@ export const ui = {
     perTransform: 'transform',
     selectMovement: 'Select a movement',
     selectMaster: 'Select a master',
+    mastersGalleryDesc: 'Real artworks transformed into 7 master styles by Master Valley',
     selectStyle: 'Select a style',
     grecoRoman: 'Greco-Roman',
     medieval: 'Medieval',

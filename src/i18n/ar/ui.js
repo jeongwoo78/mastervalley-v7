@@ -32,6 +32,7 @@ export const ui = {
     perTransform: 'تحويل',
     selectMovement: 'اختر الحركة الفنية',
     selectMaster: 'اختر الأستاذ',
+    mastersGalleryDesc: 'أعمال فنية حقيقية حُوِّلت إلى 7 أساليب للأساتذة عبر Master Valley',
     selectStyle: 'اختر الأسلوب',
     grecoRoman: 'اليونان والرومان',
     medieval: 'العصور الوسطى',

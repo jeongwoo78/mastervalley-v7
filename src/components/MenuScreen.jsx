@@ -341,10 +341,10 @@ const menuStyles = `
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 14px 16px;
+    padding: 16px 16px;
     background: #1a1a1a;
     border-radius: 12px;
-    margin-bottom: 10px;
+    margin-bottom: 14px;
     cursor: pointer;
     transition: background 0.2s;
   }
@@ -441,7 +441,7 @@ const menuStyles = `
   .legal-text { color: rgba(255,255,255,0.6); font-size: 13px; line-height: 1.65; }
 
   @media (max-width: 400px) {
-    .menu-item-svg { padding: 12px 14px; }
+    .menu-item-svg { padding: 14px 14px; }
     .menu-label { font-size: 14px; }
   }
 `;

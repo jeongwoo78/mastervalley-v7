@@ -32,6 +32,7 @@ export const ui = {
     perTransform: '変換',
     selectMovement: '様式を選択してください',
     selectMaster: '巨匠を選択してください',
+    mastersGalleryDesc: 'Master Valleyで7人の巨匠スタイルに変換された実際の作品です',
     selectStyle: 'スタイルを選択してください',
     grecoRoman: 'ギリシャ・ローマ',
     medieval: '中世',

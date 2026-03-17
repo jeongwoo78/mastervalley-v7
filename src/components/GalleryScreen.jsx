@@ -373,7 +373,7 @@ const GalleryScreen = ({ onBack, onHome, lang = 'en' }) => {
     let failCount = 0;
     
     try {
-      const selectedItems = galleryItems.filter(item => selectedIds.has(item.id));
+      const selectedItems = galleryItems.filter(item => selectedIds.has(item.id)).reverse();
       
       for (const item of selectedItems) {
         try {
@@ -849,7 +849,7 @@ const animationStyle = `
 const styles = {
   container: {
     minHeight: '100vh',
-    background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)',
+    background: '#0d0d0d',
     color: 'white',
     padding: '20px',
     maxWidth: '400px',
@@ -1043,7 +1043,7 @@ const styles = {
   },
   
   modalContent: {
-    background: '#1a1a2e',
+    background: '#1a1a1a',
     borderRadius: '16px',
     maxWidth: '500px',
     width: '100%',
@@ -1204,7 +1204,7 @@ const modalStyles = {
     padding: '20px',
   },
   modalContent: {
-    background: '#1a1a2e',
+    background: '#1a1a1a',
     borderRadius: '16px',
     maxWidth: '500px',
     width: '100%',

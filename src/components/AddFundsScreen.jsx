@@ -129,7 +129,8 @@ const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, l
 
       <style>{`
         .funds-screen {
-          min-height: 100vh;
+          min-height: calc(100vh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 12px);
+          min-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 12px);
           background: #0d0d0d;
           display: flex;
           flex-direction: column;
@@ -142,7 +143,6 @@ const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, l
           display: flex;
           align-items: center;
           padding: 14px 20px;
-          border-bottom: 1px solid #2a2a2a;
         }
 
         .back-btn {
@@ -170,7 +170,7 @@ const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, l
         /* Balance Section */
         .balance-section {
           text-align: center;
-          padding: 68px 20px;
+          padding: 48px 20px 28px;
         }
 
         .balance-label {
@@ -188,17 +188,18 @@ const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, l
         /* Packs Section */
         .packs-section {
           flex: 1;
-          padding: 14px 18px 18px;
+          padding: 0 18px;
           display: flex;
           flex-direction: column;
-          gap: 20px;
+          justify-content: center;
+          gap: 12px;
         }
 
         .pack-item {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          padding: 20px 18px;
+          padding: 16px 18px;
           background: #1a1a1a;
           border-radius: 14px;
         }
@@ -281,12 +282,12 @@ const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, l
 
         /* Info Text */
         .info-text {
-          padding: 20px 20px 32px;
+          padding: 16px 20px 24px;
           text-align: center;
         }
 
         .info-text p {
-          color: rgba(255,255,255,0.35);
+          color: rgba(255,255,255,0.45);
           font-size: 14px;
           margin: 0;
           line-height: 1.6;

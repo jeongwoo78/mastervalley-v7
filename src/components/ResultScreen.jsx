@@ -107,6 +107,7 @@ const ResultScreen = ({
   const [showSaveShareMenu, setShowSaveShareMenu] = useState(false);
   const [showImageModal, setShowImageModal] = useState(false);
   const [showModalSaveShare, setShowModalSaveShare] = useState(false);
+  const [modalTouchStartX, setModalTouchStartX] = useState(0);
   
   // v79: Original 이미지 URL (useMemo로 동기 생성 → 갤러리 왕복 시 깜빡임 완전 제거)
   const [originalPhotoUrl, setOriginalPhotoUrl] = useState(null);
@@ -1194,6 +1195,28 @@ const ResultScreen = ({
     setTouchStartY(0);
   };
 
+  // ========== 모달 스와이프 핸들러 (원클릭 결과 비교용) ==========
+  const handleModalTouchStart = (e) => {
+    setModalTouchStartX(e.touches[0].clientX);
+  };
+
+  const handleModalTouchEnd = (e) => {
+    if (!modalTouchStartX) return;
+    const diffX = modalTouchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diffX) > 50 && isFullTransform) {
+      if (diffX > 0 && viewIndex < totalResults - 1) {
+        const newIndex = viewIndex + 1;
+        setViewIndex(newIndex);
+        setCurrentIndex(newIndex);
+      } else if (diffX < 0 && viewIndex > 0) {
+        const newIndex = viewIndex - 1;
+        setViewIndex(newIndex);
+        setCurrentIndex(newIndex);
+      }
+    }
+    setModalTouchStartX(0);
+  };
+
 
   // ========== Render ==========
   return (
@@ -1571,7 +1594,7 @@ const ResultScreen = ({
         
       </div>
 
-      {/* 카드 모달 - 이미지 크게 보기 */}
+      {/* 카드 모달 - 이미지 크게 보기 (원클릭: 스와이프로 화풍 비교) */}
       {showImageModal && (() => {
         const modalImage = isFullTransform
           ? (masterResultImages[getMasterKey(results[viewIndex]?.aiSelectedArtist)] || results[viewIndex]?.resultUrl)
@@ -1579,7 +1602,12 @@ const ResultScreen = ({
         if (!modalImage) return null;
         return (
           <div className="image-modal-overlay" onClick={() => { if (!showModalSaveShare) setShowImageModal(false); }}>
-            <div className="image-modal-card" onClick={(e) => e.stopPropagation()}>
+            <div
+              className="image-modal-card"
+              onClick={(e) => e.stopPropagation()}
+              onTouchStart={isFullTransform ? handleModalTouchStart : undefined}
+              onTouchEnd={isFullTransform ? handleModalTouchEnd : undefined}
+            >
               <button className="image-modal-close" onClick={() => { setShowImageModal(false); setShowModalSaveShare(false); }}>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
@@ -1587,6 +1615,22 @@ const ResultScreen = ({
               </button>
               
               <img src={modalImage} alt="Result" className="image-modal-img" />
+
+              {/* 원클릭: 스와이프 화살표 힌트 */}
+              {isFullTransform && totalResults > 1 && (
+                <>
+                  {viewIndex > 0 && (
+                    <div className="modal-arrow modal-arrow-left">
+                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                    </div>
+                  )}
+                  {viewIndex < totalResults - 1 && (
+                    <div className="modal-arrow modal-arrow-right">
+                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    </div>
+                  )}
+                </>
+              )}
               
               <div className="image-modal-actions">
                 <button className="image-modal-btn save-share" onClick={() => setShowModalSaveShare(true)}>
@@ -2292,11 +2336,12 @@ const ResultScreen = ({
           padding: 20px;
         }
         .image-modal-card {
-          background: #1a1a2e;
+          background: #1a1a1a;
           border-radius: 16px;
           max-width: 500px;
           width: 100%;
           max-height: 90vh;
+          position: relative;
           overflow: auto;
           position: relative;
         }
@@ -2320,6 +2365,25 @@ const ResultScreen = ({
           width: 100%;
           display: block;
           border-radius: 16px 16px 0 0;
+        }
+        .modal-arrow {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          background: rgba(0,0,0,0.3);
+          border-radius: 50%;
+          width: 40px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          pointer-events: none;
+        }
+        .modal-arrow-left {
+          left: 8px;
+        }
+        .modal-arrow-right {
+          right: 8px;
         }
         .image-modal-actions {
           display: flex;

@@ -30,6 +30,7 @@ export const ui = {
     perTransform: 'dönüşüm',
     selectMovement: 'Akım seçin',
     selectMaster: 'Usta seçin',
+    mastersGalleryDesc: 'Master Valley tarafından 7 usta tarzına dönüştürülmüş gerçek eserler',
     selectStyle: 'Stil seçin',
     grecoRoman: 'Yunan · Roma',
     medieval: 'Ortaçağ',

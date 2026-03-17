@@ -32,6 +32,7 @@ export const ui = {
     perTransform: 'konversi',
     selectMovement: 'Pilih aliran seni',
     selectMaster: 'Pilih maestro',
+    mastersGalleryDesc: 'Karya nyata yang ditransformasi ke 7 gaya maestro oleh Master Valley',
     selectStyle: 'Pilih gaya',
     grecoRoman: 'Yunani-Romawi',
     medieval: 'Abad Pertengahan',

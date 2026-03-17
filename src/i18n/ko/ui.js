@@ -11,7 +11,7 @@ export const ui = {
     masterCollectionDesc: '7인의 거장을 만나다',
     eastAsianArt: '동양화',
     eastAsianArtDesc: '천년 동양의 미를 경험하다',
-    tagline: '시·공간을 건너는 여정',
+    tagline: '시공간을 건너는 여정',
     subTagline: '동서양 세기의 거장을 만나다'
   },
 
@@ -31,6 +31,7 @@ export const ui = {
     perTransform: '변환',
     selectMovement: '사조를 선택하세요',
     selectMaster: '거장을 선택하세요',
+    mastersGalleryDesc: 'Master Valley를 통해 7명의 거장 화풍으로 변환된 실제 작품들입니다',
     selectStyle: '스타일을 선택하세요',
     grecoRoman: '그리스-로마',
     medieval: '중세',
