@@ -2966,8 +2966,8 @@ export default async function handler(req, res) {
           
           if (styleKey === 'ukiyoe') {
             // v79.1: 우키요에 내 피사체별 자동 분기
-            const subjectType = aiResult.subject_type || '';
-            const gender = aiResult.gender || '';
+            const subjectType = aiResult.visionData?.subject_type || '';
+            const gender = aiResult.visionData?.gender || '';
             
             if (subjectType === 'animal') {
               mappedKey = 'ukiyoe_animal';

@@ -409,7 +409,7 @@ export const ORIENTAL = {
         en: 'Jingyeong Sansuhwa',
         description: '실제 산수를 사실적으로 담아낸 조선의 풍경화',
         descriptionEn: 'Korean landscapes through Joseon eyes',
-        aliases: ['korean jingyeong', 'korean-jingyeong', 'korean jingyeong landscape', '진경산수', '한국 진경산수화', 'korean true-view landscape (jingyeong)', 'korean true-view landscape']
+        aliases: ['korean jingyeong', 'korean-jingyeong', 'korean jingyeong landscape', '진경산수', '한국 진경산수화', 'korean true-view landscape (jingyeong)', 'korean true-view landscape', 'korean true-view landscape (jingyeong sansu)', 'jingyeong sansu']
       }
     }
   },
@@ -433,7 +433,7 @@ export const ORIENTAL = {
         en: 'Ink Wash Painting',
         description: '먹의 농담으로 표현하는 동양 정신의 정수',
         descriptionEn: 'Spirit painted in ink',
-        aliases: ['chinese ink wash', 'chinese-ink', 'chinese-ink-wash', '중국 수묵화', '수묵화']
+        aliases: ['chinese ink wash', 'chinese-ink', 'chinese-ink-wash', '중국 수묵화', '수묵화', 'shuimohua', 'chinese ink wash painting', 'chinese ink wash painting (shuimohua)']
       }
     }
   },
@@ -450,14 +450,14 @@ export const ORIENTAL = {
         en: 'Ukiyo-e',
         description: '대담한 윤곽선과 평면적 색채의 목판화',
         descriptionEn: 'Floating world pressed in woodblock',
-        aliases: ['japanese ukiyo-e', 'japanese-ukiyoe', 'ukiyo-e', '일본 우키요에', '우키요에', 'japanese ukiyo-e woodblock print', 'japanese ukiyo-e woodblock prints']
+        aliases: ['japanese ukiyo-e', 'japanese-ukiyoe', 'ukiyo-e', '일본 우키요에', '우키요에', 'japanese ukiyo-e woodblock print', 'japanese ukiyo-e woodblock prints', 'japanese ukiyo-e bijin-ga', 'japanese ukiyo-e yakusha-e', 'japanese ukiyo-e meisho-e landscape', 'japanese ukiyo-e animal print']
       },
       'rinpa': { 
         ko: '린파', 
         en: 'Rinpa',
         description: '금박과 화려한 장식의 일본 전통 장식화',
         descriptionEn: 'Decorative splendor with gold leaf and bold design',
-        aliases: ['japanese rinpa', 'japanese-rinpa', 'rinpa school', '일본 린파', '린파']
+        aliases: ['japanese rinpa', 'japanese-rinpa', 'rinpa school', '일본 린파', '린파', 'japanese rinpa school decorative painting']
       }
     }
   }

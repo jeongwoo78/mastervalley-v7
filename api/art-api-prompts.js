@@ -1270,7 +1270,7 @@ export const ORIENTAL_PROMPTS = {
   'minhwa': {
     name: '민화',
     nameEn: 'Korean Folk Painting (Minhwa)',
-    prompt: `Korean folk painting (Minhwa) style from late Joseon Dynasty. MINERAL PIGMENTS on WARM YELLOWED HANJI PAPER with visible fiber texture. BOLD VIBRANT Obangsaek colors (red, blue, yellow, white, black) applied in LAYERS from light to dark. Various brush sizes creating different textures and lines. SIMPLIFIED EXAGGERATED FORMS with humor and naive charm. SYMBOLIC MOTIFS: tigers and magpies (호작도), peonies (모란), cranes, carp, ten longevity symbols. Unconventional compositions filling entire surface. Primitive folk art quality. Traditional Korean hanbok clothing if people present. Skin painted in warm ochre and earth tones. Natural unadorned beauty - warm approachable charm with innocent smile.`
+    prompt: `Korean folk painting (Minhwa) style from late Joseon Dynasty. MINERAL PIGMENTS on WARM YELLOWED HANJI PAPER with visible fiber texture. BOLD VIBRANT Obangsaek colors (red, blue, yellow, white, black) applied in LAYERS from light to dark. Various brush sizes creating different textures and lines. SIMPLIFIED EXAGGERATED FORMS with humor and naive charm. Transform the ACTUAL SUBJECT of the photo into minhwa folk art style - preserve what is in the photo. Unconventional compositions filling entire surface. Primitive folk art quality. Traditional Korean hanbok clothing if people present. Skin painted in warm ochre and earth tones. Natural unadorned beauty - warm approachable charm with innocent smile.`
   },
 
   'pungsokdo': {
