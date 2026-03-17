@@ -1282,7 +1282,7 @@ export const ORIENTAL_PROMPTS = {
   'jingyeong': {
     name: '진경산수',
     nameEn: 'Korean True-View Landscape (Jingyeong Sansu)',
-    prompt: `Korean true-view landscape painting (Jingyeong Sansu/진경산수) style by master Jeong Seon (Gyeomjae). BOLD EXPRESSIVE BLACK INK brush strokes for craggy mountains. REAL KOREAN MOUNTAIN SCENERY - distinctive granite peaks of Diamond Mountains (Geumgangsan). Strong dynamic ink work with energetic brushstrokes. Authentic Korean topography. Misty atmospheric perspective with ink wash gradations on HANJI PAPER with visible fiber texture. GENEROUS EMPTY SPACE for sky and mist areas. PALE DILUTED ink washes for distant mountains. Traditional Korean landscape composition with dramatic vertical peaks.`
+    prompt: `Korean true-view landscape painting (Jingyeong Sansu/진경산수) style by master Jeong Seon (Gyeomjae). Transform the ACTUAL SUBJECT of the photo into jingyeong style - preserve what is in the photo. BOLD EXPRESSIVE BLACK INK brush strokes with strong dynamic energy. Authentic Korean brushwork with energetic strokes. Misty atmospheric perspective with ink wash gradations on HANJI PAPER with visible fiber texture. GENEROUS EMPTY SPACE for sky and mist areas. PALE DILUTED ink washes for depth. Traditional Korean composition with dramatic vertical strokes.`
   },
 
   // ─────────────────────────────────────────
@@ -1292,7 +1292,7 @@ export const ORIENTAL_PROMPTS = {
   'shuimohua': {
     name: '수묵화',
     nameEn: 'Chinese Ink Wash Painting (Shuimohua)',
-    prompt: `BLACK INK on XUAN RICE PAPER with VISIBLE PAPER GRAIN texture. THREE INK INTENSITIES (dark, medium, light/濃淡) within SINGLE CONFIDENT brushstrokes - once painted cannot be changed. MONOCHROME gradations from deep black to silvery pale grey. EMPTY NEGATIVE SPACE (留白) as philosophical Daoist element - emptiness as important as painted areas. Spontaneous expressive strokes capturing life energy (氣韻/qi) over physical likeness. AXE-CUT TEXTURE STROKES (斧劈皴) for angular rocks and mountains. Misty atmospheric depth with soft washes. Traditional Chinese hanfu clothing (flowing robes with wide sleeves). Skin in warm ochre and earth toned ink washes. Scholarly refined elegance with dignified serene bearing.`
+    prompt: `BLACK INK on XUAN RICE PAPER with VISIBLE PAPER GRAIN texture. Transform the ACTUAL SUBJECT of the photo into Chinese ink wash style - preserve what is in the photo. THREE INK INTENSITIES (dark, medium, light/濃淡) within SINGLE CONFIDENT brushstrokes - once painted cannot be changed. MONOCHROME gradations from deep black to silvery pale grey. EMPTY NEGATIVE SPACE (留白) as philosophical Daoist element - emptiness as important as painted areas. Spontaneous expressive strokes capturing life energy (氣韻/qi) over physical likeness. Misty atmospheric depth with soft washes. Traditional Chinese hanfu clothing if people present. Skin in warm ochre and earth toned ink washes. Scholarly refined elegance with dignified serene bearing.`
   },
 
   'gongbi': {
@@ -1323,7 +1323,7 @@ export const ORIENTAL_PROMPTS = {
   'ukiyoe_meishoe': {
     name: '우키요에 명소회',
     nameEn: 'Japanese Ukiyo-e Meisho-e Landscape',
-    prompt: `Japanese Ukiyo-e woodblock print in meisho-e (名所絵) famous places landscape style by Utagawa Hiroshige. BREATHTAKINGLY BEAUTIFUL atmospheric perspective with layered landscape planes receding into distance. BOKASHI gradation technique (暈し) creating smooth sky and water transitions from deep indigo to pale blue. Rich emotional mood with poetic seasonal atmosphere. LIMITED PALETTE - Prussian blue (ベロ藍), vermillion, green, grey, soft pink. BOLD BLACK OUTLINES defining mountains, trees, bridges, architecture. Rain shown as fine parallel diagonal lines. Mist and fog dissolving distant forms. CHERRY WOOD BLOCK TEXTURE (桜板) visible throughout. Completely FLAT TWO-DIMENSIONAL aesthetic with dramatic atmospheric depth illusion. Serene contemplative Edo period landscape, stunning scenic masterpiece.`
+    prompt: `Japanese Ukiyo-e woodblock print in meisho-e (名所絵) famous places style by Utagawa Hiroshige. Transform the ACTUAL SUBJECT of the photo into meisho-e woodblock style - preserve what is in the photo. BREATHTAKINGLY BEAUTIFUL atmospheric perspective with layered planes receding into distance. BOKASHI gradation technique (暈し) creating smooth sky and water transitions from deep indigo to pale blue. Rich emotional mood with poetic seasonal atmosphere. LIMITED PALETTE - Prussian blue (ベロ藍), vermillion, green, grey, soft pink. BOLD BLACK OUTLINES defining forms and structures. Mist and fog dissolving distant forms. CHERRY WOOD BLOCK TEXTURE (桜板) visible throughout. Completely FLAT TWO-DIMENSIONAL aesthetic with dramatic atmospheric depth illusion. Serene contemplative Edo period scenic masterpiece.`
   },
 
   'ukiyoe_animal': {
@@ -1335,7 +1335,7 @@ export const ORIENTAL_PROMPTS = {
   'rinpa': {
     name: '린파',
     nameEn: 'Japanese Rinpa School Decorative Painting',
-    prompt: `Japanese Rinpa school (琳派) decorative painting style by masters Sotatsu and Korin. BRILLIANT GOLD OR SILVER LEAF BACKGROUND (金箔/銀箔) with metallic sheen catching light. TARASHIKOMI technique (垂らし込み) - ink or pigment pooling on wet surface creating soft bleeding edges and marbled effects. MOKKOTSU boneless style (沒骨法) - PURELY BONELESS forms defined purely by color areas alone. STYLIZED NATURAL MOTIFS: irises (燕子花), plum blossoms (梅), waves, cranes, autumn grasses (秋草). BOLD ASYMMETRICAL COMPOSITION with dramatic use of negative space. FLAT TWO-DIMENSIONAL decorative aesthetic - pattern over realism. Vivid colors (deep indigo, vermillion, malachite green, white) against gold ground. Elegant Edo period aristocratic refinement. Transform clothing to traditional KIMONO with decorative Rinpa-style patterns.`
+    prompt: `Japanese Rinpa school (琳派) decorative painting style by masters Sotatsu and Korin. Transform the ACTUAL SUBJECT of the photo into Rinpa decorative style - preserve what is in the photo. BRILLIANT GOLD OR SILVER LEAF BACKGROUND (金箔/銀箔) with metallic sheen catching light. TARASHIKOMI technique (垂らし込み) - ink or pigment pooling on wet surface creating soft bleeding edges and marbled effects. MOKKOTSU boneless style (沒骨法) - PURELY BONELESS forms defined purely by color areas alone. BOLD ASYMMETRICAL COMPOSITION with dramatic use of negative space. FLAT TWO-DIMENSIONAL decorative aesthetic - pattern over realism. Vivid colors (deep indigo, vermillion, malachite green, white) against gold ground. Elegant Edo period aristocratic refinement. Transform clothing to traditional KIMONO with decorative Rinpa-style patterns.`
   }
 };
 

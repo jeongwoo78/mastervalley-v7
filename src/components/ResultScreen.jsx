@@ -1980,6 +1980,7 @@ const ResultScreen = ({
           font-size: 13px;
           margin: 0 0 12px 0;
           text-align: start;
+          white-space: pre-line;
         }
         
         .technique-explanation p:last-child {
