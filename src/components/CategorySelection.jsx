@@ -108,7 +108,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
 
       <style>{`
         .main-screen {
-          min-height: 100vh;
+          height: 100vh;
           background: #0d0d0d;
           display: flex;
           flex-direction: column;
@@ -116,7 +116,9 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           margin: 0 auto;
           position: relative;
           overflow-y: auto;
+          -webkit-overflow-scrolling: touch;
           padding-top: env(safe-area-inset-top, 0px);
+          padding-bottom: env(safe-area-inset-bottom, 0px);
         }
 
         /* Header */
