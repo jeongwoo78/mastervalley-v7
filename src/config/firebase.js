@@ -23,6 +23,9 @@ const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
 const appleProvider = new OAuthProvider('apple.com');
 
+// 신규 유저 초기 크레딧 ($4.00)
+const INITIAL_FREE_CREDITS = 4.00;
+
 // 유저 문서 초기화 (첫 로그인 시 credits 필드 생성)
 const ensureUserDoc = async (userId, email) => {
   const userRef = doc(db, 'users', userId);
@@ -30,7 +33,7 @@ const ensureUserDoc = async (userId, email) => {
   if (!userDoc.exists()) {
     await setDoc(userRef, {
       email: email || '',
-      credits: 0,
+      credits: INITIAL_FREE_CREDITS,
       createdAt: new Date().toISOString()
     });
   }
