@@ -849,7 +849,7 @@ const animationStyle = `
 const styles = {
   container: {
     minHeight: '100vh',
-    background: '#121212',
+    background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)',
     color: 'white',
     padding: '20px',
     maxWidth: '400px',
@@ -1043,7 +1043,7 @@ const styles = {
   },
   
   modalContent: {
-    background: '#1e1e1e',
+    background: '#1a1a2e',
     borderRadius: '16px',
     maxWidth: '500px',
     width: '100%',
@@ -1204,7 +1204,7 @@ const modalStyles = {
     padding: '20px',
   },
   modalContent: {
-    background: '#1e1e1e',
+    background: '#1a1a2e',
     borderRadius: '16px',
     maxWidth: '500px',
     width: '100%',

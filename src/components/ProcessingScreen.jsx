@@ -239,7 +239,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
   const getSecondaryEducation = (result) => {
     if (!result) return null;
     
-    const artistName = result.aiSelectedArtist || result.style?.id || '';
+    const artistName = result.aiSelectedArtist || '';
     const workName = result.selected_work || '';
     const resultCategory = result.style?.category;
     
@@ -281,29 +281,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
       const content = getEducationContent(resultCategory, key, educationData);
       // console.log('   - getEducationContent returned:', content ? 'HAS CONTENT' : 'NULL');
       
-      // 사조 레벨 키 fallback (예: 'greco-roman' → 'classical-sculpture')
-      let finalContent = content;
-      if (!finalContent && resultCategory === 'movements') {
-        const MOVEMENT_FALLBACK = {
-          'greco-roman': 'classical-sculpture',
-          'medieval-art': 'byzantine',
-          'renaissance': 'leonardo',
-          'baroque': 'caravaggio',
-          'rococo': 'watteau',
-          'neoclassicism-romanticism-realism': 'david',
-          'impressionism': 'monet',
-          'post-impressionism': 'vangogh',
-          'fauvism': 'matisse',
-          'expressionism': 'munch',
-          'modernism': 'picasso'
-        };
-        const fallbackKey = MOVEMENT_FALLBACK[key];
-        if (fallbackKey) {
-          finalContent = getEducationContent(resultCategory, fallbackKey, educationData);
-        }
-      }
-      
-      if (finalContent) {
+      if (content) {
         // console.log('✅ Found education content for:', key);
         // 교육자료 파일에서 name 가져오기
         let eduName = artistName;
@@ -314,7 +292,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         } else if (resultCategory === 'oriental' && oneclickOrientalSecondary[key]) {
           eduName = oneclickOrientalSecondary[key].name || artistName;
         }
-        return { name: eduName, content: finalContent };
+        return { name: eduName, content: content };
       }
     }
     

@@ -359,8 +359,8 @@ const s = {
     fontWeight: 500,
   },
   devMsgHi: {
-    color: 'rgba(255,255,255,0.5)',
-    fontWeight: 500,
+    color: 'rgba(168,85,247,0.65)',
+    fontWeight: 600,
   },
 
   socialBtn: {
