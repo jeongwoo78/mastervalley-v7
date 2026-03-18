@@ -2994,6 +2994,15 @@ export default async function handler(req, res) {
             mappedKey = orientalKeyMap[styleKey] || styleKey;
           }
           
+          // v82: 민화 동물 분기 (호작도 스타일)
+          if (mappedKey === 'minhwa') {
+            const minhwaSubject = aiResult.visionData?.subject_type || '';
+            if (minhwaSubject === 'animal' || minhwaSubject === 'bird') {
+              mappedKey = 'minhwa_animal';
+              console.log(`🎨 Minhwa animal sub-style: ${minhwaSubject} → ${mappedKey}`);
+            }
+          }
+          
           const orientalPromptData = getPrompt(mappedKey);
           
           if (orientalPromptData) {
@@ -3007,7 +3016,13 @@ export default async function handler(req, res) {
             }
             // animal_type 추가 (민화 호랑이 오분류 방지 등)
             if (aiResult.visionData?.animal_type) {
-              finalPrompt += ` The animal subject is a ${aiResult.visionData.animal_type.toUpperCase()} - paint this ${aiResult.visionData.animal_type.toUpperCase()} as the main animal.`;
+              const animalType = aiResult.visionData.animal_type.toUpperCase();
+              if (mappedKey === 'gongbi') {
+                // v82: 공필화 동물 — 송대 화조화 품격
+                finalPrompt += ` The animal subject is a ${animalType}. Paint this ${animalType} with ULTRA-FINE brushwork rendering every strand of fur, intelligent dignified eyes, noble elegant bearing on luminous silk surface. Song Dynasty court animal painting quality.`;
+              } else {
+                finalPrompt += ` The animal subject is a ${animalType} - paint this ${animalType} as the main animal.`;
+              }
             }
           } else {
             // fallback: AI 생성 프롬프트 사용
@@ -3802,8 +3817,13 @@ export default async function handler(req, res) {
       let attractiveEnhancement;
       
       if (subjectType === 'animal') {
-        // 동물
-        attractiveEnhancement = ' Render cute and friendly - animal as adorable, approachable, with bright sparkling eyes and heartwarming charming expression.';
+        // v82: 동양화 동물은 curated 프롬프트에 스타일별 매력 표현 포함됨
+        if (categoryType === 'oriental') {
+          attractiveEnhancement = '';
+        } else {
+          // 서양화 동물
+          attractiveEnhancement = ' Render cute and friendly - animal as adorable, approachable, with bright sparkling eyes and heartwarming charming expression.';
+        }
       } else if (ageRange === 'baby') {
         // 아기
         attractiveEnhancement = ' Render adorably beautiful - baby as cherubic, angelic, with rosy glowing cheeks, sparkling innocent eyes, and irresistibly sweet expression. Idealized heartwarming portrait.';
