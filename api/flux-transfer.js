@@ -3021,7 +3021,7 @@ export default async function handler(req, res) {
                 // v82: 공필화 동물 — 송대 화조화 품격
                 finalPrompt += ` The animal subject is a ${animalType}. Paint this ${animalType} with ULTRA-FINE brushwork rendering every strand of fur, intelligent dignified eyes, noble elegant bearing on luminous silk surface. Song Dynasty court animal painting quality.`;
               } else {
-                finalPrompt += ` The animal subject is a ${animalType} - paint this ${animalType} as the main animal.`;
+                finalPrompt += ` The animal subject is a ${animalType} - paint this ${animalType} preserving its ORIGINAL FUR COLOR and pattern.`;
               }
             }
           } else {
