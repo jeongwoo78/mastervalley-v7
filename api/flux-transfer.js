@@ -178,7 +178,7 @@ function selectSpeechBubbleText(visionData) {
 //   레오나르도: { control: 0.40, brush: '20mm' }  ← 섬세한 스푸마토
 //   시냑:     { control: 0.55, brush: '8mm' }   ← 점묘법
 //   워홀:     { control: 0.45, brush: null }    ← 실크스크린 (붓터치 없음)
-//   한국화:   { control: 0.75, brush: null }    ← 먹선 (붓터치 없음)
+//   한국화:   { control: 0.85, brush: null }    ← 먹선 (붓터치 없음)
 // ========================================
 const ARTIST_CONFIG = {
   // === 고대/중세 ===
@@ -248,9 +248,9 @@ const ARTIST_CONFIG = {
   'frida':               { control: 0.80, brush: '25mm' },    // 세밀 상징
   
   // === 동양화 ===
-  'korean':              { control: 0.75, brush: null },      // 먹선 별도
-  'chinese':             { control: 0.75, brush: null },
-  'japanese':            { control: 0.75, brush: null },      // 판화 별도
+  'korean':              { control: 0.85, brush: null },      // 먹선 별도
+  'chinese':             { control: 0.85, brush: null },
+  'japanese':            { control: 0.85, brush: null },      // 판화 별도
 };
 
 // 사조별 기본값 (화가 매칭 안 될 때 fallback)
@@ -272,9 +272,9 @@ const MOVEMENT_DEFAULTS = {
   'fauvism':                              { control: 0.45, brush: '75mm' },
   'expressionism':                        { control: 0.45, brush: '75mm' },
   'modernism':                            { control: 0.50, brush: '75mm' },
-  'korean':                               { control: 0.75, brush: null },
-  'chinese':                              { control: 0.75, brush: null },
-  'japanese':                             { control: 0.75, brush: null },
+  'korean':                               { control: 0.85, brush: null },
+  'chinese':                              { control: 0.85, brush: null },
+  'japanese':                             { control: 0.85, brush: null },
 };
 
 // 화가명 정규화 매핑
@@ -414,7 +414,7 @@ function getArtistConfig(artist, styleId, category) {
   
   // 3. 카테고리별 기본값
   if (category === 'oriental') {
-    return { control: 0.75, brush: null };
+    return { control: 0.85, brush: null };
   } else if (category === 'modernism') {
     return { control: 0.50, brush: '75mm' };
   } else if (category === 'masters') {
