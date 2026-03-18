@@ -1822,17 +1822,17 @@ const fallbackPrompts = {
   // ========================================
   korean: {
     name: '한국 전통화',
-    prompt: 'Korean traditional painting, Joseon Dynasty art style, GENDER PRESERVATION preserve exact gender and facial features from original photo, Choose appropriate Korean style: Minhwa folk art for animals and flowers with light subtle Obangsaek colors and soft gentle pigments, Pungsokdo genre painting for people with LIGHT INK WASH technique and subtle colors over ink lines in Kim Hong-do and Shin Yun-bok style, Jingyeong landscape for nature with expressive ink and minimal color, SINGLE UNIFIED COMPOSITION, VISIBLE BRUSH TEXTURE 20mm+'
+    prompt: 'Korean traditional painting, Joseon Dynasty art style, GENDER PRESERVATION preserve exact gender and facial features from original photo, Choose appropriate Korean style: Minhwa folk art for animals and flowers with light subtle Obangsaek colors and soft gentle pigments, Pungsokdo genre painting for people with LIGHT INK WASH technique and subtle colors over ink lines in Kim Hong-do and Shin Yun-bok style, Jingyeong landscape for nature with expressive ink and minimal color, SINGLE UNIFIED COMPOSITION, HANJI PAPER with visible fiber texture throughout'
   },
   
   chinese: {
     name: '중국 전통화',
-    prompt: 'Chinese traditional painting, classical Chinese art style, GENDER PRESERVATION preserve exact gender and facial features from original photo, Choose appropriate Chinese style: Shuimohua ink wash for landscapes with monochrome gradations, Gongbi meticulous painting for people and animals with fine detailed brushwork and rich colors, Chinese aesthetic principles, SINGLE UNIFIED COMPOSITION, VISIBLE INK BRUSH TEXTURE 20mm+'
+    prompt: 'Chinese traditional painting, classical Chinese art style, GENDER PRESERVATION preserve exact gender and facial features from original photo, Choose appropriate Chinese style: Shuimohua ink wash for landscapes with monochrome gradations, Gongbi meticulous painting for people and animals with fine detailed brushwork and rich colors, Chinese aesthetic principles, SINGLE UNIFIED COMPOSITION, XUAN RICE PAPER with visible paper grain texture'
   },
   
   japanese: {
     name: '일본 전통화',
-    prompt: 'Japanese Ukiyo-e woodblock print, Ukiyo-e art style, flat areas of bold solid colors, strong clear black outlines, completely flat two-dimensional composition, CLOTHING: MUST transform to traditional Japanese attire (elegant kimono for women, hakama pants with haori jacket for men), decorative patterns, stylized simplified forms, elegant refined Japanese aesthetic, authentic Japanese ukiyo-e masterpiece quality, CRITICAL ANTI-HALLUCINATION preserve EXACT number of people from original photo, if 1 person then ONLY 1 person in result, CRITICAL ANIMAL PRESERVATION if photo has animals (dogs cats birds) MUST include them drawn in ukiyo-e style with bold outlines, simple scenic background ONLY Mt Fuji or cherry blossom or waves or sky, VISIBLE WOODBLOCK PRINT TEXTURE 20mm+'
+    prompt: 'Japanese Ukiyo-e woodblock print, Ukiyo-e art style, flat areas of bold solid colors, strong clear black outlines, completely flat two-dimensional composition, CLOTHING: MUST transform to traditional Japanese attire (elegant kimono for women, hakama pants with haori jacket for men), decorative patterns, stylized simplified forms, elegant refined Japanese aesthetic, authentic Japanese ukiyo-e masterpiece quality, CRITICAL ANTI-HALLUCINATION preserve EXACT number of people from original photo, if 1 person then ONLY 1 person in result, CRITICAL ANIMAL PRESERVATION if photo has animals (dogs cats birds) MUST include them drawn in ukiyo-e style with bold outlines, simple scenic background ONLY Mt Fuji or cherry blossom or waves or sky, CHERRY WOOD BLOCK TEXTURE visible throughout'
   },
   
   masters: {
@@ -1842,7 +1842,7 @@ const fallbackPrompts = {
   
   oriental: {
     name: '동양화',
-    prompt: 'Traditional East Asian painting, East Asian art style, ink wash brushwork, minimalist composition, harmony with nature, philosophical contemplation, classical Oriental masterpiece quality, VISIBLE INK BRUSH TEXTURE 20mm+'
+    prompt: 'Traditional East Asian painting, East Asian art style, ink wash brushwork, minimalist composition, harmony with nature, philosophical contemplation, classical Oriental masterpiece quality, traditional ink brush texture on paper'
   }
 };
 
@@ -2045,6 +2045,7 @@ Return ONLY valid JSON (no markdown):
   "gender": "male" or "female" or null,
   "age_range": "baby/child/teen/young_adult/adult/middle_aged/elderly" or null,
   "physical_description": "for MALE: strong jaw, angular face, short hair, broad shoulders etc. For FEMALE: soft features, delicate face etc." or null,
+  "animal_type": "dog" or "cat" or "bird" or "tiger" or "fish" or null,
   "selected_artist": "Korean Minhwa" or "Korean Pungsokdo" or "Korean Jingyeong Landscape",
   "selected_style": "minhwa" or "pungsokdo" or "landscape",
   "calligraphy_text": "positive text you chose (Chinese characters only)",
@@ -2117,6 +2118,7 @@ Return ONLY valid JSON (no markdown):
   "gender": "male" or "female" or null,
   "age_range": "baby/child/teen/young_adult/adult/middle_aged/elderly" or null,
   "physical_description": "for MALE: strong jaw, angular face, short hair, broad shoulders etc. For FEMALE: soft features, delicate face etc." or null,
+  "animal_type": "dog" or "cat" or "bird" or "tiger" or "fish" or null,
   "selected_artist": "Chinese Ink Wash" or "Chinese Gongbi",
   "selected_style": "ink_wash" or "gongbi",
   "calligraphy_text": "positive text you chose (Chinese characters only)",
@@ -2155,6 +2157,13 @@ JAPANESE VISUAL DNA (MUST follow for Ukiyo-e):
 - LIMITED PALETTE: indigo, vermillion, yellow ochre, green, pink
 - All beauty expressed through LINE QUALITY and PATTERN, pure woodblock print aesthetic
 
+SUBJECT CLASSIFICATION RULE (MOST IMPORTANT):
+- "person": A human is the MAIN subject (largest/centered in frame)
+- "animal": An animal is the MAIN and LARGEST living subject in the frame
+- "landscape": Scenery, buildings, or nature with minimal living subjects
+- If both human and animal are prominent, choose "person"
+- If an animal (dog, cat, fox, bird, fish, etc.) occupies most of the frame, MUST choose "animal"
+
 CRITICAL INSTRUCTIONS FOR PROMPT GENERATION:
 
 1. GENDER PRESERVATION (MANDATORY IN PROMPT):
@@ -2186,7 +2195,7 @@ Return ONLY valid JSON (no markdown):
   "gender": "male" or "female" or null,
   "age_range": "baby/child/teen/young_adult/adult/middle_aged/elderly" or null,
   "physical_description": "brief physical features" or null,
-  "animal_type": "dog" or "cat" or "bird" or null,
+  "animal_type": "dog" or "cat" or "bird" or "tiger" or "fish" or null,
   "selected_artist": "Japanese Ukiyo-e" or "Japanese Rinpa",
   "selected_style": "ukiyoe" or "rinpa",
   "calligraphy_text": "positive text you chose",
@@ -2458,7 +2467,8 @@ Return JSON only:
         age_range: result.age_range || null,
         physical_description: result.physical_description || null,
         person_count: result.person_count || null,
-        background_type: result.background_type || null
+        background_type: result.background_type || null,
+        animal_type: result.animal_type || null
       }
     };
     
@@ -2969,9 +2979,9 @@ export default async function handler(req, res) {
             const subjectType = aiResult.visionData?.subject_type || '';
             const gender = aiResult.visionData?.gender || '';
             
-            if (subjectType === 'animal') {
+            if (subjectType === 'animal' || subjectType === 'bird') {
               mappedKey = 'ukiyoe_animal';
-            } else if (subjectType === 'landscape' || subjectType === 'object') {
+            } else if (subjectType === 'landscape' || subjectType === 'object' || subjectType === 'flower') {
               mappedKey = 'ukiyoe_meishoe';
             } else if (gender === 'male') {
               mappedKey = 'ukiyoe_yakushae';
@@ -2994,6 +3004,10 @@ export default async function handler(req, res) {
             // calligraphy_text 추가
             if (aiResult.calligraphy_text) {
               finalPrompt += ` Calligraphy text "${aiResult.calligraphy_text}" in traditional characters.`;
+            }
+            // animal_type 추가 (민화 호랑이 오분류 방지 등)
+            if (aiResult.visionData?.animal_type) {
+              finalPrompt += ` The animal subject is a ${aiResult.visionData.animal_type.toUpperCase()} - paint this ${aiResult.visionData.animal_type.toUpperCase()} as the main animal.`;
             }
           } else {
             // fallback: AI 생성 프롬프트 사용
@@ -3288,10 +3302,10 @@ export default async function handler(req, res) {
             selectedArtist.toUpperCase().includes('수묵') ||
             selectedArtist.toUpperCase().includes('GONGBI') ||
             selectedArtist.toUpperCase().includes('공필') ||
-            selectedArtist.toUpperCase().includes('HUANIAOHUA') ||
-            selectedArtist.toUpperCase().includes('화조') ||
             selectedArtist.toUpperCase().includes('UKIYOE') ||
             selectedArtist.toUpperCase().includes('우키요에') ||
+            selectedArtist.toUpperCase().includes('RINPA') ||
+            selectedArtist.toUpperCase().includes('린파') ||
             selectedArtist.toUpperCase().includes('KOREAN') ||
             selectedArtist.toUpperCase().includes('CHINESE') ||
             selectedArtist.toUpperCase().includes('JAPANESE')));
@@ -3862,38 +3876,8 @@ export default async function handler(req, res) {
     // ========================================
     const promptLower = finalPrompt.toLowerCase();
     
-    // 동양화 체크 (텍스트 허용)
-    const isOriental = promptLower.includes('minhwa') || 
-      promptLower.includes('pungsokdo') ||
-      promptLower.includes('jingyeong') ||
-      promptLower.includes('shuimohua') ||
-      promptLower.includes('gongbi') ||
-      promptLower.includes('huaniaohua') ||
-      promptLower.includes('ukiyoe') ||
-      promptLower.includes('ink wash') ||
-      promptLower.includes('korean folk') ||
-      promptLower.includes('korean genre');
-    
-    // v68: 텍스트 금지는 대전제에서 처리 (서양화만)
-    
-    // ========================================
-    // v68: 붓터치 제외 조건 (skipBrushstrokeRules)
-    // ========================================
-    const isMosaicStyle = promptLower.includes('mosaic') || promptLower.includes('tesserae');
-    const isPointillismStyle = promptLower.includes('pointillist');
-    const isSculpture = promptLower.includes('sculpture') || promptLower.includes('marble');
-    const isByzantine = promptLower.includes('byzantine');
-    const isGothicGlass = promptLower.includes('stained glass') || promptLower.includes('gothic');
-    const isPicasso = promptLower.includes('picasso') || promptLower.includes('cubist');
-    const isIslamicMiniature = promptLower.includes('persian miniature') ||
-      promptLower.includes('islamic miniature') ||
-      promptLower.includes('ottoman');
-    
-    const skipBrushstrokeRules = isMosaicStyle || isPointillismStyle || 
-      isSculpture || isByzantine || isGothicGlass || isPicasso || 
-      isOriental || isIslamicMiniature;
-    
-    // v68.2: 샌드위치 삭제됨 (대전제+화풍에서 커버)
+    // v68: 텍스트 금지는 대전제(coreRulesPrefix)에서 서양화만 text-free 적용
+    // v68: 붓터치 제외는 brushSize=null (getArtistConfig)로 처리됨
     
     // ========================================
     // v66: 구조화된 콘솔 로그 출력

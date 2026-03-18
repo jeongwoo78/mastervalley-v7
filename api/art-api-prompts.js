@@ -1282,7 +1282,7 @@ export const ORIENTAL_PROMPTS = {
   'jingyeong': {
     name: '진경산수',
     nameEn: 'Korean True-View Landscape (Jingyeong Sansu)',
-    prompt: `Korean true-view landscape painting (Jingyeong Sansu/진경산수) style by master Jeong Seon (Gyeomjae). Transform the ACTUAL SUBJECT of the photo into jingyeong style - preserve what is in the photo. BOLD EXPRESSIVE BLACK INK brush strokes with strong dynamic energy. Authentic Korean brushwork with energetic strokes. Misty atmospheric perspective with ink wash gradations on HANJI PAPER with visible fiber texture. GENEROUS EMPTY SPACE for sky and mist areas. PALE DILUTED ink washes for depth. Traditional Korean composition with dramatic vertical strokes.`
+    prompt: `Korean true-view landscape painting (Jingyeong Sansu/진경산수) style by master Jeong Seon (Gyeomjae). Transform the ACTUAL SUBJECT of the photo into jingyeong style - preserve the RECOGNIZABLE SHAPE and STRUCTURE of buildings, landmarks, and objects in the photo. BOLD EXPRESSIVE BLACK INK brush strokes with strong dynamic energy. Authentic Korean brushwork with energetic strokes. Misty atmospheric perspective with ink wash gradations on HANJI PAPER with visible fiber texture. GENEROUS EMPTY SPACE for sky and mist areas. PALE DILUTED ink washes for depth. Traditional Korean composition with dramatic vertical strokes.`
   },
 
   // ─────────────────────────────────────────
@@ -1292,7 +1292,7 @@ export const ORIENTAL_PROMPTS = {
   'shuimohua': {
     name: '수묵화',
     nameEn: 'Chinese Ink Wash Painting (Shuimohua)',
-    prompt: `BLACK INK on XUAN RICE PAPER with VISIBLE PAPER GRAIN texture. Transform the ACTUAL SUBJECT of the photo into Chinese ink wash style - preserve what is in the photo. THREE INK INTENSITIES (dark, medium, light/濃淡) within SINGLE CONFIDENT brushstrokes - once painted cannot be changed. MONOCHROME gradations from deep black to silvery pale grey. EMPTY NEGATIVE SPACE (留白) as philosophical Daoist element - emptiness as important as painted areas. Spontaneous expressive strokes capturing life energy (氣韻/qi) over physical likeness. Misty atmospheric depth with soft washes. Traditional Chinese hanfu clothing if people present. Skin in warm ochre and earth toned ink washes. Scholarly refined elegance with dignified serene bearing.`
+    prompt: `BLACK INK on XUAN RICE PAPER with VISIBLE PAPER GRAIN texture. Transform the ACTUAL SUBJECT of the photo into Chinese ink wash style - preserve the RECOGNIZABLE SHAPE and STRUCTURE of buildings, landmarks, and objects in the photo. THREE INK INTENSITIES (dark, medium, light/濃淡) within SINGLE CONFIDENT brushstrokes - once painted cannot be changed. MONOCHROME gradations from deep black to silvery pale grey. EMPTY NEGATIVE SPACE (留白) as philosophical Daoist element - emptiness as important as painted areas. Spontaneous expressive strokes capturing life energy (氣韻/qi) while preserving the RECOGNIZABLE FORM and STRUCTURE of the original subject. Misty atmospheric depth with soft washes. Traditional Chinese hanfu clothing if people present. Skin in warm ochre and earth toned ink washes. Scholarly refined elegance with dignified serene bearing.`
   },
 
   'gongbi': {
@@ -1329,7 +1329,7 @@ export const ORIENTAL_PROMPTS = {
   'ukiyoe_animal': {
     name: '우키요에 동물화',
     nameEn: 'Japanese Ukiyo-e Animal Print',
-    prompt: `Japanese Ukiyo-e woodblock print in animal portrait style by Utagawa Kuniyoshi (歌川国芳). ADORABLE EXPRESSIVE ANIMAL as central subject drawn with irresistible charm and vivid personality. Bright sparkling eyes full of character, endearing facial expression. BOLD BLACK OUTLINES 3mm thick defining fur texture and body form with playful energy. LIMITED PALETTE of water-soluble pigments - indigo (藍), vermillion (朱), yellow ochre, brown, grey. CHERRY WOOD BLOCK TEXTURE (桜板) visible in color areas. FLAT SOLID COLOR AREAS with subtle gradation for fur and features. Simple scenic background - garden, tatami room, or nature setting. Charming anthropomorphic quality capturing lovable animal personality. Completely FLAT TWO-DIMENSIONAL Edo period aesthetic, heartwarming masterpiece.`
+    prompt: `Japanese Ukiyo-e woodblock print in animal portrait style by Utagawa Kuniyoshi (歌川国芳). ADORABLE EXPRESSIVE ANIMAL as central subject drawn with irresistible charm and vivid personality. Bright sparkling eyes full of character, endearing facial expression. BOLD BLACK OUTLINES 3mm thick defining fur texture and body form with playful energy. LIMITED PALETTE of water-soluble pigments - indigo (藍), vermillion (朱), yellow ochre, brown, grey. CHERRY WOOD BLOCK TEXTURE (桜板) visible in color areas. FLAT SOLID COLOR AREAS with subtle gradation for fur and features. Simple scenic background - garden, tatami room, or nature setting. Preserve the animal's NATURAL FORM and anatomy with charming expressive personality. Completely FLAT TWO-DIMENSIONAL Edo period aesthetic, heartwarming masterpiece.`
   },
 
   'rinpa': {
