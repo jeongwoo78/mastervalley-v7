@@ -289,7 +289,7 @@ const s = {
     lineHeight: 1.1,
     marginBottom: '16px',
     fontStyle: 'normal',
-    background: 'linear-gradient(170deg, #7088b8 0%, #7a90b8 28%, #ccaa62 38%, #ccaa62 58%, #c87098 68%, #c87098 100%)',
+    background: 'linear-gradient(135deg, #7088b8 0%, #7a90b8 22%, #ccaa62 30%, #ccaa62 44%, #c87098 52%, #c87098 100%)',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
     backgroundClip: 'text',
@@ -359,7 +359,7 @@ const s = {
     fontWeight: 500,
   },
   devMsgHi: {
-    color: 'rgba(74,106,170,0.65)',
+    color: 'rgba(255,255,255,0.85)',
     fontWeight: 600,
   },
 
