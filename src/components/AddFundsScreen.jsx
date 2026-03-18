@@ -131,7 +131,7 @@ const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, l
         .funds-screen {
           min-height: calc(100vh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 12px);
           min-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 12px);
-          background: #0d0d0d;
+          background: #0a1a1f;
           display: flex;
           flex-direction: column;
           max-width: 400px;
@@ -205,7 +205,7 @@ const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, l
         }
 
         .pack-item.featured {
-          border: 1.5px solid #7c3aed;
+          border: 1.5px solid #4a6aaa;
           background: #1a1a1a;
         }
 
@@ -262,7 +262,7 @@ const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, l
 
         .pack-price-btn {
           padding: 12px 18px;
-          background: #7c3aed;
+          background: #4a6aaa;
           border: none;
           border-radius: 10px;
           color: #fff;

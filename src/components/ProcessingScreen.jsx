@@ -504,10 +504,10 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           align-items: center;
           min-height: 100vh;
           padding: 20px;
-          background: #0d0d0d;
+          background: #0a1a1f;
         }
         .processing-content {
-          background: #0d0d0d;
+          background: #0a1a1f;
           padding: 20px;
           border-radius: 16px;
           max-width: 400px;
@@ -597,7 +597,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           width: 100%;
           margin-top: 16px;
           padding: 12px 0;
-          background: #0d0d0d;
+          background: #0a1a1f;
           display: flex;
           flex-direction: column;
           align-items: flex-end;
@@ -625,7 +625,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         }
         .progress-fill {
           height: 100%;
-          background: linear-gradient(90deg, #7c3aed, #a855f7);
+          background: linear-gradient(90deg, #4a6aaa, #5a6a8a);
           transition: width 0.3s;
         }
         
@@ -641,7 +641,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         .spinner {
           width: 14px; height: 14px;
           border: 2px solid rgba(255,255,255,0.2);
-          border-top: 2px solid #7c3aed;
+          border-top: 2px solid #4a6aaa;
           border-radius: 50%;
           animation: spin 1s linear infinite;
         }
@@ -792,10 +792,10 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           padding: 0;
         }
         .dot.done {
-          background: rgba(124, 58, 237, 0.5);
+          background: rgba(74, 106, 170, 0.5);
         }
         .dot.active {
-          background: #7c3aed;
+          background: #4a6aaa;
           transform: scale(1.3);
         }
         .dot:disabled {

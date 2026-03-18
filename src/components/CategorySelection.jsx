@@ -19,21 +19,21 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
       name: t.westernArt,
       description: t.westernArtDesc,
       thumbnail: movementsThumbnail,
-      accent: '#a855f7'
+      accent: '#5a6a8a'
     },
     {
       id: 'masters',
       name: t.masterCollection,
       description: t.masterCollectionDesc,
       thumbnail: mastersThumbnail,
-      accent: '#daa520'
+      accent: '#b89a5a'
     },
     {
       id: 'oriental',
       name: t.eastAsianArt,
       description: t.eastAsianArtDesc,
       thumbnail: orientalThumbnail,
-      accent: '#f472b6'
+      accent: '#c07090'
     }
   ];
 
@@ -43,6 +43,13 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
 
   return (
     <div className="main-screen">
+      {/* Atmosphere blobs — ink wash ambient glow */}
+      <div className="atmo-layer">
+        <div className="atmo-blob atmo-blue" />
+        <div className="atmo-blob atmo-gold" />
+        <div className="atmo-blob atmo-pink" />
+        <div className="atmo-line" />
+      </div>
       {/* Header */}
       <header className="main-header">
         <button className="menu-btn" onClick={handleMenuClick}>
@@ -110,12 +117,58 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
         .main-screen {
           min-height: calc(100vh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 12px);
           min-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 12px);
-          background: #0d0d0d;
+          background: #0a1a1f;
           display: flex;
           flex-direction: column;
           max-width: 400px;
           margin: 0 auto;
           position: relative;
+        }
+
+        /* Atmosphere blobs */
+        .atmo-layer {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          pointer-events: none;
+          z-index: 0;
+        }
+        .atmo-blob {
+          position: absolute;
+          border-radius: 50%;
+        }
+        .atmo-blue {
+          top: -60px;
+          left: -60px;
+          width: 300px;
+          height: 300px;
+          background: radial-gradient(circle, rgba(90,106,138,0.18) 0%, transparent 70%);
+          filter: blur(40px);
+        }
+        .atmo-gold {
+          top: 220px;
+          right: -50px;
+          width: 250px;
+          height: 320px;
+          background: radial-gradient(ellipse, rgba(184,154,90,0.10) 0%, transparent 70%);
+          filter: blur(50px);
+          transform: rotate(-20deg);
+        }
+        .atmo-pink {
+          bottom: 40px;
+          left: -30px;
+          width: 220px;
+          height: 220px;
+          background: radial-gradient(circle, rgba(192,112,144,0.09) 0%, transparent 70%);
+          filter: blur(40px);
+        }
+        .atmo-line {
+          position: absolute;
+          top: 38%;
+          left: 8%;
+          width: 84%;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, rgba(90,106,138,0.04), rgba(184,154,90,0.03), transparent);
         }
 
         /* Header */
@@ -154,7 +207,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           background: transparent;
           border: none;
           padding: 8px 0;
-          color: rgba(147,102,240,0.9);
+          color: rgba(74,106,170,0.9);
           font-size: 17px;
           font-weight: 600;
           cursor: pointer;
@@ -177,7 +230,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           font-family: 'Cormorant Garamond', Georgia, serif;
           font-size: 44px;
           font-weight: 500;
-          background: linear-gradient(135deg, #B8922E, #F5DC82);
+          background: linear-gradient(135deg, #a08a4a 20%, #ccaa62 50%, #a08a4a 80%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;

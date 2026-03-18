@@ -714,11 +714,11 @@ const animationStyle = `
   
   .gallery-item:hover {
     transform: scale(1.02);
-    box-shadow: 0 8px 25px rgba(167, 139, 250, 0.3);
+    box-shadow: 0 8px 25px rgba(74, 106, 170, 0.3);
   }
   
   .gallery-item.selected {
-    outline: 2px solid #7c3aed;
+    outline: 2px solid #4a6aaa;
     outline-offset: -2px;
   }
   
@@ -741,8 +741,8 @@ const animationStyle = `
   }
   
   .select-checkbox.checked {
-    background: #7c3aed;
-    border-color: #7c3aed;
+    background: #4a6aaa;
+    border-color: #4a6aaa;
     color: white;
   }
   
@@ -849,7 +849,7 @@ const animationStyle = `
 const styles = {
   container: {
     minHeight: '100vh',
-    background: '#0d0d0d',
+    background: '#0a1a1f',
     color: 'white',
     padding: '20px',
     maxWidth: '400px',
@@ -911,7 +911,7 @@ const styles = {
   selectButton: {
     background: 'none',
     border: 'none',
-    color: '#9366f0',
+    color: '#6a8ac4',
     padding: '4px 0',
     cursor: 'pointer',
     fontSize: '14px',
@@ -947,7 +947,7 @@ const styles = {
     width: '40px',
     height: '40px',
     border: '3px solid rgba(255,255,255,0.2)',
-    borderTop: '3px solid #a78bfa',
+    borderTop: '3px solid #7a9ac4',
     borderRadius: '50%',
     animation: 'spin 1s linear infinite',
   },
@@ -1107,7 +1107,7 @@ const styles = {
   saveShareButton: {
     background: 'none',
     border: 'none',
-    color: '#9366f0',
+    color: '#6a8ac4',
     padding: '8px 4px',
     borderRadius: '0',
     cursor: 'pointer',
@@ -1164,7 +1164,7 @@ const styles = {
     padding: '16px 40px',
     border: 'none',
     background: 'transparent',
-    color: '#a078f3',
+    color: '#6a8ac4',
     fontSize: '14px',
     fontWeight: '600',
     cursor: 'pointer',
@@ -1259,8 +1259,8 @@ const modalStyles = {
   },
   saveShareButton: {
     flex: 1,
-    background: 'rgba(167,139,250,0.15)',
-    border: '1px solid rgba(167,139,250,0.3)',
+    background: 'rgba(74,106,170,0.15)',
+    border: '1px solid rgba(74,106,170,0.3)',
     color: 'rgba(255,255,255,0.5)',
     padding: '14px',
     borderRadius: '10px',

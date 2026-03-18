@@ -55,10 +55,10 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, userCredits = 0, lan
       emojis: '🏎️⚡🕰️',
       selectLabel: ps.selectMovement,
       priceLabel: `$0.20/${ps.perTransform}`,
-      gradient: 'linear-gradient(135deg, #e9d5ff 0%, #a855f7 100%)',
-      boxShadow: '0 4px 15px rgba(168, 85, 247, 0.3)',
-      color: '#2e1065',
-      accent: '#a855f7',
+      gradient: 'linear-gradient(135deg, #c8d0e0 0%, #5a6a8a 100%)',
+      boxShadow: '0 4px 15px rgba(74, 106, 170, 0.3)',
+      color: '#0a1220',
+      accent: '#5a6a8a',
       fullTransform: {
         id: 'movements-all',
         title: ps.movementsFullTitle,
@@ -88,10 +88,10 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, userCredits = 0, lan
       emojis: '🔥🎨💥',
       selectLabel: ps.selectMaster,
       priceLabel: `$0.25/${ps.perTransform}`,
-      gradient: 'linear-gradient(135deg, #f5deb3 0%, #daa520 100%)',
-      boxShadow: '0 4px 15px rgba(218, 165, 32, 0.3)',
-      color: '#3a2a10',
-      accent: '#daa520',
+      gradient: 'linear-gradient(135deg, #e0d0a8 0%, #b89a5a 100%)',
+      boxShadow: '0 4px 15px rgba(184, 154, 90, 0.3)',
+      color: '#2a2210',
+      accent: '#b89a5a',
       fullTransform: {
         id: 'masters-all',
         title: ps.mastersFullTitle,
@@ -130,10 +130,10 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, userCredits = 0, lan
         emojis: orientalEmojis,
         selectLabel: ps.selectStyle,
         priceLabel: `$0.20/${ps.perTransform}`,
-        gradient: 'linear-gradient(135deg, #ffe4e6 0%, #f472b6 100%)',
-        boxShadow: '0 4px 15px rgba(244, 114, 182, 0.3)',
-        color: '#4a1530',
-        accent: '#f472b6',
+        gradient: 'linear-gradient(135deg, #e8b8c8 0%, #c07090 100%)',
+        boxShadow: '0 4px 15px rgba(192, 112, 144, 0.3)',
+        color: '#3a1528',
+        accent: '#c07090',
         fullTransform: {
           id: 'oriental-all',
           title: ps.orientalFullTitle,
@@ -429,7 +429,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, userCredits = 0, lan
         .style-screen {
           height: calc(100vh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 12px);
           height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 12px);
-          background: #0d0d0d;
+          background: #0a1a1f;
           display: flex;
           flex-direction: column;
           max-width: 400px;
@@ -531,9 +531,9 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, userCredits = 0, lan
 
         .swipe-dot.active { width: 18px; }
         .swipe-dot:not(.active) { width: 6px; }
-        .swipe-dot[data-cat="movements"].active { background: #a855f7; }
-        .swipe-dot[data-cat="masters"].active { background: #daa520; }
-        .swipe-dot[data-cat="oriental"].active { background: #f472b6; }
+        .swipe-dot[data-cat="movements"].active { background: #5a6a8a; }
+        .swipe-dot[data-cat="masters"].active { background: #b89a5a; }
+        .swipe-dot[data-cat="oriental"].active { background: #c07090; }
 
         /* 스와이프 레이아웃 */
         .swipe-viewport {

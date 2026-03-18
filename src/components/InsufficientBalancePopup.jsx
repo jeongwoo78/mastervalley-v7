@@ -121,7 +121,7 @@ const InsufficientBalancePopup = ({
           background: #2a2a2a;
           border-radius: 14px;
           margin-bottom: 24px;
-          border: 1px solid #7c3aed;
+          border: 1px solid #4a6aaa;
           cursor: pointer;
           transition: background 0.2s;
         }
@@ -160,7 +160,7 @@ const InsufficientBalancePopup = ({
         }
 
         .popup-btn.primary {
-          color: #a078f3;
+          color: #6a8ac4;
           font-weight: 600;
         }
 

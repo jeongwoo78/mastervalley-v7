@@ -1670,7 +1670,7 @@ const ResultScreen = ({
       <style>{`
         .result-screen {
           min-height: 100vh;
-          background: #0d0d0d;
+          background: #0a1a1f;
           padding: 16px;
           display: flex;
           align-items: flex-start;
@@ -1680,7 +1680,7 @@ const ResultScreen = ({
         .result-container {
           max-width: 400px;
           width: 100%;
-          background: #0d0d0d;
+          background: #0a1a1f;
         }
 
         .result-header {
@@ -1929,13 +1929,13 @@ const ResultScreen = ({
         .movement-badge {
           display: inline-block;
           padding: 0.25rem 0.75rem;
-          background: #0d0d0d;
+          background: #0a1a1f;
           color: white;
           border-radius: 12px;
           font-size: 0.75rem;
           font-weight: 600;
           letter-spacing: 0.5px;
-          box-shadow: 0 2px 4px rgba(124, 58, 237, 0.3);
+          box-shadow: 0 2px 4px rgba(74, 106, 170, 0.3);
         }
 
         .loading-education {
@@ -1947,7 +1947,7 @@ const ResultScreen = ({
           width: 50px;
           height: 50px;
           border: 4px solid #f3f3f3;
-          border-top: 4px solid #7c3aed;
+          border-top: 4px solid #4a6aaa;
           border-radius: 50%;
           animation: spin 1s linear infinite;
           margin: 0 auto 1rem auto;
@@ -2014,7 +2014,7 @@ const ResultScreen = ({
         }
 
         .btn-save-share {
-          color: #9366f0;
+          color: #6a8ac4;
           font-weight: 600;
         }
 
@@ -2088,7 +2088,7 @@ const ResultScreen = ({
           background: transparent;
           font-size: 14px;
           font-weight: 600;
-          color: #a078f3;
+          color: #6a8ac4;
           cursor: pointer;
           border-radius: 0;
           letter-spacing: 0.3px;
@@ -2149,9 +2149,9 @@ const ResultScreen = ({
         }
 
         .btn-retry-inline {
-          background: rgba(124, 58, 237, 0.12);
-          border: 1px solid rgba(124, 58, 237, 0.25);
-          color: #9366f0;
+          background: rgba(74, 106, 170, 0.12);
+          border: 1px solid rgba(74, 106, 170, 0.25);
+          color: #6a8ac4;
           padding: 8px 20px;
           border-radius: 20px;
           font-size: 12px;
@@ -2164,15 +2164,15 @@ const ResultScreen = ({
         }
 
         .btn-retry-inline:hover {
-          background: rgba(124, 58, 237, 0.2);
+          background: rgba(74, 106, 170, 0.2);
           transform: translateY(-1px);
         }
 
         .spinner-medium {
           width: 40px;
           height: 40px;
-          border: 3px solid rgba(139, 92, 246, 0.3);
-          border-top-color: #7c3aed;
+          border: 3px solid rgba(74, 106, 170, 0.3);
+          border-top-color: #4a6aaa;
           border-radius: 50%;
           animation: spin 1s linear infinite;
         }
@@ -2260,10 +2260,10 @@ const ResultScreen = ({
           padding: 0;
         }
         .nav-dot.done {
-          background: rgba(124, 58, 237, 0.5);
+          background: rgba(74, 106, 170, 0.5);
         }
         .nav-dot.active {
-          background: #7c3aed;
+          background: #4a6aaa;
           transform: scale(1.3);
         }
         .nav-dot:disabled {
@@ -2310,7 +2310,7 @@ const ResultScreen = ({
 
         /* v72: Original 화면 - ProcessingScreen 카드형 레이아웃 */
         .preview-card {
-          background: #0d0d0d;
+          background: #0a1a1f;
           border-radius: 12px;
           overflow: hidden;
           margin: 16px auto;
@@ -2416,7 +2416,7 @@ const ResultScreen = ({
         .image-modal-btn.save-share {
           background: none;
           border: none;
-          color: #9366f0;
+          color: #6a8ac4;
         }
         .image-modal-btn.gallery {
           background: none;

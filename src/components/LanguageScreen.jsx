@@ -49,7 +49,7 @@ const LanguageScreen = ({ onBack, onSelect, currentLang = 'en' }) => {
       <style>{`
         .language-screen {
           min-height: 100vh;
-          background: #0d0d0d;
+          background: #0a1a1f;
           display: flex;
           flex-direction: column;
           max-width: 400px;
@@ -113,8 +113,8 @@ const LanguageScreen = ({ onBack, onSelect, currentLang = 'en' }) => {
         }
 
         .language-item.active {
-          border-color: #7c3aed;
-          background: rgba(139, 92, 246, 0.1);
+          border-color: #4a6aaa;
+          background: rgba(74, 106, 170, 0.1);
         }
 
         .lang-flag {
@@ -141,7 +141,7 @@ const LanguageScreen = ({ onBack, onSelect, currentLang = 'en' }) => {
         }
 
         .lang-check {
-          color: #9366f0;
+          color: #6a8ac4;
           font-size: 20px;
           font-weight: bold;
         }

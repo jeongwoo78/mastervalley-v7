@@ -151,8 +151,8 @@ const StyleSelection = ({ onSelect }) => {
             <button 
               className="full-transform-btn"
               style={{
-                background: 'linear-gradient(135deg, #a5d8ff 0%, #74c0fc 100%)',
-                boxShadow: '0 4px 15px rgba(165, 216, 255, 0.4)',
+                background: 'linear-gradient(135deg, #c8d0e0 0%, #5a6a8a 100%)',
+                boxShadow: '0 4px 15px rgba(90, 106, 138, 0.4)',
                 color: '#1e293b'
               }}
               onClick={() => onSelect({ 
@@ -309,7 +309,7 @@ const StyleSelection = ({ onSelect }) => {
       <style>{`
         .style-selection {
           min-height: 100vh;
-          background: linear-gradient(135deg, #7c3aed 0%, #764ba2 100%);
+          background: linear-gradient(135deg, #4a6aaa 0%, #3a4a7a 100%);
           padding: 2rem;
         }
 
@@ -409,15 +409,15 @@ const StyleSelection = ({ onSelect }) => {
         }
 
         .sub-category-tab:hover {
-          border-color: #7c3aed;
-          box-shadow: 0 8px 20px rgba(124, 58, 237, 0.2);
+          border-color: #4a6aaa;
+          box-shadow: 0 8px 20px rgba(74, 106, 170, 0.2);
           transform: translateY(-4px);
         }
 
         .sub-category-tab.active {
-          border-color: #7c3aed;
+          border-color: #4a6aaa;
           border-width: 3px;
-          box-shadow: 0 8px 24px rgba(124, 58, 237, 0.3);
+          box-shadow: 0 8px 24px rgba(74, 106, 170, 0.3);
           transform: translateY(-2px);
         }
 
@@ -431,7 +431,7 @@ const StyleSelection = ({ onSelect }) => {
         }
 
         .sub-category-tab.active .tab-name {
-          color: #9366f0;
+          color: #6a8ac4;
         }
 
         .sub-category-tab .tab-period {
@@ -440,22 +440,22 @@ const StyleSelection = ({ onSelect }) => {
         }
 
         .sub-category-tab.active .tab-period {
-          color: #9366f0;
+          color: #6a8ac4;
           opacity: 0.8;
         }
 
         .sub-category-tab .tab-count {
           font-size: 0.75rem;
           padding: 0.25rem 0.6rem;
-          background: rgba(124, 58, 237, 0.1);
+          background: rgba(74, 106, 170, 0.1);
           border-radius: 12px;
           margin-top: 0.25rem;
           font-weight: 600;
         }
 
         .sub-category-tab.active .tab-count {
-          background: rgba(124, 58, 237, 0.15);
-          color: #9366f0;
+          background: rgba(74, 106, 170, 0.15);
+          color: #6a8ac4;
         }
 
         /* 3단계: 화가 선택 */
@@ -508,11 +508,11 @@ const StyleSelection = ({ onSelect }) => {
 
         /* 미술사조 - 파스텔 스카이 */
         .full-transform-btn.movements {
-          background: linear-gradient(135deg, #a5d8ff 0%, #74c0fc 100%);
-          box-shadow: 0 4px 15px rgba(165, 216, 255, 0.4);
+          background: linear-gradient(135deg, #c8d0e0 0%, #5a6a8a 100%);
+          box-shadow: 0 4px 15px rgba(90, 106, 138, 0.4);
         }
         .full-transform-btn.movements:hover {
-          box-shadow: 0 8px 25px rgba(165, 216, 255, 0.5);
+          box-shadow: 0 8px 25px rgba(90, 106, 138, 0.5);
         }
 
         /* 거장 - 파스텔 코랄 */
@@ -582,8 +582,8 @@ const StyleSelection = ({ onSelect }) => {
         }
 
         .style-card:hover {
-          border-color: #7c3aed;
-          box-shadow: 0 8px 24px rgba(124, 58, 237, 0.15);
+          border-color: #4a6aaa;
+          box-shadow: 0 8px 24px rgba(74, 106, 170, 0.15);
           transform: translateY(-4px);
         }
 

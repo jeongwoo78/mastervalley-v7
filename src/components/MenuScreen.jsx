@@ -305,7 +305,7 @@ const MenuScreen = ({
 const menuStyles = `
   .menu-screen {
     min-height: 100vh;
-    background: #0d0d0d;
+    background: #0a1a1f;
     display: flex;
     flex-direction: column;
     max-width: 400px;
@@ -388,12 +388,12 @@ const menuStyles = `
     transition: background 0.2s;
   }
   .lang-option:hover { background: rgba(255,255,255,0.05); }
-  .lang-option.active { background: rgba(139, 92, 246, 0.1); }
+  .lang-option.active { background: rgba(74, 106, 170, 0.1); }
   .lang-option.inactive:hover { background: transparent; }
   .lang-dash { color: rgba(255,255,255,0.3); font-size: 14px; margin-inline-end: 10px; }
   .lang-option.inactive .lang-dash { color: rgba(255,255,255,0.12); }
   .lang-name { color: rgba(255,255,255,0.85); font-size: 14px; flex: 1; }
-  .lang-check { color: #9366f0; display: flex; }
+  .lang-check { color: #6a8ac4; display: flex; }
   .lang-soon { font-size: 10px; color: #333; font-style: italic; }
 
   .support-accordion {

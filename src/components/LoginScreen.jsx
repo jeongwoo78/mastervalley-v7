@@ -262,7 +262,7 @@ const s = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    background: '#0d0d0d',
+    background: '#0a1a1f',
     padding: '20px',
     fontFamily: "'DM Sans', -apple-system, sans-serif",
   },
@@ -289,7 +289,7 @@ const s = {
     lineHeight: 1.1,
     marginBottom: '16px',
     fontStyle: 'normal',
-    background: 'linear-gradient(135deg, #a855f7 0%, #b77df7 36%, #daa520 50%, #e88aaf 64%, #f472b6 100%)',
+    background: 'linear-gradient(135deg, #7088b8 0%, #8a9aba 28%, #ccaa62 50%, #cc9478 72%, #d088a0 100%)',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
     backgroundClip: 'text',
@@ -359,7 +359,7 @@ const s = {
     fontWeight: 500,
   },
   devMsgHi: {
-    color: 'rgba(168,85,247,0.65)',
+    color: 'rgba(74,106,170,0.65)',
     fontWeight: 600,
   },
 
