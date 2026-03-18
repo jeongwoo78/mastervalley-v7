@@ -289,7 +289,7 @@ const s = {
     lineHeight: 1.1,
     marginBottom: '16px',
     fontStyle: 'normal',
-    background: 'linear-gradient(135deg, #7088b8 0%, #8a9aba 28%, #ccaa62 50%, #cc9478 72%, #d088a0 100%)',
+    background: 'linear-gradient(170deg, #7088b8 0%, #7a90b8 28%, #ccaa62 38%, #ccaa62 58%, #c87098 68%, #c87098 100%)',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
     backgroundClip: 'text',

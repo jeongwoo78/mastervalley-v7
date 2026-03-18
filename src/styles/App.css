@@ -15,7 +15,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #0d0d0d;
+  background: #0a1a1f;
   min-height: 100%;
   color: #fff;
   padding-top: calc(env(safe-area-inset-top, 0px) + 12px);
@@ -34,7 +34,7 @@ body {
 
 /* Header - Dark Theme */
 .App-header {
-  background: #0d0d0d;
+  background: #0a1a1f;
   padding: 16px 20px;
   display: flex;
   justify-content: space-between;
@@ -90,7 +90,7 @@ body {
 
 .upload-area {
   background: white;
-  border: 3px dashed #667eea;
+  border: 3px dashed #4a6aaa;
   border-radius: 20px;
   padding: 4rem 2rem;
   text-align: center;
@@ -106,14 +106,14 @@ body {
 }
 
 .upload-area:hover {
-  border-color: #764ba2;
+  border-color: #3a4a7a;
   background: #f8f9ff;
   transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+  box-shadow: 0 10px 30px rgba(74, 106, 170, 0.2);
 }
 
 .upload-area.drag-active {
-  border-color: #764ba2;
+  border-color: #3a4a7a;
   background: #f0f3ff;
   transform: scale(1.02);
 }
@@ -156,7 +156,7 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(to top, rgba(102, 126, 234, 0.9), transparent);
+  background: linear-gradient(to top, rgba(74, 106, 170, 0.9), transparent);
   color: white;
   padding: 1rem;
   border-bottom-left-radius: 10px;
@@ -164,7 +164,7 @@ body {
 }
 
 .camera-button {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #4a6aaa 0%, #3a4a7a 100%);
   color: white;
   border: none;
   padding: 1rem 3rem;
@@ -172,12 +172,12 @@ body {
   border-radius: 50px;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 5px 15px rgba(74, 106, 170, 0.4);
 }
 
 .camera-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.6);
+  box-shadow: 0 8px 20px rgba(74, 106, 170, 0.6);
 }
 
 /* Info Section */
@@ -190,7 +190,7 @@ body {
 
 .info-section h2 {
   text-align: center;
-  color: #667eea;
+  color: #4a6aaa;
   margin-bottom: 2rem;
   font-size: 2rem;
 }
@@ -208,7 +208,7 @@ body {
 .step-number {
   width: 60px;
   height: 60px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #4a6aaa 0%, #3a4a7a 100%);
   color: white;
   border-radius: 50%;
   display: flex;
@@ -253,7 +253,7 @@ body {
 
 .style-selection h2 {
   text-align: center;
-  color: #667eea;
+  color: #4a6aaa;
   font-size: 2rem;
   margin-bottom: 0.5rem;
 }
@@ -287,9 +287,9 @@ body {
 }
 
 .category-tab.active {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #4a6aaa 0%, #3a4a7a 100%);
   color: white;
-  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 5px 15px rgba(74, 106, 170, 0.4);
 }
 
 .styles-grid {
@@ -309,9 +309,9 @@ body {
 }
 
 .style-card:hover {
-  border-color: #667eea;
+  border-color: #4a6aaa;
   transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+  box-shadow: 0 10px 25px rgba(74, 106, 170, 0.2);
 }
 
 .style-icon {
@@ -343,11 +343,11 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: #0d0d0d;
+  background: #0a1a1f;
 }
 
 .processing-container {
-  background: #0d0d0d;
+  background: #0a1a1f;
   padding: 20px;
   border-radius: 16px;
   text-align: center;
@@ -390,7 +390,7 @@ body {
 }
 
 .progress-fill {
-  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(90deg, #4a6aaa 0%, #3a4a7a 100%);
   height: 100%;
   transition: width 0.5s ease;
 }
@@ -423,7 +423,7 @@ body {
 .processing-step .step-icon {
   width: 50px;
   height: 50px;
-  background: #667eea;
+  background: #4a6aaa;
   color: white;
   border-radius: 50%;
   display: flex;
@@ -446,7 +446,7 @@ body {
   width: 50px;
   height: 50px;
   border: 5px solid #f0f0f0;
-  border-top: 5px solid #667eea;
+  border-top: 5px solid #4a6aaa;
   border-radius: 50%;
   margin: 0 auto;
   animation: spin 1s linear infinite;
@@ -461,12 +461,12 @@ body {
 .result-screen {
   display: flex;
   justify-content: center;
-  background: #0d0d0d;
+  background: #0a1a1f;
   min-height: 100vh;
 }
 
 .result-container {
-  background: #0d0d0d;
+  background: #0a1a1f;
   padding: 16px;
   max-width: 400px;
   width: 100%;
@@ -501,7 +501,7 @@ body {
 }
 
 .artwork-info-card h3 {
-  color: #667eea;
+  color: #4a6aaa;
   margin-bottom: 1.5rem;
   font-size: 1.5rem;
 }
@@ -538,12 +538,12 @@ body {
   background: white;
   padding: 1.5rem;
   border-radius: 10px;
-  border-left: 4px solid #667eea;
+  border-left: 4px solid #4a6aaa;
 }
 
 .explanation-title {
   font-weight: bold;
-  color: #667eea;
+  color: #4a6aaa;
   margin-bottom: 0.5rem;
 }
 
@@ -570,14 +570,14 @@ body {
 }
 
 .download-button {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #4a6aaa 0%, #3a4a7a 100%);
   color: white;
-  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 5px 15px rgba(74, 106, 170, 0.4);
 }
 
 .download-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.6);
+  box-shadow: 0 8px 20px rgba(74, 106, 170, 0.6);
 }
 
 .reset-button {
@@ -650,7 +650,7 @@ body {
 
 .artwork-info h3 {
   font-size: 1.3rem;
-  color: #667eea;
+  color: #4a6aaa;
   margin-bottom: 0.8rem;
 }
 
@@ -676,7 +676,7 @@ body {
 .matching-reason h4,
 .fun-fact h4 {
   font-size: 1.1rem;
-  color: #764ba2;
+  color: #3a4a7a;
   margin-bottom: 0.5rem;
   font-weight: 600;
 }
@@ -714,9 +714,9 @@ body {
 
 .mode-btn {
   padding: 0.8rem 1.5rem;
-  border: 2px solid #667eea;
+  border: 2px solid #4a6aaa;
   background: white;
-  color: #667eea;
+  color: #4a6aaa;
   border-radius: 25px;
   font-size: 1rem;
   font-weight: 600;
@@ -725,12 +725,12 @@ body {
 }
 
 .mode-btn:hover {
-  background: rgba(102, 126, 234, 0.1);
+  background: rgba(74, 106, 170, 0.1);
   transform: translateY(-2px);
 }
 
 .mode-btn.active {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #4a6aaa 0%, #3a4a7a 100%);
   color: white;
 }
 
@@ -756,7 +756,7 @@ body {
 .slider-hint {
   text-align: center;
   margin-top: 1rem;
-  color: #667eea;
+  color: #4a6aaa;
   font-size: 0.9rem;
   font-weight: 600;
 }
@@ -792,7 +792,7 @@ body {
 
 .artwork-info-card h3 {
   font-size: 1.3rem;
-  color: #667eea;
+  color: #4a6aaa;
   margin-bottom: 1rem;
 }
 
@@ -828,26 +828,26 @@ body {
 
 .artwork-meta .label {
   font-weight: 600;
-  color: #764ba2;
+  color: #3a4a7a;
   margin-right: 0.5rem;
 }
 
 .style-description {
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+  background: linear-gradient(135deg, rgba(74, 106, 170, 0.1), rgba(58, 74, 122, 0.1));
   padding: 1.5rem;
   border-radius: 12px;
 }
 
 .style-description h4 {
   font-size: 1.1rem;
-  color: #764ba2;
+  color: #3a4a7a;
   margin-bottom: 0.8rem;
 }
 
 .style-description .style-name {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #667eea;
+  color: #4a6aaa;
   margin-bottom: 0.5rem;
 }
 
@@ -869,7 +869,7 @@ body {
 .share-hint p:first-child {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #667eea;
+  color: #4a6aaa;
   margin-bottom: 0.5rem;
 }
 
@@ -940,9 +940,9 @@ body {
 }
 
 .category-tab.active {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #4a6aaa 0%, #3a4a7a 100%);
   color: white;
-  border-color: #667eea;
+  border-color: #4a6aaa;
 }
 
 /* 화풍 아이콘 */
@@ -972,7 +972,7 @@ body {
 .label-left,
 .label-right {
   font-weight: 600;
-  color: #667eea;
+  color: #4a6aaa;
   font-size: 1.1rem;
 }
 
@@ -1004,19 +1004,19 @@ body {
 }
 
 .btn-download {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #4a6aaa 0%, #3a4a7a 100%);
   color: white;
 }
 
 .btn-download:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 6px 20px rgba(74, 106, 170, 0.4);
 }
 
 .btn-reset {
   background: white;
-  color: #667eea;
-  border: 2px solid #667eea;
+  color: #4a6aaa;
+  border: 2px solid #4a6aaa;
 }
 
 .btn-reset:hover {
@@ -1081,9 +1081,9 @@ body {
 }
 
 .toggle-button:hover {
-  background: #667eea;
+  background: #4a6aaa;
   color: white;
-  border-color: #667eea;
+  border-color: #4a6aaa;
 }
 
 /* ========================================

@@ -2015,7 +2015,7 @@ const ResultScreen = ({
 
         .btn-save-share {
           color: #6a8ac4;
-          font-weight: 600;
+          font-weight: 700;
         }
 
         .btn-save-share:hover {
@@ -2087,7 +2087,7 @@ const ResultScreen = ({
           border: none;
           background: transparent;
           font-size: 14px;
-          font-weight: 600;
+          font-weight: 700;
           color: #6a8ac4;
           cursor: pointer;
           border-radius: 0;

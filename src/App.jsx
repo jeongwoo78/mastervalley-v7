@@ -552,7 +552,7 @@ const App = () => {
           width: 100%;
           padding: 10px;
           background: transparent;
-          color: #a078f3;
+          color: #fff;
           border: none;
           font-size: 14px;
           font-weight: 600;

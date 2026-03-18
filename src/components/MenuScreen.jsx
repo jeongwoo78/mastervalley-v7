@@ -335,16 +335,16 @@ const menuStyles = `
     text-align: center;
   }
   .header-spacer { width: 40px; }
-  .menu-section { padding: 16px 20px; }
+  .menu-section { padding: 14px 20px; }
 
   .menu-item-svg {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 16px 16px;
+    padding: 14px 16px;
     background: #1a1a1a;
     border-radius: 12px;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
     cursor: pointer;
     transition: background 0.2s;
   }
@@ -370,7 +370,7 @@ const menuStyles = `
     transition: transform 0.2s;
   }
   .menu-chevron-svg.open { transform: rotate(90deg); }
-  .menu-divider { height: 1px; background: #2a2a2a; margin: 16px 0; }
+  .menu-divider { height: 1px; background: #2a2a2a; margin: 12px 0; }
   .menu-item-svg.danger .menu-label { color: #ef4444; }
 
   .lang-accordion {
@@ -441,7 +441,7 @@ const menuStyles = `
   .legal-text { color: rgba(255,255,255,0.6); font-size: 13px; line-height: 1.65; }
 
   @media (max-width: 400px) {
-    .menu-item-svg { padding: 14px 14px; }
+    .menu-item-svg { padding: 13px 14px; }
     .menu-label { font-size: 14px; }
   }
 `;
