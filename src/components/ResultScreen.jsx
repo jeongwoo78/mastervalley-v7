@@ -2344,6 +2344,7 @@ const ResultScreen = ({
           max-height: 90vh;
           position: relative;
           overflow: auto;
+          touch-action: pan-y;
           position: relative;
         }
         .image-modal-close {
@@ -2366,6 +2367,9 @@ const ResultScreen = ({
           width: 100%;
           display: block;
           border-radius: 16px 16px 0 0;
+          touch-action: pan-y;
+          -webkit-user-drag: none;
+          user-select: none;
         }
         .modal-arrow {
           position: absolute;
