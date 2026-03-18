@@ -2046,6 +2046,7 @@ Return ONLY valid JSON (no markdown):
   "age_range": "baby/child/teen/young_adult/adult/middle_aged/elderly" or null,
   "physical_description": "for MALE: strong jaw, angular face, short hair, broad shoulders etc. For FEMALE: soft features, delicate face etc." or null,
   "animal_type": "dog" or "cat" or "bird" or "tiger" or "fish" or null,
+  "fur_color": "white" or "black" or "orange" or "grey" or "brown" or "cream" or "calico" or "tabby" or "golden" or null,
   "selected_artist": "Korean Minhwa" or "Korean Pungsokdo" or "Korean Jingyeong Landscape",
   "selected_style": "minhwa" or "pungsokdo" or "landscape",
   "calligraphy_text": "positive text you chose (Chinese characters only)",
@@ -2119,6 +2120,7 @@ Return ONLY valid JSON (no markdown):
   "age_range": "baby/child/teen/young_adult/adult/middle_aged/elderly" or null,
   "physical_description": "for MALE: strong jaw, angular face, short hair, broad shoulders etc. For FEMALE: soft features, delicate face etc." or null,
   "animal_type": "dog" or "cat" or "bird" or "tiger" or "fish" or null,
+  "fur_color": "white" or "black" or "orange" or "grey" or "brown" or "cream" or "calico" or "tabby" or "golden" or null,
   "selected_artist": "Chinese Ink Wash" or "Chinese Gongbi",
   "selected_style": "ink_wash" or "gongbi",
   "calligraphy_text": "positive text you chose (Chinese characters only)",
@@ -2196,6 +2198,7 @@ Return ONLY valid JSON (no markdown):
   "age_range": "baby/child/teen/young_adult/adult/middle_aged/elderly" or null,
   "physical_description": "brief physical features" or null,
   "animal_type": "dog" or "cat" or "bird" or "tiger" or "fish" or null,
+  "fur_color": "white" or "black" or "orange" or "grey" or "brown" or "cream" or "calico" or "tabby" or "golden" or null,
   "selected_artist": "Japanese Ukiyo-e" or "Japanese Rinpa",
   "selected_style": "ukiyoe" or "rinpa",
   "calligraphy_text": "positive text you chose",
@@ -2468,7 +2471,8 @@ Return JSON only:
         physical_description: result.physical_description || null,
         person_count: result.person_count || null,
         background_type: result.background_type || null,
-        animal_type: result.animal_type || null
+        animal_type: result.animal_type || null,
+        fur_color: result.fur_color || null
       }
     };
     
@@ -3014,14 +3018,20 @@ export default async function handler(req, res) {
             if (aiResult.calligraphy_text) {
               finalPrompt += ` Calligraphy text "${aiResult.calligraphy_text}" in traditional characters.`;
             }
-            // animal_type 추가 (민화 호랑이 오분류 방지 등)
+            // animal_type + fur_color 추가 (v83: 동물 색 보전 강화)
             if (aiResult.visionData?.animal_type) {
               const animalType = aiResult.visionData.animal_type.toUpperCase();
+              const furColor = aiResult.visionData?.fur_color ? aiResult.visionData.fur_color.toUpperCase() : '';
+              const furDesc = furColor ? `${furColor} ` : '';
               if (mappedKey === 'gongbi') {
-                // v82: 공필화 동물 — 송대 화조화 품격
-                finalPrompt += ` The animal subject is a ${animalType}. Paint this ${animalType} with ULTRA-FINE brushwork rendering every strand of fur, intelligent dignified eyes, noble elegant bearing on luminous silk surface. Song Dynasty court animal painting quality.`;
+                // v82: 공필화 동물 — 송대 화조화 품격 + v83: 털 색 보전
+                finalPrompt += ` The animal subject is a ${furDesc}${animalType}. Paint this ${animalType} in its ORIGINAL ${furDesc}FUR COLOR with ULTRA-FINE brushwork rendering every strand of ${furDesc.toLowerCase()}fur, intelligent dignified eyes, noble elegant bearing on luminous silk surface. Song Dynasty court animal painting quality.`;
               } else {
-                finalPrompt += ` The animal subject is a ${animalType} - paint this ${animalType} preserving its ORIGINAL FUR COLOR and pattern.`;
+                if (furColor) {
+                  finalPrompt += ` The animal subject is a ${furColor} ${animalType}. MUST paint this ${animalType} in ${furColor} fur color.`;
+                } else {
+                  finalPrompt += ` The animal subject is a ${animalType} - paint this ${animalType} preserving its ORIGINAL FUR COLOR and pattern.`;
+                }
               }
             }
           } else {
@@ -3167,8 +3177,14 @@ export default async function handler(req, res) {
             
             if (isNonPerson) {
               // console.log(`📸 [NON-PERSON] Subject is ${visionAnalysis.subject_type}, skipping gender prefix`);
-              // 풍경/정물용 프롬프트
-              genderPrefix = `CRITICAL: This is a ${visionAnalysis.subject_type.toUpperCase()} photo - DO NOT add any people or human figures. Keep as pure ${visionAnalysis.subject_type}. `;
+              // 풍경/정물/동물용 프롬프트
+              if (visionAnalysis.subject_type === 'animal' && visionAnalysis.fur_color) {
+                const furColor = visionAnalysis.fur_color.toUpperCase();
+                const animalName = (visionAnalysis.animal_type || 'animal').toUpperCase();
+                genderPrefix = `CRITICAL: This is a ${furColor} ${animalName}. The entire body fur color is ${furColor}. MUST paint this animal in ${furColor} fur color exactly as in original photo. DO NOT change fur color to brown, ochre, or any other color. `;
+              } else {
+                genderPrefix = `CRITICAL: This is a ${visionAnalysis.subject_type.toUpperCase()} photo - DO NOT add any people or human figures. Keep as pure ${visionAnalysis.subject_type}. `;
+              }
               
               // 🎨 풍경/정물일 때 control_strength boost 플래그 설정 (마지막에 적용)
               landscapeStrengthBoost = true;
@@ -3380,7 +3396,13 @@ export default async function handler(req, res) {
         );
         
         if (isNonPersonSubject) {
-          genderPrefixCommon = `This is a ${visionAnalysis.subject_type} - no people. `;
+          if (visionAnalysis.subject_type === 'animal' && visionAnalysis.fur_color) {
+            const furColor = visionAnalysis.fur_color.toUpperCase();
+            const animalName = (visionAnalysis.animal_type || 'animal').toUpperCase();
+            genderPrefixCommon = `CRITICAL: This is a ${furColor} ${animalName}. The entire body fur color is ${furColor}. MUST paint this animal in ${furColor} fur color exactly. DO NOT change fur color to brown, ochre, or any other color. `;
+          } else {
+            genderPrefixCommon = `This is a ${visionAnalysis.subject_type} - no people. `;
+          }
         } else if (identityPrompt && identityPrompt.length > 0) {
           genderPrefixCommon = `${identityPrompt}. `;
         } else if (visionAnalysis && visionAnalysis.gender === 'male') {
