@@ -1196,13 +1196,14 @@ const ResultScreen = ({
   };
 
   // ========== 모달 스와이프 핸들러 (원클릭 결과 비교용) ==========
-  const handleModalTouchStart = (e) => {
-    setModalTouchStartX(e.touches[0].clientX);
+  // v83: pointer events로 변경 (데스크톱 마우스 + 모바일 터치 둘 다 지원)
+  const handleModalPointerDown = (e) => {
+    setModalTouchStartX(e.clientX);
   };
 
-  const handleModalTouchEnd = (e) => {
+  const handleModalPointerUp = (e) => {
     if (!modalTouchStartX) return;
-    const diffX = modalTouchStartX - e.changedTouches[0].clientX;
+    const diffX = modalTouchStartX - e.clientX;
     if (Math.abs(diffX) > 50 && isFullTransform) {
       if (diffX > 0 && viewIndex < totalResults - 1) {
         const newIndex = viewIndex + 1;
@@ -1605,8 +1606,8 @@ const ResultScreen = ({
             <div
               className="image-modal-card"
               onClick={(e) => e.stopPropagation()}
-              onTouchStart={isFullTransform ? handleModalTouchStart : undefined}
-              onTouchEnd={isFullTransform ? handleModalTouchEnd : undefined}
+              onPointerDown={isFullTransform ? handleModalPointerDown : undefined}
+              onPointerUp={isFullTransform ? handleModalPointerUp : undefined}
             >
               <button className="image-modal-close" onClick={() => { setShowImageModal(false); setShowModalSaveShare(false); }}>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -1616,16 +1617,16 @@ const ResultScreen = ({
               
               <img src={modalImage} alt="Result" className="image-modal-img" />
 
-              {/* 원클릭: 스와이프 화살표 힌트 */}
+              {/* 원클릭: 스와이프 화살표 힌트 (클릭 가능) */}
               {isFullTransform && totalResults > 1 && (
                 <>
                   {viewIndex > 0 && (
-                    <div className="modal-arrow modal-arrow-left">
+                    <div className="modal-arrow modal-arrow-left" onClick={() => { setViewIndex(viewIndex - 1); setCurrentIndex(viewIndex - 1); }}>
                       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
                     </div>
                   )}
                   {viewIndex < totalResults - 1 && (
-                    <div className="modal-arrow modal-arrow-right">
+                    <div className="modal-arrow modal-arrow-right" onClick={() => { setViewIndex(viewIndex + 1); setCurrentIndex(viewIndex + 1); }}>
                       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
                     </div>
                   )}
@@ -2382,7 +2383,8 @@ const ResultScreen = ({
           display: flex;
           align-items: center;
           justify-content: center;
-          pointer-events: none;
+          cursor: pointer;
+          z-index: 5;
         }
         .modal-arrow-left {
           left: 8px;
