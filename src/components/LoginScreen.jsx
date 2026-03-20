@@ -178,7 +178,7 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
           <span style={s.devMsgHi}>{t.devMsgHi1}<br />
           {t.devMsgHi2}</span><br />
           {t.devMsg6}<br />
-          {t.devMsg7}<br />
+          {t.devMsg7}
           <span style={s.devMsgSign}>{t.devMsgSign}</span>
         </p>
 
@@ -367,6 +367,9 @@ const s = {
     color: 'rgba(255,255,255,0.35)',
     fontWeight: 500,
     fontStyle: 'italic',
+    display: 'block',
+    textAlign: 'right',
+    marginTop: '8px',
   },
 
   socialBtn: {

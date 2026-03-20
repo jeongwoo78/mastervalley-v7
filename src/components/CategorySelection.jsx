@@ -313,9 +313,9 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
         }
 
         .card-name {
-          font-family: 'Cormorant Garamond', Georgia, serif;
+          font-family: 'DM Sans', -apple-system, sans-serif;
           font-size: 22px;
-          font-weight: 500;
+          font-weight: 600;
           text-align: start;
           letter-spacing: 0.3px;
         }
