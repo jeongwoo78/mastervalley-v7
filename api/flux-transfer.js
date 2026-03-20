@@ -58,7 +58,7 @@ import {
   EXCLUDE_VINTAGE,
   getArtistStyle,
   getArtistStyleByName
-} from './data/art-api-prompts.js';
+} from '../src/data/art-api-prompts.js';
 
 // ========================================
 // v72: Anthropic 클라이언트 (일본 우키요에 Vision용)
