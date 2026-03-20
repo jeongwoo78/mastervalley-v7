@@ -267,6 +267,7 @@ export const ui = {
     devMsgHi2: '「我們要做什麼？」',
     devMsg6: '西方 2800 年的脈絡與大師的目光，東方千年的哲學。',
     devMsg7: '答案的線索就在 Master Valley。',
+    devMsgSign: '— Jeongwoo, Master Valley',
   },
 
   // ===== Common =====

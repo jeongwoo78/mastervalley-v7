@@ -256,6 +256,7 @@ export const ui = {
     devMsgHi2: '"Biz ne yapacağız?"',
     devMsg6: '2800 yıllık Batı akışı ve ustaların bakışı, bin yıllık Doğu felsefesi.',
     devMsg7: 'İpucu Master Valley\'de.',
+    devMsgSign: '— Jeongwoo, Master Valley',
   },
 
   common: {

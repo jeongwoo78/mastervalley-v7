@@ -267,6 +267,7 @@ export const ui = {
     devMsgHi2: '"ماذا سنفعل الآن؟"',
     devMsg6: '2800 عام من مسار الغرب ونظرة الأساتذة، ألف عام من فلسفة الشرق.',
     devMsg7: 'الدليل موجود في Master Valley.',
+    devMsgSign: '— Jeongwoo, Master Valley',
   },
 
   // ===== Common =====

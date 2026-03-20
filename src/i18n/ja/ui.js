@@ -267,6 +267,7 @@ export const ui = {
     devMsgHi2: '「私たちは何をするのか？」',
     devMsg6: '西洋2800年の流れと巨匠の視線、東洋千年の哲学。',
     devMsg7: 'Master Valleyにその手がかりがあります。',
+    devMsgSign: '— Jeongwoo, Master Valley',
   },
 
   // ===== Common =====

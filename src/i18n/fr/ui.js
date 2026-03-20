@@ -267,6 +267,7 @@ export const ui = {
     devMsgHi2: '« Que ferons-nous désormais ? »',
     devMsg6: '2800 ans de courant occidental et le regard des maîtres, mille ans de philosophie orientale.',
     devMsg7: 'Master Valley en détient la clé.',
+    devMsgSign: '— Jeongwoo, Master Valley',
   },
 
   // ===== Common =====

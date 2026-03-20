@@ -266,6 +266,7 @@ export const ui = {
     devMsgHi2: '"What will we do now?"',
     devMsg6: '2800 years of Western flow and the masters\' gaze, a thousand years of Eastern philosophy.',
     devMsg7: 'The clue lies in Master Valley.',
+    devMsgSign: '— Jeongwoo, Master Valley',
   },
 
   // ===== Common =====

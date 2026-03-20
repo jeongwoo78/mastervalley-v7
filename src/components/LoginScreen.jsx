@@ -13,12 +13,12 @@ import { getUi } from '../i18n';
 
 // Carousel images — public/login/ 폴더에 배치
 const CAROUSEL_SLIDES = [
-  { src: '/login/original.jpg', label: 'Your Photo' },
   { src: '/login/chagall.jpg', label: 'Chagall · Modernism' },
   { src: '/login/islamic.jpg', label: 'Islamic Miniature · Medieval' },
   { src: '/login/vangogh.jpg', label: 'Van Gogh · Post-Impressionism' },
   { src: '/login/watteau.jpg', label: 'Watteau · Rococo' },
   { src: '/login/matisse.jpg', label: 'Matisse · Fauvism' },
+  { src: '/login/original.jpg', label: 'Your Photo' },
 ];
 
 const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
@@ -33,9 +33,9 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
 
   const t = getUi(lang).login;
 
-  // Carousel auto-play — 원본 2초, 스타일 2.5초
+  // Carousel auto-play — 전체 1.5초, 원본 마지막
   useEffect(() => {
-    const delay = currentSlide === 0 ? 1000 : 1500;
+    const delay = 1500;
     const timer = setTimeout(() => {
       setCurrentSlide(prev => (prev + 1) % CAROUSEL_SLIDES.length);
     }, delay);
@@ -178,7 +178,8 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
           <span style={s.devMsgHi}>{t.devMsgHi1}<br />
           {t.devMsgHi2}</span><br />
           {t.devMsg6}<br />
-          {t.devMsg7}
+          {t.devMsg7}<br />
+          <span style={s.devMsgSign}>{t.devMsgSign}</span>
         </p>
 
         {/* Google */}
@@ -361,6 +362,11 @@ const s = {
   devMsgHi: {
     color: 'rgba(74,106,170,0.75)',
     fontWeight: 600,
+  },
+  devMsgSign: {
+    color: 'rgba(255,255,255,0.35)',
+    fontWeight: 500,
+    fontStyle: 'italic',
   },
 
   socialBtn: {

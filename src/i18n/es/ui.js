@@ -267,6 +267,7 @@ export const ui = {
     devMsgHi2: '"¿Qué haremos ahora?"',
     devMsg6: '2800 años de flujo occidental y la mirada de los maestros, mil años de filosofía oriental.',
     devMsg7: 'La pista está en Master Valley.',
+    devMsgSign: '— Jeongwoo, Master Valley',
   },
 
   // ===== Common =====

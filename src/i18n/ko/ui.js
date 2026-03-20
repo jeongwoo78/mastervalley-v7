@@ -266,6 +266,7 @@ export const ui = {
     devMsgHi2: '"우리는 무엇을 할 것인가?"',
     devMsg6: '서양 2800년의 흐름과 거장의 시선, 동양 천 년의 철학.',
     devMsg7: 'Master Valley에 그 실마리가 있습니다.',
+    devMsgSign: '— 정우, Master Valley',
   },
 
   // ===== Common =====

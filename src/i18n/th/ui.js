@@ -267,6 +267,7 @@ export const ui = {
     devMsgHi2: '"เราจะทำอะไรต่อไป?"',
     devMsg6: '2800 ปีแห่งกระแสของตะวันตกและมุมมองของจิตรกรเอก ปรัชญาพันปีของตะวันออก',
     devMsg7: 'เบาะแสนั้นอยู่ใน Master Valley',
+    devMsgSign: '— Jeongwoo, Master Valley',
   },
 
   // ===== Common =====
