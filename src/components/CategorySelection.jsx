@@ -19,7 +19,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
       name: t.westernArt,
       description: t.westernArtDesc,
       thumbnail: movementsThumbnail,
-      accent: '#5a6a8a'
+      accent: '#4a7a7a'
     },
     {
       id: 'masters',
@@ -142,7 +142,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           left: -60px;
           width: 300px;
           height: 300px;
-          background: radial-gradient(circle, rgba(90,106,138,0.18) 0%, transparent 70%);
+          background: radial-gradient(circle, rgba(74,122,122,0.18) 0%, transparent 70%);
           filter: blur(40px);
         }
         .atmo-gold {
@@ -168,7 +168,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           left: 8%;
           width: 84%;
           height: 1px;
-          background: linear-gradient(90deg, transparent, rgba(90,106,138,0.04), rgba(184,154,90,0.03), transparent);
+          background: linear-gradient(90deg, transparent, rgba(74,122,122,0.04), rgba(184,154,90,0.03), transparent);
         }
 
         /* Header */
@@ -230,7 +230,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           font-family: 'Cormorant Garamond', Georgia, serif;
           font-size: 44px;
           font-weight: 500;
-          background: linear-gradient(135deg, #a08a4a 20%, #ccaa62 50%, #a08a4a 80%);
+          background: linear-gradient(135deg, #5a6a8a 20%, #7a8aa8 50%, #5a6a8a 80%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;

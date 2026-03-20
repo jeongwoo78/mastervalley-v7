@@ -151,7 +151,7 @@ const StyleSelection = ({ onSelect }) => {
             <button 
               className="full-transform-btn"
               style={{
-                background: 'linear-gradient(135deg, #c8d0e0 0%, #5a6a8a 100%)',
+                background: 'linear-gradient(135deg, #b8d4d4 0%, #4a7a7a 100%)',
                 boxShadow: '0 4px 15px rgba(90, 106, 138, 0.4)',
                 color: '#1e293b'
               }}
@@ -508,7 +508,7 @@ const StyleSelection = ({ onSelect }) => {
 
         /* 미술사조 - 파스텔 스카이 */
         .full-transform-btn.movements {
-          background: linear-gradient(135deg, #c8d0e0 0%, #5a6a8a 100%);
+          background: linear-gradient(135deg, #b8d4d4 0%, #4a7a7a 100%);
           box-shadow: 0 4px 15px rgba(90, 106, 138, 0.4);
         }
         .full-transform-btn.movements:hover {

@@ -55,10 +55,10 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, userCredits = 0, lan
       emojis: '🏎️⚡🕰️',
       selectLabel: ps.selectMovement,
       priceLabel: `$0.20/${ps.perTransform}`,
-      gradient: 'linear-gradient(135deg, #c8d0e0 0%, #5a6a8a 100%)',
+      gradient: 'linear-gradient(135deg, #b8d4d4 0%, #4a7a7a 100%)',
       boxShadow: '0 4px 15px rgba(74, 106, 170, 0.3)',
-      color: '#0a1220',
-      accent: '#5a6a8a',
+      color: '#0a2020',
+      accent: '#4a7a7a',
       fullTransform: {
         id: 'movements-all',
         title: ps.movementsFullTitle,
@@ -531,7 +531,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, userCredits = 0, lan
 
         .swipe-dot.active { width: 18px; }
         .swipe-dot:not(.active) { width: 6px; }
-        .swipe-dot[data-cat="movements"].active { background: #5a6a8a; }
+        .swipe-dot[data-cat="movements"].active { background: #4a7a7a; }
         .swipe-dot[data-cat="masters"].active { background: #b89a5a; }
         .swipe-dot[data-cat="oriental"].active { background: #c07090; }
 

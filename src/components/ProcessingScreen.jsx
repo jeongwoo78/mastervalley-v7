@@ -625,7 +625,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         }
         .progress-fill {
           height: 100%;
-          background: linear-gradient(90deg, #4a6aaa, #5a6a8a);
+          background: linear-gradient(90deg, #4a6aaa, #4a7a7a);
           transition: width 0.3s;
         }
         
