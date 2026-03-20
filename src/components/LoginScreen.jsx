@@ -35,7 +35,7 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
 
   // Carousel auto-play — 원본 2초, 스타일 2.5초
   useEffect(() => {
-    const delay = currentSlide === 0 ? 2000 : 2500;
+    const delay = currentSlide === 0 ? 1000 : 1500;
     const timer = setTimeout(() => {
       setCurrentSlide(prev => (prev + 1) % CAROUSEL_SLIDES.length);
     }, delay);
@@ -359,8 +359,8 @@ const s = {
     fontWeight: 500,
   },
   devMsgHi: {
-    color: 'rgba(255,255,255,0.5)',
-    fontWeight: 500,
+    color: 'rgba(74,106,170,0.75)',
+    fontWeight: 600,
   },
 
   socialBtn: {
