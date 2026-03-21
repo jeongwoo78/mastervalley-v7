@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { Preferences } from '@capacitor/preferences';
+import { App as CapApp } from '@capacitor/app';
 import { auth, db, doc, onSnapshot, updateDoc, ensureUserDoc } from './config/firebase';
 import { setLanguage, getLanguage, t, getUi } from './i18n';
 import LoginScreen from './components/LoginScreen';
@@ -150,6 +151,65 @@ const App = () => {
       if (unsubCredits) unsubCredits();
     };
   }, []);
+
+  // 안드로이드 뒤로가기 버튼 처리
+  useEffect(() => {
+    const backHandler = CapApp.addListener('backButton', () => {
+      // 갤러리 열려있으면 닫기
+      if (showGallery) {
+        setShowGallery(false);
+        return;
+      }
+      
+      // 잔액 부족 팝업 열려있으면 닫기
+      if (showInsufficientPopup) {
+        setShowInsufficientPopup(false);
+        return;
+      }
+      
+      // AI 동의 팝업 열려있으면 닫기
+      if (showAiConsent) {
+        setShowAiConsent(false);
+        setPendingTransform(null);
+        return;
+      }
+
+      // 화면별 뒤로가기
+      switch (currentScreen) {
+        case 'result':
+          // 결과 → 스타일 선택 (카테고리/사진 유지, 다른 스타일 시도 가능)
+          setCurrentScreen('photoStyle');
+          setResultImage(null);
+          setAiSelectedArtist(null);
+          setAiSelectedWork(null);
+          setFullTransformResults(null);
+          break;
+        case 'processing':
+          // 변환 중 → 스타일 선택 (서버에서 계속 진행, 완료 시 푸시 알림)
+          setCurrentScreen('photoStyle');
+          break;
+        case 'photoStyle':
+          handleBackToCategory();
+          break;
+        case 'addFunds':
+          setCurrentScreen('category');
+          break;
+        case 'menu':
+          setCurrentScreen('category');
+          break;
+        case 'category':
+          // 메인 화면에서 뒤로가기 → 앱 백그라운드로
+          CapApp.minimizeApp();
+          break;
+        default:
+          break;
+      }
+    });
+
+    return () => {
+      backHandler.then(h => h.remove());
+    };
+  }, [currentScreen, showGallery, showInsufficientPopup, showAiConsent]);
 
   // 로그인 성공
   const handleLoginSuccess = (loggedInUser) => {
