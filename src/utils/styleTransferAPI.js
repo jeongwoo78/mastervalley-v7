@@ -1,8 +1,25 @@
-// PicoArt v80 - Style Transfer API (이중 차감 방지 + predictionId 폴링)
-import { MODEL_CONFIG } from './modelConfig';
+// Master Valley v81 - Server-Driven Transform (Cloud Functions + Firestore + FCM)
+//
+// 변경사항 (v80 → v81):
+// - Vercel /api/flux-transfer → Cloud Functions startTransform
+// - 클라이언트 폴링 (check-prediction) → Firestore onSnapshot 실시간 리스닝
+// - 앱 꺼져도 서버에서 변환 계속 진행 + FCM 푸시 알림
+//
+// 유지:
+// - 이미지 리사이즈, base64 변환
+// - deduct-credit은 Vercel 유지 (추후 이전)
+// - 멱등성 키 (transformId)
 
-// API 기본 URL (앱에서는 절대 경로 필요)
-const API_BASE_URL = 'https://mastervalley-v7.vercel.app';
+import { MODEL_CONFIG } from './modelConfig';
+import { db, auth } from '../config/firebase';
+import { doc, onSnapshot } from 'firebase/firestore';
+import { getFCMToken } from './fcm';
+
+// Cloud Functions URL
+const CLOUD_FUNCTIONS_URL = 'https://us-central1-master-valley.cloudfunctions.net';
+
+// Vercel URL (deduct-credit 등 아직 Vercel에 남아있는 API용)
+const VERCEL_API_URL = 'https://mastervalley-v7.vercel.app';
 
 // v80: 이중 차감 방지 - 이미 차감된 transformId 추적
 const chargedTransformIds = new Set();
@@ -44,77 +61,34 @@ const resizeImage = async (file, maxWidth = 1024) => {
   });
 };
 
-const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
-// v78: 리히텐슈타인 프레임은 프롬프트로만 처리 (후처리 함수 비활성화)
-// const addBlackFrame = async (imageUrl, frameWidth = 20) => {
-//   return new Promise((resolve, reject) => {
-//     const img = new Image();
-//     img.crossOrigin = 'anonymous';
-//     
-//     img.onload = () => {
-//       const canvas = document.createElement('canvas');
-//       const ctx = canvas.getContext('2d');
-//       
-//       // 캔버스 크기 = 원본 + 프레임 (양쪽)
-//       canvas.width = img.width + (frameWidth * 2);
-//       canvas.height = img.height + (frameWidth * 2);
-//       
-//       // 검은 배경으로 채우기
-//       ctx.fillStyle = '#000000';
-//       ctx.fillRect(0, 0, canvas.width, canvas.height);
-//       
-//       // 중앙에 원본 이미지 배치
-//       ctx.drawImage(img, frameWidth, frameWidth);
-//       
-//       // Blob으로 변환
-//       canvas.toBlob((blob) => {
-//         if (blob) {
-//           const framedUrl = URL.createObjectURL(blob);
-//           resolve({ url: framedUrl, blob });
-//         } else {
-//           reject(new Error('Failed to create framed image'));
-//         }
-//       }, 'image/png');
-//     };
-//     
-//     img.onerror = () => reject(new Error('Failed to load image for framing'));
-//     img.src = imageUrl;
-//   });
-// };
-
 const getModelForStyle = (style) => {
   const model = style.model || 'SDXL';
   return MODEL_CONFIG[model];
 };
 
-// v80: callFluxAPI 제거 (masterData에 prompt 필드 없어 데드 코드)
-// 모든 스타일이 callFluxWithAI 경유
+// ========================================
+// Cloud Functions 호출 → Firestore 리스닝
+// ========================================
 
-const callFluxWithAI = async (photoBase64, selectedStyle, onProgress, correctionPrompt = null) => {
-  // 진행 상태 전달
-  if (onProgress) {
-    onProgress({ status: 'processing' });
-  }
-
+/**
+ * startTransform Cloud Function 호출
+ * → transformId 즉시 반환 (변환은 서버 백그라운드에서 진행)
+ */
+const callStartTransform = async (photoBase64, selectedStyle, correctionPrompt = null) => {
+  const userId = auth.currentUser?.uid || null;
+  
   const requestBody = {
     image: photoBase64,
-    selectedStyle: selectedStyle
+    selectedStyle,
+    correctionPrompt: correctionPrompt || null,
+    userId,
+    fcmToken: getFCMToken() || null
   };
-  
-  // v68: 거장 AI 대화 보정 프롬프트 추가
-  if (correctionPrompt) {
-    requestBody.correctionPrompt = correctionPrompt;
-    console.log('🔄 [재변환 요청]');
-    console.log('   - correctionPrompt:', correctionPrompt);
-    console.log('   - selectedStyle.id:', selectedStyle?.id);
-    console.log('   - selectedStyle.category:', selectedStyle?.category);
-  }
 
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 120000);
+  const timeout = setTimeout(() => controller.abort(), 30000);
 
-  const response = await fetch(`${API_BASE_URL}/api/flux-transfer`, {
+  const response = await fetch(`${CLOUD_FUNCTIONS_URL}/startTransform`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -126,79 +100,85 @@ const callFluxWithAI = async (photoBase64, selectedStyle, onProgress, correction
   clearTimeout(timeout);
 
   if (!response.ok) {
-    throw new Error(`FLUX API error: ${response.status}`);
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.error || `Cloud Function error: ${response.status}`);
   }
 
-  return response.json();
+  return response.json(); // { transformId, status: 'pending' }
 };
 
-const pollPrediction = async (predictionId, modelConfig, onProgress) => {
-  let attempts = 0;
-  const maxAttempts = 90;
-  
-  // 백그라운드 복귀 시 즉시 폴링 재개
-  let resolveWait = null;
-  const onVisible = () => {
-    if (document.visibilityState === 'visible' && resolveWait) {
-      resolveWait();  // sleep 즉시 종료 → 바로 상태 체크
-    }
-  };
-  document.addEventListener('visibilitychange', onVisible);
-  
-  const smartSleep = (ms) => new Promise(resolve => {
-    resolveWait = resolve;
-    setTimeout(() => { resolveWait = null; resolve(); }, ms);
-  });
-  
-  try {
-    while (attempts < maxAttempts) {
-      await smartSleep(2000);
-      attempts++;
-
-      try {
-        const checkResponse = await fetch(`${API_BASE_URL}/api/check-prediction?id=${predictionId}`);
-        
-        if (!checkResponse.ok) {
-          console.warn(`⚠️ Poll check failed: ${checkResponse.status}, retrying...`);
-          continue;
-        }
-
-        const result = await checkResponse.json();
-
-        if (result.status === 'succeeded') {
-          return result;
-        }
-
-        if (result.status === 'failed' || result.status === 'canceled') {
-          console.error('❌ FLUX Processing Failed:', {
-            error: result.error,
-            predictionId: predictionId
-          });
-          throw new Error(`Processing failed: ${result.error || 'Unknown error'}`);
-        }
-
-        if (onProgress) {
-          const progress = Math.min(95, 10 + (attempts * 1.0));
-          onProgress({ status: 'processing', progress: Math.floor(progress) });
-        }
-      } catch (fetchError) {
-        // 네트워크 에러(백그라운드 복귀 등) → 재시도
-        if (fetchError.message?.includes('Processing failed')) throw fetchError;
-        console.warn(`⚠️ Poll network error: ${fetchError.message}, retrying...`);
+/**
+ * Firestore 실시간 리스닝으로 변환 결과 대기
+ * transforms/{transformId} 문서 상태 변화 감지
+ */
+const waitForTransformResult = (transformId, onProgress) => {
+  return new Promise((resolve, reject) => {
+    const docRef = doc(db, 'transforms', transformId);
+    let progressPercent = 10;
+    
+    // 진행률 시뮬레이션 (실제 서버 진행률은 모르지만 UX용)
+    const progressInterval = setInterval(() => {
+      progressPercent = Math.min(90, progressPercent + 1);
+      if (onProgress) {
+        onProgress({ status: 'processing', progress: progressPercent });
       }
-    }
-
-    throw new Error('Processing timeout');
-  } finally {
-    document.removeEventListener('visibilitychange', onVisible);
-  }
+    }, 2000);
+    
+    // 5분 타임아웃
+    const timeoutId = setTimeout(() => {
+      unsubscribe();
+      clearInterval(progressInterval);
+      reject(new Error('변환 시간 초과 (5분)'));
+    }, 300000);
+    
+    // Firestore 실시간 리스닝
+    const unsubscribe = onSnapshot(docRef, (snapshot) => {
+      if (!snapshot.exists()) return;
+      
+      const data = snapshot.data();
+      
+      if (data.status === 'completed') {
+        unsubscribe();
+        clearInterval(progressInterval);
+        clearTimeout(timeoutId);
+        
+        if (onProgress) {
+          onProgress({ status: 'processing', progress: 100 });
+        }
+        
+        resolve({
+          resultUrl: data.resultUrl,
+          selectedArtist: data.selectedArtist || null,
+          selectedWork: data.selectedWork || null,
+          selectionMethod: data.selectionMethod || null,
+          isRetransform: data.isRetransform || false
+        });
+      }
+      
+      if (data.status === 'failed') {
+        unsubscribe();
+        clearInterval(progressInterval);
+        clearTimeout(timeoutId);
+        reject(new Error(data.error || '변환 실패'));
+      }
+      
+      if (data.status === 'processing' && onProgress) {
+        onProgress({ status: 'processing', progress: progressPercent });
+      }
+    }, (error) => {
+      unsubscribe();
+      clearInterval(progressInterval);
+      clearTimeout(timeoutId);
+      reject(new Error(`Firestore 리스닝 에러: ${error.message}`));
+    });
+  });
 };
+
+// ========================================
+// 메인 변환 함수
+// ========================================
 
 export const processStyleTransfer = async (photoFile, selectedStyle, correctionPrompt = null, onProgress = null) => {
-  // v80: 멱등성 키 생성 (이중 차감 방지)
-  const transformId = crypto.randomUUID ? crypto.randomUUID() : 
-    `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-  
   try {
     const resizedPhoto = await resizeImage(photoFile, 1024);
     const photoBase64 = await fileToBase64(resizedPhoto);
@@ -208,89 +188,45 @@ export const processStyleTransfer = async (photoFile, selectedStyle, correctionP
       onProgress({ status: 'analyzing' });
     }
 
-    let prediction;
-    // v80: 모든 경로를 callFluxWithAI로 통일 (서버가 predictionId 즉시 반환)
+    // 1. Cloud Function 호출 → transformId 즉시 반환
     if (correctionPrompt) {
-      // 재변환 모드 - correctionPrompt 필수 전달
-      prediction = await callFluxWithAI(photoBase64, selectedStyle, onProgress, correctionPrompt);
-    } else {
-      // 일반 변환 (거장/미술사조/동양화 모두)
-      prediction = await callFluxWithAI(photoBase64, selectedStyle, onProgress, null);
+      console.log('🔄 [재변환 요청]');
+      console.log('   - correctionPrompt:', correctionPrompt);
+      console.log('   - selectedStyle.id:', selectedStyle?.id);
+    }
+    
+    const { transformId } = await callStartTransform(photoBase64, selectedStyle, correctionPrompt);
+    console.log(`📋 변환 시작: ${transformId}`);
+    
+    if (onProgress) {
+      onProgress({ status: 'processing', progress: 5 });
     }
 
-    // ========== v30: 첫 응답에서 AI 선택 정보 저장 ==========
-    // v77: 간소화된 로그
-    if (prediction._debug) {
-      const d = prediction._debug;
-      console.log(`📍 FLUX ${d.version} | ${d.selection.category} | ${d.selection.artist} | ${d.selection.masterwork || '-'} | ${d.prompt.wordCount}w | ctrl:${d.flux.control} | ${d.elapsed}초`);
-    } else {
-      console.log(`📍 FLUX | ${prediction.selected_artist || '?'} | ${prediction.selected_work || '?'}`);
-    }
+    // 2. Firestore 실시간 리스닝으로 결과 대기
+    const result = await waitForTransformResult(transformId, onProgress);
+    
+    console.log(`✅ 변환 완료: ${transformId} | ${result.selectedArtist || '재변환'}`);
 
-    const aiSelectionInfo = {
-      artist: prediction.selected_artist || null,
-      work: prediction.selected_work || null,  // 거장 모드: 선택된 대표작
-      method: prediction.selection_method || null,
-      details: prediction.selection_details || null
-    };
-
-    // ========== 이미 완료된 응답인 경우 polling 건너뛰기 ==========
-    let result;
-    if (prediction.status === 'succeeded' && prediction.output) {
-      result = prediction;
-    } else {
-      // v79: 서버가 predictionId 반환 → 클라이언트에서 폴링
-      const pollId = prediction.predictionId || prediction.id;
-      if (!pollId) {
-        throw new Error('No prediction ID received from server');
-      }
-      result = await pollPrediction(pollId, modelConfig, onProgress);
-    }
-
-    // console.log('');
-    // console.log('========================================');
-    // console.log('🔍 POLLING RESPONSE (for comparison)');
-    // console.log('========================================');
-    // console.log('📦 result keys:', Object.keys(result));
-    // console.log('🎨 selected_artist:', result.selected_artist);
-    // console.log('========================================');
-    // console.log('');
-
-    if (result.status !== 'succeeded') {
-      throw new Error('Processing did not succeed');
-    }
-
-    const resultUrl = Array.isArray(result.output) ? result.output[0] : result.output;
-
-    if (!resultUrl) {
-      throw new Error('No result image');
-    }
-
+    // 3. 결과 이미지 다운로드
     if (onProgress) onProgress({ status: 'downloading' });
     
-    const imageResponse = await fetch(resultUrl);
+    const imageResponse = await fetch(result.resultUrl);
     const blob = await imageResponse.blob();
-    let localUrl = URL.createObjectURL(blob);
-    let finalBlob = blob;
-
-    // v78: 리히텐슈타인 프레임은 프롬프트로만 처리 (후처리 제거)
-    // 프롬프트: "Thick black comic panel border frames the image"
-
-    // console.log('✅ Using AI info from FIRST response:', aiSelectionInfo.artist, aiSelectionInfo.work);
+    const localUrl = URL.createObjectURL(blob);
 
     return {
       success: true,
-      transformId,  // v80: 이중 차감 방지용 멱등성 키
+      transformId,
       resultUrl: localUrl,
-      blob: finalBlob,
-      remoteUrl: resultUrl,
+      blob,
+      remoteUrl: result.resultUrl,
       model: modelConfig.model,
       cost: modelConfig.cost,
       time: modelConfig.time,
-      aiSelectedArtist: aiSelectionInfo.artist,
-      selected_work: aiSelectionInfo.work,  // 거장 모드: 선택된 대표작
-      selectionMethod: aiSelectionInfo.method,
-      selectionDetails: aiSelectionInfo.details
+      aiSelectedArtist: result.selectedArtist,
+      selected_work: result.selectedWork,
+      selectionMethod: result.selectionMethod,
+      selectionDetails: null
     };
 
   } catch (error) {
@@ -302,18 +238,15 @@ export const processStyleTransfer = async (photoFile, selectedStyle, correctionP
   }
 };
 
-// v80: 안전한 크레딧 차감 (이중 차감 방지)
-// 호출 측에서 result.success 확인 후 사용
+// v80: 안전한 크레딧 차감 (이중 차감 방지) - Vercel 유지
 export const deductCredit = async (transformId, cost, userId) => {
-  // 1차 방어: 클라이언트 메모리 (같은 세션 내 이중 차감 방지)
   if (chargedTransformIds.has(transformId)) {
     console.warn(`⚠️ 이미 차감된 transformId: ${transformId}`);
     return { success: true, alreadyCharged: true };
   }
   
   try {
-    // 2차 방어: 서버 멱등성 체크 (Firestore transaction)
-    const response = await fetch(`${API_BASE_URL}/api/deduct-credit`, {
+    const response = await fetch(`${VERCEL_API_URL}/api/deduct-credit`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ transformId, cost, userId })
@@ -322,13 +255,12 @@ export const deductCredit = async (transformId, cost, userId) => {
     const data = await response.json();
     
     if (data.success) {
-      chargedTransformIds.add(transformId);  // 메모리에도 기록
+      chargedTransformIds.add(transformId);
     }
     
-    return data;  // { success, balance, alreadyCharged }
+    return data;
   } catch (error) {
     console.error('Credit deduction error:', error);
-    // 네트워크 에러 시 차감 안 함 (소비자 보호 우선)
     return { success: false, error: error.message };
   }
 };

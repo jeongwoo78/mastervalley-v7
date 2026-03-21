@@ -17,6 +17,7 @@ import InsufficientBalancePopup from './components/InsufficientBalancePopup';
 import { getTransformCost } from './utils/pricing';
 import { deductCredit } from './utils/styleTransferAPI';
 import { initRevenueCat } from './utils/revenueCat';
+import { initFCM } from './utils/fcm';
 import './styles/App.css';
 
 const App = () => {
@@ -121,6 +122,9 @@ const App = () => {
 
         // RevenueCat 초기화 (네이티브 환경에서만 동작)
         initRevenueCat(currentUser.uid);
+
+        // FCM 푸시 알림 초기화 (네이티브 앱에서만 동작)
+        initFCM();
 
         // Firestore 실시간 잔액 구독
         const userRef = doc(db, 'users', currentUser.uid);
