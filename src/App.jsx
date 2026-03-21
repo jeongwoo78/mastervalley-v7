@@ -15,8 +15,10 @@ import AddFundsScreen from './components/AddFundsScreen';
 import MenuScreen from './components/MenuScreen';
 // LanguageScreen removed - 메뉴 아코디언에서 직접 변경
 import InsufficientBalancePopup from './components/InsufficientBalancePopup';
+import TransformBanner from './components/TransformBanner';
 import { getTransformCost } from './utils/pricing';
 import { deductCredit } from './utils/styleTransferAPI';
+import transformManager from './utils/transformManager';
 import { initRevenueCat } from './utils/revenueCat';
 import { initFCM } from './utils/fcm';
 import './styles/App.css';
@@ -235,6 +237,11 @@ const App = () => {
 
   // 변환 시작 공통 로직 (잔액 체크 포함)
   const startTransform = (photo, style) => {
+    // 동시 변환 제한 체크 (최대 4건)
+    if (!transformManager.canStartNew()) {
+      alert(`동시 변환은 최대 ${transformManager.MAX_CONCURRENT}건까지 가능합니다. 완료 후 다시 시도해 주세요.`);
+      return;
+    }
     const cost = getTransformCost(style);
     if (cost > 0 && userCredits < cost) {
       setRequiredAmount(cost);
@@ -418,6 +425,13 @@ const App = () => {
 
   return (
     <div className="app" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
+      {/* 동시다중 변환 배너 */}
+      {currentScreen !== 'processing' && (
+        <TransformBanner 
+          onTapGallery={() => setShowGallery(true)} 
+          lang={lang} 
+        />
+      )}
       {/* AI 데이터 처리 동의 팝업 */}
       {showAiConsent && (
         <div className="ai-consent-overlay" onClick={() => {}}>

@@ -1,19 +1,16 @@
-// Master Valley v81 - Server-Driven Transform (Cloud Functions + Firestore + FCM)
+// Master Valley v82 - Server-Driven Transform + 동시다중 변환
 //
-// 변경사항 (v80 → v81):
-// - Vercel /api/flux-transfer → Cloud Functions startTransform
-// - 클라이언트 폴링 (check-prediction) → Firestore onSnapshot 실시간 리스닝
-// - 앱 꺼져도 서버에서 변환 계속 진행 + FCM 푸시 알림
+// v82: submitTransform 추가 (비동기 제출, 즉시 반환)
+// v81: Cloud Functions + Firestore 리스닝 + FCM
 //
-// 유지:
-// - 이미지 리사이즈, base64 변환
-// - deduct-credit은 Vercel 유지 (추후 이전)
-// - 멱등성 키 (transformId)
+// submitTransform: 변환 요청만 보내고 transformId 즉시 반환 (비차단)
+// processStyleTransfer: 기존 호환 (차단형, 결과까지 대기)
 
 import { MODEL_CONFIG } from './modelConfig';
 import { db, auth } from '../config/firebase';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { getFCMToken } from './fcm';
+import transformManager from './transformManager';
 
 // Cloud Functions URL
 const CLOUD_FUNCTIONS_URL = 'https://us-central1-master-valley.cloudfunctions.net';
@@ -67,13 +64,9 @@ const getModelForStyle = (style) => {
 };
 
 // ========================================
-// Cloud Functions 호출 → Firestore 리스닝
+// Cloud Functions 호출
 // ========================================
 
-/**
- * startTransform Cloud Function 호출
- * → transformId 즉시 반환 (변환은 서버 백그라운드에서 진행)
- */
 const callStartTransform = async (photoBase64, selectedStyle, correctionPrompt = null) => {
   const userId = auth.currentUser?.uid || null;
   
@@ -104,19 +97,18 @@ const callStartTransform = async (photoBase64, selectedStyle, correctionPrompt =
     throw new Error(errorData.error || `Cloud Function error: ${response.status}`);
   }
 
-  return response.json(); // { transformId, status: 'pending' }
+  return response.json();
 };
 
-/**
- * Firestore 실시간 리스닝으로 변환 결과 대기
- * transforms/{transformId} 문서 상태 변화 감지
- */
+// ========================================
+// Firestore 실시간 리스닝 (차단형, processStyleTransfer용)
+// ========================================
+
 const waitForTransformResult = (transformId, onProgress) => {
   return new Promise((resolve, reject) => {
     const docRef = doc(db, 'transforms', transformId);
     let progressPercent = 10;
     
-    // 진행률 시뮬레이션 (실제 서버 진행률은 모르지만 UX용)
     const progressInterval = setInterval(() => {
       progressPercent = Math.min(90, progressPercent + 1);
       if (onProgress) {
@@ -124,28 +116,21 @@ const waitForTransformResult = (transformId, onProgress) => {
       }
     }, 2000);
     
-    // 5분 타임아웃
     const timeoutId = setTimeout(() => {
       unsubscribe();
       clearInterval(progressInterval);
       reject(new Error('변환 시간 초과 (5분)'));
     }, 300000);
     
-    // Firestore 실시간 리스닝
     const unsubscribe = onSnapshot(docRef, (snapshot) => {
       if (!snapshot.exists()) return;
-      
       const data = snapshot.data();
       
       if (data.status === 'completed') {
         unsubscribe();
         clearInterval(progressInterval);
         clearTimeout(timeoutId);
-        
-        if (onProgress) {
-          onProgress({ status: 'processing', progress: 100 });
-        }
-        
+        if (onProgress) onProgress({ status: 'processing', progress: 100 });
         resolve({
           resultUrl: data.resultUrl,
           selectedArtist: data.selectedArtist || null,
@@ -161,10 +146,6 @@ const waitForTransformResult = (transformId, onProgress) => {
         clearTimeout(timeoutId);
         reject(new Error(data.error || '변환 실패'));
       }
-      
-      if (data.status === 'processing' && onProgress) {
-        onProgress({ status: 'processing', progress: progressPercent });
-      }
     }, (error) => {
       unsubscribe();
       clearInterval(progressInterval);
@@ -175,7 +156,57 @@ const waitForTransformResult = (transformId, onProgress) => {
 };
 
 // ========================================
-// 메인 변환 함수
+// v82: 비차단형 변환 제출 (동시다중 변환용)
+// ========================================
+// 변환 요청만 보내고 transformId 즉시 반환
+// 결과는 transformManager가 Firestore 리스닝으로 추적
+
+export const submitTransform = async (photoFile, selectedStyle, correctionPrompt = null) => {
+  // 동시 변환 제한 체크
+  if (!transformManager.canStartNew()) {
+    return {
+      success: false,
+      error: `동시 변환은 최대 ${transformManager.MAX_CONCURRENT}건까지 가능합니다. 완료 후 다시 시도해 주세요.`
+    };
+  }
+
+  try {
+    const resizedPhoto = await resizeImage(photoFile, 1024);
+    const photoBase64 = await fileToBase64(resizedPhoto);
+    const modelConfig = getModelForStyle(selectedStyle);
+    
+    if (correctionPrompt) {
+      console.log('🔄 [재변환 요청]');
+    }
+    
+    // Cloud Function 호출 → transformId 즉시 반환
+    const { transformId } = await callStartTransform(photoBase64, selectedStyle, correctionPrompt);
+    console.log(`📋 변환 제출: ${transformId} (${transformManager.getActiveCount() + 1}/${transformManager.MAX_CONCURRENT})`);
+    
+    // TransformManager에 추적 등록 (Firestore 리스닝 자동 시작)
+    transformManager.start(transformId, {
+      selectedStyle,
+      correctionPrompt,
+      cost: modelConfig.cost,
+      model: modelConfig.model
+    });
+    
+    return {
+      success: true,
+      transformId
+    };
+
+  } catch (error) {
+    console.error('Transform submit error:', error);
+    return {
+      success: false,
+      error: error.message
+    };
+  }
+};
+
+// ========================================
+// 차단형 변환 (기존 호환 — 단일 변환 시)
 // ========================================
 
 export const processStyleTransfer = async (photoFile, selectedStyle, correctionPrompt = null, onProgress = null) => {
@@ -184,30 +215,20 @@ export const processStyleTransfer = async (photoFile, selectedStyle, correctionP
     const photoBase64 = await fileToBase64(resizedPhoto);
     const modelConfig = getModelForStyle(selectedStyle);
     
-    if (onProgress) {
-      onProgress({ status: 'analyzing' });
-    }
+    if (onProgress) onProgress({ status: 'analyzing' });
 
-    // 1. Cloud Function 호출 → transformId 즉시 반환
     if (correctionPrompt) {
       console.log('🔄 [재변환 요청]');
-      console.log('   - correctionPrompt:', correctionPrompt);
-      console.log('   - selectedStyle.id:', selectedStyle?.id);
     }
     
     const { transformId } = await callStartTransform(photoBase64, selectedStyle, correctionPrompt);
     console.log(`📋 변환 시작: ${transformId}`);
     
-    if (onProgress) {
-      onProgress({ status: 'processing', progress: 5 });
-    }
+    if (onProgress) onProgress({ status: 'processing', progress: 5 });
 
-    // 2. Firestore 실시간 리스닝으로 결과 대기
     const result = await waitForTransformResult(transformId, onProgress);
-    
     console.log(`✅ 변환 완료: ${transformId} | ${result.selectedArtist || '재변환'}`);
 
-    // 3. 결과 이미지 다운로드
     if (onProgress) onProgress({ status: 'downloading' });
     
     const imageResponse = await fetch(result.resultUrl);
@@ -231,14 +252,11 @@ export const processStyleTransfer = async (photoFile, selectedStyle, correctionP
 
   } catch (error) {
     console.error('Style transfer error:', error);
-    return {
-      success: false,
-      error: error.message
-    };
+    return { success: false, error: error.message };
   }
 };
 
-// v80: 안전한 크레딧 차감 (이중 차감 방지) - Vercel 유지
+// 크레딧 차감 (Vercel 유지)
 export const deductCredit = async (transformId, cost, userId) => {
   if (chargedTransformIds.has(transformId)) {
     console.warn(`⚠️ 이미 차감된 transformId: ${transformId}`);
@@ -251,13 +269,8 @@ export const deductCredit = async (transformId, cost, userId) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ transformId, cost, userId })
     });
-    
     const data = await response.json();
-    
-    if (data.success) {
-      chargedTransformIds.add(transformId);
-    }
-    
+    if (data.success) chargedTransformIds.add(transformId);
     return data;
   } catch (error) {
     console.error('Credit deduction error:', error);
@@ -269,23 +282,12 @@ export const mockStyleTransfer = async (photoFile, selectedStyle, onProgress) =>
   return new Promise((resolve) => {
     let progress = 0;
     const modelConfig = getModelForStyle(selectedStyle);
-    
     const interval = setInterval(() => {
       progress += 10;
-      if (onProgress) {
-        onProgress({ status: 'processing', progress });
-      }
-      
+      if (onProgress) onProgress({ status: 'processing', progress });
       if (progress >= 100) {
         clearInterval(interval);
-        const url = URL.createObjectURL(photoFile);
-        resolve({
-          success: true,
-          resultUrl: url,
-          blob: photoFile,
-          model: modelConfig.model,
-          isMock: true
-        });
+        resolve({ success: true, resultUrl: URL.createObjectURL(photoFile), blob: photoFile, model: modelConfig.model, isMock: true });
       }
     }, 200);
   });

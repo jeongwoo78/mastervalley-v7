@@ -4,7 +4,8 @@
 // v73: 통합 스타일 표시 함수 사용
 // v77: i18n 지원
 import React, { useEffect, useState, useRef } from 'react';
-import { processStyleTransfer } from '../utils/styleTransferAPI';
+import { processStyleTransfer, submitTransform } from '../utils/styleTransferAPI';
+import transformManager from '../utils/transformManager';
 import { educationContent } from '../data/educationContent';
 // v77: 원클릭 교육자료 (i18n)
 import { 
@@ -99,7 +100,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
       
       onComplete(selectedStyle, results, { isFullTransform: true, category, results });
     } else {
-      // 단일 변환
+      // 단일 변환 (v82: submitTransform + transformManager)
       setShowEducation(true);
       const eduContent = getSingleEducationContent(selectedStyle);
       if (eduContent) {
@@ -107,18 +108,85 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
       }
       await sleep(1000);
       
-      const result = await processSingleStyle(selectedStyle);
+      // 비차단 제출 (transformManager에 자동 등록)
+      const submitResult = await submitTransform(photo, selectedStyle);
+      
+      if (!submitResult.success) {
+        setStatusText(`${t.error}: ${submitResult.error}`);
+        await sleep(1500);
+        onComplete(selectedStyle, null, { success: false, error: submitResult.error });
+        return;
+      }
+      
+      const transformId = submitResult.transformId;
+      
+      // v81 진행 텍스트
+      const cat = selectedStyle.category;
+      const styleName = selectedStyle.name;
+      const progressText = (cat === 'movements' || cat === 'oriental')
+        ? `${styleName} ${t.masterInProgress}`
+        : `${styleName} ${t.inProgress}`;
+      setStatusText(progressText);
+      
+      // transformManager로 완료 대기
+      const result = await new Promise((resolve) => {
+        const unsub = transformManager.subscribe((all) => {
+          const entry = all.find(e => e.transformId === transformId);
+          if (!entry) return;
+          
+          if (entry.status === 'completed') {
+            unsub();
+            resolve({
+              success: true,
+              transformId,
+              resultUrl: entry.resultUrl,
+              aiSelectedArtist: entry.selectedArtist,
+              selected_work: entry.selectedWork
+            });
+          }
+          
+          if (entry.status === 'failed') {
+            unsub();
+            resolve({
+              success: false,
+              transformId,
+              error: entry.error
+            });
+          }
+        });
+      });
       
       if (result.success) {
-        const catLabel = selectedStyle.category === 'movements' ? selectedStyle.name :
-                         selectedStyle.category === 'masters' ? selectedStyle.name :
-                         selectedStyle.name;
-        setStatusText(`${t.done} ${catLabel}`);
-        await sleep(1000);
-        onComplete(selectedStyle, result.resultUrl, result);
+        // 이미지 다운로드
+        setStatusText(t.downloading || t.done);
+        try {
+          const imageResponse = await fetch(result.resultUrl);
+          const blob = await imageResponse.blob();
+          const localUrl = URL.createObjectURL(blob);
+          
+          setStatusText(`${t.done} ${selectedStyle.name}`);
+          await sleep(1000);
+          
+          // transformManager에서 제거 (ProcessingScreen이 처리 완료)
+          transformManager.remove(transformId);
+          
+          onComplete(selectedStyle, localUrl, {
+            ...result,
+            resultUrl: localUrl,
+            blob,
+            remoteUrl: result.resultUrl,
+            style: selectedStyle
+          });
+        } catch (downloadErr) {
+          setStatusText(`${t.error}: 이미지 다운로드 실패`);
+          await sleep(1500);
+          transformManager.remove(transformId);
+          onComplete(selectedStyle, null, { success: false, error: downloadErr.message });
+        }
       } else {
         setStatusText(`${t.error}: ${result.error}`);
         await sleep(1500);
+        transformManager.remove(transformId);
         onComplete(selectedStyle, null, { ...result, success: false });
       }
     }
