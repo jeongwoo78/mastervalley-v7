@@ -25,6 +25,7 @@ import { getEducationKey, getEducationContent } from '../utils/educationMatcher'
 const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => {
   // i18n texts from ui.js
   const t = getUi(lang).processing;
+  const tPhotoStyle = getUi(lang).photoStyle;
   
   // v77: 원클릭 교육 데이터 (i18n)
   const oneclickMovementsPrimary = getOneclickMovementsPrimary(lang);
@@ -35,6 +36,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
   const oneclickOrientalSecondary = getOneclickOrientalSecondary(lang);
 
   const [statusText, setStatusText] = useState(t.analyzing);
+  const [statusLeft, setStatusLeft] = useState('');
   const [showEducation, setShowEducation] = useState(false);
   
   // 원클릭 상태
@@ -64,10 +66,11 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
     if (isFullTransform) {
       // 원클릭: 1차 교육 표시 후 순차 변환
       setShowEducation(true);
-      const categoryLabel = category === 'movements' ? t.movementsLabel : 
-                           category === 'masters' ? t.mastersLabel : 
-                           t.nationsLabel;
-      setStatusText(`${totalCount} ${categoryLabel} ${t.inProgress}`);
+      const leftLabel = category === 'movements' ? tPhotoStyle.movementsFullTransformLabel : 
+                        category === 'masters' ? tPhotoStyle.mastersFullTransformLabel : 
+                        tPhotoStyle.orientalFullTransformLabel;
+      setStatusLeft(leftLabel);
+      setStatusText(t.analyzing);
       await sleep(1500);
       
       const results = [];
@@ -79,7 +82,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         const progressLabel = (category === 'movements' || category === 'oriental')
           ? `${progressName} ${t.masterInProgress}`
           : `${progressName} ${t.inProgress}`;
-        setStatusText(`${progressLabel} [${i + 1}/${totalCount}]`);
+        setStatusText(`${progressLabel} (${i + 1}/${totalCount})`);
         
         const result = await processSingleStyle(style, i, totalCount);
         results.push(result);
@@ -227,7 +230,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         (progressObj) => {
           const mapped = mapProgress(progressObj);
           if (total > 1) {
-            setStatusText(`${mapped} [${index + 1}/${total}]`);
+            setStatusText(`${mapped} (${index + 1}/${total})`);
           } else {
             setStatusText(mapped);
           }
@@ -422,19 +425,60 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        {/* ===== 원클릭 모드 (목업 05-loading-oneclick.html 준수) ===== */}
+        {/* ===== 원클릭 모드 (이미지 → 진행바 → 도트 → 스타일정보 → 교육) ===== */}
         {isFullTransform && (
           <>
-            {/* 상단 상태 제거 - 하단 프로그레스에만 표시 */}
-
-            {/* 1차 교육 + Original */}
+            {/* 1차: Original 이미지 */}
             {viewIndex === -1 && showEducation && getPrimaryEducation() && (
               <div className="oneclick-preview">
                 <div className="img-placeholder">
                   <img src={URL.createObjectURL(photo)} alt="Original" />
                 </div>
-                
-                {/* 스타일 정보 - 가운데 정렬 (목업 준수) */}
+              </div>
+            )}
+
+            {/* 결과 미리보기: 이미지만 */}
+            {viewIndex >= 0 && previewResult && (
+              <div className="oneclick-preview">
+                <div className="img-placeholder">
+                  <img src={previewResult.resultUrl} alt="" />
+                </div>
+              </div>
+            )}
+
+            {/* 프로그레스 섹션 - 좌우 분리 */}
+            <div className="progress-section oneclick">
+              <div className="progress-status">
+                <span className="progress-left">{statusLeft}</span>
+                <span className="progress-right">
+                  <span className="spinner"></span>
+                  {statusText}
+                </span>
+              </div>
+              <div className="progress-bar">
+                <div className="progress-fill" style={{ width: `${(completedCount / totalCount) * 100}%` }}></div>
+              </div>
+            </div>
+
+            {/* 점 네비게이션 */}
+            <div className="dots-nav">
+              <div className="dots">
+                <button className={`dot edu ${viewIndex === -1 ? 'active' : ''}`} onClick={handleBackToEducation}><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg></button>
+                {styles.map((_, idx) => (
+                  <button 
+                    key={idx}
+                    className={`dot ${idx < completedCount ? 'done' : ''} ${viewIndex === idx ? 'active' : ''}`}
+                    onClick={() => handleDotClick(idx)}
+                    disabled={idx >= completedCount}
+                  />
+                ))}
+                <span className="count">[{viewIndex === -1 ? 0 : viewIndex + 1}/{totalCount}]</span>
+              </div>
+            </div>
+
+            {/* 1차: 스타일정보 + 교육 */}
+            {viewIndex === -1 && showEducation && getPrimaryEducation() && (
+              <>
                 <div className="oneclick-style-info">
                   <h3>{selectedStyle?.title || getStyleTitle(selectedStyle?.category, selectedStyle?.id, selectedStyle?.name, lang)}</h3>
                   <div className="subtitle1">
@@ -448,21 +492,15 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
                      t.orientalSub2}
                   </div>
                 </div>
-                
-                {/* 교육 콘텐츠 - 왼쪽 정렬 (목업 준수) */}
                 <div className="oneclick-edu-content">
                   {getPrimaryEducation().content}
                 </div>
-              </div>
+              </>
             )}
 
-            {/* 결과 미리보기 */}
+            {/* 결과: 스타일정보 + 교육 */}
             {viewIndex >= 0 && previewResult && (
-              <div className="oneclick-preview">
-                <div className="img-placeholder">
-                  <img src={previewResult.resultUrl} alt="" />
-                </div>
-                
+              <>
                 <div className="oneclick-style-info">
                   <h3>{getTitle(previewResult)}</h3>
                   {(() => {
@@ -484,41 +522,13 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
                     );
                   })()}
                 </div>
-                
                 {previewEdu && (
                   <div className="oneclick-edu-content">
                     {previewEdu.content}
                   </div>
                 )}
-              </div>
+              </>
             )}
-
-            {/* 점 네비게이션 */}
-            <div className="dots-nav">
-              <div className="dots">
-                <button className={`dot edu ${viewIndex === -1 ? 'active' : ''}`} onClick={handleBackToEducation}><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg></button>
-                {styles.map((_, idx) => (
-                  <button 
-                    key={idx}
-                    className={`dot ${idx < completedCount ? 'done' : ''} ${viewIndex === idx ? 'active' : ''}`}
-                    onClick={() => handleDotClick(idx)}
-                    disabled={idx >= completedCount}
-                  />
-                ))}
-                <span className="count">[{viewIndex === -1 ? 0 : viewIndex + 1}/{totalCount}]</span>
-              </div>
-            </div>
-
-            {/* 프로그레스 섹션 - 하단 (단독변환 스타일 통일) */}
-            <div className="progress-section">
-              <div className="progress-status">
-                <div className="spinner"></div>
-                <p>{statusText}</p>
-              </div>
-              <div className="progress-bar">
-                <div className="progress-fill" style={{ width: `${(completedCount / totalCount) * 100}%` }}></div>
-              </div>
-            </div>
           </>
         )}
 
@@ -607,7 +617,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         }
         
         .oneclick-preview {
-          margin-bottom: 16px;
+          margin-bottom: 0;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -635,6 +645,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           width: 100%;
           max-width: 340px;
           text-align: center;
+          margin-top: 32px;
           margin-bottom: 12px;
         }
         .oneclick-style-info h3 {
@@ -667,17 +678,41 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         .progress-section {
           width: 100%;
           margin-top: 16px;
-          padding: 12px 0;
+          padding: 12px 0 4px;
           background: #0a1a1f;
           display: flex;
           flex-direction: column;
           align-items: flex-end;
+        }
+        .progress-section.oneclick {
+          margin-top: 4px;
+          padding: 0 0 0;
         }
         .progress-status {
           display: flex;
           align-items: center;
           gap: 8px;
           margin-bottom: 8px;
+        }
+        .progress-section.oneclick .progress-status {
+          width: 100%;
+          justify-content: space-between;
+          gap: 0;
+        }
+        .progress-left {
+          font-size: 11px;
+          color: rgba(255,255,255,0.4);
+          white-space: nowrap;
+        }
+        .progress-right {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          font-size: 11px;
+          color: rgba(255,255,255,0.5);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
         .progress-status p {
           margin: 0;
@@ -846,7 +881,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           align-items: center;
           justify-content: center;
           gap: 8px;
-          margin-top: 16px;
+          margin-top: 4px;
         }
         .dots {
           display: flex;

@@ -1231,13 +1231,52 @@ const ResultScreen = ({
         
         {/* Header 제거 - 목업에 없음 */}
 
-        {/* ===== 원클릭 결과 화면 (목업 07-result-oneclick.html 준수) ===== */}
-        {/* 원클릭: viewIndex === -1 → 1차 교육 + Original */}
-        {/* v81: 가운데 정렬 통일 (technique-card와 동일 구조) */}
+        {/* ===== 원클릭 결과 화면 (이미지 → 도트 → 스타일정보 → 교육 → 마스터챗 → 버튼) ===== */}
+        {/* 원클릭: viewIndex === -1 → Original 이미지만 */}
         {isFullTransform && viewIndex === -1 && getPrimaryEducation() && (
           <div className="preview-card">
             <img src={originalPhotoUrl} alt="Original 사진" className="preview-image" />
-            <div className="card-header" style={{ padding: '16px 0 0' }}>
+          </div>
+        )}
+
+        {/* 원클릭: viewIndex >= 0 → 결과 이미지만 */}
+        {isFullTransform && viewIndex >= 0 && results[viewIndex] && (
+          <div className="oneclick-result-section">
+            <div className="oneclick-image" onClick={() => setShowImageModal(true)} style={{ cursor: 'pointer' }}>
+              <img src={masterResultImages[getMasterKey(results[viewIndex]?.aiSelectedArtist)] || results[viewIndex]?.resultUrl} alt="Result" />
+            </div>
+          </div>
+        )}
+
+        {/* 원클릭 도트 네비게이션 (이미지 바로 아래) */}
+        {isFullTransform && (
+          <div className="fullTransform-nav">
+            <div className="nav-dots">
+              <button
+                className={`nav-dot edu ${viewIndex === -1 ? 'active' : ''}`}
+                onClick={() => setViewIndex(-1)}
+              >
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+              </button>
+              {fullTransformResults.map((_, idx) => (
+                <button
+                  key={idx}
+                  className={`nav-dot ${viewIndex === idx ? 'active' : ''}`}
+                  onClick={() => {
+                    setViewIndex(idx);
+                    setCurrentIndex(idx);
+                  }}
+                />
+              ))}
+              <span className="nav-count">[{viewIndex === -1 ? 0 : viewIndex + 1}/{fullTransformResults.length}]</span>
+            </div>
+          </div>
+        )}
+
+        {/* 원클릭: viewIndex === -1 → 스타일정보 + 1차 교육 */}
+        {isFullTransform && viewIndex === -1 && getPrimaryEducation() && (
+          <>
+            <div className="card-header" style={{ padding: '32px 0 0' }}>
               <h2>
                 {displayCategory === 'movements' ? tPhotoStyle.movementsFullTitle :
                  displayCategory === 'masters' ? tPhotoStyle.mastersFullTitle :
@@ -1254,21 +1293,15 @@ const ResultScreen = ({
                  tProcessing.orientalSub2}
               </div>
             </div>
-            <div className="technique-explanation">
+            <div className="technique-explanation" style={{ padding: '0 0 8px' }}>
               <p>{getPrimaryEducation().content}</p>
             </div>
-          </div>
+          </>
         )}
 
-        {/* 원클릭: viewIndex >= 0 → 결과만 + 스타일 정보 + 교육 (목업 07 준수) */}
+        {/* 원클릭: viewIndex >= 0 → 스타일정보 + 2차 교육 */}
         {isFullTransform && viewIndex >= 0 && results[viewIndex] && (
-          <div className="oneclick-result-section">
-            {/* 결과 이미지만 (목업: 248×248, 원본 없음) */}
-            <div className="oneclick-image" onClick={() => setShowImageModal(true)} style={{ cursor: 'pointer' }}>
-              <img src={masterResultImages[getMasterKey(results[viewIndex]?.aiSelectedArtist)] || results[viewIndex]?.resultUrl} alt="Result" />
-            </div>
-            
-            {/* 스타일 정보 - 가운데 정렬 (목업: style-info) */}
+          <>
             <div className="oneclick-style-info">
               <h3>
                 {(() => {
@@ -1298,8 +1331,6 @@ const ResultScreen = ({
                 );
               })()}
             </div>
-            
-            {/* 교육 섹션 (목업: edu-section) - 거장만 토글 */}
             {displayCategory === 'masters' ? (
               <div className="oneclick-edu-section">
                 <div className="edu-header">
@@ -1323,7 +1354,7 @@ const ResultScreen = ({
                 </div>
               )
             )}
-          </div>
+          </>
         )}
 
         {/* v81: 단독 변환 원본 탭 제거 (죽은 코드) - 스와이프 없어서 viewIndex === -1 도달 불가 */}
@@ -1375,7 +1406,6 @@ const ResultScreen = ({
 
         {/* v72: 결과 화면 - 2차 교육자료 (단독 변환만) */}
         {/* 목업 준수: masters는 showInfo로 토글, 사조/동양화는 항상 표시 */}
-        {/* 원클릭은 oneclick-result-section에서 교육 표시 */}
         {!isFullTransform && viewIndex >= 0 && (
           <div className="technique-card">
             
@@ -1421,12 +1451,6 @@ const ResultScreen = ({
             {(displayCategory !== 'masters' || showInfo) && (
             <div className="card-content">
               {(() => {
-                // console.log('');
-                // console.log('🖼️ RENDERING EDUCATION CONTENT:');
-                // console.log('   - isLoadingEducation:', isLoadingEducation);
-                // console.log('   - educationText:', educationText);
-                // console.log('   - educationText length:', educationText?.length);
-                // console.log('');
                 return null;
               })()}
               {isLoadingEducation ? (
@@ -1499,31 +1523,6 @@ const ResultScreen = ({
             onChatDataChange={(data) => updateMasterChatData(currentMasterKey, data)}
             lang={lang}
           />
-        )}
-
-        {/* 원클릭 네비게이션 (Prev/Next 제거 — 스와이프 + dot 탭만) */}
-        {isFullTransform && (
-          <div className="fullTransform-nav">
-            <div className="nav-dots">
-              <button
-                className={`nav-dot edu ${viewIndex === -1 ? 'active' : ''}`}
-                onClick={() => setViewIndex(-1)}
-              >
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-              </button>
-              {fullTransformResults.map((_, idx) => (
-                <button
-                  key={idx}
-                  className={`nav-dot ${viewIndex === idx ? 'active' : ''}`}
-                  onClick={() => {
-                    setViewIndex(idx);
-                    setCurrentIndex(idx);
-                  }}
-                />
-              ))}
-              <span className="nav-count">[{viewIndex === -1 ? 0 : viewIndex + 1}/{fullTransformResults.length}]</span>
-            </div>
-          </div>
         )}
 
         {/* 단독 변환 네비게이션 - 목업 준수: 제거됨 */}
@@ -1706,13 +1705,13 @@ const ResultScreen = ({
         .oneclick-result-section {
           width: 100%;
           max-width: 340px;
-          margin: 0 auto 16px;
+          margin: 0 auto 0;
         }
 
         .oneclick-image {
           width: 100%;
           aspect-ratio: 1 / 1;
-          margin: 0 auto 12px;
+          margin: 0 auto 16px;
           border-radius: 12px;
           overflow: hidden;
           box-shadow: 0 4px 12px rgba(0,0,0,0.3);
@@ -1753,6 +1752,7 @@ const ResultScreen = ({
 
         .oneclick-style-info {
           text-align: center;
+          margin-top: 32px;
           margin-bottom: 12px;
           width: 100%;
         }
@@ -2229,7 +2229,7 @@ const ResultScreen = ({
           align-items: center;
           justify-content: center;
           gap: 8px;
-          margin-bottom: 12px;
+          margin-bottom: 0;
           max-width: 340px;
           margin-left: auto;
           margin-right: auto;
@@ -2315,7 +2315,7 @@ const ResultScreen = ({
           background: #0a1a1f;
           border-radius: 12px;
           overflow: hidden;
-          margin: 16px auto;
+          margin: 16px auto 16px;
           width: 100%;
           max-width: 340px;
         }
