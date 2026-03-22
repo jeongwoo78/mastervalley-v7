@@ -30,7 +30,7 @@ import korean from '../assets/thumbnails/oriental/korean.webp';
 import chinese from '../assets/thumbnails/oriental/chinese.webp';
 import japanese from '../assets/thumbnails/oriental/japanese.webp';
 
-const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, userCredits = 0, lang = 'en' }) => {
+const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, userCredits = 0, lang = 'en' }) => {
   const fileInputRef = useRef(null);
   const [photo, setPhoto] = useState(null);
   const [photoPreview, setPhotoPreview] = useState(null);
@@ -373,10 +373,24 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, userCredits = 0, lan
 
   return (
     <div className="style-screen">
-      {/* Header */}
+      {/* Atmosphere blobs — 메인화면과 동일 */}
+      <div className="atmo-layer">
+        <div className="atmo-blob atmo-blue" />
+        <div className="atmo-blob atmo-gold" />
+        <div className="atmo-blob atmo-pink" />
+        <div className="atmo-line" />
+      </div>
+
+      {/* Header — 메인화면과 동일 */}
       <header className="style-header">
-        <button className="back-btn" onClick={onBack}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
-        <span className="header-title" style={{ color: categoryData[activeCategory].accent }}>{categoryData[activeCategory].name}</span>
+        <button className="menu-btn" onClick={() => onMenu?.()}>
+          <svg className="menu-icon-svg" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.45)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="28" height="28">
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M20 21a8 8 0 1 0-16 0"/>
+          </svg>
+          <span className="menu-label">{ui.menu.title}</span>
+        </button>
+        <button className="credits-btn" onClick={() => onAddFunds?.()}>${userCredits.toFixed(2)}</button>
       </header>
 
       {/* Photo Section (고정, 스와이프 밖) */}
@@ -401,16 +415,23 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, userCredits = 0, lan
         )}
       </div>
 
-      {/* 도트 인디케이터 */}
-      <div className="swipe-dots">
-        {categoryOrder.map((cat, i) => (
-          <span
-            key={cat}
-            className={`swipe-dot ${activeCategory === cat ? 'active' : ''}`}
-            data-cat={cat}
-            onClick={() => snapToPage(i)}
-          />
-        ))}
+      {/* 카테고리 탭 바 (< + 텍스트 탭) */}
+      <div className="category-tab-bar">
+        <button className="tab-back-btn" onClick={onBack}>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        </button>
+        <div className="tab-list">
+          {categoryOrder.map((cat, i) => (
+            <button
+              key={cat}
+              className={`tab-item ${activeCategory === cat ? 'active' : ''}`}
+              style={activeCategory === cat ? { color: categoryData[cat].accent, borderBottomColor: categoryData[cat].accent } : {}}
+              onClick={() => snapToPage(i)}
+            >
+              {categoryData[cat].name}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* 스와이프 영역 */}
@@ -435,31 +456,100 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, userCredits = 0, lan
           max-width: 400px;
           margin: 0 auto;
           overflow: hidden;
+          position: relative;
         }
 
+        /* Atmosphere blobs */
+        .atmo-layer {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          pointer-events: none;
+          z-index: 0;
+        }
+        .atmo-blob {
+          position: absolute;
+          border-radius: 50%;
+        }
+        .atmo-blue {
+          top: -60px;
+          left: -60px;
+          width: 300px;
+          height: 300px;
+          background: radial-gradient(circle, rgba(74,122,122,0.18) 0%, transparent 70%);
+          filter: blur(40px);
+        }
+        .atmo-gold {
+          top: 220px;
+          right: -50px;
+          width: 250px;
+          height: 320px;
+          background: radial-gradient(ellipse, rgba(184,154,90,0.10) 0%, transparent 70%);
+          filter: blur(50px);
+          transform: rotate(-20deg);
+        }
+        .atmo-pink {
+          bottom: 40px;
+          left: -30px;
+          width: 220px;
+          height: 220px;
+          background: radial-gradient(circle, rgba(192,112,144,0.09) 0%, transparent 70%);
+          filter: blur(40px);
+        }
+        .atmo-line {
+          position: absolute;
+          top: 38%;
+          left: 8%;
+          width: 84%;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, rgba(74,122,122,0.04), rgba(184,154,90,0.03), transparent);
+        }
+
+        /* Header — 메인화면과 동일 */
         .style-header {
           display: flex;
+          justify-content: space-between;
           align-items: center;
-          padding: 16px 20px;
-          gap: 12px;
+          padding: 16px 20px 16px;
+          position: relative;
+          z-index: 1;
         }
 
-        .back-btn {
-          background: none;
+        .menu-btn {
+          background: transparent;
           border: none;
-          color: #fff;
           cursor: pointer;
-          padding: 4px 8px;
           display: flex;
+          flex-direction: column;
           align-items: center;
+          gap: 2px;
+          padding: 4px 8px;
         }
 
-        .header-title {
-          flex: 1;
-          color: #fff;
-          font-size: 20px;
-          font-weight: 400;
-          font-family: 'Cormorant Garamond', Georgia, serif;
+        .menu-icon-svg {
+          display: block;
+        }
+
+        .menu-label {
+          font-size: 10px;
+          color: rgba(255,255,255,0.45);
+          font-weight: 600;
+          letter-spacing: 0.5px;
+        }
+
+        .credits-btn {
+          background: transparent;
+          border: none;
+          padding: 8px 0;
+          color: rgba(74,106,170,0.9);
+          font-size: 17px;
+          font-weight: 600;
+          cursor: pointer;
+          letter-spacing: 0.3px;
+        }
+
+        .credits-btn:active {
+          opacity: 0.7;
         }
 
         .photo-section {
@@ -475,6 +565,8 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, userCredits = 0, lan
           border: none;
           box-shadow: none;
           flex-shrink: 0;
+          position: relative;
+          z-index: 1;
         }
 
         .photo-section:not(.awaiting-photo) {
@@ -511,29 +603,54 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, userCredits = 0, lan
           border-radius: 12px;
         }
 
-        /* 도트 인디케이터 */
-        .swipe-dots {
+        /* 카테고리 탭 바 */
+        .category-tab-bar {
           display: flex;
-          justify-content: center;
-          gap: 6px;
-          padding: 10px 0 0;
+          align-items: center;
+          padding: 8px 16px 0;
+          flex-shrink: 0;
+          position: relative;
+          z-index: 1;
+        }
+
+        .tab-back-btn {
+          background: none;
+          border: none;
+          color: rgba(255,255,255,0.5);
+          cursor: pointer;
+          padding: 8px;
+          display: flex;
+          align-items: center;
           flex-shrink: 0;
         }
 
-        .swipe-dot {
-          height: 6px;
-          border-radius: 3px;
-          background: rgba(255,255,255,0.2);
-          transition: all 0.25s ease;
-          cursor: pointer;
-          border: none;
+        .tab-back-btn:active {
+          opacity: 0.6;
         }
 
-        .swipe-dot.active { width: 18px; }
-        .swipe-dot:not(.active) { width: 6px; }
-        .swipe-dot[data-cat="movements"].active { background: #4a7a7a; }
-        .swipe-dot[data-cat="masters"].active { background: #b89a5a; }
-        .swipe-dot[data-cat="oriental"].active { background: #c07090; }
+        .tab-list {
+          flex: 1;
+          display: flex;
+          justify-content: center;
+          gap: 0;
+        }
+
+        .tab-item {
+          background: none;
+          border: none;
+          border-bottom: 2px solid transparent;
+          color: rgba(255,255,255,0.35);
+          font-size: 13px;
+          font-weight: 500;
+          padding: 8px 12px;
+          cursor: pointer;
+          transition: all 0.2s;
+          white-space: nowrap;
+        }
+
+        .tab-item:active {
+          opacity: 0.7;
+        }
 
         /* 스와이프 레이아웃 */
         .swipe-viewport {
@@ -541,6 +658,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, userCredits = 0, lan
           overflow: hidden;
           position: relative;
           min-height: 0;
+          z-index: 1;
         }
 
         .swipe-track {

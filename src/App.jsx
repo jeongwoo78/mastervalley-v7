@@ -514,6 +514,8 @@ const App = () => {
               mainCategory={mainCategory}
               onBack={handleBackToCategory}
               onSelect={handlePhotoStyleSelect}
+              onMenu={handleGoToMenu}
+              onAddFunds={handleGoToAddFunds}
               userCredits={userCredits}
               lang={lang}
             />
