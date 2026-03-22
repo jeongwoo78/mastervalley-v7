@@ -432,6 +432,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
             </button>
           ))}
         </div>
+        <div className="tab-spacer" />
       </div>
 
       {/* 스와이프 영역 */}
@@ -628,6 +629,11 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
           opacity: 0.6;
         }
 
+        .tab-spacer {
+          width: 36px;
+          flex-shrink: 0;
+        }
+
         .tab-list {
           flex: 1;
           display: flex;
@@ -640,8 +646,8 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
           border: none;
           border-bottom: 2px solid transparent;
           color: rgba(255,255,255,0.35);
-          font-size: 13px;
-          font-weight: 500;
+          font-size: 14px;
+          font-weight: 600;
           padding: 8px 12px;
           cursor: pointer;
           transition: all 0.2s;
