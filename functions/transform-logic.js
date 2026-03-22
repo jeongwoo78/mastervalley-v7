@@ -123,6 +123,7 @@ export async function runTransform(image, selectedStyle, correctionPrompt = null
     selectionMethod: responseData.selection_method || null,
     selectionDetails: responseData.selection_details || null,
     isRetransform: responseData.isRetransform || false,
+    subjectType: responseData._debug?.vision?.subjectType || null,
     debug: responseData._debug || null
   };
 }

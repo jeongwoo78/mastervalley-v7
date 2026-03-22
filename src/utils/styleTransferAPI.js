@@ -136,6 +136,7 @@ const waitForTransformResult = (transformId, onProgress) => {
           selectedArtist: data.selectedArtist || null,
           selectedWork: data.selectedWork || null,
           selectionMethod: data.selectionMethod || null,
+          subjectType: data.subjectType || null,
           isRetransform: data.isRetransform || false
         });
       }
@@ -247,6 +248,7 @@ export const processStyleTransfer = async (photoFile, selectedStyle, correctionP
       aiSelectedArtist: result.selectedArtist,
       selected_work: result.selectedWork,
       selectionMethod: result.selectionMethod,
+      subjectType: result.subjectType,
       selectionDetails: null
     };
 

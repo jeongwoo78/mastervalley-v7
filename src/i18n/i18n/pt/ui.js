@@ -18,9 +18,6 @@ export const ui = {
   photoStyle: {
     tapToSelectPhoto: 'Toca para selecionar uma foto',
     movementsName: 'História da Arte Ocidental',
-    movementsTabName: 'Arte Ocidental',
-    mastersTabName: 'Mestres',
-    orientalTabName: 'Arte Oriental',
     mastersName: 'Coleção dos Mestres',
     orientalName: 'Pintura Oriental',
     fullTransform: 'Transformar Tudo',

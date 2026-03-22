@@ -50,11 +50,13 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
   const categoryData = {
     movements: {
       name: ps.movementsName,
+      tabName: ps.movementsTabName || ps.movementsName,
       price: '$0.20',
       fullPrice: '$2.00',
       emojis: '🏎️⚡🕰️',
       selectLabel: ps.selectMovement,
       priceLabel: `$0.20/${ps.perTransform}`,
+      fullTransformLabel: ps.movementsFullTransformLabel || '11 사조 전체 변환',
       gradient: 'linear-gradient(135deg, #b8d4d4 0%, #4a7a7a 100%)',
       boxShadow: '0 4px 15px rgba(74, 106, 170, 0.3)',
       color: '#0a2020',
@@ -83,11 +85,13 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
     },
     masters: {
       name: ps.mastersName,
+      tabName: ps.mastersTabName || ps.mastersName,
       price: '$0.25',
       fullPrice: '$1.50',
       emojis: '🔥🎨💥',
       selectLabel: ps.selectMaster,
       priceLabel: `$0.25/${ps.perTransform}`,
+      fullTransformLabel: ps.mastersFullTransformLabel || '7인 거장 전체 변환',
       gradient: 'linear-gradient(135deg, #e0d0a8 0%, #b89a5a 100%)',
       boxShadow: '0 4px 15px rgba(184, 154, 90, 0.3)',
       color: '#2a2210',
@@ -125,11 +129,13 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
 
       return {
         name: ps.orientalName,
+        tabName: ps.orientalTabName || ps.orientalName,
         price: '$0.20',
         fullPrice: '$0.50',
         emojis: orientalEmojis,
         selectLabel: ps.selectStyle,
         priceLabel: `$0.20/${ps.perTransform}`,
+        fullTransformLabel: ps.orientalFullTransformLabel || '동양화 전체 변환',
         gradient: 'linear-gradient(135deg, #e8b8c8 0%, #c07090 100%)',
         boxShadow: '0 4px 15px rgba(192, 112, 144, 0.3)',
         color: '#3a1528',
@@ -298,6 +304,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
   // ─── 카테고리별 페이지 렌더 ───
   const renderCategoryPage = (catKey) => {
     const cat = categoryData[catKey];
+    const isCircle = catKey === 'masters';
     return (
       <div className="swipe-page" key={catKey}>
         <button
@@ -311,18 +318,34 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
             color: cat.color
           }}
         >
-          <span className="ft-sparkles">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
-              <path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/>
-            </svg>
-          </span>
+          <div className={`ft-thumbnails-row ${catKey === 'oriental' ? 'ft-thumbnails-spread' : ''}`}>
+            {(() => {
+              const count = cat.styles.length;
+              const thumbSize = 48;
+              const noOverlap = catKey === 'oriental';
+              return cat.styles.map((style, idx) => (
+                <div
+                  key={style.id}
+                  className={`ft-thumb ${isCircle ? 'ft-thumb-circle' : ''}`}
+                  style={{
+                    zIndex: idx + 1,
+                    borderColor: `${cat.accent}88`,
+                    marginRight: noOverlap
+                      ? (idx < count - 1 ? '8px' : 0)
+                      : (idx < count - 1 ? `calc((100% - ${thumbSize * count}px) / ${count - 1})` : 0)
+                  }}
+                >
+                  <img src={style.thumbnail} alt={style.name} />
+                </div>
+              ));
+            })()}
+          </div>
           <div className="ft-content">
             <div className="ft-row-1">
               <span className="ft-label-inline">
                 <span className="ft-label">One-Click</span>
                 <span className="ft-pipe">|</span>
-                <span className="ft-sub">{ps.fullTransform}</span>
+                <span className="ft-sub">{cat.fullTransformLabel}</span>
               </span>
               <span className="ft-price">{cat.fullPrice}</span>
             </div>
@@ -338,9 +361,6 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
           <span className="per-transform-price">{cat.priceLabel}</span>
         </div>
 
-        {catKey === 'masters' && ps.mastersGalleryDesc && (
-          <p className="masters-gallery-desc">※ {ps.mastersGalleryDesc}</p>
-        )}
 
         <div className="style-grid">
           {cat.styles.map(style => (
@@ -428,7 +448,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
               style={activeCategory === cat ? { color: categoryData[cat].accent, borderBottomColor: categoryData[cat].accent } : {}}
               onClick={() => snapToPage(i)}
             >
-              {categoryData[cat].name}
+              {categoryData[cat].tabName}
             </button>
           ))}
         </div>
@@ -700,8 +720,9 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
           cursor: pointer;
           transition: all 0.2s;
           display: flex;
-          align-items: center;
-          gap: 12px;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 8px;
           text-align: start;
         }
 
@@ -714,13 +735,42 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
           outline: none;
         }
 
-        .ft-sparkles {
+        .ft-thumbnails-row {
           display: flex;
+          width: 100%;
+          padding-bottom: 6px;
+        }
+
+        .ft-thumbnails-spread {
+          width: auto;
+        }
+
+        .ft-thumb {
+          width: 48px;
+          height: 48px;
+          border-radius: 6px;
+          overflow: hidden;
           flex-shrink: 0;
+          border: 1.5px solid;
+        }
+
+        .ft-thumb:last-child {
+          margin-right: 0 !important;
+        }
+
+        .ft-thumb-circle {
+          border-radius: 50%;
+        }
+
+        .ft-thumb img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
         }
 
         .ft-content {
           flex: 1;
+          width: 100%;
         }
 
         .ft-row-1 {
@@ -743,13 +793,14 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
         }
 
         .ft-pipe {
-          font-size: 11px;
-          opacity: 0.25;
+          font-size: 13px;
+          opacity: 0.4;
         }
 
         .ft-sub {
-          font-size: 11px;
-          opacity: 0.5;
+          font-size: 13px;
+          font-weight: 600;
+          opacity: 0.75;
         }
 
         .ft-price {
@@ -788,15 +839,6 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
         .per-transform-price {
           color: rgba(255,255,255,0.5);
           font-size: 13px;
-        }
-
-        .masters-gallery-desc {
-          color: rgba(255,255,255,0.45);
-          font-size: 11.5px;
-          text-align: start;
-          padding: 4px 28px 0;
-          margin: 0;
-          line-height: 1.5;
         }
 
         .style-grid {

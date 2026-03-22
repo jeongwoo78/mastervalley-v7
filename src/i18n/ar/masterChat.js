@@ -8,7 +8,7 @@ export const masterChat = {
   // ===== واجهة المستخدم المشتركة (7) =====
   common: {
     chatWith: 'تحدّث مع {masterName} (AI)',
-    helpText: 'اطلب من الأستاذ تعديل النتيجة، أو اسأل أي شيء.',
+    helpText: 'تحدث مع الأستاذ',
     chatEnded: 'انتهت المحادثة مع الفنان.',
     retransformComplete: '💡 اكتمل إعادة التحويل! الصورة السابقة محفوظة في المعرض.',
     requestModify: 'تعديل',

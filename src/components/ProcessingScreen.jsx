@@ -141,7 +141,8 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
               transformId,
               resultUrl: entry.resultUrl,
               aiSelectedArtist: entry.selectedArtist,
-              selected_work: entry.selectedWork
+              selected_work: entry.selectedWork,
+              subjectType: entry.subjectType
             });
           }
           
@@ -237,9 +238,10 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         return {
           style,
           resultUrl: result.resultUrl,
-          transformId: result.transformId,  // 크레딧 차감용 멱등성 키
+          transformId: result.transformId,
           aiSelectedArtist: result.aiSelectedArtist,
-          selected_work: result.selected_work,  // 거장 모드: 선택된 작품
+          selected_work: result.selected_work,
+          subjectType: result.subjectType,
           success: true
         };
       } else {
@@ -247,8 +249,9 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           style, 
           error: result.error, 
           transformId: result.transformId,
-          aiSelectedArtist: result.aiSelectedArtist,  // 실패해도 보존
+          aiSelectedArtist: result.aiSelectedArtist,
           selected_work: result.selected_work,
+          subjectType: result.subjectType,
           success: false 
         };
       }

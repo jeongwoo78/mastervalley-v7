@@ -19,9 +19,6 @@ export const ui = {
   photoStyle: {
     tapToSelectPhoto: 'Tap to select photo',
     movementsName: 'Western Art',
-    movementsTabName: 'Western Art',
-    mastersTabName: 'Masters',
-    orientalTabName: 'East Asian',
     mastersName: 'Master Collection',
     orientalName: 'East Asian Art',
     fullTransform: 'Full transform',

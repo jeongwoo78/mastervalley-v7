@@ -20,9 +20,6 @@ export const ui = {
   photoStyle: {
     tapToSelectPhoto: 'แตะเพื่อเลือกรูปภาพ',
     movementsName: 'ศิลปะตะวันตก',
-    movementsTabName: 'ตะวันตก',
-    mastersTabName: 'ศิลปินเอก',
-    orientalTabName: 'ตะวันออก',
     mastersName: 'คอลเลกชันศิลปินเอก',
     orientalName: 'จิตรกรรมตะวันออก',
     fullTransform: 'แปลงทั้งหมด',

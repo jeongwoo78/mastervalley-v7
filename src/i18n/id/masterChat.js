@@ -8,7 +8,7 @@ export const masterChat = {
   // ===== UI Umum (7) =====
   common: {
     chatWith: 'Bicara dengan {masterName} (AI)',
-    helpText: 'Minta maestro untuk memodifikasi hasilnya, atau tanyakan apa saja.',
+    helpText: 'Bicara dengan maestro',
     chatEnded: 'Percakapan dengan maestro telah berakhir.',
     retransformComplete: '💡 Retransformasi selesai! Gambar sebelumnya tersimpan di galeri.',
     requestModify: 'Modifikasi',

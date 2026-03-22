@@ -7,7 +7,7 @@
 export const masterChat = {
   common: {
     chatWith: '{masterName} (AI) ile sohbet',
-    helpText: 'Ustadan sonucu düzenlemesini isteyin ya da istediğinizi sorun.',
+    helpText: 'Usta ile konuşun',
     chatEnded: 'Usta ile sohbet sona erdi.',
     retransformComplete: '💡 Yeniden dönüşüm tamamlandı! Önceki görsel galeriye kaydedildi.',
     requestModify: 'Düzenle',

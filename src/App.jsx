@@ -66,6 +66,7 @@ const App = () => {
   const [resultImage, setResultImage] = useState(null);
   const [aiSelectedArtist, setAiSelectedArtist] = useState(null);
   const [aiSelectedWork, setAiSelectedWork] = useState(null);
+  const [subjectType, setSubjectType] = useState(null);
   
   // 원클릭 결과
   const [fullTransformResults, setFullTransformResults] = useState(null);
@@ -184,6 +185,7 @@ const App = () => {
           setResultImage(null);
           setAiSelectedArtist(null);
           setAiSelectedWork(null);
+          setSubjectType(null);
           setFullTransformResults(null);
           break;
         case 'processing':
@@ -312,6 +314,7 @@ const App = () => {
       setResultImage(null);
       setAiSelectedArtist(null);
       setAiSelectedWork(null);
+      setSubjectType(result.results?.find(r => r.subjectType)?.subjectType || null);
       setCurrentMasterIndex(0);
     } else {
       setFullTransformResults(null);
@@ -328,6 +331,8 @@ const App = () => {
       } else {
         setAiSelectedWork(null);
       }
+      
+      setSubjectType(result?.subjectType || null);
     }
     
     setCurrentScreen('result');
@@ -342,6 +347,7 @@ const App = () => {
     setResultImage(null);
     setAiSelectedArtist(null);
     setAiSelectedWork(null);
+    setSubjectType(null);
     setFullTransformResults(null);
     setMasterChatData({});
     setCurrentMasterIndex(0);
@@ -382,6 +388,7 @@ const App = () => {
       setResultImage(result.resultUrl);
       setAiSelectedArtist(result.aiSelectedArtist || null);
       setAiSelectedWork(result.selected_work || null);
+      setSubjectType(result.subjectType || null);
     }
   };
 
@@ -537,6 +544,7 @@ const App = () => {
               selectedStyle={selectedStyle}
               aiSelectedArtist={aiSelectedArtist}
               aiSelectedWork={aiSelectedWork}
+              subjectType={subjectType}
               fullTransformResults={fullTransformResults}
               onReset={handleReset}
               onGallery={() => setShowGallery(true)}

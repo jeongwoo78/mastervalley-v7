@@ -29,6 +29,7 @@ const MASTER_THEMES = {
 
 const MasterChat = ({ 
   masterKey,           // 거장 키 (예: "VAN GOGH")
+  subjectType,         // 피사체 유형 (person/landscape/animal/object)
   onRetransform,       // 재변환 콜백 (correctionPrompt를 전달)
   isRetransforming,    // 이 거장이 변환 중인지
   retransformCost = 100,  // 재변환 비용
@@ -99,10 +100,6 @@ const MasterChat = ({
       {
         role: 'master',
         content: greeting
-      },
-      {
-        role: 'system',
-        content: chatText.common.helpText
       }
     ]);
   };
@@ -243,11 +240,16 @@ const MasterChat = ({
   };
 
   return (
-    <div className="master-chat-section" style={{ 
-      '--master-color': theme.primary,
-      background: `${theme.primary}14`,
-      borderColor: `${theme.primary}40`
-    }}>
+    <>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', margin: '0 0 10px', paddingLeft: '14px' }}>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke={theme.primary} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+        <span style={{ color: `${theme.primary}cc`, fontSize: '14px', fontWeight: 500 }}>"{chatText.common.helpText}"</span>
+      </div>
+      <div className="master-chat-section" style={{ 
+        '--master-color': theme.primary,
+        background: `${theme.primary}14`,
+        borderColor: `${theme.primary}40`
+      }}>
       {/* 헤더 (v79: 원형 아바타 이미지) */}
       <div className="master-chat-header">
         <img className="master-avatar-img" src={theme.avatar} alt={masterName} onClick={() => setShowProfile(true)} style={{ cursor: 'pointer' }} />
@@ -300,7 +302,11 @@ const MasterChat = ({
       {/* 추천 질문 - 로딩 중에만 숨김 */}
       {!isLoading && !isRetransforming && !isChatEnded && (
         <div className="suggested-questions">
-          {(chatText.suggestedQuestions[masterKey] || []).map((q, qIdx) => (
+          {(() => {
+            const allQuestions = chatText.suggestedQuestions[masterKey] || [];
+            const isPerson = !subjectType || subjectType === 'person' || subjectType === 'portrait';
+            const questions = isPerson ? allQuestions : allQuestions.slice(2);
+            return questions.map((q, qIdx) => (
             <button
               key={qIdx}
               className="question-chip"
@@ -318,7 +324,8 @@ const MasterChat = ({
             >
               {q}
             </button>
-          ))}
+          ));
+          })()}
         </div>
       )}
 
@@ -731,6 +738,7 @@ const MasterChat = ({
         }
       `}</style>
     </div>
+    </>
   );
 };
 

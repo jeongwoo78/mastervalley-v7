@@ -20,9 +20,6 @@ export const ui = {
   photoStyle: {
     tapToSelectPhoto: '點擊選擇照片',
     movementsName: '西洋美術史',
-    movementsTabName: '西洋美術史',
-    mastersTabName: '大師典藏',
-    orientalTabName: '東洋畫',
     mastersName: '大師典藏',
     orientalName: '東洋畫',
     fullTransform: '全部轉換',

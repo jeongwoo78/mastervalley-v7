@@ -8,7 +8,7 @@ export const masterChat = {
   // ===== 共通 UI (7) =====
   common: {
     chatWith: '{masterName}（AI）と話す',
-    helpText: '巨匠に結果の修正を依頼したり、何でも質問してください。',
+    helpText: '巨匠と対話しよう',
     chatEnded: '巨匠との会話が終了しました。',
     retransformComplete: '💡 再変換完了！前の画像はギャラリーに保存されています。',
     requestModify: '修正',

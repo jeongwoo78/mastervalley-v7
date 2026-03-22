@@ -18,9 +18,6 @@ export const ui = {
   photoStyle: {
     tapToSelectPhoto: 'Fotoğraf seçmek için dokun',
     movementsName: 'Batı Sanat Tarihi',
-    movementsTabName: 'Batı Sanatı',
-    mastersTabName: 'Ustalar',
-    orientalTabName: 'Doğu Resmi',
     mastersName: 'Usta Koleksiyonu',
     orientalName: 'Doğu Resmi',
     fullTransform: 'Tümünü Dönüştür',

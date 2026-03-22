@@ -20,9 +20,6 @@ export const ui = {
   photoStyle: {
     tapToSelectPhoto: 'Ketuk untuk memilih foto',
     movementsName: 'Sejarah Seni Barat',
-    movementsTabName: 'Seni Barat',
-    mastersTabName: 'Maestro',
-    orientalTabName: 'Seni Timur',
     mastersName: 'Koleksi Maestro',
     orientalName: 'Lukisan Oriental',
     fullTransform: 'Transformasi penuh',

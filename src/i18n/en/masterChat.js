@@ -7,7 +7,7 @@ export const masterChat = {
   // ===== Common UI (7) =====
   common: {
     chatWith: 'Chat with {masterName}(AI)',
-    helpText: 'Ask the master to refine the result — or ask anything.',
+    helpText: 'Chat with the master',
     chatEnded: 'Chat with the master has ended.',
     retransformComplete: '💡 Retransform complete! Previous image saved to gallery.',
     requestModify: 'Modify',

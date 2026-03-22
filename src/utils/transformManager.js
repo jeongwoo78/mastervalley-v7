@@ -72,6 +72,7 @@ function start(transformId, metadata = {}) {
       existing.resultUrl = data.resultUrl;
       existing.selectedArtist = data.selectedArtist || null;
       existing.selectedWork = data.selectedWork || null;
+      existing.subjectType = data.subjectType || null;
       existing.completedAt = Date.now();
       notifyListeners();
       

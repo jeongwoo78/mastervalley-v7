@@ -7,7 +7,7 @@
 export const masterChat = {
   common: {
     chatWith: 'Conversar com {masterName} (IA)',
-    helpText: 'Pede ao mestre para editar o resultado, ou pergunta o que quiseres.',
+    helpText: 'Converse com o mestre',
     chatEnded: 'A conversa com o mestre terminou.',
     retransformComplete: '💡 Retransformação concluída! A imagem anterior foi guardada na galeria.',
     requestModify: 'Editar',

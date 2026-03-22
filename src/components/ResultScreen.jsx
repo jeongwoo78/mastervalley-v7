@@ -45,6 +45,7 @@ const ResultScreen = ({
   selectedStyle, 
   aiSelectedArtist,
   aiSelectedWork,
+  subjectType,
   fullTransformResults,
   onReset,
   onGallery,
@@ -1490,6 +1491,7 @@ const ResultScreen = ({
           <MasterChat
             key={currentMasterKey}
             masterKey={currentMasterKey}
+            subjectType={subjectType}
             onRetransform={(correctionPrompt) => handleMasterRetransform(correctionPrompt, currentMasterKey)}
             isRetransforming={isCurrentMasterWorking}
             retransformCost={100}

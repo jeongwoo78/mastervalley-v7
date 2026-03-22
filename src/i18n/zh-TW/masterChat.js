@@ -8,7 +8,7 @@ export const masterChat = {
   // ===== 通用 UI (7) =====
   common: {
     chatWith: '與{masterName}（AI）對話',
-    helpText: '請大師修改結果，或詢問任何問題。',
+    helpText: '與大師對話',
     chatEnded: '與大師的對話已結束。',
     retransformComplete: '💡 重新轉換完成！先前的圖片已儲存至相簿。',
     requestModify: '修改',

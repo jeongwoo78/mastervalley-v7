@@ -20,9 +20,6 @@ export const ui = {
   photoStyle: {
     tapToSelectPhoto: 'اضغط لاختيار صورة',
     movementsName: 'تاريخ الفن الغربي',
-    movementsTabName: 'الفن الغربي',
-    mastersTabName: 'الأساتذة',
-    orientalTabName: 'الفن الشرقي',
     mastersName: 'مجموعة الأساتذة',
     orientalName: 'الرسم الشرقي',
     fullTransform: 'تحويل كامل',

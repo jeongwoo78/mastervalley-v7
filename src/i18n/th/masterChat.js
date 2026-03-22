@@ -8,7 +8,7 @@ export const masterChat = {
   // ===== Common UI (10) =====
   common: {
     chatWith: 'สนทนากับ {masterName} (AI)',
-    helpText: '💡 ขอให้ศิลปิน AI แก้ไขผลงานหรือถามคำถามได้เลย',
+    helpText: 'สนทนากับศิลปิน',
     chatEnded: 'การสนทนากับศิลปินเอกสิ้นสุดแล้ว',
     retransformComplete: '💡 แปลงใหม่เสร็จแล้ว! รูปเดิมถูกบันทึกในแกลเลอรีแล้ว',
     requestModify: '✨ ขอแก้ไข',

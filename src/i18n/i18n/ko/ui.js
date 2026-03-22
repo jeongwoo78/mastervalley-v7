@@ -19,9 +19,6 @@ export const ui = {
   photoStyle: {
     tapToSelectPhoto: '탭하여 사진 선택',
     movementsName: '서양 미술사',
-    movementsTabName: '서양 미술사',
-    mastersTabName: '거장 컬렉션',
-    orientalTabName: '동양화',
     mastersName: '거장 컬렉션',
     orientalName: '동양화',
     fullTransform: '전체 변환',

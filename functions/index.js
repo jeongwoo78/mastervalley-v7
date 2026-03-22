@@ -130,6 +130,7 @@ export const processTransform = onDocumentCreated({
       selectedArtist: result.selectedArtist || null,
       selectedWork: result.selectedWork || null,
       selectionMethod: result.selectionMethod || null,
+      subjectType: result.subjectType || null,
       isRetransform: result.isRetransform || false,
       image: FieldValue.delete(),              // base64 삭제 (저장공간 절약)
       completedAt: FieldValue.serverTimestamp(),
