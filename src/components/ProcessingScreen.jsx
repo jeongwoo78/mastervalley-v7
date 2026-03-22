@@ -607,7 +607,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         }
         .status.oneclick p {
           margin: 0;
-          color: rgba(255,255,255,0.5);
+          color: rgba(255,255,255,0.4);
           font-size: 12px;
         }
         .status.oneclick .spinner {
@@ -627,7 +627,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           width: 100%;
           max-width: 340px;
           aspect-ratio: 1 / 1;
-          background: #1a1a1a;
+          background: #1a2a2f;
           border-radius: 12px;
           display: flex;
           align-items: center;
@@ -661,7 +661,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         }
         .oneclick-style-info .subtitle2 {
           font-size: 12px;
-          color: rgba(255,255,255,0.5);
+          color: rgba(255,255,255,0.4);
           margin-bottom: 12px;
         }
         
@@ -669,7 +669,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           width: 100%;
           max-width: 340px;
           font-size: 13px;
-          color: rgba(255,255,255,0.65);
+          color: rgba(255,255,255,0.6);
           line-height: 1.8;
           text-align: start;
           white-space: pre-line;
@@ -709,14 +709,14 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           align-items: center;
           gap: 6px;
           font-size: 11px;
-          color: rgba(255,255,255,0.5);
+          color: rgba(255,255,255,0.4);
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
         }
         .progress-status p {
           margin: 0;
-          color: rgba(255,255,255,0.5);
+          color: rgba(255,255,255,0.4);
           font-size: 11px;
           white-space: nowrap;
           overflow: hidden;
@@ -725,13 +725,13 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         .progress-bar {
           width: 50%;
           height: 2px;
-          background: rgba(255,255,255,0.1);
+          background: rgba(255,255,255,0.08);
           border-radius: 2px;
           overflow: hidden;
         }
         .progress-fill {
           height: 100%;
-          background: linear-gradient(90deg, #4a6aaa, #4a7a7a);
+          background: linear-gradient(90deg, #3a7a7a, #5a9a8a);
           transition: width 0.3s;
         }
         
@@ -747,7 +747,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         .spinner {
           width: 14px; height: 14px;
           border: 2px solid rgba(255,255,255,0.2);
-          border-top: 2px solid #4a6aaa;
+          border-top: 2px solid #3a7a7a;
           border-radius: 50%;
           animation: spin 1s linear infinite;
         }
@@ -766,7 +766,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         }
         .edu-card h3 { color: #fff; margin: 0 0 10px; font-size: 15px; }
         .edu-card h4 { color: #4CAF50; margin: 0 0 8px; font-size: 14px; }
-        .edu-card p { color: rgba(255,255,255,0.65); line-height: 1.8; font-size: 13px; margin: 0; white-space: pre-line; }
+        .edu-card p { color: rgba(255,255,255,0.6); line-height: 1.8; font-size: 13px; margin: 0; white-space: pre-line; }
         .hint { color: rgba(255,255,255,0.4); font-size: 12px; text-align: center; margin-top: 12px !important; }
         
         /* 단독 로딩 화면 (flexbox 레이아웃) */
@@ -802,13 +802,13 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           width: 100%;
           max-width: 340px;
           font-size: 13px;
-          color: rgba(255,255,255,0.7);
+          color: rgba(255,255,255,0.6);
           margin-bottom: 4px;
           text-align: center;
         }
         .single-loading-subtitle.sub2 {
           font-size: 12px;
-          color: rgba(255,255,255,0.5);
+          color: rgba(255,255,255,0.4);
           margin-bottom: 20px;
         }
         .single-loading-edu {
@@ -817,7 +817,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           text-align: start;
         }
         .single-loading-edu p {
-          color: rgba(255,255,255,0.7);
+          color: rgba(255,255,255,0.6);
           line-height: 1.8;
           font-size: 13px;
           margin: 0 0 12px;
@@ -838,12 +838,12 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           100% { width: 20%; }
         }
         
-        .preview { background: #1a1a1a; border-radius: 12px; overflow: hidden; margin: 16px 0; }
+        .preview { background: #1a2a2f; border-radius: 12px; overflow: hidden; margin: 16px 0; }
         .preview img { width: 100%; display: block; }
         .preview-info { 
           padding: 16px; 
           text-align: start;
-          border-bottom: 1px solid rgba(255,255,255,0.1);
+          border-bottom: 1px solid rgba(255,255,255,0.08);
         }
         .preview-header {
           display: flex;
@@ -872,7 +872,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         .preview-subtitle.sub2 {
           font-size: 0.95rem;
           font-weight: 500;
-          color: rgba(255,255,255,0.5);
+          color: rgba(255,255,255,0.4);
           margin-top: 4px;
         }
         
@@ -898,10 +898,10 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           padding: 0;
         }
         .dot.done {
-          background: rgba(74, 106, 170, 0.5);
+          background: rgba(58, 122, 122, 0.5);
         }
         .dot.active {
-          background: #4a6aaa;
+          background: #3a7a7a;
           transform: scale(1.3);
         }
         .dot:disabled {

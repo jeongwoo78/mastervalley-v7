@@ -151,8 +151,8 @@ const StyleSelection = ({ onSelect }) => {
             <button 
               className="full-transform-btn"
               style={{
-                background: 'linear-gradient(135deg, #b8d4d4 0%, #4a7a7a 100%)',
-                boxShadow: '0 4px 15px rgba(90, 106, 138, 0.4)',
+                background: 'linear-gradient(135deg, #b8d4d4 0%, #5a9a8a 100%)',
+                boxShadow: '0 4px 15px rgba(90, 154, 138, 0.4)',
                 color: '#1e293b'
               }}
               onClick={() => onSelect({ 
@@ -309,7 +309,7 @@ const StyleSelection = ({ onSelect }) => {
       <style>{`
         .style-selection {
           min-height: 100vh;
-          background: linear-gradient(135deg, #4a6aaa 0%, #3a4a7a 100%);
+          background: linear-gradient(135deg, #3a7a7a 0%, #2a5a5a 100%);
           padding: 2rem;
         }
 
@@ -347,8 +347,8 @@ const StyleSelection = ({ onSelect }) => {
         }
 
         .main-category-tab {
-          background: rgba(255, 255, 255, 0.15);
-          border: 3px solid rgba(255, 255, 255, 0.3);
+          background: rgba(255,255,255,0.08);
+          border: 3px solid rgba(255,255,255,0.2);
           color: white;
           padding: 1.5rem 1rem;
           border-radius: 16px;
@@ -362,13 +362,13 @@ const StyleSelection = ({ onSelect }) => {
         }
 
         .main-category-tab:hover {
-          background: rgba(255, 255, 255, 0.25);
+          background: rgba(255,255,255,0.2);
           transform: translateY(-2px);
         }
 
         .main-category-tab.active {
-          background: rgba(255, 255, 255, 0.35);
-          border-color: rgba(255, 255, 255, 0.8);
+          background: rgba(255,255,255,0.2);
+          border-color: rgba(255,255,255,0.8);
           box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
         }
 
@@ -409,15 +409,15 @@ const StyleSelection = ({ onSelect }) => {
         }
 
         .sub-category-tab:hover {
-          border-color: #4a6aaa;
-          box-shadow: 0 8px 20px rgba(74, 106, 170, 0.2);
+          border-color: #3a7a7a;
+          box-shadow: 0 8px 20px rgba(58, 122, 122, 0.2);
           transform: translateY(-4px);
         }
 
         .sub-category-tab.active {
-          border-color: #4a6aaa;
+          border-color: #3a7a7a;
           border-width: 3px;
-          box-shadow: 0 8px 24px rgba(74, 106, 170, 0.3);
+          box-shadow: 0 8px 24px rgba(58, 122, 122, 0.3);
           transform: translateY(-2px);
         }
 
@@ -431,7 +431,7 @@ const StyleSelection = ({ onSelect }) => {
         }
 
         .sub-category-tab.active .tab-name {
-          color: #6a8ac4;
+          color: #6a9a9a;
         }
 
         .sub-category-tab .tab-period {
@@ -440,22 +440,22 @@ const StyleSelection = ({ onSelect }) => {
         }
 
         .sub-category-tab.active .tab-period {
-          color: #6a8ac4;
+          color: #6a9a9a;
           opacity: 0.8;
         }
 
         .sub-category-tab .tab-count {
           font-size: 0.75rem;
           padding: 0.25rem 0.6rem;
-          background: rgba(74, 106, 170, 0.1);
+          background: rgba(58, 122, 122, 0.1);
           border-radius: 12px;
           margin-top: 0.25rem;
           font-weight: 600;
         }
 
         .sub-category-tab.active .tab-count {
-          background: rgba(74, 106, 170, 0.15);
-          color: #6a8ac4;
+          background: rgba(58, 122, 122, 0.15);
+          color: #6a9a9a;
         }
 
         /* 3단계: 화가 선택 */
@@ -508,11 +508,11 @@ const StyleSelection = ({ onSelect }) => {
 
         /* 미술사조 - 파스텔 스카이 */
         .full-transform-btn.movements {
-          background: linear-gradient(135deg, #b8d4d4 0%, #4a7a7a 100%);
-          box-shadow: 0 4px 15px rgba(90, 106, 138, 0.4);
+          background: linear-gradient(135deg, #b8d4d4 0%, #5a9a8a 100%);
+          box-shadow: 0 4px 15px rgba(90, 154, 138, 0.4);
         }
         .full-transform-btn.movements:hover {
-          box-shadow: 0 8px 25px rgba(90, 106, 138, 0.5);
+          box-shadow: 0 8px 25px rgba(90, 154, 138, 0.5);
         }
 
         /* 거장 - 파스텔 코랄 */
@@ -582,8 +582,8 @@ const StyleSelection = ({ onSelect }) => {
         }
 
         .style-card:hover {
-          border-color: #4a6aaa;
-          box-shadow: 0 8px 24px rgba(74, 106, 170, 0.15);
+          border-color: #3a7a7a;
+          box-shadow: 0 8px 24px rgba(58, 122, 122, 0.15);
           transform: translateY(-4px);
         }
 

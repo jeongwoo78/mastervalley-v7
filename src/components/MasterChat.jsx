@@ -387,7 +387,7 @@ const MasterChat = ({
           <>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{marginRight: '6px'}}><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
             {chatText.common.requestModify}
-            <span style={{marginLeft: '6px', fontSize: '13px', fontWeight: 500, color: 'rgba(255,255,255,0.45)'}}>$0.10</span>
+            <span style={{marginLeft: '6px', fontSize: '13px', fontWeight: 500, color: 'rgba(255,255,255,0.4)'}}>$0.10</span>
           </>
         )}
       </button>
@@ -410,7 +410,7 @@ const MasterChat = ({
             onClick={e => e.stopPropagation()}
             dir={lang === 'ar' ? 'rtl' : 'ltr'}
             style={{
-              background: '#1a1a1a',
+              background: '#1a2a2f',
               borderRadius: 20,
               padding: '28px 24px 32px',
               maxWidth: 320, width: '100%',
@@ -441,17 +441,17 @@ const MasterChat = ({
                 alt={masterName}
               />
             </div>
-            <div style={{ textAlign: 'center', fontSize: 18, fontWeight: 500, color: 'rgba(255,255,255,0.75)', marginBottom: 8 }}>
+            <div style={{ textAlign: 'center', fontSize: 18, fontWeight: 500, color: 'rgba(255,255,255,0.8)', marginBottom: 8 }}>
               {profile.fullName || masterName}
             </div>
-            <div style={{ textAlign: 'center', fontSize: 13, color: 'rgba(255,255,255,0.45)', marginBottom: 4 }}>
+            <div style={{ textAlign: 'center', fontSize: 13, color: 'rgba(255,255,255,0.4)', marginBottom: 4 }}>
               {profile.years || ''}
             </div>
             <div style={{ textAlign: 'center', fontSize: 13, color: theme.primary, fontWeight: 500, marginBottom: 18 }}>
               {profile.origin || ''}
             </div>
-            <div style={{ width: 32, height: 1, background: 'rgba(255,255,255,0.1)', margin: '0 auto 18px' }} />
-            <div style={{ textAlign: 'center', fontSize: 14, color: 'rgba(255,255,255,0.70)', fontStyle: 'italic', lineHeight: 1.7, padding: '0 8px' }}>
+            <div style={{ width: 32, height: 1, background: 'rgba(255,255,255,0.08)', margin: '0 auto 18px' }} />
+            <div style={{ textAlign: 'center', fontSize: 14, color: 'rgba(255,255,255,0.6)', fontStyle: 'italic', lineHeight: 1.7, padding: '0 8px' }}>
               {profile.quote || ''}
             </div>
           </div>
@@ -495,7 +495,7 @@ const MasterChat = ({
 
         .master-info h3 .ai-tag {
           font-size: 10px;
-          color: rgba(255,255,255,0.5);
+          color: rgba(255,255,255,0.4);
           font-weight: 400;
           margin-inline-start: 4px;
         }
@@ -529,12 +529,12 @@ const MasterChat = ({
           border-radius: 50%;
           object-fit: cover;
           flex-shrink: 0;
-          border: 1.5px solid rgba(255,255,255,0.15);
+          border: 1.5px solid rgba(255,255,255,0.08);
         }
 
         .chat-message .sender {
           font-size: 10px;
-          color: rgba(255,255,255,0.5);
+          color: rgba(255,255,255,0.4);
           margin-bottom: 4px;
         }
 
@@ -545,8 +545,8 @@ const MasterChat = ({
         }
 
         .system-message {
-          background: rgba(255, 255, 255, 0.05);
-          color: rgba(255,255,255,0.5);
+          background: rgba(255,255,255,0.08);
+          color: rgba(255,255,255,0.4);
           font-size: 11px;
           padding: 6px 14px;
           border-radius: 20px;
@@ -585,7 +585,7 @@ const MasterChat = ({
           background: rgba(255,255,255,0.08);
           border-radius: 14px;
           padding: 10px 12px;
-          color: rgba(255,255,255,0.85);
+          color: rgba(255,255,255,0.8);
           font-size: 13px;
           line-height: 1.5;
           max-width: 85%;
@@ -599,10 +599,10 @@ const MasterChat = ({
         }
 
         .chat-message.user .bubble {
-          background: rgba(74, 106, 170, 0.3);
+          background: rgba(58, 122, 122, 0.3);
           border-radius: 14px;
           padding: 10px 12px;
-          color: rgba(255,255,255,0.9);
+          color: rgba(255,255,255,0.8);
           font-size: 13px;
           line-height: 1.5;
           text-align: right;
@@ -635,13 +635,13 @@ const MasterChat = ({
           display: flex;
           gap: 8px;
           padding-top: 10px;
-          border-top: 1px solid rgba(255,255,255,0.1);
+          border-top: 1px solid rgba(255,255,255,0.08);
         }
 
         .chat-input {
           flex: 1;
           background: rgba(255,255,255,0.08);
-          border: 1px solid rgba(255,255,255,0.15);
+          border: 1px solid rgba(255,255,255,0.08);
           border-radius: 20px;
           padding: 10px 14px;
           color: #fff;
@@ -659,7 +659,7 @@ const MasterChat = ({
         }
 
         .chat-input:disabled {
-          background: rgba(255,255,255,0.05);
+          background: rgba(255,255,255,0.08);
           cursor: not-allowed;
         }
 
@@ -717,7 +717,7 @@ const MasterChat = ({
         .spinner-small {
           width: 16px;
           height: 16px;
-          border: 2px solid rgba(255,255,255,0.3);
+          border: 2px solid rgba(255,255,255,0.2);
           border-top-color: white;
           border-radius: 50%;
           animation: spin 1s linear infinite;

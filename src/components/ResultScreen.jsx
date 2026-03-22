@@ -1738,7 +1738,7 @@ const ResultScreen = ({
           width: 100%;
           aspect-ratio: 6 / 5;
           margin-bottom: 10px;
-          background: #1a1a1a;
+          background: #1a2a2f;
           border-radius: 12px;
           overflow: hidden;
           box-shadow: 0 4px 12px rgba(0,0,0,0.3);
@@ -1772,7 +1772,7 @@ const ResultScreen = ({
 
         .oneclick-style-info .subtitle2 {
           font-size: 14px;
-          color: rgba(255,255,255,0.5);
+          color: rgba(255,255,255,0.4);
           margin-bottom: 10px;
         }
 
@@ -1801,7 +1801,7 @@ const ResultScreen = ({
 
         .oneclick-edu-section .edu-content {
           font-size: 13px;
-          color: rgba(255,255,255,0.7);
+          color: rgba(255,255,255,0.6);
           line-height: 1.8;
           text-align: start;
           white-space: pre-line;
@@ -1829,7 +1829,7 @@ const ResultScreen = ({
         .toggle-button {
           background: none;
           border: none;
-          color: rgba(255,255,255,0.35);
+          color: rgba(255,255,255,0.2);
           padding: 4px 8px;
           border-radius: 0;
           font-size: 11px;
@@ -1840,7 +1840,7 @@ const ResultScreen = ({
 
         .toggle-button:hover {
           background: none;
-          color: rgba(255,255,255,0.5);
+          color: rgba(255,255,255,0.4);
         }
 
         .technique-card {
@@ -1888,7 +1888,7 @@ const ResultScreen = ({
         }
         .card-header .subtitle2 {
           font-size: 14px;
-          color: rgba(255,255,255,0.5);
+          color: rgba(255,255,255,0.4);
           text-align: center;
         }
 
@@ -1937,7 +1937,7 @@ const ResultScreen = ({
           font-size: 0.75rem;
           font-weight: 600;
           letter-spacing: 0.5px;
-          box-shadow: 0 2px 4px rgba(74, 106, 170, 0.3);
+          box-shadow: 0 2px 4px rgba(58, 122, 122, 0.3);
         }
 
         .loading-education {
@@ -1949,7 +1949,7 @@ const ResultScreen = ({
           width: 50px;
           height: 50px;
           border: 4px solid #f3f3f3;
-          border-top: 4px solid #4a6aaa;
+          border-top: 4px solid #3a7a7a;
           border-radius: 50%;
           animation: spin 1s linear infinite;
           margin: 0 auto 1rem auto;
@@ -1978,7 +1978,7 @@ const ResultScreen = ({
         }
 
         .technique-explanation p {
-          color: rgba(255,255,255,0.7);
+          color: rgba(255,255,255,0.6);
           line-height: 1.8;
           font-size: 13px;
           margin: 0 0 12px 0;
@@ -2011,12 +2011,12 @@ const ResultScreen = ({
           align-items: center;
           justify-content: center;
           gap: 6px;
-          color: rgba(255,255,255,0.7);
+          color: rgba(255,255,255,0.6);
           width: auto;
         }
 
         .btn-save-share {
-          color: #6a8ac4;
+          color: #6a9a9a;
           font-weight: 700;
         }
 
@@ -2025,19 +2025,19 @@ const ResultScreen = ({
         }
 
         .btn-gallery {
-          color: rgba(255,255,255,0.7);
+          color: rgba(255,255,255,0.6);
         }
 
         .btn-gallery:hover {
-          color: rgba(255,255,255,0.9);
+          color: rgba(255,255,255,0.8);
         }
 
         .btn-reset {
-          color: rgba(255,255,255,0.7);
+          color: rgba(255,255,255,0.6);
         }
 
         .btn-reset:hover {
-          color: rgba(255,255,255,0.9);
+          color: rgba(255,255,255,0.8);
         }
 
         /* Save/Share 팝업 메뉴 */
@@ -2090,7 +2090,7 @@ const ResultScreen = ({
           background: transparent;
           font-size: 14px;
           font-weight: 700;
-          color: #6a8ac4;
+          color: #6a9a9a;
           cursor: pointer;
           border-radius: 0;
           letter-spacing: 0.3px;
@@ -2107,7 +2107,7 @@ const ResultScreen = ({
         }
 
         .menu-cancel {
-          color: rgba(255, 255, 255, 0.5);
+          color: rgba(255,255,255,0.4);
           justify-content: center;
           font-size: 14px;
           font-weight: 500;
@@ -2126,14 +2126,14 @@ const ResultScreen = ({
         .retry-placeholder {
           width: 100%;
           aspect-ratio: 1 / 1;
-          background: rgba(255, 255, 255, 0.03);
+          background: rgba(255,255,255,0.08);
           border-radius: 16px;
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: center;
           gap: 12px;
-          border: 1px solid rgba(255, 255, 255, 0.06);
+          border: 1px solid rgba(255,255,255,0.08);
         }
 
         .placeholder-icon {
@@ -2146,14 +2146,14 @@ const ResultScreen = ({
         }
 
         .placeholder-text {
-          color: rgba(255, 255, 255, 0.35);
+          color: rgba(255,255,255,0.2);
           font-size: 14px;
         }
 
         .btn-retry-inline {
-          background: rgba(74, 106, 170, 0.12);
-          border: 1px solid rgba(74, 106, 170, 0.25);
-          color: #6a8ac4;
+          background: rgba(58, 122, 122, 0.12);
+          border: 1px solid rgba(58, 122, 122, 0.25);
+          color: #6a9a9a;
           padding: 8px 20px;
           border-radius: 20px;
           font-size: 12px;
@@ -2166,15 +2166,15 @@ const ResultScreen = ({
         }
 
         .btn-retry-inline:hover {
-          background: rgba(74, 106, 170, 0.2);
+          background: rgba(58, 122, 122, 0.2);
           transform: translateY(-1px);
         }
 
         .spinner-medium {
           width: 40px;
           height: 40px;
-          border: 3px solid rgba(74, 106, 170, 0.3);
-          border-top-color: #4a6aaa;
+          border: 3px solid rgba(58, 122, 122, 0.3);
+          border-top-color: #3a7a7a;
           border-radius: 50%;
           animation: spin 1s linear infinite;
         }
@@ -2182,7 +2182,7 @@ const ResultScreen = ({
         .spinner-small {
           width: 20px;
           height: 20px;
-          border: 2px solid rgba(255, 255, 255, 0.3);
+          border: 2px solid rgba(255,255,255,0.2);
           border-top-color: white;
           border-radius: 50%;
           animation: spin 1s linear infinite;
@@ -2235,9 +2235,9 @@ const ResultScreen = ({
           margin-right: auto;
         }
         .nav-btn {
-          background: rgba(255,255,255,0.1);
+          background: rgba(255,255,255,0.08);
           border: none;
-          color: rgba(255,255,255,0.7);
+          color: rgba(255,255,255,0.6);
           padding: 6px 10px;
           border-radius: 12px;
           font-size: 11px;
@@ -2262,10 +2262,10 @@ const ResultScreen = ({
           padding: 0;
         }
         .nav-dot.done {
-          background: rgba(74, 106, 170, 0.5);
+          background: rgba(58, 122, 122, 0.5);
         }
         .nav-dot.active {
-          background: #4a6aaa;
+          background: #3a7a7a;
           transform: scale(1.3);
         }
         .nav-dot:disabled {
@@ -2340,7 +2340,7 @@ const ResultScreen = ({
           padding: 20px;
         }
         .image-modal-card {
-          background: #1a1a1a;
+          background: #1a2a2f;
           border-radius: 16px;
           max-width: 500px;
           width: 100%;
@@ -2413,17 +2413,17 @@ const ResultScreen = ({
           align-items: center;
           justify-content: center;
           gap: 6px;
-          color: rgba(255,255,255,0.7);
+          color: rgba(255,255,255,0.6);
         }
         .image-modal-btn.save-share {
           background: none;
           border: none;
-          color: #6a8ac4;
+          color: #6a9a9a;
         }
         .image-modal-btn.gallery {
           background: none;
           border: none;
-          color: rgba(255,255,255,0.7);
+          color: rgba(255,255,255,0.6);
         }
 
       `}</style>

@@ -45,6 +45,7 @@ const App = () => {
   // 화면 상태: 'category' | 'photoStyle' | 'processing' | 'result' | 'addFunds' | 'menu'
   const [currentScreen, setCurrentScreen] = useState('category');
   const prevScreenRef = useRef('category');
+  const prevAddFundsRef = useRef('category');
   const [showGallery, setShowGallery] = useState(false);
   
   // 크레딧 상태 (Firestore 실시간 구독)
@@ -197,7 +198,7 @@ const App = () => {
           handleBackToCategory();
           break;
         case 'addFunds':
-          setCurrentScreen('category');
+          setCurrentScreen(prevAddFundsRef.current);
           break;
         case 'menu':
           setCurrentScreen(prevScreenRef.current);
@@ -365,6 +366,7 @@ const App = () => {
 
   // Add Funds 화면
   const handleGoToAddFunds = () => {
+    prevAddFundsRef.current = currentScreen;
     setCurrentScreen('addFunds');
   };
 
@@ -494,12 +496,12 @@ const App = () => {
 
           {currentScreen === 'addFunds' && (
             <AddFundsScreen
-              onBack={() => setCurrentScreen('category')}
+              onBack={() => setCurrentScreen(prevAddFundsRef.current)}
               userCredits={userCredits}
               userId={user?.uid}
               onPurchaseComplete={() => {
                 // 잔액은 Firestore onSnapshot이 자동 반영
-                setCurrentScreen('category');
+                setCurrentScreen(prevAddFundsRef.current);
               }}
               lang={lang}
             />

@@ -55,7 +55,7 @@ const styles = {
     gap: '8px',
     zIndex: 8000,
     cursor: 'pointer',
-    border: '1px solid rgba(255,255,255,0.1)',
+    border: '1px solid rgba(255,255,255,0.08)',
     minWidth: '160px',
     boxShadow: '0 4px 12px rgba(0,0,0,0.4)'
   },
@@ -73,7 +73,7 @@ const styles = {
     animation: 'tfm-spin 1s linear infinite'
   },
   text: {
-    color: 'rgba(255,255,255,0.9)',
+    color: 'rgba(255,255,255,0.8)',
     fontSize: '13px',
     fontWeight: '500'
   },

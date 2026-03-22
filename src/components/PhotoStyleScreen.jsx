@@ -57,10 +57,10 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
       selectLabel: ps.selectMovement,
       priceLabel: `$0.20/${ps.perTransform}`,
       fullTransformLabel: ps.movementsFullTransformLabel || '11 사조 전체 변환',
-      gradient: 'linear-gradient(135deg, #b8d4d4 0%, #4a7a7a 100%)',
-      boxShadow: '0 4px 15px rgba(74, 106, 170, 0.3)',
+      gradient: 'linear-gradient(135deg, #b8d4d4 0%, #5a9a8a 100%)',
+      boxShadow: '0 4px 15px rgba(58, 122, 122, 0.3)',
       color: '#0a2020',
-      accent: '#4a7a7a',
+      accent: '#5a9a8a',
       fullTransform: {
         id: 'movements-all',
         title: ps.movementsFullTitle,
@@ -404,7 +404,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
       {/* Header — 메인화면과 동일 */}
       <header className="style-header">
         <button className="menu-btn" onClick={() => onMenu?.()}>
-          <svg className="menu-icon-svg" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.45)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="28" height="28">
+          <svg className="menu-icon-svg" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="28" height="28">
             <circle cx="12" cy="8" r="4"/>
             <path d="M20 21a8 8 0 1 0-16 0"/>
           </svg>
@@ -553,7 +553,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
 
         .menu-label {
           font-size: 10px;
-          color: rgba(255,255,255,0.45);
+          color: rgba(255,255,255,0.4);
           font-weight: 600;
           letter-spacing: 0.5px;
         }
@@ -562,7 +562,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
           background: transparent;
           border: none;
           padding: 8px 0;
-          color: rgba(74,106,170,0.9);
+          color: rgba(58,122,122,0.9);
           font-size: 17px;
           font-weight: 600;
           cursor: pointer;
@@ -575,7 +575,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
 
         .photo-section {
           margin: 0 28px 8px;
-          background: #1a1a1a;
+          background: #1a2a2f;
           border-radius: 12px;
           height: 100px;
           display: flex;
@@ -637,7 +637,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
         .tab-back-btn {
           background: none;
           border: none;
-          color: rgba(255,255,255,0.5);
+          color: rgba(255,255,255,0.4);
           cursor: pointer;
           padding: 8px;
           display: flex;
@@ -665,7 +665,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
           background: none;
           border: none;
           border-bottom: 2px solid transparent;
-          color: rgba(255,255,255,0.35);
+          color: rgba(255,255,255,0.2);
           font-size: 14px;
           font-weight: 600;
           padding: 8px 12px;
@@ -837,7 +837,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
         }
 
         .per-transform-price {
-          color: rgba(255,255,255,0.5);
+          color: rgba(255,255,255,0.4);
           font-size: 13px;
         }
 
@@ -867,7 +867,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
           position: relative;
           width: 100%;
           aspect-ratio: 1;
-          background: #1a1a1a;
+          background: #1a2a2f;
         }
 
         .style-thumb img {
@@ -910,7 +910,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
         }
 
         .subscription-info p {
-          color: rgba(255,255,255,0.45);
+          color: rgba(255,255,255,0.4);
           font-size: 14px;
           margin: 0;
         }

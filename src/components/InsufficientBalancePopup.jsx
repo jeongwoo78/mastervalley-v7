@@ -29,7 +29,7 @@ const InsufficientBalancePopup = ({
     <div className="popup-overlay" onClick={onClose}>
       <div className="popup-card" onClick={(e) => e.stopPropagation()}>
         <div className="popup-icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/>
             <path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/>
             <path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/>
@@ -85,7 +85,7 @@ const InsufficientBalancePopup = ({
           width: 64px;
           height: 64px;
           border-radius: 50%;
-          background: #2a2a2a;
+          background: #2a3a3f;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -118,10 +118,10 @@ const InsufficientBalancePopup = ({
 
         .popup-recommend {
           padding: 16px;
-          background: #2a2a2a;
+          background: #2a3a3f;
           border-radius: 14px;
           margin-bottom: 24px;
-          border: 1px solid #4a6aaa;
+          border: 1px solid #3a7a7a;
           cursor: pointer;
           transition: background 0.2s;
         }
@@ -160,12 +160,12 @@ const InsufficientBalancePopup = ({
         }
 
         .popup-btn.primary {
-          color: #6a8ac4;
+          color: #6a9a9a;
           font-weight: 600;
         }
 
         .popup-btn.secondary {
-          color: rgba(255,255,255,0.5);
+          color: rgba(255,255,255,0.4);
           font-weight: 500;
         }
 

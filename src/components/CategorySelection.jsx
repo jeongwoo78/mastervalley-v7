@@ -19,7 +19,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
       name: t.westernArt,
       description: t.westernArtDesc,
       thumbnail: movementsThumbnail,
-      accent: '#4a7a7a'
+      accent: '#5a9a8a'
     },
     {
       id: 'masters',
@@ -53,7 +53,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
       {/* Header */}
       <header className="main-header">
         <button className="menu-btn" onClick={handleMenuClick}>
-          <svg className="menu-icon-svg" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.45)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="28" height="28">
+          <svg className="menu-icon-svg" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="28" height="28">
             <circle cx="12" cy="8" r="4"/>
             <path d="M20 21a8 8 0 1 0-16 0"/>
           </svg>
@@ -198,7 +198,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
 
         .menu-label {
           font-size: 10px;
-          color: rgba(255,255,255,0.45);
+          color: rgba(255,255,255,0.4);
           font-weight: 600;
           letter-spacing: 0.5px;
         }
@@ -207,7 +207,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           background: transparent;
           border: none;
           padding: 8px 0;
-          color: rgba(74,106,170,0.9);
+          color: rgba(58,122,122,0.9);
           font-size: 17px;
           font-weight: 600;
           cursor: pointer;
@@ -242,16 +242,16 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           font-family: 'Cormorant Garamond', Georgia, serif;
           font-style: italic;
           font-weight: 300;
-          color: rgba(255,255,255,0.45);
+          color: rgba(255,255,255,0.4);
           font-size: 15px;
           margin: 0;
           letter-spacing: 0.5px;
         }
 
         .brand-sub-tagline {
-          color: rgba(255,255,255,0.3);
+          color: rgba(255,255,255,0.2);
           font-size: 13px;
-          margin: 6px 0 0;
+          margin: 6px 0 16px;
         }
 
         /* Category Grid */
@@ -261,16 +261,16 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           display: flex;
           flex-direction: column;
           justify-content: flex-start;
-          gap: 12px;
+          gap: 16px;
           position: relative;
           z-index: 1;
         }
 
         .category-card {
-          background: transparent;
+          background: #1a2a2f;
           border: none;
           border-radius: 12px;
-          padding: 8px 0;
+          padding: 8px 12px;
           min-height: 104px;
           display: flex;
           align-items: center;
@@ -281,7 +281,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
         }
 
         .category-card:hover {
-          background: rgba(255,255,255,0.05);
+          background: #2a3a3f;
         }
 
         .category-card:active {
@@ -345,7 +345,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
         }
 
         .subscription-info p {
-          color: rgba(255,255,255,0.45);
+          color: rgba(255,255,255,0.4);
           font-size: 14px;
           margin: 0 0 2px;
           text-align: center;

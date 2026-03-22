@@ -61,7 +61,7 @@ const LanguageScreen = ({ onBack, onSelect, currentLang = 'en' }) => {
           display: flex;
           align-items: center;
           padding: 16px 20px;
-          border-bottom: 1px solid #2a2a2a;
+          border-bottom: 1px solid #2a3a3f;
         }
 
         .back-btn {
@@ -96,7 +96,7 @@ const LanguageScreen = ({ onBack, onSelect, currentLang = 'en' }) => {
           display: flex;
           align-items: center;
           padding: 16px;
-          background: #1a1a1a;
+          background: #1a2a2f;
           border-radius: 12px;
           margin-bottom: 10px;
           cursor: pointer;
@@ -109,12 +109,12 @@ const LanguageScreen = ({ onBack, onSelect, currentLang = 'en' }) => {
         }
 
         .language-item:active {
-          background: #2a2a2a;
+          background: #2a3a3f;
         }
 
         .language-item.active {
-          border-color: #4a6aaa;
-          background: rgba(74, 106, 170, 0.1);
+          border-color: #3a7a7a;
+          background: rgba(58, 122, 122, 0.1);
         }
 
         .lang-flag {
@@ -141,7 +141,7 @@ const LanguageScreen = ({ onBack, onSelect, currentLang = 'en' }) => {
         }
 
         .lang-check {
-          color: #6a8ac4;
+          color: #6a9a9a;
           font-size: 20px;
           font-weight: bold;
         }

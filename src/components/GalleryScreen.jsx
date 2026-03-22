@@ -561,7 +561,7 @@ const GalleryScreen = ({ onBack, onHome, lang = 'en' }) => {
       {galleryItems.length === 0 ? (
         <div style={styles.empty}>
           <div className="gallery-empty-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
               <circle cx="8.5" cy="8.5" r="1.5"/>
               <polyline points="21 15 16 10 5 21"/>
@@ -599,7 +599,7 @@ const GalleryScreen = ({ onBack, onHome, lang = 'en' }) => {
                   {display.title}
                 </span>
                 {display.subtitle && (
-                  <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)' }}>{display.subtitle}</span>
+                  <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.4)' }}>{display.subtitle}</span>
                 )}
                 <span style={styles.date}>{formatDate(item.createdAt)}</span>
               </div>
@@ -686,7 +686,7 @@ const animationStyle = `
   .gallery-empty-icon {
     width: 48px;
     height: 48px;
-    border: 2px solid rgba(255,255,255,0.15);
+    border: 2px solid rgba(255,255,255,0.08);
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -705,7 +705,7 @@ const animationStyle = `
   }
   
   .gallery-item {
-    background: rgba(255,255,255,0.05);
+    background: rgba(255,255,255,0.08);
     border-radius: 10px;
     overflow: hidden;
     cursor: pointer;
@@ -714,11 +714,11 @@ const animationStyle = `
   
   .gallery-item:hover {
     transform: scale(1.02);
-    box-shadow: 0 8px 25px rgba(74, 106, 170, 0.3);
+    box-shadow: 0 8px 25px rgba(58, 122, 122, 0.3);
   }
   
   .gallery-item.selected {
-    outline: 2px solid #4a6aaa;
+    outline: 2px solid #3a7a7a;
     outline-offset: -2px;
   }
   
@@ -729,7 +729,7 @@ const animationStyle = `
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    border: 2px solid rgba(255,255,255,0.5);
+    border: 2px solid rgba(255,255,255,0.4);
     background: rgba(0,0,0,0.3);
     display: flex;
     align-items: center;
@@ -741,8 +741,8 @@ const animationStyle = `
   }
   
   .select-checkbox.checked {
-    background: #4a6aaa;
-    border-color: #4a6aaa;
+    background: #3a7a7a;
+    border-color: #3a7a7a;
     color: white;
   }
   
@@ -806,7 +806,7 @@ const animationStyle = `
     padding: 0;
     border: none;
     background: none;
-    color: rgba(255,255,255,0.5);
+    color: rgba(255,255,255,0.4);
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
@@ -824,7 +824,7 @@ const animationStyle = `
     padding: 0;
     border: none;
     background: none;
-    color: rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.2);
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
@@ -879,7 +879,7 @@ const styles = {
   homeButtonClean: {
     background: 'none',
     border: 'none',
-    color: 'rgba(255,255,255,0.7)',
+    color: 'rgba(255,255,255,0.6)',
     padding: '8px',
     cursor: 'pointer',
     display: 'flex',
@@ -911,7 +911,7 @@ const styles = {
   selectButton: {
     background: 'none',
     border: 'none',
-    color: '#6a8ac4',
+    color: '#6a9a9a',
     padding: '4px 0',
     cursor: 'pointer',
     fontSize: '14px',
@@ -919,7 +919,7 @@ const styles = {
   },
   
   notice: {
-    background: 'rgba(255,255,255,0.1)',
+    background: 'rgba(255,255,255,0.08)',
     borderRadius: '8px',
     padding: '12px 16px',
     marginBottom: '20px',
@@ -929,7 +929,7 @@ const styles = {
   
   countText: {
     margin: '8px 0 0',
-    color: 'rgba(255,255,255,0.5)',
+    color: 'rgba(255,255,255,0.4)',
     fontWeight: '600',
   },
   
@@ -976,7 +976,7 @@ const styles = {
   
   emptySubtext: {
     fontSize: '13px',
-    color: 'rgba(255,255,255,0.3)',
+    color: 'rgba(255,255,255,0.2)',
     margin: 0,
   },
   
@@ -987,7 +987,7 @@ const styles = {
   },
   
   gridItem: {
-    background: 'rgba(255,255,255,0.05)',
+    background: 'rgba(255,255,255,0.08)',
     borderRadius: '12px',
     overflow: 'hidden',
     cursor: 'pointer',
@@ -1012,7 +1012,7 @@ const styles = {
   styleName: {
     fontSize: '14px',
     fontWeight: '700',
-    color: 'rgba(255,255,255,0.85)',
+    color: 'rgba(255,255,255,0.8)',
   },
   
   date: {
@@ -1021,7 +1021,7 @@ const styles = {
   },
 
   reText: {
-    color: 'rgba(255,255,255,0.5)',
+    color: 'rgba(255,255,255,0.4)',
     fontSize: '11px',
     fontWeight: '600',
     opacity: 0.7,
@@ -1043,7 +1043,7 @@ const styles = {
   },
   
   modalContent: {
-    background: '#1a1a1a',
+    background: '#1a2a2f',
     borderRadius: '16px',
     maxWidth: '500px',
     width: '100%',
@@ -1058,7 +1058,7 @@ const styles = {
     right: '10px',
     background: 'rgba(0,0,0,0.5)',
     border: 'none',
-    color: 'rgba(255,255,255,0.7)',
+    color: 'rgba(255,255,255,0.6)',
     width: '36px',
     height: '36px',
     borderRadius: '50%',
@@ -1087,7 +1087,7 @@ const styles = {
   modalDate: {
     margin: 0,
     fontSize: '11px',
-    color: 'rgba(255,255,255,0.3)',
+    color: 'rgba(255,255,255,0.2)',
   },
   
   modalCategory: {
@@ -1107,7 +1107,7 @@ const styles = {
   saveShareButton: {
     background: 'none',
     border: 'none',
-    color: '#6a8ac4',
+    color: '#6a9a9a',
     padding: '8px 4px',
     borderRadius: '0',
     cursor: 'pointer',
@@ -1164,7 +1164,7 @@ const styles = {
     padding: '16px 40px',
     border: 'none',
     background: 'transparent',
-    color: '#6a8ac4',
+    color: '#6a9a9a',
     fontSize: '14px',
     fontWeight: '700',
     cursor: 'pointer',
@@ -1179,7 +1179,7 @@ const styles = {
   },
   
   menuCancel: {
-    color: 'rgba(255,255,255,0.5)',
+    color: 'rgba(255,255,255,0.4)',
     justifyContent: 'center',
     fontSize: '14px',
     fontWeight: '500',
@@ -1204,7 +1204,7 @@ const modalStyles = {
     padding: '20px',
   },
   modalContent: {
-    background: '#1a1a1a',
+    background: '#1a2a2f',
     borderRadius: '16px',
     maxWidth: '500px',
     width: '100%',
@@ -1259,9 +1259,9 @@ const modalStyles = {
   },
   saveShareButton: {
     flex: 1,
-    background: 'rgba(74,106,170,0.15)',
-    border: '1px solid rgba(74,106,170,0.3)',
-    color: 'rgba(255,255,255,0.5)',
+    background: 'rgba(58,122,122,0.15)',
+    border: '1px solid rgba(58,122,122,0.3)',
+    color: 'rgba(255,255,255,0.4)',
     padding: '14px',
     borderRadius: '10px',
     cursor: 'pointer',

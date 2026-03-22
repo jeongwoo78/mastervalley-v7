@@ -160,8 +160,8 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
                 style={{
                   ...s.dot,
                   background: i === currentSlide
-                    ? 'rgba(255,255,255,0.85)'
-                    : 'rgba(255,255,255,0.3)',
+                    ? 'rgba(255,255,255,0.8)'
+                    : 'rgba(255,255,255,0.2)',
                 }}
               />
             ))}
@@ -195,7 +195,7 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
 
         {/* Apple */}
         <button style={{ ...s.socialBtn, flexDirection: isRTL ? 'row-reverse' : 'row', marginBottom: 8, opacity: loading ? 0.6 : 1 }} onClick={handleAppleLogin} disabled={loading}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="rgba(255,255,255,0.7)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="rgba(255,255,255,0.6)">
             <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
           </svg>
           {t.continueWithApple}
@@ -210,29 +210,29 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
             type="email" placeholder={t.email} value={email} required
             onChange={(e) => setEmail(e.target.value)}
             style={{ ...s.input, textAlign: isRTL ? 'right' : 'left' }}
-            onFocus={(e) => e.target.style.borderBottomColor = 'rgba(255,255,255,0.3)'}
-            onBlur={(e)  => e.target.style.borderBottomColor = 'rgba(255,255,255,0.09)'}
+            onFocus={(e) => e.target.style.borderBottomColor = 'rgba(255,255,255,0.2)'}
+            onBlur={(e)  => e.target.style.borderBottomColor = 'rgba(255,255,255,0.08)'}
           />
           <div style={s.passwordWrap}>
             <input
               type={showPassword ? 'text' : 'password'} placeholder={t.password} value={password} required minLength={6}
               onChange={(e) => setPassword(e.target.value)}
               style={{ ...s.input, textAlign: isRTL ? 'right' : 'left', marginBottom: 0 }}
-              onFocus={(e) => e.target.style.borderBottomColor = 'rgba(255,255,255,0.3)'}
-              onBlur={(e)  => e.target.style.borderBottomColor = 'rgba(255,255,255,0.09)'}
+              onFocus={(e) => e.target.style.borderBottomColor = 'rgba(255,255,255,0.2)'}
+              onBlur={(e)  => e.target.style.borderBottomColor = 'rgba(255,255,255,0.08)'}
             />
             <span
               style={{ ...s.eyeIcon, [isRTL ? 'left' : 'right']: '4px' }}
               onClick={() => setShowPassword(!showPassword)}
             >
               {showPassword ? (
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
                   <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
                   <line x1="1" y1="1" x2="23" y2="23"/>
                 </svg>
               ) : (
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
                   <circle cx="12" cy="12" r="3"/>
                 </svg>
@@ -327,7 +327,7 @@ const s = {
     fontWeight: 500,
     letterSpacing: '1.5px',
     textTransform: 'uppercase',
-    color: 'rgba(255,255,255,0.85)',
+    color: 'rgba(255,255,255,0.8)',
     background: 'rgba(0,0,0,0.45)',
     padding: '3px 10px',
     borderRadius: '4px',
@@ -354,17 +354,17 @@ const s = {
   devMsg: {
     fontSize: '14px',
     lineHeight: 1.7,
-    color: 'rgba(255,255,255,0.5)',
+    color: 'rgba(255,255,255,0.4)',
     marginBottom: '16px',
     fontFamily: "'DM Sans', -apple-system, sans-serif",
     fontWeight: 500,
   },
   devMsgHi: {
-    color: 'rgba(74,106,170,0.75)',
+    color: 'rgba(58,122,122,0.75)',
     fontWeight: 600,
   },
   devMsgSign: {
-    color: 'rgba(255,255,255,0.35)',
+    color: 'rgba(255,255,255,0.2)',
     fontWeight: 500,
     fontStyle: 'italic',
     display: 'block',
@@ -376,7 +376,7 @@ const s = {
     width: '100%',
     height: '50px',
     background: 'transparent',
-    border: '1px solid rgba(255,255,255,0.12)',
+    border: '1px solid rgba(255,255,255,0.08)',
     borderRadius: '8px',
     display: 'flex',
     alignItems: 'center',
@@ -384,14 +384,14 @@ const s = {
     padding: '0 16px',
     fontFamily: "'DM Sans', -apple-system, sans-serif",
     fontSize: '14px',
-    color: 'rgba(255,255,255,0.7)',
+    color: 'rgba(255,255,255,0.6)',
     cursor: 'pointer',
     marginBottom: '8px',
   },
   divider: {
     width: '100%',
     height: '1px',
-    background: 'rgba(255,255,255,0.05)',
+    background: 'rgba(255,255,255,0.08)',
     marginBottom: '10px',
   },
   form: {
@@ -404,7 +404,7 @@ const s = {
     height: '44px',
     background: 'transparent',
     border: 'none',
-    borderBottom: '1px solid rgba(255,255,255,0.09)',
+    borderBottom: '1px solid rgba(255,255,255,0.08)',
     padding: '0 4px',
     fontSize: '14px',
     color: '#fff',
@@ -450,7 +450,7 @@ const s = {
   },
   signupLink: {
     fontSize: '13px',
-    color: 'rgba(255,255,255,0.35)',
+    color: 'rgba(255,255,255,0.2)',
     cursor: 'pointer',
     textDecoration: 'underline',
     textUnderlineOffset: '3px',

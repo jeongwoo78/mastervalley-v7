@@ -235,7 +235,7 @@ const MenuScreen = ({
                 >
                   <span className="lang-dash">-</span>
                   <span className="lang-name" style={{
-                    color: isSelected ? '#fff' : isActive ? 'rgba(255,255,255,0.85)' : '#444',
+                    color: isSelected ? '#fff' : isActive ? 'rgba(255,255,255,0.8)' : '#444',
                   }}>{l.native}</span>
                   {isSelected && <span className="lang-check"><IconCheck /></span>}
                   {!isActive && !isSelected && <span className="lang-soon">soon</span>}
@@ -315,7 +315,7 @@ const menuStyles = `
     display: flex;
     align-items: center;
     padding: 16px 20px;
-    border-bottom: 1px solid #2a2a2a;
+    border-bottom: 1px solid #2a3a3f;
   }
   .back-btn {
     background: none;
@@ -342,14 +342,14 @@ const menuStyles = `
     align-items: center;
     gap: 12px;
     padding: 14px 16px;
-    background: #1a1a1a;
+    background: #1a2a2f;
     border-radius: 12px;
     margin-bottom: 12px;
     cursor: pointer;
     transition: background 0.2s;
   }
   .menu-item-svg:hover { background: #222; }
-  .menu-item-svg:active { background: #2a2a2a; }
+  .menu-item-svg:active { background: #2a3a3f; }
   .menu-item-svg.accordion-open {
     margin-bottom: 0;
     border-radius: 12px 12px 0 0;
@@ -370,7 +370,7 @@ const menuStyles = `
     transition: transform 0.2s;
   }
   .menu-chevron-svg.open { transform: rotate(90deg); }
-  .menu-divider { height: 1px; background: #2a2a2a; margin: 12px 0; }
+  .menu-divider { height: 1px; background: #2a3a3f; margin: 12px 0; }
   .menu-item-svg.danger .menu-label { color: #ef4444; }
 
   .lang-accordion {
@@ -378,7 +378,7 @@ const menuStyles = `
     border-radius: 0 0 12px 12px;
     margin-bottom: 10px;
     overflow: hidden;
-    border-top: 1px solid #2a2a2a;
+    border-top: 1px solid #2a3a3f;
   }
   .lang-option {
     display: flex;
@@ -387,13 +387,13 @@ const menuStyles = `
     cursor: pointer;
     transition: background 0.2s;
   }
-  .lang-option:hover { background: rgba(255,255,255,0.05); }
-  .lang-option.active { background: rgba(74, 106, 170, 0.1); }
+  .lang-option:hover { background: rgba(255,255,255,0.08); }
+  .lang-option.active { background: rgba(58, 122, 122, 0.1); }
   .lang-option.inactive:hover { background: transparent; }
-  .lang-dash { color: rgba(255,255,255,0.3); font-size: 14px; margin-inline-end: 10px; }
-  .lang-option.inactive .lang-dash { color: rgba(255,255,255,0.12); }
-  .lang-name { color: rgba(255,255,255,0.85); font-size: 14px; flex: 1; }
-  .lang-check { color: #6a8ac4; display: flex; }
+  .lang-dash { color: rgba(255,255,255,0.2); font-size: 14px; margin-inline-end: 10px; }
+  .lang-option.inactive .lang-dash { color: rgba(255,255,255,0.08); }
+  .lang-name { color: rgba(255,255,255,0.8); font-size: 14px; flex: 1; }
+  .lang-check { color: #6a9a9a; display: flex; }
   .lang-soon { font-size: 10px; color: #333; font-style: italic; }
 
   .support-accordion {
@@ -401,15 +401,15 @@ const menuStyles = `
     border-radius: 0 0 12px 12px;
     margin-bottom: 10px;
     overflow: hidden;
-    border-top: 1px solid #2a2a2a;
+    border-top: 1px solid #2a3a3f;
   }
   .support-option {
     padding: 12px 16px 12px 48px;
     cursor: pointer;
     transition: background 0.2s;
   }
-  .support-option:hover { background: rgba(255,255,255,0.05); }
-  .support-text { color: rgba(255,255,255,0.7); font-size: 14px; }
+  .support-option:hover { background: rgba(255,255,255,0.08); }
+  .support-text { color: rgba(255,255,255,0.6); font-size: 14px; }
 
   .about-app-info {
     display: flex;
@@ -423,11 +423,11 @@ const menuStyles = `
   .about-credits {
     margin-top: 16px;
     padding: 14px 16px;
-    background: #1a1a1a;
+    background: #1a2a2f;
     border-radius: 12px;
   }
   .about-credits-title { display: block; color: #888; font-size: 12px; margin-bottom: 6px; }
-  .about-credits-text { display: block; color: rgba(255,255,255,0.5); font-size: 11px; line-height: 1.5; }
+  .about-credits-text { display: block; color: rgba(255,255,255,0.4); font-size: 11px; line-height: 1.5; }
 
   .legal-scroll {
     flex: 1;
@@ -435,7 +435,7 @@ const menuStyles = `
     padding: 16px 20px 40px;
     -webkit-overflow-scrolling: touch;
   }
-  .legal-updated { color: rgba(255,255,255,0.35); font-size: 12px; margin-bottom: 20px; }
+  .legal-updated { color: rgba(255,255,255,0.2); font-size: 12px; margin-bottom: 20px; }
   .legal-section { margin-bottom: 20px; }
   .legal-title { color: #fff; font-size: 14px; font-weight: 600; margin-bottom: 6px; }
   .legal-text { color: rgba(255,255,255,0.6); font-size: 13px; line-height: 1.65; }

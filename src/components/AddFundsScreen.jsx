@@ -200,13 +200,13 @@ const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, l
           justify-content: space-between;
           align-items: center;
           padding: 16px 18px;
-          background: #1a1a1a;
+          background: #1a2a2f;
           border-radius: 14px;
         }
 
         .pack-item.featured {
-          border: 1.5px solid #4a6aaa;
-          background: #1a1a1a;
+          border: 1.5px solid #3a7a7a;
+          background: #1a2a2f;
         }
 
         .pack-info {
@@ -256,13 +256,13 @@ const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, l
           display: block;
           margin-top: 4px;
           font-size: 12px;
-          color: rgba(255,255,255,0.85);
+          color: rgba(255,255,255,0.8);
           font-style: italic;
         }
 
         .pack-price-btn {
           padding: 12px 18px;
-          background: #4a6aaa;
+          background: #3a7a7a;
           border: none;
           border-radius: 10px;
           color: #fff;
@@ -287,7 +287,7 @@ const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, l
         }
 
         .info-text p {
-          color: rgba(255,255,255,0.45);
+          color: rgba(255,255,255,0.4);
           font-size: 14px;
           margin: 0;
           line-height: 1.6;
