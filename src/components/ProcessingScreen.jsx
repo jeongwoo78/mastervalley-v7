@@ -532,7 +532,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           </>
         )}
 
-        {/* ===== 단일 변환 모드 (이모지 35%, 진행 표시 하단 고정) ===== */}
+        {/* ===== 단일 변환 모드 (이모지 → 진행바 → 제목 → 교육) ===== */}
         {!isFullTransform && showEducation && (
           <div className="single-loading-container">
             {/* 이모지 아이콘 - 35% 고정 */}
@@ -540,7 +540,18 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
               {getStyleIcon(selectedStyle?.category, selectedStyle?.id, selectedStyle?.name)}
             </div>
             
-            {/* 콘텐츠 - 이모지 아래 */}
+            {/* 진행바 - 이모지 바로 아래 */}
+            <div className="progress-section">
+              <div className="progress-status">
+                <div className="spinner"></div>
+                <p>{statusText}</p>
+              </div>
+              <div className="progress-bar">
+                <div className="progress-fill single-anim"></div>
+              </div>
+            </div>
+            
+            {/* 콘텐츠 - 진행바 아래 */}
             <div className="single-loading-content">
               {/* 제목 + 부제 (가운데 정렬) */}
               <div className="single-loading-title">
@@ -562,17 +573,6 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
                   <p>{getSingleEducationContent(selectedStyle).desc}</p>
                 </div>
               )}
-            </div>
-            
-            {/* 하단: 상태 + 프로그레스 바 (원클릭과 동일) */}
-            <div className="progress-section">
-              <div className="progress-status">
-                <div className="spinner"></div>
-                <p>{statusText}</p>
-              </div>
-              <div className="progress-bar">
-                <div className="progress-fill single-anim"></div>
-              </div>
             </div>
           </div>
         )}
@@ -688,6 +688,10 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           margin-top: 4px;
           padding: 0 0 0;
         }
+        .single-loading-container .progress-section {
+          margin-top: 0;
+          padding: 0;
+        }
         .progress-status {
           display: flex;
           align-items: center;
@@ -780,6 +784,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         .single-loading-icon {
           margin-top: 25vh;
           font-size: 56px;
+          margin-bottom: 4px;
         }
         .single-loading-content {
           width: 100%;
@@ -787,7 +792,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           display: flex;
           flex-direction: column;
           align-items: center;
-          margin-top: 16px;
+          margin-top: 32px;
         }
         .single-loading-title {
           width: 100%;
