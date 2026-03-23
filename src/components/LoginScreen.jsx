@@ -360,7 +360,7 @@ const s = {
     fontWeight: 500,
   },
   devMsgHi: {
-    color: 'rgba(58,122,122,0.75)',
+    color: 'rgba(150,100,200,0.75)',
     fontWeight: 600,
   },
   devMsgSign: {

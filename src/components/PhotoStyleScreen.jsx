@@ -30,7 +30,7 @@ import korean from '../assets/thumbnails/oriental/korean.webp';
 import chinese from '../assets/thumbnails/oriental/chinese.webp';
 import japanese from '../assets/thumbnails/oriental/japanese.webp';
 
-const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, userCredits = 0, lang = 'en' }) => {
+const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, onCategoryChange, userCredits = 0, lang = 'en' }) => {
   const fileInputRef = useRef(null);
   const [photo, setPhoto] = useState(null);
   const [photoPreview, setPhotoPreview] = useState(null);
@@ -224,8 +224,9 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
       setSelectedStyle(null); // 카테고리 전환 시 선택 해제
     }
     setActiveCategory(categoryOrder[clamped]);
+    onCategoryChange?.(categoryOrder[clamped]);
     const _dir2 = lang === 'ar' ? 1 : -1; setTrackTransform(_dir2 * clamped * PAGE_W_REF.current, true);
-  }, [activeCategory, setTrackTransform]);
+  }, [activeCategory, setTrackTransform, onCategoryChange]);
 
   const handleTouchStart = useCallback((e) => {
     const t = e.touches[0];

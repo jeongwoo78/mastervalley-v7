@@ -527,6 +527,7 @@ const App = () => {
               onSelect={handlePhotoStyleSelect}
               onMenu={handleGoToMenu}
               onAddFunds={handleGoToAddFunds}
+              onCategoryChange={setMainCategory}
               userCredits={userCredits}
               lang={lang}
             />
