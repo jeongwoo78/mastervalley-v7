@@ -11,6 +11,7 @@ import PhotoStyleScreen from './components/PhotoStyleScreen';
 import ProcessingScreen from './components/ProcessingScreen';
 import ResultScreen from './components/ResultScreen';
 import GalleryScreen from './components/GalleryScreen';
+import { saveToGallery } from './components/GalleryScreen';
 import AddFundsScreen from './components/AddFundsScreen';
 import MenuScreen from './components/MenuScreen';
 // LanguageScreen removed - 메뉴 아코디언에서 직접 변경
@@ -45,7 +46,6 @@ const App = () => {
   // 화면 상태: 'category' | 'photoStyle' | 'processing' | 'result' | 'addFunds' | 'menu'
   const [currentScreen, setCurrentScreen] = useState('category');
   const prevScreenRef = useRef('category');
-  const prevAddFundsRef = useRef('category');
   const [showGallery, setShowGallery] = useState(false);
   
   // 크레딧 상태 (Firestore 실시간 구독)
@@ -78,6 +78,9 @@ const App = () => {
   const [currentMasterIndex, setCurrentMasterIndex] = useState(0);
   const [masterResultImages, setMasterResultImages] = useState({});
   const [retransformingMasters, setRetransformingMasters] = useState({});
+  
+  // 현재 ProcessingScreen이 추적 중인 transformId (백그라운드 핸들러에서 skip용)
+  const [currentTransformIds, setCurrentTransformIds] = useState(new Set());
 
   // 앱 시작 시 저장된 언어 로드
   useEffect(() => {
@@ -191,14 +194,15 @@ const App = () => {
           setFullTransformResults(null);
           break;
         case 'processing':
-          // 변환 중 → 스타일 선택 (서버에서 계속 진행, 완료 시 푸시 알림)
+          // 변환 중 → 스타일 선택 (서버에서 계속 진행, 완료 시 백그라운드 저장)
+          setCurrentTransformIds(new Set());
           setCurrentScreen('photoStyle');
           break;
         case 'photoStyle':
           handleBackToCategory();
           break;
         case 'addFunds':
-          setCurrentScreen(prevAddFundsRef.current);
+          setCurrentScreen('category');
           break;
         case 'menu':
           setCurrentScreen(prevScreenRef.current);
@@ -216,6 +220,60 @@ const App = () => {
       backHandler.then(h => h.remove());
     };
   }, [currentScreen, showGallery, showInsufficientPopup, showAiConsent]);
+
+  // ========================================
+  // 백그라운드 변환 완료 처리
+  // ProcessingScreen 밖에서 완료된 변환 → 자동 다운로드 + 갤러리 저장
+  // ========================================
+  const autoSavedRef = useRef(new Set());
+  
+  useEffect(() => {
+    const unsub = transformManager.subscribe(async (all) => {
+      const completed = all.filter(e => 
+        e.status === 'completed' && 
+        e.resultUrl && 
+        !autoSavedRef.current.has(e.transformId) &&
+        !currentTransformIds.has(e.transformId)  // ProcessingScreen이 추적 중인 건 skip
+      );
+      
+      for (const entry of completed) {
+        autoSavedRef.current.add(entry.transformId);
+        
+        try {
+          // 이미지 다운로드
+          const imageResponse = await fetch(entry.resultUrl);
+          const blob = await imageResponse.blob();
+          const localUrl = URL.createObjectURL(blob);
+          
+          // 갤러리 자동 저장
+          const metadata = entry.metadata || {};
+          const style = metadata.selectedStyle || {};
+          await saveToGallery(localUrl, {
+            category: style.category || '',
+            artistName: entry.selectedArtist || style.name || 'Converted Image',
+            movementName: style.name || '',
+            workName: entry.selectedWork || null,
+            styleId: style.id || '',
+            isRetransform: false
+          });
+          
+          console.log(`📦 백그라운드 갤러리 저장: ${entry.transformId} (${entry.selectedArtist || style.name})`);
+          
+          // blob URL 해제
+          URL.revokeObjectURL(localUrl);
+        } catch (err) {
+          console.error(`❌ 백그라운드 저장 실패: ${entry.transformId}`, err);
+        }
+        
+        // transformManager에서 제거 (2초 딜레이 — 배너에서 "완료" 확인 가능)
+        setTimeout(() => {
+          transformManager.remove(entry.transformId);
+        }, 2000);
+      }
+    });
+    
+    return unsub;
+  }, [currentTransformIds]);
 
   // 로그인 성공
   const handleLoginSuccess = (loggedInUser) => {
@@ -289,6 +347,8 @@ const App = () => {
 
   // 변환 완료 → 크레딧 차감 + 화면 전환
   const handleProcessingComplete = async (style, resultImageUrl, result) => {
+    // ProcessingScreen 추적 ID 해제 → 백그라운드 핸들러 활성화
+    setCurrentTransformIds(new Set());
     // 성공한 변환에 대해 크레딧 차감
     const isSuccess = result?.isFullTransform 
       ? result.results?.some(r => r.success)  // 원클릭: 1개라도 성공
@@ -366,7 +426,6 @@ const App = () => {
 
   // Add Funds 화면
   const handleGoToAddFunds = () => {
-    prevAddFundsRef.current = currentScreen;
     setCurrentScreen('addFunds');
   };
 
@@ -436,13 +495,12 @@ const App = () => {
 
   return (
     <div className="app" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
-      {/* 동시다중 변환 배너 */}
-      {currentScreen !== 'processing' && (
-        <TransformBanner 
-          onTapGallery={() => setShowGallery(true)} 
-          lang={lang} 
-        />
-      )}
+      {/* 동시다중 변환 배너 (항상 표시 — 내부에서 0건이면 자동 숨김) */}
+      <TransformBanner 
+        onTapGallery={() => setShowGallery(true)} 
+        excludeIds={currentTransformIds}
+        lang={lang} 
+      />
       {/* AI 데이터 처리 동의 팝업 */}
       {showAiConsent && (
         <div className="ai-consent-overlay" onClick={() => {}}>
@@ -496,12 +554,12 @@ const App = () => {
 
           {currentScreen === 'addFunds' && (
             <AddFundsScreen
-              onBack={() => setCurrentScreen(prevAddFundsRef.current)}
+              onBack={() => setCurrentScreen('category')}
               userCredits={userCredits}
               userId={user?.uid}
               onPurchaseComplete={() => {
                 // 잔액은 Firestore onSnapshot이 자동 반영
-                setCurrentScreen(prevAddFundsRef.current);
+                setCurrentScreen('category');
               }}
               lang={lang}
             />
@@ -527,7 +585,6 @@ const App = () => {
               onSelect={handlePhotoStyleSelect}
               onMenu={handleGoToMenu}
               onAddFunds={handleGoToAddFunds}
-              onCategoryChange={setMainCategory}
               userCredits={userCredits}
               lang={lang}
             />
@@ -538,6 +595,7 @@ const App = () => {
               photo={uploadedPhoto}
               selectedStyle={selectedStyle}
               onComplete={handleProcessingComplete}
+              onTransformStarted={(id) => setCurrentTransformIds(prev => new Set(prev).add(id))}
               lang={lang}
             />
           )}

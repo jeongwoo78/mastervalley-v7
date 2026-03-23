@@ -22,7 +22,7 @@ import {
 import { normalizeKey, getDisplayInfo, getArtistName, getMovementDisplayInfo, getOrientalDisplayInfo, getMasterInfo, getCategoryIcon, getStyleIcon, getStyleTitle, getStyleSubtitle, getStyleSubtitles } from '../utils/displayConfig';
 import { getEducationKey, getEducationContent } from '../utils/educationMatcher';
 
-const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => {
+const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted, lang = 'en' }) => {
   // i18n texts from ui.js
   const t = getUi(lang).processing;
   const tPhotoStyle = getUi(lang).photoStyle;
@@ -54,11 +54,17 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
   const totalCount = styles.length;
 
   const startedRef = useRef(false);
+  const cancelledRef = useRef(false);
 
   useEffect(() => {
     if (startedRef.current) return;  // StrictMode 이중 실행 방지
     startedRef.current = true;
     startProcess();
+    
+    // unmount 시 좀비 콜백 방지
+    return () => {
+      cancelledRef.current = true;
+    };
   }, []);
 
   // ========== 메인 프로세스 ==========
@@ -72,9 +78,11 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
       setStatusLeft(leftLabel);
       setStatusText(t.analyzing);
       await sleep(1500);
+      if (cancelledRef.current) return;  // 화면 이탈 시 중단
       
       const results = [];
       for (let i = 0; i < styles.length; i++) {
+        if (cancelledRef.current) return;  // 화면 이탈 시 중단
         const style = styles[i];
         // 진행 메시지: displayConfig에서 적절한 이름 가져오기
         const progressName = style.name;  // 진행바: 이름만 (연도 제외)
@@ -101,6 +109,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
       setStatusText(`${t.done} ${totalCount} ${categoryLabel2}`);
       await sleep(1000);
       
+      if (cancelledRef.current) return;  // 화면 이탈 시 중단
       onComplete(selectedStyle, results, { isFullTransform: true, category, results });
     } else {
       // 단일 변환 (v82: submitTransform + transformManager)
@@ -109,19 +118,27 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
       if (eduContent) {
         setStatusText(t.analyzing);
       }
-      await sleep(1000);
       
-      // 비차단 제출 (transformManager에 자동 등록)
-      const submitResult = await submitTransform(photo, selectedStyle);
+      // 분석 표시 + 서버 제출 병렬 실행 (뒤로가기 시 즉시 배너 표시 가능)
+      const [, submitResult] = await Promise.all([
+        sleep(1000),
+        submitTransform(photo, selectedStyle)
+      ]);
+      if (cancelledRef.current) return;
       
       if (!submitResult.success) {
+        if (cancelledRef.current) return;
         setStatusText(`${t.error}: ${submitResult.error}`);
         await sleep(1500);
+        if (cancelledRef.current) return;
         onComplete(selectedStyle, null, { success: false, error: submitResult.error });
         return;
       }
       
       const transformId = submitResult.transformId;
+      
+      // App.jsx에 추적 ID 알림 (백그라운드 핸들러에서 skip하도록)
+      if (onTransformStarted) onTransformStarted(transformId);
       
       // v81 진행 텍스트
       const cat = selectedStyle.category;
@@ -131,9 +148,22 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         : `${styleName} ${t.inProgress}`;
       setStatusText(progressText);
       
-      // transformManager로 완료 대기
+      // transformManager로 완료 대기 (취소 감지 포함)
       const result = await new Promise((resolve) => {
+        // 이미 취소된 경우 즉시 resolve
+        if (cancelledRef.current) {
+          resolve({ cancelled: true });
+          return;
+        }
+        
         const unsub = transformManager.subscribe((all) => {
+          // 화면 이탈 시 구독 해제 + resolve
+          if (cancelledRef.current) {
+            unsub();
+            resolve({ cancelled: true });
+            return;
+          }
+          
           const entry = all.find(e => e.transformId === transformId);
           if (!entry) return;
           
@@ -160,6 +190,9 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         });
       });
       
+      // 취소된 경우 — transformManager에는 남겨둠 (배너에서 추적 계속)
+      if (result.cancelled || cancelledRef.current) return;
+      
       if (result.success) {
         // 이미지 다운로드
         setStatusText(t.downloading || t.done);
@@ -170,6 +203,8 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           
           setStatusText(`${t.done} ${selectedStyle.name}`);
           await sleep(1000);
+          
+          if (cancelledRef.current) return;  // 다운로드 후에도 체크
           
           // transformManager에서 제거 (ProcessingScreen이 처리 완료)
           transformManager.remove(transformId);
@@ -182,15 +217,19 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
             style: selectedStyle
           });
         } catch (downloadErr) {
+          if (cancelledRef.current) return;
           setStatusText(`${t.error}: 이미지 다운로드 실패`);
           await sleep(1500);
           transformManager.remove(transformId);
+          if (cancelledRef.current) return;
           onComplete(selectedStyle, null, { success: false, error: downloadErr.message });
         }
       } else {
+        if (cancelledRef.current) return;
         setStatusText(`${t.error}: ${result.error}`);
         await sleep(1500);
         transformManager.remove(transformId);
+        if (cancelledRef.current) return;
         onComplete(selectedStyle, null, { ...result, success: false });
       }
     }

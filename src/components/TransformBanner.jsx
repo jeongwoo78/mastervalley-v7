@@ -1,11 +1,11 @@
 // Master Valley - Transform Banner
-// 진행 중인 변환 개수를 보여주는 배너
+// 진행 중/완료된 변환을 개별 이름으로 표시
 // 화면 상단에 표시, 탭하면 갤러리로 이동
 
 import React, { useState, useEffect } from 'react';
 import transformManager from '../utils/transformManager';
 
-const TransformBanner = ({ onTapGallery, lang }) => {
+const TransformBanner = ({ onTapGallery, excludeIds, lang }) => {
   const [transforms, setTransforms] = useState([]);
   
   useEffect(() => {
@@ -15,26 +15,62 @@ const TransformBanner = ({ onTapGallery, lang }) => {
     return unsub;
   }, []);
   
-  const activeCount = transforms.filter(t => 
-    t.status === 'pending' || t.status === 'processing'
-  ).length;
+  // ProcessingScreen이 추적 중인 건 제외
+  const filtered = excludeIds?.size > 0
+    ? transforms.filter(t => !excludeIds.has(t.transformId))
+    : transforms;
   
-  const completedCount = transforms.filter(t => t.status === 'completed').length;
+  const visible = filtered.filter(t => 
+    t.status === 'pending' || t.status === 'processing' || t.status === 'completed'
+  );
   
-  // 아무것도 없으면 숨김
-  if (activeCount === 0 && completedCount === 0) return null;
+  if (visible.length === 0) return null;
+  
+  // 변환 이름 추출
+  const getName = (entry) => {
+    const style = entry.metadata?.selectedStyle;
+    if (entry.selectedArtist) return entry.selectedArtist;
+    if (style?.name) return style.name;
+    return 'Transform';
+  };
   
   return (
     <div style={styles.banner} onClick={onTapGallery}>
-      <div style={styles.content}>
-        <div style={styles.spinner} />
-        <span style={styles.text}>
-          {activeCount > 0 && `${activeCount}건 변환 중...`}
-          {activeCount > 0 && completedCount > 0 && ' | '}
-          {completedCount > 0 && `${completedCount}건 완료`}
-        </span>
+      <div style={styles.list}>
+        {visible.map((entry, i) => {
+          const isCompleted = entry.status === 'completed';
+          const isLast = i === visible.length - 1;
+          const name = getName(entry);
+          
+          return (
+            <div 
+              key={entry.transformId} 
+              style={{
+                ...styles.row,
+                borderBottom: !isLast ? '1px solid rgba(255,255,255,0.06)' : 'none'
+              }}
+            >
+              <div style={styles.left}>
+                {isCompleted ? (
+                  <svg width="14" height="14" viewBox="0 0 14 14" style={{ flexShrink: 0 }}>
+                    <circle cx="7" cy="7" r="6" fill="none" stroke="#5DCAA5" strokeWidth="1.5"/>
+                    <path d="M4 7l2 2 4-4" fill="none" stroke="#5DCAA5" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                ) : (
+                  <div style={styles.spinner} />
+                )}
+                <span style={styles.name}>{name}</span>
+              </div>
+              <span style={{
+                ...styles.status,
+                color: isCompleted ? '#5DCAA5' : 'rgba(255,255,255,0.35)'
+              }}>
+                {isCompleted ? '완료' : '변환 중'}
+              </span>
+            </div>
+          );
+        })}
       </div>
-      <span style={styles.arrow}>›</span>
     </div>
   );
 };
@@ -47,39 +83,48 @@ const styles = {
     transform: 'translateX(-50%)',
     background: 'rgba(30, 30, 30, 0.95)',
     backdropFilter: 'blur(10px)',
-    borderRadius: '24px',
-    padding: '8px 16px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: '8px',
+    borderRadius: '16px',
+    padding: '6px 14px',
     zIndex: 8000,
     cursor: 'pointer',
     border: '1px solid rgba(255,255,255,0.08)',
-    minWidth: '160px',
+    minWidth: '200px',
+    maxWidth: '280px',
     boxShadow: '0 4px 12px rgba(0,0,0,0.4)'
   },
-  content: {
+  list: {
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  row: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: '6px 0'
+  },
+  left: {
     display: 'flex',
     alignItems: 'center',
     gap: '8px'
   },
   spinner: {
-    width: '14px',
-    height: '14px',
-    border: '2px solid rgba(255,255,255,0.2)',
+    width: '12px',
+    height: '12px',
+    border: '2px solid rgba(255,255,255,0.15)',
     borderTopColor: '#F5DC82',
     borderRadius: '50%',
-    animation: 'tfm-spin 1s linear infinite'
+    animation: 'tfm-spin 1s linear infinite',
+    flexShrink: 0
   },
-  text: {
-    color: 'rgba(255,255,255,0.8)',
+  name: {
+    color: 'rgba(255,255,255,0.75)',
     fontSize: '13px',
     fontWeight: '500'
   },
-  arrow: {
-    color: 'rgba(255,255,255,0.4)',
-    fontSize: '16px'
+  status: {
+    fontSize: '11px',
+    marginLeft: '12px',
+    whiteSpace: 'nowrap'
   }
 };
 
