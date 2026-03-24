@@ -1,10 +1,12 @@
-// Master Valley v82 - Server-Driven Transform + 동시다중 변환
+// Master Valley v83 - Server-Driven Transform
 //
+// v83: 원클릭도 서버 일괄 처리 (processFullTransform)
+//      앱 나가도 서버가 N건 병렬 처리 → FCM → 재진입 복원
 // v82: submitTransform 추가 (비동기 제출, 즉시 반환)
 // v81: Cloud Functions + Firestore 리스닝 + FCM
 //
-// submitTransform: 변환 요청만 보내고 transformId 즉시 반환 (비차단)
-// processStyleTransfer: 기존 호환 (차단형, 결과까지 대기)
+// processFullTransform: 원클릭 서버 제출 → Firestore 리스닝 → 결과 수집 (차단형)
+// processStyleTransfer: 단일 변환 (차단형, 결과까지 대기)
 
 import { MODEL_CONFIG } from './modelConfig';
 import { db, auth } from '../config/firebase';
@@ -64,10 +66,10 @@ const getModelForStyle = (style) => {
 };
 
 // ========================================
-// Cloud Functions 호출
+// Cloud Functions 호출 — 단일 변환
 // ========================================
 
-const callStartTransform = async (photoBase64, selectedStyle, correctionPrompt = null) => {
+const callStartTransform = async (photoBase64, selectedStyle, correctionPrompt = null, fcmOptions = {}) => {
   const userId = auth.currentUser?.uid || null;
   
   const requestBody = {
@@ -75,7 +77,47 @@ const callStartTransform = async (photoBase64, selectedStyle, correctionPrompt =
     selectedStyle,
     correctionPrompt: correctionPrompt || null,
     userId,
-    fcmToken: getFCMToken() || null
+    fcmToken: fcmOptions.skipFcm ? null : (getFCMToken() || null),
+    fcmMessage: fcmOptions.customMessage || null
+  };
+
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 30000);
+
+  const response = await fetch(`${CLOUD_FUNCTIONS_URL}/startTransform`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(requestBody),
+    signal: controller.signal
+  });
+
+  clearTimeout(timeout);
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.error || `Cloud Function error: ${response.status}`);
+  }
+
+  return response.json();
+};
+
+// ========================================
+// Cloud Functions 호출 — 원클릭 (서버 일괄)
+// ========================================
+
+const callStartOneClick = async (photoBase64, styles, selectedStyle, fcmOptions = {}) => {
+  const userId = auth.currentUser?.uid || null;
+  
+  const requestBody = {
+    image: photoBase64,
+    isFullTransform: true,
+    styles,
+    selectedStyle,
+    userId,
+    fcmToken: fcmOptions.skipFcm ? null : (getFCMToken() || null),
+    fcmMessage: fcmOptions.customMessage || null
   };
 
   const controller = new AbortController();
@@ -157,14 +199,151 @@ const waitForTransformResult = (transformId, onProgress) => {
 };
 
 // ========================================
+// v83: 원클릭 서버 일괄 처리 (차단형)
+// ========================================
+// 1회 호출 → 서버가 N건 병렬 변환 → Firestore 리스닝으로 개별 결과 수신
+// 앱 나가도 서버가 계속 처리. 재진입 시 복원 로직(App.jsx)이 처리.
+//
+// onProgress({ completedCount, totalCount, results, latestIndex })
+//   results: style 순서대로 배열 (null = 아직 미완료)
+//   latestIndex: 방금 완료된 스타일의 인덱스
+// ========================================
+
+export const processFullTransform = async (photoFile, styles, selectedStyle, onProgress = null, fcmOptions = {}) => {
+  try {
+    const resizedPhoto = await resizeImage(photoFile, 1024);
+    const photoBase64 = await fileToBase64(resizedPhoto);
+    
+    // 서버에 원클릭 일괄 제출 (1회 호출)
+    const { sessionId, transformIds } = await callStartOneClick(
+      photoBase64, styles, selectedStyle, fcmOptions
+    );
+    
+    console.log(`📋 원클릭 제출 완료: ${sessionId} (${transformIds.length}건)`);
+    
+    // N개 transforms에 각각 onSnapshot → 개별 결과 수집
+    return new Promise((resolve, reject) => {
+      const results = new Array(transformIds.length).fill(null);
+      let completedCount = 0;
+      const unsubscribes = [];
+      
+      // 전체 타임아웃 (10분)
+      const timeoutId = setTimeout(() => {
+        unsubscribes.forEach(u => u());
+        // 타임아웃이어도 지금까지 수집된 결과 반환
+        console.warn(`⏰ 원클릭 타임아웃: ${completedCount}/${transformIds.length} 완료`);
+        resolve(results);
+      }, 600000);
+      
+      const checkAllDone = () => {
+        if (completedCount >= transformIds.length) {
+          clearTimeout(timeoutId);
+          unsubscribes.forEach(u => u());
+          resolve(results);
+        }
+      };
+      
+      transformIds.forEach((tid, idx) => {
+        const docRef = doc(db, 'transforms', tid);
+        
+        const unsub = onSnapshot(docRef, async (snapshot) => {
+          if (!snapshot.exists()) return;
+          const data = snapshot.data();
+          
+          // 이미 처리된 인덱스 skip
+          if (results[idx] !== null) return;
+          
+          if (data.status === 'completed') {
+            try {
+              // 결과 이미지 다운로드
+              const imageResponse = await fetch(data.resultUrl);
+              const blob = await imageResponse.blob();
+              const localUrl = URL.createObjectURL(blob);
+              
+              results[idx] = {
+                style: styles[idx],
+                resultUrl: localUrl,
+                blob,
+                remoteUrl: data.resultUrl,
+                transformId: tid,
+                aiSelectedArtist: data.selectedArtist || null,
+                selected_work: data.selectedWork || null,
+                selectionMethod: data.selectionMethod || null,
+                subjectType: data.subjectType || null,
+                success: true
+              };
+            } catch (dlErr) {
+              console.error(`❌ 이미지 다운로드 실패: ${tid}`, dlErr);
+              results[idx] = {
+                style: styles[idx],
+                transformId: tid,
+                error: 'Image download failed',
+                success: false
+              };
+            }
+            
+            completedCount++;
+            if (onProgress) {
+              onProgress({
+                completedCount,
+                totalCount: transformIds.length,
+                results: [...results],
+                latestIndex: idx
+              });
+            }
+            checkAllDone();
+          }
+          
+          if (data.status === 'failed') {
+            results[idx] = {
+              style: styles[idx],
+              transformId: tid,
+              error: data.error || '변환 실패',
+              success: false
+            };
+            
+            completedCount++;
+            if (onProgress) {
+              onProgress({
+                completedCount,
+                totalCount: transformIds.length,
+                results: [...results],
+                latestIndex: idx
+              });
+            }
+            checkAllDone();
+          }
+        }, (error) => {
+          console.error(`❌ Firestore 리스닝 에러: ${tid}`, error);
+          if (results[idx] === null) {
+            results[idx] = {
+              style: styles[idx],
+              transformId: tid,
+              error: error.message,
+              success: false
+            };
+            completedCount++;
+            checkAllDone();
+          }
+        });
+        
+        unsubscribes.push(unsub);
+      });
+    });
+    
+  } catch (error) {
+    console.error('Full transform error:', error);
+    throw error;
+  }
+};
+
+// ========================================
 // v82: 비차단형 변환 제출 (동시다중 변환용)
 // ========================================
-// 변환 요청만 보내고 transformId 즉시 반환
-// 결과는 transformManager가 Firestore 리스닝으로 추적
 
-export const submitTransform = async (photoFile, selectedStyle, correctionPrompt = null, { skipLimitCheck = false } = {}) => {
-  // 동시 변환 제한 체크 (원클릭 배치는 skip)
-  if (!skipLimitCheck && !transformManager.canStartNew()) {
+export const submitTransform = async (photoFile, selectedStyle, correctionPrompt = null) => {
+  // 동시 변환 제한 체크
+  if (!transformManager.canStartNew()) {
     return {
       success: false,
       error: `동시 변환은 최대 ${transformManager.MAX_CONCURRENT}건까지 가능합니다. 완료 후 다시 시도해 주세요.`
@@ -180,36 +359,19 @@ export const submitTransform = async (photoFile, selectedStyle, correctionPrompt
       console.log('🔄 [재변환 요청]');
     }
     
-    // 사전 등록 (서버 응답 전 배너 즉시 표시)
-    const tempId = `temp-${Date.now()}-${Math.random().toString(36).substr(2, 6)}`;
-    const metadata = {
+    const { transformId } = await callStartTransform(photoBase64, selectedStyle, correctionPrompt);
+    console.log(`📋 변환 제출: ${transformId} (${transformManager.getActiveCount() + 1}/${transformManager.MAX_CONCURRENT})`);
+    
+    transformManager.start(transformId, {
       selectedStyle,
       correctionPrompt,
       cost: modelConfig.cost,
       model: modelConfig.model
-    };
-    transformManager.preRegister(tempId, metadata);
-    
-    // Cloud Function 호출 → transformId 즉시 반환
-    let transformId;
-    try {
-      const result = await callStartTransform(photoBase64, selectedStyle, correctionPrompt);
-      transformId = result.transformId;
-    } catch (serverError) {
-      // 서버 실패 → 사전 등록 제거
-      transformManager.remove(tempId);
-      throw serverError;
-    }
-    
-    console.log(`📋 변환 제출: ${transformId} (${transformManager.getActiveCount()}/${transformManager.MAX_CONCURRENT})`);
-    
-    // 사전 등록 → 실제 등록 전환 (Firestore 리스닝 시작)
-    transformManager.activate(tempId, transformId, metadata);
+    });
     
     return {
       success: true,
-      transformId,
-      tempId
+      transformId
     };
 
   } catch (error) {
@@ -222,10 +384,10 @@ export const submitTransform = async (photoFile, selectedStyle, correctionPrompt
 };
 
 // ========================================
-// 차단형 변환 (기존 호환 — 단일 변환 시)
+// 차단형 단일 변환 (기존 호환)
 // ========================================
 
-export const processStyleTransfer = async (photoFile, selectedStyle, correctionPrompt = null, onProgress = null) => {
+export const processStyleTransfer = async (photoFile, selectedStyle, correctionPrompt = null, onProgress = null, fcmOptions = {}) => {
   try {
     const resizedPhoto = await resizeImage(photoFile, 1024);
     const photoBase64 = await fileToBase64(resizedPhoto);
@@ -237,7 +399,7 @@ export const processStyleTransfer = async (photoFile, selectedStyle, correctionP
       console.log('🔄 [재변환 요청]');
     }
     
-    const { transformId } = await callStartTransform(photoBase64, selectedStyle, correctionPrompt);
+    const { transformId } = await callStartTransform(photoBase64, selectedStyle, correctionPrompt, fcmOptions);
     console.log(`📋 변환 시작: ${transformId}`);
     
     if (onProgress) onProgress({ status: 'processing', progress: 5 });

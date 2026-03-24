@@ -1,11 +1,9 @@
-// PicoArt v71 - ProcessingScreen (displayConfig 기반)
-// 원칙: 단일 변환 로직만 있고, 원클릭은 그걸 N번 반복
-// v71: displayConfig.js 컨트롤 타워 사용
-// v73: 통합 스타일 표시 함수 사용
+// PicoArt v83 - ProcessingScreen (서버 일괄 원클릭)
+// 원칙: 단일 = processStyleTransfer (차단형), 원클릭 = processFullTransform (서버 일괄)
+// v83: 원클릭 클라이언트 루프 → 서버 일괄 제출 (앱 나가도 서버 처리)
 // v77: i18n 지원
 import React, { useEffect, useState, useRef } from 'react';
-import { processStyleTransfer, submitTransform } from '../utils/styleTransferAPI';
-import transformManager from '../utils/transformManager';
+import { processStyleTransfer, processFullTransform } from '../utils/styleTransferAPI';
 import { educationContent } from '../data/educationContent';
 // v77: 원클릭 교육자료 (i18n)
 import { 
@@ -22,10 +20,9 @@ import {
 import { normalizeKey, getDisplayInfo, getArtistName, getMovementDisplayInfo, getOrientalDisplayInfo, getMasterInfo, getCategoryIcon, getStyleIcon, getStyleTitle, getStyleSubtitle, getStyleSubtitles } from '../utils/displayConfig';
 import { getEducationKey, getEducationContent } from '../utils/educationMatcher';
 
-const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted, lang = 'en' }) => {
+const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => {
   // i18n texts from ui.js
   const t = getUi(lang).processing;
-  const tPhotoStyle = getUi(lang).photoStyle;
   
   // v77: 원클릭 교육 데이터 (i18n)
   const oneclickMovementsPrimary = getOneclickMovementsPrimary(lang);
@@ -36,7 +33,6 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
   const oneclickOrientalSecondary = getOneclickOrientalSecondary(lang);
 
   const [statusText, setStatusText] = useState(t.analyzing);
-  const [statusLeft, setStatusLeft] = useState('');
   const [showEducation, setShowEducation] = useState(false);
   
   // 원클릭 상태
@@ -49,344 +45,124 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
   const isFullTransform = selectedStyle?.isFullTransform === true;
   const category = selectedStyle?.category;
   
-  // 원클릭 시 전달받은 스타일 배열 사용 (styleData import 불필요!)
+  // 원클릭 시 전달받은 스타일 배열 사용
   const styles = isFullTransform ? (selectedStyle?.styles || []) : [];
   const totalCount = styles.length;
 
   const startedRef = useRef(false);
-  const cancelledRef = useRef(false);
 
   useEffect(() => {
     if (startedRef.current) return;  // StrictMode 이중 실행 방지
     startedRef.current = true;
     startProcess();
-    
-    // unmount 시 좀비 콜백 방지
-    return () => {
-      cancelledRef.current = true;
-    };
   }, []);
 
   // ========== 메인 프로세스 ==========
   const startProcess = async () => {
     if (isFullTransform) {
-      // ========== 원클릭: 일괄 비차단 제출 + transformManager 추적 ==========
+      // ========== 원클릭: 서버 일괄 제출 (v83) ==========
       setShowEducation(true);
-      const leftLabel = category === 'movements' ? tPhotoStyle.movementsFullTransformLabel : 
-                        category === 'masters' ? tPhotoStyle.mastersFullTransformLabel : 
-                        tPhotoStyle.orientalFullTransformLabel;
-      setStatusLeft(leftLabel);
-      setStatusText(t.analyzing);
-      await sleep(1500);
-      if (cancelledRef.current) return;
+      const categoryLabel = category === 'movements' ? t.movementsLabel : 
+                           category === 'masters' ? t.mastersLabel : 
+                           t.nationsLabel;
+      setStatusText(`${totalCount} ${categoryLabel} ${t.inProgress}`);
       
-      // Phase 1: 전체 순차 제출 (1초 간격, 대기 없음)
-      const submissions = [];  // { style, transformId, error }
-      for (let i = 0; i < styles.length; i++) {
-        if (cancelledRef.current) return;
-        
-        const style = styles[i];
-        const progressName = style.name;
-        const progressLabel = (category === 'movements' || category === 'oriental')
-          ? `${progressName} ${t.masterInProgress}`
-          : `${progressName} ${t.inProgress}`;
-        setStatusText(`${progressLabel} (${i + 1}/${totalCount})`);
-        
-        // 첫 건은 즉시, 이후 1초 간격 제출
-        // submitTransform 완료 즉시 currentTransformIds 등록 (App.jsx 가로채기 방지)
-        const submitAndRegister = async () => {
-          const result = await submitTransform(photo, style, null, { skipLimitCheck: true });
-          if (result.success && onTransformStarted) {
-            if (result.tempId) onTransformStarted(result.tempId);
-            onTransformStarted(result.transformId);
-          }
-          return result;
-        };
-        
-        const [, submitResult] = await Promise.all([
-          i > 0 ? sleep(1000) : Promise.resolve(),
-          submitAndRegister()
-        ]);
-        
-        if (cancelledRef.current) return;
-        
-        if (!submitResult.success) {
-          submissions.push({ style, transformId: null, error: submitResult.error });
-          continue;
-        }
-        
-        submissions.push({ style, transformId: submitResult.transformId, tempId: submitResult.tempId });
-      }
+      const fcmMessage = `${selectedStyle.fullTransformLabel || categoryLabel} ${t.done}`;
       
-      const validSubmissions = submissions.filter(s => s.transformId);
-      
-      if (validSubmissions.length === 0) {
-        setStatusText(t.error || 'Error');
-        await sleep(1500);
-        if (cancelledRef.current) return;
-        onComplete(selectedStyle, [], { isFullTransform: true, category, results: submissions.map(s => ({
-          style: s.style, success: false, error: s.error || 'Submit failed'
-        })) });
-        return;
-      }
-      
-      // Phase 2: transformManager로 전체 완료 대기
-      setStatusText(`${t.analyzing} (0/${totalCount})`);
-      
-      const results = await new Promise((resolve) => {
-        const resultMap = new Map();
-        
-        // 제출 실패 건 미리 등록
-        submissions.forEach(s => {
-          if (!s.transformId) {
-            resultMap.set(s.style.name, {
-              style: s.style, success: false, error: s.error
-            });
-          }
-        });
-        
-        const unsub = transformManager.subscribe(async (all) => {
-          if (cancelledRef.current) {
-            unsub();
-            resolve(null);
-            return;
-          }
-          
-          let pendingCount = 0;
-          
-          for (const sub of validSubmissions) {
-            if (resultMap.has(sub.transformId)) continue;
+      try {
+        // 서버에 1회 제출 → N건 병렬 처리 → onProgress로 결과 수신
+        const results = await processFullTransform(
+          photo,
+          styles,
+          selectedStyle,
+          (progress) => {
+            // 개별 완료 시 UI 업데이트
+            setCompletedCount(progress.completedCount);
             
-            const entry = all.find(e => e.transformId === sub.transformId);
-            if (!entry) { pendingCount++; continue; }
+            // 완료된 결과만 필터 (순서 유지)
+            const validResults = progress.results.filter(r => r !== null);
+            setCompletedResults(validResults);
             
-            if (entry.status === 'completed') {
-              // 이미지 다운로드
-              try {
-                const imageResponse = await fetch(entry.resultUrl);
-                const blob = await imageResponse.blob();
-                const localUrl = URL.createObjectURL(blob);
-                
-                resultMap.set(sub.transformId, {
-                  style: sub.style,
-                  resultUrl: localUrl,
-                  blob,
-                  remoteUrl: entry.resultUrl,
-                  transformId: sub.transformId,
-                  aiSelectedArtist: entry.selectedArtist,
-                  selected_work: entry.selectedWork,
-                  subjectType: entry.subjectType,
-                  success: true
-                });
-              } catch (err) {
-                resultMap.set(sub.transformId, {
-                  style: sub.style, success: false, error: err.message
-                });
-              }
-              
-              // 완료 수 업데이트
-              const doneCount = Array.from(resultMap.values()).filter(r => r.success).length;
-              setCompletedCount(doneCount);
-              setCompletedResults(Array.from(resultMap.values()).filter(r => r.success));
-              
-              const progressName = sub.style.name;
-              const progressLabel2 = (category === 'movements' || category === 'oriental')
-                ? `${progressName} ${t.masterInProgress}`
-                : `${progressName} ${t.inProgress}`;
-              setStatusText(`${progressLabel2} (${doneCount}/${totalCount})`);
-              
-            } else if (entry.status === 'failed') {
-              resultMap.set(sub.transformId, {
-                style: sub.style,
-                success: false,
-                error: entry.error || 'Transform failed',
-                transformId: sub.transformId
-              });
-            } else {
-              pendingCount++;
+            // 상태 텍스트: 마지막 완료된 스타일 이름
+            if (progress.latestIndex !== undefined && progress.results[progress.latestIndex]) {
+              const latest = progress.results[progress.latestIndex];
+              const latestName = latest.style?.name || '';
+              const cat = latest.style?.category;
+              const progressLabel = (cat === 'movements' || cat === 'oriental')
+                ? `${latestName} ${t.masterInProgress}`
+                : `${latestName} ${t.inProgress}`;
+              setStatusText(`${progressLabel} [${progress.completedCount}/${progress.totalCount}]`);
             }
-          }
-          
-          // 전체 완료 체크
-          if (pendingCount === 0 && resultMap.size >= submissions.length) {
-            unsub();
-            // styles 순서대로 결과 정렬
-            const ordered = submissions.map(s => {
-              if (!s.transformId) return { style: s.style, success: false, error: s.error };
-              return resultMap.get(s.transformId);
-            });
-            resolve(ordered);
-          }
-        });
-      });
+          },
+          { customMessage: fcmMessage }
+        );
+        
+        // 전체 완료
+        const successResults = results.filter(r => r && r.success);
+        const categoryLabel2 = category === 'movements' ? t.movementsComplete : 
+                              category === 'masters' ? t.mastersComplete : t.nationsComplete;
+        setStatusText(`${t.done} ${totalCount} ${categoryLabel2}`);
+        
+        // 최종 결과 반영
+        setCompletedCount(totalCount);
+        setCompletedResults(results.filter(r => r !== null));
+        
+        await sleep(1000);
+        
+        // onComplete에 기존 형태로 전달
+        onComplete(selectedStyle, results, { isFullTransform: true, category, results });
+        
+      } catch (error) {
+        console.error('원클릭 변환 에러:', error);
+        setStatusText(`${t.error}: ${error.message}`);
+        await sleep(1500);
+        onComplete(selectedStyle, null, { isFullTransform: true, category, results: [], success: false, error: error.message });
+      }
       
-      // 취소된 경우 — transformManager에 남겨둠 (App.jsx가 처리)
-      if (!results || cancelledRef.current) return;
-      
-      // Phase 3: 전체 완료 → ResultScreen 전환
-      const successCount = results.filter(r => r.success).length;
-      const categoryLabel2 = category === 'movements' ? t.movementsComplete : 
-                            category === 'masters' ? t.mastersComplete : t.nationsComplete;
-      setStatusText(`${t.done} ${totalCount} ${categoryLabel2}`);
-      await sleep(1000);
-      
-      if (cancelledRef.current) return;
-      
-      // transformManager에서 제거 (ProcessingScreen이 처리 완료)
-      validSubmissions.forEach(s => transformManager.remove(s.transformId));
-      
-      onComplete(selectedStyle, results, { isFullTransform: true, category, results });
     } else {
-      // 단일 변환 (v82: submitTransform + transformManager)
+      // ========== 단일 변환 (기존 — processStyleTransfer 차단형) ==========
       setShowEducation(true);
       const eduContent = getSingleEducationContent(selectedStyle);
       if (eduContent) {
         setStatusText(t.analyzing);
       }
       
-      // 분석 표시 + 서버 제출 병렬 실행 (뒤로가기 시 즉시 배너 표시 가능)
-      // submitTransform 완료 즉시 currentTransformIds 등록 (App.jsx 가로채기 방지)
-      const submitAndRegister = async () => {
-        const result = await submitTransform(photo, selectedStyle);
-        if (result.success && onTransformStarted) {
-          if (result.tempId) onTransformStarted(result.tempId);
-          onTransformStarted(result.transformId);
-        }
-        return result;
-      };
-      
-      const [, submitResult] = await Promise.all([
-        sleep(1000),
-        submitAndRegister()
-      ]);
-      if (cancelledRef.current) return;
-      
-      if (!submitResult.success) {
-        if (cancelledRef.current) return;
-        setStatusText(`${t.error}: ${submitResult.error}`);
-        await sleep(1500);
-        if (cancelledRef.current) return;
-        onComplete(selectedStyle, null, { success: false, error: submitResult.error });
-        return;
-      }
-      
-      const transformId = submitResult.transformId;
-      
-      // v81 진행 텍스트
-      const cat = selectedStyle.category;
-      const styleName = selectedStyle.name;
-      const progressText = (cat === 'movements' || cat === 'oriental')
-        ? `${styleName} ${t.masterInProgress}`
-        : `${styleName} ${t.inProgress}`;
-      setStatusText(progressText);
-      
-      // transformManager로 완료 대기 (취소 감지 포함)
-      const result = await new Promise((resolve) => {
-        // 이미 취소된 경우 즉시 resolve
-        if (cancelledRef.current) {
-          resolve({ cancelled: true });
-          return;
-        }
-        
-        const unsub = transformManager.subscribe((all) => {
-          // 화면 이탈 시 구독 해제 + resolve
-          if (cancelledRef.current) {
-            unsub();
-            resolve({ cancelled: true });
-            return;
-          }
-          
-          const entry = all.find(e => e.transformId === transformId);
-          if (!entry) return;
-          
-          if (entry.status === 'completed') {
-            unsub();
-            resolve({
-              success: true,
-              transformId,
-              resultUrl: entry.resultUrl,
-              aiSelectedArtist: entry.selectedArtist,
-              selected_work: entry.selectedWork,
-              subjectType: entry.subjectType
-            });
-          }
-          
-          if (entry.status === 'failed') {
-            unsub();
-            resolve({
-              success: false,
-              transformId,
-              error: entry.error
-            });
-          }
-        });
-      });
-      
-      // 취소된 경우 — transformManager에는 남겨둠 (배너에서 추적 계속)
-      if (result.cancelled || cancelledRef.current) return;
+      const result = await processSingleStyle(selectedStyle, 0, 1);
       
       if (result.success) {
-        // 이미지 다운로드
-        setStatusText(t.downloading || t.done);
-        try {
-          const imageResponse = await fetch(result.resultUrl);
-          const blob = await imageResponse.blob();
-          const localUrl = URL.createObjectURL(blob);
-          
-          setStatusText(`${t.done} ${selectedStyle.name}`);
-          await sleep(1000);
-          
-          if (cancelledRef.current) return;  // 다운로드 후에도 체크
-          
-          // transformManager에서 제거 (ProcessingScreen이 처리 완료)
-          transformManager.remove(transformId);
-          
-          onComplete(selectedStyle, localUrl, {
-            ...result,
-            resultUrl: localUrl,
-            blob,
-            remoteUrl: result.resultUrl,
-            style: selectedStyle
-          });
-        } catch (downloadErr) {
-          if (cancelledRef.current) return;
-          setStatusText(`${t.error}: 이미지 다운로드 실패`);
-          await sleep(1500);
-          transformManager.remove(transformId);
-          if (cancelledRef.current) return;
-          onComplete(selectedStyle, null, { success: false, error: downloadErr.message });
-        }
+        setStatusText(`${t.done} ${selectedStyle.name}`);
+        await sleep(1000);
+        
+        onComplete(selectedStyle, result.resultUrl, {
+          ...result,
+          style: selectedStyle
+        });
       } else {
-        if (cancelledRef.current) return;
         setStatusText(`${t.error}: ${result.error}`);
         await sleep(1500);
-        transformManager.remove(transformId);
-        if (cancelledRef.current) return;
-        onComplete(selectedStyle, null, { ...result, success: false });
+        onComplete(selectedStyle, null, { success: false, error: result.error });
       }
     }
   };
 
-  // ========== 단일 스타일 변환 (핵심 함수 - 원클릭도 이거 사용) ==========
-  const processSingleStyle = async (style, index = 0, total = 1) => {
-    const styleName = style.name;  // 진행바: 이름만 (연도 제외)
+  // ========== 단일 스타일 변환 (단일 변환 전용) ==========
+  const processSingleStyle = async (style, index = 0, total = 1, fcmOptions = {}) => {
+    const styleName = style.name;
 
     // API 상태 객체 → i18n 텍스트 변환
     const mapProgress = (progressObj) => {
-      // 레거시 문자열 호환 (혹시 문자열이 오면 그대로 표시)
       if (typeof progressObj === 'string') return progressObj;
       
       const { status, progress } = progressObj;
       
-      // v81: 카테고리별 진행 텍스트 분기
-      // 사조/동양화: "르네상스 거장 작업 중..." / 거장: "반 고흐 작업 중..."
       const cat = style.category;
       const progressText = (cat === 'movements' || cat === 'oriental')
         ? `${styleName} ${t.masterInProgress}`
         : `${styleName} ${t.inProgress}`;
       
       switch (status) {
-        case 'analyzing':   return t.analyzing;
+        case 'analyzing':
+          return (total > 1 && index > 0) ? progressText : t.analyzing;
         case 'downloading': return t.downloading || t.done;
         case 'processing':  
         default:            return progressText;
@@ -401,11 +177,12 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
         (progressObj) => {
           const mapped = mapProgress(progressObj);
           if (total > 1) {
-            setStatusText(`${mapped} (${index + 1}/${total})`);
+            setStatusText(`${mapped} [${index + 1}/${total}]`);
           } else {
             setStatusText(mapped);
           }
-        }
+        },
+        fcmOptions
       );
 
       if (result.success) {
@@ -436,7 +213,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
 
   // ========== 교육자료 ==========
   
-  // 단일 변환용 1차 교육 (로컬 함수 - import된 getEducationContent와 구분)
+  // 단일 변환용 1차 교육
   const getSingleEducationContent = (style) => {
     const cat = style.category;
     if (cat === 'movements') return educationContent.movements[style.id];
@@ -445,42 +222,28 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
     return null;
   };
 
-  // 원클릭 1차 교육 (분리된 파일에서 가져오기)
+  // 원클릭 1차 교육
   const getPrimaryEducation = () => {
-    // console.log('🎓 getPrimaryEducation called, category:', category);
-    
-    if (category === 'movements') {
-      // console.log('🎓 Using oneclickMovementsPrimary');
-      return oneclickMovementsPrimary;
-    } else if (category === 'masters') {
-      // console.log('🎓 Using oneclickMastersPrimary');
-      return oneclickMastersPrimary;
-    } else if (category === 'oriental') {
-      // console.log('🎓 Using oneclickOrientalPrimary');
-      return oneclickOrientalPrimary;
-    }
+    if (category === 'movements') return oneclickMovementsPrimary;
+    else if (category === 'masters') return oneclickMastersPrimary;
+    else if (category === 'oriental') return oneclickOrientalPrimary;
     return null;
   };
 
 
-  // 제목 반환 (v67: 새 표기 형식)
-  // 거장: 풀네임(영문, 생몰연도)
-  // 미술사조: 사조(영문, 시기)
-  // 동양화: 국가 전통회화
+  // 제목 반환
   const getTitle = (result) => {
     const cat = result?.style?.category;
     const artist = result?.aiSelectedArtist;
     const styleId = result?.style?.id;
     const styleName = result?.style?.name;
     
-    // getStyleTitle과 동일 로직 사용 (복합사조 해결 + lang 지원)
     return getStyleTitle(cat, styleId, artist || styleName, lang);
   };
 
-  // 하위 호환성: getMasterFullName → getTitle 으로 대체
   const getMasterFullName = (result) => getTitle(result);
 
-  // 원클릭 2차 교육 (결과별) - v51: educationMatcher.js 사용
+  // 원클릭 2차 교육 (결과별)
   const getSecondaryEducation = (result) => {
     if (!result) return null;
     
@@ -488,14 +251,11 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
     const workName = result.selected_work || '';
     const resultCategory = result.style?.category;
     
-    // v51: educationMatcher.js 사용 (ResultScreen과 동일)
     const key = getEducationKey(resultCategory, artistName, workName);
     
-    // v66: 간단한 매칭 로그
     console.log(`📚 교육자료 매칭: ${resultCategory} → ${key || '없음'} (${artistName}, ${workName || '-'})`);
     
     if (key) {
-      // 거장 카테고리: 단독변환일 때만 작품별 교육자료 시도 (mastersResultEducation)
       if (resultCategory === 'masters' && !isFullTransform) {
         const mastersResult = getMastersResultEducation(lang);
         if (mastersResult[key]) {
@@ -507,28 +267,15 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
         }
       }
       
-      // 기존 원클릭 교육자료 fallback
       const educationData = {
         masters: oneclickMastersSecondary,
         movements: oneclickMovementsSecondary,
         oriental: oneclickOrientalSecondary
       };
       
-      // console.log('📦 educationData constructed:');
-      // console.log('   - masters keys:', Object.keys(oneclickMastersSecondary || {}).slice(0, 5));
-      // console.log('   - checking key:', key, 'in category:', resultCategory);
-      
-      // 직접 확인
-      if (resultCategory === 'masters') {
-        // console.log('   - direct check:', oneclickMastersSecondary?.[key] ? 'EXISTS' : 'NOT FOUND');
-      }
-      
       const content = getEducationContent(resultCategory, key, educationData);
-      // console.log('   - getEducationContent returned:', content ? 'HAS CONTENT' : 'NULL');
       
       if (content) {
-        // console.log('✅ Found education content for:', key);
-        // 교육자료 파일에서 name 가져오기
         let eduName = artistName;
         if (resultCategory === 'masters' && oneclickMastersSecondary[key]) {
           eduName = oneclickMastersSecondary[key].name || artistName;
@@ -541,22 +288,17 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
       }
     }
     
-    // console.log('❌ No education found');
     return null;
   };
 
-  // v51: artistNameToKey 함수는 더 이상 사용하지 않음
-  // educationMatcher.js의 getEducationKey로 대체됨
-  // (하위 호환성을 위해 주석으로 보존)
-  /*
-  const artistNameToKey = (artistName, workName, resultCategory, educationData) => {
-    // ... 기존 코드 생략 ...
-  };
-  */
-
   // ========== UI 핸들러 ==========
   const handleDotClick = (idx) => {
-    if (idx < completedCount) setViewIndex(idx);
+    // completedResults에서 해당 styleIndex의 결과가 있는지 확인
+    const hasResult = completedResults.some(r => {
+      const rIdx = styles.indexOf(r?.style);
+      return rIdx === idx || r?.style === styles[idx];
+    });
+    if (hasResult || idx < completedCount) setViewIndex(idx);
   };
   
   const handleBackToEducation = () => setViewIndex(-1);
@@ -574,7 +316,6 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
     const diffX = touchStartX - e.changedTouches[0].clientX;
     const diffY = touchStartY - e.changedTouches[0].clientY;
     
-    // 수평 스와이프만 인식 (X축 이동이 Y축보다 커야 함)
     if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
       if (diffX > 0 && viewIndex < completedCount - 1) setViewIndex(v => v + 1);
       if (diffX < 0 && viewIndex > -1) setViewIndex(v => v - 1);
@@ -585,9 +326,20 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
 
   const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
-  // 현재 보여줄 결과
-  const previewResult = viewIndex >= 0 ? completedResults[viewIndex] : null;
+  // 현재 보여줄 결과 (styleIndex 기준)
+  // 병렬이라 완료 순서가 다를 수 있으므로, viewIndex에 해당하는 style의 결과를 찾음
+  const getResultForIndex = (idx) => {
+    if (idx < 0 || idx >= styles.length) return null;
+    return completedResults.find(r => r?.style === styles[idx]) || null;
+  };
+  
+  const previewResult = viewIndex >= 0 ? getResultForIndex(viewIndex) : null;
   const previewEdu = previewResult ? getSecondaryEducation(previewResult) : null;
+  
+  // dot 상태: 해당 스타일의 결과가 존재하면 done
+  const isDotDone = (idx) => {
+    return completedResults.some(r => r?.style === styles[idx]);
+  };
 
   return (
     <div className="processing-screen">
@@ -596,60 +348,16 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        {/* ===== 원클릭 모드 (이미지 → 진행바 → 도트 → 스타일정보 → 교육) ===== */}
+        {/* ===== 원클릭 모드 ===== */}
         {isFullTransform && (
           <>
-            {/* 1차: Original 이미지 */}
+            {/* 1차 교육 + Original */}
             {viewIndex === -1 && showEducation && getPrimaryEducation() && (
               <div className="oneclick-preview">
                 <div className="img-placeholder">
                   <img src={URL.createObjectURL(photo)} alt="Original" />
                 </div>
-              </div>
-            )}
-
-            {/* 결과 미리보기: 이미지만 */}
-            {viewIndex >= 0 && previewResult && (
-              <div className="oneclick-preview">
-                <div className="img-placeholder">
-                  <img src={previewResult.resultUrl} alt="" />
-                </div>
-              </div>
-            )}
-
-            {/* 프로그레스 섹션 - 좌우 분리 */}
-            <div className="progress-section oneclick">
-              <div className="progress-status">
-                <span className="progress-left">{statusLeft}</span>
-                <span className="progress-right">
-                  <span className="spinner"></span>
-                  {statusText}
-                </span>
-              </div>
-              <div className="progress-bar">
-                <div className="progress-fill" style={{ width: `${(completedCount / totalCount) * 100}%` }}></div>
-              </div>
-            </div>
-
-            {/* 점 네비게이션 */}
-            <div className="dots-nav">
-              <div className="dots">
-                <button className={`dot edu ${viewIndex === -1 ? 'active' : ''}`} onClick={handleBackToEducation}><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg></button>
-                {styles.map((_, idx) => (
-                  <button 
-                    key={idx}
-                    className={`dot ${idx < completedCount ? 'done' : ''} ${viewIndex === idx ? 'active' : ''}`}
-                    onClick={() => handleDotClick(idx)}
-                    disabled={idx >= completedCount}
-                  />
-                ))}
-                <span className="count">[{viewIndex === -1 ? 0 : viewIndex + 1}/{totalCount}]</span>
-              </div>
-            </div>
-
-            {/* 1차: 스타일정보 + 교육 */}
-            {viewIndex === -1 && showEducation && getPrimaryEducation() && (
-              <>
+                
                 <div className="oneclick-style-info">
                   <h3>{selectedStyle?.title || getStyleTitle(selectedStyle?.category, selectedStyle?.id, selectedStyle?.name, lang)}</h3>
                   <div className="subtitle1">
@@ -663,15 +371,20 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
                      t.orientalSub2}
                   </div>
                 </div>
+                
                 <div className="oneclick-edu-content">
                   {getPrimaryEducation().content}
                 </div>
-              </>
+              </div>
             )}
 
-            {/* 결과: 스타일정보 + 교육 */}
+            {/* 결과 미리보기 */}
             {viewIndex >= 0 && previewResult && (
-              <>
+              <div className="oneclick-preview">
+                <div className="img-placeholder">
+                  <img src={previewResult.resultUrl} alt="" />
+                </div>
+                
                 <div className="oneclick-style-info">
                   <h3>{getTitle(previewResult)}</h3>
                   {(() => {
@@ -693,38 +406,65 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
                     );
                   })()}
                 </div>
+                
                 {previewEdu && (
                   <div className="oneclick-edu-content">
                     {previewEdu.content}
                   </div>
                 )}
-              </>
+              </div>
             )}
+            
+            {/* 결과 아직 없는 인덱스 선택 시 */}
+            {viewIndex >= 0 && !previewResult && (
+              <div className="oneclick-preview">
+                <div className="img-placeholder">
+                  <div className="spinner" style={{ width: 24, height: 24 }}></div>
+                </div>
+                <div className="oneclick-style-info">
+                  <h3>{styles[viewIndex]?.name || ''}</h3>
+                  <div className="subtitle1">{t.inProgress}</div>
+                </div>
+              </div>
+            )}
+
+            {/* 점 네비게이션 */}
+            <div className="dots-nav">
+              <div className="dots">
+                <button className={`dot edu ${viewIndex === -1 ? 'active' : ''}`} onClick={handleBackToEducation}><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg></button>
+                {styles.map((_, idx) => (
+                  <button 
+                    key={idx}
+                    className={`dot ${isDotDone(idx) ? 'done' : ''} ${viewIndex === idx ? 'active' : ''}`}
+                    onClick={() => handleDotClick(idx)}
+                    disabled={!isDotDone(idx)}
+                  />
+                ))}
+                <span className="count">[{completedCount}/{totalCount}]</span>
+              </div>
+            </div>
+
+            {/* 프로그레스 섹션 */}
+            <div className="progress-section">
+              <div className="progress-status">
+                {completedCount < totalCount && <div className="spinner"></div>}
+                <p>{statusText}</p>
+              </div>
+              <div className="progress-bar">
+                <div className="progress-fill" style={{ width: `${(completedCount / totalCount) * 100}%` }}></div>
+              </div>
+            </div>
           </>
         )}
 
-        {/* ===== 단일 변환 모드 (이모지 → 진행바 → 제목 → 교육) ===== */}
+        {/* ===== 단일 변환 모드 (기존 그대로) ===== */}
         {!isFullTransform && showEducation && (
           <div className="single-loading-container">
-            {/* 이모지 아이콘 - 35% 고정 */}
             <div className="single-loading-icon">
               {getStyleIcon(selectedStyle?.category, selectedStyle?.id, selectedStyle?.name)}
             </div>
             
-            {/* 진행바 - 이모지 바로 아래 */}
-            <div className="progress-section">
-              <div className="progress-status">
-                <div className="spinner"></div>
-                <p>{statusText}</p>
-              </div>
-              <div className="progress-bar">
-                <div className="progress-fill single-anim"></div>
-              </div>
-            </div>
-            
-            {/* 콘텐츠 - 진행바 아래 */}
             <div className="single-loading-content">
-              {/* 제목 + 부제 (가운데 정렬) */}
               <div className="single-loading-title">
                 {getStyleTitle(selectedStyle?.category, selectedStyle?.id, selectedStyle?.name, lang)}
               </div>
@@ -738,12 +478,21 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
                 );
               })()}
               
-              {/* 교육 콘텐츠 (왼쪽 정렬) */}
               {getSingleEducationContent(selectedStyle) && (
                 <div className="single-loading-edu">
                   <p>{getSingleEducationContent(selectedStyle).desc}</p>
                 </div>
               )}
+            </div>
+            
+            <div className="progress-section">
+              <div className="progress-status">
+                <div className="spinner"></div>
+                <p>{statusText}</p>
+              </div>
+              <div className="progress-bar">
+                <div className="progress-fill single-anim"></div>
+              </div>
             </div>
           </div>
         )}
@@ -768,7 +517,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
           overflow-y: auto;
         }
         
-        /* ===== 원클릭 로딩 스타일 (목업 05-loading-oneclick.html 준수) ===== */
+        /* ===== 원클릭 로딩 스타일 ===== */
         .status.oneclick {
           display: flex;
           align-items: center;
@@ -778,7 +527,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
         }
         .status.oneclick p {
           margin: 0;
-          color: rgba(255,255,255,0.4);
+          color: rgba(255,255,255,0.5);
           font-size: 12px;
         }
         .status.oneclick .spinner {
@@ -788,7 +537,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
         }
         
         .oneclick-preview {
-          margin-bottom: 0;
+          margin-bottom: 16px;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -798,7 +547,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
           width: 100%;
           max-width: 340px;
           aspect-ratio: 1 / 1;
-          background: #1a2a2f;
+          background: #1a1a1a;
           border-radius: 12px;
           display: flex;
           align-items: center;
@@ -816,7 +565,6 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
           width: 100%;
           max-width: 340px;
           text-align: center;
-          margin-top: 32px;
           margin-bottom: 12px;
         }
         .oneclick-style-info h3 {
@@ -832,7 +580,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
         }
         .oneclick-style-info .subtitle2 {
           font-size: 12px;
-          color: rgba(255,255,255,0.4);
+          color: rgba(255,255,255,0.5);
           margin-bottom: 12px;
         }
         
@@ -840,7 +588,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
           width: 100%;
           max-width: 340px;
           font-size: 13px;
-          color: rgba(255,255,255,0.6);
+          color: rgba(255,255,255,0.65);
           line-height: 1.8;
           text-align: start;
           white-space: pre-line;
@@ -849,19 +597,11 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
         .progress-section {
           width: 100%;
           margin-top: 16px;
-          padding: 12px 0 4px;
+          padding: 12px 0;
           background: #0a1a1f;
           display: flex;
           flex-direction: column;
           align-items: flex-end;
-        }
-        .progress-section.oneclick {
-          margin-top: 4px;
-          padding: 0 0 0;
-        }
-        .single-loading-container .progress-section {
-          margin-top: 0;
-          padding: 0;
         }
         .progress-status {
           display: flex;
@@ -869,29 +609,9 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
           gap: 8px;
           margin-bottom: 8px;
         }
-        .progress-section.oneclick .progress-status {
-          width: 100%;
-          justify-content: space-between;
-          gap: 0;
-        }
-        .progress-left {
-          font-size: 11px;
-          color: rgba(255,255,255,0.4);
-          white-space: nowrap;
-        }
-        .progress-right {
-          display: flex;
-          align-items: center;
-          gap: 6px;
-          font-size: 11px;
-          color: rgba(255,255,255,0.4);
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
         .progress-status p {
           margin: 0;
-          color: rgba(255,255,255,0.4);
+          color: rgba(255,255,255,0.5);
           font-size: 11px;
           white-space: nowrap;
           overflow: hidden;
@@ -900,17 +620,17 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
         .progress-bar {
           width: 50%;
           height: 2px;
-          background: rgba(255,255,255,0.08);
+          background: rgba(255,255,255,0.1);
           border-radius: 2px;
           overflow: hidden;
         }
         .progress-fill {
           height: 100%;
-          background: linear-gradient(90deg, #3a7a7a, #5a9a8a);
+          background: linear-gradient(90deg, #4a6aaa, #4a7a7a);
           transition: width 0.3s;
         }
         
-        /* ===== 단일 변환 상태 (가운데 정렬) ===== */
+        /* ===== 단일 변환 상태 ===== */
         .status {
           display: flex;
           align-items: center;
@@ -922,7 +642,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
         .spinner {
           width: 14px; height: 14px;
           border: 2px solid rgba(255,255,255,0.2);
-          border-top: 2px solid #3a7a7a;
+          border-top: 2px solid #4a6aaa;
           border-radius: 50%;
           animation: spin 1s linear infinite;
         }
@@ -941,10 +661,10 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
         }
         .edu-card h3 { color: #fff; margin: 0 0 10px; font-size: 15px; }
         .edu-card h4 { color: #4CAF50; margin: 0 0 8px; font-size: 14px; }
-        .edu-card p { color: rgba(255,255,255,0.6); line-height: 1.8; font-size: 13px; margin: 0; white-space: pre-line; }
+        .edu-card p { color: rgba(255,255,255,0.65); line-height: 1.8; font-size: 13px; margin: 0; white-space: pre-line; }
         .hint { color: rgba(255,255,255,0.4); font-size: 12px; text-align: center; margin-top: 12px !important; }
         
-        /* 단독 로딩 화면 (flexbox 레이아웃) */
+        /* 단독 로딩 화면 */
         .single-loading-container {
           width: 100%;
           min-height: 80vh;
@@ -955,7 +675,6 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
         .single-loading-icon {
           margin-top: 25vh;
           font-size: 56px;
-          margin-bottom: 4px;
         }
         .single-loading-content {
           width: 100%;
@@ -963,7 +682,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
           display: flex;
           flex-direction: column;
           align-items: center;
-          margin-top: 32px;
+          margin-top: 16px;
         }
         .single-loading-title {
           width: 100%;
@@ -978,13 +697,13 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
           width: 100%;
           max-width: 340px;
           font-size: 13px;
-          color: rgba(255,255,255,0.6);
+          color: rgba(255,255,255,0.7);
           margin-bottom: 4px;
           text-align: center;
         }
         .single-loading-subtitle.sub2 {
           font-size: 12px;
-          color: rgba(255,255,255,0.4);
+          color: rgba(255,255,255,0.5);
           margin-bottom: 20px;
         }
         .single-loading-edu {
@@ -993,7 +712,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
           text-align: start;
         }
         .single-loading-edu p {
-          color: rgba(255,255,255,0.6);
+          color: rgba(255,255,255,0.7);
           line-height: 1.8;
           font-size: 13px;
           margin: 0 0 12px;
@@ -1003,7 +722,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
           margin-bottom: 0;
         }
         
-        /* 단독 변환: 프로그레스바 애니메이션 (진행률 모름) */
+        /* 단독 변환: 프로그레스바 애니메이션 */
         .progress-fill.single-anim {
           width: 40%;
           animation: singleProgress 2s ease-in-out infinite;
@@ -1014,12 +733,12 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
           100% { width: 20%; }
         }
         
-        .preview { background: #1a2a2f; border-radius: 12px; overflow: hidden; margin: 16px 0; }
+        .preview { background: #1a1a1a; border-radius: 12px; overflow: hidden; margin: 16px 0; }
         .preview img { width: 100%; display: block; }
         .preview-info { 
           padding: 16px; 
           text-align: start;
-          border-bottom: 1px solid rgba(255,255,255,0.08);
+          border-bottom: 1px solid rgba(255,255,255,0.1);
         }
         .preview-header {
           display: flex;
@@ -1048,7 +767,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
         .preview-subtitle.sub2 {
           font-size: 0.95rem;
           font-weight: 500;
-          color: rgba(255,255,255,0.4);
+          color: rgba(255,255,255,0.5);
           margin-top: 4px;
         }
         
@@ -1057,7 +776,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
           align-items: center;
           justify-content: center;
           gap: 8px;
-          margin-top: 4px;
+          margin-top: 16px;
         }
         .dots {
           display: flex;
@@ -1074,10 +793,10 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
           padding: 0;
         }
         .dot.done {
-          background: rgba(58, 122, 122, 0.5);
+          background: rgba(74, 106, 170, 0.5);
         }
         .dot.active {
-          background: #3a7a7a;
+          background: #4a6aaa;
           transform: scale(1.3);
         }
         .dot:disabled {

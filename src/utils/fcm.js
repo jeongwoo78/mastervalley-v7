@@ -12,6 +12,14 @@ import { db, auth } from '../config/firebase';
 import { doc, updateDoc } from 'firebase/firestore';
 
 let fcmToken = null;
+let onNotificationTapCallback = null;
+
+/**
+ * 알림 탭 시 콜백 등록 (App.jsx에서 호출)
+ */
+export function onNotificationTap(callback) {
+  onNotificationTapCallback = callback;
+}
 
 /**
  * FCM 초기화 + 토큰 등록
@@ -61,9 +69,10 @@ export async function initFCM() {
       console.log('📱 푸시 탭:', action);
       const data = action.notification.data;
       
-      if (data?.type === 'transform_complete' && data?.transformId) {
-        console.log('📱 변환 완료 알림 탭 → transformId:', data.transformId);
-        // TODO: 갤러리나 결과 화면으로 이동 (네비게이션 연동 시)
+      // v83: 단일 변환 + 원클릭 완료 알림 모두 처리
+      if ((data?.type === 'transform_complete' || data?.type === 'oneclick_complete') && (data?.transformId || data?.sessionId)) {
+        console.log('📱 변환 완료 알림 탭 →', data.type, data.transformId || data.sessionId);
+        if (onNotificationTapCallback) onNotificationTapCallback(data);
       }
     });
 

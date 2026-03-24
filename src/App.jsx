@@ -1,6 +1,7 @@
 // Master Valley v77 - Main App (i18n 지원)
 import React, { useState, useEffect, useRef } from 'react';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { collection, query, where, getDocs } from 'firebase/firestore';
 import { Preferences } from '@capacitor/preferences';
 import { App as CapApp } from '@capacitor/app';
 import { auth, db, doc, onSnapshot, updateDoc, ensureUserDoc } from './config/firebase';
@@ -16,12 +17,10 @@ import AddFundsScreen from './components/AddFundsScreen';
 import MenuScreen from './components/MenuScreen';
 // LanguageScreen removed - 메뉴 아코디언에서 직접 변경
 import InsufficientBalancePopup from './components/InsufficientBalancePopup';
-import TransformBanner from './components/TransformBanner';
 import { getTransformCost } from './utils/pricing';
 import { deductCredit } from './utils/styleTransferAPI';
-import transformManager from './utils/transformManager';
 import { initRevenueCat } from './utils/revenueCat';
-import { initFCM } from './utils/fcm';
+import { initFCM, onNotificationTap } from './utils/fcm';
 import './styles/App.css';
 
 const App = () => {
@@ -45,9 +44,7 @@ const App = () => {
 
   // 화면 상태: 'category' | 'photoStyle' | 'processing' | 'result' | 'addFunds' | 'menu'
   const [currentScreen, setCurrentScreen] = useState('category');
-  const prevScreenRef = useRef('category');
   const [showGallery, setShowGallery] = useState(false);
-  const [galleryRefreshKey, setGalleryRefreshKey] = useState(0);
   
   // 크레딧 상태 (Firestore 실시간 구독)
   const [userCredits, setUserCredits] = useState(0);
@@ -79,9 +76,6 @@ const App = () => {
   const [currentMasterIndex, setCurrentMasterIndex] = useState(0);
   const [masterResultImages, setMasterResultImages] = useState({});
   const [retransformingMasters, setRetransformingMasters] = useState({});
-  
-  // 현재 ProcessingScreen이 추적 중인 transformId (백그라운드 핸들러에서 skip용)
-  const [currentTransformIds, setCurrentTransformIds] = useState(new Set());
 
   // 앱 시작 시 저장된 언어 로드
   useEffect(() => {
@@ -135,6 +129,11 @@ const App = () => {
 
         // FCM 푸시 알림 초기화 (네이티브 앱에서만 동작)
         initFCM();
+        
+        // 푸시 알림 탭 → 갤러리 열기
+        onNotificationTap(() => {
+          setShowGallery(true);
+        });
 
         // Firestore 실시간 잔액 구독
         const userRef = doc(db, 'users', currentUser.uid);
@@ -195,10 +194,8 @@ const App = () => {
           setFullTransformResults(null);
           break;
         case 'processing':
-          // 변환 중 → 스타일 선택 (서버에서 계속 진행, 완료 시 백그라운드 저장)
-          setCurrentTransformIds(new Set());
-          setCurrentScreen('photoStyle');
-          break;
+          // 변환 중 → 뒤로가기 차단 (서버 비용 발생, 결과 수신 필요)
+          return;
         case 'photoStyle':
           handleBackToCategory();
           break;
@@ -206,7 +203,7 @@ const App = () => {
           setCurrentScreen('category');
           break;
         case 'menu':
-          setCurrentScreen(prevScreenRef.current);
+          setCurrentScreen('category');
           break;
         case 'category':
           // 메인 화면에서 뒤로가기 → 앱 백그라운드로
@@ -223,61 +220,86 @@ const App = () => {
   }, [currentScreen, showGallery, showInsufficientPopup, showAiConsent]);
 
   // ========================================
-  // 백그라운드 변환 완료 처리
-  // ProcessingScreen 밖에서 완료된 변환 → 자동 다운로드 + 갤러리 저장
+  // 앱 재진입 시 미수신 변환 복원
+  // 강제 종료 후 재실행 → Firestore에서 완료된 변환 조회 → 갤러리 저장
+  // 복원 완료한 ID는 로컬(Preferences)에 저장 → 중복 방지
   // ========================================
-  const autoSavedRef = useRef(new Set());
+  const recoveryDoneRef = useRef(false);
   
   useEffect(() => {
-    const unsub = transformManager.subscribe(async (all) => {
-      const completed = all.filter(e => 
-        e.status === 'completed' && 
-        e.resultUrl && 
-        !autoSavedRef.current.has(e.transformId) &&
-        !currentTransformIds.has(e.transformId)  // ProcessingScreen이 추적 중인 건 skip
-      );
-      
-      for (const entry of completed) {
-        autoSavedRef.current.add(entry.transformId);
+    if (!user || recoveryDoneRef.current) return;
+    recoveryDoneRef.current = true;
+    
+    const recoverTransforms = async () => {
+      try {
+        // 이미 복원한 ID 목록 로드
+        const { value: recoveredJson } = await Preferences.get({ key: 'mv-recovered-transforms' });
+        const recoveredSet = new Set(recoveredJson ? JSON.parse(recoveredJson) : []);
         
-        try {
-          // 이미지 다운로드
-          const imageResponse = await fetch(entry.resultUrl);
-          const blob = await imageResponse.blob();
-          const localUrl = URL.createObjectURL(blob);
+        const q = query(
+          collection(db, 'transforms'),
+          where('userId', '==', user.uid),
+          where('status', '==', 'completed')
+        );
+        const snapshot = await getDocs(q);
+        
+        if (snapshot.empty) return;
+        
+        // 최근 1시간 내 완료된 건만 복원 (오래된 테스트 잔해 무시)
+        const oneHourAgo = Date.now() - 60 * 60 * 1000;
+        
+        let recoveredCount = 0;
+        const newRecoveredIds = [];
+        
+        for (const docSnap of snapshot.docs) {
+          // 이미 복원한 건 skip
+          if (recoveredSet.has(docSnap.id)) continue;
           
-          // 갤러리 자동 저장
-          const metadata = entry.metadata || {};
-          const style = metadata.selectedStyle || {};
-          await saveToGallery(localUrl, {
-            category: style.category || '',
-            artistName: entry.selectedArtist || style.name || 'Converted Image',
-            movementName: style.name || '',
-            workName: entry.selectedWork || null,
-            styleId: style.id || '',
-            isRetransform: false
-          });
+          const data = docSnap.data();
+          if (!data.resultUrl) continue;
           
-          console.log(`📦 백그라운드 갤러리 저장: ${entry.transformId} (${entry.selectedArtist || style.name})`);
+          // 1시간 이상 된 건 skip
+          const completedTime = data.completedAt?.toMillis?.() || 0;
+          if (completedTime < oneHourAgo) continue;
           
-          // 갤러리 열려있으면 새로고침 신호
-          setGalleryRefreshKey(prev => prev + 1);
-          
-          // blob URL 해제
-          URL.revokeObjectURL(localUrl);
-        } catch (err) {
-          console.error(`❌ 백그라운드 저장 실패: ${entry.transformId}`, err);
+          try {
+            const imageResponse = await fetch(data.resultUrl);
+            const blob = await imageResponse.blob();
+            const localUrl = URL.createObjectURL(blob);
+            
+            await saveToGallery(localUrl, {
+              category: data.selectedStyle?.category || '',
+              artistName: data.selectedArtist || data.selectedStyle?.name || 'Converted Image',
+              movementName: data.selectedStyle?.name || '',
+              workName: data.selectedWork || null,
+              styleId: data.selectedStyle?.id || '',
+              isRetransform: data.isRetransform || false
+            });
+            
+            URL.revokeObjectURL(localUrl);
+            newRecoveredIds.push(docSnap.id);
+            recoveredCount++;
+          } catch (err) {
+            console.error(`❌ 변환 복원 실패: ${docSnap.id}`, err);
+          }
         }
         
-        // transformManager에서 제거 (2초 딜레이 — 배너에서 "완료" 확인 가능)
-        setTimeout(() => {
-          transformManager.remove(entry.transformId);
-        }, 2000);
+        // 복원한 ID 로컬에 저장
+        if (newRecoveredIds.length > 0) {
+          newRecoveredIds.forEach(id => recoveredSet.add(id));
+          await Preferences.set({ 
+            key: 'mv-recovered-transforms', 
+            value: JSON.stringify([...recoveredSet]) 
+          });
+          console.log(`📦 미수신 변환 ${recoveredCount}건 갤러리에 복원 완료`);
+        }
+      } catch (err) {
+        console.error('변환 복원 조회 실패:', err);
       }
-    });
+    };
     
-    return unsub;
-  }, [currentTransformIds]);
+    recoverTransforms();
+  }, [user]);
 
   // 로그인 성공
   const handleLoginSuccess = (loggedInUser) => {
@@ -303,11 +325,6 @@ const App = () => {
 
   // 변환 시작 공통 로직 (잔액 체크 포함)
   const startTransform = (photo, style) => {
-    // 동시 변환 제한 체크 (최대 4건)
-    if (!transformManager.canStartNew()) {
-      alert(`동시 변환은 최대 ${transformManager.MAX_CONCURRENT}건까지 가능합니다. 완료 후 다시 시도해 주세요.`);
-      return;
-    }
     const cost = getTransformCost(style);
     if (cost > 0 && userCredits < cost) {
       setRequiredAmount(cost);
@@ -351,8 +368,6 @@ const App = () => {
 
   // 변환 완료 → 크레딧 차감 + 화면 전환
   const handleProcessingComplete = async (style, resultImageUrl, result) => {
-    // ProcessingScreen 추적 ID 해제 → 백그라운드 핸들러 활성화
-    setCurrentTransformIds(new Set());
     // 성공한 변환에 대해 크레딧 차감
     const isSuccess = result?.isFullTransform 
       ? result.results?.some(r => r.success)  // 원클릭: 1개라도 성공
@@ -435,7 +450,6 @@ const App = () => {
 
   // Menu 화면
   const handleGoToMenu = () => {
-    prevScreenRef.current = currentScreen;
     setCurrentScreen('menu');
   };
 
@@ -472,7 +486,7 @@ const App = () => {
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: #0a1a1f;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             color: white;
           }
           .loading-spinner {
@@ -499,12 +513,6 @@ const App = () => {
 
   return (
     <div className="app" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
-      {/* 동시다중 변환 배너 (항상 표시 — 내부에서 0건이면 자동 숨김) */}
-      <TransformBanner 
-        onTapGallery={() => setShowGallery(true)} 
-        excludeIds={currentScreen === 'processing' && !showGallery ? currentTransformIds : null}
-        lang={lang} 
-      />
       {/* AI 데이터 처리 동의 팝업 */}
       {showAiConsent && (
         <div className="ai-consent-overlay" onClick={() => {}}>
@@ -539,7 +547,6 @@ const App = () => {
             setShowGallery(false);
             handleReset();
           }}
-          refreshKey={galleryRefreshKey}
           lang={lang}
         />
       )}
@@ -572,7 +579,7 @@ const App = () => {
 
           {currentScreen === 'menu' && (
             <MenuScreen
-              onBack={() => setCurrentScreen(prevScreenRef.current)}
+              onBack={() => setCurrentScreen('category')}
               onGallery={() => setShowGallery(true)}
               onAddFunds={handleGoToAddFunds}
               onLanguage={handleLanguageChange}
@@ -600,7 +607,6 @@ const App = () => {
               photo={uploadedPhoto}
               selectedStyle={selectedStyle}
               onComplete={handleProcessingComplete}
-              onTransformStarted={(id) => setCurrentTransformIds(prev => new Set(prev).add(id))}
               lang={lang}
             />
           )}
