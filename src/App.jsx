@@ -47,6 +47,7 @@ const App = () => {
   const [currentScreen, setCurrentScreen] = useState('category');
   const prevScreenRef = useRef('category');
   const [showGallery, setShowGallery] = useState(false);
+  const [galleryRefreshKey, setGalleryRefreshKey] = useState(0);
   
   // 크레딧 상태 (Firestore 실시간 구독)
   const [userCredits, setUserCredits] = useState(0);
@@ -258,6 +259,9 @@ const App = () => {
           });
           
           console.log(`📦 백그라운드 갤러리 저장: ${entry.transformId} (${entry.selectedArtist || style.name})`);
+          
+          // 갤러리 열려있으면 새로고침 신호
+          setGalleryRefreshKey(prev => prev + 1);
           
           // blob URL 해제
           URL.revokeObjectURL(localUrl);
@@ -498,7 +502,7 @@ const App = () => {
       {/* 동시다중 변환 배너 (항상 표시 — 내부에서 0건이면 자동 숨김) */}
       <TransformBanner 
         onTapGallery={() => setShowGallery(true)} 
-        excludeIds={currentTransformIds}
+        excludeIds={currentScreen === 'processing' && !showGallery ? currentTransformIds : null}
         lang={lang} 
       />
       {/* AI 데이터 처리 동의 팝업 */}
@@ -535,6 +539,7 @@ const App = () => {
             setShowGallery(false);
             handleReset();
           }}
+          refreshKey={galleryRefreshKey}
           lang={lang}
         />
       )}

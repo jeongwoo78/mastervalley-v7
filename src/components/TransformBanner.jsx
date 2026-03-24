@@ -15,13 +15,13 @@ const TransformBanner = ({ onTapGallery, excludeIds, lang }) => {
     return unsub;
   }, []);
   
-  // ProcessingScreen이 추적 중인 건 제외
+  // ProcessingScreen이 추적 중인 건 제외 (조건부)
   const filtered = excludeIds?.size > 0
     ? transforms.filter(t => !excludeIds.has(t.transformId))
     : transforms;
   
   const visible = filtered.filter(t => 
-    t.status === 'pending' || t.status === 'processing' || t.status === 'completed'
+    t.status === 'submitting' || t.status === 'pending' || t.status === 'processing' || t.status === 'completed'
   );
   
   if (visible.length === 0) return null;

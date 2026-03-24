@@ -70,7 +70,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
   // ========== 메인 프로세스 ==========
   const startProcess = async () => {
     if (isFullTransform) {
-      // 원클릭: 1차 교육 표시 후 순차 변환
+      // ========== 원클릭: 일괄 비차단 제출 + transformManager 추적 ==========
       setShowEducation(true);
       const leftLabel = category === 'movements' ? tPhotoStyle.movementsFullTransformLabel : 
                         category === 'masters' ? tPhotoStyle.mastersFullTransformLabel : 
@@ -78,38 +78,157 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
       setStatusLeft(leftLabel);
       setStatusText(t.analyzing);
       await sleep(1500);
-      if (cancelledRef.current) return;  // 화면 이탈 시 중단
+      if (cancelledRef.current) return;
       
-      const results = [];
+      // Phase 1: 전체 순차 제출 (1초 간격, 대기 없음)
+      const submissions = [];  // { style, transformId, error }
       for (let i = 0; i < styles.length; i++) {
-        if (cancelledRef.current) return;  // 화면 이탈 시 중단
+        if (cancelledRef.current) return;
+        
         const style = styles[i];
-        // 진행 메시지: displayConfig에서 적절한 이름 가져오기
-        const progressName = style.name;  // 진행바: 이름만 (연도 제외)
-        // v81: 카테고리별 진행 텍스트 (사조/동양화: 거장 작업 중 / 거장: 작업 중)
+        const progressName = style.name;
         const progressLabel = (category === 'movements' || category === 'oriental')
           ? `${progressName} ${t.masterInProgress}`
           : `${progressName} ${t.inProgress}`;
         setStatusText(`${progressLabel} (${i + 1}/${totalCount})`);
         
-        const result = await processSingleStyle(style, i, totalCount);
-        results.push(result);
-        setCompletedCount(i + 1);
-        setCompletedResults([...results]);
+        // 첫 건은 즉시, 이후 1초 간격 제출
+        const [, submitResult] = await Promise.all([
+          i > 0 ? sleep(1000) : Promise.resolve(),
+          submitTransform(photo, style, null, { skipLimitCheck: true })
+        ]);
         
-        if (i < styles.length - 1) {
-          setStatusText(t.checkingArtwork);
-          await sleep(2000);
+        if (cancelledRef.current) return;
+        
+        if (!submitResult.success) {
+          submissions.push({ style, transformId: null, error: submitResult.error });
+          continue;
+        }
+        
+        submissions.push({ style, transformId: submitResult.transformId, tempId: submitResult.tempId });
+        if (onTransformStarted) {
+          if (submitResult.tempId) onTransformStarted(submitResult.tempId);
+          onTransformStarted(submitResult.transformId);
         }
       }
       
+      const validSubmissions = submissions.filter(s => s.transformId);
+      
+      if (validSubmissions.length === 0) {
+        setStatusText(t.error || 'Error');
+        await sleep(1500);
+        if (cancelledRef.current) return;
+        onComplete(selectedStyle, [], { isFullTransform: true, category, results: submissions.map(s => ({
+          style: s.style, success: false, error: s.error || 'Submit failed'
+        })) });
+        return;
+      }
+      
+      // Phase 2: transformManager로 전체 완료 대기
+      setStatusText(`${t.analyzing} (0/${totalCount})`);
+      
+      const results = await new Promise((resolve) => {
+        const resultMap = new Map();
+        
+        // 제출 실패 건 미리 등록
+        submissions.forEach(s => {
+          if (!s.transformId) {
+            resultMap.set(s.style.name, {
+              style: s.style, success: false, error: s.error
+            });
+          }
+        });
+        
+        const unsub = transformManager.subscribe(async (all) => {
+          if (cancelledRef.current) {
+            unsub();
+            resolve(null);
+            return;
+          }
+          
+          let pendingCount = 0;
+          
+          for (const sub of validSubmissions) {
+            if (resultMap.has(sub.transformId)) continue;
+            
+            const entry = all.find(e => e.transformId === sub.transformId);
+            if (!entry) { pendingCount++; continue; }
+            
+            if (entry.status === 'completed') {
+              // 이미지 다운로드
+              try {
+                const imageResponse = await fetch(entry.resultUrl);
+                const blob = await imageResponse.blob();
+                const localUrl = URL.createObjectURL(blob);
+                
+                resultMap.set(sub.transformId, {
+                  style: sub.style,
+                  resultUrl: localUrl,
+                  blob,
+                  remoteUrl: entry.resultUrl,
+                  transformId: sub.transformId,
+                  aiSelectedArtist: entry.selectedArtist,
+                  selected_work: entry.selectedWork,
+                  subjectType: entry.subjectType,
+                  success: true
+                });
+              } catch (err) {
+                resultMap.set(sub.transformId, {
+                  style: sub.style, success: false, error: err.message
+                });
+              }
+              
+              // 완료 수 업데이트
+              const doneCount = Array.from(resultMap.values()).filter(r => r.success).length;
+              setCompletedCount(doneCount);
+              setCompletedResults(Array.from(resultMap.values()).filter(r => r.success));
+              
+              const progressName = sub.style.name;
+              const progressLabel2 = (category === 'movements' || category === 'oriental')
+                ? `${progressName} ${t.masterInProgress}`
+                : `${progressName} ${t.inProgress}`;
+              setStatusText(`${progressLabel2} (${doneCount}/${totalCount})`);
+              
+            } else if (entry.status === 'failed') {
+              resultMap.set(sub.transformId, {
+                style: sub.style,
+                success: false,
+                error: entry.error || 'Transform failed',
+                transformId: sub.transformId
+              });
+            } else {
+              pendingCount++;
+            }
+          }
+          
+          // 전체 완료 체크
+          if (pendingCount === 0 && resultMap.size >= submissions.length) {
+            unsub();
+            // styles 순서대로 결과 정렬
+            const ordered = submissions.map(s => {
+              if (!s.transformId) return { style: s.style, success: false, error: s.error };
+              return resultMap.get(s.transformId);
+            });
+            resolve(ordered);
+          }
+        });
+      });
+      
+      // 취소된 경우 — transformManager에 남겨둠 (App.jsx가 처리)
+      if (!results || cancelledRef.current) return;
+      
+      // Phase 3: 전체 완료 → ResultScreen 전환
       const successCount = results.filter(r => r.success).length;
       const categoryLabel2 = category === 'movements' ? t.movementsComplete : 
                             category === 'masters' ? t.mastersComplete : t.nationsComplete;
       setStatusText(`${t.done} ${totalCount} ${categoryLabel2}`);
       await sleep(1000);
       
-      if (cancelledRef.current) return;  // 화면 이탈 시 중단
+      if (cancelledRef.current) return;
+      
+      // transformManager에서 제거 (ProcessingScreen이 처리 완료)
+      validSubmissions.forEach(s => transformManager.remove(s.transformId));
+      
       onComplete(selectedStyle, results, { isFullTransform: true, category, results });
     } else {
       // 단일 변환 (v82: submitTransform + transformManager)
@@ -138,7 +257,11 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
       const transformId = submitResult.transformId;
       
       // App.jsx에 추적 ID 알림 (백그라운드 핸들러에서 skip하도록)
-      if (onTransformStarted) onTransformStarted(transformId);
+      // tempId(사전등록) + transformId(실제) 둘 다 등록
+      if (onTransformStarted) {
+        if (submitResult.tempId) onTransformStarted(submitResult.tempId);
+        onTransformStarted(transformId);
+      }
       
       // v81 진행 텍스트
       const cat = selectedStyle.category;

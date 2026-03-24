@@ -147,7 +147,7 @@ function popCompleted() {
 function getActiveCount() {
   let count = 0;
   for (const entry of activeTransforms.values()) {
-    if (entry.status === 'pending' || entry.status === 'processing') count++;
+    if (entry.status === 'pending' || entry.status === 'processing' || entry.status === 'submitting') count++;
   }
   return count;
 }
@@ -167,6 +167,43 @@ function getAll() {
 }
 
 /**
+ * 사전 등록 (서버 응답 전 배너 즉시 표시)
+ * Firestore 리스닝 없이 placeholder 등록
+ */
+function preRegister(tempId, metadata = {}) {
+  if (activeTransforms.has(tempId)) return;
+  
+  const entry = {
+    transformId: tempId,
+    status: 'submitting',
+    metadata,
+    resultUrl: null,
+    selectedArtist: null,
+    selectedWork: null,
+    error: null,
+    startedAt: Date.now(),
+    unsubscribe: null
+  };
+  
+  activeTransforms.set(tempId, entry);
+  notifyListeners();
+  console.log(`📋 TransformManager: 사전등록 ${tempId}`);
+}
+
+/**
+ * 사전 등록 → 실제 등록 전환 (서버 응답 후)
+ * tempId 제거 → 실제 transformId로 start
+ */
+function activate(tempId, realTransformId, metadata = {}) {
+  const existing = activeTransforms.get(tempId);
+  if (existing) {
+    if (existing.unsubscribe) existing.unsubscribe();
+    activeTransforms.delete(tempId);
+  }
+  start(realTransformId, metadata);
+}
+
+/**
  * 전체 초기화
  */
 function clear() {
@@ -180,6 +217,8 @@ function clear() {
 const transformManager = {
   subscribe,
   start,
+  preRegister,
+  activate,
   remove,
   popCompleted,
   getActiveCount,

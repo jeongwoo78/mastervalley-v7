@@ -162,9 +162,9 @@ const waitForTransformResult = (transformId, onProgress) => {
 // 변환 요청만 보내고 transformId 즉시 반환
 // 결과는 transformManager가 Firestore 리스닝으로 추적
 
-export const submitTransform = async (photoFile, selectedStyle, correctionPrompt = null) => {
-  // 동시 변환 제한 체크
-  if (!transformManager.canStartNew()) {
+export const submitTransform = async (photoFile, selectedStyle, correctionPrompt = null, { skipLimitCheck = false } = {}) => {
+  // 동시 변환 제한 체크 (원클릭 배치는 skip)
+  if (!skipLimitCheck && !transformManager.canStartNew()) {
     return {
       success: false,
       error: `동시 변환은 최대 ${transformManager.MAX_CONCURRENT}건까지 가능합니다. 완료 후 다시 시도해 주세요.`
@@ -180,21 +180,36 @@ export const submitTransform = async (photoFile, selectedStyle, correctionPrompt
       console.log('🔄 [재변환 요청]');
     }
     
-    // Cloud Function 호출 → transformId 즉시 반환
-    const { transformId } = await callStartTransform(photoBase64, selectedStyle, correctionPrompt);
-    console.log(`📋 변환 제출: ${transformId} (${transformManager.getActiveCount() + 1}/${transformManager.MAX_CONCURRENT})`);
-    
-    // TransformManager에 추적 등록 (Firestore 리스닝 자동 시작)
-    transformManager.start(transformId, {
+    // 사전 등록 (서버 응답 전 배너 즉시 표시)
+    const tempId = `temp-${Date.now()}-${Math.random().toString(36).substr(2, 6)}`;
+    const metadata = {
       selectedStyle,
       correctionPrompt,
       cost: modelConfig.cost,
       model: modelConfig.model
-    });
+    };
+    transformManager.preRegister(tempId, metadata);
+    
+    // Cloud Function 호출 → transformId 즉시 반환
+    let transformId;
+    try {
+      const result = await callStartTransform(photoBase64, selectedStyle, correctionPrompt);
+      transformId = result.transformId;
+    } catch (serverError) {
+      // 서버 실패 → 사전 등록 제거
+      transformManager.remove(tempId);
+      throw serverError;
+    }
+    
+    console.log(`📋 변환 제출: ${transformId} (${transformManager.getActiveCount()}/${transformManager.MAX_CONCURRENT})`);
+    
+    // 사전 등록 → 실제 등록 전환 (Firestore 리스닝 시작)
+    transformManager.activate(tempId, transformId, metadata);
     
     return {
       success: true,
-      transformId
+      transformId,
+      tempId
     };
 
   } catch (error) {

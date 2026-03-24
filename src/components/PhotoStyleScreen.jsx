@@ -32,6 +32,7 @@ import japanese from '../assets/thumbnails/oriental/japanese.webp';
 
 const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, onCategoryChange, userCredits = 0, lang = 'en' }) => {
   const fileInputRef = useRef(null);
+  const screenRef = useRef(null);
   const [photo, setPhoto] = useState(null);
   const [photoPreview, setPhotoPreview] = useState(null);
   const [selectedStyle, setSelectedStyle] = useState(null);
@@ -291,6 +292,23 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
 
     const idx = categoryOrder.indexOf(activeCategory);
     const pw = PAGE_W_REF.current;
+
+    // 첫 번째 카테고리에서 오른쪽 스와이프 → 홈으로 (RTL: 왼쪽)
+    const backDx = lang === 'ar' ? -dx : dx;
+    const backVel = lang === 'ar' ? -velocity : velocity;
+    if (idx === 0 && backDx > 0 && (backVel > 0.6 || backDx > pw * 0.35)) {
+      // 슬라이드 아웃 애니메이션 후 홈으로
+      if (screenRef.current) {
+        screenRef.current.style.transition = 'transform 0.3s ease-out, opacity 0.3s ease-out';
+        screenRef.current.style.transform = 'translateX(100%)';
+        screenRef.current.style.opacity = '0';
+        setTimeout(() => onBack?.(), 280);
+      } else {
+        onBack?.();
+      }
+      return;
+    }
+
     let target = idx;
 
     if (Math.abs(velocity) > 0.3) {
@@ -300,7 +318,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
     }
 
     snapToPage(target);
-  }, [activeCategory, snapToPage]);
+  }, [activeCategory, snapToPage, onBack, lang]);
 
   // ─── 카테고리별 페이지 렌더 ───
   const renderCategoryPage = (catKey) => {
@@ -376,10 +394,10 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
             >
               <div className="style-thumb">
                 <img src={style.thumbnail} alt={style.name} />
-                <div className="style-overlay">
-                  <span className="style-name">{style.name}</span>
-                  <span className="style-period">{style.period}</span>
-                </div>
+              </div>
+              <div className="style-text">
+                <span className="style-name">{style.name}</span>
+                <span className="style-period">{style.period}</span>
               </div>
             </button>
           ))}
@@ -393,7 +411,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
   };
 
   return (
-    <div className="style-screen">
+    <div className="style-screen" ref={screenRef}>
       {/* Atmosphere blobs — 메인화면과 동일 */}
       <div className="atmo-layer">
         <div className="atmo-blob atmo-blue" />
@@ -829,7 +847,8 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
           display: flex;
           justify-content: space-between;
           align-items: center;
-          padding: 10px 28px 14px;
+          padding: 10px 42px 14px 38px;
+          margin-top: 10px;
         }
 
         .select-label {
@@ -843,10 +862,11 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
         }
 
         .style-grid {
-          padding: 4px 28px 24px;
+          padding: 4px 42px 24px 38px;
           display: grid;
           grid-template-columns: repeat(2, 1fr);
-          gap: 16px;
+          column-gap: 32px;
+          row-gap: 14px;
           overflow-y: auto;
         }
 
@@ -865,10 +885,11 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
         }
 
         .style-thumb {
-          position: relative;
           width: 100%;
           aspect-ratio: 1;
           background: #1a2a2f;
+          border-radius: 10px;
+          overflow: hidden;
         }
 
         .style-thumb img {
@@ -877,31 +898,24 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
           object-fit: cover;
         }
 
-        .style-overlay {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          padding: 8px 10px;
-          background: none;
+        .style-text {
+          padding: 6px 4px 2px;
           text-align: start;
         }
 
         .style-name {
           display: block;
-          color: #fff;
-          font-size: 13px;
+          color: rgba(255,255,255,0.88);
+          font-size: 12.5px;
           font-weight: 600;
           line-height: 1.3;
-          text-shadow: 0 1px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.5);
         }
 
         .style-period {
           display: block;
-          color: rgba(255,255,255,0.8);
-          font-size: 11px;
+          color: rgba(255,255,255,0.4);
+          font-size: 10px;
           margin-top: 2px;
-          text-shadow: 0 1px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.5);
         }
 
         /* Subscription Info */
@@ -918,16 +932,17 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
 
         @media (max-width: 400px) {
           .style-grid {
-            gap: 14px;
-            padding: 0 24px 20px;
+            column-gap: 24px;
+            row-gap: 12px;
+            padding: 0 44px 20px;
           }
 
           .style-name {
-            font-size: 12px;
+            font-size: 11.5px;
           }
 
           .style-period {
-            font-size: 10px;
+            font-size: 9.5px;
           }
         }
       `}</style>

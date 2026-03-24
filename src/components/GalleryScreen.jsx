@@ -173,7 +173,7 @@ export const saveToGallery = async (imageUrl, metadataOrStyleName, categoryNameL
 
 
 // ========== 갤러리 컴포넌트 ==========
-const GalleryScreen = ({ onBack, onHome, lang = 'en' }) => {
+const GalleryScreen = ({ onBack, onHome, refreshKey, lang = 'en' }) => {
   const [galleryItems, setGalleryItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -298,6 +298,11 @@ const GalleryScreen = ({ onBack, onHome, lang = 'en' }) => {
   useEffect(() => {
     loadGallery();
   }, []);
+
+  // 백그라운드 변환 완료 시 갤러리 새로고침
+  useEffect(() => {
+    if (refreshKey > 0) loadGallery();
+  }, [refreshKey]);
 
   // 키보드 좌우 화살표로 모달 네비게이션 (PC)
   useEffect(() => {
