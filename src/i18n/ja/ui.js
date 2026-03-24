@@ -11,7 +11,7 @@ export const ui = {
     masterCollection: '巨匠コレクション',
     masterCollectionDesc: '時代を超えた7人の巨匠',
     eastAsianArt: '東洋画',
-    eastAsianArtDesc: '千年に息づく東洋の美',
+    eastAsianArtDesc: '千年の東洋哲学にたたずむ',
     tagline: '時空を超える旅',
     subTagline: '東西の巨匠に出会う'
   },

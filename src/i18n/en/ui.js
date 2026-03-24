@@ -10,7 +10,7 @@ export const ui = {
     masterCollection: 'Master Collection',
     masterCollectionDesc: '7 Masters Beyond Time',
     eastAsianArt: 'East Asian Art',
-    eastAsianArtDesc: '1000 Years of Eastern Beauty',
+    eastAsianArtDesc: 'Dwell in 1000 Years of Eastern Philosophy',
     tagline: 'A journey across time and space',
     subTagline: 'Meet the masters of East and West'
   },
@@ -35,7 +35,7 @@ export const ui = {
     orientalFullTitle: '1000 Years of Eastern Beauty',
     orientalFullDesc: 'China · Japan · Korea',
     perTransform: 'transform',
-    selectMovement: 'Select a movement',
+    selectMovement: 'Select an art movement',
     selectMaster: 'Select a master',
     mastersGalleryDesc: 'Real artworks transformed into 7 master styles by Master Valley',
     selectStyle: 'Select a style',

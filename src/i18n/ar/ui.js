@@ -11,7 +11,7 @@ export const ui = {
     masterCollection: 'مجموعة الأساتذة',
     masterCollectionDesc: '7 أساتذة عظام عبر الزمن',
     eastAsianArt: 'الرسم الشرقي',
-    eastAsianArtDesc: 'جمال الشرق الممتد ألف عام',
+    eastAsianArtDesc: 'تأمل في فلسفة الشرق الممتدة ألف عام',
     tagline: 'رحلة عبر الزمان والمكان',
     subTagline: 'التقِ بعظماء الشرق والغرب'
   },

@@ -11,7 +11,7 @@ export const ui = {
     masterCollection: 'Koleksi Maestro',
     masterCollectionDesc: '7 maestro abadi sepanjang zaman',
     eastAsianArt: 'Lukisan Oriental',
-    eastAsianArtDesc: 'Keindahan timur yang telah berlangsung seribu tahun',
+    eastAsianArtDesc: 'Menyelami filosofi timur yang telah berlangsung seribu tahun',
     tagline: 'Perjalanan melintasi ruang dan waktu',
     subTagline: 'Temui para maestro Timur dan Barat'
   },

@@ -10,7 +10,7 @@ export const ui = {
     masterCollection: 'Coleção dos Mestres',
     masterCollectionDesc: '7 grandes mestres além do tempo',
     eastAsianArt: 'Pintura Oriental',
-    eastAsianArtDesc: 'Mil anos de beleza oriental',
+    eastAsianArtDesc: 'Contemplar mil anos de filosofia oriental',
     tagline: 'Uma viagem através do tempo e do espaço',
     subTagline: 'Conheça os mestres do Oriente e do Ocidente'
   },

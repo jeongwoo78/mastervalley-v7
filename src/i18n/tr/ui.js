@@ -10,7 +10,7 @@ export const ui = {
     masterCollection: 'Usta Koleksiyonu',
     masterCollectionDesc: 'Çağı aşan 7 büyük usta',
     eastAsianArt: 'Doğu Resmi',
-    eastAsianArtDesc: 'Bin yıllık Doğu güzelliği',
+    eastAsianArtDesc: 'Bin yıllık Doğu felsefesinde kalmak',
     tagline: 'Zamanda ve mekânda bir yolculuk',
     subTagline: "Doğu ve Batı'nın büyük ustalarıyla tanış"
   },

@@ -10,7 +10,7 @@ export const ui = {
     masterCollection: '거장 컬렉션',
     masterCollectionDesc: '7인의 거장을 만나다',
     eastAsianArt: '동양화',
-    eastAsianArtDesc: '천년 동양의 미를 경험하다',
+    eastAsianArtDesc: '천년 동양 철학에 머물다',
     tagline: '시공간을 건너는 여정',
     subTagline: '동서양 세기의 거장을 만나다'
   },
@@ -35,7 +35,7 @@ export const ui = {
     orientalFullTitle: '동양 천 년의 미학',
     orientalFullDesc: '한국 · 중국 · 일본',
     perTransform: '변환',
-    selectMovement: '사조를 선택하세요',
+    selectMovement: '미술 사조를 선택하세요',
     selectMaster: '거장을 선택하세요',
     mastersGalleryDesc: 'Master Valley를 통해 7명의 거장 화풍으로 변환된 실제 작품들입니다',
     selectStyle: '스타일을 선택하세요',

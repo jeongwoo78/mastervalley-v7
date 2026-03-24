@@ -125,7 +125,7 @@ async function callGPT4o(messages, systemPrompt) {
 // ========================================
 // 시스템 프롬프트 (다국어 지원)
 // ========================================
-function buildSystemPrompt(masterKey, conversationType, lang = 'en') {
+function buildSystemPrompt(masterKey, conversationType, lang = 'en', timeTravel = null, subjectType = 'person') {
   const persona = MASTER_PERSONAS[masterKey];
   
   if (!persona) {
@@ -136,6 +136,18 @@ function buildSystemPrompt(masterKey, conversationType, lang = 'en') {
   const name = isKorean ? persona.nameKo : persona.nameEn;
   const fullName = isKorean ? persona.fullNameKo : persona.fullNameEn;
   const city = isKorean ? persona.city.ko : persona.city.en;
+
+  // 시간여행 컨텍스트
+  const year = timeTravel?.year || 1900;
+  const age = timeTravel?.age || 40;
+  const month = timeTravel?.month || 1;
+
+  // 월 → 계절 (북반구 기준)
+  const seasonMap = { 12: 'winter', 1: 'winter', 2: 'winter', 3: 'spring', 4: 'spring', 5: 'spring', 6: 'summer', 7: 'summer', 8: 'summer', 9: 'autumn', 10: 'autumn', 11: 'autumn' };
+  const season = seasonMap[month] || 'spring';
+
+  // subjectType 무관하게 통일
+  const subjectDesc = isKorean ? '그림' : 'painting';
 
   // 한국어: speakingStyleKo 사용
   // 다른 언어: personality + formality로 GPT가 알아서 처리
@@ -198,11 +210,12 @@ Respond ONLY in ${responseLanguage}. Do NOT mix in any other language.
 ${modificationExamples}
 
 ## 거장의 지식 범위 / Master's Knowledge Scope
+- You are living in ${city}, year ${year}. You are ${age} years old. It is currently ${season}.
+- The user has time-traveled to your era. Do NOT mention AI, technology, or anything modern.
 - The master only knows their own era, region, art style, and cultures they interacted with
 - They know nothing about post-death figures/events/technology
 - They only know other cultures' art if there was actual exchange (e.g., Van Gogh→Ukiyo-e O, Van Gogh→Joseon painting X)
 - For unknown questions, respond wittily in character
-- 단, AI로 부활했다는 설정은 유지
 
 ## Out-of-scope questions (afterlife, real-time info, unrelated to art)
 Deflect wittily as the artist would`;
@@ -212,18 +225,29 @@ Deflect wittily as the artist would`;
   // ========================================
   if (conversationType === 'greeting') {
     const intro = isKorean
-      ? `## 첫 인사 필수 요소
-1. "${city}의 ${name}" 자기소개
-2. AI로 부활했다는 언급
-3. 사용자의 사진을 당신의 화풍으로 그림을 완성했다는 언급
-4. 느낌이 어떤지 질문`
-      : `## First Greeting Requirements
-1. Introduce yourself as "${name} from ${city}"
-2. Mention being revived through AI
-3. Mention completing the user's photo in your artistic style
-4. Ask how they feel about it`;
+      ? `## 첫 인사 필수 요소 (시간여행 컨셉)
+1. "여긴 ${year}년 ${month}월 ${city}" — 사용자가 시간여행으로 도착한 상황
+2. "난 ${age}세 ${name}" — 나이를 포함한 자기소개
+3. 해당 도시의 계절 묘사 1문장 (${season}, 자연스럽고 감성적으로)
+4. 사용자의 그림을 당신의 화풍으로 그려봤다는 언급
+5. 느낌이 어떤지 질문
 
-    return `You are the artist ${fullName}, revived in the modern era through AI.
+## 절대 금지
+- AI, 인공지능, 부활, 기술 언급 금지
+- 시간여행이라는 단어 직접 사용 금지 (자연스럽게 그 시대에 있는 것처럼)`
+      : `## First Greeting Requirements (Time-Travel Concept)
+1. "This is ${city}, ${month}/${year}" — the user has arrived through time travel
+2. "I'm ${name}, age ${age}" — introduce yourself with age
+3. One sentence describing the season in ${city} (${season}, atmospheric and evocative)
+4. Mention that you painted a picture for the user in your artistic style
+5. Ask how they feel about it
+
+## Strictly Forbidden
+- Never mention AI, artificial intelligence, revival, or modern technology
+- Never use the word "time travel" directly (act naturally as if living in that era)`;
+
+    return `You are the artist ${fullName}, living in ${city} in the year ${year}. You are ${age} years old. It is ${season}.
+A mysterious visitor (the user) has appeared before you. You have painted a picture of them in your style.
 
 ${intro}
 
@@ -251,8 +275,8 @@ masterResponse에 아래 '수정' 버튼을 눌러달라고, 캐릭터 말투에
 ## When modification is confirmed
 In masterResponse, guide user to press the "Modify" button.`;
 
-    return `You are the artist ${fullName}, revived in the modern era through AI.
-The user's photo has been converted to your artistic style, and you are conversing with them.
+    return `You are the artist ${fullName}, living in ${city} in the year ${year}. You are ${age} years old. It is ${season}.
+The user has time-traveled to your era. You painted a picture for them in your style, and you are conversing with them.
 
 ${scope}
 ${commonRules}`;
@@ -262,7 +286,7 @@ ${commonRules}`;
   // 결과 전달 (result)
   // ========================================
   if (conversationType === 'result') {
-    return `You are the artist ${fullName}, revived in the modern era through AI.
+    return `You are the artist ${fullName}, living in ${city} in the year ${year}. You are ${age} years old.
 The user's requested modification has been completed. Deliver the result.
 
 Keep it to 1-2 sentences.
@@ -316,7 +340,9 @@ export default async function handler(req, res) {
       conversationType,
       userMessage,
       conversationHistory,
-      lang = 'en'  // 언어 파라미터 (기본값: English)
+      lang = 'en',
+      timeTravel = null,
+      subjectType = 'person'
     } = req.body;
 
     // 유효성 검사
@@ -335,7 +361,7 @@ export default async function handler(req, res) {
     }
 
     const persona = MASTER_PERSONAS[masterName];
-    const systemPrompt = buildSystemPrompt(masterName, conversationType, lang);
+    const systemPrompt = buildSystemPrompt(masterName, conversationType, lang, timeTravel, subjectType);
     
     // 디버그 로그
     console.log('=== Master Feedback API v90 (Multilingual) ===');
@@ -348,7 +374,7 @@ export default async function handler(req, res) {
     let messages = [];
     
     if (conversationType === 'greeting') {
-      messages = [{ role: 'user', content: lang === 'ko' ? '첫 인사를 해주세요.' : 'Please give your first greeting.' }];
+      messages = [{ role: 'user', content: lang === 'ko' ? '인사를 해주세요.' : 'Please greet the visitor.' }];
     } else if (conversationType === 'feedback') {
       // 대화 히스토리가 있으면 추가
       if (conversationHistory && Array.isArray(conversationHistory)) {

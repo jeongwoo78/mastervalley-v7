@@ -93,9 +93,19 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
         setStatusText(`${progressLabel} (${i + 1}/${totalCount})`);
         
         // 첫 건은 즉시, 이후 1초 간격 제출
+        // submitTransform 완료 즉시 currentTransformIds 등록 (App.jsx 가로채기 방지)
+        const submitAndRegister = async () => {
+          const result = await submitTransform(photo, style, null, { skipLimitCheck: true });
+          if (result.success && onTransformStarted) {
+            if (result.tempId) onTransformStarted(result.tempId);
+            onTransformStarted(result.transformId);
+          }
+          return result;
+        };
+        
         const [, submitResult] = await Promise.all([
           i > 0 ? sleep(1000) : Promise.resolve(),
-          submitTransform(photo, style, null, { skipLimitCheck: true })
+          submitAndRegister()
         ]);
         
         if (cancelledRef.current) return;
@@ -106,10 +116,6 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
         }
         
         submissions.push({ style, transformId: submitResult.transformId, tempId: submitResult.tempId });
-        if (onTransformStarted) {
-          if (submitResult.tempId) onTransformStarted(submitResult.tempId);
-          onTransformStarted(submitResult.transformId);
-        }
       }
       
       const validSubmissions = submissions.filter(s => s.transformId);
@@ -239,9 +245,19 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
       }
       
       // 분석 표시 + 서버 제출 병렬 실행 (뒤로가기 시 즉시 배너 표시 가능)
+      // submitTransform 완료 즉시 currentTransformIds 등록 (App.jsx 가로채기 방지)
+      const submitAndRegister = async () => {
+        const result = await submitTransform(photo, selectedStyle);
+        if (result.success && onTransformStarted) {
+          if (result.tempId) onTransformStarted(result.tempId);
+          onTransformStarted(result.transformId);
+        }
+        return result;
+      };
+      
       const [, submitResult] = await Promise.all([
         sleep(1000),
-        submitTransform(photo, selectedStyle)
+        submitAndRegister()
       ]);
       if (cancelledRef.current) return;
       
@@ -255,13 +271,6 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, onTransformStarted
       }
       
       const transformId = submitResult.transformId;
-      
-      // App.jsx에 추적 ID 알림 (백그라운드 핸들러에서 skip하도록)
-      // tempId(사전등록) + transformId(실제) 둘 다 등록
-      if (onTransformStarted) {
-        if (submitResult.tempId) onTransformStarted(submitResult.tempId);
-        onTransformStarted(transformId);
-      }
       
       // v81 진행 텍스트
       const cat = selectedStyle.category;

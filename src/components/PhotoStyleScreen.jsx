@@ -207,7 +207,11 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
   };
 
   const handleFullTransform = (catKey) => {
-    setSelectedStyle(categoryData[catKey].fullTransform);
+    if (selectedStyle?.isFullTransform && selectedStyle?.category === catKey) {
+      setSelectedStyle(null);
+    } else {
+      setSelectedStyle(categoryData[catKey].fullTransform);
+    }
   };
 
   // ─── 스와이프 핸들러 ───
@@ -365,6 +369,9 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
                 <span className="ft-label">One-Click</span>
                 <span className="ft-pipe">|</span>
                 <span className="ft-sub">{cat.fullTransformLabel}</span>
+                {selectedStyle?.isFullTransform && selectedStyle?.category === catKey && (
+                  <span className="ft-check">✓</span>
+                )}
               </span>
               <span className="ft-price">{cat.fullPrice}</span>
             </div>
@@ -809,6 +816,27 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
           font-style: italic;
           font-size: 20px;
           font-weight: 700;
+          letter-spacing: 0.5px;
+          position: relative;
+          display: inline-block;
+          overflow: hidden;
+        }
+
+        .ft-label::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 50%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.45), transparent);
+          animation: ft-shimmer 1.5s ease-in-out infinite;
+        }
+
+        @keyframes ft-shimmer {
+          0% { left: -100%; }
+          75% { left: 150%; }
+          100% { left: 150%; }
         }
 
         .ft-pipe {
@@ -816,10 +844,20 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
           opacity: 0.4;
         }
 
+        .ft-check {
+          font-size: 16px;
+          font-weight: 700;
+          margin-left: 6px;
+        }
+
+        .full-transform-btn.selected .ft-label::after {
+          display: none;
+        }
+
         .ft-sub {
-          font-size: 13px;
-          font-weight: 600;
-          opacity: 0.75;
+          font-size: 14px;
+          font-weight: 700;
+          opacity: 0.85;
         }
 
         .ft-price {
@@ -834,8 +872,8 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
         }
 
         .ft-desc {
-          font-size: 12px;
-          opacity: 0.7;
+          font-size: 13px;
+          opacity: 0.8;
         }
 
         .ft-emojis {
@@ -847,13 +885,14 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
           display: flex;
           justify-content: space-between;
           align-items: center;
-          padding: 10px 42px 14px 38px;
+          padding: 10px 42px 14px 40px;
           margin-top: 10px;
         }
 
         .select-label {
-          color: #888;
-          font-size: 13px;
+          color: rgba(255,255,255,0.7);
+          font-size: 15px;
+          font-weight: 600;
         }
 
         .per-transform-price {
@@ -862,10 +901,10 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
         }
 
         .style-grid {
-          padding: 4px 42px 24px 38px;
+          padding: 4px 42px 24px 40px;
           display: grid;
           grid-template-columns: repeat(2, 1fr);
-          column-gap: 32px;
+          column-gap: 33px;
           row-gap: 14px;
           overflow-y: auto;
         }

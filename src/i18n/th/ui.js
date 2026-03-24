@@ -11,7 +11,7 @@ export const ui = {
     masterCollection: 'คอลเลกชันศิลปินเอก',
     masterCollectionDesc: 'พบกับ 7 ปรมาจารย์',
     eastAsianArt: 'จิตรกรรมตะวันออก',
-    eastAsianArtDesc: 'สัมผัสสุนทรียะพันปีแห่งตะวันออก',
+    eastAsianArtDesc: 'ดื่มด่ำปรัชญาพันปีแห่งตะวันออก',
     tagline: 'การเดินทางข้ามกาลเวลาและพื้นที่',
     subTagline: 'พบกับปรมาจารย์แห่งตะวันออกและตะวันตก'
   },

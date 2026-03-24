@@ -11,7 +11,7 @@ export const ui = {
     masterCollection: '大師典藏',
     masterCollectionDesc: '超越時代的7位大師',
     eastAsianArt: '東洋畫',
-    eastAsianArtDesc: '傳承千年的東方之美',
+    eastAsianArtDesc: '沉浸於千年東方哲學',
     tagline: '跨越時空的旅程',
     subTagline: '邂逅東西方的世紀巨匠'
   },

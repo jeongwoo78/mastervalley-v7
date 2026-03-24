@@ -51,6 +51,7 @@ const MasterChat = ({
   const chatAreaRef = useRef(null);
   const hasGreeted = useRef(savedChatData?.messages?.length > 0);
   const isChatEndedRef = useRef(savedChatData?.isChatEnded || false);
+  const timeTravelRef = useRef(null);
   
   const MAX_MESSAGES = 20; // 최대 대화 횟수
 
@@ -93,15 +94,62 @@ const MasterChat = ({
     }
   }, [messages]);
 
-  // 첫 인사 로드 (i18n에서 가져옴)
-  const loadGreeting = () => {
-    const greeting = chatText.greetings[masterKey] || chatText.greetings['VAN GOGH'];
-    setMessages([
-      {
-        role: 'master',
-        content: greeting
+  // 거장 나이 범위 (주요 사건 이후 + 버퍼)
+  const MASTER_AGE_RANGE = {
+    'VAN GOGH': { min: 35, max: 37 },
+    'KLIMT': { min: 48, max: 53 },
+    'MUNCH': { min: 33, max: 77 },
+    'CHAGALL': { min: 31, max: 94 },
+    'MATISSE': { min: 39, max: 81 },
+    'FRIDA': { min: 23, max: 44 },
+    'LICHTENSTEIN': { min: 41, max: 70 }
+  };
+
+  const MASTER_BIRTH = {
+    'VAN GOGH': 1853, 'KLIMT': 1862, 'MUNCH': 1863, 'CHAGALL': 1887,
+    'MATISSE': 1869, 'FRIDA': 1907, 'LICHTENSTEIN': 1923
+  };
+
+  // 첫 인사 로드 (API 호출 — 시간여행 컨셉)
+  const loadGreeting = async () => {
+    const range = MASTER_AGE_RANGE[masterKey] || { min: 30, max: 50 };
+    const age = Math.floor(Math.random() * (range.max - range.min + 1)) + range.min;
+    const birth = MASTER_BIRTH[masterKey] || 1870;
+    const year = birth + age;
+    const month = new Date().getMonth() + 1;
+    const tt = { year, age, month };
+    timeTravelRef.current = tt;
+
+    setIsLoading(true);
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/master-feedback`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          masterName: masterKey,
+          conversationType: 'greeting',
+          userMessage: '',
+          lang: lang,
+          timeTravel: tt,
+          subjectType: subjectType || 'person'
+        })
+      });
+
+      const data = await response.json();
+      if (data.success && data.masterResponse) {
+        setMessages([{ role: 'master', content: data.masterResponse }]);
+      } else {
+        // 폴백: 간단한 인사
+        const fallback = chatText.greetings[masterKey] || chatText.greetings['VAN GOGH'];
+        setMessages([{ role: 'master', content: fallback.replace('{year}', year).replace('{age}', age).replace('{city}', '') }]);
       }
-    ]);
+    } catch (error) {
+      console.error('Greeting API error:', error);
+      const fallback = chatText.greetings[masterKey] || chatText.greetings['VAN GOGH'];
+      setMessages([{ role: 'master', content: fallback.replace('{year}', year).replace('{age}', age).replace('{city}', '') }]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   // 메시지 전송
@@ -158,7 +206,9 @@ const MasterChat = ({
           conversationType: 'feedback',
           userMessage: userMessage,
           conversationHistory: conversationHistory,
-          lang: lang
+          lang: lang,
+          timeTravel: timeTravelRef.current,
+          subjectType: subjectType || 'person'
         })
       });
       

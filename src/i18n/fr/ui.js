@@ -11,7 +11,7 @@ export const ui = {
     masterCollection: 'Collection des maîtres',
     masterCollectionDesc: '7 maîtres intemporels',
     eastAsianArt: 'Peinture orientale',
-    eastAsianArtDesc: 'La beauté millénaire de l\'Orient',
+    eastAsianArtDesc: 'S\'immerger dans la philosophie millénaire de l\'Orient',
     tagline: "Un voyage à travers le temps et l'espace",
     subTagline: "Rencontrez les maîtres d'Orient et d'Occident"
   },
