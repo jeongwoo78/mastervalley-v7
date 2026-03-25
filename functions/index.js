@@ -1,36 +1,30 @@
 // ========================================
 // Master Valley Cloud Functions (gen2)
-// 서버 구동 변환 아키텍처
+// v83: 트리거 제거 → 인라인 처리 (속도 복원)
 // ========================================
-// startTransform: 단일 or 원클릭 요청 → Firestore 저장 → 즉시 반환
-// processTransform: Firestore 생성 트리거 → 변환 처리 → 결과 저장
-// 원클릭: N개 개별 transforms + 1개 oneclick_sessions로 추적
+// startTransform 하나가 모든 것을 처리:
+//   단일: HTTP 함수 내에서 직접 변환 → 결과 즉시 반환 (8~14초)
+//   원클릭: 병렬 Promise.all → Firestore에 개별 결과 기록 → FCM
+// processTransform (Firestore 트리거) 완전 제거 — 트리거 지연+콜드스타트 제거
 // ========================================
 
 import { onRequest } from 'firebase-functions/v2/https';
-import { onDocumentCreated } from 'firebase-functions/v2/firestore';
 import { initializeApp } from 'firebase-admin/app';
 import { getFirestore, FieldValue } from 'firebase-admin/firestore';
 import { getMessaging } from 'firebase-admin/messaging';
-import crypto from 'crypto';
 
 import { runTransform } from './transform-logic.js';
 
-// Firebase Admin 초기화
 initializeApp();
 const db = getFirestore();
 
 // ========================================
-// 1. startTransform — 변환 요청 접수
-// ========================================
-// 단일: transforms/{id} 1건 생성
-// 원클릭: oneclick_sessions/{sessionId} + transforms/{id} N건 batch 생성
-//         → 각 문서마다 processTransform 병렬 트리거
+// startTransform — 단일 + 원클릭 통합
 // ========================================
 export const startTransform = onRequest({
   cors: true,
-  timeoutSeconds: 30,
-  memory: '256MiB',
+  timeoutSeconds: 540,   // 9분 (변환 시간 충분)
+  memory: '1GiB',
   region: 'us-central1',
   secrets: ['REPLICATE_API_KEY', 'ANTHROPIC_API_KEY']
 }, async (req, res) => {
@@ -44,104 +38,44 @@ export const startTransform = onRequest({
   }
   
   try {
-    const { image, selectedStyle, styles, isFullTransform, correctionPrompt, userId, fcmToken, fcmMessage } = req.body;
+    const {
+      image,
+      selectedStyle,
+      styles,
+      isFullTransform,
+      correctionPrompt,
+      userId,
+      fcmToken,
+      fcmMessage,
+      // 클라이언트가 미리 생성한 ID (복원 및 Firestore 리스닝용)
+      transformId: clientTransformId,
+      sessionId: clientSessionId,
+      transformIds: clientTransformIds
+    } = req.body;
     
     if (!image) {
       return res.status(400).json({ error: 'Missing image' });
     }
     
     // ========================================
-    // 원클릭: N건 병렬 변환
+    // 원클릭: 병렬 처리
     // ========================================
     if (isFullTransform && styles && styles.length > 0) {
-      const sessionId = crypto.randomUUID();
-      const transformIds = [];
-      
-      // 세션 문서 생성 (전체 추적용)
-      await db.collection('oneclick_sessions').doc(sessionId).set({
-        userId: userId || null,
-        totalCount: styles.length,
-        completedCount: 0,
-        successCount: 0,
-        transformIds: [],
-        fcmToken: fcmToken || null,
-        fcmMessage: fcmMessage || null,
-        selectedStyle: selectedStyle || null,
-        status: 'processing',
-        createdAt: FieldValue.serverTimestamp(),
-        updatedAt: FieldValue.serverTimestamp()
-      });
-      
-      // N개 개별 변환 문서 batch 생성 → 각각 processTransform 병렬 트리거
-      const batch = db.batch();
-      for (let i = 0; i < styles.length; i++) {
-        const transformId = crypto.randomUUID();
-        transformIds.push(transformId);
-        
-        const docRef = db.collection('transforms').doc(transformId);
-        batch.set(docRef, {
-          status: 'pending',
-          image,
-          selectedStyle: styles[i],
-          correctionPrompt: null,
-          userId: userId || null,
-          sessionId,
-          styleIndex: i,
-          // 개별 FCM 없음 — 세션 완료 시 1회만
-          fcmToken: null,
-          fcmMessage: null,
-          createdAt: FieldValue.serverTimestamp(),
-          updatedAt: FieldValue.serverTimestamp()
-        });
-      }
-      
-      // 세션에 transformIds 저장
-      batch.update(db.collection('oneclick_sessions').doc(sessionId), {
-        transformIds
-      });
-      
-      await batch.commit();
-      
-      console.log(`📋 원클릭 세션 등록: ${sessionId} (${styles.length}건)`);
-      
-      return res.status(200).json({
-        sessionId,
-        transformIds,
-        isFullTransform: true,
-        status: 'processing'
+      return await handleOneClick(req, res, {
+        image, styles, selectedStyle,
+        userId, fcmToken, fcmMessage,
+        sessionId: clientSessionId,
+        transformIds: clientTransformIds
       });
     }
     
     // ========================================
-    // 단일 변환 (기존)
+    // 단일 변환: 인라인 처리 → HTTP 응답으로 결과 반환
     // ========================================
-    if (!selectedStyle) {
-      return res.status(400).json({ error: 'Missing style' });
-    }
-    
-    if (!selectedStyle.name || !selectedStyle.category) {
-      return res.status(400).json({ error: 'Invalid style structure' });
-    }
-    
-    const transformId = crypto.randomUUID();
-    
-    await db.collection('transforms').doc(transformId).set({
-      status: 'pending',
-      image,
-      selectedStyle,
-      correctionPrompt: correctionPrompt || null,
-      userId: userId || null,
-      fcmToken: fcmToken || null,
-      fcmMessage: fcmMessage || null,
-      createdAt: FieldValue.serverTimestamp(),
-      updatedAt: FieldValue.serverTimestamp()
-    });
-    
-    console.log(`📋 변환 작업 등록: ${transformId} (${selectedStyle.category}/${selectedStyle.name})`);
-    
-    res.status(200).json({
-      transformId,
-      status: 'pending'
+    return await handleSingle(req, res, {
+      image, selectedStyle, correctionPrompt,
+      userId, fcmToken, fcmMessage,
+      transformId: clientTransformId
     });
     
   } catch (error) {
@@ -151,49 +85,39 @@ export const startTransform = onRequest({
 });
 
 // ========================================
-// 2. processTransform — 변환 실행 (Firestore 트리거)
+// 단일 변환 처리
 // ========================================
-// transforms/{transformId} 문서 생성 시 자동 실행
-// 단일/원클릭 개별 건 동일하게 처리 (1건 = 1 Cloud Function)
-// 원클릭은 완료 시 세션 카운트 업데이트 → 전부 끝나면 FCM
-// ========================================
-export const processTransform = onDocumentCreated({
-  document: 'transforms/{transformId}',
-  timeoutSeconds: 540,
-  memory: '1GiB',
-  region: 'us-central1',
-  secrets: ['REPLICATE_API_KEY', 'ANTHROPIC_API_KEY']
-}, async (event) => {
-  const snap = event.data;
-  if (!snap) {
-    console.log('문서 데이터 없음');
-    return;
+async function handleSingle(req, res, params) {
+  const {
+    image, selectedStyle, correctionPrompt,
+    userId, fcmToken, fcmMessage, transformId
+  } = params;
+  
+  if (!selectedStyle || !selectedStyle.name || !selectedStyle.category) {
+    return res.status(400).json({ error: 'Invalid style' });
   }
   
-  const data = snap.data();
-  const transformId = event.params.transformId;
   const docRef = db.collection('transforms').doc(transformId);
-  const isOneClick = !!data.sessionId;
   
-  console.log(`🚀 변환 처리 시작: ${transformId}${isOneClick ? ` (세션: ${data.sessionId}, #${data.styleIndex})` : ''}`);
+  // 1. Firestore에 pending 기록 (복원용, 이미지 저장 안 함)
+  await docRef.set({
+    status: 'processing',
+    selectedStyle,
+    correctionPrompt: correctionPrompt || null,
+    userId: userId || null,
+    createdAt: FieldValue.serverTimestamp(),
+    updatedAt: FieldValue.serverTimestamp()
+  });
+  
+  console.log(`🚀 단일 변환 시작: ${transformId} (${selectedStyle.category}/${selectedStyle.name})`);
   
   try {
-    // 상태 업데이트: processing
-    await docRef.update({
-      status: 'processing',
-      updatedAt: FieldValue.serverTimestamp()
-    });
+    // 2. 직접 변환 실행 (트리거 대기 0초, 콜드스타트 0초)
+    const result = await runTransform(image, selectedStyle, correctionPrompt);
     
-    // 변환 실행 (Vision → 프롬프트 → Replicate → 폴링)
-    const result = await runTransform(
-      data.image,
-      data.selectedStyle,
-      data.correctionPrompt
-    );
+    console.log(`✅ 단일 변환 완료: ${transformId} | ${result.selectedArtist || '재변환'}`);
     
-    console.log(`✅ 변환 완료: ${transformId} | ${result.selectedArtist || '재변환'}`);
-    
-    // 결과 저장 + base64 삭제
+    // 3. Firestore에 결과 저장 (복원용)
     await docRef.update({
       status: 'completed',
       resultUrl: result.resultUrl,
@@ -202,136 +126,216 @@ export const processTransform = onDocumentCreated({
       selectionMethod: result.selectionMethod || null,
       subjectType: result.subjectType || null,
       isRetransform: result.isRetransform || false,
-      image: FieldValue.delete(),
       completedAt: FieldValue.serverTimestamp(),
       updatedAt: FieldValue.serverTimestamp()
     });
     
-    // FCM / 세션 업데이트
-    if (isOneClick) {
-      await handleOneClickCompletion(data.sessionId, true);
-    } else {
-      await sendSingleFCM(data, transformId, result);
+    // 4. FCM (선택적)
+    if (fcmToken) {
+      sendFCM(fcmToken, {
+        title: 'Master Valley',
+        body: fcmMessage || (result.selectedArtist 
+          ? `${result.selectedArtist} 스타일 변환이 완료되었습니다!`
+          : '변환이 완료되었습니다!'),
+        data: { transformId, type: 'transform_complete' }
+      });
     }
     
+    // 5. HTTP 응답으로 결과 즉시 반환 (클라이언트 Firestore 리스닝 불필요)
+    return res.status(200).json({
+      transformId,
+      status: 'completed',
+      resultUrl: result.resultUrl,
+      selectedArtist: result.selectedArtist || null,
+      selectedWork: result.selectedWork || null,
+      selectionMethod: result.selectionMethod || null,
+      subjectType: result.subjectType || null,
+      isRetransform: result.isRetransform || false
+    });
+    
   } catch (error) {
-    console.error(`❌ 변환 실패: ${transformId}`, error);
+    console.error(`❌ 단일 변환 실패: ${transformId}`, error);
     
     await docRef.update({
       status: 'failed',
       error: error.message,
-      image: FieldValue.delete(),
       updatedAt: FieldValue.serverTimestamp()
     });
     
-    if (isOneClick) {
-      await handleOneClickCompletion(data.sessionId, false);
-    } else {
-      await sendSingleFailFCM(data, transformId);
+    if (fcmToken) {
+      sendFCM(fcmToken, {
+        title: 'Master Valley',
+        body: '변환 중 오류가 발생했습니다. 다시 시도해 주세요.',
+        data: { transformId, type: 'transform_failed' }
+      });
     }
+    
+    return res.status(500).json({
+      transformId,
+      status: 'failed',
+      error: error.message
+    });
   }
-});
+}
 
 // ========================================
-// 원클릭 세션 완료 처리
-// completedCount 원자적 증가 → 전체 완료 시 FCM 1회
+// 원클릭 병렬 처리
 // ========================================
-async function handleOneClickCompletion(sessionId, isSuccess) {
+async function handleOneClick(req, res, params) {
+  const {
+    image, styles, selectedStyle,
+    userId, fcmToken, fcmMessage,
+    sessionId, transformIds
+  } = params;
+  
+  const totalCount = styles.length;
+  
+  // 1. 세션 + 개별 변환 문서 batch 생성
+  const batch = db.batch();
+  
   const sessionRef = db.collection('oneclick_sessions').doc(sessionId);
-  
-  const updateData = {
-    completedCount: FieldValue.increment(1),
+  batch.set(sessionRef, {
+    userId: userId || null,
+    totalCount,
+    completedCount: 0,
+    successCount: 0,
+    transformIds,
+    fcmToken: fcmToken || null,
+    fcmMessage: fcmMessage || null,
+    selectedStyle: selectedStyle || null,
+    status: 'processing',
+    createdAt: FieldValue.serverTimestamp(),
     updatedAt: FieldValue.serverTimestamp()
-  };
-  if (isSuccess) {
-    updateData.successCount = FieldValue.increment(1);
+  });
+  
+  for (let i = 0; i < totalCount; i++) {
+    const docRef = db.collection('transforms').doc(transformIds[i]);
+    batch.set(docRef, {
+      status: 'processing',
+      selectedStyle: styles[i],
+      userId: userId || null,
+      sessionId,
+      styleIndex: i,
+      createdAt: FieldValue.serverTimestamp(),
+      updatedAt: FieldValue.serverTimestamp()
+    });
   }
   
-  await sessionRef.update(updateData);
+  await batch.commit();
+  console.log(`📋 원클릭 세션 생성: ${sessionId} (${totalCount}건)`);
   
-  // 전체 완료 확인
-  const sessionSnap = await sessionRef.get();
-  const session = sessionSnap.data();
+  // 2. 모든 변환 병렬 실행
+  let completedCount = 0;
+  let successCount = 0;
   
-  if (session.completedCount >= session.totalCount) {
-    console.log(`🏁 원클릭 세션 완료: ${sessionId} (${session.successCount}/${session.totalCount} 성공)`);
-    
-    await sessionRef.update({
-      status: 'completed',
-      completedAt: FieldValue.serverTimestamp()
-    });
-    
-    // FCM 1회 전송
-    if (session.fcmToken) {
+  const results = await Promise.all(
+    styles.map(async (style, i) => {
+      const tid = transformIds[i];
+      const docRef = db.collection('transforms').doc(tid);
+      
       try {
-        const body = session.fcmMessage
-          || `${session.successCount}/${session.totalCount}건 변환이 완료되었습니다!`;
+        const result = await runTransform(image, style, null);
         
-        await getMessaging().send({
-          token: session.fcmToken,
-          notification: {
-            title: 'Master Valley',
-            body
-          },
-          data: {
-            sessionId,
-            type: 'oneclick_complete'
-          }
+        console.log(`✅ 원클릭 [${i + 1}/${totalCount}] 완료: ${tid} | ${result.selectedArtist || style.name}`);
+        
+        // 개별 결과 Firestore 기록 (클라이언트 리스닝용)
+        await docRef.update({
+          status: 'completed',
+          resultUrl: result.resultUrl,
+          selectedArtist: result.selectedArtist || null,
+          selectedWork: result.selectedWork || null,
+          selectionMethod: result.selectionMethod || null,
+          subjectType: result.subjectType || null,
+          isRetransform: false,
+          completedAt: FieldValue.serverTimestamp(),
+          updatedAt: FieldValue.serverTimestamp()
         });
-        console.log(`📱 원클릭 FCM 전송: ${sessionId}`);
-      } catch (fcmError) {
-        console.warn(`⚠️ FCM 전송 실패: ${fcmError.message}`);
+        
+        completedCount++;
+        successCount++;
+        
+        // 세션 카운트 업데이트
+        await sessionRef.update({
+          completedCount: FieldValue.increment(1),
+          successCount: FieldValue.increment(1),
+          updatedAt: FieldValue.serverTimestamp()
+        });
+        
+        return {
+          transformId: tid,
+          styleIndex: i,
+          status: 'completed',
+          resultUrl: result.resultUrl,
+          selectedArtist: result.selectedArtist || null,
+          selectedWork: result.selectedWork || null,
+          selectionMethod: result.selectionMethod || null,
+          subjectType: result.subjectType || null
+        };
+        
+      } catch (error) {
+        console.error(`❌ 원클릭 [${i + 1}/${totalCount}] 실패: ${tid}`, error);
+        
+        await docRef.update({
+          status: 'failed',
+          error: error.message,
+          updatedAt: FieldValue.serverTimestamp()
+        });
+        
+        completedCount++;
+        
+        await sessionRef.update({
+          completedCount: FieldValue.increment(1),
+          updatedAt: FieldValue.serverTimestamp()
+        });
+        
+        return {
+          transformId: tid,
+          styleIndex: i,
+          status: 'failed',
+          error: error.message
+        };
       }
-    }
+    })
+  );
+  
+  // 3. 세션 완료
+  console.log(`🏁 원클릭 세션 완료: ${sessionId} (${successCount}/${totalCount} 성공)`);
+  
+  await sessionRef.update({
+    status: 'completed',
+    completedAt: FieldValue.serverTimestamp()
+  });
+  
+  // 4. FCM 1회
+  if (fcmToken) {
+    sendFCM(fcmToken, {
+      title: 'Master Valley',
+      body: fcmMessage || `${successCount}/${totalCount}건 변환이 완료되었습니다!`,
+      data: { sessionId, type: 'oneclick_complete' }
+    });
   }
+  
+  // 5. HTTP 응답
+  return res.status(200).json({
+    sessionId,
+    status: 'completed',
+    totalCount,
+    successCount,
+    results
+  });
 }
 
 // ========================================
-// 단일 변환 FCM (기존)
+// FCM 유틸 (fire-and-forget)
 // ========================================
-async function sendSingleFCM(data, transformId, result) {
-  if (!data.fcmToken) return;
-  
-  try {
-    const notificationBody = data.fcmMessage
-      ? data.fcmMessage
-      : result.selectedArtist 
-        ? `${result.selectedArtist} 스타일 변환이 완료되었습니다!`
-        : '변환이 완료되었습니다!';
-    
-    await getMessaging().send({
-      token: data.fcmToken,
-      notification: {
-        title: 'Master Valley',
-        body: notificationBody
-      },
-      data: {
-        transformId,
-        type: 'transform_complete'
-      }
-    });
-    console.log(`📱 FCM 전송 완료: ${transformId}`);
-  } catch (fcmError) {
-    console.warn(`⚠️ FCM 전송 실패: ${fcmError.message}`);
-  }
-}
-
-async function sendSingleFailFCM(data, transformId) {
-  if (!data.fcmToken) return;
-  
-  try {
-    await getMessaging().send({
-      token: data.fcmToken,
-      notification: {
-        title: 'Master Valley',
-        body: '변환 중 오류가 발생했습니다. 다시 시도해 주세요.'
-      },
-      data: {
-        transformId,
-        type: 'transform_failed'
-      }
-    });
-  } catch (fcmError) {
-    console.warn(`⚠️ FCM 전송 실패: ${fcmError.message}`);
-  }
+function sendFCM(token, { title, body, data }) {
+  getMessaging().send({
+    token,
+    notification: { title, body },
+    data: data || {}
+  }).then(() => {
+    console.log(`📱 FCM 전송 완료`);
+  }).catch((err) => {
+    console.warn(`⚠️ FCM 전송 실패: ${err.message}`);
+  });
 }

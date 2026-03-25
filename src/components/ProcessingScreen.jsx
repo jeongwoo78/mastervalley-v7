@@ -1,11 +1,9 @@
-// PicoArt v83 - ProcessingScreen (서버 일괄 원클릭)
-// 원칙: 단일 = processStyleTransfer (차단형), 원클릭 = processFullTransform (서버 일괄)
-// v83: 원클릭 클라이언트 루프 → 서버 일괄 제출 (앱 나가도 서버 처리)
-// v77: i18n 지원
+// PicoArt v83 - ProcessingScreen (서버 인라인 + 원클릭 병렬)
+// 단일: processStyleTransfer (HTTP 직접 응답, 8~14초)
+// 원클릭: processFullTransform (서버 병렬 + Firestore 리스닝)
 import React, { useEffect, useState, useRef } from 'react';
 import { processStyleTransfer, processFullTransform } from '../utils/styleTransferAPI';
 import { educationContent } from '../data/educationContent';
-// v77: 원클릭 교육자료 (i18n)
 import { 
   getOneclickMovementsPrimary, 
   getOneclickMovementsSecondary,
@@ -16,15 +14,12 @@ import {
   getMastersResultEducation,
   getUi
 } from '../i18n';
-// v73: displayConfig 통합 함수
 import { normalizeKey, getDisplayInfo, getArtistName, getMovementDisplayInfo, getOrientalDisplayInfo, getMasterInfo, getCategoryIcon, getStyleIcon, getStyleTitle, getStyleSubtitle, getStyleSubtitles } from '../utils/displayConfig';
 import { getEducationKey, getEducationContent } from '../utils/educationMatcher';
 
 const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => {
-  // i18n texts from ui.js
   const t = getUi(lang).processing;
   
-  // v77: 원클릭 교육 데이터 (i18n)
   const oneclickMovementsPrimary = getOneclickMovementsPrimary(lang);
   const oneclickMovementsSecondary = getOneclickMovementsSecondary(lang);
   const oneclickMastersPrimary = getOneclickMastersPrimary(lang);
@@ -35,24 +30,20 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
   const [statusText, setStatusText] = useState(t.analyzing);
   const [showEducation, setShowEducation] = useState(false);
   
-  // 원클릭 상태
   const [completedResults, setCompletedResults] = useState([]);
   const [completedCount, setCompletedCount] = useState(0);
   const [viewIndex, setViewIndex] = useState(-1);
   const [touchStartX, setTouchStartX] = useState(0);
   
-  // 원클릭 여부
   const isFullTransform = selectedStyle?.isFullTransform === true;
   const category = selectedStyle?.category;
-  
-  // 원클릭 시 전달받은 스타일 배열 사용
   const styles = isFullTransform ? (selectedStyle?.styles || []) : [];
   const totalCount = styles.length;
 
   const startedRef = useRef(false);
 
   useEffect(() => {
-    if (startedRef.current) return;  // StrictMode 이중 실행 방지
+    if (startedRef.current) return;
     startedRef.current = true;
     startProcess();
   }, []);
@@ -60,7 +51,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
   // ========== 메인 프로세스 ==========
   const startProcess = async () => {
     if (isFullTransform) {
-      // ========== 원클릭: 서버 일괄 제출 (v83) ==========
+      // ========== 원클릭: 서버 병렬 ==========
       setShowEducation(true);
       const categoryLabel = category === 'movements' ? t.movementsLabel : 
                            category === 'masters' ? t.mastersLabel : 
@@ -70,20 +61,16 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
       const fcmMessage = `${selectedStyle.fullTransformLabel || categoryLabel} ${t.done}`;
       
       try {
-        // 서버에 1회 제출 → N건 병렬 처리 → onProgress로 결과 수신
         const results = await processFullTransform(
           photo,
           styles,
           selectedStyle,
           (progress) => {
-            // 개별 완료 시 UI 업데이트
             setCompletedCount(progress.completedCount);
             
-            // 완료된 결과만 필터 (순서 유지)
             const validResults = progress.results.filter(r => r !== null);
             setCompletedResults(validResults);
             
-            // 상태 텍스트: 마지막 완료된 스타일 이름
             if (progress.latestIndex !== undefined && progress.results[progress.latestIndex]) {
               const latest = progress.results[progress.latestIndex];
               const latestName = latest.style?.name || '';
@@ -97,19 +84,15 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           { customMessage: fcmMessage }
         );
         
-        // 전체 완료
-        const successResults = results.filter(r => r && r.success);
         const categoryLabel2 = category === 'movements' ? t.movementsComplete : 
                               category === 'masters' ? t.mastersComplete : t.nationsComplete;
         setStatusText(`${t.done} ${totalCount} ${categoryLabel2}`);
         
-        // 최종 결과 반영
         setCompletedCount(totalCount);
         setCompletedResults(results.filter(r => r !== null));
         
         await sleep(1000);
         
-        // onComplete에 기존 형태로 전달
         onComplete(selectedStyle, results, { isFullTransform: true, category, results });
         
       } catch (error) {
@@ -120,7 +103,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
       }
       
     } else {
-      // ========== 단일 변환 (기존 — processStyleTransfer 차단형) ==========
+      // ========== 단일 변환: HTTP 직접 응답 (빠름) ==========
       setShowEducation(true);
       const eduContent = getSingleEducationContent(selectedStyle);
       if (eduContent) {
@@ -145,16 +128,14 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
     }
   };
 
-  // ========== 단일 스타일 변환 (단일 변환 전용) ==========
+  // ========== 단일 스타일 변환 ==========
   const processSingleStyle = async (style, index = 0, total = 1, fcmOptions = {}) => {
     const styleName = style.name;
 
-    // API 상태 객체 → i18n 텍스트 변환
     const mapProgress = (progressObj) => {
       if (typeof progressObj === 'string') return progressObj;
       
       const { status, progress } = progressObj;
-      
       const cat = style.category;
       const progressText = (cat === 'movements' || cat === 'oriental')
         ? `${styleName} ${t.masterInProgress}`
@@ -213,7 +194,6 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
 
   // ========== 교육자료 ==========
   
-  // 단일 변환용 1차 교육
   const getSingleEducationContent = (style) => {
     const cat = style.category;
     if (cat === 'movements') return educationContent.movements[style.id];
@@ -222,7 +202,6 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
     return null;
   };
 
-  // 원클릭 1차 교육
   const getPrimaryEducation = () => {
     if (category === 'movements') return oneclickMovementsPrimary;
     else if (category === 'masters') return oneclickMastersPrimary;
@@ -230,20 +209,16 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
     return null;
   };
 
-
-  // 제목 반환
   const getTitle = (result) => {
     const cat = result?.style?.category;
     const artist = result?.aiSelectedArtist;
     const styleId = result?.style?.id;
     const styleName = result?.style?.name;
-    
     return getStyleTitle(cat, styleId, artist || styleName, lang);
   };
 
   const getMasterFullName = (result) => getTitle(result);
 
-  // 원클릭 2차 교육 (결과별)
   const getSecondaryEducation = (result) => {
     if (!result) return null;
     
@@ -293,12 +268,8 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
 
   // ========== UI 핸들러 ==========
   const handleDotClick = (idx) => {
-    // completedResults에서 해당 styleIndex의 결과가 있는지 확인
-    const hasResult = completedResults.some(r => {
-      const rIdx = styles.indexOf(r?.style);
-      return rIdx === idx || r?.style === styles[idx];
-    });
-    if (hasResult || idx < completedCount) setViewIndex(idx);
+    const hasResult = completedResults.some(r => r?.style === styles[idx]);
+    if (hasResult) setViewIndex(idx);
   };
   
   const handleBackToEducation = () => setViewIndex(-1);
@@ -326,8 +297,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
 
   const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
-  // 현재 보여줄 결과 (styleIndex 기준)
-  // 병렬이라 완료 순서가 다를 수 있으므로, viewIndex에 해당하는 style의 결과를 찾음
+  // 결과 찾기 (병렬이라 완료 순서 다를 수 있음 → styles 배열 기준)
   const getResultForIndex = (idx) => {
     if (idx < 0 || idx >= styles.length) return null;
     return completedResults.find(r => r?.style === styles[idx]) || null;
@@ -336,7 +306,6 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
   const previewResult = viewIndex >= 0 ? getResultForIndex(viewIndex) : null;
   const previewEdu = previewResult ? getSecondaryEducation(previewResult) : null;
   
-  // dot 상태: 해당 스타일의 결과가 존재하면 done
   const isDotDone = (idx) => {
     return completedResults.some(r => r?.style === styles[idx]);
   };
@@ -351,7 +320,6 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         {/* ===== 원클릭 모드 ===== */}
         {isFullTransform && (
           <>
-            {/* 1차 교육 + Original */}
             {viewIndex === -1 && showEducation && getPrimaryEducation() && (
               <div className="oneclick-preview">
                 <div className="img-placeholder">
@@ -378,7 +346,6 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
               </div>
             )}
 
-            {/* 결과 미리보기 */}
             {viewIndex >= 0 && previewResult && (
               <div className="oneclick-preview">
                 <div className="img-placeholder">
@@ -415,7 +382,6 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
               </div>
             )}
             
-            {/* 결과 아직 없는 인덱스 선택 시 */}
             {viewIndex >= 0 && !previewResult && (
               <div className="oneclick-preview">
                 <div className="img-placeholder">
@@ -428,7 +394,6 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
               </div>
             )}
 
-            {/* 점 네비게이션 */}
             <div className="dots-nav">
               <div className="dots">
                 <button className={`dot edu ${viewIndex === -1 ? 'active' : ''}`} onClick={handleBackToEducation}><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg></button>
@@ -444,7 +409,6 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
               </div>
             </div>
 
-            {/* 프로그레스 섹션 */}
             <div className="progress-section">
               <div className="progress-status">
                 {completedCount < totalCount && <div className="spinner"></div>}
@@ -457,7 +421,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           </>
         )}
 
-        {/* ===== 단일 변환 모드 (기존 그대로) ===== */}
+        {/* ===== 단일 변환 모드 ===== */}
         {!isFullTransform && showEducation && (
           <div className="single-loading-container">
             <div className="single-loading-icon">
@@ -517,7 +481,6 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           overflow-y: auto;
         }
         
-        /* ===== 원클릭 로딩 스타일 ===== */
         .status.oneclick {
           display: flex;
           align-items: center;
@@ -630,7 +593,6 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           transition: width 0.3s;
         }
         
-        /* ===== 단일 변환 상태 ===== */
         .status {
           display: flex;
           align-items: center;
@@ -653,18 +615,13 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           border-radius: 10px;
           margin: 16px 0;
         }
-        .edu-card.primary {
-          background: transparent;
-        }
-        .edu-card.secondary {
-          background: transparent;
-        }
+        .edu-card.primary { background: transparent; }
+        .edu-card.secondary { background: transparent; }
         .edu-card h3 { color: #fff; margin: 0 0 10px; font-size: 15px; }
         .edu-card h4 { color: #4CAF50; margin: 0 0 8px; font-size: 14px; }
         .edu-card p { color: rgba(255,255,255,0.65); line-height: 1.8; font-size: 13px; margin: 0; white-space: pre-line; }
         .hint { color: rgba(255,255,255,0.4); font-size: 12px; text-align: center; margin-top: 12px !important; }
         
-        /* 단독 로딩 화면 */
         .single-loading-container {
           width: 100%;
           min-height: 80vh;
@@ -722,7 +679,6 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           margin-bottom: 0;
         }
         
-        /* 단독 변환: 프로그레스바 애니메이션 */
         .progress-fill.single-anim {
           width: 40%;
           animation: singleProgress 2s ease-in-out infinite;
@@ -745,30 +701,16 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           align-items: flex-start;
           gap: 12px;
         }
-        .preview-icon {
-          font-size: 2.2rem;
-          line-height: 1;
-        }
-        .preview-text {
-          flex: 1;
-        }
+        .preview-icon { font-size: 2.2rem; line-height: 1; }
+        .preview-text { flex: 1; }
         .preview-style { 
-          font-size: 1.35rem; 
-          font-weight: 600; 
-          color: #fff; 
-          margin-bottom: 6px;
-          line-height: 1.3;
+          font-size: 1.35rem; font-weight: 600; color: #fff; 
+          margin-bottom: 6px; line-height: 1.3;
         }
-        .preview-subtitle { 
-          font-size: 1.05rem; 
-          font-weight: 600; 
-          color: rgba(255,255,255,0.8);
-        }
+        .preview-subtitle { font-size: 1.05rem; font-weight: 600; color: rgba(255,255,255,0.8); }
         .preview-subtitle.sub2 {
-          font-size: 0.95rem;
-          font-weight: 500;
-          color: rgba(255,255,255,0.5);
-          margin-top: 4px;
+          font-size: 0.95rem; font-weight: 500;
+          color: rgba(255,255,255,0.5); margin-top: 4px;
         }
         
         .dots-nav {
@@ -784,43 +726,21 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           gap: 4px;
         }
         .dot {
-          width: 6px;
-          height: 6px;
-          border-radius: 50%;
+          width: 6px; height: 6px; border-radius: 50%;
           background: rgba(255,255,255,0.2);
-          border: none;
-          cursor: pointer;
-          padding: 0;
+          border: none; cursor: pointer; padding: 0;
         }
-        .dot.done {
-          background: rgba(74, 106, 170, 0.5);
-        }
-        .dot.active {
-          background: #4a6aaa;
-          transform: scale(1.3);
-        }
-        .dot:disabled {
-          opacity: 0.4;
-          cursor: default;
-        }
+        .dot.done { background: rgba(74, 106, 170, 0.5); }
+        .dot.active { background: #4a6aaa; transform: scale(1.3); }
+        .dot:disabled { opacity: 0.4; cursor: default; }
         .dot.edu {
-          width: auto;
-          height: auto;
-          background: none;
-          font-size: 11px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: rgba(255,255,255,0.4);
+          width: auto; height: auto; background: none;
+          font-size: 11px; display: flex; align-items: center;
+          justify-content: center; color: rgba(255,255,255,0.4);
         }
-        .dot.edu.active {
-          color: #fff;
-          transform: none;
-          background: none;
-        }
+        .dot.edu.active { color: #fff; transform: none; background: none; }
         .count {
-          font-size: 10px;
-          color: rgba(255,255,255,0.4);
+          font-size: 10px; color: rgba(255,255,255,0.4);
           margin-inline-start: 2px;
         }
       `}</style>
