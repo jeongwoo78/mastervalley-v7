@@ -73,7 +73,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
             const validResults = progress.results.filter(r => r !== null);
             setCompletedResults(validResults);
             
-            // 순차 표시: index 0부터 연속 완료된 건수만 공개
+            // 순차 표시: index 0부터 연속 완료된 건수만 dot 공개
             let dc = 0;
             for (let i = 0; i < progress.results.length; i++) {
               if (progress.results[i] !== null) dc++;
@@ -81,15 +81,15 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
             }
             setDisplayCount(dc);
             
-            // 상태 텍스트: 최신 순차 공개 결과 기준
-            if (dc > 0 && progress.results[dc - 1]) {
-              const latest = progress.results[dc - 1];
+            // 상태 텍스트: 실제 완료 건수 기준 (병렬이라 순서 무관하게 진행 표시)
+            if (progress.latestIndex !== undefined && progress.results[progress.latestIndex]) {
+              const latest = progress.results[progress.latestIndex];
               const latestName = latest.style?.name || '';
               const cat = latest.style?.category;
               const progressLabel = (cat === 'movements' || cat === 'oriental')
                 ? `${latestName} ${t.masterInProgress}`
                 : `${latestName} ${t.inProgress}`;
-              setStatusText(`${progressLabel} (${dc}/${progress.totalCount})`);
+              setStatusText(`${progressLabel} (${progress.completedCount}/${progress.totalCount})`);
             }
           },
           {},   // fcmOptions (서버가 lang 기반으로 메시지 생성)
