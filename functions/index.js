@@ -2,11 +2,6 @@
 // Master Valley Cloud Functions (gen2)
 // v83: 트리거 제거 → 인라인 처리 (속도 복원)
 // ========================================
-// startTransform 하나가 모든 것을 처리:
-//   단일: HTTP 함수 내에서 직접 변환 → 결과 즉시 반환 (8~14초)
-//   원클릭: 병렬 Promise.all → Firestore에 개별 결과 기록 → FCM
-// processTransform (Firestore 트리거) 완전 제거 — 트리거 지연+콜드스타트 제거
-// ========================================
 
 import { onRequest } from 'firebase-functions/v2/https';
 import { initializeApp } from 'firebase-admin/app';
@@ -19,11 +14,141 @@ initializeApp();
 const db = getFirestore();
 
 // ========================================
+// FCM 메시지 i18n (11개 언어)
+// ========================================
+const FCM_MESSAGES = {
+  ko: {
+    singleMovement: (name) => `${name} 거장의 작업이 완료되었습니다`,
+    singleMaster: (name) => `${name}의 작업이 완료되었습니다`,
+    singleOriental: (name) => `${name} 거장의 작업이 완료되었습니다`,
+    oneclickMovements: '11개 미술사조 거장의 작업이 완료되었습니다',
+    oneclickMasters: '7인 거장의 작업이 완료되었습니다',
+    oneclickOriental: '동양화 거장의 작업이 완료되었습니다',
+    failed: '변환 중 오류가 발생했습니다. 다시 시도해 주세요.'
+  },
+  en: {
+    singleMovement: (name) => `A ${name} master's work is complete`,
+    singleMaster: (name) => `${name}'s work is complete`,
+    singleOriental: (name) => `A ${name} master's work is complete`,
+    oneclickMovements: '11 art movement masters\' work is complete',
+    oneclickMasters: '7 masters\' work is complete',
+    oneclickOriental: 'East Asian masters\' work is complete',
+    failed: 'An error occurred. Please try again.'
+  },
+  ja: {
+    singleMovement: (name) => `${name}の巨匠の作品が完成しました`,
+    singleMaster: (name) => `${name}の作品が完成しました`,
+    singleOriental: (name) => `${name}の巨匠の作品が完成しました`,
+    oneclickMovements: '11の美術様式の巨匠の作品が完成しました',
+    oneclickMasters: '7人の巨匠の作品が完成しました',
+    oneclickOriental: '東洋画の巨匠の作品が完成しました',
+    failed: '変換中にエラーが発生しました。もう一度お試しください。'
+  },
+  es: {
+    singleMovement: (name) => `La obra del maestro de ${name} está lista`,
+    singleMaster: (name) => `La obra de ${name} está lista`,
+    singleOriental: (name) => `La obra del maestro de ${name} está lista`,
+    oneclickMovements: 'La obra de los maestros de 11 movimientos está lista',
+    oneclickMasters: 'La obra de los 7 maestros está lista',
+    oneclickOriental: 'La obra de los maestros orientales está lista',
+    failed: 'Ocurrió un error. Inténtalo de nuevo.'
+  },
+  fr: {
+    singleMovement: (name) => `L'œuvre du maître ${name} est terminée`,
+    singleMaster: (name) => `L'œuvre de ${name} est terminée`,
+    singleOriental: (name) => `L'œuvre du maître ${name} est terminée`,
+    oneclickMovements: 'L\'œuvre des maîtres de 11 mouvements est terminée',
+    oneclickMasters: 'L\'œuvre des 7 maîtres est terminée',
+    oneclickOriental: 'L\'œuvre des maîtres d\'Asie est terminée',
+    failed: 'Une erreur est survenue. Veuillez réessayer.'
+  },
+  id: {
+    singleMovement: (name) => `Karya maestro ${name} telah selesai`,
+    singleMaster: (name) => `Karya ${name} telah selesai`,
+    singleOriental: (name) => `Karya maestro ${name} telah selesai`,
+    oneclickMovements: 'Karya maestro 11 aliran seni telah selesai',
+    oneclickMasters: 'Karya 7 maestro telah selesai',
+    oneclickOriental: 'Karya maestro Asia Timur telah selesai',
+    failed: 'Terjadi kesalahan. Silakan coba lagi.'
+  },
+  pt: {
+    singleMovement: (name) => `A obra do mestre de ${name} está pronta`,
+    singleMaster: (name) => `A obra de ${name} está pronta`,
+    singleOriental: (name) => `A obra do mestre de ${name} está pronta`,
+    oneclickMovements: 'A obra dos mestres de 11 movimentos está pronta',
+    oneclickMasters: 'A obra dos 7 mestres está pronta',
+    oneclickOriental: 'A obra dos mestres orientais está pronta',
+    failed: 'Ocorreu um erro. Tente novamente.'
+  },
+  ar: {
+    singleMovement: (name) => `اكتمل عمل أستاذ ${name}`,
+    singleMaster: (name) => `اكتمل عمل ${name}`,
+    singleOriental: (name) => `اكتمل عمل أستاذ ${name}`,
+    oneclickMovements: 'اكتمل عمل أساتذة 11 حركة فنية',
+    oneclickMasters: 'اكتمل عمل 7 أساتذة',
+    oneclickOriental: 'اكتمل عمل أساتذة الفن الشرقي',
+    failed: 'حدث خطأ. يرجى المحاولة مرة أخرى.'
+  },
+  tr: {
+    singleMovement: (name) => `${name} ustasının çalışması tamamlandı`,
+    singleMaster: (name) => `${name} çalışması tamamlandı`,
+    singleOriental: (name) => `${name} ustasının çalışması tamamlandı`,
+    oneclickMovements: '11 sanat akımı ustasının çalışması tamamlandı',
+    oneclickMasters: '7 ustanın çalışması tamamlandı',
+    oneclickOriental: 'Doğu Asya ustalarının çalışması tamamlandı',
+    failed: 'Bir hata oluştu. Lütfen tekrar deneyin.'
+  },
+  th: {
+    singleMovement: (name) => `ผลงานของปรมาจารย์ ${name} เสร็จสมบูรณ์แล้ว`,
+    singleMaster: (name) => `ผลงานของ ${name} เสร็จสมบูรณ์แล้ว`,
+    singleOriental: (name) => `ผลงานของปรมาจารย์ ${name} เสร็จสมบูรณ์แล้ว`,
+    oneclickMovements: 'ผลงานของปรมาจารย์ 11 สไตล์ เสร็จสมบูรณ์แล้ว',
+    oneclickMasters: 'ผลงานของปรมาจารย์ 7 ท่าน เสร็จสมบูรณ์แล้ว',
+    oneclickOriental: 'ผลงานของปรมาจารย์เอเชียตะวันออก เสร็จสมบูรณ์แล้ว',
+    failed: 'เกิดข้อผิดพลาด กรุณาลองอีกครั้ง'
+  },
+  'zh-TW': {
+    singleMovement: (name) => `${name}大師的作品已完成`,
+    singleMaster: (name) => `${name}的作品已完成`,
+    singleOriental: (name) => `${name}大師的作品已完成`,
+    oneclickMovements: '11個藝術流派大師的作品已完成',
+    oneclickMasters: '7位大師的作品已完成',
+    oneclickOriental: '東方繪畫大師的作品已完成',
+    failed: '轉換過程中發生錯誤，請重試。'
+  }
+};
+
+function getMessages(lang) {
+  return FCM_MESSAGES[lang] || FCM_MESSAGES['en'];
+}
+
+// 단일 변환 FCM 메시지 생성
+function buildSingleFCMBody(lang, category, artistName, styleName) {
+  const m = getMessages(lang);
+  const name = artistName || styleName || '';
+  
+  if (category === 'movements') return m.singleMovement(name);
+  if (category === 'masters') return m.singleMaster(name);
+  if (category === 'oriental') return m.singleOriental(name);
+  return m.singleMaster(name); // fallback
+}
+
+// 원클릭 FCM 메시지 생성
+function buildOneclickFCMBody(lang, category) {
+  const m = getMessages(lang);
+  
+  if (category === 'movements') return m.oneclickMovements;
+  if (category === 'masters') return m.oneclickMasters;
+  if (category === 'oriental') return m.oneclickOriental;
+  return m.oneclickMovements; // fallback
+}
+
+// ========================================
 // startTransform — 단일 + 원클릭 통합
 // ========================================
 export const startTransform = onRequest({
   cors: true,
-  timeoutSeconds: 540,   // 9분 (변환 시간 충분)
+  timeoutSeconds: 540,
   memory: '1GiB',
   region: 'us-central1',
   secrets: ['REPLICATE_API_KEY', 'ANTHROPIC_API_KEY']
@@ -46,8 +171,7 @@ export const startTransform = onRequest({
       correctionPrompt,
       userId,
       fcmToken,
-      fcmMessage,
-      // 클라이언트가 미리 생성한 ID (복원 및 Firestore 리스닝용)
+      lang,
       transformId: clientTransformId,
       sessionId: clientSessionId,
       transformIds: clientTransformIds
@@ -57,24 +181,18 @@ export const startTransform = onRequest({
       return res.status(400).json({ error: 'Missing image' });
     }
     
-    // ========================================
-    // 원클릭: 병렬 처리
-    // ========================================
     if (isFullTransform && styles && styles.length > 0) {
       return await handleOneClick(req, res, {
         image, styles, selectedStyle,
-        userId, fcmToken, fcmMessage,
+        userId, fcmToken, lang: lang || 'en',
         sessionId: clientSessionId,
         transformIds: clientTransformIds
       });
     }
     
-    // ========================================
-    // 단일 변환: 인라인 처리 → HTTP 응답으로 결과 반환
-    // ========================================
     return await handleSingle(req, res, {
       image, selectedStyle, correctionPrompt,
-      userId, fcmToken, fcmMessage,
+      userId, fcmToken, lang: lang || 'en',
       transformId: clientTransformId
     });
     
@@ -90,7 +208,7 @@ export const startTransform = onRequest({
 async function handleSingle(req, res, params) {
   const {
     image, selectedStyle, correctionPrompt,
-    userId, fcmToken, fcmMessage, transformId
+    userId, fcmToken, lang, transformId
   } = params;
   
   if (!selectedStyle || !selectedStyle.name || !selectedStyle.category) {
@@ -99,7 +217,6 @@ async function handleSingle(req, res, params) {
   
   const docRef = db.collection('transforms').doc(transformId);
   
-  // 1. Firestore에 pending 기록 (복원용, 이미지 저장 안 함)
   await docRef.set({
     status: 'processing',
     selectedStyle,
@@ -112,12 +229,10 @@ async function handleSingle(req, res, params) {
   console.log(`🚀 단일 변환 시작: ${transformId} (${selectedStyle.category}/${selectedStyle.name})`);
   
   try {
-    // 2. 직접 변환 실행 (트리거 대기 0초, 콜드스타트 0초)
     const result = await runTransform(image, selectedStyle, correctionPrompt);
     
     console.log(`✅ 단일 변환 완료: ${transformId} | ${result.selectedArtist || '재변환'}`);
     
-    // 3. Firestore에 결과 저장 (복원용)
     await docRef.update({
       status: 'completed',
       resultUrl: result.resultUrl,
@@ -130,18 +245,15 @@ async function handleSingle(req, res, params) {
       updatedAt: FieldValue.serverTimestamp()
     });
     
-    // 4. FCM (선택적)
     if (fcmToken) {
+      const body = buildSingleFCMBody(lang, selectedStyle.category, result.selectedArtist, selectedStyle.name);
       sendFCM(fcmToken, {
         title: 'Master Valley',
-        body: fcmMessage || (result.selectedArtist 
-          ? `${result.selectedArtist} 스타일 변환이 완료되었습니다!`
-          : '변환이 완료되었습니다!'),
+        body,
         data: { transformId, type: 'transform_complete' }
       });
     }
     
-    // 5. HTTP 응답으로 결과 즉시 반환 (클라이언트 Firestore 리스닝 불필요)
     return res.status(200).json({
       transformId,
       status: 'completed',
@@ -163,9 +275,10 @@ async function handleSingle(req, res, params) {
     });
     
     if (fcmToken) {
+      const m = getMessages(lang);
       sendFCM(fcmToken, {
         title: 'Master Valley',
-        body: '변환 중 오류가 발생했습니다. 다시 시도해 주세요.',
+        body: m.failed,
         data: { transformId, type: 'transform_failed' }
       });
     }
@@ -184,13 +297,13 @@ async function handleSingle(req, res, params) {
 async function handleOneClick(req, res, params) {
   const {
     image, styles, selectedStyle,
-    userId, fcmToken, fcmMessage,
+    userId, fcmToken, lang,
     sessionId, transformIds
   } = params;
   
   const totalCount = styles.length;
+  const category = selectedStyle?.category || styles[0]?.category;
   
-  // 1. 세션 + 개별 변환 문서 batch 생성
   const batch = db.batch();
   
   const sessionRef = db.collection('oneclick_sessions').doc(sessionId);
@@ -201,7 +314,6 @@ async function handleOneClick(req, res, params) {
     successCount: 0,
     transformIds,
     fcmToken: fcmToken || null,
-    fcmMessage: fcmMessage || null,
     selectedStyle: selectedStyle || null,
     status: 'processing',
     createdAt: FieldValue.serverTimestamp(),
@@ -224,7 +336,6 @@ async function handleOneClick(req, res, params) {
   await batch.commit();
   console.log(`📋 원클릭 세션 생성: ${sessionId} (${totalCount}건)`);
   
-  // 2. 모든 변환 병렬 실행
   let completedCount = 0;
   let successCount = 0;
   
@@ -238,7 +349,6 @@ async function handleOneClick(req, res, params) {
         
         console.log(`✅ 원클릭 [${i + 1}/${totalCount}] 완료: ${tid} | ${result.selectedArtist || style.name}`);
         
-        // 개별 결과 Firestore 기록 (클라이언트 리스닝용)
         await docRef.update({
           status: 'completed',
           resultUrl: result.resultUrl,
@@ -254,7 +364,6 @@ async function handleOneClick(req, res, params) {
         completedCount++;
         successCount++;
         
-        // 세션 카운트 업데이트
         await sessionRef.update({
           completedCount: FieldValue.increment(1),
           successCount: FieldValue.increment(1),
@@ -298,7 +407,6 @@ async function handleOneClick(req, res, params) {
     })
   );
   
-  // 3. 세션 완료
   console.log(`🏁 원클릭 세션 완료: ${sessionId} (${successCount}/${totalCount} 성공)`);
   
   await sessionRef.update({
@@ -306,16 +414,15 @@ async function handleOneClick(req, res, params) {
     completedAt: FieldValue.serverTimestamp()
   });
   
-  // 4. FCM 1회
   if (fcmToken) {
+    const body = buildOneclickFCMBody(lang, category);
     sendFCM(fcmToken, {
       title: 'Master Valley',
-      body: fcmMessage || `${successCount}/${totalCount}건 변환이 완료되었습니다!`,
+      body,
       data: { sessionId, type: 'oneclick_complete' }
     });
   }
   
-  // 5. HTTP 응답
   return res.status(200).json({
     sessionId,
     status: 'completed',

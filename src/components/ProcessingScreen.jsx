@@ -58,8 +58,6 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
                            t.nationsLabel;
       setStatusText(`${totalCount} ${categoryLabel} ${t.inProgress}`);
       
-      const fcmMessage = `${selectedStyle.fullTransformLabel || categoryLabel} ${t.done}`;
-      
       try {
         const results = await processFullTransform(
           photo,
@@ -81,7 +79,8 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
               setStatusText(`${progressLabel} [${progress.completedCount}/${progress.totalCount}]`);
             }
           },
-          { customMessage: fcmMessage }
+          {},   // fcmOptions (서버가 lang 기반으로 메시지 생성)
+          lang  // ← lang 전달
         );
         
         const categoryLabel2 = category === 'movements' ? t.movementsComplete : 
@@ -103,7 +102,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
       }
       
     } else {
-      // ========== 단일 변환: HTTP 직접 응답 (빠름) ==========
+      // ========== 단일 변환 ==========
       setShowEducation(true);
       const eduContent = getSingleEducationContent(selectedStyle);
       if (eduContent) {
@@ -163,7 +162,8 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
             setStatusText(mapped);
           }
         },
-        fcmOptions
+        fcmOptions,
+        lang  // ← lang 전달
       );
 
       if (result.success) {
@@ -297,7 +297,6 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
 
   const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
-  // 결과 찾기 (병렬이라 완료 순서 다를 수 있음 → styles 배열 기준)
   const getResultForIndex = (idx) => {
     if (idx < 0 || idx >= styles.length) return null;
     return completedResults.find(r => r?.style === styles[idx]) || null;
