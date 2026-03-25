@@ -1,21 +1,60 @@
 // ========================================
 // Master Valley - Transform Logic Wrapper
-// flux-transfer.js handler를 Cloud Functions에서 호출하기 위한 래퍼
-// - mock req/res로 기존 handler 호출
-// - predictionId 추출 후 서버에서 직접 폴링
-// - 완료된 결과 URL 반환
+// v83: 폴링 제거 → Prefer: wait로 직접 대기 (6초 단축)
 // ========================================
 
 import handler from './flux-transfer.js';
 
-const POLL_INTERVAL = 2000;   // 2초
-const MAX_POLL_TIME = 300000; // 5분 (Cloud Functions gen2 타임아웃 내)
+/**
+ * Replicate 결과 대기 (Prefer: wait — 폴링 없이 즉시 반환)
+ * 최대 60초 대기 → 실패 시 폴링 fallback
+ */
+async function waitForResult(predictionId) {
+  try {
+    // Prefer: wait — Replicate가 완료될 때까지 HTTP 연결 유지 후 결과 반환
+    const response = await fetch(
+      `https://api.replicate.com/v1/predictions/${predictionId}`,
+      {
+        headers: {
+          'Authorization': `Token ${process.env.REPLICATE_API_KEY}`,
+          'Prefer': 'wait=60'
+        }
+      }
+    );
+    
+    if (!response.ok) {
+      throw new Error(`Replicate wait 실패: ${response.status}`);
+    }
+    
+    const prediction = await response.json();
+    
+    if (prediction.status === 'succeeded') {
+      console.log(`✅ Prefer:wait 완료`);
+      return prediction;
+    }
+    
+    if (prediction.status === 'failed' || prediction.status === 'canceled') {
+      throw new Error(`Replicate 변환 실패: ${prediction.error || prediction.status}`);
+    }
+    
+    // 아직 완료 안 됨 (60초 초과 — 극히 드묾) → 폴링 fallback
+    console.log(`⚠️ wait 타임아웃, 폴링 전환: ${prediction.status}`);
+    return await pollFallback(predictionId);
+    
+  } catch (err) {
+    // 네트워크 에러 등 → 폴링 fallback
+    console.log(`⚠️ wait 에러: ${err.message}, 폴링 전환`);
+    return await pollFallback(predictionId);
+  }
+}
 
 /**
- * Replicate prediction 폴링 (서버 사이드)
+ * 폴링 fallback (Prefer: wait 실패 시에만 사용)
  */
-async function pollReplicate(predictionId) {
+async function pollFallback(predictionId) {
   const startTime = Date.now();
+  const MAX_POLL_TIME = 300000; // 5분
+  const POLL_INTERVAL = 1000;   // 1초
   
   while (Date.now() - startTime < MAX_POLL_TIME) {
     try {
@@ -29,7 +68,6 @@ async function pollReplicate(predictionId) {
       );
       
       if (!response.ok) {
-        console.log(`⚠️ 폴링 상태 확인 실패: ${response.status}`);
         await new Promise(r => setTimeout(r, POLL_INTERVAL));
         continue;
       }
@@ -38,7 +76,7 @@ async function pollReplicate(predictionId) {
       
       if (prediction.status === 'succeeded') {
         const elapsed = Math.round((Date.now() - startTime) / 1000);
-        console.log(`✅ 서버 폴링 완료 (${elapsed}초)`);
+        console.log(`✅ 폴링 fallback 완료 (${elapsed}초)`);
         return prediction;
       }
       
@@ -46,29 +84,21 @@ async function pollReplicate(predictionId) {
         throw new Error(`Replicate 변환 실패: ${prediction.error || prediction.status}`);
       }
       
-      // 진행 중 — 계속 폴링
       await new Promise(r => setTimeout(r, POLL_INTERVAL));
       
     } catch (err) {
       if (err.message?.includes('변환 실패')) throw err;
-      console.log(`⚠️ 폴링 에러: ${err.message}`);
       await new Promise(r => setTimeout(r, POLL_INTERVAL));
     }
   }
   
-  throw new Error('서버 폴링 타임아웃 (5분)');
+  throw new Error('폴링 타임아웃 (5분)');
 }
 
 /**
- * 변환 실행 (Vision → 프롬프트 → Replicate → 폴링 → 결과)
- * 
- * @param {string} image - base64 이미지
- * @param {object} selectedStyle - { name, category, id, ... }
- * @param {string|null} correctionPrompt - 재변환 시 수정 프롬프트
- * @returns {object} { resultUrl, selectedArtist, selectedWork, debug, ... }
+ * 변환 실행 (Vision → 프롬프트 → Replicate → Prefer:wait → 결과)
  */
 export async function runTransform(image, selectedStyle, correctionPrompt = null) {
-  // Mock req/res로 기존 handler 호출
   let responseData = null;
   let responseStatus = 200;
   
@@ -90,26 +120,23 @@ export async function runTransform(image, selectedStyle, correctionPrompt = null
     end: () => mockRes
   };
   
-  // 기존 handler 실행 (Vision 분석 + 프롬프트 생성 + Replicate prediction 생성)
+  // handler 실행 (Vision 분석 + 프롬프트 생성 + Replicate prediction 생성)
   await handler(mockReq, mockRes);
   
-  // 에러 체크
   if (responseStatus !== 200 || !responseData) {
     throw new Error(responseData?.error || `변환 시작 실패 (status: ${responseStatus})`);
   }
   
-  // predictionId 추출
   const predictionId = responseData.predictionId;
   if (!predictionId) {
     throw new Error('서버에서 prediction ID를 받지 못했습니다');
   }
   
-  console.log(`🔄 서버 폴링 시작: ${predictionId}`);
+  console.log(`⏳ Prefer:wait 대기: ${predictionId}`);
   
-  // 서버에서 직접 Replicate 폴링 (클라이언트 대신)
-  const result = await pollReplicate(predictionId);
+  // Prefer: wait로 직접 대기 (폴링 없이 ~5.5초에 결과 반환)
+  const result = await waitForResult(predictionId);
   
-  // 결과 URL 추출
   const resultUrl = Array.isArray(result.output) ? result.output[0] : result.output;
   
   if (!resultUrl) {

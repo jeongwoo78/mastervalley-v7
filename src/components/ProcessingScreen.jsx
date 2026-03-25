@@ -34,6 +34,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
   
   const [completedResults, setCompletedResults] = useState([]);
   const [completedCount, setCompletedCount] = useState(0);
+  const [displayCount, setDisplayCount] = useState(0);  // 순차 표시 카운트 (0부터 연속 완료)
   const [viewIndex, setViewIndex] = useState(-1);
   const [touchStartX, setTouchStartX] = useState(0);
   
@@ -72,14 +73,23 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
             const validResults = progress.results.filter(r => r !== null);
             setCompletedResults(validResults);
             
-            if (progress.latestIndex !== undefined && progress.results[progress.latestIndex]) {
-              const latest = progress.results[progress.latestIndex];
+            // 순차 표시: index 0부터 연속 완료된 건수만 공개
+            let dc = 0;
+            for (let i = 0; i < progress.results.length; i++) {
+              if (progress.results[i] !== null) dc++;
+              else break;
+            }
+            setDisplayCount(dc);
+            
+            // 상태 텍스트: 최신 순차 공개 결과 기준
+            if (dc > 0 && progress.results[dc - 1]) {
+              const latest = progress.results[dc - 1];
               const latestName = latest.style?.name || '';
               const cat = latest.style?.category;
               const progressLabel = (cat === 'movements' || cat === 'oriental')
                 ? `${latestName} ${t.masterInProgress}`
                 : `${latestName} ${t.inProgress}`;
-              setStatusText(`${progressLabel} (${progress.completedCount}/${progress.totalCount})`);
+              setStatusText(`${progressLabel} (${dc}/${progress.totalCount})`);
             }
           },
           {},   // fcmOptions (서버가 lang 기반으로 메시지 생성)
@@ -91,6 +101,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         setStatusText(`${t.done} ${totalCount} ${categoryLabel2}`);
         
         setCompletedCount(totalCount);
+        setDisplayCount(totalCount);
         setCompletedResults(results.filter(r => r !== null));
         
         await sleep(1000);
@@ -271,8 +282,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
 
   // ========== UI 핸들러 ==========
   const handleDotClick = (idx) => {
-    const hasResult = completedResults.some(r => r?.style === styles[idx]);
-    if (hasResult) setViewIndex(idx);
+    if (idx < displayCount) setViewIndex(idx);
   };
   
   const handleBackToEducation = () => setViewIndex(-1);
@@ -291,7 +301,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
     const diffY = touchStartY - e.changedTouches[0].clientY;
     
     if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
-      if (diffX > 0 && viewIndex < completedCount - 1) setViewIndex(v => v + 1);
+      if (diffX > 0 && viewIndex < displayCount - 1) setViewIndex(v => v + 1);
       if (diffX < 0 && viewIndex > -1) setViewIndex(v => v - 1);
     }
     setTouchStartX(0);
@@ -309,7 +319,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
   const previewEdu = previewResult ? getSecondaryEducation(previewResult) : null;
   
   const isDotDone = (idx) => {
-    return completedResults.some(r => r?.style === styles[idx]);
+    return idx < displayCount;
   };
 
   return (
@@ -375,7 +385,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
                     disabled={!isDotDone(idx)}
                   />
                 ))}
-                <span className="count">[{completedCount}/{totalCount}]</span>
+                <span className="count">[{displayCount}/{totalCount}]</span>
               </div>
             </div>
 
