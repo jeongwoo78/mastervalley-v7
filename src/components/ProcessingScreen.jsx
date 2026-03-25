@@ -19,6 +19,7 @@ import { getEducationKey, getEducationContent } from '../utils/educationMatcher'
 
 const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => {
   const t = getUi(lang).processing;
+  const tPhotoStyle = getUi(lang).photoStyle;
   
   const oneclickMovementsPrimary = getOneclickMovementsPrimary(lang);
   const oneclickMovementsSecondary = getOneclickMovementsSecondary(lang);
@@ -28,6 +29,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
   const oneclickOrientalSecondary = getOneclickOrientalSecondary(lang);
 
   const [statusText, setStatusText] = useState(t.analyzing);
+  const [statusLeft, setStatusLeft] = useState('');
   const [showEducation, setShowEducation] = useState(false);
   
   const [completedResults, setCompletedResults] = useState([]);
@@ -53,10 +55,11 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
     if (isFullTransform) {
       // ========== 원클릭: 서버 병렬 ==========
       setShowEducation(true);
-      const categoryLabel = category === 'movements' ? t.movementsLabel : 
-                           category === 'masters' ? t.mastersLabel : 
-                           t.nationsLabel;
-      setStatusText(`${totalCount} ${categoryLabel} ${t.inProgress}`);
+      const leftLabel = category === 'movements' ? tPhotoStyle.movementsFullTransformLabel : 
+                        category === 'masters' ? tPhotoStyle.mastersFullTransformLabel : 
+                        tPhotoStyle.orientalFullTransformLabel;
+      setStatusLeft(leftLabel);
+      setStatusText(t.analyzing);
       
       try {
         const results = await processFullTransform(
@@ -76,7 +79,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
               const progressLabel = (cat === 'movements' || cat === 'oriental')
                 ? `${latestName} ${t.masterInProgress}`
                 : `${latestName} ${t.inProgress}`;
-              setStatusText(`${progressLabel} [${progress.completedCount}/${progress.totalCount}]`);
+              setStatusText(`${progressLabel} (${progress.completedCount}/${progress.totalCount})`);
             }
           },
           {},   // fcmOptions (서버가 lang 기반으로 메시지 생성)
@@ -157,7 +160,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         (progressObj) => {
           const mapped = mapProgress(progressObj);
           if (total > 1) {
-            setStatusText(`${mapped} [${index + 1}/${total}]`);
+            setStatusText(`${mapped} (${index + 1}/${total})`);
           } else {
             setStatusText(mapped);
           }
@@ -316,15 +319,69 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        {/* ===== 원클릭 모드 ===== */}
+        {/* ===== 원클릭 모드 (이미지 → 진행바 → 도트 → 스타일정보 → 교육) ===== */}
         {isFullTransform && (
           <>
+            {/* 1차: Original 이미지 */}
             {viewIndex === -1 && showEducation && getPrimaryEducation() && (
               <div className="oneclick-preview">
                 <div className="img-placeholder">
                   <img src={URL.createObjectURL(photo)} alt="Original" />
                 </div>
-                
+              </div>
+            )}
+
+            {/* 결과 미리보기: 이미지만 */}
+            {viewIndex >= 0 && previewResult && (
+              <div className="oneclick-preview">
+                <div className="img-placeholder">
+                  <img src={previewResult.resultUrl} alt="" />
+                </div>
+              </div>
+            )}
+            
+            {/* 미완료 도트 탭 시 스피너 */}
+            {viewIndex >= 0 && !previewResult && (
+              <div className="oneclick-preview">
+                <div className="img-placeholder">
+                  <div className="spinner" style={{ width: 24, height: 24 }}></div>
+                </div>
+              </div>
+            )}
+
+            {/* 프로그레스 섹션 - 좌우 분리 */}
+            <div className="progress-section oneclick">
+              <div className="progress-status">
+                <span className="progress-left">{statusLeft}</span>
+                <span className="progress-right">
+                  {completedCount < totalCount && <span className="spinner"></span>}
+                  {statusText}
+                </span>
+              </div>
+              <div className="progress-bar">
+                <div className="progress-fill" style={{ width: `${(completedCount / totalCount) * 100}%` }}></div>
+              </div>
+            </div>
+
+            {/* 점 네비게이션 */}
+            <div className="dots-nav">
+              <div className="dots">
+                <button className={`dot edu ${viewIndex === -1 ? 'active' : ''}`} onClick={handleBackToEducation}><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg></button>
+                {styles.map((_, idx) => (
+                  <button 
+                    key={idx}
+                    className={`dot ${isDotDone(idx) ? 'done' : ''} ${viewIndex === idx ? 'active' : ''}`}
+                    onClick={() => handleDotClick(idx)}
+                    disabled={!isDotDone(idx)}
+                  />
+                ))}
+                <span className="count">[{completedCount}/{totalCount}]</span>
+              </div>
+            </div>
+
+            {/* 1차: 스타일정보 + 교육 */}
+            {viewIndex === -1 && showEducation && getPrimaryEducation() && (
+              <>
                 <div className="oneclick-style-info">
                   <h3>{selectedStyle?.title || getStyleTitle(selectedStyle?.category, selectedStyle?.id, selectedStyle?.name, lang)}</h3>
                   <div className="subtitle1">
@@ -338,19 +395,15 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
                      t.orientalSub2}
                   </div>
                 </div>
-                
                 <div className="oneclick-edu-content">
                   {getPrimaryEducation().content}
                 </div>
-              </div>
+              </>
             )}
 
+            {/* 결과: 스타일정보 + 교육 */}
             {viewIndex >= 0 && previewResult && (
-              <div className="oneclick-preview">
-                <div className="img-placeholder">
-                  <img src={previewResult.resultUrl} alt="" />
-                </div>
-                
+              <>
                 <div className="oneclick-style-info">
                   <h3>{getTitle(previewResult)}</h3>
                   {(() => {
@@ -372,61 +425,43 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
                     );
                   })()}
                 </div>
-                
                 {previewEdu && (
                   <div className="oneclick-edu-content">
                     {previewEdu.content}
                   </div>
                 )}
-              </div>
+              </>
             )}
-            
+
+            {/* 미완료 도트: 스타일정보 */}
             {viewIndex >= 0 && !previewResult && (
-              <div className="oneclick-preview">
-                <div className="img-placeholder">
-                  <div className="spinner" style={{ width: 24, height: 24 }}></div>
-                </div>
-                <div className="oneclick-style-info">
-                  <h3>{styles[viewIndex]?.name || ''}</h3>
-                  <div className="subtitle1">{t.inProgress}</div>
-                </div>
+              <div className="oneclick-style-info">
+                <h3>{styles[viewIndex]?.name || ''}</h3>
+                <div className="subtitle1">{t.inProgress}</div>
               </div>
             )}
-
-            <div className="dots-nav">
-              <div className="dots">
-                <button className={`dot edu ${viewIndex === -1 ? 'active' : ''}`} onClick={handleBackToEducation}><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg></button>
-                {styles.map((_, idx) => (
-                  <button 
-                    key={idx}
-                    className={`dot ${isDotDone(idx) ? 'done' : ''} ${viewIndex === idx ? 'active' : ''}`}
-                    onClick={() => handleDotClick(idx)}
-                    disabled={!isDotDone(idx)}
-                  />
-                ))}
-                <span className="count">[{completedCount}/{totalCount}]</span>
-              </div>
-            </div>
-
-            <div className="progress-section">
-              <div className="progress-status">
-                {completedCount < totalCount && <div className="spinner"></div>}
-                <p>{statusText}</p>
-              </div>
-              <div className="progress-bar">
-                <div className="progress-fill" style={{ width: `${(completedCount / totalCount) * 100}%` }}></div>
-              </div>
-            </div>
           </>
         )}
 
-        {/* ===== 단일 변환 모드 ===== */}
+        {/* ===== 단일 변환 모드 (이모지 → 진행바 → 제목 → 교육) ===== */}
         {!isFullTransform && showEducation && (
           <div className="single-loading-container">
             <div className="single-loading-icon">
               {getStyleIcon(selectedStyle?.category, selectedStyle?.id, selectedStyle?.name)}
             </div>
             
+            {/* 진행바 - 이모지 바로 아래 */}
+            <div className="progress-section">
+              <div className="progress-status">
+                <div className="spinner"></div>
+                <p>{statusText}</p>
+              </div>
+              <div className="progress-bar">
+                <div className="progress-fill single-anim"></div>
+              </div>
+            </div>
+            
+            {/* 콘텐츠 - 진행바 아래 */}
             <div className="single-loading-content">
               <div className="single-loading-title">
                 {getStyleTitle(selectedStyle?.category, selectedStyle?.id, selectedStyle?.name, lang)}
@@ -446,16 +481,6 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
                   <p>{getSingleEducationContent(selectedStyle).desc}</p>
                 </div>
               )}
-            </div>
-            
-            <div className="progress-section">
-              <div className="progress-status">
-                <div className="spinner"></div>
-                <p>{statusText}</p>
-              </div>
-              <div className="progress-bar">
-                <div className="progress-fill single-anim"></div>
-              </div>
             </div>
           </div>
         )}
@@ -489,7 +514,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         }
         .status.oneclick p {
           margin: 0;
-          color: rgba(255,255,255,0.5);
+          color: rgba(255,255,255,0.4);
           font-size: 12px;
         }
         .status.oneclick .spinner {
@@ -499,7 +524,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         }
         
         .oneclick-preview {
-          margin-bottom: 16px;
+          margin-bottom: 0;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -509,7 +534,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           width: 100%;
           max-width: 340px;
           aspect-ratio: 1 / 1;
-          background: #1a1a1a;
+          background: #1a2a2f;
           border-radius: 12px;
           display: flex;
           align-items: center;
@@ -527,6 +552,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           width: 100%;
           max-width: 340px;
           text-align: center;
+          margin-top: 32px;
           margin-bottom: 12px;
         }
         .oneclick-style-info h3 {
@@ -542,7 +568,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         }
         .oneclick-style-info .subtitle2 {
           font-size: 12px;
-          color: rgba(255,255,255,0.5);
+          color: rgba(255,255,255,0.4);
           margin-bottom: 12px;
         }
         
@@ -550,7 +576,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           width: 100%;
           max-width: 340px;
           font-size: 13px;
-          color: rgba(255,255,255,0.65);
+          color: rgba(255,255,255,0.6);
           line-height: 1.8;
           text-align: start;
           white-space: pre-line;
@@ -559,11 +585,19 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         .progress-section {
           width: 100%;
           margin-top: 16px;
-          padding: 12px 0;
+          padding: 12px 0 4px;
           background: #0a1a1f;
           display: flex;
           flex-direction: column;
           align-items: flex-end;
+        }
+        .progress-section.oneclick {
+          margin-top: 4px;
+          padding: 0;
+        }
+        .single-loading-container .progress-section {
+          margin-top: 0;
+          padding: 0;
         }
         .progress-status {
           display: flex;
@@ -571,9 +605,29 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           gap: 8px;
           margin-bottom: 8px;
         }
+        .progress-section.oneclick .progress-status {
+          width: 100%;
+          justify-content: space-between;
+          gap: 0;
+        }
+        .progress-left {
+          font-size: 11px;
+          color: rgba(255,255,255,0.4);
+          white-space: nowrap;
+        }
+        .progress-right {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          font-size: 11px;
+          color: rgba(255,255,255,0.4);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
         .progress-status p {
           margin: 0;
-          color: rgba(255,255,255,0.5);
+          color: rgba(255,255,255,0.4);
           font-size: 11px;
           white-space: nowrap;
           overflow: hidden;
@@ -582,16 +636,17 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         .progress-bar {
           width: 50%;
           height: 2px;
-          background: rgba(255,255,255,0.1);
+          background: rgba(255,255,255,0.08);
           border-radius: 2px;
           overflow: hidden;
         }
         .progress-fill {
           height: 100%;
-          background: linear-gradient(90deg, #4a6aaa, #4a7a7a);
+          background: linear-gradient(90deg, #3a7a7a, #5a9a8a);
           transition: width 0.3s;
         }
         
+        /* ===== 단일 변환 상태 (가운데 정렬) ===== */
         .status {
           display: flex;
           align-items: center;
@@ -603,7 +658,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         .spinner {
           width: 14px; height: 14px;
           border: 2px solid rgba(255,255,255,0.2);
-          border-top: 2px solid #4a6aaa;
+          border-top: 2px solid #3a7a7a;
           border-radius: 50%;
           animation: spin 1s linear infinite;
         }
@@ -614,13 +669,18 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           border-radius: 10px;
           margin: 16px 0;
         }
-        .edu-card.primary { background: transparent; }
-        .edu-card.secondary { background: transparent; }
+        .edu-card.primary {
+          background: transparent;
+        }
+        .edu-card.secondary {
+          background: transparent;
+        }
         .edu-card h3 { color: #fff; margin: 0 0 10px; font-size: 15px; }
         .edu-card h4 { color: #4CAF50; margin: 0 0 8px; font-size: 14px; }
-        .edu-card p { color: rgba(255,255,255,0.65); line-height: 1.8; font-size: 13px; margin: 0; white-space: pre-line; }
+        .edu-card p { color: rgba(255,255,255,0.6); line-height: 1.8; font-size: 13px; margin: 0; white-space: pre-line; }
         .hint { color: rgba(255,255,255,0.4); font-size: 12px; text-align: center; margin-top: 12px !important; }
         
+        /* 단독 로딩 화면 (flexbox 레이아웃) */
         .single-loading-container {
           width: 100%;
           min-height: 80vh;
@@ -631,6 +691,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         .single-loading-icon {
           margin-top: 25vh;
           font-size: 56px;
+          margin-bottom: 4px;
         }
         .single-loading-content {
           width: 100%;
@@ -638,7 +699,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           display: flex;
           flex-direction: column;
           align-items: center;
-          margin-top: 16px;
+          margin-top: 32px;
         }
         .single-loading-title {
           width: 100%;
@@ -653,13 +714,13 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           width: 100%;
           max-width: 340px;
           font-size: 13px;
-          color: rgba(255,255,255,0.7);
+          color: rgba(255,255,255,0.6);
           margin-bottom: 4px;
           text-align: center;
         }
         .single-loading-subtitle.sub2 {
           font-size: 12px;
-          color: rgba(255,255,255,0.5);
+          color: rgba(255,255,255,0.4);
           margin-bottom: 20px;
         }
         .single-loading-edu {
@@ -668,7 +729,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           text-align: start;
         }
         .single-loading-edu p {
-          color: rgba(255,255,255,0.7);
+          color: rgba(255,255,255,0.6);
           line-height: 1.8;
           font-size: 13px;
           margin: 0 0 12px;
@@ -678,6 +739,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           margin-bottom: 0;
         }
         
+        /* 단독 변환: 프로그레스바 애니메이션 (진행률 모름) */
         .progress-fill.single-anim {
           width: 40%;
           animation: singleProgress 2s ease-in-out infinite;
@@ -688,28 +750,42 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           100% { width: 20%; }
         }
         
-        .preview { background: #1a1a1a; border-radius: 12px; overflow: hidden; margin: 16px 0; }
+        .preview { background: #1a2a2f; border-radius: 12px; overflow: hidden; margin: 16px 0; }
         .preview img { width: 100%; display: block; }
         .preview-info { 
           padding: 16px; 
           text-align: start;
-          border-bottom: 1px solid rgba(255,255,255,0.1);
+          border-bottom: 1px solid rgba(255,255,255,0.08);
         }
         .preview-header {
           display: flex;
           align-items: flex-start;
           gap: 12px;
         }
-        .preview-icon { font-size: 2.2rem; line-height: 1; }
-        .preview-text { flex: 1; }
-        .preview-style { 
-          font-size: 1.35rem; font-weight: 600; color: #fff; 
-          margin-bottom: 6px; line-height: 1.3;
+        .preview-icon {
+          font-size: 2.2rem;
+          line-height: 1;
         }
-        .preview-subtitle { font-size: 1.05rem; font-weight: 600; color: rgba(255,255,255,0.8); }
+        .preview-text {
+          flex: 1;
+        }
+        .preview-style { 
+          font-size: 1.35rem; 
+          font-weight: 600; 
+          color: #fff; 
+          margin-bottom: 6px;
+          line-height: 1.3;
+        }
+        .preview-subtitle { 
+          font-size: 1.05rem; 
+          font-weight: 600; 
+          color: rgba(255,255,255,0.8);
+        }
         .preview-subtitle.sub2 {
-          font-size: 0.95rem; font-weight: 500;
-          color: rgba(255,255,255,0.5); margin-top: 4px;
+          font-size: 0.95rem;
+          font-weight: 500;
+          color: rgba(255,255,255,0.4);
+          margin-top: 4px;
         }
         
         .dots-nav {
@@ -717,7 +793,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           align-items: center;
           justify-content: center;
           gap: 8px;
-          margin-top: 16px;
+          margin-top: 4px;
         }
         .dots {
           display: flex;
@@ -725,21 +801,31 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           gap: 4px;
         }
         .dot {
-          width: 6px; height: 6px; border-radius: 50%;
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
           background: rgba(255,255,255,0.2);
-          border: none; cursor: pointer; padding: 0;
+          border: none;
+          cursor: pointer;
+          padding: 0;
         }
-        .dot.done { background: rgba(74, 106, 170, 0.5); }
-        .dot.active { background: #4a6aaa; transform: scale(1.3); }
+        .dot.done { background: rgba(58, 122, 122, 0.5); }
+        .dot.active { background: #3a7a7a; transform: scale(1.3); }
         .dot:disabled { opacity: 0.4; cursor: default; }
         .dot.edu {
-          width: auto; height: auto; background: none;
-          font-size: 11px; display: flex; align-items: center;
-          justify-content: center; color: rgba(255,255,255,0.4);
+          width: auto;
+          height: auto;
+          background: none;
+          font-size: 11px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: rgba(255,255,255,0.4);
         }
         .dot.edu.active { color: #fff; transform: none; background: none; }
         .count {
-          font-size: 10px; color: rgba(255,255,255,0.4);
+          font-size: 10px;
+          color: rgba(255,255,255,0.4);
           margin-inline-start: 2px;
         }
       `}</style>

@@ -44,6 +44,8 @@ const App = () => {
 
   // 화면 상태: 'category' | 'photoStyle' | 'processing' | 'result' | 'addFunds' | 'menu'
   const [currentScreen, setCurrentScreen] = useState('category');
+  const prevScreenRef = useRef('category');
+  const prevAddFundsRef = useRef('category');
   const [showGallery, setShowGallery] = useState(false);
   
   // 크레딧 상태 (Firestore 실시간 구독)
@@ -200,10 +202,10 @@ const App = () => {
           handleBackToCategory();
           break;
         case 'addFunds':
-          setCurrentScreen('category');
+          setCurrentScreen(prevAddFundsRef.current);
           break;
         case 'menu':
-          setCurrentScreen('category');
+          setCurrentScreen(prevScreenRef.current);
           break;
         case 'category':
           // 메인 화면에서 뒤로가기 → 앱 백그라운드로
@@ -445,11 +447,13 @@ const App = () => {
 
   // Add Funds 화면
   const handleGoToAddFunds = () => {
+    prevAddFundsRef.current = currentScreen;
     setCurrentScreen('addFunds');
   };
 
   // Menu 화면
   const handleGoToMenu = () => {
+    prevScreenRef.current = currentScreen;
     setCurrentScreen('menu');
   };
 
@@ -566,12 +570,12 @@ const App = () => {
 
           {currentScreen === 'addFunds' && (
             <AddFundsScreen
-              onBack={() => setCurrentScreen('category')}
+              onBack={() => setCurrentScreen(prevAddFundsRef.current)}
               userCredits={userCredits}
               userId={user?.uid}
               onPurchaseComplete={() => {
                 // 잔액은 Firestore onSnapshot이 자동 반영
-                setCurrentScreen('category');
+                setCurrentScreen(prevAddFundsRef.current);
               }}
               lang={lang}
             />
@@ -579,7 +583,7 @@ const App = () => {
 
           {currentScreen === 'menu' && (
             <MenuScreen
-              onBack={() => setCurrentScreen('category')}
+              onBack={() => setCurrentScreen(prevScreenRef.current)}
               onGallery={() => setShowGallery(true)}
               onAddFunds={handleGoToAddFunds}
               onLanguage={handleLanguageChange}
@@ -597,6 +601,7 @@ const App = () => {
               onSelect={handlePhotoStyleSelect}
               onMenu={handleGoToMenu}
               onAddFunds={handleGoToAddFunds}
+              onCategoryChange={setMainCategory}
               userCredits={userCredits}
               lang={lang}
             />

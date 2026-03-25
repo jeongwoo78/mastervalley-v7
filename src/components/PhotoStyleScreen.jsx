@@ -829,7 +829,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
           left: -100%;
           width: 50%;
           height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.45), transparent);
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
           animation: ft-shimmer 1.5s ease-in-out infinite;
         }
 
@@ -890,7 +890,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
         }
 
         .select-label {
-          color: rgba(255,255,255,0.7);
+          color: rgba(255,255,255,0.6);
           font-size: 15px;
           font-weight: 600;
         }
@@ -944,7 +944,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
 
         .style-name {
           display: block;
-          color: rgba(255,255,255,0.88);
+          color: rgba(255,255,255,0.8);
           font-size: 12.5px;
           font-weight: 600;
           line-height: 1.3;
