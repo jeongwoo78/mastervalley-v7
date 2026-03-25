@@ -11,7 +11,6 @@ import { MODEL_CONFIG } from './modelConfig';
 import { db, auth } from '../config/firebase';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { getFCMToken } from './fcm';
-import transformManager from './transformManager';
 
 const CLOUD_FUNCTIONS_URL = 'https://us-central1-master-valley.cloudfunctions.net';
 const VERCEL_API_URL = 'https://mastervalley-v7.vercel.app';
@@ -322,54 +321,7 @@ export const processFullTransform = async (photoFile, styles, selectedStyle, onP
   }
 };
 
-// ========================================
-// 비차단형 변환 제출 (v82, 동시다중용)
-// ========================================
-
-export const submitTransform = async (photoFile, selectedStyle, correctionPrompt = null) => {
-  if (!transformManager.canStartNew()) {
-    return {
-      success: false,
-      error: `동시 변환은 최대 ${transformManager.MAX_CONCURRENT}건까지 가능합니다.`
-    };
-  }
-
-  try {
-    const resizedPhoto = await resizeImage(photoFile, 1024);
-    const photoBase64 = await fileToBase64(resizedPhoto);
-    const modelConfig = getModelForStyle(selectedStyle);
-    const transformId = generateId();
-    
-    const userId = auth.currentUser?.uid || null;
-    
-    // HTTP fire-and-forget
-    fetch(`${CLOUD_FUNCTIONS_URL}/startTransform`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        image: photoBase64,
-        selectedStyle,
-        correctionPrompt: correctionPrompt || null,
-        transformId,
-        userId,
-        fcmToken: getFCMToken() || null
-      })
-    }).catch(err => console.error('Submit error:', err));
-    
-    transformManager.start(transformId, {
-      selectedStyle,
-      correctionPrompt,
-      cost: modelConfig.cost,
-      model: modelConfig.model
-    });
-    
-    return { success: true, transformId };
-
-  } catch (error) {
-    console.error('Transform submit error:', error);
-    return { success: false, error: error.message };
-  }
-};
+// submitTransform 제거 — v1은 단일+원클릭만 (멀티 동시변환은 v2)
 
 // ========================================
 // 크레딧 차감 (Vercel 유지)
