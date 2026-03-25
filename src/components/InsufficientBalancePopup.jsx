@@ -73,7 +73,7 @@ const InsufficientBalancePopup = ({
         }
 
         .popup-card {
-          background: #1e1e1e;
+          background: #1a2a2f;
           border-radius: 24px;
           padding: 32px 24px 20px;
           width: 100%;
@@ -100,7 +100,7 @@ const InsufficientBalancePopup = ({
         }
 
         .popup-info {
-          color: #888;
+          color: rgba(255,255,255,0.5);
           font-size: 14px;
           margin-bottom: 24px;
           line-height: 1.7;
@@ -127,12 +127,12 @@ const InsufficientBalancePopup = ({
         }
 
         .popup-recommend:hover {
-          background: #333;
+          background: #2a3a3f;
         }
 
         .rec-label {
           font-size: 12px;
-          color: #888;
+          color: rgba(255,255,255,0.5);
           margin-bottom: 6px;
         }
 

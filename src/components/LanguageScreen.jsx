@@ -105,7 +105,7 @@ const LanguageScreen = ({ onBack, onSelect, currentLang = 'en' }) => {
         }
 
         .language-item:hover {
-          background: #222;
+          background: #2a3a3f;
         }
 
         .language-item:active {
@@ -136,7 +136,7 @@ const LanguageScreen = ({ onBack, onSelect, currentLang = 'en' }) => {
         }
 
         .lang-name {
-          color: #888;
+          color: rgba(255,255,255,0.5);
           font-size: 13px;
         }
 

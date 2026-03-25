@@ -146,14 +146,18 @@ function buildOneclickFCMBody(lang, category) {
 // ========================================
 // startTransform — 단일 + 원클릭 통합
 // ========================================
-export const startTransform = onRequest({
+// ========================================
+// 공통 함수 설정
+// ========================================
+const FUNCTION_CONFIG = {
   cors: true,
   timeoutSeconds: 540,
   memory: '1GiB',
-  region: 'us-central1',
   secrets: ['REPLICATE_API_KEY', 'ANTHROPIC_API_KEY']
-}, async (req, res) => {
-  
+};
+
+// 공통 핸들러
+async function handleRequest(req, res) {
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
@@ -200,7 +204,22 @@ export const startTransform = onRequest({
     console.error('startTransform 에러:', error);
     res.status(500).json({ error: error.message });
   }
-});
+}
+
+// ========================================
+// 리전별 배포 (동일 핸들러, 다른 리전)
+// ========================================
+// 미국/유럽/남미 (en, es, pt, fr, ar, tr)
+export const startTransform = onRequest({
+  ...FUNCTION_CONFIG,
+  region: 'us-central1'
+}, handleRequest);
+
+// 아시아 (ko, ja, zh-TW, id, th)
+export const startTransformAsia = onRequest({
+  ...FUNCTION_CONFIG,
+  region: 'asia-northeast1'
+}, handleRequest);
 
 // ========================================
 // 단일 변환 처리

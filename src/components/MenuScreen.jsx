@@ -348,24 +348,24 @@ const menuStyles = `
     cursor: pointer;
     transition: background 0.2s;
   }
-  .menu-item-svg:hover { background: #222; }
+  .menu-item-svg:hover { background: #2a3a3f; }
   .menu-item-svg:active { background: #2a3a3f; }
   .menu-item-svg.accordion-open {
     margin-bottom: 0;
     border-radius: 12px 12px 0 0;
-    background: #1e1e1e;
+    background: #1a2a2f;
   }
   .menu-svg-icon {
-    color: #888;
+    color: rgba(255,255,255,0.5);
     display: flex;
     width: 24px;
     justify-content: center;
     flex-shrink: 0;
   }
   .menu-label { flex: 1; color: #e5e5e5; font-size: 14px; }
-  .menu-value { color: #555; font-size: 14px; margin-inline-end: 4px; }
+  .menu-value { color: rgba(255,255,255,0.4); font-size: 14px; margin-inline-end: 4px; }
   .menu-chevron-svg {
-    color: #333;
+    color: rgba(255,255,255,0.2);
     display: flex;
     transition: transform 0.2s;
   }
@@ -374,7 +374,7 @@ const menuStyles = `
   .menu-item-svg.danger .menu-label { color: #ef4444; }
 
   .lang-accordion {
-    background: #161616;
+    background: #0a1a1f;
     border-radius: 0 0 12px 12px;
     margin-bottom: 10px;
     overflow: hidden;
@@ -394,10 +394,10 @@ const menuStyles = `
   .lang-option.inactive .lang-dash { color: rgba(255,255,255,0.08); }
   .lang-name { color: rgba(255,255,255,0.8); font-size: 14px; flex: 1; }
   .lang-check { color: #6a9a9a; display: flex; }
-  .lang-soon { font-size: 10px; color: #333; font-style: italic; }
+  .lang-soon { font-size: 10px; color: rgba(255,255,255,0.2); font-style: italic; }
 
   .support-accordion {
-    background: #161616;
+    background: #0a1a1f;
     border-radius: 0 0 12px 12px;
     margin-bottom: 10px;
     overflow: hidden;
@@ -419,14 +419,14 @@ const menuStyles = `
     gap: 4px;
   }
   .about-app-name { color: #fff; font-size: 18px; font-weight: 600; }
-  .about-version { color: #555; font-size: 13px; }
+  .about-version { color: rgba(255,255,255,0.4); font-size: 13px; }
   .about-credits {
     margin-top: 16px;
     padding: 14px 16px;
     background: #1a2a2f;
     border-radius: 12px;
   }
-  .about-credits-title { display: block; color: #888; font-size: 12px; margin-bottom: 6px; }
+  .about-credits-title { display: block; color: rgba(255,255,255,0.5); font-size: 12px; margin-bottom: 6px; }
   .about-credits-text { display: block; color: rgba(255,255,255,0.4); font-size: 11px; line-height: 1.5; }
 
   .legal-scroll {

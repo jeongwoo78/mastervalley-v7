@@ -2256,16 +2256,16 @@ const ResultScreen = ({
           width: 6px;
           height: 6px;
           border-radius: 50%;
-          background: rgba(255,255,255,0.2);
+          background: rgba(255,255,255,0.25);
           border: none;
           cursor: pointer;
           padding: 0;
         }
         .nav-dot.done {
-          background: rgba(58, 122, 122, 0.5);
+          background: rgba(255, 255, 255, 0.6);
         }
         .nav-dot.active {
-          background: #3a7a7a;
+          background: rgba(255, 255, 255, 1);
           transform: scale(1.3);
         }
         .nav-dot:disabled {

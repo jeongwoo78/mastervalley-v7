@@ -174,7 +174,7 @@ const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, l
         }
 
         .balance-label {
-          color: #888;
+          color: rgba(255,255,255,0.5);
           font-size: 14px;
           margin-bottom: 8px;
         }
@@ -237,7 +237,7 @@ const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, l
 
         .pack-desc {
           font-size: 14px;
-          color: #666;
+          color: rgba(255,255,255,0.4);
           line-height: 1.5;
         }
 

@@ -1,7 +1,6 @@
 // Master Valley v77 - Main App (i18n 지원)
 import React, { useState, useEffect, useRef } from 'react';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { collection, query, where, getDocs } from 'firebase/firestore';
 import { Preferences } from '@capacitor/preferences';
 import { App as CapApp } from '@capacitor/app';
 import { auth, db, doc, onSnapshot, updateDoc, ensureUserDoc } from './config/firebase';
@@ -12,15 +11,16 @@ import PhotoStyleScreen from './components/PhotoStyleScreen';
 import ProcessingScreen from './components/ProcessingScreen';
 import ResultScreen from './components/ResultScreen';
 import GalleryScreen from './components/GalleryScreen';
-import { saveToGallery } from './components/GalleryScreen';
 import AddFundsScreen from './components/AddFundsScreen';
 import MenuScreen from './components/MenuScreen';
 // LanguageScreen removed - 메뉴 아코디언에서 직접 변경
 import InsufficientBalancePopup from './components/InsufficientBalancePopup';
+import TransformBanner from './components/TransformBanner';
 import { getTransformCost } from './utils/pricing';
 import { deductCredit } from './utils/styleTransferAPI';
+import transformManager from './utils/transformManager';
 import { initRevenueCat } from './utils/revenueCat';
-import { initFCM, onNotificationTap } from './utils/fcm';
+import { initFCM } from './utils/fcm';
 import './styles/App.css';
 
 const App = () => {
@@ -45,7 +45,6 @@ const App = () => {
   // 화면 상태: 'category' | 'photoStyle' | 'processing' | 'result' | 'addFunds' | 'menu'
   const [currentScreen, setCurrentScreen] = useState('category');
   const prevScreenRef = useRef('category');
-  const prevAddFundsRef = useRef('category');
   const [showGallery, setShowGallery] = useState(false);
   
   // 크레딧 상태 (Firestore 실시간 구독)
@@ -131,11 +130,6 @@ const App = () => {
 
         // FCM 푸시 알림 초기화 (네이티브 앱에서만 동작)
         initFCM();
-        
-        // 푸시 알림 탭 → 갤러리 열기
-        onNotificationTap(() => {
-          setShowGallery(true);
-        });
 
         // Firestore 실시간 잔액 구독
         const userRef = doc(db, 'users', currentUser.uid);
@@ -196,13 +190,14 @@ const App = () => {
           setFullTransformResults(null);
           break;
         case 'processing':
-          // 변환 중 → 뒤로가기 차단 (서버 비용 발생, 결과 수신 필요)
-          return;
+          // 변환 중 → 스타일 선택 (서버에서 계속 진행, 완료 시 푸시 알림)
+          setCurrentScreen('photoStyle');
+          break;
         case 'photoStyle':
           handleBackToCategory();
           break;
         case 'addFunds':
-          setCurrentScreen(prevAddFundsRef.current);
+          setCurrentScreen('category');
           break;
         case 'menu':
           setCurrentScreen(prevScreenRef.current);
@@ -220,88 +215,6 @@ const App = () => {
       backHandler.then(h => h.remove());
     };
   }, [currentScreen, showGallery, showInsufficientPopup, showAiConsent]);
-
-  // ========================================
-  // 앱 재진입 시 미수신 변환 복원
-  // 강제 종료 후 재실행 → Firestore에서 완료된 변환 조회 → 갤러리 저장
-  // 복원 완료한 ID는 로컬(Preferences)에 저장 → 중복 방지
-  // ========================================
-  const recoveryDoneRef = useRef(false);
-  
-  useEffect(() => {
-    if (!user || recoveryDoneRef.current) return;
-    recoveryDoneRef.current = true;
-    
-    const recoverTransforms = async () => {
-      try {
-        // 이미 복원한 ID 목록 로드
-        const { value: recoveredJson } = await Preferences.get({ key: 'mv-recovered-transforms' });
-        const recoveredSet = new Set(recoveredJson ? JSON.parse(recoveredJson) : []);
-        
-        const q = query(
-          collection(db, 'transforms'),
-          where('userId', '==', user.uid),
-          where('status', '==', 'completed')
-        );
-        const snapshot = await getDocs(q);
-        
-        if (snapshot.empty) return;
-        
-        // 최근 1시간 내 완료된 건만 복원 (오래된 테스트 잔해 무시)
-        const oneHourAgo = Date.now() - 60 * 60 * 1000;
-        
-        let recoveredCount = 0;
-        const newRecoveredIds = [];
-        
-        for (const docSnap of snapshot.docs) {
-          // 이미 복원한 건 skip
-          if (recoveredSet.has(docSnap.id)) continue;
-          
-          const data = docSnap.data();
-          if (!data.resultUrl) continue;
-          
-          // 1시간 이상 된 건 skip
-          const completedTime = data.completedAt?.toMillis?.() || 0;
-          if (completedTime < oneHourAgo) continue;
-          
-          try {
-            const imageResponse = await fetch(data.resultUrl);
-            const blob = await imageResponse.blob();
-            const localUrl = URL.createObjectURL(blob);
-            
-            await saveToGallery(localUrl, {
-              category: data.selectedStyle?.category || '',
-              artistName: data.selectedArtist || data.selectedStyle?.name || 'Converted Image',
-              movementName: data.selectedStyle?.name || '',
-              workName: data.selectedWork || null,
-              styleId: data.selectedStyle?.id || '',
-              isRetransform: data.isRetransform || false
-            });
-            
-            URL.revokeObjectURL(localUrl);
-            newRecoveredIds.push(docSnap.id);
-            recoveredCount++;
-          } catch (err) {
-            console.error(`❌ 변환 복원 실패: ${docSnap.id}`, err);
-          }
-        }
-        
-        // 복원한 ID 로컬에 저장
-        if (newRecoveredIds.length > 0) {
-          newRecoveredIds.forEach(id => recoveredSet.add(id));
-          await Preferences.set({ 
-            key: 'mv-recovered-transforms', 
-            value: JSON.stringify([...recoveredSet]) 
-          });
-          console.log(`📦 미수신 변환 ${recoveredCount}건 갤러리에 복원 완료`);
-        }
-      } catch (err) {
-        console.error('변환 복원 조회 실패:', err);
-      }
-    };
-    
-    recoverTransforms();
-  }, [user]);
 
   // 로그인 성공
   const handleLoginSuccess = (loggedInUser) => {
@@ -327,6 +240,11 @@ const App = () => {
 
   // 변환 시작 공통 로직 (잔액 체크 포함)
   const startTransform = (photo, style) => {
+    // 동시 변환 제한 체크 (최대 4건)
+    if (!transformManager.canStartNew()) {
+      alert(`동시 변환은 최대 ${transformManager.MAX_CONCURRENT}건까지 가능합니다. 완료 후 다시 시도해 주세요.`);
+      return;
+    }
     const cost = getTransformCost(style);
     if (cost > 0 && userCredits < cost) {
       setRequiredAmount(cost);
@@ -447,7 +365,6 @@ const App = () => {
 
   // Add Funds 화면
   const handleGoToAddFunds = () => {
-    prevAddFundsRef.current = currentScreen;
     setCurrentScreen('addFunds');
   };
 
@@ -517,6 +434,13 @@ const App = () => {
 
   return (
     <div className="app" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
+      {/* 동시다중 변환 배너 */}
+      {currentScreen !== 'processing' && (
+        <TransformBanner 
+          onTapGallery={() => setShowGallery(true)} 
+          lang={lang} 
+        />
+      )}
       {/* AI 데이터 처리 동의 팝업 */}
       {showAiConsent && (
         <div className="ai-consent-overlay" onClick={() => {}}>
@@ -570,12 +494,12 @@ const App = () => {
 
           {currentScreen === 'addFunds' && (
             <AddFundsScreen
-              onBack={() => setCurrentScreen(prevAddFundsRef.current)}
+              onBack={() => setCurrentScreen('category')}
               userCredits={userCredits}
               userId={user?.uid}
               onPurchaseComplete={() => {
                 // 잔액은 Firestore onSnapshot이 자동 반영
-                setCurrentScreen(prevAddFundsRef.current);
+                setCurrentScreen('category');
               }}
               lang={lang}
             />
@@ -601,7 +525,6 @@ const App = () => {
               onSelect={handlePhotoStyleSelect}
               onMenu={handleGoToMenu}
               onAddFunds={handleGoToAddFunds}
-              onCategoryChange={setMainCategory}
               userCredits={userCredits}
               lang={lang}
             />
@@ -701,7 +624,7 @@ const App = () => {
           padding: 24px;
         }
         .ai-consent-modal {
-          background: #1e1e1e;
+          background: #1a2a2f;
           border-radius: 16px;
           padding: 20px 20px 12px;
           max-width: 260px;

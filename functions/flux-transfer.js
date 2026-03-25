@@ -72,6 +72,40 @@ const anthropicClient = process.env.ANTHROPIC_API_KEY
 // v79: artistStyles.js → art-api-prompts.js 통합 완료
 
 // ========================================
+// v83: Replicate Files 병렬 업로드 (Vision과 동시 실행)
+// Vision API 호출 중 이미지를 Replicate에 미리 업로드
+// prediction 생성 시 base64 대신 URL 사용 → 0.5~1초 절약
+// ========================================
+async function uploadToReplicateFiles(base64Image) {
+  try {
+    const base64Data = base64Image.includes(',') ? base64Image.split(',')[1] : base64Image;
+    const buffer = Buffer.from(base64Data, 'base64');
+    
+    const response = await fetch('https://api.replicate.com/v1/files', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Token ${process.env.REPLICATE_API_KEY}`,
+        'Content-Type': 'application/octet-stream',
+        'Content-Disposition': 'attachment; filename="input.jpg"'
+      },
+      body: buffer
+    });
+    
+    if (!response.ok) {
+      console.log('⚠️ Replicate Files 업로드 실패, base64 fallback');
+      return null;
+    }
+    
+    const file = await response.json();
+    console.log('✅ Replicate Files 업로드 완료');
+    return file.urls.get;
+  } catch (err) {
+    console.log('⚠️ Replicate Files 에러, base64 fallback:', err.message);
+    return null;
+  }
+}
+
+// ========================================
 // v65: 리히텐슈타인 말풍선 텍스트 (50개)
 // 짧은 감탄사 + 대화체 + 독백체 + 긴 문장 혼합
 // ========================================
@@ -1078,14 +1112,14 @@ function selectArtistByWeight(category, photoAnalysis) {
 // 고대 그리스-로마 (2가지 스타일)
 function getAncientGreekRomanGuidelines() {
   return `
-🚫🚫🚫 CRITICAL RESTRICTION 🚫🚫🚫
+CRITICAL RESTRICTION 
 YOU MUST ONLY SELECT FROM THE ARTISTS/STYLES LISTED BELOW!
 DO NOT select artists from other movements (Renaissance, Baroque, Impressionism, etc.)
 ONLY "CLASSICAL SCULPTURE" or "ROMAN MOSAIC" are allowed!
 
 Available Ancient Greek-Roman Styles (2가지):
 
-⭐ STYLE 1: CLASSICAL SCULPTURE (고대 그리스-로마 조각)
+STYLE 1: CLASSICAL SCULPTURE (고대 그리스-로마 조각)
    - For: INDOOR PORTRAITS or SPORTS/ACTION PHOTOS ONLY
    - PRIORITY: Sports/athletic action OR indoor portrait settings
    - Examples: Sports action shots (running, jumping, throwing)
@@ -1098,7 +1132,7 @@ Available Ancient Greek-Roman Styles (2가지):
    - Background: Simple plain neutral background (museum-like)
    - Aesthetic: Classical Greek/Roman white marble sculpture
 
-⭐ STYLE 2: ROMAN MOSAIC (로마 모자이크)
+STYLE 2: ROMAN MOSAIC
    - For: ALL OTHER PHOTOS (outdoor portraits, landscapes, nature, etc.)
    - Examples: Outdoor portraits (any setting)
               All landscape shots (with or without people)
@@ -1109,15 +1143,15 @@ Available Ancient Greek-Roman Styles (2가지):
    - Technique: LARGE VISIBLE tesserae tiles 50mm, THICK DARK GROUT LINES between tiles
    - CRITICAL: Each tile must be CLEARLY DISTINGUISHABLE as individual square/rectangular pieces
    - Aesthetic: Roman floor/wall mosaic with chunky stone tiles, jewel-tone colors
-   📚 ROMAN MOSAIC MASTERWORKS - Select one matching photo characteristics:
-   • Alexander Mosaic (알렉산더 모자이크) → Battle/action, dynamic diagonal, earth tones
-   • Cave Canem (카베 카넴) → Animals (dogs, cats, pets), bold graphic contrast
-   • Dionysus Mosaic (디오니소스 모자이크) → Mythological, wine/grape imagery, celebratory
-   • Oceanus and Tethys (오케아노스와 테티스) → Sea/water themes, blue-turquoise palette
-   • Four Seasons (사계절 모자이크) → Portrait busts, seasonal themes, elegant female
-   • Nile Mosaic (닐 모자이크) → Landscape panorama, exotic wildlife, river scenes
+   ROMAN MOSAIC MASTERWORKS - Select one matching photo characteristics:
+   • Alexander Mosaic → Battle/action, dynamic diagonal, earth tones
+   • Cave Canem → Animals (dogs, cats, pets), bold graphic contrast
+   • Dionysus Mosaic → Mythological, wine/grape imagery, celebratory
+   • Oceanus and Tethys → Sea/water themes, blue-turquoise palette
+   • Four Seasons → Portrait busts, seasonal themes, elegant female
+   • Nile Mosaic → Landscape panorama, exotic wildlife, river scenes
 
-🎯 KEY DECISION RULE - SIMPLIFIED:
+KEY DECISION RULE - SIMPLIFIED:
 1. SPORTS/ATHLETIC ACTION? → SCULPTURE (highest priority!)
 2. INDOOR PORTRAIT/GROUP? → SCULPTURE
 3. OUTDOOR PORTRAIT? → MOSAIC
@@ -1145,55 +1179,55 @@ function getAncientGreekRomanHints(photoAnalysis) {
 // 르네상스 (5명)
 function getRenaissanceGuidelines() {
   return `
-🚫🚫🚫 CRITICAL RESTRICTION 🚫🚫🚫
+CRITICAL RESTRICTION 
 YOU MUST ONLY SELECT FROM THE ARTISTS LISTED BELOW!
 DO NOT select artists from other movements (Baroque, Impressionism, Expressionism, etc.)
 ONLY Renaissance artists: LEONARDO, TITIAN, MICHELANGELO, RAPHAEL, BOTTICELLI!
 
-⭐⭐⭐ FEMALE PORTRAIT SELECTION RULE ⭐⭐⭐
+FEMALE PORTRAIT SELECTION RULE 
 STOP thinking "female portrait = Mona Lisa = Leonardo"!
 For FEMALE subjects, you MUST randomize between artists:
 - BOTTICELLI: 50% (default choice for most female portraits)
 - LEONARDO: 30% (only if mysterious/contemplative mood)
 - RAPHAEL: 20% (only if peaceful/serene scene)
 
-🎲 RANDOMIZATION REQUIRED: Do NOT always pick Leonardo for women!
+RANDOMIZATION REQUIRED: Do NOT always pick Leonardo for women!
 
 Available Renaissance Artists (5명):
 
-1. BOTTICELLI (보티첼리) - ⭐ DEFAULT for female portraits
+1. BOTTICELLI - DEFAULT for female portraits
    - Specialty: Flowing elegant lines, ethereal beauty, graceful movement
    - Best for: Young women, beauty, fashion, elegance, graceful poses
    - Masterworks: "Primavera", "Venus and Mars" ← SELECT ONE ONLY!
-   - ⭐ SELECT BOTTICELLI when: Female subject (any pose, any mood) - 50% of cases!
+   - SELECT BOTTICELLI when: Female subject (any pose, any mood) - 50% of cases!
    - Botticelli is NOT just for "dance poses" - he excels at ALL female portraits
 
-2. LEONARDO DA VINCI (레오나르도 다 빈치) - female with mysterious atmosphere ONLY
+2. LEONARDO DA VINCI - female with mysterious atmosphere ONLY
    - Specialty: Sfumato technique, mysterious smile, soft transitions
    - Best for: ONLY when photo has mysterious/contemplative/enigmatic mood
    - Masterworks: "Virgin of the Rocks", "The Last Supper" ← SELECT ONE ONLY!
-   - ⚠️ DO NOT default to Leonardo just because subject is female!
+   - DO NOT default to Leonardo just because subject is female!
    - Select Leonardo ONLY if: mysterious expression, contemplative mood, dark background
 
-3. TITIAN (티치아노) - male portraits & landscapes
+3. TITIAN - male portraits & landscapes
    - Specialty: Venetian golden color, luminous flesh tones, ARISTOCRATIC MALE PORTRAITS
    - Best for: MALE upper body portraits, landscapes with sky/sunset, noble dignified men
    - Masterworks: "Bacchus and Ariadne", "Assumption of the Virgin" ← SELECT ONE ONLY!
 
-4. MICHELANGELO (미켈란젤로) - ADULT male, dynamic/heroic, group scenes
+4. MICHELANGELO - ADULT male, dynamic/heroic, group scenes
    - Specialty: Sculptural powerful anatomy, heroic masculine figures
    - Best for: ADULT male (age 18+) with full body, athletic, dynamic, heroic poses
    - Masterworks: "Creation of Adam", "Last Judgment" ← SELECT ONE ONLY!
    - When to prioritize: Adult male with masculine energy, sports, action, heroic subject
    - CRITICAL: NEVER for children, teenagers, women, or elderly - ONLY adult men
 
-5. RAPHAEL (라파엘로) - peaceful scenes, group scenes
+5. RAPHAEL - peaceful scenes, group scenes
    - Specialty: Harmonious balanced composition, graceful figures, serene beauty
    - Best for: Peaceful family scenes, gentle relationships, group compositions
    - Masterworks: "School of Athens", "Sistine Madonna", "Galatea" ← SELECT ONE ONLY!
    - When to prioritize: Peaceful multi-person scene or group composition
 
-⚠️ CRITICAL: You MUST select a masterwork from the exact list above! Do NOT invent new titles!
+CRITICAL: You MUST select a masterwork from the exact list above! Do NOT invent new titles!
 `;
 }
 
@@ -1203,7 +1237,7 @@ function getRenaissanceHints(photoAnalysis) {
   // 아동/청소년 → 미켈란젤로 절대 금지 (안전장치)
   if (age_range === 'child' || age_range === 'teen' || subject.includes('child') || subject.includes('boy') || subject.includes('girl')) {
     return `
-⚠️ SAFETY RULE: NEVER select Michelangelo for children or teenagers.
+SAFETY RULE: NEVER select Michelangelo for children or teenagers.
 Choose from: Botticelli, Raphael, Leonardo, or Titian instead.
 `;
   }
@@ -1214,38 +1248,38 @@ Choose from: Botticelli, Raphael, Leonardo, or Titian instead.
 // 바로크 (4명)
 function getBaroqueGuidelines() {
   return `
-🚫🚫🚫 CRITICAL RESTRICTION 🚫🚫🚫
+CRITICAL RESTRICTION 
 YOU MUST ONLY SELECT FROM THE ARTISTS LISTED BELOW!
 DO NOT select artists from other movements (Renaissance, Impressionism, Expressionism, etc.)
 ONLY Baroque artists: CARAVAGGIO, RUBENS, REMBRANDT, VELÁZQUEZ!
 
 Available Baroque Artists (4명):
 
-1. CARAVAGGIO (카라바조) ⭐ Best - default choice for single portraits
+1. CARAVAGGIO Best - default choice for single portraits
    - Specialty: Dramatic chiaroscuro, tenebrism, theatrical spotlight effect
    - Best for: Single person portraits, dramatic mood, strong expressions
    - Masterworks: "The Calling of St Matthew", "Supper at Emmaus" ← SELECT ONE ONLY!
    - When to prioritize: Most single portraits 
 
-2. RUBENS (루벤스) ⭐ Best for couples & groups
+2. RUBENS Best for couples & groups
    - Specialty: Warm sensual flesh, dynamic movement, voluptuous forms
    - Best for: Couples, romantic scenes, multi-person compositions, warm energy
    - Masterworks: "Descent from the Cross", "The Garden of Love" ← SELECT ONE ONLY!
    - When to prioritize: 2+ people, romantic/intimate mood, dynamic poses
 
-3. REMBRANDT (렘브란트) - Best for elderly subjects & window light
+3. REMBRANDT - Best for elderly subjects & window light
    - Specialty: Warm golden light, psychological depth, soft window illumination
    - Best for: Elderly subjects (60+), contemplative mood, female with natural light
    - Masterworks: "The Night Watch", "Self-Portrait", "Return of the Prodigal Son" ← SELECT ONE ONLY!
    - When to prioritize: Clear elderly subject or window light scenes
 
-4. VELÁZQUEZ (벨라스케스) - Best for formal portraits
+4. VELÁZQUEZ - Best for formal portraits
    - Specialty: Courtly dignity, Spanish formality
    - Best for: Formal clothing, aristocratic mood
    - Masterworks: "Las Meninas", "Portrait of Pope Innocent X", "The Surrender of Breda" ← SELECT ONE ONLY!
    - When to prioritize: Formal/official context
 
-⚠️ CRITICAL: You MUST select a masterwork from the exact list above! Do NOT invent new titles!
+CRITICAL: You MUST select a masterwork from the exact list above! Do NOT invent new titles!
 `;
 }
 
@@ -1257,26 +1291,26 @@ function getBaroqueHints(photoAnalysis) {
 // 로코코 (2명)
 function getRococoGuidelines() {
   return `
-🚫🚫🚫 CRITICAL RESTRICTION 🚫🚫🚫
+CRITICAL RESTRICTION 
 YOU MUST ONLY SELECT FROM THE ARTISTS LISTED BELOW!
 DO NOT select artists from other movements (Baroque, Impressionism, Expressionism, etc.)
 ONLY Rococo artists: BOUCHER, WATTEAU!
 
 Available Rococo Artists (2명):
 
-1. BOUCHER (부셰) ⭐ Best for Rococo 
+1. BOUCHER Best for Rococo 
    - Specialty: Playful sensual charm, soft pink and blue pastels, ornate decoration
    - Best for: Most photos - quintessential Rococo style
    - Masterworks: "Madame de Pompadour", "Le Déjeuner" ← SELECT ONE ONLY!
    - When to prioritize: Most cases (DEFAULT 70%)
 
-2. WATTEAU (와토) - Best for romantic outdoor scenes 
+2. WATTEAU - Best for romantic outdoor scenes 
    - Specialty: Fêtes galantes (elegant outdoor parties), romantic gardens
    - Best for: Outdoor scenes specifically, romantic atmosphere, leisure activities
    - Masterworks: "Pilgrimage to Cythera", "Pierrot", "Fête galante" ← SELECT ONE ONLY!
    - When to prioritize: Clear outdoor/garden/romantic settings 
 
-⚠️ CRITICAL: You MUST select a masterwork from the exact list above! Do NOT invent new titles!
+CRITICAL: You MUST select a masterwork from the exact list above! Do NOT invent new titles!
 `;
 }
 
@@ -1285,42 +1319,42 @@ function getRococoHints(photoAnalysis) {
   return '';
 }
 
-// 중세 미술 (비잔틴·고딕·이슬람) ⭐ v59 로마네스크 삭제
+// 중세 미술 (비잔틴·고딕·이슬람) v59 로마네스크 삭제
 function getMedievalGuidelines() {
   return `
-🚫🚫🚫 CRITICAL RESTRICTION 🚫🚫🚫
+CRITICAL RESTRICTION 
 YOU MUST ONLY SELECT FROM THE STYLES LISTED BELOW!
 DO NOT select artists from other movements (Renaissance, Baroque, Impressionism, etc.)
 ONLY Medieval styles: BYZANTINE, GOTHIC, ISLAMIC MINIATURE!
 
 Available Medieval Art Styles:
 
-📍 FOR PORTRAITS/PEOPLE (인물화) - 3 styles available:
+FOR PORTRAITS/PEOPLE - 3 styles available:
 
-1. BYZANTINE (비잔틴) ⭐ 
+1. BYZANTINE 
    - Specialty: SACRED GOLDEN MOSAIC backgrounds, flat iconic forms, divine transcendence
    - Best for: Formal dignified portraits - Byzantine spirituality and eternal presence
    - Signature: GOLDEN HALO behind head, Gold leaf backgrounds, hieratic frontal poses
    - CRITICAL: Must have CIRCULAR GOLDEN NIMBUS (halo) behind subject's head
-   📚 BYZANTINE MASTERWORKS - Select one matching photo characteristics:
-   • Emperor Justinian (유스티니아누스 황제) → Male/group, imperial majesty, dignified
-   • Empress Theodora (테오도라 황후) → Female, jeweled crown, opulent splendor
-   • Deesis (데이시스) → Gentle expression, compassionate, sacred presence
-   • Christ Pantocrator (판토크라토르) → Intense gaze, monumental, divine judgment
+   BYZANTINE MASTERWORKS - Select one matching photo characteristics:
+   • Emperor Justinian → Male/group, imperial majesty, dignified
+   • Empress Theodora → Female, jeweled crown, opulent splendor
+   • Deesis → Gentle expression, compassionate, sacred presence
+   • Christ Pantocrator → Intense gaze, monumental, divine judgment
 
-2. ISLAMIC MINIATURE (이슬람 세밀화) ⭐ 
+2. ISLAMIC MINIATURE 
    - Specialty: Persian/Ottoman COURT MINIATURE painting, intricate delicate details, vibrant jewel colors
    - Best for: Courtly elegant portraits, delicate graceful figures, ornamental backgrounds
    - Signature: Persian manuscript illumination style, flat decorative composition, rich jewel tones, intricate patterns
    - Also good for: Animals (hunting scenes, garden scenes)
-   📚 ISLAMIC MINIATURE MASTERWORKS - Select one matching photo characteristics:
-   • Youth Holding a Flower (꽃을 든 귀족) → Single portrait, elegant S-curve posture
-   • Miraj Night Journey (미라지) → Mystical/fantasy, celestial atmosphere
-   • Simurgh (시무르그) → Animals, mythical phoenix with elaborate plumage
-   • Lovers in a Garden (정원의 연인) → Couples, romantic moonlit garden
-   • Rustam Slaying Dragon (루스탐과 용) → Action/battle, epic heroic scene
+   ISLAMIC MINIATURE MASTERWORKS - Select one matching photo characteristics:
+   • Youth Holding a Flower → Single portrait, elegant S-curve posture
+   • Miraj Night Journey → Mystical/fantasy, celestial atmosphere
+   • Simurgh → Animals, mythical phoenix with elaborate plumage
+   • Lovers in a Garden → Couples, romantic moonlit garden
+   • Rustam Slaying Dragon → Action/battle, epic heroic scene
 
-3. GOTHIC (고딕) ⭐ 
+3. GOTHIC 
    - Specialty: CATHEDRAL STAINED GLASS with thick BLACK LEAD LINES dividing colored glass sections
    - Reference: Chartres Cathedral stained glass windows style
    - Best for: Religious atmosphere with jewel-tone translucent colors
@@ -1329,15 +1363,15 @@ Available Medieval Art Styles:
    - Glass colors: Deep ruby red, sapphire blue, emerald green, amber yellow, purple
    - Key features: Flat 2D figures, no perspective, translucent glass effect, light passing through
    - NOT a painting - must look like actual STAINED GLASS WINDOW with lead dividers
-   📚 GOTHIC MASTERWORKS - Select one matching photo characteristics:
-   • Blue Virgin of Chartres (샤르트르 푸른 성모) → Madonna/child, dominant cobalt blue
-   • Notre-Dame Rose Window (노트르담 장미창) → Radial circular, kaleidoscopic symmetry
-   • Sainte-Chapelle (생트샤펠) → Tall vertical, dominant ruby red, biblical narrative
+   GOTHIC MASTERWORKS - Select one matching photo characteristics:
+   • Blue Virgin of Chartres → Madonna/child, dominant cobalt blue
+   • Notre-Dame Rose Window → Radial circular, kaleidoscopic symmetry
+   • Sainte-Chapelle → Tall vertical, dominant ruby red, biblical narrative
 
-📍 FOR LANDSCAPES/NON-PORTRAITS (풍경/사물):
+FOR LANDSCAPES/NON-PORTRAITS:
 Choose: Byzantine or Gothic
 
-🎯 SELECTION:
+SELECTION:
 IF photo has PEOPLE:
   → Byzantine , Islamic Miniature , Gothic 
   
@@ -1358,7 +1392,7 @@ function getMedievalHints(photoAnalysis) {
       subject.includes('animal') || subject.includes('pet') || subject.includes('dog') || 
       subject.includes('cat') || subject.includes('horse') || subject.includes('bird')) {
     return `
-⚠️ SAFETY RULE: Animals detected - MUST use Islamic Miniature.
+SAFETY RULE: Animals detected - MUST use Islamic Miniature.
 NEVER use Byzantine or Gothic for animals (religious context inappropriate).
 `;
   }
@@ -1366,61 +1400,61 @@ NEVER use Byzantine or Gothic for animals (religious context inappropriate).
   return '';
 }
 
-// 신고전 vs 낭만 vs 사실주의 (7명) ⭐ v42 통합
+// 신고전 vs 낭만 vs 사실주의 (7명) v42 통합
 function getNeoclassicismVsRomanticismVsRealismGuidelines() {
   return `
-🚫🚫🚫 CRITICAL RESTRICTION 🚫🚫🚫
+CRITICAL RESTRICTION 
 YOU MUST ONLY SELECT FROM THE ARTISTS LISTED BELOW!
 DO NOT select artists from other movements (Baroque, Impressionism, Expressionism, etc.)
 ONLY these 6 artists: DAVID, INGRES, TURNER, DELACROIX, COURBET, MANET!
 
 Available Artists (6명) - AI will choose BEST style (Neoclassicism vs Romanticism vs Realism):
 
-⚖️ NEOCLASSICISM (신고전주의) - Reason and Order:
+NEOCLASSICISM - Reason and Order:
 
-1. DAVID (다비드) ⭐ BEST for formal/heroic portraits
+1. DAVID BEST for formal/heroic portraits
    - Specialty: Classical heroic compositions, clear lines, dignified formality
    - Best for: Formal portraits, static balanced poses, heroic subjects
    - Masterworks: "Death of Marat", "Coronation of Napoleon", "Oath of the Horatii" ← SELECT ONE ONLY!
    - When to prioritize: Formal/static/balanced photos 
 
-2. INGRES (앵그르) - BEST for elegant female portraits
+2. INGRES - BEST for elegant female portraits
    - Specialty: Perfect smooth contours, classical beauty, refined elegance
    - Best for: Female portraits, graceful poses, elegant beauty
    - Masterworks: "Princesse de Broglie", "Napoleon on his Imperial Throne" ← SELECT ONE ONLY!
    - When to prioritize: Elegant female subjects (65%)
 
-⚡ ROMANTICISM (낭만주의) - Emotion and Passion:
+ROMANTICISM - Emotion and Passion:
 
-3. TURNER (터너) ⭐ Best for landscapes
+3. TURNER Best for landscapes
    - Specialty: Atmospheric light effects, misty dreamlike landscapes, sublime nature
    - Best for: Landscapes, fog/mist, atmospheric effects, natural scenery
    - Masterworks: "Rain, Steam and Speed", "Fighting Temeraire", "Slave Ship" ← SELECT ONE ONLY!
    - When to prioritize: Landscape photos (80%)
 
-4. DELACROIX (들라크루아) - BEST for dramatic action, intense emotions
+4. DELACROIX - BEST for dramatic action, intense emotions
    - Specialty: Vivid passionate colors, dynamic movement, revolutionary energy
    - Best for: Action scenes, dramatic expressions, multiple people in motion
    - Masterworks: "Liberty Leading the People", "Death of Sardanapalus", "Women of Algiers" ← SELECT ONE ONLY!
    - When to prioritize: Action/drama/multiple people in motion 
 
-🎨 REALISM (사실주의) - Honest Truth:
+REALISM - Honest Truth:
 
-5. COURBET (쿠르베) ⭐ Best for rural/landscape realism
+5. COURBET Best for rural/landscape realism
    - Specialty: Honest rural reality, landscapes, everyday life, anti-idealized truth
    - Best for: Rural settings, landscapes, working class subjects, realistic portrayal
    - Masterworks: "The Stone Breakers", "A Burial at Ornans", "Bonjour Monsieur Courbet" ← SELECT ONE ONLY!
    - When to prioritize: Rural/landscape/working class subjects (80%)
 
-6. MANET (마네) - BEST for urban/modern scenes
+6. MANET - BEST for urban/modern scenes
    - Specialty: Modern Paris life, café scenes, urban sophistication
    - Best for: Urban settings, modern atmosphere, café/city backgrounds
    - Masterworks: "Bar at the Folies-Bergère", "The Fifer" ← SELECT ONE ONLY!
    - When to prioritize: Clear urban/modern/city context 
 
-⚠️ CRITICAL: You MUST select a masterwork from the exact list above! Do NOT invent new titles!
+CRITICAL: You MUST select a masterwork from the exact list above! Do NOT invent new titles!
 
-🎯 CRITICAL DECISION LOGIC:
+CRITICAL DECISION LOGIC:
 - Photo is STATIC, BALANCED, FORMAL → Choose Neoclassicism (David or Ingres)
 - Photo is DYNAMIC, EMOTIONAL, DRAMATIC → Choose Romanticism (Turner/Delacroix)
 - Photo is RURAL, PEACEFUL → Choose Realism - Courbet 
@@ -1437,45 +1471,45 @@ function getNeoclassicismVsRomanticismVsRealismHints(photoAnalysis) {
 // 인상주의 (4명)
 function getImpressionismGuidelines() {
   return `
-🚫🚫🚫 CRITICAL RESTRICTION 🚫🚫🚫
+CRITICAL RESTRICTION 
 YOU MUST ONLY SELECT FROM THE ARTISTS LISTED BELOW!
 DO NOT select artists from other movements (Post-Impressionism, Expressionism, Fauvism, etc.)
 ONLY Impressionism artists: RENOIR, MONET, DEGAS, CAILLEBOTTE!
 
 Available Impressionism Artists (4명):
 
-1. RENOIR (르누아르) ⭐ Best - Best for portraits 
+1. RENOIR Best - Best for portraits 
    - Specialty: SOFT WARM figures in dappled sunlight, joyful atmosphere, peachy skin tones
    - Best for: ALL portraits (indoor/outdoor), happy people, sunlit gatherings, festive scenes
    - Masterworks: "Luncheon of the Boating Party", "Bal du moulin de la Galette", "The Swing" ← SELECT ONE ONLY!
    - When to prioritize: Most portrait cases 
 
-2. DEGAS (드가) ⭐ Best for movement AND composition 
+2. DEGAS Best for movement AND composition 
    - Specialty: Movement capture, unusual angles, dynamic compositions, ballet dancers
    - Best for: Action shots, dance, sports, movement, diagonal compositions, interesting angles
    - Masterworks: "The Dance Class", "The Star", "L'Absinthe" ← SELECT ONE ONLY!
    - When to prioritize: Movement/action/dance OR unique compositional angles 
 
-3. MONET (모네) ⭐ Good for landscapes 
+3. MONET Good for landscapes 
    - Specialty: Light effects, outdoor atmosphere, water reflections
    - Best for: Landscapes, gardens, water scenes (NOT portraits)
    - Masterworks: "Water Lilies", "Impression, Sunrise", "Woman with a Parasol" ← SELECT ONE ONLY!
    - When to prioritize: Pure landscapes without people 
 
-4. CAILLEBOTTE (칼리보트) ⭐ Urban specialist 
+4. CAILLEBOTTE Urban specialist 
    - Specialty: Modern urban scenes, dramatic perspective, city life
    - Best for: City backgrounds, male portraits, geometric compositions
    - Masterworks: "Paris Street, Rainy Day", "The Floor Scrapers", "Man at the Window" ← SELECT ONE ONLY!
    - When to prioritize: Urban/city scenes , male portraits 
 
-⚠️ CRITICAL: You MUST select a masterwork from the exact list above! Do NOT invent new titles!
+CRITICAL: You MUST select a masterwork from the exact list above! Do NOT invent new titles!
 
-🎯 CRITICAL DECISION LOGIC:
-- Female/child portraits → RENOIR  ⭐ PRIMARY
-- Male portraits → CAILLEBOTTE  ⭐ (modern urban men)
-- Movement/action/interesting angles → DEGAS  ⭐
-- Natural landscapes (no people) → MONET  ⭐
-- Urban/city scenes → CAILLEBOTTE  ⭐
+CRITICAL DECISION LOGIC:
+- Female/child portraits → RENOIR PRIMARY
+- Male portraits → CAILLEBOTTE (modern urban men)
+- Movement/action/interesting angles → DEGAS 
+- Natural landscapes (no people) → MONET 
+- Urban/city scenes → CAILLEBOTTE 
 `;
 }
 
@@ -1487,37 +1521,37 @@ function getImpressionismHints(photoAnalysis) {
 // 후기인상주의 (4명) - v48 간소화
 function getPostImpressionismGuidelines() {
   return `
-🚫🚫🚫 CRITICAL RESTRICTION 🚫🚫🚫
+CRITICAL RESTRICTION 
 YOU MUST ONLY SELECT FROM THE ARTISTS LISTED BELOW!
 DO NOT select artists from other movements (Impressionism, Fauvism, Expressionism, etc.)
 ONLY Post-Impressionism artists: VAN GOGH, GAUGUIN, CÉZANNE!
 
 Available Post-Impressionism Artists (3명) + MASTERWORKS:
 
-1. VAN GOGH (반 고흐) - Swirling impasto brushstrokes, intense emotional colors
-   ⭐ BEST FOR: Portraits, emotional scenes, night scenes
-   📚 MASTERWORKS:
-   - "The Starry Night" (별이 빛나는 밤) → night, sky, landscape, FEMALE portrait | SWIRLING SPIRALS, cobalt blue + yellow
-   - "Sunflowers" (해바라기) → flowers, still life | THICK IMPASTO, chrome yellow dominates
-   - "Self-Portrait" (자화상) → MALE portrait ONLY | turquoise swirling background, intense gaze
-   - "Café Terrace at Night" (밤의 카페 테라스) → outdoor evening, cafe, street | yellow gas lamp, cobalt blue night
+1. VAN GOGH - Swirling impasto brushstrokes, intense emotional colors
+   BEST FOR: Portraits, emotional scenes, night scenes
+   MASTERWORKS:
+   - "The Starry Night" → night, sky, landscape, FEMALE portrait | SWIRLING SPIRALS, cobalt blue + yellow
+   - "Sunflowers" → flowers, still life | THICK IMPASTO, chrome yellow dominates
+   - "Self-Portrait" → MALE portrait ONLY | turquoise swirling background, intense gaze
+   - "Café Terrace at Night" → outdoor evening, cafe, street | yellow gas lamp, cobalt blue night
    
-2. GAUGUIN (고갱) - Flat bold colors, primitive exotic Tahitian style
-   ⭐ BEST FOR: Portraits, tropical scenes, exotic mood
-   📚 MASTERWORKS:
-   - "Tahitian Women" (타히티 여인들) → FEMALE, exotic, tropical | flat bold colors, decorative
-   - "Where Do We Come From?" (우리는 어디서 왔는가) → philosophical, group | Tahitian paradise, primitivism
-   - "Yellow Christ" (황색 그리스도) → religious, emotional | flat yellow, Breton folk art
+2. GAUGUIN - Flat bold colors, primitive exotic Tahitian style
+   BEST FOR: Portraits, tropical scenes, exotic mood
+   MASTERWORKS:
+   - "Tahitian Women" → FEMALE, exotic, tropical | flat bold colors, decorative
+   - "Where Do We Come From?" → philosophical, group | Tahitian paradise, primitivism
+   - "Yellow Christ" → religious, emotional | flat yellow, Breton folk art
    
-3. CÉZANNE (세잔) - Geometric structured forms, analytical approach
-   ⭐ BEST FOR: Still life, landscapes, geometric compositions
-   ⚠️ NOT FOR PORTRAITS!
-   📚 MASTERWORKS:
-   - "Still Life with Apples" (사과 정물) → still life | geometric forms, structured color patches
-   - "Mont Sainte-Victoire" (생트빅투아르 산) → landscape | geometric mountain, analytical brushwork
-   - "Card Players" (카드 놀이하는 사람들) → group activity | geometric figures, muted colors
+3. CÉZANNE - Geometric structured forms, analytical approach
+   BEST FOR: Still life, landscapes, geometric compositions
+   NOT FOR PORTRAITS!
+   MASTERWORKS:
+   - "Still Life with Apples" → still life | geometric forms, structured color patches
+   - "Mont Sainte-Victoire" → landscape | geometric mountain, analytical brushwork
+   - "Card Players" → group activity | geometric figures, muted colors
 
-🎯 CRITICAL MATCHING RULES:
+CRITICAL MATCHING RULES:
 - PORTRAITS/PEOPLE → VAN GOGH or GAUGUIN (NEVER Cézanne!)
 - MALE portrait → Van Gogh Self-Portrait
 - FEMALE portrait → Van Gogh Starry Night or Gauguin Tahitian
@@ -1532,7 +1566,7 @@ function getPostImpressionismHints(photoAnalysis) {
   // 인물 사진 → 세잔 금지 (안전장치: 세잔은 정물/풍경 전문)
   if (subject.includes('person') || subject.includes('portrait') || subject === 'person') {
     return `
-⚠️ SAFETY RULE: Portrait detected - avoid CÉZANNE (still life/landscape specialist).
+SAFETY RULE: Portrait detected - avoid CÉZANNE (still life/landscape specialist).
 Choose from: Van Gogh or Gauguin instead.
 `;
   }
@@ -1540,41 +1574,41 @@ Choose from: Van Gogh or Gauguin instead.
   return '';
 }
 
-// 야수파 (3명) ⭐ v42 NEW
+// 야수파 (3명) v42 NEW
 function getFauvismGuidelines() {
   return `
-🚫🚫🚫 CRITICAL RESTRICTION 🚫🚫🚫
+CRITICAL RESTRICTION 
 YOU MUST ONLY SELECT FROM THE ARTISTS LISTED BELOW!
 DO NOT select artists from other movements (Expressionism, Post-Impressionism, etc.)
 ONLY Fauvism artists: MATISSE, DERAIN, VLAMINCK!
-⚠️ Expressionism artists (Munch, Kirchner, Kokoschka, Kandinsky) are FORBIDDEN here!
+Expressionism artists (Munch, Kirchner, Kokoschka, Kandinsky) are FORBIDDEN here!
 
 Available Fauvism Artists (3명):
 
-1. MATISSE (마티스) ⭐ for portraits and interiors 
+1. MATISSE for portraits and interiors 
    - Specialty: Pure bold colors, decorative flat patterns, joyful harmonious compositions
    - Best for: Most photos, especially people, interiors, calm atmosphere
    - Masterworks: "The Green Stripe", "Woman in a Purple Coat", "The Dance", "The Red Room" ← SELECT ONE ONLY!
    - When to prioritize: Most Fauvism cases 
 
-2. DERAIN (드랭) ⭐ for landscapes 
+2. DERAIN for landscapes 
    - Specialty: Bold landscape colors, vivid natural scenery, strong contrasts
    - Best for: Landscapes, trees, outdoor nature, bright scenery
    - Masterworks: "Mountains at Collioure", "Charing Cross Bridge", "Portrait of Matisse" ← SELECT ONE ONLY!
    - When to prioritize: Clear landscape/outdoor scene 
 
-3. VLAMINCK (블라맹크) ⭐ for dramatic colors 
+3. VLAMINCK for dramatic colors 
    - Specialty: Violent expressive colors, turbulent brushwork, emotional intensity
    - Best for: Dramatic mood, intense emotions, stormy atmosphere
    - Masterworks: "The River Seine at Chatou", "Red Trees", "Bougival" ← SELECT ONE ONLY!
    - When to prioritize: Dramatic/intense emotional mood 
 
-⚠️ CRITICAL: You MUST select a masterwork from the exact list above! Do NOT invent new titles!
+CRITICAL: You MUST select a masterwork from the exact list above! Do NOT invent new titles!
 
-🎯 CRITICAL DECISION LOGIC - BALANCED DISTRIBUTION:
-- Most photos/portraits → MATISSE  - versatile, harmonious
-- Landscape/outdoor → DERAIN  - landscape specialist
-- Dramatic/intense mood → VLAMINCK  - most emotional
+CRITICAL DECISION LOGIC - BALANCED DISTRIBUTION:
+- Most photos/portraits → MATISSE - versatile, harmonious
+- Landscape/outdoor → DERAIN - landscape specialist
+- Dramatic/intense mood → VLAMINCK - most emotional
 All three artists equally represent Fauvism's bold colors!
 `;
 }
@@ -1587,40 +1621,40 @@ function getFauvismHints(photoAnalysis) {
 // 표현주의 (5명)
 function getExpressionismGuidelines() {
   return `
-🚫🚫🚫 CRITICAL RESTRICTION 🚫🚫🚫
+CRITICAL RESTRICTION 
 YOU MUST ONLY SELECT FROM THE ARTISTS LISTED BELOW!
 DO NOT select artists from other movements (Fauvism, Post-Impressionism, Impressionism, etc.)
 ONLY Expressionism artists: MUNCH, KOKOSCHKA, KIRCHNER!
-⚠️ FORBIDDEN: Derain, Matisse, Vlaminck (they are FAUVISM, NOT Expressionism!)
+FORBIDDEN: Derain, Matisse, Vlaminck (they are FAUVISM, NOT Expressionism!)
 
 Available Expressionism Artists (3명):
 
-1. MUNCH (뭉크) ⭐ for emotional portraits 
+1. MUNCH for emotional portraits 
    - Specialty: Existential anxiety, psychological tension, swirling distorted forms
    - Best for: Emotional portraits with depth, anxious expressions, dramatic scenes
    - Masterworks: "The Scream", "Madonna", "Jealousy" ← SELECT ONE ONLY!
    - When to prioritize: Emotional/dramatic portraits 
 
-2. KOKOSCHKA (코코슈카) ⭐ for psychological portraits 
+2. KOKOSCHKA for psychological portraits 
    - Specialty: Intense psychological portraits, violent brushstrokes, inner turmoil
    - Best for: Deep character portraits, emotional intensity, raw expression
    - Masterworks: "The Bride of the Wind", "Degenerate Art", "Double Portrait" ← SELECT ONE ONLY!
    - When to prioritize: Portraits needing psychological depth 
 
-3. KIRCHNER (키르히너) ⭐ for urban expressionism 
+3. KIRCHNER for urban expressionism 
    - Specialty: JAGGED ANGULAR FORMS, urban anxiety, street energy
    - Best for: Urban settings, bold color contrasts, city scenes, angular compositions
    - Masterworks: "Berlin Street Scene", "Self-Portrait as a Soldier", "Two Women with a Sink" ← SELECT ONE ONLY!
    - When to prioritize: Urban/city backgrounds or angular aesthetic 
 
-⚠️ CRITICAL: You MUST select a masterwork from the exact list above! Do NOT invent new titles!
+CRITICAL: You MUST select a masterwork from the exact list above! Do NOT invent new titles!
 
-🎯 CRITICAL DECISION LOGIC - 3 ARTISTS ONLY:
+CRITICAL DECISION LOGIC - 3 ARTISTS ONLY:
 - Emotional portraits → MUNCH (40%)
 - Psychological depth → KOKOSCHKA (35%)
 - Urban/city/angular → KIRCHNER (50%)
 - Landscapes/nature → MUNCH 45%, KIRCHNER 35%, KOKOSCHKA 20%
-⚠️ NEVER select Fauvism artists (Derain, Matisse, Vlaminck) for Expressionism!
+NEVER select Fauvism artists (Derain, Matisse, Vlaminck) for Expressionism!
 `;
 }
 
@@ -1633,59 +1667,59 @@ function getExpressionismHints(photoAnalysis) {
 // 제외: 뒤샹(개념미술), 폴록/로스코(완전추상), 만 레이(사진작가), 프리다/달리(마스터 전용), 브라크(피카소 중복)
 function getModernismGuidelines() {
   return `
-🚫🚫🚫 CRITICAL RESTRICTION 🚫🚫🚫
+CRITICAL RESTRICTION 
 YOU MUST ONLY SELECT FROM THE 6 ARTISTS LISTED BELOW!
 DO NOT select artists from other movements (Expressionism, Fauvism, Impressionism, etc.)
 ONLY these 6 artists: PICASSO, MAGRITTE, MIRÓ, CHAGALL, LICHTENSTEIN, HARING!
-⚠️ FORBIDDEN: Boccioni, Mondrian, Man Ray, Dalí, Frida Kahlo, Braque, Munch, Matisse, Warhol, etc.
+FORBIDDEN: Boccioni, Mondrian, Man Ray, Dalí, Frida Kahlo, Braque, Munch, Matisse, Warhol, etc.
 
 Available 20th Century Modernism Artists (6명):
 
 === CUBISM 입체주의 ===
-1. PICASSO (피카소) - Geometric fragmented forms, multiple perspectives
+1. PICASSO - Geometric fragmented forms, multiple perspectives
    - Masterwork: "Portrait of Dora Maar" - Cubist double profile, vibrant colors
 
 === SURREALISM 초현실주의 ===
-2. MAGRITTE (마그리트) - Philosophical paradox, multiplication of figures
+2. MAGRITTE - Philosophical paradox, multiplication of figures
    - Masterwork: "Golconda" - Identical men in bowler hats floating, Belgian townhouses
-3. MIRÓ (미로) - Playful biomorphic forms, childlike symbols, primary colors (LANDSCAPE/STILL LIFE ONLY)
+3. MIRÓ - Playful biomorphic forms, childlike symbols, primary colors (LANDSCAPE/STILL LIFE ONLY)
    - Masterworks: "Catalan Landscape", "Constellations", "Blue Star" ← SELECT ONE ONLY!
-4. CHAGALL (샤갈) - Soft dreamy floating figures, muted pastel colors
+4. CHAGALL - Soft dreamy floating figures, muted pastel colors
    - Masterworks: "Lovers with Flowers", "La Branche" ← SELECT ONE ONLY!
 
 === POP ART 팝아트 ===
-5. LICHTENSTEIN (리히텐슈타인) - Ben-Day dots, comic book style
+5. LICHTENSTEIN - Ben-Day dots, comic book style
    - Masterworks: "Drowning Girl", "Whaam!", "Hopeless" ← SELECT ONE ONLY!
 
-⚠️ CRITICAL: You MUST select a masterwork from the exact list above! Do NOT invent new titles!
+CRITICAL: You MUST select a masterwork from the exact list above! Do NOT invent new titles!
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-📊 PHOTO TYPE WEIGHT GUIDE (사진 유형별 비중)
+PHOTO TYPE WEIGHT GUIDE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-🧑 SINGLE PORTRAIT (단독 인물):
+SINGLE PORTRAIT:
    PICASSO 30%, MAGRITTE 35%, LICHTENSTEIN 35%
-   ❌ CHAGALL, MIRÓ 제외
+   CHAGALL, MIRÓ 제외
 
-💑 COUPLE (커플 2인):
+COUPLE (커플 2인):
    PICASSO 25%, CHAGALL 30%, MAGRITTE 20%, LICHTENSTEIN 25%
-   ❌ MIRÓ 제외
+   MIRÓ 제외
 
-👥 GROUP 3+ (단체 3명 이상):
+GROUP 3+ (단체 3명 이상):
    PICASSO 30%, CHAGALL 35%, LICHTENSTEIN 35%
-   ❌ MAGRITTE, MIRÓ 제외
+   MAGRITTE, MIRÓ 제외
 
-🏞️ LANDSCAPE (풍경):
+LANDSCAPE:
    CHAGALL 40%, MIRÓ 40%, PICASSO 20%
-   ❌ MAGRITTE, LICHTENSTEIN 제외
+   MAGRITTE, LICHTENSTEIN 제외
 
-🍎 STILL LIFE (정물):
+STILL LIFE:
    PICASSO 30%, MAGRITTE 35%, MIRÓ 35%
-   ❌ CHAGALL, LICHTENSTEIN 제외
+   CHAGALL, LICHTENSTEIN 제외
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-⚠️ FINAL REMINDER: ONLY these 5 artists are valid:
+FINAL REMINDER: ONLY these 5 artists are valid:
 PICASSO, MAGRITTE, MIRÓ, CHAGALL, LICHTENSTEIN
 `;
 }
@@ -1752,14 +1786,14 @@ const fallbackPrompts = {
   
   expressionism: {
     name: 'Edvard Munch',
-    prompt: 'MUNCH_EXPRESSIONISM',  // 기본값 - 실제로는 artistStyles.js에서 동적 생성
+    prompt: 'MUNCH_EXPRESSIONISM', // 기본값 - 실제로는 artistStyles.js에서 동적 생성
     dynamicPrompt: true
   },
   
   modernism: {
     name: 'Pablo Picasso',
-    prompt: 'PICASSO_CUBIST',  // 기본값 - 실제로는 artistStyles.js에서 동적 생성
-    dynamicPrompt: true  // 동적 프롬프트 플래그
+    prompt: 'PICASSO_CUBIST', // 기본값 - 실제로는 artistStyles.js에서 동적 생성
+    dynamicPrompt: true // 동적 프롬프트 플래그
   },
   
   // ========================================
@@ -1895,7 +1929,7 @@ async function selectArtistWithAI(imageBase64, selectedStyle, timeoutMs = 15000)
 AVAILABLE MASTERWORKS (YOU MUST SELECT FROM THIS LIST ONLY):
 ${masterWorks}
 
-⚠️ CRITICAL: You MUST select ONLY from the works listed above. Do NOT select any other works not in this list. If you select a work not listed above, the system will fail.
+CRITICAL: You MUST select ONLY from the works listed above. Do NOT select any other works not in this list. If you select a work not listed above, the system will fail.
 
 CRITICAL MATCHING RULES:
 - If SINGLE person (1) → NEVER select "The Kiss" (requires couple)
@@ -1990,18 +2024,18 @@ Return ONLY valid JSON (no markdown):
 
 You must choose ONE of these THREE styles:
 
-Style 1: Korean Minhwa Folk Painting (민화)
+Style 1: Korean Minhwa Folk Painting
 - Best for: animals (tiger, magpie, fish), flowers (peony), birds, simple subjects
 - Characteristics: Folk painting on ROUGH THICK HANJI PAPER with PROMINENT FIBER TEXTURE visible throughout, UNEVEN PIGMENT ABSORPTION creating patchy color areas, genuinely FADED OLD colors (like 200-year museum piece), TREMBLING UNSTEADY brushlines (amateur folk artist quality), thick black outlines but IRREGULAR and wobbly, colors pooling in paper fibers, authentic Joseon folk artifact NOT illustration
 - When: Photo has animals, flowers, or needs folk art treatment
 
-Style 2: Korean Pungsokdo Genre Painting (풍속도)
-- Best for: people, portraits, daily life, couples, festivals, human activities  
+Style 2: Korean Pungsokdo Genre Painting
+- Best for: people, portraits, daily life, couples, festivals, human activities 
 - Characteristics: KOREAN INK PAINTING on ROUGH TEXTURED HANJI, BLACK INK BRUSHWORK for outlines, visible hanji fiber texture throughout, spontaneous confident ink strokes, Kim Hong-do and Shin Yun-bok style
 - CLOTHING: MUST transform modern clothing to traditional Joseon hanbok (저고리/치마 for women, 도포/갓 for men) with ELEGANT SOFT colors (soft pink, light blue, pale green, gentle coral, muted red)
 - When: Photo has people, faces, human subjects
 
-Style 3: Korean Jingyeong Landscape (진경산수)
+Style 3: Korean Jingyeong Landscape
 - Best for: mountains, nature, rocks, landscapes, scenery
 - Characteristics: Bold expressive brushwork, dramatic angular forms, monochrome ink with strong contrasts, REAL Korean scenery (not idealized Chinese mountains)
 - When: Photo has natural landscapes, mountains, rocks
@@ -2220,7 +2254,7 @@ CRITICAL: Keep prompt field UNDER 150 WORDS to avoid truncation.`;
       
       // 간단한 사진 분석 (AI가 직접 하지만 힌트용)
       const photoAnalysis = {
-        count: 1,  // AI가 실제 분석
+        count: 1, // AI가 실제 분석
         gender: 'unknown',
         shot_type: 'portrait',
         subject: 'person',
@@ -2337,7 +2371,7 @@ ${medievalMasterworkGuide}
 ${hints}
 
 Instructions:
-1. 🚨 ANIMALS in photo? → MUST choose Islamic Miniature
+1. ANIMALS in photo? → MUST choose Islamic Miniature
 2. PEOPLE in photo? → Choose Islamic Miniature 50% OR Byzantine 50% (NEVER Gothic for people!)
 3. STILL LIFE/OBJECTS (food, items)? → Choose Islamic Miniature
 4. LANDSCAPE/BUILDING only? → Choose Gothic Stained Glass
@@ -2413,8 +2447,8 @@ Return JSON only:
       },
       signal: controller.signal,
       body: JSON.stringify({
-        model: 'claude-sonnet-4-5',  // Claude Sonnet 4.5 (최신)
-        max_tokens: 1000,  // 500 → 1000 (JSON 잘림 방지)
+        model: 'claude-haiku-4-5-20251001', // Claude Haiku 4.5
+        max_tokens: 1000, // 500 → 1000 (JSON 잘림 방지)
         messages: [{
           role: 'user',
           content: [
@@ -2697,6 +2731,9 @@ export default async function handler(req, res) {
     const startTime = Date.now();
     const { image, selectedStyle, correctionPrompt } = req.body;
     
+    // v83: Vision과 동시에 Replicate Files에 이미지 미리 업로드
+    const replicateFilePromise = uploadToReplicateFiles(image);
+    
     // v68.3: 변수 초기화 (스코프 문제 해결) - v68: 긍정 명령어로 통일
     let coreRulesPrefix = 'Female nipples MUST be covered by clothing. Preserve identity, gender, ethnicity exactly. Keep only original elements from photo. Clean artwork, text-free, signature-free, watermark-free. ';
     let genderPrefixCommon = '';
@@ -2896,7 +2933,9 @@ export default async function handler(req, res) {
       
       // ========================================
       // 🎯 통합된 AI 호출 (화가 선택 + Vision 분석)
+      // v83: replicateFilePromise는 이미 상위에서 시작됨 (병렬)
       // ========================================
+      
       const aiResult = await selectArtistWithAI(
         image, 
         selectedStyle,
@@ -3851,10 +3890,10 @@ export default async function handler(req, res) {
         }
       } else if (ageRange === 'baby') {
         // 아기
-        attractiveEnhancement = ' Render adorably beautiful - baby as cherubic, angelic, with rosy glowing cheeks, sparkling innocent eyes, and irresistibly sweet expression. Idealized heartwarming portrait.';
+        attractiveEnhancement = ' Render adorably beautiful - baby as cherubic, angelic, with rosy glowing cheeks, sparkling innocent eyes, and irresistibly sweet expression. Clean polished composition, perfectly formed elements, single subject focus, every element beautiful and harmonious. Professional studio quality artwork.';
       } else if (ageRange === 'child') {
         // 아이
-        attractiveEnhancement = ' Render adorably cute - child as bright-eyed, carefree, with radiant innocent smile, warm healthy glow, and pure joyful energy. Idealized endearing portrait.';
+        attractiveEnhancement = ' Render adorably cute - child as bright-eyed, carefree, with radiant innocent smile, warm healthy glow, and pure joyful energy. Clean polished composition, perfectly formed elements, single subject focus, every element beautiful and harmonious. Professional studio quality artwork.';
       } else if (ageRange === 'elderly') {
         // 노인
         attractiveEnhancement = ' Render with quiet dignity - elderly as wise, with graceful distinguished features, warm knowing eyes, and serene composed presence. Portrait of timeless dignity.';
@@ -4087,7 +4126,7 @@ export default async function handler(req, res) {
             },
             body: JSON.stringify({
               input: {
-                control_image: image,
+                control_image: (await replicateFilePromise) || image,
                 prompt: finalPrompt,
                 num_inference_steps: 24,
                 guidance: 12,

@@ -9,7 +9,17 @@ import { db, auth } from '../config/firebase';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { getFCMToken } from './fcm';
 
-const CLOUD_FUNCTIONS_URL = 'https://us-central1-master-valley.cloudfunctions.net';
+const CLOUD_FUNCTIONS_URLS = {
+  us: 'https://us-central1-master-valley.cloudfunctions.net/startTransform',
+  asia: 'https://asia-northeast1-master-valley.cloudfunctions.net/startTransformAsia'
+};
+
+// 언어 → 리전 매핑
+const ASIA_LANGS = ['ko', 'ja', 'zh-TW', 'id', 'th'];
+const getCloudFunctionUrl = (lang) => {
+  return ASIA_LANGS.includes(lang) ? CLOUD_FUNCTIONS_URLS.asia : CLOUD_FUNCTIONS_URLS.us;
+};
+
 const VERCEL_API_URL = 'https://mastervalley-v7.vercel.app';
 
 const chargedTransformIds = new Set();
@@ -88,7 +98,7 @@ export const processStyleTransfer = async (photoFile, selectedStyle, correctionP
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 180000);
     
-    const response = await fetch(`${CLOUD_FUNCTIONS_URL}/startTransform`, {
+    const response = await fetch(getCloudFunctionUrl(lang), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -267,7 +277,7 @@ export const processFullTransform = async (photoFile, styles, selectedStyle, onP
       // HTTP 호출 (fire-and-forget)
       const userId = auth.currentUser?.uid || null;
       
-      fetch(`${CLOUD_FUNCTIONS_URL}/startTransform`, {
+      fetch(getCloudFunctionUrl(lang), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
