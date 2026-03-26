@@ -80,8 +80,7 @@ export const ui = {
     processingTitle: '処理中',
     tapToView: '完了した結果を確認してください',
     error: 'エラー',
-    backBlocked: '変換中です。
-しばらくお待ちください。',
+    backBlocked: '変換中です。\nしばらくお待ちください。',
     movementsLabel: '様式',
     mastersLabel: '人の巨匠',
     nationsLabel: '東洋画',

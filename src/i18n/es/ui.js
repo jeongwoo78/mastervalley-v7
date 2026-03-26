@@ -80,8 +80,7 @@ export const ui = {
     processingTitle: 'En proceso',
     tapToView: 'Toca para ver el resultado',
     error: 'Error',
-    backBlocked: 'Transformación en progreso.
-Por favor, espere un momento.',
+    backBlocked: 'Transformación en progreso.\nPor favor, espere un momento.',
     movementsLabel: ' movimientos',
     mastersLabel: ' maestros',
     nationsLabel: ' estilos orientales',

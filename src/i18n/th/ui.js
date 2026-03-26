@@ -80,8 +80,7 @@ export const ui = {
     processingTitle: 'กำลังประมวลผล',
     tapToView: 'แตะเพื่อดูผลลัพธ์ที่เสร็จแล้ว',
     error: 'ข้อผิดพลาด',
-    backBlocked: 'กำลังแปลงภาพ
-กรุณารอสักครู่',
+    backBlocked: 'กำลังแปลงภาพ\nกรุณารอสักครู่',
     movementsLabel: 'ยุคสมัย',
     mastersLabel: 'ศิลปินเอก',
     nationsLabel: 'ชาติตะวันออก',

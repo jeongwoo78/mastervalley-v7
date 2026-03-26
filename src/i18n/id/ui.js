@@ -80,8 +80,7 @@ export const ui = {
     processingTitle: 'Sedang diproses',
     tapToView: 'Ketuk untuk melihat hasilnya',
     error: 'Kesalahan',
-    backBlocked: 'Transformasi sedang berlangsung.
-Mohon tunggu sebentar.',
+    backBlocked: 'Transformasi sedang berlangsung.\nMohon tunggu sebentar.',
     movementsLabel: ' aliran',
     mastersLabel: ' maestro',
     nationsLabel: ' gaya oriental',
