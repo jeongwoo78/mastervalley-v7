@@ -86,9 +86,10 @@ async function uploadToReplicateFiles(base64Image) {
       headers: {
         'Authorization': `Token ${process.env.REPLICATE_API_KEY}`,
         'Content-Type': 'application/octet-stream',
-        'Content-Disposition': 'attachment; filename="input.jpg"'
+        'Content-Disposition': 'attachment; filename="input.jpg"',
+        'Content-Length': String(buffer.length)
       },
-      body: buffer
+      body: new Uint8Array(buffer)
     });
     
     if (!response.ok) {
