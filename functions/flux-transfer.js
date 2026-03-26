@@ -80,16 +80,17 @@ async function uploadToReplicateFiles(base64Image) {
   try {
     const base64Data = base64Image.includes(',') ? base64Image.split(',')[1] : base64Image;
     const buffer = Buffer.from(base64Data, 'base64');
-    const blob = new Blob([buffer], { type: 'application/octet-stream' });
+    const file = new File([buffer], 'input.jpg', { type: 'image/jpeg' });
+    
+    const formData = new FormData();
+    formData.append('content', file);
     
     const response = await fetch('https://api.replicate.com/v1/files', {
       method: 'POST',
       headers: {
-        'Authorization': `Token ${process.env.REPLICATE_API_KEY}`,
-        'Content-Type': 'application/octet-stream',
-        'Content-Disposition': 'attachment; filename="input.jpg"'
+        'Authorization': `Token ${process.env.REPLICATE_API_KEY}`
       },
-      body: blob
+      body: formData
     });
     
     if (!response.ok) {
@@ -98,9 +99,9 @@ async function uploadToReplicateFiles(base64Image) {
       return null;
     }
     
-    const file = await response.json();
+    const result = await response.json();
     console.log('✅ Replicate Files 업로드 완료');
-    return file.urls.get;
+    return result.urls.get;
   } catch (err) {
     console.log('⚠️ Replicate Files 에러, base64 fallback:', err.message);
     return null;
