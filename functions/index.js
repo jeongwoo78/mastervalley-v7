@@ -364,7 +364,7 @@ async function handleOneClick(req, res, params) {
       const docRef = db.collection('transforms').doc(tid);
       
       try {
-        const result = await runTransform(image, style, null);
+        const result = await runTransform(image, style, null, true);
         
         console.log(`✅ 원클릭 [${i + 1}/${totalCount}] 완료: ${tid} | ${result.selectedArtist || style.name}`);
         

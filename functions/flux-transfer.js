@@ -2742,7 +2742,7 @@ export default async function handler(req, res) {
 
   try {
     const startTime = Date.now();
-    const { image, selectedStyle, correctionPrompt } = req.body;
+    const { image, selectedStyle, correctionPrompt, isOneClick } = req.body;
     
     // v83: Vision과 동시에 Replicate Files에 이미지 미리 업로드
     const replicateFilePromise = uploadToReplicateFiles(image);
@@ -4151,7 +4151,7 @@ export default async function handler(req, res) {
             headers: {
               'Authorization': `Token ${process.env.REPLICATE_API_KEY}`,
               'Content-Type': 'application/json',
-              'Prefer': 'wait=60'
+              ...(isOneClick ? {} : { 'Prefer': 'wait=60' })
             },
             body: JSON.stringify({
               input: {

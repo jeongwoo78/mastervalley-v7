@@ -98,13 +98,13 @@ async function pollFallback(predictionId) {
 /**
  * 변환 실행 (Vision → 프롬프트 → Replicate → Prefer:wait → 결과)
  */
-export async function runTransform(image, selectedStyle, correctionPrompt = null) {
+export async function runTransform(image, selectedStyle, correctionPrompt = null, isOneClick = false) {
   let responseData = null;
   let responseStatus = 200;
   
   const mockReq = {
     method: 'POST',
-    body: { image, selectedStyle, correctionPrompt }
+    body: { image, selectedStyle, correctionPrompt, isOneClick }
   };
   
   const mockRes = {
