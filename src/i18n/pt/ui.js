@@ -77,7 +77,11 @@ export const ui = {
     processingTitle: 'A processar',
     tapToView: 'Toca para ver o resultado',
     error: 'Erro',
-    backBlocked: 'Transformação em andamento.\nPor favor, aguarde um momento.',
+    backBlocked: 'Transformação em andamento.
+Por favor, aguarde um momento.',
+    masterAtWork: 'Mestre trabalhando',
+    allMastersJoining: 'Todos os mestres participando',
+    doneLabel: 'concluído',
     movementsLabel: ' movimentos',
     mastersLabel: ' mestres',
     nationsLabel: ' estilos orientais',

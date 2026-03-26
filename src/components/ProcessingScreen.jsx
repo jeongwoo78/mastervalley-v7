@@ -31,6 +31,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
   const [statusText, setStatusText] = useState(t.analyzing);
   const [statusLeft, setStatusLeft] = useState('');
   const [showEducation, setShowEducation] = useState(false);
+  const [fadeActive, setFadeActive] = useState(false);
   
   const [completedResults, setCompletedResults] = useState([]);
   const [completedCount, setCompletedCount] = useState(0);
@@ -44,6 +45,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
 
   const startedRef = useRef(false);
   const completedCountRef = useRef(0);
+  const phaseTimerRef = useRef(null);
 
   useEffect(() => {
     if (startedRef.current) return;
@@ -61,6 +63,12 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
                         tPhotoStyle.orientalFullTransformLabel;
       setStatusLeft(leftLabel);
       setStatusText(t.analyzing);
+      
+      // 3초 후 "모든 거장 참여 중" + 페이드 시작
+      phaseTimerRef.current = setTimeout(() => {
+        setStatusText(t.allMastersJoining || 'All masters joining');
+        setFadeActive(true);
+      }, 3000);
       
       try {
         const results = await processFullTransform(
@@ -82,13 +90,16 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
             
             // 상태 텍스트: 실제 완료 건수 기준
             if (progress.latestIndex !== undefined && progress.results[progress.latestIndex]) {
+              // 첫 결과 도착 시 타이머 취소 + 페이드 해제
+              if (phaseTimerRef.current) {
+                clearTimeout(phaseTimerRef.current);
+                phaseTimerRef.current = null;
+              }
+              setFadeActive(false);
+              
               const latest = progress.results[progress.latestIndex];
-              const latestName = latest.style?.name || '';
-              const cat = latest.style?.category;
-              const progressLabel = (cat === 'movements' || cat === 'oriental')
-                ? `${latestName} ${t.masterInProgress}`
-                : `${latestName} ${t.inProgress}`;
-              setStatusText(`${progressLabel} (${progress.completedCount}/${progress.totalCount})`);
+              const latestName = latest.aiSelectedArtist || latest.style?.name || '';
+              setStatusText(`${latestName} ${t.doneLabel || '완료'} (${progress.completedCount}/${progress.totalCount})`);
             }
           },
           {},   // fcmOptions (서버가 lang 기반으로 메시지 생성)
@@ -121,7 +132,20 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         setStatusText(t.analyzing);
       }
       
+      // 3초 후 "거장 작업 중" + 페이드 시작
+      phaseTimerRef.current = setTimeout(() => {
+        setStatusText(t.masterAtWork || 'Master at work');
+        setFadeActive(true);
+      }, 3000);
+      
       const result = await processSingleStyle(selectedStyle, 0, 1);
+      
+      // 타이머 취소 + 페이드 해제
+      if (phaseTimerRef.current) {
+        clearTimeout(phaseTimerRef.current);
+        phaseTimerRef.current = null;
+      }
+      setFadeActive(false);
       
       if (result.success) {
         setStatusText(`${t.done} ${selectedStyle.name}`);
@@ -373,7 +397,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
             <div className="progress-section oneclick">
               <div className="progress-status">
                 <span className="progress-left">{statusLeft}</span>
-                <span className="progress-right">
+                <span className={`progress-right ${fadeActive ? 'fade-pulse' : ''}`}>
                   {completedCount < totalCount && <span className="spinner"></span>}
                   {statusText}
                 </span>
@@ -474,7 +498,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
             <div className="progress-section">
               <div className="progress-status">
                 <div className="spinner"></div>
-                <p>{statusText}</p>
+                <p className={fadeActive ? 'fade-pulse' : ''}>{statusText}</p>
               </div>
               <div className="progress-bar">
                 <div className="progress-fill single-anim"></div>
@@ -683,6 +707,8 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           animation: spin 1s linear infinite;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes fadePulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        .fade-pulse { animation: fadePulse 1.5s ease-in-out infinite; }
         
         .edu-card {
           padding: 16px;

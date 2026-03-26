@@ -80,7 +80,11 @@ export const ui = {
     processingTitle: 'جارٍ المعالجة',
     tapToView: 'اضغط لمشاهدة النتيجة',
     error: 'خطأ',
-    backBlocked: 'التحويل قيد التنفيذ.\nيرجى الانتظار لحظة.',
+    backBlocked: 'التحويل قيد التنفيذ.
+يرجى الانتظار لحظة.',
+    masterAtWork: 'الفنان يعمل',
+    allMastersJoining: 'جميع الفنانين يشاركون',
+    doneLabel: 'تم',
     movementsLabel: ' حركات فنية',
     mastersLabel: ' أساتذة',
     nationsLabel: ' أساليب شرقية',
