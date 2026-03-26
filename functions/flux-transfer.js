@@ -3890,10 +3890,10 @@ export default async function handler(req, res) {
         }
       } else if (ageRange === 'baby') {
         // 아기
-        attractiveEnhancement = ' Render adorably beautiful - baby as cherubic, angelic, with rosy glowing cheeks, sparkling innocent eyes, and irresistibly sweet expression. Clean polished composition, perfectly formed elements, single subject focus, every element beautiful and harmonious. Professional studio quality artwork.';
+        attractiveEnhancement = ' Render adorably beautiful - baby as cherubic, angelic, with rosy glowing cheeks, sparkling innocent eyes, and irresistibly sweet expression. Clean polished composition, perfectly formed elements, single subject focus, every element beautiful and harmonious.';
       } else if (ageRange === 'child') {
         // 아이
-        attractiveEnhancement = ' Render adorably cute - child as bright-eyed, carefree, with radiant innocent smile, warm healthy glow, and pure joyful energy. Clean polished composition, perfectly formed elements, single subject focus, every element beautiful and harmonious. Professional studio quality artwork.';
+        attractiveEnhancement = ' Render adorably cute - child as bright-eyed, carefree, with radiant innocent smile, warm healthy glow, and pure joyful energy. Clean polished composition, perfectly formed elements, single subject focus, every element beautiful and harmonious.';
       } else if (ageRange === 'elderly') {
         // 노인
         attractiveEnhancement = ' Render with quiet dignity - elderly as wise, with graceful distinguished features, warm knowing eyes, and serene composed presence. Portrait of timeless dignity.';
