@@ -79,8 +79,7 @@ export const ui = {
     processingTitle: '작업 중',
     tapToView: '완료된 결과를 확인하세요',
     error: '오류',
-    backBlocked: '변환이 진행 중입니다.
-잠시만 기다려 주세요.',
+    backBlocked: '변환이 진행 중입니다.\n잠시만 기다려 주세요.',
     masterAtWork: '거장 작업 중',
     allMastersJoining: '모든 거장 참여 중',
     doneLabel: '완료',

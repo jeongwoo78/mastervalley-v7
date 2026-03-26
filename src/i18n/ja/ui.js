@@ -80,8 +80,7 @@ export const ui = {
     processingTitle: '処理中',
     tapToView: '完了した結果を確認してください',
     error: 'エラー',
-    backBlocked: '変換中です。
-しばらくお待ちください。',
+    backBlocked: '変換中です。\nしばらくお待ちください。',
     masterAtWork: '巨匠が制作中',
     allMastersJoining: '全巨匠が参加中',
     doneLabel: '完了',

@@ -79,8 +79,7 @@ export const ui = {
     processingTitle: 'Processing',
     tapToView: 'Tap to view completed results',
     error: 'Error',
-    backBlocked: 'Transformation in progress.
-Please wait a moment.',
+    backBlocked: 'Transformation in progress.\nPlease wait a moment.',
     masterAtWork: 'Master at work',
     allMastersJoining: 'All masters joining',
     doneLabel: 'done',

@@ -80,8 +80,7 @@ export const ui = {
     processingTitle: 'En cours',
     tapToView: 'Touchez pour voir le résultat',
     error: 'Erreur',
-    backBlocked: 'Transformation en cours.
-Veuillez patienter un instant.',
+    backBlocked: 'Transformation en cours.\nVeuillez patienter un instant.',
     masterAtWork: 'Maître au travail',
     allMastersJoining: 'Tous les maîtres participent',
     doneLabel: 'terminé',
