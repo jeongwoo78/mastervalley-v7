@@ -79,6 +79,8 @@ export const ui = {
     processingTitle: '작업 중',
     tapToView: '완료된 결과를 확인하세요',
     error: '오류',
+    backBlocked: '변환이 진행 중입니다.
+잠시만 기다려 주세요.',
     movementsLabel: '개 사조',
     mastersLabel: '명 거장',
     nationsLabel: '개국 동양화',

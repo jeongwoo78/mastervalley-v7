@@ -80,17 +80,27 @@ async function uploadToReplicateFiles(base64Image) {
   try {
     const base64Data = base64Image.includes(',') ? base64Image.split(',')[1] : base64Image;
     const buffer = Buffer.from(base64Data, 'base64');
-    const file = new File([buffer], 'input.jpg', { type: 'image/jpeg' });
     
-    const formData = new FormData();
-    formData.append('content', file);
+    // Manual multipart/form-data with field name "content"
+    const boundary = '----ReplicateUpload' + Date.now();
+    const headerBuf = Buffer.from(
+      `--${boundary}\r\n` +
+      `Content-Disposition: form-data; name="content"; filename="input.jpg"\r\n` +
+      `Content-Type: image/jpeg\r\n` +
+      `\r\n`
+    );
+    const footerBuf = Buffer.from(`\r\n--${boundary}--\r\n`);
+    const body = Buffer.concat([headerBuf, buffer, footerBuf]);
     
     const response = await fetch('https://api.replicate.com/v1/files', {
       method: 'POST',
       headers: {
-        'Authorization': `Token ${process.env.REPLICATE_API_KEY}`
+        'Authorization': `Token ${process.env.REPLICATE_API_KEY}`,
+        'Content-Type': `multipart/form-data; boundary=${boundary}`,
+        'Content-Length': String(body.length)
       },
-      body: formData
+      body: new Uint8Array(body),
+      duplex: 'half'
     });
     
     if (!response.ok) {

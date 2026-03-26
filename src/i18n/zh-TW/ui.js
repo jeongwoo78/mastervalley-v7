@@ -80,6 +80,8 @@ export const ui = {
     processingTitle: '處理中',
     tapToView: '點擊查看完成結果',
     error: '錯誤',
+    backBlocked: '轉換進行中。
+請稍候片刻。',
     movementsLabel: '個流派',
     mastersLabel: '位大師',
     nationsLabel: '個東洋畫',

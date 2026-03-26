@@ -1299,11 +1299,11 @@ const ResultScreen = ({
           </>
         )}
 
-        {/* 원클릭: viewIndex >= 0 → 스타일정보 + 2차 교육 */}
+        {/* 원클릭: viewIndex >= 0 → 스타일정보 + 2차 교육 (단독변환과 동일 구조) */}
         {isFullTransform && viewIndex >= 0 && results[viewIndex] && (
-          <>
-            <div className="oneclick-style-info">
-              <h3>
+          <div className="technique-card">
+            <div className="card-header">
+              <h2>
                 {(() => {
                   const result = results[viewIndex];
                   const category = result?.style?.category;
@@ -1311,7 +1311,7 @@ const ResultScreen = ({
                   const artistName = result?.aiSelectedArtist || result?.style?.name;
                   return getStyleTitle(category, styleId, artistName, lang);
                 })()}
-              </h3>
+              </h2>
               {(() => {
                 const result = results[viewIndex];
                 const [sub1, sub2] = getStyleSubtitles(
@@ -1330,31 +1330,38 @@ const ResultScreen = ({
                   </>
                 );
               })()}
-            </div>
-            {displayCategory === 'masters' ? (
-              <div className="oneclick-edu-section">
-                <div className="edu-header">
-                  <button className="toggle-btn" onClick={() => setShowInfo(!showInfo)}>
-                    {showInfo ? '▼' : '▶'} {showInfo ? t.hide : t.show}
+              {/* 거장: 숨김 토글 - subtitle2 다음 */}
+              {displayCategory === 'masters' && (
+                <div className="info-toggle">
+                  <button
+                    className="toggle-button"
+                    onClick={() => setShowInfo(!showInfo)}
+                  >
+                    {showInfo ? `▼ ${t.hide}` : `▶ ${t.show}`}
                   </button>
                 </div>
-                {showInfo && educationText && (
-                  <div className="edu-content">
-                    {educationText}
-                  </div>
-                )}
-              </div>
-            ) : (
-              /* 사조/동양화는 항상 표시 */
-              educationText && (
-                <div className="oneclick-edu-section">
-                  <div className="edu-content">
-                    {educationText}
-                  </div>
+              )}
+            </div>
+            {/* 교육 콘텐츠: masters는 토글, 사조/동양화는 항상 표시 */}
+            {(displayCategory !== 'masters' || showInfo) && educationText && (
+              <div className="card-content">
+                <div className="technique-explanation">
+                  {educationText.split('\n\n').map((paragraph, index) => (
+                    paragraph.trim() && (
+                      <p key={index}>
+                        {paragraph.trim().split('\n').map((line, lineIndex) => (
+                          <React.Fragment key={lineIndex}>
+                            {line}
+                            {lineIndex < paragraph.trim().split('\n').length - 1 && <br />}
+                          </React.Fragment>
+                        ))}
+                      </p>
+                    )
+                  ))}
                 </div>
-              )
+              </div>
             )}
-          </>
+          </div>
         )}
 
         {/* v81: 단독 변환 원본 탭 제거 (죽은 코드) - 스와이프 없어서 viewIndex === -1 도달 불가 */}
@@ -1402,7 +1409,7 @@ const ResultScreen = ({
         )}
 
         {/* Toggle Button - 단독 변환 거장(masters)만 표시 (목업 준수) */}
-        {/* 원클릭은 oneclick-edu-section에서 자체 토글 사용 */}
+        {/* 원클릭도 동일한 technique-card 구조 사용 */}
 
         {/* v72: 결과 화면 - 2차 교육자료 (단독 변환만) */}
         {/* 목업 준수: masters는 showInfo로 토글, 사조/동양화는 항상 표시 */}
@@ -1748,63 +1755,6 @@ const ResultScreen = ({
           width: 100%;
           height: 100%;
           object-fit: cover;
-        }
-
-        .oneclick-style-info {
-          text-align: center;
-          margin-top: 32px;
-          margin-bottom: 12px;
-          width: 100%;
-        }
-
-        .oneclick-style-info h3 {
-          font-size: 17px;
-          font-weight: 700;
-          color: #fff;
-          margin: 0 0 6px;
-        }
-
-        .oneclick-style-info .subtitle1 {
-          font-size: 14px;
-          color: rgba(255,255,255,0.8);
-          margin-bottom: 4px;
-        }
-
-        .oneclick-style-info .subtitle2 {
-          font-size: 14px;
-          color: rgba(255,255,255,0.4);
-          margin-bottom: 10px;
-        }
-
-        .oneclick-edu-section {
-          margin-top: 12px;
-        }
-
-        .oneclick-edu-section .edu-header {
-          display: flex;
-          justify-content: flex-end;
-          margin-bottom: 8px;
-        }
-
-        .oneclick-edu-section .toggle-btn {
-          background: none;
-          border: none;
-          color: rgba(255,255,255,0.4);
-          font-size: 11px;
-          cursor: pointer;
-          padding: 4px 8px;
-        }
-
-        .oneclick-edu-section .toggle-btn:hover {
-          color: rgba(255,255,255,0.6);
-        }
-
-        .oneclick-edu-section .edu-content {
-          font-size: 13px;
-          color: rgba(255,255,255,0.6);
-          line-height: 1.8;
-          text-align: start;
-          white-space: pre-line;
         }
 
         .comparison-wrapper {

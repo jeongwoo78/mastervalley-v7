@@ -80,6 +80,8 @@ export const ui = {
     processingTitle: 'جارٍ المعالجة',
     tapToView: 'اضغط لمشاهدة النتيجة',
     error: 'خطأ',
+    backBlocked: 'التحويل قيد التنفيذ.
+يرجى الانتظار لحظة.',
     movementsLabel: ' حركات فنية',
     mastersLabel: ' أساتذة',
     nationsLabel: ' أساليب شرقية',

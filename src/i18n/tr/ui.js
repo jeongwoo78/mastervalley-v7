@@ -77,6 +77,8 @@ export const ui = {
     processingTitle: 'İşleniyor',
     tapToView: 'Sonucu görmek için dokun',
     error: 'Hata',
+    backBlocked: 'Dönüşüm devam ediyor.
+Lütfen bir an bekleyin.',
     movementsLabel: ' akım',
     mastersLabel: ' usta',
     nationsLabel: ' Doğu resmi',

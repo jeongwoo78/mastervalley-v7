@@ -79,6 +79,8 @@ export const ui = {
     processingTitle: 'Processing',
     tapToView: 'Tap to view completed results',
     error: 'Error',
+    backBlocked: 'Transformation in progress.
+Please wait a moment.',
     movementsLabel: 'movements',
     mastersLabel: 'masters',
     nationsLabel: 'nations',

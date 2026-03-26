@@ -75,6 +75,7 @@ const App = () => {
   const [currentMasterIndex, setCurrentMasterIndex] = useState(0);
   const [masterResultImages, setMasterResultImages] = useState({});
   const [retransformingMasters, setRetransformingMasters] = useState({});
+  const [backBlockedToast, setBackBlockedToast] = useState(false);
 
   // 앱 시작 시 저장된 언어 로드
   useEffect(() => {
@@ -188,8 +189,9 @@ const App = () => {
           setFullTransformResults(null);
           break;
         case 'processing':
-          // 변환 중 → 스타일 선택 (서버에서 계속 진행, 완료 시 푸시 알림)
-          setCurrentScreen('photoStyle');
+          // 변환 중 뒤로가기 차단 — 토스트 메시지 표시
+          setBackBlockedToast(true);
+          setTimeout(() => setBackBlockedToast(false), 1000);
           break;
         case 'photoStyle':
           handleBackToCategory();
@@ -400,7 +402,7 @@ const App = () => {
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            background: #0a1a1f;
             color: white;
           }
           .loading-spinner {
@@ -427,6 +429,17 @@ const App = () => {
 
   return (
     <div className="app" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
+      {/* 변환 중 뒤로가기 차단 토스트 */}
+      {backBlockedToast && (
+        <div style={{
+          position: 'fixed', bottom: '80px', left: '16px', right: '16px',
+          background: 'rgba(0,0,0,0.55)', color: 'rgba(255,255,255,0.8)', padding: '8px 16px',
+          borderRadius: '10px', fontSize: '13px', fontWeight: 400, zIndex: 9999, textAlign: 'center',
+          whiteSpace: 'pre-line', lineHeight: 1.4
+        }}>
+          {getUi(lang).processing.backBlocked}
+        </div>
+      )}
       {/* AI 데이터 처리 동의 팝업 */}
       {showAiConsent && (
         <div className="ai-consent-overlay" onClick={() => {}}>
