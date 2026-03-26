@@ -9,16 +9,9 @@ import { db, auth } from '../config/firebase';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { getFCMToken } from './fcm';
 
-const CLOUD_FUNCTIONS_URLS = {
-  us: 'https://us-central1-master-valley.cloudfunctions.net/startTransform',
-  asia: 'https://asia-northeast1-master-valley.cloudfunctions.net/startTransformAsia'
-};
+const CLOUD_FUNCTIONS_URL = 'https://us-central1-master-valley.cloudfunctions.net/startTransform';
 
-// 언어 → 리전 매핑
-const ASIA_LANGS = ['ko', 'ja', 'zh-TW', 'id', 'th'];
-const getCloudFunctionUrl = (lang) => {
-  return ASIA_LANGS.includes(lang) ? CLOUD_FUNCTIONS_URLS.asia : CLOUD_FUNCTIONS_URLS.us;
-};
+const getCloudFunctionUrl = () => CLOUD_FUNCTIONS_URL;
 
 const VERCEL_API_URL = 'https://mastervalley-v7.vercel.app';
 

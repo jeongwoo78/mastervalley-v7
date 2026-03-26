@@ -80,16 +80,16 @@ async function uploadToReplicateFiles(base64Image) {
   try {
     const base64Data = base64Image.includes(',') ? base64Image.split(',')[1] : base64Image;
     const buffer = Buffer.from(base64Data, 'base64');
+    const blob = new Blob([buffer], { type: 'application/octet-stream' });
     
     const response = await fetch('https://api.replicate.com/v1/files', {
       method: 'POST',
       headers: {
         'Authorization': `Token ${process.env.REPLICATE_API_KEY}`,
         'Content-Type': 'application/octet-stream',
-        'Content-Disposition': 'attachment; filename="input.jpg"',
-        'Content-Length': String(buffer.length)
+        'Content-Disposition': 'attachment; filename="input.jpg"'
       },
-      body: new Uint8Array(buffer)
+      body: blob
     });
     
     if (!response.ok) {
@@ -1119,9 +1119,9 @@ YOU MUST ONLY SELECT FROM THE ARTISTS/STYLES LISTED BELOW!
 DO NOT select artists from other movements (Renaissance, Baroque, Impressionism, etc.)
 ONLY "CLASSICAL SCULPTURE" or "ROMAN MOSAIC" are allowed!
 
-Available Ancient Greek-Roman Styles (2가지):
+Available Ancient Greek-Roman Styles:
 
-STYLE 1: CLASSICAL SCULPTURE (고대 그리스-로마 조각)
+STYLE 1: CLASSICAL SCULPTURE
    - For: INDOOR PORTRAITS or SPORTS/ACTION PHOTOS ONLY
    - PRIORITY: Sports/athletic action OR indoor portrait settings
    - Examples: Sports action shots (running, jumping, throwing)
@@ -1195,7 +1195,7 @@ For FEMALE subjects, you MUST randomize between artists:
 
 RANDOMIZATION REQUIRED: Do NOT always pick Leonardo for women!
 
-Available Renaissance Artists (5명):
+Available Renaissance Artists:
 
 1. BOTTICELLI - DEFAULT for female portraits
    - Specialty: Flowing elegant lines, ethereal beauty, graceful movement
@@ -1255,7 +1255,7 @@ YOU MUST ONLY SELECT FROM THE ARTISTS LISTED BELOW!
 DO NOT select artists from other movements (Renaissance, Impressionism, Expressionism, etc.)
 ONLY Baroque artists: CARAVAGGIO, RUBENS, REMBRANDT, VELÁZQUEZ!
 
-Available Baroque Artists (4명):
+Available Baroque Artists:
 
 1. CARAVAGGIO Best - default choice for single portraits
    - Specialty: Dramatic chiaroscuro, tenebrism, theatrical spotlight effect
@@ -1298,7 +1298,7 @@ YOU MUST ONLY SELECT FROM THE ARTISTS LISTED BELOW!
 DO NOT select artists from other movements (Baroque, Impressionism, Expressionism, etc.)
 ONLY Rococo artists: BOUCHER, WATTEAU!
 
-Available Rococo Artists (2명):
+Available Rococo Artists:
 
 1. BOUCHER Best for Rococo 
    - Specialty: Playful sensual charm, soft pink and blue pastels, ornate decoration
@@ -1410,7 +1410,7 @@ YOU MUST ONLY SELECT FROM THE ARTISTS LISTED BELOW!
 DO NOT select artists from other movements (Baroque, Impressionism, Expressionism, etc.)
 ONLY these 6 artists: DAVID, INGRES, TURNER, DELACROIX, COURBET, MANET!
 
-Available Artists (6명) - AI will choose BEST style (Neoclassicism vs Romanticism vs Realism):
+Available Artists - AI will choose BEST style (Neoclassicism vs Romanticism vs Realism):
 
 NEOCLASSICISM - Reason and Order:
 
@@ -1478,7 +1478,7 @@ YOU MUST ONLY SELECT FROM THE ARTISTS LISTED BELOW!
 DO NOT select artists from other movements (Post-Impressionism, Expressionism, Fauvism, etc.)
 ONLY Impressionism artists: RENOIR, MONET, DEGAS, CAILLEBOTTE!
 
-Available Impressionism Artists (4명):
+Available Impressionism Artists:
 
 1. RENOIR Best - Best for portraits 
    - Specialty: SOFT WARM figures in dappled sunlight, joyful atmosphere, peachy skin tones
@@ -1528,7 +1528,7 @@ YOU MUST ONLY SELECT FROM THE ARTISTS LISTED BELOW!
 DO NOT select artists from other movements (Impressionism, Fauvism, Expressionism, etc.)
 ONLY Post-Impressionism artists: VAN GOGH, GAUGUIN, CÉZANNE!
 
-Available Post-Impressionism Artists (3명) + MASTERWORKS:
+Available Post-Impressionism Artists + MASTERWORKS:
 
 1. VAN GOGH - Swirling impasto brushstrokes, intense emotional colors
    BEST FOR: Portraits, emotional scenes, night scenes
@@ -1585,7 +1585,7 @@ DO NOT select artists from other movements (Expressionism, Post-Impressionism, e
 ONLY Fauvism artists: MATISSE, DERAIN, VLAMINCK!
 Expressionism artists (Munch, Kirchner, Kokoschka, Kandinsky) are FORBIDDEN here!
 
-Available Fauvism Artists (3명):
+Available Fauvism Artists:
 
 1. MATISSE for portraits and interiors 
    - Specialty: Pure bold colors, decorative flat patterns, joyful harmonious compositions
@@ -1629,7 +1629,7 @@ DO NOT select artists from other movements (Fauvism, Post-Impressionism, Impress
 ONLY Expressionism artists: MUNCH, KOKOSCHKA, KIRCHNER!
 FORBIDDEN: Derain, Matisse, Vlaminck (they are FAUVISM, NOT Expressionism!)
 
-Available Expressionism Artists (3명):
+Available Expressionism Artists:
 
 1. MUNCH for emotional portraits 
    - Specialty: Existential anxiety, psychological tension, swirling distorted forms
@@ -1675,13 +1675,13 @@ DO NOT select artists from other movements (Expressionism, Fauvism, Impressionis
 ONLY these 6 artists: PICASSO, MAGRITTE, MIRÓ, CHAGALL, LICHTENSTEIN, HARING!
 FORBIDDEN: Boccioni, Mondrian, Man Ray, Dalí, Frida Kahlo, Braque, Munch, Matisse, Warhol, etc.
 
-Available 20th Century Modernism Artists (6명):
+Available 20th Century Modernism Artists:
 
-=== CUBISM 입체주의 ===
+=== CUBISM ===
 1. PICASSO - Geometric fragmented forms, multiple perspectives
    - Masterwork: "Portrait of Dora Maar" - Cubist double profile, vibrant colors
 
-=== SURREALISM 초현실주의 ===
+=== SURREALISM ===
 2. MAGRITTE - Philosophical paradox, multiplication of figures
    - Masterwork: "Golconda" - Identical men in bowler hats floating, Belgian townhouses
 3. MIRÓ - Playful biomorphic forms, childlike symbols, primary colors (LANDSCAPE/STILL LIFE ONLY)
@@ -1689,7 +1689,7 @@ Available 20th Century Modernism Artists (6명):
 4. CHAGALL - Soft dreamy floating figures, muted pastel colors
    - Masterworks: "Lovers with Flowers", "La Branche" ← SELECT ONE ONLY!
 
-=== POP ART 팝아트 ===
+=== POP ART ===
 5. LICHTENSTEIN - Ben-Day dots, comic book style
    - Masterworks: "Drowning Girl", "Whaam!", "Hopeless" ← SELECT ONE ONLY!
 
@@ -1701,23 +1701,23 @@ PHOTO TYPE WEIGHT GUIDE
 
 SINGLE PORTRAIT:
    PICASSO 30%, MAGRITTE 35%, LICHTENSTEIN 35%
-   CHAGALL, MIRÓ 제외
+   CHAGALL, MIRÓ EXCLUDE
 
-COUPLE (커플 2인):
+COUPLE (couple, 2 people):
    PICASSO 25%, CHAGALL 30%, MAGRITTE 20%, LICHTENSTEIN 25%
-   MIRÓ 제외
+   MIRÓ EXCLUDE
 
-GROUP 3+ (단체 3명 이상):
+GROUP 3+ (group, 3+ people):
    PICASSO 30%, CHAGALL 35%, LICHTENSTEIN 35%
-   MAGRITTE, MIRÓ 제외
+   MAGRITTE, MIRÓ EXCLUDE
 
 LANDSCAPE:
    CHAGALL 40%, MIRÓ 40%, PICASSO 20%
-   MAGRITTE, LICHTENSTEIN 제외
+   MAGRITTE, LICHTENSTEIN EXCLUDE
 
 STILL LIFE:
    PICASSO 30%, MAGRITTE 35%, MIRÓ 35%
-   CHAGALL, LICHTENSTEIN 제외
+   CHAGALL, LICHTENSTEIN EXCLUDE
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
