@@ -127,17 +127,23 @@ export async function runTransform(image, selectedStyle, correctionPrompt = null
     throw new Error(responseData?.error || `변환 시작 실패 (status: ${responseStatus})`);
   }
   
-  const predictionId = responseData.predictionId;
-  if (!predictionId) {
-    throw new Error('서버에서 prediction ID를 받지 못했습니다');
+  let resultUrl;
+  
+  // Prefer:wait 성공 → handler가 이미 완료된 결과 반환
+  if (responseData.status === 'completed' && responseData.resultUrl) {
+    console.log(`✅ Prefer:wait 직접 완료`);
+    resultUrl = responseData.resultUrl;
+  } else {
+    // Prefer:wait 실패 → 폴링 fallback
+    const predictionId = responseData.predictionId;
+    if (!predictionId) {
+      throw new Error('서버에서 prediction ID를 받지 못했습니다');
+    }
+    
+    console.log(`⏳ 폴링 fallback 대기: ${predictionId}`);
+    const result = await waitForResult(predictionId);
+    resultUrl = Array.isArray(result.output) ? result.output[0] : result.output;
   }
-  
-  console.log(`⏳ Prefer:wait 대기: ${predictionId}`);
-  
-  // Prefer: wait로 직접 대기 (폴링 없이 ~5.5초에 결과 반환)
-  const result = await waitForResult(predictionId);
-  
-  const resultUrl = Array.isArray(result.output) ? result.output[0] : result.output;
   
   if (!resultUrl) {
     throw new Error('변환 결과 이미지 URL이 없습니다');

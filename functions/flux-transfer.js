@@ -92,7 +92,8 @@ async function uploadToReplicateFiles(base64Image) {
     });
     
     if (!response.ok) {
-      console.log('⚠️ Replicate Files 업로드 실패, base64 fallback');
+      const errText = await response.text().catch(() => 'no body');
+      console.log(`⚠️ Replicate Files 업로드 실패 (${response.status}): ${errText}`);
       return null;
     }
     
@@ -2871,14 +2872,15 @@ export default async function handler(req, res) {
       console.log(`👨‍🎨 거장: ${masterKey} → ${artistDisplayName}`);
       console.log(`📜 Kontext 프롬프트: ${kontextPrompt}`);
       
-      // v80: Kontext도 predictionId 즉시 반환 (Prefer:wait 제거 → Vercel 60초 타임아웃 방지)
+      // v80: Kontext도 Prefer:wait 적용
       const response = await fetch(
         'https://api.replicate.com/v1/models/black-forest-labs/flux-kontext-pro/predictions',
         {
           method: 'POST',
           headers: {
             'Authorization': `Token ${process.env.REPLICATE_API_KEY}`,
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Prefer': 'wait=60'
           },
           body: JSON.stringify({
             input: {
@@ -2901,19 +2903,36 @@ export default async function handler(req, res) {
       const prediction = await response.json();
       const elapsedTime = ((Date.now() - startTime) / 1000).toFixed(1);
       
-      console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-      console.log(`📤 Kontext Prediction ID 반환 (${elapsedTime}초) → 클라이언트 폴링으로 전환`);
-      console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-      console.log('');
+      const kontextResultUrl = prediction.output
+        ? (Array.isArray(prediction.output) ? prediction.output[0] : prediction.output)
+        : null;
       
-      // 클라이언트에게 predictionId 반환 (1차 변환과 동일 패턴)
-      return res.status(200).json({
-        status: 'polling_required',
-        predictionId: prediction.id,
-        selected_artist: '재변환',
-        selected_work: correctionPrompt,
-        isRetransform: true
-      });
+      if (kontextResultUrl) {
+        console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+        console.log(`✅ Kontext Prefer:wait 완료 (${elapsedTime}초)`);
+        console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+        
+        return res.status(200).json({
+          status: 'completed',
+          resultUrl: kontextResultUrl,
+          predictionId: prediction.id,
+          selected_artist: '재변환',
+          selected_work: correctionPrompt,
+          isRetransform: true
+        });
+      } else {
+        console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+        console.log(`📤 Kontext Prediction ID 반환 (${elapsedTime}초) → 폴링 fallback`);
+        console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+        
+        return res.status(200).json({
+          status: 'polling_required',
+          predictionId: prediction.id,
+          selected_artist: '재변환',
+          selected_work: correctionPrompt,
+          isRetransform: true
+        });
+      }
     }
     
     // ========================================
@@ -4048,10 +4067,8 @@ export default async function handler(req, res) {
     console.log('');
     
     // ========================================
-    // v77: 비동기 폴링 방식 (504 타임아웃 해결)
-    // - 'Prefer: wait' 제거 → 즉시 prediction ID 반환
-    // - 2초마다 상태 확인 → 완료될 때까지 대기
-    // - 최대 180초 (3분) 대기
+    // v83: Prefer:wait=60 → POST에서 직접 대기
+    // 성공 시 output 포함 반환, 실패 시 predictionId만 반환 → 폴링 fallback
     // ========================================
     
     const POLL_INTERVAL = 2000;  // 2초마다 확인
@@ -4121,8 +4138,8 @@ export default async function handler(req, res) {
             method: 'POST',
             headers: {
               'Authorization': `Token ${process.env.REPLICATE_API_KEY}`,
-              'Content-Type': 'application/json'
-              // 'Prefer': 'wait' 제거 → 비동기 모드
+              'Content-Type': 'application/json',
+              'Prefer': 'wait=60'
             },
             body: JSON.stringify({
               input: {
@@ -4176,33 +4193,64 @@ export default async function handler(req, res) {
       });
     }
     
-    // 2. Prediction ID + 메타데이터 즉시 반환 (폴링은 클라이언트에서)
     const elapsedTime = ((Date.now() - startTime) / 1000).toFixed(1);
-    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-    console.log(`📤 Prediction ID 반환 (${elapsedTime}초) → 클라이언트 폴링으로 전환`);
-    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-    console.log('');
     
-    // 클라이언트에게 predictionId와 메타데이터 반환
-    res.status(200).json({
-      status: 'polling_required',
-      predictionId: prediction.id,
-      selected_artist: selectedArtist,
-      selected_work: selectedWork,
-      selection_method: selectionMethod,
-      selection_details: selectionDetails,
-      _debug: {
-        version: 'v66',
-        elapsed: elapsedTime,
-        vision: logData.vision,
-        selection: logData.selection,
-        prompt: {
-          wordCount: logData.prompt.wordCount,
-          applied: appliedList
-        },
-        flux: logData.flux
-      }
-    });
+    // Prefer:wait 성공 시 output 포함된 완료 결과 반환
+    const resultUrl = prediction.output 
+      ? (Array.isArray(prediction.output) ? prediction.output[0] : prediction.output)
+      : null;
+    
+    if (resultUrl) {
+      console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+      console.log(`✅ Prefer:wait 완료 (${elapsedTime}초) → 결과 직접 반환`);
+      console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+      
+      res.status(200).json({
+        status: 'completed',
+        resultUrl,
+        predictionId: prediction.id,
+        selected_artist: selectedArtist,
+        selected_work: selectedWork,
+        selection_method: selectionMethod,
+        selection_details: selectionDetails,
+        _debug: {
+          version: 'v66',
+          elapsed: elapsedTime,
+          vision: logData.vision,
+          selection: logData.selection,
+          prompt: {
+            wordCount: logData.prompt.wordCount,
+            applied: appliedList
+          },
+          flux: logData.flux
+        }
+      });
+    } else {
+      // Prefer:wait 실패 시 기존 방식 (predictionId 반환 → 폴링)
+      console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+      console.log(`📤 Prediction ID 반환 (${elapsedTime}초) → 폴링 fallback`);
+      console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+      
+      res.status(200).json({
+        status: 'polling_required',
+        predictionId: prediction.id,
+        selected_artist: selectedArtist,
+        selected_work: selectedWork,
+        selection_method: selectionMethod,
+        selection_details: selectionDetails,
+        _debug: {
+          version: 'v66',
+          elapsed: elapsedTime,
+          vision: logData.vision,
+          selection: logData.selection,
+          prompt: {
+            wordCount: logData.prompt.wordCount,
+            applied: appliedList
+          },
+          flux: logData.flux
+        }
+      });
+    }
     
   } catch (error) {
     console.error('Handler error:', error);
