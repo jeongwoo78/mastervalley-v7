@@ -31,7 +31,6 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
   const [statusText, setStatusText] = useState(t.analyzing);
   const [statusLeft, setStatusLeft] = useState('');
   const [showEducation, setShowEducation] = useState(false);
-  const [fadeActive, setFadeActive] = useState(false);
   
   const [completedResults, setCompletedResults] = useState([]);
   const [completedCount, setCompletedCount] = useState(0);
@@ -64,10 +63,9 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
       setStatusLeft(leftLabel);
       setStatusText(t.analyzing);
       
-      // 3초 후 "모든 거장 참여 중" + 페이드 시작
+      // 3초 후 "모든 거장 참여 중"
       phaseTimerRef.current = setTimeout(() => {
         setStatusText(t.allMastersJoining || 'All masters joining');
-        setFadeActive(true);
       }, 3000);
       
       try {
@@ -90,16 +88,19 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
             
             // 상태 텍스트: 실제 완료 건수 기준
             if (progress.latestIndex !== undefined && progress.results[progress.latestIndex]) {
-              // 첫 결과 도착 시 타이머 취소 + 페이드 해제
+              // 첫 결과 도착 시 타이머 취소
               if (phaseTimerRef.current) {
                 clearTimeout(phaseTimerRef.current);
                 phaseTimerRef.current = null;
               }
-              setFadeActive(false);
               
               const latest = progress.results[progress.latestIndex];
-              const latestName = latest.aiSelectedArtist || latest.style?.name || '';
-              setStatusText(`${latestName} ${t.doneLabel || '완료'} (${progress.completedCount}/${progress.totalCount})`);
+              const latestName = latest.style?.name || '';
+              const cat = latest.style?.category;
+              const doneText = (cat === 'movements' || cat === 'oriental')
+                ? t.masterDoneLabel
+                : t.doneLabel;
+              setStatusText(`${latestName} ${doneText} (${progress.completedCount}/${progress.totalCount})`);
             }
           },
           {},   // fcmOptions (서버가 lang 기반으로 메시지 생성)
@@ -108,7 +109,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         
         const categoryLabel2 = category === 'movements' ? t.movementsComplete : 
                               category === 'masters' ? t.mastersComplete : t.nationsComplete;
-        setStatusText(`${t.done} ${totalCount} ${categoryLabel2}`);
+        setStatusText(`${totalCount} ${categoryLabel2}`);
         
         setCompletedCount(totalCount);
         setCompletedResults(results.filter(r => r !== null));
@@ -132,23 +133,30 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         setStatusText(t.analyzing);
       }
       
-      // 3초 후 "거장 작업 중" + 페이드 시작
+      // 3초 후 카테고리별 작업 중 메시지
       phaseTimerRef.current = setTimeout(() => {
-        setStatusText(t.masterAtWork || 'Master at work');
-        setFadeActive(true);
+        const styleName = selectedStyle.name || '';
+        const cat = selectedStyle.category;
+        const workingText = (cat === 'movements' || cat === 'oriental')
+          ? `${styleName} ${t.masterInProgress}`
+          : `${styleName} ${t.inProgress}`;
+        setStatusText(workingText);
       }, 3000);
       
       const result = await processSingleStyle(selectedStyle, 0, 1);
       
-      // 타이머 취소 + 페이드 해제
+      // 타이머 취소
       if (phaseTimerRef.current) {
         clearTimeout(phaseTimerRef.current);
         phaseTimerRef.current = null;
       }
-      setFadeActive(false);
       
       if (result.success) {
-        setStatusText(`${t.done} ${selectedStyle.name}`);
+        const cat = selectedStyle.category;
+        const completeDoneText = (cat === 'movements' || cat === 'oriental')
+          ? `${selectedStyle.name} ${t.masterDoneLabel}!`
+          : `${selectedStyle.name} ${t.doneLabel}!`;
+        setStatusText(completeDoneText);
         await sleep(1000);
         
         onComplete(selectedStyle, result.resultUrl, {
@@ -397,7 +405,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
             <div className="progress-section oneclick">
               <div className="progress-status">
                 <span className="progress-left">{statusLeft}</span>
-                <span className={`progress-right ${fadeActive ? 'fade-pulse' : ''}`}>
+                <span className="progress-right">
                   {completedCount < totalCount && <span className="spinner"></span>}
                   {statusText}
                 </span>
@@ -498,7 +506,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
             <div className="progress-section">
               <div className="progress-status">
                 <div className="spinner"></div>
-                <p className={fadeActive ? 'fade-pulse' : ''}>{statusText}</p>
+                <p>{statusText}</p>
               </div>
               <div className="progress-bar">
                 <div className="progress-fill single-anim"></div>
@@ -707,8 +715,6 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           animation: spin 1s linear infinite;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
-        @keyframes fadePulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-        .fade-pulse { animation: fadePulse 1.5s ease-in-out infinite; }
         
         .edu-card {
           padding: 16px;
