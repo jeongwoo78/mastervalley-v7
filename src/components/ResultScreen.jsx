@@ -51,6 +51,7 @@ const ResultScreen = ({
   onGallery,
   onRetrySuccess,
   masterChatData: appMasterChatData,
+  prefetchedGreetings,
   onMasterChatDataChange,
   currentMasterIndex: appCurrentIndex,
   onMasterIndexChange,
@@ -1527,6 +1528,7 @@ const ResultScreen = ({
             isRetransforming={isCurrentMasterWorking}
             retransformCost={100}
             savedChatData={masterChatData[currentMasterKey]}
+            prefetchedGreeting={prefetchedGreetings?.[currentMasterKey]}
             onChatDataChange={(data) => updateMasterChatData(currentMasterKey, data)}
             lang={lang}
           />

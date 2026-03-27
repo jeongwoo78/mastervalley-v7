@@ -9,9 +9,13 @@ import { db, auth } from '../config/firebase';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { getFCMToken } from './fcm';
 
-const CLOUD_FUNCTIONS_URL = 'https://us-central1-master-valley.cloudfunctions.net/startTransform';
+const CLOUD_FUNCTIONS_URL_US = 'https://us-central1-master-valley.cloudfunctions.net/startTransform';
+const CLOUD_FUNCTIONS_URL_ASIA = 'https://asia-northeast1-master-valley.cloudfunctions.net/startTransformAsia';
+const ASIA_LANGS = ['ko', 'ja', 'zh-TW', 'id', 'th'];
 
-const getCloudFunctionUrl = () => CLOUD_FUNCTIONS_URL;
+const getCloudFunctionUrl = (lang) => {
+  return ASIA_LANGS.includes(lang) ? CLOUD_FUNCTIONS_URL_ASIA : CLOUD_FUNCTIONS_URL_US;
+};
 
 const VERCEL_API_URL = 'https://mastervalley-v7.vercel.app';
 

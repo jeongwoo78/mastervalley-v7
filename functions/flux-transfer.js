@@ -1909,7 +1909,7 @@ function analyzePhoto() {
 // ========================================
 // AI 화가 자동 선택 (타임아웃 포함)
 // ========================================
-async function selectArtistWithAI(imageBase64, selectedStyle, timeoutMs = 15000) {
+async function selectArtistWithAI(imageBase64, selectedStyle, timeoutMs = 15000, preVisionData = null) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
   
@@ -2451,6 +2451,25 @@ Return JSON only:
       }
     }
     
+    // v84: 사전 분석된 Vision 데이터가 있으면 프롬프트에 주입
+    if (preVisionData) {
+      const visionContext = `IMAGE ANALYSIS (pre-analyzed with high accuracy — use these EXACT values in your JSON response, do NOT re-analyze):
+- subject_type: ${preVisionData.subject_type || 'unknown'}
+- gender: ${preVisionData.gender || 'null'}
+- age_range: ${preVisionData.age_range || 'null'}
+- ethnicity: ${preVisionData.ethnicity || 'null'}
+- physical_description: ${preVisionData.physical_description || 'null'}
+- person_count: ${preVisionData.person_count || 'null'}
+- background_type: ${preVisionData.background_type || 'unknown'}
+${preVisionData.animal_type ? `- animal_type: ${preVisionData.animal_type}` : ''}
+${preVisionData.fur_color ? `- fur_color: ${preVisionData.fur_color}` : ''}
+
+Copy these values exactly into the vision fields of your JSON response. Focus on artist/work selection and prompt generation.
+
+`;
+      promptText = visionContext + promptText;
+    }
+    
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -2726,6 +2745,82 @@ function filterArtistByGender(artistName, gender, category = null) {
 // ========================================
 // 메인 핸들러
 // ========================================
+// ========================================
+// v84: Vision 분석 전용 (원클릭 1회 호출용, Sonnet)
+// ========================================
+export async function runVisionAnalysis(imageBase64) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 20000);
+  
+  try {
+    console.log('🔍 Vision 분석 시작 (Sonnet, 1회)');
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'x-api-key': process.env.ANTHROPIC_API_KEY,
+        'anthropic-version': '2023-06-01',
+        'content-type': 'application/json'
+      },
+      signal: controller.signal,
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 500,
+        messages: [{
+          role: 'user',
+          content: [
+            {
+              type: 'image',
+              source: {
+                type: 'base64',
+                media_type: 'image/jpeg',
+                data: imageBase64.split(',')[1]
+              }
+            },
+            {
+              type: 'text',
+              text: `Analyze this photo precisely. Return ONLY valid JSON (no markdown):
+{
+  "subject_type": "person" or "landscape" or "animal" or "object" or "flower" or "bird",
+  "gender": "male" or "female" or "both" or null,
+  "age_range": "baby" or "child" or "teen" or "young_adult" or "adult" or "middle_aged" or "elderly" or null,
+  "ethnicity": "asian" or "caucasian" or "african" or "hispanic" or "middle_eastern" or "mixed" or null,
+  "physical_description": "brief physical features including skin tone, facial features, hair, build" or null,
+  "person_count": 1 or 2 or 3 or null,
+  "background_type": "simple" or "complex" or "outdoor" or "indoor" or "studio",
+  "animal_type": "dog" or "cat" or "bird" or null,
+  "fur_color": "color description" or null
+}
+
+CRITICAL: Accurately identify gender and ethnicity based on visible features. If person, ALWAYS provide gender and physical_description.`
+            }
+          ]
+        }]
+      })
+    });
+    
+    clearTimeout(timeout);
+    
+    if (!response.ok) {
+      throw new Error(`Vision API error: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    const text = data.content[0].text
+      .replace(/```json\n?/g, '')
+      .replace(/```\n?/g, '')
+      .trim();
+    
+    const result = JSON.parse(text);
+    console.log(`🔍 Vision 완료: ${result.subject_type}, ${result.gender || 'N/A'}, ${result.person_count || 0}명`);
+    return result;
+    
+  } catch (error) {
+    clearTimeout(timeout);
+    console.error('🔍 Vision 분석 실패:', error.message);
+    return null;
+  }
+}
+
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -2742,7 +2837,7 @@ export default async function handler(req, res) {
 
   try {
     const startTime = Date.now();
-    const { image, selectedStyle, correctionPrompt, isOneClick } = req.body;
+    const { image, selectedStyle, correctionPrompt, isOneClick, visionData: preVisionData } = req.body;
     
     // v83: Vision과 동시에 Replicate Files에 이미지 미리 업로드
     const replicateFilePromise = uploadToReplicateFiles(image);
@@ -2970,7 +3065,8 @@ export default async function handler(req, res) {
       const aiResult = await selectArtistWithAI(
         image, 
         selectedStyle,
-        25000 // 25초 타임아웃 (v68.3: 15초→25초 증가)
+        25000, // 25초 타임아웃 (v68.3: 15초→25초 증가)
+        preVisionData // v84: 사전 Vision 데이터 (원클릭에서 1회 분석 후 재사용)
       );
       
       // Vision 분석 결과 추출 (통합됨)
@@ -2980,10 +3076,18 @@ export default async function handler(req, res) {
       if (aiResult.success && aiResult.visionData) {
         visionAnalysis = aiResult.visionData;
         identityPrompt = buildIdentityPrompt(visionAnalysis);
-        // console.log('📸 Vision data (integrated):', visionAnalysis);
-        // console.log('📸 Identity prompt:', identityPrompt);
         
         // v66: Vision 로그 수집
+        logData.vision.count = visionAnalysis.person_count || 0;
+        logData.vision.gender = visionAnalysis.gender || '';
+        logData.vision.age = visionAnalysis.age_range || '';
+        logData.vision.subjectType = visionAnalysis.subject_type || '';
+      }
+      
+      // v84: AI 응답에 visionData가 없으면 사전 분석 데이터 사용
+      if (!visionAnalysis && preVisionData) {
+        visionAnalysis = preVisionData;
+        identityPrompt = buildIdentityPrompt(visionAnalysis);
         logData.vision.count = visionAnalysis.person_count || 0;
         logData.vision.gender = visionAnalysis.gender || '';
         logData.vision.age = visionAnalysis.age_range || '';

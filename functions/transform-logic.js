@@ -4,6 +4,7 @@
 // ========================================
 
 import handler from './flux-transfer.js';
+export { runVisionAnalysis } from './flux-transfer.js';
 
 /**
  * Replicate 결과 대기 (Prefer: wait — 폴링 없이 즉시 반환)
@@ -98,13 +99,13 @@ async function pollFallback(predictionId) {
 /**
  * 변환 실행 (Vision → 프롬프트 → Replicate → Prefer:wait → 결과)
  */
-export async function runTransform(image, selectedStyle, correctionPrompt = null, isOneClick = false) {
+export async function runTransform(image, selectedStyle, correctionPrompt = null, isOneClick = false, visionData = null) {
   let responseData = null;
   let responseStatus = 200;
   
   const mockReq = {
     method: 'POST',
-    body: { image, selectedStyle, correctionPrompt, isOneClick }
+    body: { image, selectedStyle, correctionPrompt, isOneClick, visionData }
   };
   
   const mockRes = {

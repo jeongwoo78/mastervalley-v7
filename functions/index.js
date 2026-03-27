@@ -8,7 +8,7 @@ import { initializeApp } from 'firebase-admin/app';
 import { getFirestore, FieldValue } from 'firebase-admin/firestore';
 import { getMessaging } from 'firebase-admin/messaging';
 
-import { runTransform } from './transform-logic.js';
+import { runTransform, runVisionAnalysis } from './transform-logic.js';
 
 initializeApp();
 const db = getFirestore();
@@ -355,6 +355,17 @@ async function handleOneClick(req, res, params) {
   await batch.commit();
   console.log(`📋 원클릭 세션 생성: ${sessionId} (${totalCount}건)`);
   
+  // v84: Vision 분석 1회 (Sonnet) → 전체 스타일에 재사용
+  let visionData = null;
+  try {
+    visionData = await runVisionAnalysis(image);
+    if (visionData) {
+      console.log(`🔍 원클릭 Vision 1회 완료: ${visionData.subject_type}, ${visionData.gender || 'N/A'}, ${visionData.person_count || 0}명`);
+    }
+  } catch (err) {
+    console.warn(`⚠️ Vision 사전분석 실패 (각 변환에서 개별 분석): ${err.message}`);
+  }
+  
   let completedCount = 0;
   let successCount = 0;
   
@@ -364,7 +375,7 @@ async function handleOneClick(req, res, params) {
       const docRef = db.collection('transforms').doc(tid);
       
       try {
-        const result = await runTransform(image, style, null, true);
+        const result = await runTransform(image, style, null, true, visionData);
         
         console.log(`✅ 원클릭 [${i + 1}/${totalCount}] 완료: ${tid} | ${result.selectedArtist || style.name}`);
         
