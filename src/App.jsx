@@ -396,10 +396,13 @@ const App = () => {
         : result?.subjectType;
       
       if (result?.isFullTransform && result.results) {
-        // 원클릭: 첫 번째 성공 결과의 거장만 프리로드
-        const firstSuccess = result.results.find(r => r.success && r.aiSelectedArtist);
-        const key = artistToMasterKey(firstSuccess?.aiSelectedArtist);
-        if (key) prefetchGreeting(key, subType);
+        // 원클릭: 성공한 모든 거장 프리로드
+        result.results.forEach(r => {
+          if (r.success && r.aiSelectedArtist) {
+            const key = artistToMasterKey(r.aiSelectedArtist);
+            if (key) prefetchGreeting(key, subType);
+          }
+        });
       } else {
         // 단일: 선택된 거장 프리로드
         const key = artistToMasterKey(result?.aiSelectedArtist);

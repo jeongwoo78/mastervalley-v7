@@ -90,8 +90,6 @@ export const processStyleTransfer = async (photoFile, selectedStyle, correctionP
     const transformId = generateId();
     const userId = auth.currentUser?.uid || null;
     
-    if (onProgress) onProgress({ status: 'processing', progress: 5 });
-    
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 180000);
     

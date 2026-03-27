@@ -2181,7 +2181,7 @@ const ResultScreen = ({
           align-items: center;
           justify-content: center;
           gap: 8px;
-          margin-bottom: 0;
+          margin-bottom: 14px;
           max-width: 340px;
           margin-left: auto;
           margin-right: auto;

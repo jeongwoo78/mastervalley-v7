@@ -77,13 +77,13 @@ export const masterChat = {
 ,
   // ===== 거장 프로필 (아바타 탭 모달) =====
   profile: {
-    'VAN GOGH': { fullName: 'Vincent van Gogh', years: '1853~1890', origin: 'Pays-Bas · Post-Impressionnisme', quote: '"Je mets mon cœur et mon âme dans mon travail."' },
-    'KLIMT': { fullName: 'Gustav Klimt', years: '1862~1918', origin: 'Autriche · Art Nouveau', quote: '"À chaque époque son art, à chaque art sa liberté."' },
-    'MUNCH': { fullName: 'Edvard Munch', years: '1863~1944', origin: 'Norvège · Expressionnisme', quote: '"Je ne peins pas ce que je vois, mais ce que j\'ai vu."' },
-    'MATISSE': { fullName: 'Henri Matisse', years: '1869~1954', origin: 'France · Fauvisme', quote: '"Le but de la couleur n\'est pas de décrire la forme mais d\'exprimer l\'émotion."' },
-    'CHAGALL': { fullName: 'Marc Chagall', years: '1887~1985', origin: 'Russie/France · Surréalisme', quote: '"Dans notre vie, il n\'y a qu\'une seule couleur : celle de l\'amour."' },
-    'FRIDA': { fullName: 'Frida Kahlo', years: '1907~1954', origin: 'Mexique · Surréalisme', quote: '"Des pieds, pourquoi en voudrais-je si j\'ai des ailes pour voler ?"' },
-    'LICHTENSTEIN': { fullName: 'Roy Lichtenstein', years: '1923~1997', origin: 'États-Unis · Pop Art', quote: '"Je ne dessine pas des BD, je peins des tableaux sur les BD."' },
+    'VAN GOGH': { fullName: 'Vincent van Gogh', years: '1853~1890', origin: 'Pays-Bas · Post-Impressionnisme', quote: '"Je mets mon cœur et mon âme dans mon travail."', description: 'Un peintre qui a déversé la douleur et la passion dans des coups de pinceau ardents. Maître du postimpressionnisme ayant laissé 900 œuvres en une courte vie.' },
+    'KLIMT': { fullName: 'Gustav Klimt', years: '1862~1918', origin: 'Autriche · Art Nouveau', quote: '"À chaque époque son art, à chaque art sa liberté."', description: 'Un peintre qui a dépeint l\'amour par la feuille d\'or et l\'ornementation. Il a mené la Sécession viennoise, ouvrant un monde de sensualité somptueuse.' },
+    'MUNCH': { fullName: 'Edvard Munch', years: '1863~1944', origin: 'Norvège · Expressionnisme', quote: '"Je ne peins pas ce que je vois, mais ce que j\'ai vu."', description: 'Un peintre qui a capturé l\'angoisse et la peur de l\'âme humaine. Pionnier de l\'expressionnisme qui a peint le cri de l\'esprit.' },
+    'MATISSE': { fullName: 'Henri Matisse', years: '1869~1954', origin: 'France · Fauvisme', quote: '"Le but de la couleur n\'est pas de décrire la forme mais d\'exprimer l\'émotion."', description: 'Un peintre qui a libéré l\'émotion par la couleur pure. Il a mené les fauves, créant un monde où la couleur précède la forme.' },
+    'CHAGALL': { fullName: 'Marc Chagall', years: '1887~1985', origin: 'Russie/France · Surréalisme', quote: '"Dans notre vie, il n\'y a qu\'une seule couleur : celle de l\'amour."', description: 'Un peintre qui a chanté l\'amour et les rêves à travers la couleur. Il a capturé les souvenirs de Vitebsk dans des visions fantastiques.' },
+    'FRIDA': { fullName: 'Frida Kahlo', years: '1907~1954', origin: 'Mexique · Surréalisme', quote: '"Des pieds, pourquoi en voudrais-je si j\'ai des ailes pour voler ?"', description: 'Une peintre mexicaine qui a transformé la souffrance en art. Elle a exploré sans cesse la vie et l\'identité à travers ses autoportraits.' },
+    'LICHTENSTEIN': { fullName: 'Roy Lichtenstein', years: '1923~1997', origin: 'États-Unis · Pop Art', quote: '"Je ne dessine pas des BD, je peins des tableaux sur les BD."', description: 'Maître du Pop Art qui a élevé la bande dessinée au rang d\'art. Il a réinterprété la culture populaire avec des points Ben-Day et des contours audacieux.' },
   }
 };
 

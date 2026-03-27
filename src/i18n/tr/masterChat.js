@@ -71,13 +71,13 @@ export const masterChat = {
 ,
   // ===== 거장 프로필 (아바타 탭 모달) =====
   profile: {
-    'VAN GOGH': { fullName: 'Vincent van Gogh', years: '1853~1890', origin: 'Hollanda · Post-Empresyonizm', quote: '"Kalbimi ve ruhumu işime koyarım."' },
-    'KLIMT': { fullName: 'Gustav Klimt', years: '1862~1918', origin: 'Avusturya · Art Nouveau', quote: '"Her çağa sanatını, her sanata özgürlüğünü."' },
-    'MUNCH': { fullName: 'Edvard Munch', years: '1863~1944', origin: 'Norveç · Ekspresyonizm', quote: '"Hastalık, delilik ve ölüm beşiğimi bekleyen kara meleklerdi."' },
-    'MATISSE': { fullName: 'Henri Matisse', years: '1869~1954', origin: 'Fransa · Fovizm', quote: '"Rengin amacı biçim değil, duyguyu ifade etmektir."' },
-    'CHAGALL': { fullName: 'Marc Chagall', years: '1887~1985', origin: 'Rusya/Fransa · Sürrealizm', quote: '"Hayatımızda yalnızca bir renk var — aşkın rengi."' },
-    'FRIDA': { fullName: 'Frida Kahlo', years: '1907~1954', origin: 'Meksika · Sürrealizm', quote: '"Ayaklar, sizi ne yapayım, uçacak kanatlarım varken."' },
-    'LICHTENSTEIN': { fullName: 'Roy Lichtenstein', years: '1923~1997', origin: 'ABD · Pop Art', quote: '"Çizgi roman çizmiyorum, çizgi romanı konu alan resimler yapıyorum."' },
+    'VAN GOGH': { fullName: 'Vincent van Gogh', years: '1853~1890', origin: 'Hollanda · Post-Empresyonizm', quote: '"Kalbimi ve ruhumu işime koyarım."', description: 'Hayatın acısını ve tutkusunu şiddetli fırça darbeleriyle döken ressam. Kısa yaşamında 900 eser bırakan Post-Empresyonizm\'in ustası.' },
+    'KLIMT': { fullName: 'Gustav Klimt', years: '1862~1918', origin: 'Avusturya · Art Nouveau', quote: '"Her çağa sanatını, her sanata özgürlüğünü."', description: 'Altın varak ve süslemelerle aşkı resmeden ressam. Viyana Secession\'ı yönetti ve görkemli duyusallığın dünyasını açtı.' },
+    'MUNCH': { fullName: 'Edvard Munch', years: '1863~1944', origin: 'Norveç · Ekspresyonizm', quote: '"Hastalık, delilik ve ölüm beşiğimi bekleyen kara meleklerdi."', description: 'İnsan ruhundaki kaygı ve korkuyu tuvale aktaran ressam. Ruhun çığlığını resmeden Dışavurumculuğun öncüsü.' },
+    'MATISSE': { fullName: 'Henri Matisse', years: '1869~1954', origin: 'Fransa · Fovizm', quote: '"Rengin amacı biçim değil, duyguyu ifade etmektir."', description: 'Saf renkle duyguyu özgürleştiren ressam. Fovizm\'i yöneterek rengin biçimden önce geldiği bir dünya yarattı.' },
+    'CHAGALL': { fullName: 'Marc Chagall', years: '1887~1985', origin: 'Rusya/Fransa · Sürrealizm', quote: '"Hayatımızda yalnızca bir renk var — aşkın rengi."', description: 'Aşkı ve hayalleri renkle şarkıya döken ressam. Doğduğu Vitebsk\'in anılarını fantastik görüntülere taşıdı.' },
+    'FRIDA': { fullName: 'Frida Kahlo', years: '1907~1954', origin: 'Meksika · Sürrealizm', quote: '"Ayaklar, sizi ne yapayım, uçacak kanatlarım varken."', description: 'Acıyı sanata dönüştüren Meksikalı ressam. Otoportreleriyle yaşamı ve kimliği durmaksızın keşfetti.' },
+    'LICHTENSTEIN': { fullName: 'Roy Lichtenstein', years: '1923~1997', origin: 'ABD · Pop Art', quote: '"Çizgi roman çizmiyorum, çizgi romanı konu alan resimler yapıyorum."', description: 'Çizgi romanı sanata yükselten Pop Art ustası. Ben-Day noktaları ve kalın kontur çizgileriyle popüler kültürü yeniden yorumladı.' },
   }
 };
 

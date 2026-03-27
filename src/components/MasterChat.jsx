@@ -53,7 +53,6 @@ const MasterChat = ({
   const hasGreeted = useRef(savedChatData?.messages?.length > 0);
   const isChatEndedRef = useRef(savedChatData?.isChatEnded || false);
   const timeTravelRef = useRef(null);
-  const waitTimerRef = useRef(null);  // 프리페치 대기 타이머
   
   const MAX_MESSAGES = 20; // 최대 대화 횟수
 
@@ -82,7 +81,6 @@ const MasterChat = ({
   }, [messages, pendingCorrection, messageCount, isChatEnded]);
 
   // 첫 마운트 시 인사 (저장된 대화 없을 때만)
-  // B안: prefetchedGreeting 없으면 2초 대기 → 도착하면 즉시, 안 오면 자체 호출
   useEffect(() => {
     if (!hasGreeted.current && masterKey) {
       hasGreeted.current = true;
@@ -91,32 +89,10 @@ const MasterChat = ({
         timeTravelRef.current = prefetchedGreeting.timeTravel;
         setMessages([{ role: 'master', content: prefetchedGreeting.message }]);
       } else {
-        // 프리페치 아직 안 옴 → 2초 대기 (그 동안 로딩 dots 표시)
-        setIsLoading(true);
-        waitTimerRef.current = setTimeout(() => {
-          waitTimerRef.current = null;
-          loadGreeting();  // 2초 후에도 안 오면 자체 호출
-        }, 2000);
+        loadGreeting();
       }
     }
-    return () => {
-      if (waitTimerRef.current) {
-        clearTimeout(waitTimerRef.current);
-        waitTimerRef.current = null;
-      }
-    };
   }, []);
-
-  // 프리페치 응답 도착 감지 — 대기 중이면 타이머 취소 + 즉시 표시
-  useEffect(() => {
-    if (prefetchedGreeting?.message && messages.length === 0 && waitTimerRef.current) {
-      clearTimeout(waitTimerRef.current);
-      waitTimerRef.current = null;
-      timeTravelRef.current = prefetchedGreeting.timeTravel;
-      setMessages([{ role: 'master', content: prefetchedGreeting.message }]);
-      setIsLoading(false);
-    }
-  }, [prefetchedGreeting]);
 
   // 스크롤 자동 이동
   useEffect(() => {
@@ -532,9 +508,14 @@ const MasterChat = ({
               {profile.origin || ''}
             </div>
             <div style={{ width: 32, height: 1, background: 'rgba(255,255,255,0.08)', margin: '0 auto 18px' }} />
-            <div style={{ textAlign: 'center', fontSize: 14, color: 'rgba(255,255,255,0.6)', fontStyle: 'italic', lineHeight: 1.7, padding: '0 8px' }}>
+            <div style={{ textAlign: 'center', fontSize: 14, color: 'rgba(255,255,255,0.6)', fontStyle: 'italic', lineHeight: 1.7, padding: '0 8px', marginBottom: profile.description ? 14 : 0 }}>
               {profile.quote || ''}
             </div>
+            {profile.description && (
+              <div style={{ textAlign: 'center', fontSize: 13, color: 'rgba(255,255,255,0.45)', lineHeight: 1.6, padding: '0 8px' }}>
+                {profile.description}
+              </div>
+            )}
           </div>
         </div>
         );
