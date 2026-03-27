@@ -81,8 +81,8 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
             const validResults = progress.results.filter(r => r !== null);
             setCompletedResults(validResults);
             
-            // 첫 번째 완료 시 자동으로 그 결과 화면 전환
-            if (prevCount === 0 && progress.completedCount > 0 && progress.latestIndex !== undefined) {
+            // 새 결과 도착할 때마다 해당 결과로 자동 전환
+            if (progress.latestIndex !== undefined && progress.results[progress.latestIndex]) {
               setViewIndex(progress.latestIndex);
             }
             
