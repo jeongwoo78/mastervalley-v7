@@ -389,25 +389,16 @@ const App = () => {
       setSubjectType(result?.subjectType || null);
     }
     
-    // masters 카테고리면 그리팅 프리로드 (백그라운드)
-    if (style?.category === 'masters') {
-      const subType = result?.isFullTransform
-        ? result.results?.find(r => r.subjectType)?.subjectType
-        : result?.subjectType;
-      
-      if (result?.isFullTransform && result.results) {
-        // 원클릭: 성공한 모든 거장 프리로드
-        result.results.forEach(r => {
-          if (r.success && r.aiSelectedArtist) {
-            const key = artistToMasterKey(r.aiSelectedArtist);
-            if (key) prefetchGreeting(key, subType);
-          }
-        });
-      } else {
-        // 단일: 선택된 거장 프리로드
-        const key = artistToMasterKey(result?.aiSelectedArtist);
-        if (key) prefetchGreeting(key, subType);
-      }
+    // masters 카테고리 원클릭이면 그리팅 프리로드 (백그라운드)
+    // 단독변환은 MasterChat이 직접 loadGreeting 호출 (프리페치 중복 방지)
+    if (style?.category === 'masters' && result?.isFullTransform && result.results) {
+      const subType = result.results?.find(r => r.subjectType)?.subjectType;
+      result.results.forEach(r => {
+        if (r.success && r.aiSelectedArtist) {
+          const key = artistToMasterKey(r.aiSelectedArtist);
+          if (key) prefetchGreeting(key, subType);
+        }
+      });
     }
     
     setCurrentScreen('result');

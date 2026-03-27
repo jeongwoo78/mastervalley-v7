@@ -2250,7 +2250,7 @@ const ResultScreen = ({
           width: 100%;
           max-width: 340px;
           aspect-ratio: 1 / 1;
-          margin: 0 auto 16px;
+          margin: 0 auto 18px;
           border-radius: 12px;
           overflow: hidden;
           box-shadow: 0 4px 12px rgba(0,0,0,0.3);
