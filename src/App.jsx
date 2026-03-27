@@ -15,8 +15,10 @@ import AddFundsScreen from './components/AddFundsScreen';
 import MenuScreen from './components/MenuScreen';
 // LanguageScreen removed - 메뉴 아코디언에서 직접 변경
 import InsufficientBalancePopup from './components/InsufficientBalancePopup';
+import TransformBanner from './components/TransformBanner';
 import { getTransformCost } from './utils/pricing';
 import { deductCredit } from './utils/styleTransferAPI';
+import transformManager from './utils/transformManager';
 import { initRevenueCat } from './utils/revenueCat';
 import { initFCM } from './utils/fcm';
 import './styles/App.css';
@@ -75,7 +77,7 @@ const App = () => {
   const [currentMasterIndex, setCurrentMasterIndex] = useState(0);
   const [masterResultImages, setMasterResultImages] = useState({});
   const [retransformingMasters, setRetransformingMasters] = useState({});
-  const [backBlockedToast, setBackBlockedToast] = useState(false);
+  const [prefetchedGreetings, setPrefetchedGreetings] = useState({});
 
   // 앱 시작 시 저장된 언어 로드
   useEffect(() => {
@@ -189,9 +191,8 @@ const App = () => {
           setFullTransformResults(null);
           break;
         case 'processing':
-          // 변환 중 뒤로가기 차단 — 토스트 메시지 표시
-          setBackBlockedToast(true);
-          setTimeout(() => setBackBlockedToast(false), 1000);
+          // 변환 중 → 스타일 선택 (서버에서 계속 진행, 완료 시 푸시 알림)
+          setCurrentScreen('photoStyle');
           break;
         case 'photoStyle':
           handleBackToCategory();
@@ -240,6 +241,11 @@ const App = () => {
 
   // 변환 시작 공통 로직 (잔액 체크 포함)
   const startTransform = (photo, style) => {
+    // 동시 변환 제한 체크 (최대 4건)
+    if (!transformManager.canStartNew()) {
+      alert(`동시 변환은 최대 ${transformManager.MAX_CONCURRENT}건까지 가능합니다. 완료 후 다시 시도해 주세요.`);
+      return;
+    }
     const cost = getTransformCost(style);
     if (cost > 0 && userCredits < cost) {
       setRequiredAmount(cost);
@@ -279,6 +285,65 @@ const App = () => {
       startTransform(pendingTransform.photo, pendingTransform.style);
       setPendingTransform(null);
     }
+  };
+
+  // ========================================
+  // MasterChat 그리팅 프리로드
+  // ========================================
+  const MASTER_AGE_RANGE = {
+    'VAN GOGH': { min: 35, max: 37 }, 'KLIMT': { min: 48, max: 53 },
+    'MUNCH': { min: 33, max: 77 }, 'CHAGALL': { min: 31, max: 94 },
+    'MATISSE': { min: 39, max: 81 }, 'FRIDA': { min: 23, max: 44 },
+    'LICHTENSTEIN': { min: 41, max: 70 }
+  };
+  const MASTER_BIRTH = {
+    'VAN GOGH': 1853, 'KLIMT': 1862, 'MUNCH': 1863, 'CHAGALL': 1887,
+    'MATISSE': 1869, 'FRIDA': 1907, 'LICHTENSTEIN': 1923
+  };
+
+  const artistToMasterKey = (name) => {
+    if (!name) return null;
+    const n = name.toUpperCase();
+    if (n.includes('GOGH') || n.includes('고흐')) return 'VAN GOGH';
+    if (n.includes('KLIMT') || n.includes('클림트')) return 'KLIMT';
+    if (n.includes('MUNCH') || n.includes('뭉크')) return 'MUNCH';
+    if (n.includes('CHAGALL') || n.includes('샤갈')) return 'CHAGALL';
+    if (n.includes('MATISSE') || n.includes('마티스')) return 'MATISSE';
+    if (n.includes('FRIDA') || n.includes('KAHLO') || n.includes('프리다')) return 'FRIDA';
+    if (n.includes('LICHTENSTEIN') || n.includes('리히텐')) return 'LICHTENSTEIN';
+    return null;
+  };
+
+  const prefetchGreeting = (masterKey, subType) => {
+    const range = MASTER_AGE_RANGE[masterKey] || { min: 30, max: 50 };
+    const age = Math.floor(Math.random() * (range.max - range.min + 1)) + range.min;
+    const birth = MASTER_BIRTH[masterKey] || 1870;
+    const year = birth + age;
+    const month = new Date().getMonth() + 1;
+    const tt = { year, age, month };
+
+    fetch('https://mastervalley-v7.vercel.app/api/master-feedback', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        masterName: masterKey,
+        conversationType: 'greeting',
+        userMessage: '',
+        lang: lang,
+        timeTravel: tt,
+        subjectType: subType || 'person'
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success && data.masterResponse) {
+        setPrefetchedGreetings(prev => ({
+          ...prev,
+          [masterKey]: { message: data.masterResponse, timeTravel: tt }
+        }));
+      }
+    })
+    .catch(err => console.warn('⚠️ 그리팅 프리로드 실패:', err.message));
   };
 
   // 변환 완료 → 크레딧 차감 + 화면 전환
@@ -331,6 +396,24 @@ const App = () => {
       setSubjectType(result?.subjectType || null);
     }
     
+    // masters 카테고리면 그리팅 프리로드 (백그라운드)
+    if (style?.category === 'masters') {
+      const subType = result?.isFullTransform
+        ? result.results?.find(r => r.subjectType)?.subjectType
+        : result?.subjectType;
+      
+      if (result?.isFullTransform && result.results) {
+        // 원클릭: 첫 번째 성공 결과의 거장만 프리로드
+        const firstSuccess = result.results.find(r => r.success && r.aiSelectedArtist);
+        const key = artistToMasterKey(firstSuccess?.aiSelectedArtist);
+        if (key) prefetchGreeting(key, subType);
+      } else {
+        // 단일: 선택된 거장 프리로드
+        const key = artistToMasterKey(result?.aiSelectedArtist);
+        if (key) prefetchGreeting(key, subType);
+      }
+    }
+    
     setCurrentScreen('result');
   };
 
@@ -346,6 +429,7 @@ const App = () => {
     setSubjectType(null);
     setFullTransformResults(null);
     setMasterChatData({});
+    setPrefetchedGreetings({});
     setCurrentMasterIndex(0);
     setMasterResultImages({});
     setRetransformingMasters({});
@@ -402,7 +486,7 @@ const App = () => {
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: #0a1a1f;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             color: white;
           }
           .loading-spinner {
@@ -429,16 +513,12 @@ const App = () => {
 
   return (
     <div className="app" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
-      {/* 변환 중 뒤로가기 차단 토스트 */}
-      {backBlockedToast && (
-        <div style={{
-          position: 'fixed', bottom: '80px', left: '16px', right: '16px',
-          background: 'rgba(0,0,0,0.55)', color: 'rgba(255,255,255,0.8)', padding: '8px 16px',
-          borderRadius: '10px', fontSize: '13px', fontWeight: 400, zIndex: 9999, textAlign: 'center',
-          whiteSpace: 'pre-line', lineHeight: 1.4
-        }}>
-          {getUi(lang).processing.backBlocked}
-        </div>
+      {/* 동시다중 변환 배너 */}
+      {currentScreen !== 'processing' && (
+        <TransformBanner 
+          onTapGallery={() => setShowGallery(true)} 
+          lang={lang} 
+        />
       )}
       {/* AI 데이터 처리 동의 팝업 */}
       {showAiConsent && (
@@ -551,6 +631,7 @@ const App = () => {
               onGallery={() => setShowGallery(true)}
               onRetrySuccess={handleRetrySuccess}
               masterChatData={masterChatData}
+              prefetchedGreetings={prefetchedGreetings}
               onMasterChatDataChange={setMasterChatData}
               currentMasterIndex={currentMasterIndex}
               onMasterIndexChange={setCurrentMasterIndex}
@@ -623,7 +704,7 @@ const App = () => {
           padding: 24px;
         }
         .ai-consent-modal {
-          background: #1a2a2f;
+          background: #1e1e1e;
           border-radius: 16px;
           padding: 20px 20px 12px;
           max-width: 260px;
