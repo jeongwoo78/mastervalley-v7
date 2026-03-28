@@ -1,10 +1,12 @@
 // GalleryScreen.jsx - 갤러리 컴포넌트 (IndexedDB 버전)
 // 대용량 이미지 저장 + 그리드 UI + 저장/공유/삭제 기능
 import React, { useState, useEffect, useRef } from 'react';
+import { App as CapApp } from '@capacitor/app';
 import { saveImage as saveToDevice, shareImage, addWatermark, isNativePlatform, WATERMARK_ON_SAVE } from '../utils/mobileShare';
 import { getMovementDisplayInfo, getOrientalDisplayInfo, getMasterInfo, normalizeKey } from '../utils/displayConfig';
 import { MOVEMENT_ARTISTS } from '../data/masterData';
 import { getUi } from '../i18n';
+import ImageZoomViewer from './ImageZoomViewer';
 // v80: 풀스크린 이미지 뷰어 (핀치줌)
 // ImageFullscreenViewer removed - using simple fullimage overlay
 
@@ -319,6 +321,31 @@ const GalleryScreen = ({ onBack, onHome, lang = 'en', externalLoading = false })
     }
     prevExternalLoadingRef.current = externalLoading;
   }, [externalLoading]);
+
+  // 안드로이드 뒤로가기 — 단계별 닫기 (모달 → 선택모드 → 갤러리)
+  useEffect(() => {
+    const handler = CapApp.addListener('backButton', () => {
+      // 1) 저장/공유 메뉴 열려있으면 닫기
+      if (showSaveShareMenu) {
+        setShowSaveShareMenu(false);
+        return;
+      }
+      // 2) 모달 열려있으면 닫기
+      if (selectedItem) {
+        setSelectedItem(null);
+        return;
+      }
+      // 3) 선택 모드면 해제
+      if (selectMode) {
+        setSelectMode(false);
+        setSelectedIds(new Set());
+        return;
+      }
+      // 4) 아무것도 안 열려있으면 갤러리 닫기
+      onBack();
+    });
+    return () => { handler.then(h => h.remove()); };
+  }, [showSaveShareMenu, selectedItem, selectMode]);
 
   // 키보드 좌우 화살표로 모달 네비게이션 (PC)
   useEffect(() => {
@@ -640,7 +667,7 @@ const GalleryScreen = ({ onBack, onHome, lang = 'en', externalLoading = false })
               </svg>
             </button>
             
-            <img
+            <ImageZoomViewer
               src={selectedItem.imageData}
               alt={selectedItem.styleName}
               style={styles.modalImage}

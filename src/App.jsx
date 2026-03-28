@@ -242,9 +242,8 @@ const App = () => {
   // 안드로이드 뒤로가기 버튼 처리
   useEffect(() => {
     const backHandler = CapApp.addListener('backButton', () => {
-      // 갤러리 열려있으면 닫기
+      // 갤러리 열려있으면 GalleryScreen이 자체 처리 (모달→선택모드→닫기)
       if (showGallery) {
-        setShowGallery(false);
         return;
       }
       

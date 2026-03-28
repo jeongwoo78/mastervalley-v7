@@ -37,6 +37,7 @@ import { normalizeKey, getDisplayInfo, getArtistName, getMovementDisplayInfo, ge
 import { getEducationKey, getEducationContent, getMasterEducationKey } from '../utils/educationMatcher';
 // v74: 모바일 공유/저장 유틸리티
 import { saveImage, shareImage, isNativePlatform, addWatermark } from '../utils/mobileShare';
+import ImageZoomViewer from './ImageZoomViewer';
 
 
 const ResultScreen = ({ 
@@ -1636,7 +1637,7 @@ const ResultScreen = ({
                 </svg>
               </button>
               
-              <img src={modalImage} alt="Result" className="image-modal-img" />
+              <ImageZoomViewer src={modalImage} alt="Result" className="image-modal-img" style={{ width: '100%', display: 'block', borderRadius: '16px 16px 0 0' }} />
 
               {/* 원클릭: 스와이프 화살표 힌트 (클릭 가능) */}
               {isFullTransform && totalResults > 1 && (
