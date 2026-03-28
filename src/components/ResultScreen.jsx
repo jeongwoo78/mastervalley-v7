@@ -46,6 +46,7 @@ const ResultScreen = ({
   aiSelectedArtist,
   aiSelectedWork,
   subjectType,
+  transformId,
   fullTransformResults,
   onReset,
   onGallery,
@@ -452,7 +453,8 @@ const ResultScreen = ({
         movementName: selectedStyle?.name || '',
         workName,
         styleId: selectedStyle?.id || '',
-        isRetransform: false
+        isRetransform: false,
+        transformId: transformId || null  // 중복 저장 방지용
       });
       if (saved) {
         setSavedToGallery(true);

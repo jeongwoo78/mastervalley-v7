@@ -68,6 +68,7 @@ const App = () => {
   const [aiSelectedArtist, setAiSelectedArtist] = useState(null);
   const [aiSelectedWork, setAiSelectedWork] = useState(null);
   const [subjectType, setSubjectType] = useState(null);
+  const [currentTransformId, setCurrentTransformId] = useState(null);
   
   // 원클릭 결과
   const [fullTransformResults, setFullTransformResults] = useState(null);
@@ -456,9 +457,11 @@ const App = () => {
       setAiSelectedWork(null);
       setSubjectType(result.results?.find(r => r.subjectType)?.subjectType || null);
       setCurrentMasterIndex(0);
+      setCurrentTransformId(null);  // 원클릭은 개별 transformId 사용
     } else {
       setFullTransformResults(null);
       setResultImage(resultImageUrl);
+      setCurrentTransformId(result?.transformId || null);  // 단일 변환 transformId 저장
       
       if (result && result.aiSelectedArtist) {
         setAiSelectedArtist(result.aiSelectedArtist);
@@ -500,6 +503,7 @@ const App = () => {
     setAiSelectedArtist(null);
     setAiSelectedWork(null);
     setSubjectType(null);
+    setCurrentTransformId(null);
     setFullTransformResults(null);
     setMasterChatData({});
     setPrefetchedGreetings({});
@@ -704,6 +708,7 @@ const App = () => {
               aiSelectedArtist={aiSelectedArtist}
               aiSelectedWork={aiSelectedWork}
               subjectType={subjectType}
+              transformId={currentTransformId}
               fullTransformResults={fullTransformResults}
               onReset={handleReset}
               onGallery={() => setShowGallery(true)}
