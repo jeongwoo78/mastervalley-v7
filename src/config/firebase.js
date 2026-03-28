@@ -39,5 +39,5 @@ const ensureUserDoc = async (userId, email) => {
   }
 };
 
-export { auth, db, googleProvider, appleProvider, doc, onSnapshot, updateDoc, ensureUserDoc, collection, query, where, getDocs, orderBy, Timestamp };
+export { auth, db, googleProvider, appleProvider, doc, onSnapshot, updateDoc, ensureUserDoc, collection, query, where, getDocs, getDoc, orderBy, Timestamp };
 export default app;
