@@ -107,6 +107,9 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           lang  // ← lang 전달
         );
         
+        // 마지막 개별 완료 메시지가 보이도록 1초 대기
+        await sleep(1000);
+        
         const categoryLabel2 = category === 'movements' ? t.movementsComplete : 
                               category === 'masters' ? t.mastersComplete : t.nationsComplete;
         setStatusText(`${totalCount} ${categoryLabel2}`);

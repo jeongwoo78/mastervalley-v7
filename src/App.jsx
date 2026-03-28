@@ -3,14 +3,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { Preferences } from '@capacitor/preferences';
 import { App as CapApp } from '@capacitor/app';
-import { auth, db, doc, onSnapshot, updateDoc, ensureUserDoc } from './config/firebase';
+import { auth, db, doc, onSnapshot, updateDoc, ensureUserDoc, collection, query, where, getDocs, orderBy, Timestamp } from './config/firebase';
 import { setLanguage, getLanguage, t, getUi } from './i18n';
 import LoginScreen from './components/LoginScreen';
 import CategorySelection from './components/CategorySelection';
 import PhotoStyleScreen from './components/PhotoStyleScreen';
 import ProcessingScreen from './components/ProcessingScreen';
 import ResultScreen from './components/ResultScreen';
-import GalleryScreen from './components/GalleryScreen';
+import GalleryScreen, { saveToGallery } from './components/GalleryScreen';
 import AddFundsScreen from './components/AddFundsScreen';
 import MenuScreen from './components/MenuScreen';
 // LanguageScreen removed - 메뉴 아코디언에서 직접 변경
@@ -18,7 +18,7 @@ import InsufficientBalancePopup from './components/InsufficientBalancePopup';
 import { getTransformCost } from './utils/pricing';
 import { deductCredit } from './utils/styleTransferAPI';
 import { initRevenueCat } from './utils/revenueCat';
-import { initFCM } from './utils/fcm';
+import { initFCM, onNotificationTap } from './utils/fcm';
 import './styles/App.css';
 
 const App = () => {
@@ -130,6 +130,14 @@ const App = () => {
         // FCM 푸시 알림 초기화 (네이티브 앱에서만 동작)
         initFCM();
 
+        // 알림 탭 시 갤러리 열기
+        onNotificationTap(() => {
+          setShowGallery(true);
+        });
+
+        // 미수신 변환 복원 (앱 재시작 시)
+        recoverMissedTransforms(currentUser.uid);
+
         // Firestore 실시간 잔액 구독
         const userRef = doc(db, 'users', currentUser.uid);
         unsubCredits = onSnapshot(userRef, (snapshot) => {
@@ -154,6 +162,58 @@ const App = () => {
       if (unsubCredits) unsubCredits();
     };
   }, []);
+
+  // 미수신 변환 복원 (강제종료/백그라운드 복구)
+  const recoverMissedTransforms = async (userId) => {
+    try {
+      const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000);
+      const q = query(
+        collection(db, 'transforms'),
+        where('userId', '==', userId),
+        where('status', '==', 'completed'),
+        where('createdAt', '>=', oneHourAgo.toISOString())
+      );
+      const snapshot = await getDocs(q);
+      if (snapshot.empty) return;
+
+      let recovered = 0;
+      for (const docSnap of snapshot.docs) {
+        const data = docSnap.data();
+        if (data.resultUrl) {
+          const saved = await saveToGallery(data.resultUrl, {
+            category: data.category || '',
+            artistName: data.selectedArtist || '',
+            movementName: '',
+            workName: data.selectedWork || null,
+            styleId: data.styleId || '',
+            isRetransform: false
+          });
+          if (saved) recovered++;
+        }
+      }
+      if (recovered > 0) {
+        console.log(`✅ ${recovered}건 갤러리 복원 완료`);
+      }
+    } catch (error) {
+      console.error('갤러리 복원 실패:', error);
+    }
+  };
+
+  // 앱 포그라운드 복귀 시 복원
+  useEffect(() => {
+    const stateHandler = CapApp.addListener('appStateChange', ({ isActive }) => {
+      if (isActive && user) {
+        recoverMissedTransforms(user.uid);
+      }
+    });
+    return () => {
+      stateHandler.then(h => h.remove());
+    };
+  }, [user]);
+
+  // 뒤로가기 차단 토스트
+  const [showBackBlockedToast, setShowBackBlockedToast] = useState(false);
+  const backBlockedTimerRef = useRef(null);
 
   // 안드로이드 뒤로가기 버튼 처리
   useEffect(() => {
@@ -189,9 +249,16 @@ const App = () => {
           setFullTransformResults(null);
           break;
         case 'processing':
-          // 변환 중 → 스타일 선택 (서버에서 계속 진행, 완료 시 푸시 알림)
-          setCurrentScreen('photoStyle');
-          break;
+          // 변환 중 → 차단 + 토스트 메시지
+          if (!showBackBlockedToast) {
+            setShowBackBlockedToast(true);
+            if (backBlockedTimerRef.current) clearTimeout(backBlockedTimerRef.current);
+            backBlockedTimerRef.current = setTimeout(() => {
+              setShowBackBlockedToast(false);
+              backBlockedTimerRef.current = null;
+            }, 1000);
+          }
+          return;  // 화면 전환 차단
         case 'photoStyle':
           handleBackToCategory();
           break;
@@ -213,7 +280,7 @@ const App = () => {
     return () => {
       backHandler.then(h => h.remove());
     };
-  }, [currentScreen, showGallery, showInsufficientPopup, showAiConsent]);
+  }, [currentScreen, showGallery, showInsufficientPopup, showAiConsent, showBackBlockedToast]);
 
   // 로그인 성공
   const handleLoginSuccess = (loggedInUser) => {
@@ -500,6 +567,12 @@ const App = () => {
 
   return (
     <div className="app" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
+      {/* 변환 중 뒤로가기 차단 토스트 */}
+      {showBackBlockedToast && (
+        <div className="back-blocked-toast">
+          {getUi(lang).processing.backBlocked}
+        </div>
+      )}
       {/* AI 데이터 처리 동의 팝업 */}
       {showAiConsent && (
         <div className="ai-consent-overlay" onClick={() => {}}>
@@ -707,6 +780,25 @@ const App = () => {
           font-size: 14px;
           font-weight: 600;
           cursor: pointer;
+        }
+        .back-blocked-toast {
+          position: fixed;
+          bottom: 80px;
+          left: 50%;
+          transform: translateX(-50%);
+          background: rgba(0,0,0,0.85);
+          color: #fff;
+          padding: 10px 20px;
+          border-radius: 8px;
+          font-size: 13px;
+          z-index: 9999;
+          text-align: center;
+          white-space: pre-line;
+          animation: toastFadeIn 0.2s ease;
+        }
+        @keyframes toastFadeIn {
+          from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+          to { opacity: 1; transform: translateX(-50%) translateY(0); }
         }
       `}</style>
     </div>
