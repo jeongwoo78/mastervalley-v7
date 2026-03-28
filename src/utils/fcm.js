@@ -8,9 +8,19 @@ import { doc, updateDoc } from 'firebase/firestore';
 
 let fcmToken = null;
 let onNotificationTapCallback = null;
+let pendingNotification = null;  // 콜백 등록 전 도착한 알림 탭 저장
 
 export function onNotificationTap(callback) {
   onNotificationTapCallback = callback;
+  // 콜백 등록 전에 탭된 알림이 있으면 즉시 실행
+  if (pendingNotification) {
+    callback(pendingNotification);
+    pendingNotification = null;
+  }
+}
+
+export function hasPendingNotification() {
+  return pendingNotification !== null;
 }
 
 export async function initFCM() {
@@ -50,7 +60,11 @@ export async function initFCM() {
       // 단일 + 원클릭 완료 알림 모두 처리
       if ((data?.type === 'transform_complete' || data?.type === 'oneclick_complete') && (data?.transformId || data?.sessionId)) {
         console.log('📱 변환 완료 알림 탭 →', data.type, data.transformId || data.sessionId);
-        if (onNotificationTapCallback) onNotificationTapCallback(data);
+        if (onNotificationTapCallback) {
+          onNotificationTapCallback(data);
+        } else {
+          pendingNotification = data;  // 콜백 등록 전이면 저장
+        }
       }
     });
 
