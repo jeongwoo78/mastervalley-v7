@@ -43,7 +43,7 @@ const App = () => {
   // 화면 상태: 'category' | 'photoStyle' | 'processing' | 'result' | 'addFunds' | 'menu'
   const [currentScreen, setCurrentScreen] = useState('category');
   const prevScreenRef = useRef('category');
-  const isRecoveringRef = useRef(false);  // recoverMissedTransforms 동시 실행 방지
+  const recoverPromiseRef = useRef(null);  // 진행 중인 복원 Promise 공유
   const [showGallery, setShowGallery] = useState(false);
   const [galleryLoading, setGalleryLoading] = useState(false);
   const [galleryRefreshKey, setGalleryRefreshKey] = useState(0);
@@ -181,49 +181,51 @@ const App = () => {
   }, []);
 
   // 미수신 변환 복원 (강제종료/백그라운드 복구)
-  const recoverMissedTransforms = async (userId) => {
-    // 동시 실행 방지 — 알림 탭 + appStateChange가 동시에 호출해도 1회만 실행
-    if (isRecoveringRef.current) return;
-    isRecoveringRef.current = true;
+  // Promise 공유: 동시 호출 시 실제 작업은 1회만, 모든 호출자가 같은 완료를 기다림
+  const recoverMissedTransforms = (userId) => {
+    if (recoverPromiseRef.current) return recoverPromiseRef.current;
     
-    try {
-      // 단일 필드 쿼리 (composite index 불필요)
-      const q = query(
-        collection(db, 'transforms'),
-        where('userId', '==', userId)
-      );
-      const snapshot = await getDocs(q);
-      if (snapshot.empty) return;
+    const promise = (async () => {
+      try {
+        const q = query(
+          collection(db, 'transforms'),
+          where('userId', '==', userId)
+        );
+        const snapshot = await getDocs(q);
+        if (snapshot.empty) return;
 
-      const oneHourAgo = Date.now() - 60 * 60 * 1000;
-      let recovered = 0;
+        const oneHourAgo = Date.now() - 60 * 60 * 1000;
+        let recovered = 0;
 
-      for (const docSnap of snapshot.docs) {
-        const data = docSnap.data();
-        // 코드에서 필터: completed + 1시간 이내
-        if (data.status !== 'completed' || !data.resultUrl) continue;
-        const createdTime = data.createdAt?.toMillis?.() || new Date(data.createdAt).getTime();
-        if (createdTime < oneHourAgo) continue;
+        for (const docSnap of snapshot.docs) {
+          const data = docSnap.data();
+          if (data.status !== 'completed' || !data.resultUrl) continue;
+          const createdTime = data.createdAt?.toMillis?.() || new Date(data.createdAt).getTime();
+          if (createdTime < oneHourAgo) continue;
 
-        const saved = await saveToGallery(data.resultUrl, {
-          category: data.selectedStyle?.category || data.category || '',
-          artistName: data.selectedArtist || data.selectedStyle?.name || '',
-          movementName: data.selectedStyle?.name || '',
-          workName: data.selectedWork || null,
-          styleId: data.selectedStyle?.id || '',
-          isRetransform: false,
-          transformId: docSnap.id  // 중복 저장 방지용
-        });
-        if (saved) recovered++;
+          const saved = await saveToGallery(data.resultUrl, {
+            category: data.selectedStyle?.category || data.category || '',
+            artistName: data.selectedArtist || data.selectedStyle?.name || '',
+            movementName: data.selectedStyle?.name || '',
+            workName: data.selectedWork || null,
+            styleId: data.selectedStyle?.id || '',
+            isRetransform: false,
+            transformId: docSnap.id
+          });
+          if (saved) recovered++;
+        }
+        if (recovered > 0) {
+          console.log(`✅ ${recovered}건 갤러리 복원 완료`);
+        }
+      } catch (error) {
+        console.error('갤러리 복원 실패:', error);
+      } finally {
+        recoverPromiseRef.current = null;  // 완료 후 다음 호출 허용
       }
-      if (recovered > 0) {
-        console.log(`✅ ${recovered}건 갤러리 복원 완료`);
-      }
-    } catch (error) {
-      console.error('갤러리 복원 실패:', error);
-    } finally {
-      isRecoveringRef.current = false;  // 잠금 해제
-    }
+    })();
+    
+    recoverPromiseRef.current = promise;
+    return promise;
   };
 
   // 앱 포그라운드 복귀 시 복원
