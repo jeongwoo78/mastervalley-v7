@@ -119,8 +119,6 @@ export const processStyleTransfer = async (photoFile, selectedStyle, correctionP
     
     console.log(`✅ 변환 완료: ${transformId} | ${result.selectedArtist || '재변환'}`);
     
-    if (onProgress) onProgress({ status: 'downloading' });
-    
     const imageResponse = await fetch(result.resultUrl);
     const blob = await imageResponse.blob();
     const localUrl = URL.createObjectURL(blob);
