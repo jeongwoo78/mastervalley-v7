@@ -381,7 +381,8 @@ const ResultScreen = ({
           movementName: '',
           workName: displayWork || null,
           styleId: styleToUse?.id || '',
-          isRetransform: true
+          isRetransform: true,
+          transformId: result.transformId || null
         });
       }
     } catch (error) {
@@ -421,7 +422,8 @@ const ResultScreen = ({
               movementName: result.style?.name || selectedStyle?.name || '',
               workName,
               styleId: result.style?.id || selectedStyle?.id || '',
-              isRetransform: false
+              isRetransform: false,
+              transformId: result.transformId || null
             });
           }
         }
@@ -520,7 +522,8 @@ const ResultScreen = ({
             movementName: failed.style?.name || '',
             workName,
             styleId: failed.style?.id || '',
-            isRetransform: false
+            isRetransform: false,
+            transformId: result.transformId || null
           });
           hasSavedRef.current = true;  // useEffect 이중 저장 방지
         } else {
@@ -579,7 +582,8 @@ const ResultScreen = ({
           movementName: selectedStyle.name || '',
           workName,
           styleId: selectedStyle.id || '',
-          isRetransform: false
+          isRetransform: false,
+          transformId: result.transformId || null
         });
         hasSavedRef.current = true;  // useEffect 이중 저장 방지
         

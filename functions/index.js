@@ -468,6 +468,7 @@ function sendFCM(token, { title, body, data }) {
   getMessaging().send({
     token,
     notification: { title, body },
+    android: { priority: 'high' },
     data: data || {}
   }).then(() => {
     console.log(`📱 FCM 전송 완료`);

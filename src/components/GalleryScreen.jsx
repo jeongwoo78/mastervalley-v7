@@ -130,6 +130,18 @@ const urlToBase64 = async (url) => {
 // ========== 갤러리에 이미지 저장 (외부에서 사용) ==========
 export const saveToGallery = async (imageUrl, metadataOrStyleName, categoryNameLegacy = '') => {
   try {
+    const isMetadata = typeof metadataOrStyleName === 'object';
+    const transformId = isMetadata ? (metadataOrStyleName.transformId || null) : null;
+    
+    // ========== transformId 사전 체크 (빠른 중복 방지 — 다운로드 없이) ==========
+    if (transformId) {
+      const existingItems = await getAllImages();
+      const alreadyExists = existingItems.some(item => item.transformId === transformId);
+      if (alreadyExists) {
+        return true; // 이미 저장됨 — 이미지 다운로드 없이 즉시 반환
+      }
+    }
+    
     // URL을 Base64로 변환
     const base64Image = await urlToBase64(imageUrl);
     if (!base64Image) {
@@ -137,19 +149,19 @@ export const saveToGallery = async (imageUrl, metadataOrStyleName, categoryNameL
       return false;
     }
     
-    // ========== 중복 체크 ==========
+    // ========== base64 중복 체크 (최근 30초 이내만 — 동시 저장 충돌 방지) ==========
     const existingItems = await getAllImages();
-    const alreadyExists = existingItems.some(item => item.imageData === base64Image);
+    const recentCutoff = new Date(Date.now() - 30000).toISOString();
+    const recentItems = existingItems.filter(item => item.createdAt > recentCutoff);
+    const alreadyExists = recentItems.some(item => item.imageData === base64Image);
     if (alreadyExists) {
-      return true; // 이미 저장됨으로 처리
+      return true;
     }
-    
-    // 메타데이터 객체 또는 레거시 문자열 호환
-    const isMetadata = typeof metadataOrStyleName === 'object';
     
     const imageData = {
       id: `gallery_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
       imageData: base64Image,
+      transformId: transformId || null,
       // 신규 필드: i18n 갤러리 표시용
       category: isMetadata ? metadataOrStyleName.category : '',
       artistName: isMetadata ? metadataOrStyleName.artistName : '',
@@ -173,7 +185,7 @@ export const saveToGallery = async (imageUrl, metadataOrStyleName, categoryNameL
 
 
 // ========== 갤러리 컴포넌트 ==========
-const GalleryScreen = ({ onBack, onHome, refreshKey, lang = 'en' }) => {
+const GalleryScreen = ({ onBack, onHome, refreshKey, lang = 'en', externalLoading = false }) => {
   const [galleryItems, setGalleryItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -481,7 +493,7 @@ const GalleryScreen = ({ onBack, onHome, refreshKey, lang = 'en' }) => {
     });
   };
 
-  if (isLoading) {
+  if (isLoading || externalLoading) {
     return (
       <div style={styles.container}>
         <div style={styles.loading}>

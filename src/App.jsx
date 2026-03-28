@@ -44,6 +44,8 @@ const App = () => {
   const [currentScreen, setCurrentScreen] = useState('category');
   const prevScreenRef = useRef('category');
   const [showGallery, setShowGallery] = useState(false);
+  const [galleryLoading, setGalleryLoading] = useState(false);
+  const [galleryRefreshKey, setGalleryRefreshKey] = useState(0);
   
   // 크레딧 상태 (Firestore 실시간 구독)
   const [userCredits, setUserCredits] = useState(0);
@@ -130,9 +132,22 @@ const App = () => {
         // FCM 푸시 알림 초기화 (네이티브 앱에서만 동작)
         initFCM();
 
-        // 알림 탭 시 갤러리 열기 (저장은 ResultScreen이 담당)
-        onNotificationTap(() => {
-          setShowGallery(true);
+        // 알림 탭 시 갤러리 즉시 열기 + 복원 후 새로고침
+        onNotificationTap(async () => {
+          setGalleryLoading(true);        // 스피너 유지
+          setShowGallery(true);           // 갤러리 즉시 열기
+          
+          // 타임아웃 안전장치 (15초)
+          const timeout = setTimeout(() => {
+            setGalleryLoading(false);
+            setGalleryRefreshKey(prev => prev + 1);
+          }, 15000);
+          
+          await recoverMissedTransforms(currentUser.uid);
+          
+          clearTimeout(timeout);
+          setGalleryRefreshKey(prev => prev + 1);  // 갤러리 새로고침
+          setGalleryLoading(false);                // 스피너 해제
         });
 
         // 미수신 변환 복원 (앱 재시작 시)
@@ -190,7 +205,8 @@ const App = () => {
           movementName: data.selectedStyle?.name || '',
           workName: data.selectedWork || null,
           styleId: data.selectedStyle?.id || '',
-          isRetransform: false
+          isRetransform: false,
+          transformId: docSnap.id  // 중복 저장 방지용
         });
         if (saved) recovered++;
       }
@@ -605,12 +621,18 @@ const App = () => {
       {/* 갤러리 화면 */}
       {showGallery && (
         <GalleryScreen 
-          onBack={() => setShowGallery(false)} 
+          onBack={() => {
+            setShowGallery(false);
+            setGalleryLoading(false);  // 갤러리 닫을 때 로딩 해제
+          }} 
           onHome={() => {
             setShowGallery(false);
+            setGalleryLoading(false);
             handleReset();
           }}
           lang={lang}
+          refreshKey={galleryRefreshKey}
+          externalLoading={galleryLoading}
         />
       )}
 
