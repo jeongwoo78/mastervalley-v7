@@ -43,6 +43,7 @@ const App = () => {
   // 화면 상태: 'category' | 'photoStyle' | 'processing' | 'result' | 'addFunds' | 'menu'
   const [currentScreen, setCurrentScreen] = useState('category');
   const prevScreenRef = useRef('category');
+  const isRecoveringRef = useRef(false);  // recoverMissedTransforms 동시 실행 방지
   const [showGallery, setShowGallery] = useState(false);
   const [galleryLoading, setGalleryLoading] = useState(false);
   const [galleryRefreshKey, setGalleryRefreshKey] = useState(0);
@@ -181,6 +182,10 @@ const App = () => {
 
   // 미수신 변환 복원 (강제종료/백그라운드 복구)
   const recoverMissedTransforms = async (userId) => {
+    // 동시 실행 방지 — 알림 탭 + appStateChange가 동시에 호출해도 1회만 실행
+    if (isRecoveringRef.current) return;
+    isRecoveringRef.current = true;
+    
     try {
       // 단일 필드 쿼리 (composite index 불필요)
       const q = query(
@@ -216,6 +221,8 @@ const App = () => {
       }
     } catch (error) {
       console.error('갤러리 복원 실패:', error);
+    } finally {
+      isRecoveringRef.current = false;  // 잠금 해제
     }
   };
 
