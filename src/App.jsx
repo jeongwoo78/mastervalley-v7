@@ -46,7 +46,6 @@ const App = () => {
   const recoverPromiseRef = useRef(null);  // 진행 중인 복원 Promise 공유
   const [showGallery, setShowGallery] = useState(false);
   const [galleryLoading, setGalleryLoading] = useState(false);
-  const [galleryRefreshKey, setGalleryRefreshKey] = useState(0);
   
   // 크레딧 상태 (Firestore 실시간 구독)
   const [userCredits, setUserCredits] = useState(0);
@@ -134,22 +133,18 @@ const App = () => {
         // FCM 푸시 알림 초기화 (네이티브 앱에서만 동작)
         initFCM();
 
-        // 알림 탭 시 갤러리 즉시 열기 + 복원 후 새로고침
+        // 알림 탭 시 갤러리 즉시 열기 + 복원 후 자동 새로고침
         onNotificationTap(async () => {
-          setGalleryLoading(true);        // 스피너 유지
-          setShowGallery(true);           // 갤러리 즉시 열기
+          setGalleryLoading(true);
+          setShowGallery(true);
           
           // 타임아웃 안전장치 (15초)
-          const timeout = setTimeout(() => {
-            setGalleryLoading(false);
-            setGalleryRefreshKey(prev => prev + 1);
-          }, 15000);
+          const timeout = setTimeout(() => setGalleryLoading(false), 15000);
           
           await recoverMissedTransforms(currentUser.uid);
           
           clearTimeout(timeout);
-          setGalleryRefreshKey(prev => prev + 1);  // 갤러리 새로고침
-          setGalleryLoading(false);                // 스피너 해제
+          setGalleryLoading(false);  // → GalleryScreen이 true→false 감지 → 자동 새로고침
         });
 
         // 미수신 변환 복원 (앱 재시작 시)
@@ -644,7 +639,6 @@ const App = () => {
             handleReset();
           }}
           lang={lang}
-          refreshKey={galleryRefreshKey}
           externalLoading={galleryLoading}
         />
       )}

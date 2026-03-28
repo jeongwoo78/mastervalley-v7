@@ -1070,12 +1070,17 @@ const ResultScreen = ({
     }
     
     
-    // ========== 일본 전통회화 (1가지) ==========
+    // ========== 일본 전통회화 (2가지: 우키요에/린파) ==========
     if (styleId === 'japanese') {
-      // console.log('🇯🇵 JAPANESE ART DETECTION:');
-      // console.log('✅ MATCH: Japanese Ukiyo-e (浮世繪)');
-      // console.log('========================================');
-      // console.log('');
+      const genre = artistSource?.toLowerCase() || '';
+      
+      // 린파 감지
+      if (genre.includes('rinpa') || genre.includes('린파') || genre.includes('sotatsu') || genre.includes('korin')) {
+        return orientalEducation['japanese-rinpa']?.description 
+            || orientalEducation.japanese_default?.description;
+      }
+      
+      // 기본: 우키요에
       return orientalEducation['japanese-ukiyoe']?.description 
           || orientalEducation.japanese_default?.description;
     }

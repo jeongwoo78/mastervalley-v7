@@ -185,7 +185,7 @@ export const saveToGallery = async (imageUrl, metadataOrStyleName, categoryNameL
 
 
 // ========== 갤러리 컴포넌트 ==========
-const GalleryScreen = ({ onBack, onHome, refreshKey, lang = 'en', externalLoading = false }) => {
+const GalleryScreen = ({ onBack, onHome, lang = 'en', externalLoading = false }) => {
   const [galleryItems, setGalleryItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -311,10 +311,14 @@ const GalleryScreen = ({ onBack, onHome, refreshKey, lang = 'en', externalLoadin
     loadGallery();
   }, []);
 
-  // 백그라운드 변환 완료 시 갤러리 새로고침
+  // 알림 탭 복원 완료 시 자동 새로고침 (externalLoading true→false 전환 감지)
+  const prevExternalLoadingRef = useRef(externalLoading);
   useEffect(() => {
-    if (refreshKey > 0) loadGallery();
-  }, [refreshKey]);
+    if (prevExternalLoadingRef.current && !externalLoading) {
+      loadGallery();  // 알림 탭 → 복원 완료 시에만 새로고침
+    }
+    prevExternalLoadingRef.current = externalLoading;
+  }, [externalLoading]);
 
   // 키보드 좌우 화살표로 모달 네비게이션 (PC)
   useEffect(() => {

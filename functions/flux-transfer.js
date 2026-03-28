@@ -2186,16 +2186,20 @@ CRITICAL: Keep prompt field UNDER 150 WORDS to avoid truncation.`;
 You must choose ONE of these TWO styles:
 
 Style 1: Ukiyo-e (浮世絵) - Woodblock Print
-- Best for: people (portraits), landscapes, animals, daily life, objects
+- Best for: people (portraits), landscapes, daily life, objects
 - Characteristics: FLAT COLOR AREAS with BOLD BLACK OUTLINES, limited woodblock ink palette, CHERRY WOOD BLOCK TEXTURE, completely flat two-dimensional aesthetic
 - Sub-genres are auto-selected by subject: bijin-ga for women (Utamaro), yakusha-e for men (Sharaku), meisho-e for landscapes (Hiroshige), animal prints (Kuniyoshi)
-- When: Most subjects - people, landscapes, animals, objects, food
+- When: People, landscapes, objects, food. Also suitable for animals in dynamic/dramatic poses.
 
 Style 2: Rinpa School (琳派) - Decorative Painting
-- Best for: flowers, birds, plants, nature close-ups, botanical subjects
+- Best for: flowers, birds, plants, nature close-ups, animals (especially dogs, cats, pets)
 - Artists: Sotatsu and Korin style
 - Characteristics: GOLD LEAF BACKGROUND, TARASHIKOMI ink pooling technique, boneless color forms, stylized natural motifs (irises, plum blossoms, cranes)
-- When: Photo has flowers, birds, or botanical subjects
+- When: Photo has flowers, birds, botanical subjects, or animals. PREFERRED for animals — Rinpa's decorative gold leaf and tarashikomi technique beautifully renders fur texture and animal charm.
+
+ANIMAL STYLE GUIDE:
+- Animals (dogs, cats, pets, birds) → PREFER Rinpa (gold leaf + tarashikomi fur texture)
+- Only choose Ukiyo-e for animals in clearly dynamic/action poses or wild animals in dramatic settings
 
 Analyze the photo and choose the MOST suitable style.
 
@@ -3768,7 +3772,7 @@ export default async function handler(req, res) {
           if (skipBubble) {
             console.log('🎯 Lichtenstein detected - landscape/still → NO speech bubble');
             if (!finalPrompt.includes('Ben-Day dots')) {
-              finalPrompt = finalPrompt + `, EXTREMELY LARGE Ben-Day dots 15mm+ halftone pattern on ALL surfaces, ULTRA THICK BLACK OUTLINES 20mm+, COMIC PANEL FRAME with THICK BLACK BORDER around entire image`;
+              finalPrompt = finalPrompt + `, EXTREMELY LARGE Ben-Day dots 15mm+ halftone pattern on ALL surfaces, ULTRA THICK BLACK OUTLINES 20mm+, 40mm solid black border line around all four edges of the canvas like a comic panel`;
             }
           } else {
             console.log('🎯 Lichtenstein detected - adding speech bubble...');
@@ -3779,7 +3783,7 @@ export default async function handler(req, res) {
           
             // 프롬프트에 말풍선 + 스타일 강화 추가
             if (!finalPrompt.includes('speech bubble')) {
-              finalPrompt = finalPrompt + `, white comic speech bubble containing ONLY the exact text "${speechText}" in bold font, position bubble at least 3% away from image edges, EXTREMELY LARGE Ben-Day dots 15mm+ halftone pattern on ALL skin and surfaces, ULTRA THICK BLACK OUTLINES 20mm+, COMIC PANEL FRAME with THICK BLACK BORDER around entire image`;
+              finalPrompt = finalPrompt + `, the subject is saying "${speechText}" in a white comic speech bubble coming from the subject's mouth, EXTREMELY LARGE Ben-Day dots 15mm+ halftone pattern on ALL skin and surfaces, ULTRA THICK BLACK OUTLINES 20mm+, 40mm solid black border line around all four edges of the canvas like a comic panel, speech bubble stays inside the border`;
             }
           }
         }

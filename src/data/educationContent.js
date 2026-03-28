@@ -62,7 +62,14 @@ const STYLE_ID_ALIASES = {
   // oriental 동양화 매핑
   'korean': 'korean',
   'chinese': 'chinese',
-  'japanese': 'japanese'
+  'japanese': 'japanese',
+  'korean-minhwa': 'korean-minhwa',
+  'korean-pungsokdo': 'korean-pungsokdo',
+  'korean-jingyeong': 'korean-jingyeong',
+  'chinese-gongbi': 'chinese-gongbi',
+  'chinese-ink': 'chinese-ink',
+  'japanese-ukiyoe': 'japanese-ukiyoe',
+  'japanese-rinpa': 'japanese-rinpa'
 };
 
 // Proxy로 동적 접근 + 키 매핑 지원

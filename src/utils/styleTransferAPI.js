@@ -6,7 +6,8 @@
 
 import { MODEL_CONFIG } from './modelConfig';
 import { db, auth } from '../config/firebase';
-import { doc, onSnapshot } from 'firebase/firestore';
+import { doc, onSnapshot, getDocFromServer } from 'firebase/firestore';
+import { App as CapApp } from '@capacitor/app';
 import { getFCMToken } from './fcm';
 
 const CLOUD_FUNCTIONS_URL = 'https://us-central1-master-valley.cloudfunctions.net/startTransform';
@@ -70,7 +71,8 @@ const generateId = () => {
 };
 
 // ========================================
-// 단일 변환 (차단형) — HTTP 응답으로 결과 직접 수신
+// 단일 변환 — Firestore onSnapshot으로 결과 수신
+// (HTTP fire-and-forget + Firestore 리스닝, 백그라운드 복귀에도 안전)
 // ========================================
 
 export const processStyleTransfer = async (photoFile, selectedStyle, correctionPrompt = null, onProgress = null, fcmOptions = {}, lang = 'en') => {
@@ -88,54 +90,109 @@ export const processStyleTransfer = async (photoFile, selectedStyle, correctionP
     const transformId = generateId();
     const userId = auth.currentUser?.uid || null;
     
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 180000);
-    
-    const response = await fetch(getCloudFunctionUrl(lang), {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        image: photoBase64,
-        selectedStyle,
-        correctionPrompt: correctionPrompt || null,
-        transformId,
-        userId,
-        lang,
-        fcmToken: fcmOptions.skipFcm ? null : (getFCMToken() || null)
-      }),
-      signal: controller.signal
+    // Firestore 리스닝으로 결과 수신 (원클릭과 동일 패턴)
+    return new Promise((resolve, reject) => {
+      let resolved = false;  // 중복 resolve 방지
+      let stateListener = null;  // Capacitor appStateChange 리스너
+      
+      const cleanup = () => {
+        resolved = true;
+        unsub();
+        clearTimeout(timeoutId);
+        if (stateListener) { stateListener.remove(); stateListener = null; }
+      };
+      
+      const handleResult = async (data) => {
+        if (resolved) return;
+        
+        if (data.status === 'completed' && data.resultUrl) {
+          cleanup();
+          try {
+            const imageResponse = await fetch(data.resultUrl);
+            const blob = await imageResponse.blob();
+            const localUrl = URL.createObjectURL(blob);
+            
+            console.log(`✅ 변환 완료: ${transformId} | ${data.selectedArtist || '재변환'}`);
+            
+            resolve({
+              success: true,
+              transformId,
+              resultUrl: localUrl,
+              blob,
+              remoteUrl: data.resultUrl,
+              model: modelConfig.model,
+              cost: modelConfig.cost,
+              time: modelConfig.time,
+              aiSelectedArtist: data.selectedArtist || null,
+              selected_work: data.selectedWork || null,
+              selectionMethod: data.selectionMethod || null,
+              subjectType: data.subjectType || null,
+              selectionDetails: null
+            });
+          } catch (dlErr) {
+            resolve({ success: false, transformId, error: '이미지 다운로드 실패: ' + dlErr.message });
+          }
+        }
+        
+        if (data.status === 'failed') {
+          cleanup();
+          resolve({ success: false, transformId, error: data.error || '변환 실패' });
+        }
+      };
+      
+      const timeoutId = setTimeout(() => {
+        cleanup();
+        resolve({ success: false, transformId, error: '변환 타임아웃 (180초)' });
+      }, 180000);
+      
+      // 1) Firestore onSnapshot (실시간 감시)
+      const docRef = doc(db, 'transforms', transformId);
+      const unsub = onSnapshot(docRef, (snapshot) => {
+        if (!snapshot.exists()) return;
+        handleResult(snapshot.data());
+      }, (error) => {
+        cleanup();
+        resolve({ success: false, transformId, error: 'Firestore 리스닝 에러: ' + error.message });
+      });
+      
+      // 2) 포그라운드 복귀 시 수동 확인 (onSnapshot이 못 받았을 때 fallback)
+      CapApp.addListener('appStateChange', async ({ isActive }) => {
+        if (isActive && !resolved) {
+          try {
+            const snap = await getDocFromServer(docRef);
+            if (snap.exists()) handleResult(snap.data());
+          } catch (e) {
+            console.warn('⚠️ 포그라운드 복귀 확인 실패:', e.message);
+          }
+        }
+      }).then(listener => {
+        if (resolved) { listener.remove(); } // 이미 끝났으면 바로 제거
+        else { stateListener = listener; }   // 아직 진행 중이면 저장
+      });
+      
+      // 3) HTTP fire-and-forget (서버에 요청만 보내고 응답은 기다리지 않음)
+      fetch(getCloudFunctionUrl(), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          image: photoBase64,
+          selectedStyle,
+          correctionPrompt: correctionPrompt || null,
+          transformId,
+          userId,
+          lang,
+          fcmToken: fcmOptions.skipFcm ? null : (getFCMToken() || null)
+        })
+      }).catch(err => {
+        console.error('HTTP 전송 에러:', err);
+        setTimeout(() => {
+          if (!resolved) {
+            cleanup();
+            resolve({ success: false, transformId, error: '서버 연결 실패: ' + err.message });
+          }
+        }, 15000);
+      });
     });
-    
-    clearTimeout(timeout);
-    
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.error || `서버 에러: ${response.status}`);
-    }
-    
-    const result = await response.json();
-    
-    console.log(`✅ 변환 완료: ${transformId} | ${result.selectedArtist || '재변환'}`);
-    
-    const imageResponse = await fetch(result.resultUrl);
-    const blob = await imageResponse.blob();
-    const localUrl = URL.createObjectURL(blob);
-    
-    return {
-      success: true,
-      transformId,
-      resultUrl: localUrl,
-      blob,
-      remoteUrl: result.resultUrl,
-      model: modelConfig.model,
-      cost: modelConfig.cost,
-      time: modelConfig.time,
-      aiSelectedArtist: result.selectedArtist,
-      selected_work: result.selectedWork,
-      selectionMethod: result.selectionMethod,
-      subjectType: result.subjectType,
-      selectionDetails: null
-    };
     
   } catch (error) {
     console.error('Style transfer error:', error);
@@ -268,7 +325,7 @@ export const processFullTransform = async (photoFile, styles, selectedStyle, onP
       // HTTP 호출 (fire-and-forget)
       const userId = auth.currentUser?.uid || null;
       
-      fetch(getCloudFunctionUrl(lang), {
+      fetch(getCloudFunctionUrl(), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
