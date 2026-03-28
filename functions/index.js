@@ -235,6 +235,20 @@ async function handleSingle(req, res, params) {
   
   const docRef = db.collection('transforms').doc(transformId);
   
+  // 멱등성 체크: 이미 완료된 변환이면 중복 처리 건너뜀
+  const existing = await docRef.get();
+  if (existing.exists && existing.data().status === 'completed') {
+    console.log(`⏭️ 이미 완료된 변환, 건너뜀: ${transformId}`);
+    return res.status(200).json({
+      transformId,
+      status: 'completed',
+      resultUrl: existing.data().resultUrl,
+      selectedArtist: existing.data().selectedArtist || null,
+      selectedWork: existing.data().selectedWork || null,
+      duplicate: true
+    });
+  }
+  
   await docRef.set({
     status: 'processing',
     selectedStyle,
@@ -268,7 +282,8 @@ async function handleSingle(req, res, params) {
       sendFCM(fcmToken, {
         title: 'Master Valley',
         body,
-        data: { transformId, type: 'transform_complete' }
+        data: { transformId, type: 'transform_complete' },
+        imageUrl: result.resultUrl  // 알림에 결과 이미지 미리보기
       });
     }
     
@@ -445,10 +460,15 @@ async function handleOneClick(req, res, params) {
   
   if (fcmToken) {
     const body = buildOneclickFCMBody(lang, category);
+    const successResults = results.filter(r => r.status === 'completed' && r.resultUrl);
+    const randomSuccess = successResults.length > 0 
+      ? successResults[Math.floor(Math.random() * successResults.length)] 
+      : null;
     sendFCM(fcmToken, {
       title: 'Master Valley',
       body,
-      data: { sessionId, type: 'oneclick_complete' }
+      data: { sessionId, type: 'oneclick_complete' },
+      imageUrl: randomSuccess?.resultUrl || null  // 랜덤 성공 결과 미리보기
     });
   }
   
@@ -464,11 +484,22 @@ async function handleOneClick(req, res, params) {
 // ========================================
 // FCM 유틸 (fire-and-forget)
 // ========================================
-function sendFCM(token, { title, body, data }) {
+function sendFCM(token, { title, body, data, imageUrl }) {
+  const notification = { title, body };
+  if (imageUrl) {
+    notification.image = imageUrl;
+    console.log(`🖼️ FCM 이미지 URL: ${imageUrl.substring(0, 80)}...`);
+  }
+  
+  const androidConfig = { priority: 'high' };
+  if (imageUrl) {
+    androidConfig.notification = { image: imageUrl };  // 안드로이드 전용 이미지 설정
+  }
+  
   getMessaging().send({
     token,
-    notification: { title, body },
-    android: { priority: 'high' },
+    notification,
+    android: androidConfig,
     data: data || {}
   }).then(() => {
     console.log(`📱 FCM 전송 완료`);
