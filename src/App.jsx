@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { Preferences } from '@capacitor/preferences';
 import { App as CapApp } from '@capacitor/app';
-import { auth, db, doc, onSnapshot, updateDoc, ensureUserDoc, collection, query, where, getDocs, getDoc, orderBy, Timestamp } from './config/firebase';
+import { auth, db, doc, onSnapshot, updateDoc, ensureUserDoc, collection, query, where, getDocs, orderBy, Timestamp } from './config/firebase';
 import { setLanguage, getLanguage, t, getUi } from './i18n';
 import LoginScreen from './components/LoginScreen';
 import CategorySelection from './components/CategorySelection';
@@ -130,30 +130,8 @@ const App = () => {
         // FCM 푸시 알림 초기화 (네이티브 앱에서만 동작)
         initFCM();
 
-        // 알림 탭 시 결과 복원 후 갤러리 열기
-        onNotificationTap(async (notifData) => {
-          try {
-            const tid = notifData?.transformId;
-            if (tid) {
-              // 단일 변환: transformId로 직접 조회
-              const docSnap = await getDoc(doc(db, 'transforms', tid));
-              if (docSnap.exists()) {
-                const data = docSnap.data();
-                if (data.status === 'completed' && data.resultUrl) {
-                  await saveToGallery(data.resultUrl, {
-                    category: data.category || '',
-                    artistName: data.selectedArtist || '',
-                    movementName: '',
-                    workName: data.selectedWork || null,
-                    styleId: data.styleId || '',
-                    isRetransform: false
-                  });
-                }
-              }
-            }
-          } catch (err) {
-            console.error('알림 탭 복원 실패:', err);
-          }
+        // 알림 탭 시 갤러리 열기 (저장은 ResultScreen이 담당)
+        onNotificationTap(() => {
           setShowGallery(true);
         });
 
@@ -207,11 +185,11 @@ const App = () => {
         if (createdTime < oneHourAgo) continue;
 
         const saved = await saveToGallery(data.resultUrl, {
-          category: data.category || '',
-          artistName: data.selectedArtist || '',
-          movementName: '',
+          category: data.selectedStyle?.category || data.category || '',
+          artistName: data.selectedArtist || data.selectedStyle?.name || '',
+          movementName: data.selectedStyle?.name || '',
           workName: data.selectedWork || null,
-          styleId: data.styleId || '',
+          styleId: data.selectedStyle?.id || '',
           isRetransform: false
         });
         if (saved) recovered++;
