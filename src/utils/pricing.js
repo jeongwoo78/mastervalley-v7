@@ -8,7 +8,7 @@ const PRICES = {
     oriental: 0.20
   },
   oneclick: {
-    movements: 2.00,
+    movements: 1.99,
     masters: 1.50,
     oriental: 0.50
   },

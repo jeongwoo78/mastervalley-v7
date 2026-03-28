@@ -230,7 +230,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           font-family: 'Cormorant Garamond', Georgia, serif;
           font-size: 44px;
           font-weight: 500;
-          background: linear-gradient(135deg, #5a6a8a 20%, #7a8aa8 50%, #5a6a8a 80%);
+          background: linear-gradient(135deg, #6a7a9a 20%, #8a9ab8 50%, #6a7a9a 80%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
@@ -242,14 +242,14 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           font-family: 'Cormorant Garamond', Georgia, serif;
           font-style: italic;
           font-weight: 300;
-          color: rgba(255,255,255,0.4);
+          color: rgba(255,255,255,0.55);
           font-size: 15px;
           margin: 0;
           letter-spacing: 0.5px;
         }
 
         .brand-sub-tagline {
-          color: rgba(255,255,255,0.2);
+          color: rgba(255,255,255,0.38);
           font-size: 13px;
           margin: 6px 0 16px;
         }
