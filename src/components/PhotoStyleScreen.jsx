@@ -896,8 +896,14 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
         }
 
         .per-transform-price {
-          color: rgba(255,255,255,0.4);
-          font-size: 13px;
+          background: rgba(58,122,122,0.2);
+          border: 1px solid rgba(58,122,122,0.4);
+          border-radius: 20px;
+          padding: 4px 12px;
+          color: #6ab8a0;
+          font-size: 14px;
+          font-weight: 600;
+          white-space: nowrap;
         }
 
         .style-grid {

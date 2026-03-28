@@ -41,9 +41,13 @@ const ImageZoomViewer = ({ src, alt, style, className, onSingleTap }) => {
   };
 
   const handleTouchStart = useCallback((e) => {
+    // 확대 상태에서는 부모 스와이프 차단
+    if (scale > 1) e.stopPropagation();
+    
     // 핀치 (2손가락)
     if (e.touches.length === 2) {
       e.preventDefault();
+      e.stopPropagation();  // 핀치 중에는 항상 차단
       isPinchingRef.current = true;
       isPanningRef.current = false;
       pinchStartRef.current = getDistance(e.touches[0], e.touches[1]);
@@ -63,9 +67,13 @@ const ImageZoomViewer = ({ src, alt, style, className, onSingleTap }) => {
   }, [scale, translate]);
 
   const handleTouchMove = useCallback((e) => {
+    // 확대 상태에서는 부모 스와이프 차단
+    if (scale > 1) e.stopPropagation();
+    
     // 핀치 줌
     if (e.touches.length === 2 && isPinchingRef.current && pinchStartRef.current) {
       e.preventDefault();
+      e.stopPropagation();
       const currentDist = getDistance(e.touches[0], e.touches[1]);
       const ratio = currentDist / pinchStartRef.current;
       let newScale = pinchScaleRef.current * ratio;
@@ -97,6 +105,9 @@ const ImageZoomViewer = ({ src, alt, style, className, onSingleTap }) => {
   }, [scale, translate]);
 
   const handleTouchEnd = useCallback((e) => {
+    // 확대 상태에서는 부모 스와이프 차단
+    if (scale > 1) e.stopPropagation();
+    
     // 핀치 끝
     if (isPinchingRef.current) {
       isPinchingRef.current = false;

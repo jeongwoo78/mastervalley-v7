@@ -263,13 +263,7 @@ const App = () => {
       // 화면별 뒤로가기
       switch (currentScreen) {
         case 'result':
-          // 결과 → 스타일 선택 (카테고리/사진 유지, 다른 스타일 시도 가능)
-          setCurrentScreen('photoStyle');
-          setResultImage(null);
-          setAiSelectedArtist(null);
-          setAiSelectedWork(null);
-          setSubjectType(null);
-          setFullTransformResults(null);
+          // ResultScreen이 자체 처리 (모달→저장/공유→결과화면 나가기)
           break;
         case 'processing':
           // 변환 중 → 차단 + 토스트 메시지
@@ -713,6 +707,14 @@ const App = () => {
               transformId={currentTransformId}
               fullTransformResults={fullTransformResults}
               onReset={handleReset}
+              onBack={() => {
+                setCurrentScreen('photoStyle');
+                setResultImage(null);
+                setAiSelectedArtist(null);
+                setAiSelectedWork(null);
+                setSubjectType(null);
+                setFullTransformResults(null);
+              }}
               onGallery={() => setShowGallery(true)}
               onRetrySuccess={handleRetrySuccess}
               masterChatData={masterChatData}

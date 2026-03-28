@@ -23,8 +23,8 @@ const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
 const appleProvider = new OAuthProvider('apple.com');
 
-// 신규 유저 초기 크레딧 ($4.00)
-const INITIAL_FREE_CREDITS = 4.00;
+// 신규 유저 초기 크레딧 (폐쇄 테스트: $10.00, 프로덕션: $0.30)
+const INITIAL_FREE_CREDITS = 10.00;
 
 // 유저 문서 초기화 (첫 로그인 시 credits 필드 생성)
 const ensureUserDoc = async (userId, email) => {

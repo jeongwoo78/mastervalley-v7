@@ -6,6 +6,7 @@
 // v73: 통합 스타일 표시 함수 사용
 
 import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { App as CapApp } from '@capacitor/app';
 import BeforeAfter from './BeforeAfter';
 import MasterChat from './MasterChat';
 // v77: i18n 구조에서 교육 데이터 가져오기
@@ -50,6 +51,7 @@ const ResultScreen = ({
   transformId,
   fullTransformResults,
   onReset,
+  onBack,
   onGallery,
   onRetrySuccess,
   masterChatData: appMasterChatData,
@@ -127,6 +129,24 @@ const ResultScreen = ({
       URL.revokeObjectURL(url);
     };
   }, [originalPhoto]);
+
+  // 안드로이드 뒤로가기 — 단계별 닫기 (저장/공유메뉴 → 모달 → 결과화면 나가기)
+  useEffect(() => {
+    const handler = CapApp.addListener('backButton', () => {
+      if (showModalSaveShare) {
+        setShowModalSaveShare(false);
+        return;
+      }
+      if (showImageModal) {
+        setShowImageModal(false);
+        return;
+      }
+      // 모달 안 열려있으면 스타일 선택으로 돌아감
+      if (onBack) onBack();
+      else onReset();
+    });
+    return () => { handler.then(h => h.remove()); };
+  }, [showModalSaveShare, showImageModal]);
   
   // v72: viewIndex - Original/결과 스와이프용 (-1: Original, 0~n: 결과)
   // 단독 변환: 항상 0 (결과만 표시, 목업 준수)

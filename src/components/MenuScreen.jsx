@@ -335,7 +335,7 @@ const menuStyles = `
     text-align: center;
   }
   .header-spacer { width: 40px; }
-  .menu-section { padding: 14px 20px; }
+  .menu-section { padding: 14px 20px; padding-top: 45px; }
 
   .menu-item-svg {
     display: flex;
