@@ -2186,20 +2186,16 @@ CRITICAL: Keep prompt field UNDER 150 WORDS to avoid truncation.`;
 You must choose ONE of these TWO styles:
 
 Style 1: Ukiyo-e (浮世絵) - Woodblock Print
-- Best for: people (portraits), landscapes, daily life, objects
+- Best for: people (portraits), landscapes, animals, daily life, objects
 - Characteristics: FLAT COLOR AREAS with BOLD BLACK OUTLINES, limited woodblock ink palette, CHERRY WOOD BLOCK TEXTURE, completely flat two-dimensional aesthetic
 - Sub-genres are auto-selected by subject: bijin-ga for women (Utamaro), yakusha-e for men (Sharaku), meisho-e for landscapes (Hiroshige), animal prints (Kuniyoshi)
-- When: People, landscapes, objects, food. Also suitable for animals in dynamic/dramatic poses.
+- When: Most subjects - people, landscapes, animals, objects, food
 
 Style 2: Rinpa School (琳派) - Decorative Painting
-- Best for: flowers, birds, plants, nature close-ups, animals (especially dogs, cats, pets)
+- Best for: flowers, birds, plants, nature close-ups, botanical subjects
 - Artists: Sotatsu and Korin style
 - Characteristics: GOLD LEAF BACKGROUND, TARASHIKOMI ink pooling technique, boneless color forms, stylized natural motifs (irises, plum blossoms, cranes)
-- When: Photo has flowers, birds, botanical subjects, or animals. PREFERRED for animals — Rinpa's decorative gold leaf and tarashikomi technique beautifully renders fur texture and animal charm.
-
-ANIMAL STYLE GUIDE:
-- Animals (dogs, cats, pets, birds) → PREFER Rinpa (gold leaf + tarashikomi fur texture)
-- Only choose Ukiyo-e for animals in clearly dynamic/action poses or wild animals in dramatic settings
+- When: Photo has flowers, birds, or botanical subjects
 
 Analyze the photo and choose the MOST suitable style.
 
