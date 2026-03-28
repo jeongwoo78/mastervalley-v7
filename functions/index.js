@@ -125,12 +125,11 @@ function getMessages(lang) {
 // 단일 변환 FCM 메시지 생성
 function buildSingleFCMBody(lang, category, artistName, styleName) {
   const m = getMessages(lang);
-  const name = artistName || styleName || '';
   
-  if (category === 'movements') return m.singleMovement(name);
-  if (category === 'masters') return m.singleMaster(name);
-  if (category === 'oriental') return m.singleOriental(name);
-  return m.singleMaster(name); // fallback
+  if (category === 'movements') return m.singleMovement(styleName || artistName || '');
+  if (category === 'masters') return m.singleMaster(artistName || styleName || '');
+  if (category === 'oriental') return m.singleOriental(styleName || artistName || '');
+  return m.singleMaster(artistName || styleName || ''); // fallback
 }
 
 // 원클릭 FCM 메시지 생성
