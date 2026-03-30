@@ -136,21 +136,19 @@ const App = () => {
         // FCM 푸시 알림 초기화 (네이티브 앱에서만 동작)
         initFCM();
 
-        // 알림 탭 시 복원 완료 후 갤러리 열기
+        // 알림 탭 시 갤러리 즉시 열기 + 복원 후 새로고침
         onNotificationTap(async () => {
-          // 타임아웃 안전장치 (15초)
-          const timeout = setTimeout(() => {
-            setShowGallery(true);
-            setGalleryLoading(false);
-          }, 15000);
-          
-          await recoverMissedTransforms(currentUser.uid);
-          await new Promise(r => setTimeout(r, 300));
-          
-          clearTimeout(timeout);
           setGalleryLoading(true);
           setShowGallery(true);
-          setTimeout(() => setGalleryLoading(false), 100);
+          
+          const timeout = setTimeout(() => setGalleryLoading(false), 15000);
+          
+          await recoverMissedTransforms(currentUser.uid);
+          
+          clearTimeout(timeout);
+          // true→false 전환으로 GalleryScreen 새로고침 트리거
+          setGalleryLoading(true);
+          setTimeout(() => setGalleryLoading(false), 150);
         });
 
         // 미수신 변환 복원 (앱 재시작 시)
