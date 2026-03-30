@@ -649,16 +649,14 @@ const ARTIST_WEIGHTS = {
   // 모더니즘 (5명) - v71: 초상화/커플 비중 균등화
   modernism: {
     portrait: [
-      { name: 'LICHTENSTEIN', weight: 25 },
-      { name: 'CHAGALL', weight: 25 },
-      { name: 'PICASSO', weight: 25 },
-      { name: 'MAGRITTE', weight: 25 }
+      { name: 'LICHTENSTEIN', weight: 33 },
+      { name: 'CHAGALL', weight: 33 },
+      { name: 'PICASSO', weight: 34 }
     ],
     couple: [
-      { name: 'CHAGALL', weight: 30 },
-      { name: 'LICHTENSTEIN', weight: 30 },
-      { name: 'PICASSO', weight: 20 },
-      { name: 'MAGRITTE', weight: 20 }
+      { name: 'CHAGALL', weight: 35 },
+      { name: 'LICHTENSTEIN', weight: 35 },
+      { name: 'PICASSO', weight: 30 }
     ],
     group: [
       { name: 'CHAGALL', weight: 35 },
@@ -671,16 +669,14 @@ const ARTIST_WEIGHTS = {
       { name: 'MIRÓ', weight: 40 }
     ],
     stillLife: [
-      { name: 'PICASSO', weight: 15 },
-      { name: 'LICHTENSTEIN', weight: 35 },
-      { name: 'MIRÓ', weight: 35 },
-      { name: 'MAGRITTE', weight: 15 }
+      { name: 'PICASSO', weight: 20 },
+      { name: 'LICHTENSTEIN', weight: 40 },
+      { name: 'MIRÓ', weight: 40 }
     ],
     default: [
-      { name: 'CHAGALL', weight: 30 },
-      { name: 'LICHTENSTEIN', weight: 30 },
-      { name: 'PICASSO', weight: 25 },
-      { name: 'MAGRITTE', weight: 15 }
+      { name: 'CHAGALL', weight: 35 },
+      { name: 'LICHTENSTEIN', weight: 35 },
+      { name: 'PICASSO', weight: 30 }
     ]
   },
   
@@ -1681,10 +1677,10 @@ function getExpressionismHints(photoAnalysis) {
 function getModernismGuidelines() {
   return `
 CRITICAL RESTRICTION 
-YOU MUST ONLY SELECT FROM THE 6 ARTISTS LISTED BELOW!
+YOU MUST ONLY SELECT FROM THE 5 ARTISTS LISTED BELOW!
 DO NOT select artists from other movements (Expressionism, Fauvism, Impressionism, etc.)
-ONLY these 6 artists: PICASSO, MAGRITTE, MIRÓ, CHAGALL, LICHTENSTEIN, HARING!
-FORBIDDEN: Boccioni, Mondrian, Man Ray, Dalí, Frida Kahlo, Braque, Munch, Matisse, Warhol, etc.
+ONLY these 5 artists: PICASSO, MIRÓ, CHAGALL, LICHTENSTEIN!
+FORBIDDEN: Magritte, Haring, Boccioni, Mondrian, Man Ray, Dalí, Frida Kahlo, Braque, Munch, Matisse, Warhol, etc.
 
 Available 20th Century Modernism Artists:
 
@@ -1693,15 +1689,13 @@ Available 20th Century Modernism Artists:
    - Masterwork: "Portrait of Dora Maar" - Cubist double profile, vibrant colors
 
 === SURREALISM ===
-2. MAGRITTE - Philosophical paradox, multiplication of figures
-   - Masterwork: "Golconda" - Identical men in bowler hats floating, Belgian townhouses
-3. MIRÓ - Playful biomorphic forms, childlike symbols, primary colors (LANDSCAPE/STILL LIFE ONLY)
+2. MIRÓ - Playful biomorphic forms, childlike symbols, primary colors (LANDSCAPE/STILL LIFE ONLY)
    - Masterworks: "Catalan Landscape", "Constellations", "Blue Star" ← SELECT ONE ONLY!
-4. CHAGALL - Soft dreamy floating figures, muted pastel colors
+3. CHAGALL - Soft dreamy floating figures, muted pastel colors
    - Masterworks: "Lovers with Flowers", "La Branche" ← SELECT ONE ONLY!
 
 === POP ART ===
-5. LICHTENSTEIN - Ben-Day dots, comic book style
+4. LICHTENSTEIN - Ben-Day dots, comic book style
    - Masterworks: "Drowning Girl", "Whaam!", "Hopeless" ← SELECT ONE ONLY!
 
 CRITICAL: You MUST select a masterwork from the exact list above! Do NOT invent new titles!
@@ -1711,29 +1705,29 @@ PHOTO TYPE WEIGHT GUIDE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 SINGLE PORTRAIT:
-   PICASSO 30%, MAGRITTE 35%, LICHTENSTEIN 35%
-   CHAGALL, MIRÓ EXCLUDE
+   PICASSO 33%, CHAGALL 33%, LICHTENSTEIN 34%
+   MIRÓ EXCLUDE
 
 COUPLE (couple, 2 people):
-   PICASSO 25%, CHAGALL 30%, MAGRITTE 20%, LICHTENSTEIN 25%
+   CHAGALL 35%, LICHTENSTEIN 35%, PICASSO 30%
    MIRÓ EXCLUDE
 
 GROUP 3+ (group, 3+ people):
    PICASSO 30%, CHAGALL 35%, LICHTENSTEIN 35%
-   MAGRITTE, MIRÓ EXCLUDE
+   MIRÓ EXCLUDE
 
 LANDSCAPE:
    CHAGALL 40%, MIRÓ 40%, PICASSO 20%
-   MAGRITTE, LICHTENSTEIN EXCLUDE
+   LICHTENSTEIN EXCLUDE
 
 STILL LIFE:
-   PICASSO 30%, MAGRITTE 35%, MIRÓ 35%
-   CHAGALL, LICHTENSTEIN EXCLUDE
+   PICASSO 20%, LICHTENSTEIN 40%, MIRÓ 40%
+   CHAGALL EXCLUDE
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-FINAL REMINDER: ONLY these 5 artists are valid:
-PICASSO, MAGRITTE, MIRÓ, CHAGALL, LICHTENSTEIN
+FINAL REMINDER: ONLY these 4 artists are valid:
+PICASSO, MIRÓ, CHAGALL, LICHTENSTEIN
 `;
 }
 
@@ -2682,11 +2676,10 @@ const MALE_SUITABLE_ARTISTS_BY_CATEGORY = {
     { name: 'KANDINSKY', weight: 15 }
   ],
   'modernism': [
-    // v70: 키스해링 삭제, 피카소↓ 샤갈 추가
-    { name: 'CHAGALL', weight: 30 },
-    { name: 'LICHTENSTEIN', weight: 25 },
-    { name: 'PICASSO', weight: 25 },
-    { name: 'MAGRITTE', weight: 20 }
+    // v70: 키스해링 삭제, 피카소↓ 샤갈 추가, v85: 마그리트 제거
+    { name: 'CHAGALL', weight: 35 },
+    { name: 'LICHTENSTEIN', weight: 35 },
+    { name: 'PICASSO', weight: 30 }
   ],
   'neoclassicism': [
     // 여성 편향 없음 (INGRES는 여성 인물 잘 그리지만 남성도 잘 그림)
