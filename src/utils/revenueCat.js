@@ -5,8 +5,8 @@
 import { Capacitor } from '@capacitor/core';
 
 // RevenueCat API Keys (RevenueCat Dashboard → API Keys)
-const RC_API_KEY_APPLE = 'appl_XXXXXXXXXXXXXXXXXX';   // TODO: 실제 키로 교체
-const RC_API_KEY_GOOGLE = 'goog_XXXXXXXXXXXXXXXXXX';   // TODO: 실제 키로 교체
+const RC_API_KEY_APPLE = 'appl_nyWDTETegiwVbaPHOyJESyNcqWI';
+const RC_API_KEY_GOOGLE = 'goog_LtCSYKubyIwclSHlSkiEiozHmEJ';
 
 // 상품 ID ↔ 크레딧 매핑 (App Store / Google Play 등록 상품과 일치)
 export const PRODUCT_MAP = {

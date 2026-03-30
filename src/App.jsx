@@ -88,9 +88,12 @@ const App = () => {
         if (value) {
           setLang(value);
           setLanguage(value);
+        } else {
+          setLanguage(lang);
         }
       } catch (e) {
         console.log('Failed to load language setting');
+        setLanguage(lang);
       }
     };
     loadSavedLanguage();
@@ -157,8 +160,8 @@ const App = () => {
             const data = snapshot.data();
             setUserCredits(data.credits ?? 0);
             setAiConsentGiven(data.aiConsent === true);
-            setCreditsLoaded(true);
           }
+          setCreditsLoaded(true);
         }, (error) => {
           console.error('Credits subscription error:', error);
           setCreditsLoaded(true);  // 에러 시에도 로딩 완료 처리
@@ -547,8 +550,8 @@ const App = () => {
     }
   };
 
-  // 로딩 중
-  if (authLoading) {
+  // 로딩 중 (인증 + 로그인 유저는 크레딧까지)
+  if (authLoading || (user && !creditsLoaded)) {
     return (
       <div className="auth-loading">
         <div className="loading-spinner"></div>

@@ -30,7 +30,7 @@ const fileToBase64 = async (file) => {
 };
 
 const resizeImage = async (file, maxWidth = 1024) => {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     const img = new Image();
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
@@ -49,11 +49,16 @@ const resizeImage = async (file, maxWidth = 1024) => {
       ctx.drawImage(img, 0, 0, width, height);
       
       canvas.toBlob((blob) => {
-        resolve(new File([blob], file.name, { type: 'image/jpeg' }));
+        resolve(new File([blob], file.name || 'photo.jpg', { type: 'image/jpeg' }));
       }, 'image/jpeg', 0.95);
     };
     
-    img.src = URL.createObjectURL(file);
+    img.onerror = () => reject(new Error('Image load failed'));
+    
+    const reader = new FileReader();
+    reader.onloadend = () => { img.src = reader.result; };
+    reader.onerror = () => reject(new Error('FileReader failed'));
+    reader.readAsDataURL(file);
   });
 };
 

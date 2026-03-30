@@ -297,14 +297,14 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
     const idx = categoryOrder.indexOf(activeCategory);
     const pw = PAGE_W_REF.current;
 
-    // 첫 번째 카테고리에서 오른쪽 스와이프 → 홈으로 (RTL: 왼쪽)
-    const backDx = lang === 'ar' ? -dx : dx;
-    const backVel = lang === 'ar' ? -velocity : velocity;
+    // 첫 번째 카테고리에서 오른쪽 스와이프 → 홈으로
+    const backDx = dx;
+    const backVel = velocity;
     if (idx === 0 && backDx > 0 && (backVel > 0.6 || backDx > pw * 0.35)) {
       // 슬라이드 아웃 애니메이션 후 홈으로
       if (screenRef.current) {
         screenRef.current.style.transition = 'transform 0.3s ease-out, opacity 0.3s ease-out';
-        screenRef.current.style.transform = 'translateX(100%)';
+        screenRef.current.style.transform = lang === 'ar' ? 'translateX(-100%)' : 'translateX(100%)';
         screenRef.current.style.opacity = '0';
         setTimeout(() => onBack?.(), 280);
       } else {
@@ -464,7 +464,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
       {/* 카테고리 탭 바 (< + 텍스트 탭) */}
       <div className="category-tab-bar">
         <button className="tab-back-btn" onClick={onBack}>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={lang === 'ar' ? { transform: 'scaleX(-1)' } : {}}><path d="m15 18-6-6 6-6"/></svg>
         </button>
         <div className="tab-list">
           {categoryOrder.map((cat, i) => (

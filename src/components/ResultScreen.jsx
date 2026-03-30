@@ -123,11 +123,9 @@ const ResultScreen = ({
       setOriginalPhotoUrl(null);
       return;
     }
-    const url = URL.createObjectURL(originalPhoto);
-    setOriginalPhotoUrl(url);
-    return () => {
-      URL.revokeObjectURL(url);
-    };
+    const reader = new FileReader();
+    reader.onloadend = () => setOriginalPhotoUrl(reader.result);
+    reader.readAsDataURL(originalPhoto);
   }, [originalPhoto]);
 
   // 안드로이드 뒤로가기 — 단계별 닫기 (저장/공유메뉴 → 모달 → 결과화면 나가기)
