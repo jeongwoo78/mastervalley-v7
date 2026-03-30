@@ -446,7 +446,7 @@ const ResultScreen = ({
               styleId: result.style?.id || selectedStyle?.id || '',
               isRetransform: false,
               transformId: result.transformId || null,
-              savedAt: new Date(baseTime + i).toISOString()
+              savedAt: new Date(baseTime + i * 100).toISOString()
             });
           }
         }

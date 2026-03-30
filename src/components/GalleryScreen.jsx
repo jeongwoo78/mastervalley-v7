@@ -75,6 +75,29 @@ const saveImage = async (imageData) => {
   }
 };
 
+// createdAt 업데이트 (원클릭 순서 보정용)
+const updateCreatedAt = async (id, newCreatedAt) => {
+  try {
+    const db = await openDB();
+    return new Promise((resolve, reject) => {
+      const transaction = db.transaction(STORE_NAME, 'readwrite');
+      const store = transaction.objectStore(STORE_NAME);
+      const getReq = store.get(id);
+      getReq.onsuccess = () => {
+        const item = getReq.result;
+        if (item) {
+          item.createdAt = newCreatedAt;
+          store.put(item);
+        }
+        resolve(true);
+      };
+      getReq.onerror = () => resolve(false);
+    });
+  } catch (error) {
+    return false;
+  }
+};
+
 // 이미지 삭제
 const deleteImage = async (id) => {
   try {
@@ -138,9 +161,13 @@ export const saveToGallery = async (imageUrl, metadataOrStyleName, categoryNameL
     // ========== transformId 사전 체크 (빠른 중복 방지 — 다운로드 없이) ==========
     if (transformId) {
       const existingItems = await getAllImages();
-      const alreadyExists = existingItems.some(item => item.transformId === transformId);
-      if (alreadyExists) {
-        return true; // 이미 저장됨 — 이미지 다운로드 없이 즉시 반환
+      const existing = existingItems.find(item => item.transformId === transformId);
+      if (existing) {
+        // 중복이지만 savedAt이 있으면 순서 보정 (원클릭 갤러리 정렬용)
+        if (isMetadata && metadataOrStyleName.savedAt) {
+          await updateCreatedAt(existing.id, metadataOrStyleName.savedAt);
+        }
+        return true;
       }
     }
     
