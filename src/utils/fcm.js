@@ -7,6 +7,7 @@ import { db, auth } from '../config/firebase';
 import { doc, updateDoc } from 'firebase/firestore';
 
 let fcmToken = null;
+let fcmInitialized = false;
 let onNotificationTapCallback = null;
 let pendingNotification = null;  // 콜백 등록 전 도착한 알림 탭 저장
 
@@ -24,6 +25,9 @@ export function hasPendingNotification() {
 }
 
 export async function initFCM() {
+  if (fcmInitialized) return;
+  fcmInitialized = true;
+
   if (!Capacitor.isNativePlatform()) {
     console.log('📱 FCM: 웹 환경 - 푸시 알림 미지원');
     return;

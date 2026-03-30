@@ -297,9 +297,9 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
     const idx = categoryOrder.indexOf(activeCategory);
     const pw = PAGE_W_REF.current;
 
-    // 첫 번째 카테고리에서 오른쪽 스와이프 → 홈으로
-    const backDx = dx;
-    const backVel = velocity;
+    // 첫 번째 카테고리에서 홈으로 (LTR: 오른쪽 스와이프, RTL: 왼쪽 스와이프)
+    const backDx = lang === 'ar' ? -dx : dx;
+    const backVel = lang === 'ar' ? -velocity : velocity;
     if (idx === 0 && backDx > 0 && (backVel > 0.6 || backDx > pw * 0.35)) {
       // 슬라이드 아웃 애니메이션 후 홈으로
       if (screenRef.current) {
@@ -314,11 +314,12 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
     }
 
     let target = idx;
+    const swipeDir = lang === 'ar' ? -1 : 1;
 
     if (Math.abs(velocity) > 0.3) {
-      target = velocity < 0 ? idx + 1 : idx - 1;
+      target = velocity < 0 ? idx + swipeDir : idx - swipeDir;
     } else if (Math.abs(dx) > pw * 0.2) {
-      target = dx < 0 ? idx + 1 : idx - 1;
+      target = dx < 0 ? idx + swipeDir : idx - swipeDir;
     }
 
     snapToPage(target);
@@ -353,7 +354,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
                   style={{
                     zIndex: idx + 1,
                     borderColor: `${cat.accent}88`,
-                    marginRight: noOverlap
+                    marginInlineEnd: noOverlap
                       ? (idx < count - 1 ? '8px' : 0)
                       : (idx < count - 1 ? `calc((100% - ${thumbSize * count}px) / ${count - 1})` : 0)
                   }}
@@ -781,7 +782,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
         }
 
         .ft-thumb:last-child {
-          margin-right: 0 !important;
+          margin-inline-end: 0 !important;
         }
 
         .ft-thumb-circle {
