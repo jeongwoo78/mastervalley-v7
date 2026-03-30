@@ -431,7 +431,9 @@ const ResultScreen = ({
     if (isFullTransform) {
       // 모든 Save result
       const saveAllResults = async () => {
-        for (const result of fullTransformResults) {
+        const baseTime = Date.now();
+        for (let i = 0; i < fullTransformResults.length; i++) {
+          const result = fullTransformResults[i];
           if (result?.success && result.resultUrl) {
             const category = result.style?.category || selectedStyle?.category;
             const rawName = result.aiSelectedArtist || result.style?.name || 'Converted Image';
@@ -443,9 +445,9 @@ const ResultScreen = ({
               workName,
               styleId: result.style?.id || selectedStyle?.id || '',
               isRetransform: false,
-              transformId: result.transformId || null
+              transformId: result.transformId || null,
+              savedAt: new Date(baseTime + i).toISOString()
             });
-            await new Promise(r => setTimeout(r, 15));
           }
         }
         // console.log('✅ 원클릭 결과 모두 갤러리에 저장됨');

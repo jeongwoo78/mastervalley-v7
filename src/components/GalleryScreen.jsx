@@ -174,7 +174,7 @@ export const saveToGallery = async (imageUrl, metadataOrStyleName, categoryNameL
       // 레거시 호환 필드
       styleName: isMetadata ? (metadataOrStyleName.artistName || 'Converted Image') : metadataOrStyleName,
       categoryName: isMetadata ? (metadataOrStyleName.category || '') : categoryNameLegacy,
-      createdAt: new Date().toISOString()
+      createdAt: (isMetadata && metadataOrStyleName.savedAt) ? metadataOrStyleName.savedAt : new Date().toISOString()
     };
     
     const saved = await saveImage(imageData);
