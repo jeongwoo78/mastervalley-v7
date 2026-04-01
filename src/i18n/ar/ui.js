@@ -63,7 +63,7 @@ export const ui = {
     japanese: 'الرسم الياباني',
     koreanSub: 'مينهوا · بونغسوكدو',
     chineseSub: 'حبر مائي · غونغبي',
-    japaneseSub: 'أوكييو-إي · رينبا'
+    japaneseSub: 'أوكييو-إي · رينبا',
     artNotice: 'قد تتضمن النتائج عري فني يعكس الأعمال الفنية الأصلية.',
   },
 

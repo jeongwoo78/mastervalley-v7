@@ -62,7 +62,7 @@ export const ui = {
     japanese: 'Japanese',
     koreanSub: 'Minhwa · Pungsokdo',
     chineseSub: 'Ink wash · Gongbi',
-    japaneseSub: 'Ukiyo-e · Rinpa'
+    japaneseSub: 'Ukiyo-e · Rinpa',
     artNotice: 'Results may include artistic nudity reflecting the original masterworks.',
   },
 

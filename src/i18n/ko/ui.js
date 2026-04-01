@@ -62,7 +62,7 @@ export const ui = {
     japanese: '일본화',
     koreanSub: '민화 · 풍속도',
     chineseSub: '수묵화 · 공필화',
-    japaneseSub: '우키요에 · 린파'
+    japaneseSub: '우키요에 · 린파',
     artNotice: '명화 원작의 특성상, 변환 결과에 예술적 누드가 포함될 수 있습니다.',
   },
 

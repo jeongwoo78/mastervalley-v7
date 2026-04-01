@@ -61,7 +61,7 @@ export const ui = {
     japanese: 'Japon Resmi',
     koreanSub: 'Minhwa · Pungsokdo',
     chineseSub: 'Mürekkep Yıkama · Gongbi',
-    japaneseSub: 'Ukiyo-e · Rinpa'
+    japaneseSub: 'Ukiyo-e · Rinpa',
     artNotice: 'Sonuçlar, orijinal başyapıtları yansıtan sanatsal çıplaklık içerebilir.',
   },
 

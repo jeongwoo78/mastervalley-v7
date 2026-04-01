@@ -63,7 +63,7 @@ export const ui = {
     japanese: 'Peinture japonaise',
     koreanSub: 'Minhwa · Pungsokdo',
     chineseSub: 'Encre · Gongbi',
-    japaneseSub: 'Ukiyo-e · Rinpa'
+    japaneseSub: 'Ukiyo-e · Rinpa',
     artNotice: 'Les résultats peuvent inclure de la nudité artistique reflétant les œuvres originales.',
   },
 

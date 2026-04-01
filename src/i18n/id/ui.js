@@ -63,7 +63,7 @@ export const ui = {
     japanese: 'Lukisan Jepang',
     koreanSub: 'Minhwa · Pungsokdo',
     chineseSub: 'Tinta · Gongbi',
-    japaneseSub: 'Ukiyo-e · Rinpa'
+    japaneseSub: 'Ukiyo-e · Rinpa',
     artNotice: 'Hasil dapat mencakup ketelanjangan artistik yang mencerminkan karya agung asli.',
   },
 

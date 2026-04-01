@@ -63,7 +63,7 @@ export const ui = {
     japanese: '日本畫',
     koreanSub: '民畫・風俗圖',
     chineseSub: '水墨畫・工筆畫',
-    japaneseSub: '浮世繪・琳派'
+    japaneseSub: '浮世繪・琳派',
     artNotice: '因名畫原作之特性，轉換結果可能包含藝術性裸體。',
   },
 
