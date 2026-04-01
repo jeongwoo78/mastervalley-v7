@@ -1,7 +1,11 @@
 // Firebase 설정 - Master Valley
+// v85: iOS Capacitor gapi CORS 에러 해결
+// 네이티브 → initializeAuth + indexedDBLocalPersistence (gapi 우회)
+// 웹 → 기존 getAuth (gapi.iframes 정상 작동)
 import { initializeApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider, OAuthProvider } from 'firebase/auth';
+import { getAuth, initializeAuth, indexedDBLocalPersistence, GoogleAuthProvider, OAuthProvider } from 'firebase/auth';
 import { getFirestore, doc, onSnapshot, setDoc, getDoc, updateDoc, collection, query, where, getDocs, orderBy, Timestamp } from 'firebase/firestore';
+import { Capacitor } from '@capacitor/core';
 
 // Firebase 설정값 (Firebase Console에서 가져옴)
 const firebaseConfig = {
@@ -16,7 +20,17 @@ const firebaseConfig = {
 
 // Firebase 초기화
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+
+// v85: 네이티브(iOS/Android) → gapi 로드 우회
+let auth;
+if (Capacitor.isNativePlatform()) {
+  auth = initializeAuth(app, {
+    persistence: indexedDBLocalPersistence
+  });
+} else {
+  auth = getAuth(app);
+}
+
 const db = getFirestore(app);
 
 // 로그인 제공자

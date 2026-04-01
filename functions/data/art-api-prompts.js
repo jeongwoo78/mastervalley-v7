@@ -1753,7 +1753,8 @@ export function getArtistMasterworkList(artistKey) {
     'derain': ['derain-collioure', 'derain-charingcross', 'derain-matisse'],
     'vlaminck': ['vlaminck-chatou', 'vlaminck-redtrees', 'vlaminck-bougival'],
     'klimt': ['klimt-kiss', 'klimt-judith', 'klimt-treeoflife'],
-    'munch': ['munch-scream', 'munch-madonna', 'munch-danceoflife'],
+    // v85: munch-danceoflife 선정 제외 (특징 미반영 — 프롬프트 데이터는 유지)
+    'munch': ['munch-scream', 'munch-madonna'],
     'kokoschka': ['kokoschka-bride', 'kokoschka-degenerate', 'kokoschka-double'],
     // kirchner-oldwomen 삭제됨
     'kirchner': ['kirchner-berlin', 'kirchner-soldier'],
@@ -1830,8 +1831,7 @@ KLIMT - SELECT ONE:
   'munch': `
 MUNCH - SELECT ONE:
 1. "The Scream" → anxiety, fear, distress, tension, surprise → MALE or FEMALE | Style: wavy lines, blood-red sky
-2. "Madonna" → calm, dreamy, mysterious, sensual → FEMALE ONLY | Style: flowing hair, dark aura
-3. "The Dance of Life" → GROUP (2+ people), celebration | Style: pale figures, dark shore`,
+2. "Madonna" → calm, dreamy, mysterious, sensual → FEMALE ONLY | Style: flowing hair, dark aura`,
 
   'matisse': `
 MATISSE - SELECT ONE:
