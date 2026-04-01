@@ -18,7 +18,6 @@ import InsufficientBalancePopup from './components/InsufficientBalancePopup';
 // TransformBanner — v2 (컴포넌트 미구현, 출시 후 추가)
 import { getTransformCost } from './utils/pricing';
 import { deductCredit } from './utils/styleTransferAPI';
-import transformManager from './utils/transformManager';
 import { initRevenueCat } from './utils/revenueCat';
 import { initFCM } from './utils/fcm';
 import './styles/App.css';
@@ -240,11 +239,6 @@ const App = () => {
 
   // 변환 시작 공통 로직 (잔액 체크 포함)
   const startTransform = (photo, style) => {
-    // 동시 변환 제한 체크 (최대 4건)
-    if (!transformManager.canStartNew()) {
-      alert(`동시 변환은 최대 ${transformManager.MAX_CONCURRENT}건까지 가능합니다. 완료 후 다시 시도해 주세요.`);
-      return;
-    }
     const cost = getTransformCost(style);
     if (cost > 0 && userCredits < cost) {
       setRequiredAmount(cost);
