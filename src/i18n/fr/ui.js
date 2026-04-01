@@ -64,6 +64,7 @@ export const ui = {
     koreanSub: 'Minhwa · Pungsokdo',
     chineseSub: 'Encre · Gongbi',
     japaneseSub: 'Ukiyo-e · Rinpa'
+    artNotice: 'Les résultats peuvent inclure de la nudité artistique reflétant les œuvres originales.',
   },
 
   // ===== Processing =====
@@ -150,7 +151,7 @@ export const ui = {
     confirmDelete: 'Supprimer cette image ?',
     confirmDeleteAll: 'Supprimer toutes les images ?\nCette action est irréversible.',
     savedToGallery: 'Enregistré dans la galerie !',
-    savedToFiles: 'Enregistré !\n📁 App Fichiers → Documents → MasterValley',
+    savedToFiles: 'Enregistré !\nDocuments → MasterValley',
     saveFailed: 'Échec de l\'enregistrement',
     shareTitle: 'Œuvre Master Valley',
     shareText: 'Découvrez mon œuvre d\'art IA créée avec Master Valley !',

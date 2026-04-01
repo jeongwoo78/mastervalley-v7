@@ -63,6 +63,7 @@ export const ui = {
     koreanSub: 'Minhwa · Pungsokdo',
     chineseSub: 'Ink wash · Gongbi',
     japaneseSub: 'Ukiyo-e · Rinpa'
+    artNotice: 'Results may include artistic nudity reflecting the original masterworks.',
   },
 
   // ===== Processing =====
@@ -149,7 +150,7 @@ export const ui = {
     confirmDelete: 'Delete this image?',
     confirmDeleteAll: 'Delete all images?\nThis cannot be undone.',
     savedToGallery: 'Saved to Gallery!',
-    savedToFiles: 'Saved!\n📁 Files app → Documents → MasterValley',
+    savedToFiles: 'Saved!\nDocuments → MasterValley',
     saveFailed: 'Save failed',
     shareTitle: 'Master Valley Art',
     shareText: 'Check out my AI masterpiece from Master Valley!',

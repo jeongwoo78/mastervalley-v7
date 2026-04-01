@@ -64,6 +64,7 @@ export const ui = {
     koreanSub: 'Minhwa · Pungsokdo',
     chineseSub: 'Tinta · Gongbi',
     japaneseSub: 'Ukiyo-e · Rinpa'
+    artNotice: 'Los resultados pueden incluir desnudo artístico que refleja las obras maestras originales.',
   },
 
   // ===== Processing =====
@@ -150,7 +151,7 @@ export const ui = {
     confirmDelete: '¿Eliminar esta imagen?',
     confirmDeleteAll: '¿Eliminar todas las imágenes?\nEsta acción no se puede deshacer.',
     savedToGallery: '¡Guardado en la galería!',
-    savedToFiles: '¡Guardado!\n📁 App Archivos → Documentos → MasterValley',
+    savedToFiles: '¡Guardado!\nDocuments → MasterValley',
     saveFailed: 'Error al guardar',
     shareTitle: 'Obra de Master Valley',
     shareText: '¡Descubre mi obra de arte AI creada con Master Valley!',

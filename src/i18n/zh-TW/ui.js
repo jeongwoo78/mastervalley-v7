@@ -64,6 +64,7 @@ export const ui = {
     koreanSub: '民畫・風俗圖',
     chineseSub: '水墨畫・工筆畫',
     japaneseSub: '浮世繪・琳派'
+    artNotice: '因名畫原作之特性，轉換結果可能包含藝術性裸體。',
   },
 
   // ===== Processing =====
@@ -150,7 +151,7 @@ export const ui = {
     confirmDelete: '要刪除此圖片嗎？',
     confirmDeleteAll: '要刪除所有圖片嗎？\n此操作無法復原。',
     savedToGallery: '已儲存至相簿！',
-    savedToFiles: '已儲存！\n📁 檔案App → 文件 → MasterValley',
+    savedToFiles: '已儲存！\nDocuments → MasterValley',
     saveFailed: '儲存失敗',
     shareTitle: 'Master Valley 作品',
     shareText: '來看看我用Master Valley製作的AI名畫！',

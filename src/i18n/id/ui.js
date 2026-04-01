@@ -64,6 +64,7 @@ export const ui = {
     koreanSub: 'Minhwa · Pungsokdo',
     chineseSub: 'Tinta · Gongbi',
     japaneseSub: 'Ukiyo-e · Rinpa'
+    artNotice: 'Hasil dapat mencakup ketelanjangan artistik yang mencerminkan karya agung asli.',
   },
 
   // ===== Processing =====
@@ -150,7 +151,7 @@ export const ui = {
     confirmDelete: 'Hapus gambar ini?',
     confirmDeleteAll: 'Hapus semua gambar?\nTindakan ini tidak dapat dibatalkan.',
     savedToGallery: 'Tersimpan di galeri!',
-    savedToFiles: 'Tersimpan!\n📁 Aplikasi File → Dokumen → MasterValley',
+    savedToFiles: 'Tersimpan!\nDocuments → MasterValley',
     saveFailed: 'Gagal menyimpan',
     shareTitle: 'Karya Master Valley',
     shareText: 'Lihat karya seni AI yang saya buat dengan Master Valley!',

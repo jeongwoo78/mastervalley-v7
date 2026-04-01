@@ -63,6 +63,7 @@ export const ui = {
     koreanSub: '민화 · 풍속도',
     chineseSub: '수묵화 · 공필화',
     japaneseSub: '우키요에 · 린파'
+    artNotice: '명화 원작의 특성상, 변환 결과에 예술적 누드가 포함될 수 있습니다.',
   },
 
   // ===== Processing =====
@@ -149,7 +150,7 @@ export const ui = {
     confirmDelete: '이 이미지를 삭제할까요?',
     confirmDeleteAll: '모든 이미지를 삭제할까요?\n이 작업은 취소할 수 없습니다.',
     savedToGallery: '갤러리에 저장되었습니다!',
-    savedToFiles: '저장되었습니다!\n📁 파일 앱 → Documents → MasterValley',
+    savedToFiles: '저장되었습니다!\nDocuments → MasterValley',
     saveFailed: '저장에 실패했습니다',
     shareTitle: 'Master Valley 작품',
     shareText: 'Master Valley로 만든 거장의 새로운 명화',

@@ -62,6 +62,7 @@ export const ui = {
     koreanSub: 'Minhwa · Pungsokdo',
     chineseSub: 'Tinta e Aguada · Gongbi',
     japaneseSub: 'Ukiyo-e · Rinpa'
+    artNotice: 'Os resultados podem incluir nudez artística refletindo as obras-primas originais.',
   },
 
   processing: {
@@ -145,7 +146,7 @@ export const ui = {
     confirmDelete: 'Queres eliminar esta imagem?',
     confirmDeleteAll: 'Eliminar todas as imagens?\nEsta ação não pode ser desfeita.',
     savedToGallery: 'Guardado na galeria!',
-    savedToFiles: 'Guardado!\n📁 Ficheiros → Documentos → MasterValley',
+    savedToFiles: 'Guardado!\nDocuments → MasterValley',
     saveFailed: 'Falha ao guardar',
     shareTitle: 'Obra Master Valley',
     shareText: 'Vê a minha obra de arte com IA criada no Master Valley!',

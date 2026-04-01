@@ -64,6 +64,7 @@ export const ui = {
     koreanSub: 'มินฮวา · พุงซกโด',
     chineseSub: 'หมึกจีน · กงบีฮวา',
     japaneseSub: 'อุกิโยเอะ · รินปะ'
+    artNotice: 'ผลลัพธ์อาจรวมถึงภาพเปลือยเชิงศิลปะที่สะท้อนผลงานชิ้นเอกต้นฉบับ',
   },
 
   // ===== Processing =====
@@ -150,7 +151,7 @@ export const ui = {
     confirmDelete: 'ลบรูปภาพนี้?',
     confirmDeleteAll: 'ลบรูปภาพทั้งหมด?\nไม่สามารถยกเลิกได้',
     savedToGallery: 'บันทึกไปยังแกลเลอรีแล้ว!',
-    savedToFiles: 'บันทึกแล้ว!\n📁 แอป Files → Documents → MasterValley',
+    savedToFiles: 'บันทึกแล้ว!\nDocuments → MasterValley',
     saveFailed: 'การบันทึกล้มเหลว',
     shareTitle: 'Master Valley Art',
     shareText: 'ผลงานชิ้นเอกใหม่จาก Master Valley',

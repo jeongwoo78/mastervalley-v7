@@ -62,6 +62,7 @@ export const ui = {
     koreanSub: 'Minhwa · Pungsokdo',
     chineseSub: 'Mürekkep Yıkama · Gongbi',
     japaneseSub: 'Ukiyo-e · Rinpa'
+    artNotice: 'Sonuçlar, orijinal başyapıtları yansıtan sanatsal çıplaklık içerebilir.',
   },
 
   processing: {
@@ -145,7 +146,7 @@ export const ui = {
     confirmDelete: 'Bu görseli silmek istiyor musunuz?',
     confirmDeleteAll: 'Tüm görseller silinsin mi?\nBu işlem geri alınamaz.',
     savedToGallery: 'Galeriye kaydedildi!',
-    savedToFiles: 'Kaydedildi!\n📁 Dosyalar → Belgeler → MasterValley',
+    savedToFiles: 'Kaydedildi!\nDocuments → MasterValley',
     saveFailed: 'Kaydetme başarısız',
     shareTitle: 'Master Valley Eseri',
     shareText: 'Master Valley ile oluşturduğum AI başyapıtıma bakın!',

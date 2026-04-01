@@ -64,6 +64,7 @@ export const ui = {
     koreanSub: 'مينهوا · بونغسوكدو',
     chineseSub: 'حبر مائي · غونغبي',
     japaneseSub: 'أوكييو-إي · رينبا'
+    artNotice: 'قد تتضمن النتائج عري فني يعكس الأعمال الفنية الأصلية.',
   },
 
   // ===== Processing =====
@@ -150,7 +151,7 @@ export const ui = {
     confirmDelete: 'هل تريد حذف هذه الصورة؟',
     confirmDeleteAll: 'هل تريد حذف جميع الصور؟\nلا يمكن التراجع عن هذه العملية.',
     savedToGallery: 'تم الحفظ في المعرض!',
-    savedToFiles: 'تم الحفظ!\n📁 تطبيق الملفات ← مستندات ← MasterValley',
+    savedToFiles: 'تم الحفظ!\nDocuments → MasterValley',
     saveFailed: 'فشل الحفظ',
     shareTitle: 'عمل Master Valley',
     shareText: 'شاهد لوحتي الفنية بالذكاء الاصطناعي من Master Valley!',

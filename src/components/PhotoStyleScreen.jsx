@@ -411,8 +411,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
           ))}
         </div>
         <div className="subscription-info">
-          <p>{ui.subscriptionInfo.line1}</p>
-          <p>{ui.subscriptionInfo.line2}</p>
+          <p>{ps.artNotice}</p>
         </div>
       </div>
     );
