@@ -266,8 +266,7 @@ async function callGeminiImageGeneration(base64Image, prompt) {
               ]
             }],
             generationConfig: {
-              responseModalities: ['IMAGE', 'TEXT'],
-              imageSize: '1K'
+              responseModalities: ['IMAGE', 'TEXT']
             }
           })
         }
