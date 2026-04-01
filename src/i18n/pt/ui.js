@@ -63,6 +63,12 @@ export const ui = {
     chineseSub: 'Tinta e Aguada · Gongbi',
     japaneseSub: 'Ukiyo-e · Rinpa',
     artNotice: 'Os resultados podem incluir nudez artística refletindo as obras-primas originais.',
+    movementsDesc1: '11 movimentos artísticos — os mestres de cada era pintam a sua foto.',
+    movementsDesc2: 'Com Um Clique, uma viagem de 2800 anos pela história da arte começa.',
+    mastersDesc1: '7 mestres pintam você com sua própria visão única.',
+    mastersDesc2: 'Com Um Clique, sete visões e mundos se conectam em um único fluxo.',
+    orientalDesc1: 'Transforme em estilos tradicionais da China, Japão e Coreia.',
+    orientalDesc2: 'Com Um Clique, mergulhe em um milênio de estética e filosofia oriental.',
   },
 
   processing: {

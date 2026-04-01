@@ -115,7 +115,9 @@ const ResultScreen = ({
   const [showModalSaveShare, setShowModalSaveShare] = useState(false);
   const [modalTouchStartX, setModalTouchStartX] = useState(0);
   
-  // v79: Original 이미지 URL (useMemo로 동기 생성 → 갤러리 왕복 시 깜빡임 완전 제거)
+  // v85: Before 이미지 하이브리드 방식
+  // 1단계: URL.createObjectURL → 즉시 표시 (동기식, 검은 화면 방지)
+  // 2단계: FileReader → base64로 교체 (안정적, Blob URL 만료 방지)
   const [originalPhotoUrl, setOriginalPhotoUrl] = useState(null);
   
   useEffect(() => {
@@ -123,9 +125,38 @@ const ResultScreen = ({
       setOriginalPhotoUrl(null);
       return;
     }
+    
+    // 1단계: Blob URL 즉시 생성 (동기식 → 검은 화면 0초)
+    let blobUrl = null;
+    try {
+      blobUrl = URL.createObjectURL(originalPhoto);
+      setOriginalPhotoUrl(blobUrl);
+    } catch (e) {
+      console.warn('Blob URL 생성 실패:', e);
+    }
+    
+    // 2단계: FileReader로 base64 변환 (백그라운드, Blob URL 만료 대비)
+    let isCancel = false;
     const reader = new FileReader();
-    reader.onloadend = () => setOriginalPhotoUrl(reader.result);
+    reader.onload = () => {
+      if (!isCancel && reader.result) {
+        setOriginalPhotoUrl(reader.result);
+        // Blob URL 해제 (base64로 교체 완료)
+        if (blobUrl) URL.revokeObjectURL(blobUrl);
+        blobUrl = null;
+      }
+    };
+    reader.onerror = () => {
+      console.warn('FileReader 실패, Blob URL 유지');
+      // Blob URL이 이미 표시 중이므로 추가 조치 불필요
+    };
     reader.readAsDataURL(originalPhoto);
+    
+    return () => {
+      isCancel = true;
+      if (reader.readyState === 1) reader.abort();
+      if (blobUrl) URL.revokeObjectURL(blobUrl);
+    };
   }, [originalPhoto]);
 
   // 안드로이드 뒤로가기 — 단계별 닫기 (저장/공유메뉴 → 모달 → 결과화면 나가기)

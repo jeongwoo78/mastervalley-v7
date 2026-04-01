@@ -65,6 +65,12 @@ export const ui = {
     chineseSub: 'Tinta · Gongbi',
     japaneseSub: 'Ukiyo-e · Rinpa',
     artNotice: 'Hasil dapat mencakup ketelanjangan artistik yang mencerminkan karya agung asli.',
+    movementsDesc1: '11 aliran seni — maestro setiap era melukis foto Anda.',
+    movementsDesc2: 'Dengan Satu Klik, perjalanan waktu 2800 tahun melintasi sejarah seni dimulai.',
+    mastersDesc1: '7 maestro melukis Anda dengan visi unik mereka masing-masing.',
+    mastersDesc2: 'Dengan Satu Klik, tujuh visi dan dunia terhubung menjadi satu alur.',
+    orientalDesc1: 'Ubah ke gaya tradisional Tiongkok, Jepang, dan Korea.',
+    orientalDesc2: 'Dengan Satu Klik, tenggelam dalam seribu tahun estetika dan filosofi Timur.',
   },
 
   // ===== Processing =====

@@ -65,6 +65,12 @@ export const ui = {
     chineseSub: 'Tinta · Gongbi',
     japaneseSub: 'Ukiyo-e · Rinpa',
     artNotice: 'Los resultados pueden incluir desnudo artístico que refleja las obras maestras originales.',
+    movementsDesc1: '11 movimientos artísticos — los maestros de cada época pintan tu foto.',
+    movementsDesc2: 'Con Un Clic, comienza un viaje de 2800 años a través de la historia del arte.',
+    mastersDesc1: '7 maestros te pintan con su propia visión única.',
+    mastersDesc2: 'Con Un Clic, siete visiones y mundos se conectan en un solo flujo.',
+    orientalDesc1: 'Transforma en estilos tradicionales de China, Japón y Corea.',
+    orientalDesc2: 'Con Un Clic, sumérgete en un milenio de estética y filosofía oriental.',
   },
 
   // ===== Processing =====

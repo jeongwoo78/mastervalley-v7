@@ -64,6 +64,12 @@ export const ui = {
     chineseSub: 'Ink wash · Gongbi',
     japaneseSub: 'Ukiyo-e · Rinpa',
     artNotice: 'Results may include artistic nudity reflecting the original masterworks.',
+    movementsDesc1: '11 art movements — masters of each era paint your photo.',
+    movementsDesc2: 'With One-Click, a 2800-year journey through art history begins.',
+    mastersDesc1: '7 masters paint you through their own unique vision.',
+    mastersDesc2: 'With One-Click, seven visions and worlds connect as one.',
+    orientalDesc1: 'Transform into traditional styles of China, Japan, and Korea.',
+    orientalDesc2: 'With One-Click, immerse yourself in a millennium of Eastern aesthetics and philosophy.',
   },
 
   // ===== Processing =====

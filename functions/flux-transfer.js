@@ -3389,7 +3389,7 @@ export default async function handler(req, res) {
               if (visionAnalysis.subject_type === 'animal' && visionAnalysis.fur_color) {
                 const furDesc = visionAnalysis.fur_color;
                 const animalName = (visionAnalysis.animal_type || 'animal').toUpperCase();
-                genderPrefix = `CRITICAL: This is a ${animalName} with ${furDesc}. MUST paint this animal with EXACTLY this fur color pattern: ${furDesc}. DO NOT change fur color to brown, ochre, or any other color. `;
+                genderPrefix = `CRITICAL: This is a ${animalName} with ${furDesc}. MUST paint this animal with EXACTLY this fur color pattern: ${furDesc}. KEEP EXACTLY this fur color throughout the entire animal body. `;
               } else {
                 genderPrefix = `CRITICAL: This is a ${visionAnalysis.subject_type.toUpperCase()} photo - DO NOT add any people or human figures. Keep as pure ${visionAnalysis.subject_type}. `;
               }
@@ -3607,7 +3607,7 @@ export default async function handler(req, res) {
           if (visionAnalysis.subject_type === 'animal' && visionAnalysis.fur_color) {
             const furDesc = visionAnalysis.fur_color;
             const animalName = (visionAnalysis.animal_type || 'animal').toUpperCase();
-            genderPrefixCommon = `CRITICAL: This is a ${animalName} with ${furDesc}. MUST paint this animal with EXACTLY this fur color pattern: ${furDesc}. DO NOT change fur color to brown, ochre, or any other color. `;
+            genderPrefixCommon = `CRITICAL: This is a ${animalName} with ${furDesc}. MUST paint this animal with EXACTLY this fur color pattern: ${furDesc}. KEEP EXACTLY this fur color throughout the entire animal body. `;
           } else {
             genderPrefixCommon = `This is a ${visionAnalysis.subject_type} - no people. `;
           }

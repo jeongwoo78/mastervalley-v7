@@ -64,6 +64,12 @@ export const ui = {
     chineseSub: '수묵화 · 공필화',
     japaneseSub: '우키요에 · 린파',
     artNotice: '명화 원작의 특성상, 변환 결과에 예술적 누드가 포함될 수 있습니다.',
+    movementsDesc1: '11개 미술 사조, 각 시대의 거장이 당신의 사진을 그립니다.',
+    movementsDesc2: '원클릭으로 묶으면, 2800년 미술사를 관통하는 시간 여행이 시작됩니다.',
+    mastersDesc1: '7명의 거장이 당신을 그들만의 시선으로 그립니다.',
+    mastersDesc2: '원클릭으로 묶으면, 일곱 개의 시선과 세계가 하나의 흐름으로 이어집니다.',
+    orientalDesc1: '한국, 중국, 일본의 전통 화풍으로 변환됩니다.',
+    orientalDesc2: '원클릭으로 묶으면, 동양 천 년의 미학과 철학에 머물 수 있습니다.',
   },
 
   // ===== Processing =====

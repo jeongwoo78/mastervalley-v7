@@ -8,7 +8,7 @@ import movementsThumbnail from '../assets/thumbnails/categories/movements.webp';
 import mastersThumbnail from '../assets/thumbnails/categories/masters.webp';
 import orientalThumbnail from '../assets/thumbnails/categories/oriental.webp';
 
-const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredits = 2.50, lang = 'en' }) => {
+const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredits = 2.50, creditsLoaded = false, lang = 'en' }) => {
 
   const ui = getUi(lang);
   const t = ui.category;
@@ -59,7 +59,9 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           </svg>
           <span className="menu-label">{ui.menu.title}</span>
         </button>
-        <button className="credits-btn" onClick={() => onAddFunds?.()}>${userCredits.toFixed(2)}</button>
+        <button className="credits-btn" onClick={() => onAddFunds?.()}>
+          {creditsLoaded ? `$${userCredits.toFixed(2)}` : <span className="credits-skeleton"></span>}
+        </button>
       </header>
 
       <div className="branding">
@@ -216,6 +218,21 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
 
         .credits-btn:active {
           opacity: 0.7;
+        }
+
+        @keyframes shimmer {
+          0% { background-position: -80px 0; }
+          100% { background-position: 80px 0; }
+        }
+        .credits-skeleton {
+          display: inline-block;
+          width: 72px;
+          height: 17px;
+          border-radius: 4px;
+          background: linear-gradient(90deg, rgba(58,122,122,0.1) 25%, rgba(58,122,122,0.25) 50%, rgba(58,122,122,0.1) 75%);
+          background-size: 160px 100%;
+          animation: shimmer 1.5s infinite;
+          vertical-align: middle;
         }
 
         /* Branding */

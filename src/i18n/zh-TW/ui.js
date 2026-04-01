@@ -65,6 +65,12 @@ export const ui = {
     chineseSub: '水墨畫・工筆畫',
     japaneseSub: '浮世繪・琳派',
     artNotice: '因名畫原作之特性，轉換結果可能包含藝術性裸體。',
+    movementsDesc1: '11個藝術流派，各時代的巨匠為您的照片作畫。',
+    movementsDesc2: '一鍵合併，開啟橫跨2800年的藝術史時間旅行。',
+    mastersDesc1: '7位巨匠以各自獨特的視角為您作畫。',
+    mastersDesc2: '一鍵合併，七種視角與世界匯聚成一條脈絡。',
+    orientalDesc1: '以中國、日本、韓國的傳統畫風進行轉換。',
+    orientalDesc2: '一鍵合併，沉浸在東方千年的美學與哲學之中。',
   },
 
   // ===== Processing =====

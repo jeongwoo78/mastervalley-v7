@@ -30,7 +30,7 @@ import korean from '../assets/thumbnails/oriental/korean.webp';
 import chinese from '../assets/thumbnails/oriental/chinese.webp';
 import japanese from '../assets/thumbnails/oriental/japanese.webp';
 
-const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, onCategoryChange, userCredits = 0, lang = 'en' }) => {
+const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, onCategoryChange, userCredits = 0, creditsLoaded = false, lang = 'en' }) => {
   const fileInputRef = useRef(null);
   const screenRef = useRef(null);
   const [photo, setPhoto] = useState(null);
@@ -57,6 +57,8 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
       emojis: '🏎️⚡🕰️',
       selectLabel: ps.selectMovement,
       priceLabel: `$0.20/${ps.perTransform}`,
+      desc1: ps.movementsDesc1,
+      desc2: ps.movementsDesc2,
       fullTransformLabel: ps.movementsFullTransformLabel || '11 사조 전체 변환',
       gradient: 'linear-gradient(135deg, #b8d4d4 0%, #5a9a8a 100%)',
       boxShadow: '0 4px 15px rgba(58, 122, 122, 0.3)',
@@ -92,6 +94,8 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
       emojis: '🔥🎨💥',
       selectLabel: ps.selectMaster,
       priceLabel: `$0.25/${ps.perTransform}`,
+      desc1: ps.mastersDesc1,
+      desc2: ps.mastersDesc2,
       fullTransformLabel: ps.mastersFullTransformLabel || '7인 거장 전체 변환',
       gradient: 'linear-gradient(135deg, #e0d0a8 0%, #b89a5a 100%)',
       boxShadow: '0 4px 15px rgba(184, 154, 90, 0.3)',
@@ -136,6 +140,8 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
         emojis: orientalEmojis,
         selectLabel: ps.selectStyle,
         priceLabel: `$0.20/${ps.perTransform}`,
+        desc1: ps.orientalDesc1,
+        desc2: ps.orientalDesc2,
         fullTransformLabel: ps.orientalFullTransformLabel || '동양화 전체 변환',
         gradient: 'linear-gradient(135deg, #e8b8c8 0%, #c07090 100%)',
         boxShadow: '0 4px 15px rgba(192, 112, 144, 0.3)',
@@ -331,6 +337,12 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
     const isCircle = catKey === 'masters';
     return (
       <div className="swipe-page" key={catKey}>
+        {cat.desc1 && (
+          <div className="category-desc" style={{ borderLeftColor: `${cat.accent}40` }}>
+            <p className="category-desc-1">{cat.desc1}</p>
+            <p className="category-desc-2">{cat.desc2}</p>
+          </div>
+        )}
         <button
           className={`full-transform-btn ${selectedStyle?.isFullTransform && selectedStyle?.category === catKey ? 'selected' : ''}`}
           onClick={() => handleFullTransform(catKey)}
@@ -388,7 +400,6 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
           <span className="per-transform-price">{cat.priceLabel}</span>
         </div>
 
-
         <div className="style-grid">
           {cat.styles.map(style => (
             <button
@@ -436,7 +447,9 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
           </svg>
           <span className="menu-label">{ui.menu.title}</span>
         </button>
-        <button className="credits-btn" onClick={() => onAddFunds?.()}>${userCredits.toFixed(2)}</button>
+        <button className="credits-btn" onClick={() => onAddFunds?.()}>
+          {creditsLoaded ? `$${userCredits.toFixed(2)}` : <span className="credits-skeleton"></span>}
+        </button>
       </header>
 
       {/* Photo Section (고정, 스와이프 밖) */}
@@ -599,6 +612,21 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
           opacity: 0.7;
         }
 
+        @keyframes shimmer {
+          0% { background-position: -80px 0; }
+          100% { background-position: 80px 0; }
+        }
+        .credits-skeleton {
+          display: inline-block;
+          width: 72px;
+          height: 17px;
+          border-radius: 4px;
+          background: linear-gradient(90deg, rgba(58,122,122,0.1) 25%, rgba(58,122,122,0.25) 50%, rgba(58,122,122,0.1) 75%);
+          background-size: 160px 100%;
+          animation: shimmer 1.5s infinite;
+          vertical-align: middle;
+        }
+
         .photo-section {
           margin: 0 28px 8px;
           background: #1a2a2f;
@@ -692,7 +720,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
           border: none;
           border-bottom: 2px solid transparent;
           color: rgba(255,255,255,0.2);
-          font-size: 14px;
+          font-size: 15px;
           font-weight: 600;
           padding: 8px 12px;
           cursor: pointer;
@@ -963,15 +991,41 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
           margin-top: 2px;
         }
 
-        /* Subscription Info */
+        /* Category Description */
+        .category-desc {
+          border-left: 2px solid rgba(106,154,154,0.25);
+          padding: 4px 0 4px 12px;
+          margin: 9px 24px 12px 28px;
+        }
+        [dir="rtl"] .category-desc,
+        .category-desc:lang(ar) {
+          border-left: none;
+          border-right: 2px solid rgba(106,154,154,0.25);
+          padding: 4px 12px 4px 0;
+          margin: 9px 28px 12px 24px;
+        }
+        .category-desc-1 {
+          font-size: 13px;
+          color: rgba(255,255,255,0.35);
+          margin: 0 0 2px;
+          line-height: 1.6;
+        }
+        .category-desc-2 {
+          font-size: 13px;
+          color: rgba(255,255,255,0.45);
+          margin: 0;
+          line-height: 1.5;
+        }
+
+        /* Art Notice */
         .subscription-info {
           text-align: center;
           padding: 16px 24px 20px;
         }
 
         .subscription-info p {
-          color: rgba(255,255,255,0.4);
-          font-size: 14px;
+          color: rgba(255,255,255,0.2);
+          font-size: 11px;
           margin: 0;
         }
 

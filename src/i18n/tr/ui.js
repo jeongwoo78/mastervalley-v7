@@ -63,6 +63,12 @@ export const ui = {
     chineseSub: 'Mürekkep Yıkama · Gongbi',
     japaneseSub: 'Ukiyo-e · Rinpa',
     artNotice: 'Sonuçlar, orijinal başyapıtları yansıtan sanatsal çıplaklık içerebilir.',
+    movementsDesc1: '11 sanat akımı — her dönemin ustaları fotoğrafınızı çizer.',
+    movementsDesc2: 'Tek Tıkla, 2800 yıllık sanat tarihi boyunca bir zaman yolculuğu başlar.',
+    mastersDesc1: '7 usta, sizi kendi benzersiz bakış açılarıyla çizer.',
+    mastersDesc2: 'Tek Tıkla, yedi bakış açısı ve dünya tek bir akışta birleşir.',
+    orientalDesc1: 'Çin, Japonya ve Kore\'nin geleneksel tarzlarına dönüştürün.',
+    orientalDesc2: 'Tek Tıkla, bin yıllık Doğu estetiği ve felsefesine dalın.',
   },
 
   processing: {

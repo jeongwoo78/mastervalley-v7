@@ -65,6 +65,12 @@ export const ui = {
     chineseSub: 'Encre · Gongbi',
     japaneseSub: 'Ukiyo-e · Rinpa',
     artNotice: 'Les résultats peuvent inclure de la nudité artistique reflétant les œuvres originales.',
+    movementsDesc1: '11 mouvements artistiques — les maîtres de chaque époque peignent votre photo.',
+    movementsDesc2: 'En Un Clic, un voyage de 2800 ans à travers l\'histoire de l\'art commence.',
+    mastersDesc1: '7 maîtres vous peignent à travers leur propre vision unique.',
+    mastersDesc2: 'En Un Clic, sept visions et mondes se rejoignent en un seul fil.',
+    orientalDesc1: 'Transformez en styles traditionnels de Chine, du Japon et de Corée.',
+    orientalDesc2: 'En Un Clic, plongez dans un millénaire d\'esthétique et de philosophie orientales.',
   },
 
   // ===== Processing =====
