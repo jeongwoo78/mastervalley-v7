@@ -14,12 +14,6 @@
     }
   ],
   "functions": {
-    "api/replicate.js": {
-      "maxDuration": 60
-    },
-    "api/generate-education.js": {
-      "maxDuration": 60
-    },
     "api/master-feedback.js": {
       "maxDuration": 60
     },
