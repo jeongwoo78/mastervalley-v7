@@ -11,38 +11,37 @@ import { getStorage } from 'firebase-admin/storage';
  * Gemini base64 결과 → Firebase Storage 업로드 → 공개 URL 반환
  */
 async function uploadToStorage(base64Data, mimeType = 'image/png') {
-  try {
-    const bucket = getStorage().bucket();
-    
-    // 파일명: transforms/YYYYMMDD/timestamp_random.png
-    const now = new Date();
-    const dateStr = now.toISOString().slice(0, 10).replace(/-/g, '');
-    const random = Math.random().toString(36).substring(2, 8);
-    const ext = mimeType.includes('jpeg') ? 'jpg' : 'png';
-    const filePath = `transforms/${dateStr}/${Date.now()}_${random}.${ext}`;
-    
-    const file = bucket.file(filePath);
-    const buffer = Buffer.from(base64Data, 'base64');
-    
-    await file.save(buffer, {
-      metadata: {
-        contentType: mimeType,
-        cacheControl: 'public, max-age=31536000' // 1년 캐시
+  const bucket = getStorage().bucket();
+  const now = new Date();
+  const dateStr = now.toISOString().slice(0, 10).replace(/-/g, '');
+  const ext = mimeType.includes('jpeg') ? 'jpg' : 'png';
+  const buffer = Buffer.from(base64Data, 'base64');
+  
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    try {
+      const random = Math.random().toString(36).substring(2, 8);
+      const filePath = `transforms/${dateStr}/${Date.now()}_${random}.${ext}`;
+      const file = bucket.file(filePath);
+      
+      await file.save(buffer, {
+        metadata: {
+          contentType: mimeType,
+          cacheControl: 'public, max-age=31536000'
+        }
+      });
+      
+      await file.makePublic();
+      const publicUrl = `https://storage.googleapis.com/${bucket.name}/${filePath}`;
+      
+      console.log(`📦 Storage 업로드 완료: ${filePath} (${(buffer.length / 1024).toFixed(0)}KB)`);
+      return publicUrl;
+      
+    } catch (err) {
+      console.error(`📦 Storage 업로드 실패 (시도 ${attempt}/2):`, err.message);
+      if (attempt >= 2) {
+        throw new Error(`Storage 업로드 실패: ${err.message}`);
       }
-    });
-    
-    // 공개 URL 생성
-    await file.makePublic();
-    const publicUrl = `https://storage.googleapis.com/${bucket.name}/${filePath}`;
-    
-    console.log(`📦 Storage 업로드 완료: ${filePath} (${(buffer.length / 1024).toFixed(0)}KB)`);
-    return publicUrl;
-    
-  } catch (err) {
-    console.error('📦 Storage 업로드 실패:', err.message);
-    
-    // 업로드 실패 시 data URI fallback (FCM 이미지 미리보기는 안 되지만 앱 내 표시는 가능)
-    return `data:${mimeType};base64,${base64Data}`;
+    }
   }
 }
 
