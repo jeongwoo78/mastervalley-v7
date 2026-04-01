@@ -15,7 +15,7 @@ import AddFundsScreen from './components/AddFundsScreen';
 import MenuScreen from './components/MenuScreen';
 // LanguageScreen removed - 메뉴 아코디언에서 직접 변경
 import InsufficientBalancePopup from './components/InsufficientBalancePopup';
-import TransformBanner from './components/TransformBanner';
+// TransformBanner — v2 (컴포넌트 미구현, 출시 후 추가)
 import { getTransformCost } from './utils/pricing';
 import { deductCredit } from './utils/styleTransferAPI';
 import transformManager from './utils/transformManager';
@@ -434,13 +434,7 @@ const App = () => {
 
   return (
     <div className="app" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
-      {/* 동시다중 변환 배너 */}
-      {currentScreen !== 'processing' && (
-        <TransformBanner 
-          onTapGallery={() => setShowGallery(true)} 
-          lang={lang} 
-        />
-      )}
+      {/* 동시다중 변환 배너 — v2 (컴포넌트 미구현, 출시 후 추가) */}
       {/* AI 데이터 처리 동의 팝업 */}
       {showAiConsent && (
         <div className="ai-consent-overlay" onClick={() => {}}>
