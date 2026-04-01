@@ -1,6 +1,6 @@
 // ========================================
 // Master Valley Cloud Functions (gen2)
-// v83: 트리거 제거 → 인라인 처리 (속도 복원)
+// v2.0: Gemini 전환 — FLUX/Claude 3-API → Gemini 1-API
 // ========================================
 
 import { onRequest } from 'firebase-functions/v2/https';
@@ -8,7 +8,7 @@ import { initializeApp } from 'firebase-admin/app';
 import { getFirestore, FieldValue } from 'firebase-admin/firestore';
 import { getMessaging } from 'firebase-admin/messaging';
 
-import { runTransform, runVisionAnalysis } from './transform-logic.js';
+import { runTransform } from './transform-logic.js';
 
 initializeApp();
 const db = getFirestore();
@@ -152,7 +152,7 @@ const FUNCTION_CONFIG = {
   cors: true,
   timeoutSeconds: 540,
   memory: '1GiB',
-  secrets: ['REPLICATE_API_KEY', 'ANTHROPIC_API_KEY']
+  secrets: ['GEMINI_API_KEY']
 };
 
 // 공통 핸들러
@@ -369,16 +369,7 @@ async function handleOneClick(req, res, params) {
   await batch.commit();
   console.log(`📋 원클릭 세션 생성: ${sessionId} (${totalCount}건)`);
   
-  // v84: Vision 분석 1회 (Sonnet) → 전체 스타일에 재사용
-  let visionData = null;
-  try {
-    visionData = await runVisionAnalysis(image);
-    if (visionData) {
-      console.log(`🔍 원클릭 Vision 1회 완료: ${visionData.subject_type}, ${visionData.gender || 'N/A'}, ${visionData.person_count || 0}명`);
-    }
-  } catch (err) {
-    console.warn(`⚠️ Vision 사전분석 실패 (각 변환에서 개별 분석): ${err.message}`);
-  }
+  // Gemini: Vision 불필요 (Gemini가 사진 직접 이해)
   
   let completedCount = 0;
   let successCount = 0;
@@ -389,7 +380,7 @@ async function handleOneClick(req, res, params) {
       const docRef = db.collection('transforms').doc(tid);
       
       try {
-        const result = await runTransform(image, style, null, true, visionData);
+        const result = await runTransform(image, style, null, true);
         
         console.log(`✅ 원클릭 [${i + 1}/${totalCount}] 완료: ${tid} | ${result.selectedArtist || style.name}`);
         

@@ -1,111 +1,61 @@
 // ========================================
-// Master Valley - Transform Logic Wrapper
-// v83: 폴링 제거 → Prefer: wait로 직접 대기 (6초 단축)
+// Master Valley - Transform Logic Wrapper (Gemini)
+// v1.0: FLUX 3-API 체인 → Gemini 1-API
+// Replicate 폴링 제거, Firebase Storage 업로드 추가
 // ========================================
 
-import handler from './flux-transfer.js';
-export { runVisionAnalysis } from './flux-transfer.js';
+import handler from './gemini-transfer.js';
+import { getStorage } from 'firebase-admin/storage';
 
 /**
- * Replicate 결과 대기 (Prefer: wait — 폴링 없이 즉시 반환)
- * 최대 60초 대기 → 실패 시 폴링 fallback
+ * Gemini base64 결과 → Firebase Storage 업로드 → 공개 URL 반환
  */
-async function waitForResult(predictionId) {
+async function uploadToStorage(base64Data, mimeType = 'image/png') {
   try {
-    // Prefer: wait — Replicate가 완료될 때까지 HTTP 연결 유지 후 결과 반환
-    const response = await fetch(
-      `https://api.replicate.com/v1/predictions/${predictionId}`,
-      {
-        headers: {
-          'Authorization': `Token ${process.env.REPLICATE_API_KEY}`,
-          'Prefer': 'wait=60'
-        }
+    const bucket = getStorage().bucket();
+    
+    // 파일명: transforms/YYYYMMDD/timestamp_random.png
+    const now = new Date();
+    const dateStr = now.toISOString().slice(0, 10).replace(/-/g, '');
+    const random = Math.random().toString(36).substring(2, 8);
+    const ext = mimeType.includes('jpeg') ? 'jpg' : 'png';
+    const filePath = `transforms/${dateStr}/${Date.now()}_${random}.${ext}`;
+    
+    const file = bucket.file(filePath);
+    const buffer = Buffer.from(base64Data, 'base64');
+    
+    await file.save(buffer, {
+      metadata: {
+        contentType: mimeType,
+        cacheControl: 'public, max-age=31536000' // 1년 캐시
       }
-    );
+    });
     
-    if (!response.ok) {
-      throw new Error(`Replicate wait 실패: ${response.status}`);
-    }
+    // 공개 URL 생성
+    await file.makePublic();
+    const publicUrl = `https://storage.googleapis.com/${bucket.name}/${filePath}`;
     
-    const prediction = await response.json();
-    
-    if (prediction.status === 'succeeded') {
-      console.log(`✅ Prefer:wait 완료`);
-      return prediction;
-    }
-    
-    if (prediction.status === 'failed' || prediction.status === 'canceled') {
-      throw new Error(`Replicate 변환 실패: ${prediction.error || prediction.status}`);
-    }
-    
-    // 아직 완료 안 됨 (60초 초과 — 극히 드묾) → 폴링 fallback
-    console.log(`⚠️ wait 타임아웃, 폴링 전환: ${prediction.status}`);
-    return await pollFallback(predictionId);
+    console.log(`📦 Storage 업로드 완료: ${filePath} (${(buffer.length / 1024).toFixed(0)}KB)`);
+    return publicUrl;
     
   } catch (err) {
-    // 네트워크 에러 등 → 폴링 fallback
-    console.log(`⚠️ wait 에러: ${err.message}, 폴링 전환`);
-    return await pollFallback(predictionId);
+    console.error('📦 Storage 업로드 실패:', err.message);
+    
+    // 업로드 실패 시 data URI fallback (FCM 이미지 미리보기는 안 되지만 앱 내 표시는 가능)
+    return `data:${mimeType};base64,${base64Data}`;
   }
 }
 
 /**
- * 폴링 fallback (Prefer: wait 실패 시에만 사용)
+ * 변환 실행 (Gemini 1콜 → Storage 업로드 → URL 반환)
  */
-async function pollFallback(predictionId) {
-  const startTime = Date.now();
-  const MAX_POLL_TIME = 300000; // 5분
-  const POLL_INTERVAL = 1000;   // 1초
-  
-  while (Date.now() - startTime < MAX_POLL_TIME) {
-    try {
-      const response = await fetch(
-        `https://api.replicate.com/v1/predictions/${predictionId}`,
-        {
-          headers: {
-            'Authorization': `Token ${process.env.REPLICATE_API_KEY}`
-          }
-        }
-      );
-      
-      if (!response.ok) {
-        await new Promise(r => setTimeout(r, POLL_INTERVAL));
-        continue;
-      }
-      
-      const prediction = await response.json();
-      
-      if (prediction.status === 'succeeded') {
-        const elapsed = Math.round((Date.now() - startTime) / 1000);
-        console.log(`✅ 폴링 fallback 완료 (${elapsed}초)`);
-        return prediction;
-      }
-      
-      if (prediction.status === 'failed' || prediction.status === 'canceled') {
-        throw new Error(`Replicate 변환 실패: ${prediction.error || prediction.status}`);
-      }
-      
-      await new Promise(r => setTimeout(r, POLL_INTERVAL));
-      
-    } catch (err) {
-      if (err.message?.includes('변환 실패')) throw err;
-      await new Promise(r => setTimeout(r, POLL_INTERVAL));
-    }
-  }
-  
-  throw new Error('폴링 타임아웃 (5분)');
-}
-
-/**
- * 변환 실행 (Vision → 프롬프트 → Replicate → Prefer:wait → 결과)
- */
-export async function runTransform(image, selectedStyle, correctionPrompt = null, isOneClick = false, visionData = null) {
+export async function runTransform(image, selectedStyle, correctionPrompt = null, isOneClick = false) {
   let responseData = null;
   let responseStatus = 200;
   
   const mockReq = {
     method: 'POST',
-    body: { image, selectedStyle, correctionPrompt, isOneClick, visionData }
+    body: { image, selectedStyle, correctionPrompt, isOneClick }
   };
   
   const mockRes = {
@@ -121,34 +71,23 @@ export async function runTransform(image, selectedStyle, correctionPrompt = null
     end: () => mockRes
   };
   
-  // handler 실행 (Vision 분석 + 프롬프트 생성 + Replicate prediction 생성)
+  // Gemini handler 실행 (분석 + 선택 + 생성 동시)
   await handler(mockReq, mockRes);
   
   if (responseStatus !== 200 || !responseData) {
-    throw new Error(responseData?.error || `변환 시작 실패 (status: ${responseStatus})`);
+    throw new Error(responseData?.error || `변환 실패 (status: ${responseStatus})`);
   }
   
-  let resultUrl;
-  
-  // Prefer:wait 성공 → handler가 이미 완료된 결과 반환
-  if (responseData.status === 'completed' && responseData.resultUrl) {
-    console.log(`✅ Prefer:wait 직접 완료`);
-    resultUrl = responseData.resultUrl;
-  } else {
-    // Prefer:wait 실패 → 폴링 fallback
-    const predictionId = responseData.predictionId;
-    if (!predictionId) {
-      throw new Error('서버에서 prediction ID를 받지 못했습니다');
-    }
-    
-    console.log(`⏳ 폴링 fallback 대기: ${predictionId}`);
-    const result = await waitForResult(predictionId);
-    resultUrl = Array.isArray(result.output) ? result.output[0] : result.output;
+  // base64 → Firebase Storage 업로드 → URL
+  const resultBase64 = responseData.resultBase64;
+  if (!resultBase64) {
+    throw new Error('Gemini 결과에 이미지가 없습니다');
   }
   
-  if (!resultUrl) {
-    throw new Error('변환 결과 이미지 URL이 없습니다');
-  }
+  const resultUrl = await uploadToStorage(
+    resultBase64, 
+    responseData.resultMimeType || 'image/png'
+  );
   
   return {
     resultUrl,
@@ -156,8 +95,8 @@ export async function runTransform(image, selectedStyle, correctionPrompt = null
     selectedWork: responseData.selected_work || null,
     selectionMethod: responseData.selection_method || null,
     selectionDetails: responseData.selection_details || null,
-    isRetransform: responseData.isRetransform || false,
-    subjectType: responseData._debug?.vision?.subjectType || null,
+    isRetransform: !!correctionPrompt,
+    subjectType: responseData._debug?.subjectType || null,
     debug: responseData._debug || null
   };
 }
