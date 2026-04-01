@@ -401,7 +401,7 @@ const App = () => {
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: #0a1a1f;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             color: white;
           }
           .loading-spinner {
