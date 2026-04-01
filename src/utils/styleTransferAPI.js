@@ -1,8 +1,8 @@
-// Master Valley v2.0 - Gemini Server-Driven Transform
+// Master Valley v83 - Server-Driven Transform (속도 복원)
 //
-// v2.0: Gemini 전환 — Asia 리전 활성화
-//   Gemini API는 글로벌 엔드포인트 → CF 리전은 유저↔서버 네트워크 최적화
-//   아시아 언어 유저 → asia-northeast1 (~20ms), 기타 → us-central1 (~200ms from Asia)
+// v83: 트리거 제거 → 인라인 처리
+//   단일: HTTP 응답으로 결과 직접 수신 (8~14초)
+//   원클릭: ID 선생성 → Firestore 리스닝 → HTTP fire-and-forget (병렬, ~10~18초)
 
 import { MODEL_CONFIG } from './modelConfig';
 import { db, auth } from '../config/firebase';
@@ -10,16 +10,11 @@ import { doc, onSnapshot, getDocFromServer } from 'firebase/firestore';
 import { App as CapApp } from '@capacitor/app';
 import { getFCMToken } from './fcm';
 
-const CLOUD_FUNCTIONS_URL_US = 'https://us-central1-master-valley.cloudfunctions.net/startTransform';
-const CLOUD_FUNCTIONS_URL_ASIA = 'https://asia-northeast1-master-valley.cloudfunctions.net/startTransformAsia';
+const CLOUD_FUNCTIONS_URL = 'https://us-central1-master-valley.cloudfunctions.net/startTransform';
+// Asia 리전 비활성화 — Replicate/Anthropic API가 US에 있어 us-central1이 더 빠름
+// const CLOUD_FUNCTIONS_URL_ASIA = 'https://asia-northeast1-master-valley.cloudfunctions.net/startTransformAsia';
 
-// 아시아 언어: ko, ja, zh-TW, th, id
-const ASIA_LANGS = ['ko', 'ja', 'zh-TW', 'th', 'id'];
-
-const getCloudFunctionUrl = (lang) => {
-  if (lang && ASIA_LANGS.includes(lang)) return CLOUD_FUNCTIONS_URL_ASIA;
-  return CLOUD_FUNCTIONS_URL_US;
-};
+const getCloudFunctionUrl = () => CLOUD_FUNCTIONS_URL;
 
 const VERCEL_API_URL = 'https://mastervalley-v7.vercel.app';
 
@@ -181,7 +176,7 @@ export const processStyleTransfer = async (photoFile, selectedStyle, correctionP
       });
       
       // 3) HTTP fire-and-forget (서버에 요청만 보내고 응답은 기다리지 않음)
-      fetch(getCloudFunctionUrl(lang), {
+      fetch(getCloudFunctionUrl(), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -335,7 +330,7 @@ export const processFullTransform = async (photoFile, styles, selectedStyle, onP
       // HTTP 호출 (fire-and-forget)
       const userId = auth.currentUser?.uid || null;
       
-      fetch(getCloudFunctionUrl(lang), {
+      fetch(getCloudFunctionUrl(), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
