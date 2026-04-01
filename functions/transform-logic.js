@@ -11,7 +11,7 @@ import { getStorage } from 'firebase-admin/storage';
  * Gemini base64 결과 → Firebase Storage 업로드 → 공개 URL 반환
  */
 async function uploadToStorage(base64Data, mimeType = 'image/png') {
-  const bucket = getStorage().bucket();
+  const bucket = getStorage().bucket('master-valley.firebasestorage.app');
   const now = new Date();
   const dateStr = now.toISOString().slice(0, 10).replace(/-/g, '');
   const ext = mimeType.includes('jpeg') ? 'jpg' : 'png';
