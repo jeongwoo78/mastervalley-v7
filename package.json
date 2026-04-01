@@ -1,43 +1,15 @@
 {
-  "name": "master-valley",
-  "private": true,
-  "version": "75.0.0",
+  "name": "mastervalley-functions",
   "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "cap:sync": "npx cap sync",
-    "cap:open": "npx cap open android",
-    "app:build": "npm run build && npx cap sync"
+  "version": "1.0.0",
+  "description": "Master Valley Cloud Functions - Server-driven transformation",
+  "engines": {
+    "node": "20"
   },
+  "main": "index.js",
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.30.0",
-    "@capacitor-community/media": "^9.0.1",
-    "@capacitor/android": "^8.0.1",
-    "@capacitor/app": "^8.0.1",
-    "@capacitor/cli": "^8.0.1",
-    "@capacitor/core": "^8.0.1",
-    "@capacitor/filesystem": "^8.0.0",
-    "@capacitor/preferences": "^8.0.0",
-    "@capacitor/push-notifications": "^8.0.2",
-    "@capacitor/share": "^8.0.0",
-    "@codetrix-studio/capacitor-google-auth": "^3.3.1",
-    "@google/generative-ai": "^0.21.0",
-    "@revenuecat/purchases-capacitor": "^12.3.0",
-    "firebase": "^12.8.0",
-    "firebase-admin": "^13.7.0",
-    "openai": "^4.0.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-zoom-pan-pinch": "^3.7.0",
-    "replicate": "^0.25.2"
-  },
-  "devDependencies": {
-    "@types/react": "^18.2.43",
-    "@types/react-dom": "^18.2.17",
-    "@vitejs/plugin-react": "^4.2.1",
-    "typescript": "^5.9.3",
-    "vite": "^6.0.3"
+    "firebase-admin": "^12.0.0",
+    "firebase-functions": "^6.0.0",
+    "@anthropic-ai/sdk": "^0.39.0"
   }
 }
