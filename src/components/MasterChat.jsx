@@ -63,17 +63,25 @@ const MasterChat = ({
     if (!transformedImageUrl) return;
     
     if (transformedImageUrl.startsWith('blob:')) {
-      // blob URL → canvas → base64
+      // blob URL → canvas → base64 (리사이즈+압축)
       const img = new Image();
       img.crossOrigin = 'anonymous';
       img.onload = () => {
+        const MAX_DIM = 800;  // v91: 최대 800px (속도 개선)
+        let w = img.naturalWidth;
+        let h = img.naturalHeight;
+        if (w > MAX_DIM || h > MAX_DIM) {
+          const ratio = Math.min(MAX_DIM / w, MAX_DIM / h);
+          w = Math.round(w * ratio);
+          h = Math.round(h * ratio);
+        }
         const canvas = document.createElement('canvas');
-        canvas.width = img.naturalWidth;
-        canvas.height = img.naturalHeight;
+        canvas.width = w;
+        canvas.height = h;
         const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0);
-        resolvedImageUrlRef.current = canvas.toDataURL('image/jpeg', 0.7);
-        console.log('[MasterChat] blob → base64 변환 완료');
+        ctx.drawImage(img, 0, 0, w, h);
+        resolvedImageUrlRef.current = canvas.toDataURL('image/jpeg', 0.5);  // JPEG 50%
+        console.log(`[MasterChat] blob → base64 변환 완료 (${w}x${h})`);
       };
       img.onerror = () => {
         console.error('[MasterChat] blob → base64 변환 실패');
@@ -308,6 +316,23 @@ const MasterChat = ({
       }
     }
   }, [savedChatData?.retransformCompleted]);
+
+  // v91: 재변환 실패 플래그 체크
+  useEffect(() => {
+    if (savedChatData?.retransformFailed) {
+      setMessages(prev => [
+        ...prev,
+        { role: 'system', content: '⚠️ 재변환에 실패하였습니다. 다시 아래 수정 버튼을 눌러주세요.' }
+      ]);
+      // 플래그 리셋 (pendingCorrection은 유지 → 재시도 가능)
+      if (onChatDataChange) {
+        onChatDataChange({
+          ...savedChatData,
+          retransformFailed: false
+        });
+      }
+    }
+  }, [savedChatData?.retransformFailed]);
   
   // 완료 메시지 표시 함수 (i18n 사용)
   const showCompletionMessage = () => {

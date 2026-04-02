@@ -3000,6 +3000,20 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: 'Failed to fetch source image', message: imgError.message });
       }
       
+      // ── Step 1.5: 입력 이미지 압축 (속도 개선) ──
+      try {
+        const sharp = (await import('sharp')).default;
+        const inputBuffer = Buffer.from(imageBase64, 'base64');
+        const compressed = await sharp(inputBuffer)
+          .resize(1024, 1024, { fit: 'inside', withoutEnlargement: true })
+          .jpeg({ quality: 60 })
+          .toBuffer();
+        imageBase64 = compressed.toString('base64');
+        console.log(`📦 이미지 압축 완료 (${Math.round(imageBase64.length / 1024)}KB)`);
+      } catch (e) {
+        console.log('⚠️ sharp 미설치 → 원본 사용');
+      }
+      
       // ── Step 2: Nano Banana 2 API 호출 ──
       console.log('🍌 Nano Banana 2 API 호출 중...');
       const geminiResponse = await fetch(
@@ -3015,7 +3029,8 @@ export default async function handler(req, res) {
               ]
             }],
             generationConfig: {
-              responseModalities: ['TEXT', 'IMAGE']
+              responseModalities: ['TEXT', 'IMAGE'],
+              imageConfig: { imageSize: '1K' }  // v91: 1K 해상도 제한 (속도 개선)
             }
           })
         }

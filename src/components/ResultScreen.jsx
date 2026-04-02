@@ -449,6 +449,12 @@ const ResultScreen = ({
         ...masterChatData[masterKey],
         retransformCompleted: true  // 완료 플래그
       });
+    } else {
+      // v91: 실패 시 안내 메시지
+      updateMasterChatData(masterKey, {
+        ...masterChatData[masterKey],
+        retransformFailed: true
+      });
     }
     
     // 그 다음 버튼 활성화
