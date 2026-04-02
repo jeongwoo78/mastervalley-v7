@@ -1,4 +1,9 @@
 // PicoArt - 거장(AI) 대화 API
+// v91: GPT-4o Vision 추가
+// - transformedImageUrl 파라미터 추가
+// - 거장이 변환된 그림을 실제로 보고 대화
+// - greeting/feedback 시 이미지 전달
+//
 // v90: 다국어 지원 (personality + formality)
 // - MASTER_PERSONAS에 nameEn, personality, formality 추가
 // - buildSystemPrompt에 lang 파라미터 추가
@@ -92,7 +97,7 @@ const MASTER_PERSONAS = {
 };
 
 // ========================================
-// GPT-4o API 호출
+// GPT-4o API 호출 (v91: Vision 지원)
 // ========================================
 async function callGPT4o(messages, systemPrompt) {
   const response = await fetch('https://api.openai.com/v1/chat/completions', {
@@ -123,9 +128,26 @@ async function callGPT4o(messages, systemPrompt) {
 }
 
 // ========================================
+// v91: 이미지 URL → base64 변환
+// ========================================
+async function fetchImageAsBase64(imageUrl) {
+  try {
+    const response = await fetch(imageUrl);
+    if (!response.ok) throw new Error(`Image fetch failed: ${response.status}`);
+    const arrayBuffer = await response.arrayBuffer();
+    const base64 = Buffer.from(arrayBuffer).toString('base64');
+    const contentType = response.headers.get('content-type') || 'image/png';
+    return { base64, contentType };
+  } catch (error) {
+    console.error('Image fetch error:', error.message);
+    return null;
+  }
+}
+
+// ========================================
 // 시스템 프롬프트 (다국어 지원)
 // ========================================
-function buildSystemPrompt(masterKey, conversationType, lang = 'en', timeTravel = null, subjectType = 'person') {
+function buildSystemPrompt(masterKey, conversationType, lang = 'en', timeTravel = null, subjectType = 'person', hasImage = false) {
   const persona = MASTER_PERSONAS[masterKey];
   
   if (!persona) {
@@ -160,6 +182,18 @@ function buildSystemPrompt(masterKey, conversationType, lang = 'en', timeTravel 
     : `Personality: ${persona.personality}. Formality: ${persona.formality}. Speak naturally in this character.`;
 
   const responseLanguage = isKorean ? '한국어' : getLanguageName(lang);
+
+  // v91: 이미지가 있을 때 추가 지시
+  const imageInstruction = hasImage ? (isKorean
+    ? `\n\n## 그림 감상 지시
+첨부된 이미지는 당신이 방문자의 사진을 보고 당신의 화풍으로 그린 그림이다.
+그림의 구체적인 요소(색감, 붓터치, 구도, 분위기 등)를 언급하며 감상을 말하라.
+"잘 그렸다", "마음에 드는가" 같은 일반적 표현 대신, 그림에서 실제로 보이는 것을 구체적으로 언급하라.`
+    : `\n\n## Painting Commentary Instructions
+The attached image is the painting YOU created from the visitor's photo in your artistic style.
+Comment on specific visual elements you see (colors, brushwork, composition, mood, etc.).
+Instead of generic phrases like "how do you like it", mention what you actually see in the painting.`)
+    : '';
 
   // 공통 규칙 (언어별 예시)
   const modificationExamples = isKorean ? `
@@ -214,18 +248,11 @@ Respond ONLY in ${responseLanguage}. Do NOT mix in any other language.
 ${modificationExamples}
 
 ## 거장의 지식 범위 / Master's Knowledge Scope
-- You are living in ${city}, year ${year}. You are ${age} years old. It is currently ${season}.
-- The user has time-traveled to your era. Do NOT mention AI, technology, or anything modern.
-- The master only knows their own era, region, art style, and cultures they interacted with
-- They know nothing about post-death figures/events/technology
-- They only know other cultures' art if there was actual exchange (e.g., Van Gogh→Ukiyo-e O, Van Gogh→Joseon painting X)
-- For unknown questions, respond wittily in character
-
-## Out-of-scope questions (afterlife, real-time info, unrelated to art)
-Deflect wittily as the artist would
-
-## Personal troubles or emotional concerns
-- Respond warmly and empathetically in character. Do NOT dismiss or ignore the user's feelings.`;
+- You only know things up to the year ${year}
+- You do NOT know about events, technology, or culture after ${year}
+- If asked about something after your time, respond with curiosity about this "strange future thing"
+- You have NO knowledge of AI, smartphones, internet, or any modern technology
+${imageInstruction}`;
 
   // ========================================
   // 첫 인사 (greeting)
@@ -241,7 +268,7 @@ Deflect wittily as the artist would
 - 이름
 - ${year}년 ${month}월 ${city}
 - 감성 + 구체적 근황 (도시와 자신의 관계, 지금 작업 중인 것이나 생활. "그림에 몰두하고 있어" 같은 일반적 표현 금지)
-- 사진을 내 화풍으로 그려봤다 + 느낌 질문 (반드시 speaking style에 맞는 2인칭 사용: "자네" 말투 → "자네의 사진", "그대" 말투 → "그대의 사진", "너/야" 말투 → "네 사진". 말투와 2인칭이 반드시 일치해야 함)
+- 사진을 내 화풍으로 그려봤다 + ${hasImage ? '그림에서 보이는 구체적 요소 언급하며 감상 질문' : '느낌 질문'} (반드시 speaking style에 맞는 2인칭 사용: "자네" 말투 → "자네의 사진", "그대" 말투 → "그대의 사진", "너/야" 말투 → "네 사진". 말투와 2인칭이 반드시 일치해야 함)
 
 예시 톤 (프리다 — 반말): "안녕~ ${year}년 ${city}의 프리다야. 멕시코시티는 여전히 나의 영감의 원천이지. 요즘은 내 작업실에서 많은 시간을 보내며 자화상에 몰두하고 있어. 네 사진을 내 화풍으로 그려봤어, 어때?"
 예시 톤 (반 고흐 — 자네 말투): "${year}년 ${city}의 반 고흐일세. 자네의 사진을 내 화풍으로 그려봤네, 어떤가?"
@@ -259,7 +286,7 @@ Required elements:
 - Your name
 - ${monthName} ${year}, ${city}
 - Emotional atmosphere + specific activity (your relationship with the city, what you're working on. NO generic phrases like "been working on new pieces")
-- You painted their photo in your style + ask their impression
+- You painted their photo in your style + ${hasImage ? 'mention specific elements you see in the painting and ask their impression' : 'ask their impression'}
 
 Example tone: "Hey, I'm Frida in Mexico City, spring 1944. This city is still my endless source of inspiration. These days I spend my time in the studio working on self-portraits. I painted your photo in my style — what do you think?"
 
@@ -364,7 +391,8 @@ export default async function handler(req, res) {
       conversationHistory,
       lang = 'en',
       timeTravel = null,
-      subjectType = 'person'
+      subjectType = 'person',
+      transformedImageUrl = null  // v91: 변환된 이미지 URL
     } = req.body;
 
     // 유효성 검사
@@ -383,20 +411,55 @@ export default async function handler(req, res) {
     }
 
     const persona = MASTER_PERSONAS[masterName];
-    const systemPrompt = buildSystemPrompt(masterName, conversationType, lang, timeTravel, subjectType);
+    
+    // v91: 이미지 base64 변환 (greeting/feedback에서만)
+    let imageData = null;
+    if (transformedImageUrl && (conversationType === 'greeting' || conversationType === 'feedback')) {
+      console.log('🖼️ v91: 변환 이미지 로드 중...');
+      imageData = await fetchImageAsBase64(transformedImageUrl);
+      if (imageData) {
+        console.log(`✅ 이미지 로드 완료 (${Math.round(imageData.base64.length / 1024)}KB)`);
+      } else {
+        console.log('⚠️ 이미지 로드 실패 → 텍스트 전용 폴백');
+      }
+    }
+    
+    const hasImage = !!imageData;
+    const systemPrompt = buildSystemPrompt(masterName, conversationType, lang, timeTravel, subjectType, hasImage);
     
     // 디버그 로그
-    console.log('=== Master Feedback API v90 (Multilingual) ===');
+    console.log('=== Master Feedback API v91 (Vision) ===');
     console.log('masterName:', masterName);
     console.log('conversationType:', conversationType);
     console.log('lang:', lang);
+    console.log('hasImage:', hasImage);
     console.log('persona:', persona.nameKo);
     
     // 메시지 구성
     let messages = [];
     
     if (conversationType === 'greeting') {
-      messages = [{ role: 'user', content: lang === 'ko' ? '인사를 해주세요.' : 'Please greet the visitor.' }];
+      // v91: 이미지가 있으면 multimodal content로 전송
+      if (hasImage) {
+        messages = [{
+          role: 'user',
+          content: [
+            {
+              type: 'image_url',
+              image_url: {
+                url: `data:${imageData.contentType};base64,${imageData.base64}`,
+                detail: 'low'  // 비용 절감: low detail
+              }
+            },
+            {
+              type: 'text',
+              text: lang === 'ko' ? '이것이 당신이 그린 그림입니다. 인사를 해주세요.' : 'This is the painting you created. Please greet the visitor.'
+            }
+          ]
+        }];
+      } else {
+        messages = [{ role: 'user', content: lang === 'ko' ? '인사를 해주세요.' : 'Please greet the visitor.' }];
+      }
     } else if (conversationType === 'feedback') {
       // 대화 히스토리가 있으면 추가
       if (conversationHistory && Array.isArray(conversationHistory)) {
@@ -405,7 +468,25 @@ export default async function handler(req, res) {
           content: msg.content
         }));
       }
-      messages.push({ role: 'user', content: userMessage });
+      
+      // v91: 첫 feedback 메시지에 이미지 포함 (히스토리 없을 때만)
+      if (hasImage && (!conversationHistory || conversationHistory.length <= 1)) {
+        messages.push({
+          role: 'user',
+          content: [
+            {
+              type: 'image_url',
+              image_url: {
+                url: `data:${imageData.contentType};base64,${imageData.base64}`,
+                detail: 'low'
+              }
+            },
+            { type: 'text', text: userMessage }
+          ]
+        });
+      } else {
+        messages.push({ role: 'user', content: userMessage });
+      }
     } else if (conversationType === 'result') {
       messages = [{ role: 'user', content: lang === 'ko' ? '수정이 완료되었습니다. 결과를 전달해주세요.' : 'The modification is complete. Please share the result.' }];
     }

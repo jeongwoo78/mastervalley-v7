@@ -1,4 +1,9 @@
 // PicoArt v74 - Kontext 프롬프트 최소화
+// v91: 재변환 엔진 FLUX Kontext Pro → Nano Banana 2 (gemini-3.1-flash-image-preview)
+//      - Gemini API로 이미지 편집 (conversational editing)
+//      - 결과를 data URL로 반환 (테스트용)
+//      - GEMINI_API_KEY 환경변수 필요
+//
 // v76: Kontext 프롬프트 공식 권장 구조 적용
 // "ONLY ${correctionPrompt} while keeping the same painting style"
 //      - 불필요한 보존 명령어 제거
@@ -2935,142 +2940,138 @@ export default async function handler(req, res) {
     const categoryType = selectedStyle.category; // categoryType 변수 추가
     
     // ========================================
-    // v70: 재변환 모드 (correctionPrompt 있으면)
-    // artistStyles.js 화풍 연동 + MODIFY 먼저 순서
+    // v91: 재변환 모드 — Nano Banana 2 (Gemini 3.1 Flash Image)
+    // FLUX Kontext Pro → gemini-3.1-flash-image-preview
     // ========================================
     if (correctionPrompt) {
       console.log('');
       console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-      console.log('🔄 재변환 모드 (FLUX Kontext Pro) v75');
+      console.log('🔄 재변환 모드 (Nano Banana 2) v91');
       console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
       console.log(`📝 수정 요청: ${correctionPrompt}`);
       console.log(`🖼️ 입력 이미지: ${typeof image === 'string' ? image.substring(0, 100) + '...' : 'base64 data'}`);
-      console.log(`📐 이미지 타입: ${typeof image}, 길이: ${image?.length || 'N/A'}`);
       
-      
-      // v70: 거장 키 → artistStyles 키 매핑
+      // 거장 키 → 이름 변환
       const MASTER_TO_ARTIST_KEY = {
-        'VAN GOGH': 'vangogh',
-        'VANGOGH': 'vangogh',
-        'KLIMT': 'klimt',
-        'MUNCH': 'munch',
-        'PICASSO': 'picasso',
-        'MATISSE': 'matisse',
-        'FRIDA': 'frida',
-        'LICHTENSTEIN': 'lichtenstein'
+        'VAN GOGH': 'vangogh', 'VANGOGH': 'vangogh',
+        'KLIMT': 'klimt', 'MUNCH': 'munch',
+        'PICASSO': 'picasso', 'MATISSE': 'matisse',
+        'FRIDA': 'frida', 'LICHTENSTEIN': 'lichtenstein'
+      };
+      const ARTIST_DISPLAY_NAMES = {
+        'vangogh': 'Van Gogh', 'klimt': 'Klimt', 'munch': 'Munch',
+        'picasso': 'Picasso', 'matisse': 'Matisse',
+        'frida': 'Frida Kahlo', 'lichtenstein': 'Lichtenstein'
       };
       
-      // 거장 키 추출 (selectedStyle.id 또는 name에서)
       let masterKey = selectedStyle.id?.toUpperCase() || selectedStyle.name?.toUpperCase() || '';
-      // v70.1: '-MASTER' 접미사 제거
       masterKey = masterKey.replace('-MASTER', '');
       const artistKey = MASTER_TO_ARTIST_KEY[masterKey];
-      
-      // v70.1: 요청 내용 분석해서 동적으로 보존 항목 결정 (충돌 방지)
-      const lowerPrompt = correctionPrompt.toLowerCase();
-      const hasColorChange = /color|colour|blue|red|yellow|green|orange|purple|pink|gold|silver|bright|dark|light|warm|cool|tone/i.test(correctionPrompt);
-      const hasBackgroundChange = /background/i.test(correctionPrompt);
-      const hasFaceChange = /face|expression|eye|nose|mouth|smile|frown/i.test(correctionPrompt);
-      const hasPoseChange = /pose|position|body|arm|leg|hand/i.test(correctionPrompt);
-      
-      let keepUnchanged = [];
-      if (!hasColorChange) keepUnchanged.push('overall colors and tones');
-      if (!hasBackgroundChange) keepUnchanged.push('background');
-      if (!hasFaceChange) keepUnchanged.push('face identity');
-      if (!hasPoseChange) keepUnchanged.push('body pose');
-      keepUnchanged.push('composition');
-      
-      const keepUnchangedStr = keepUnchanged.join(', ');
-      console.log(`🔒 보존 항목: ${keepUnchangedStr}`);
-      
-      // v76: FLUX Kontext 프롬프트 - 화가 이름 포함
-      // "ONLY" + 수정 요청 + "while keeping the same [화가] painting style"
-      
-      // 화가 키 → 이름 변환
-      const ARTIST_DISPLAY_NAMES = {
-        'vangogh': 'Van Gogh',
-        'klimt': 'Klimt',
-        'munch': 'Munch',
-        'picasso': 'Picasso',
-        'matisse': 'Matisse',
-        'frida': 'Frida Kahlo',
-        'lichtenstein': 'Lichtenstein'
-      };
-      
       const artistDisplayName = ARTIST_DISPLAY_NAMES[artistKey] || 'painting';
       
-      // pants → lower garment 치환 (FLUX가 다리 피부와 혼동 방지)
+      // pants → lower garment 치환
       const sanitizedPrompt = correctionPrompt.replace(/pants/gi, 'lower garment');
-      // v80: BFL 공식 가이드 기반 프롬프트 개선
-      // - 구체적 주어 사용 (portrait → the person in the painting)
-      // - focused edit 패턴 ("Add X to the person" not "ONLY X")
-      // - "maintain all other aspects" 추가 (BFL 권장)
-      const kontextPrompt = `${sanitizedPrompt}. Maintain all other aspects of the original image including the ${artistDisplayName} painting style, brushwork, color palette, composition, background, pose, and facial features.`;
+      
+      // Nano Banana 2 프롬프트
+      const editPrompt = `Edit this painting: ${sanitizedPrompt}. Keep the ${artistDisplayName} painting style, brushwork, color palette, composition, background, pose, and facial features exactly the same. Only change what was requested.`;
       
       console.log(`👨‍🎨 거장: ${masterKey} → ${artistDisplayName}`);
-      console.log(`📜 Kontext 프롬프트: ${kontextPrompt}`);
+      console.log(`📜 Nano Banana 2 프롬프트: ${editPrompt}`);
       
-      // v80: Kontext도 Prefer:wait 적용
-      const response = await fetch(
-        'https://api.replicate.com/v1/models/black-forest-labs/flux-kontext-pro/predictions',
+      // ── Step 1: 이미지 → base64 변환 ──
+      let imageBase64;
+      try {
+        if (image.startsWith('data:')) {
+          imageBase64 = image.split(',')[1];
+        } else if (image.startsWith('http')) {
+          console.log('📥 원본 이미지 다운로드 중...');
+          const imgResponse = await fetch(image);
+          if (!imgResponse.ok) throw new Error(`Image fetch failed: ${imgResponse.status}`);
+          const imgBuffer = await imgResponse.arrayBuffer();
+          imageBase64 = Buffer.from(imgBuffer).toString('base64');
+        } else {
+          imageBase64 = image;
+        }
+        console.log(`✅ 이미지 준비 완료 (${Math.round(imageBase64.length / 1024)}KB)`);
+      } catch (imgError) {
+        console.error('❌ 이미지 다운로드 실패:', imgError.message);
+        return res.status(500).json({ error: 'Failed to fetch source image', message: imgError.message });
+      }
+      
+      // ── Step 2: Nano Banana 2 API 호출 ──
+      console.log('🍌 Nano Banana 2 API 호출 중...');
+      const geminiResponse = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent?key=${process.env.GEMINI_API_KEY}`,
         {
           method: 'POST',
-          headers: {
-            'Authorization': `Token ${process.env.REPLICATE_API_KEY}`,
-            'Content-Type': 'application/json',
-            'Prefer': 'wait=60'
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            input: {
-              input_image: image,
-              prompt: kontextPrompt
+            contents: [{
+              parts: [
+                { inline_data: { mime_type: 'image/png', data: imageBase64 } },
+                { text: editPrompt }
+              ]
+            }],
+            generationConfig: {
+              responseModalities: ['TEXT', 'IMAGE']
             }
           })
         }
       );
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error('FLUX Kontext error (retransform):', response.status, errorText);
-        return res.status(response.status).json({ 
-          error: `FLUX Kontext API error: ${response.status}`,
+      
+      if (!geminiResponse.ok) {
+        const errorText = await geminiResponse.text();
+        console.error('❌ Nano Banana 2 API error:', geminiResponse.status, errorText);
+        return res.status(geminiResponse.status).json({ 
+          error: `Nano Banana 2 API error: ${geminiResponse.status}`,
           details: errorText
         });
       }
-
-      const prediction = await response.json();
-      const elapsedTime = ((Date.now() - startTime) / 1000).toFixed(1);
       
-      const kontextResultUrl = prediction.output
-        ? (Array.isArray(prediction.output) ? prediction.output[0] : prediction.output)
-        : null;
+      const geminiData = await geminiResponse.json();
       
-      if (kontextResultUrl) {
-        console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-        console.log(`✅ Kontext Prefer:wait 완료 (${elapsedTime}초)`);
-        console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-        
-        return res.status(200).json({
-          status: 'completed',
-          resultUrl: kontextResultUrl,
-          predictionId: prediction.id,
-          selected_artist: '재변환',
-          selected_work: correctionPrompt,
-          isRetransform: true
-        });
-      } else {
-        console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-        console.log(`📤 Kontext Prediction ID 반환 (${elapsedTime}초) → 폴링 fallback`);
-        console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-        
-        return res.status(200).json({
-          status: 'polling_required',
-          predictionId: prediction.id,
-          selected_artist: '재변환',
-          selected_work: correctionPrompt,
-          isRetransform: true
+      // ── Step 3: 응답에서 이미지 추출 ──
+      let resultBase64 = null;
+      let resultMimeType = 'image/png';
+      
+      const geminiParts = geminiData.candidates?.[0]?.content?.parts || [];
+      for (const part of geminiParts) {
+        if (part.inlineData) {
+          resultBase64 = part.inlineData.data;
+          resultMimeType = part.inlineData.mimeType || 'image/png';
+          console.log(`🖼️ 이미지 추출 완료 (${resultMimeType}, ${Math.round(resultBase64.length / 1024)}KB)`);
+          break;
+        }
+        if (part.text) {
+          console.log(`💬 Gemini 텍스트: ${part.text.substring(0, 100)}`);
+        }
+      }
+      
+      if (!resultBase64) {
+        console.error('❌ Nano Banana 2: 이미지 미생성');
+        console.error('응답:', JSON.stringify(geminiData).substring(0, 500));
+        return res.status(500).json({ 
+          error: 'Nano Banana 2 did not generate an image',
+          details: 'No inlineData found in response'
         });
       }
+      
+      // ── Step 4: data URL로 반환 (테스트용, 추후 Storage 업로드로 전환 가능) ──
+      const resultDataUrl = `data:${resultMimeType};base64,${resultBase64}`;
+      const elapsedTime = ((Date.now() - startTime) / 1000).toFixed(1);
+      
+      console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+      console.log(`✅ Nano Banana 2 재변환 완료 (${elapsedTime}초)`);
+      console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+      
+      return res.status(200).json({
+        status: 'completed',
+        resultUrl: resultDataUrl,
+        predictionId: `nb2-${Date.now()}`,
+        selected_artist: '재변환',
+        selected_work: correctionPrompt,
+        isRetransform: true
+      });
     }
     
     // ========================================

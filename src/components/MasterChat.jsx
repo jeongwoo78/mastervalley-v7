@@ -35,8 +35,9 @@ const MasterChat = ({
   retransformCost = 100,  // 재변환 비용
   savedChatData,       // 저장된 대화 데이터 { messages, pendingCorrection, messageCount, isChatEnded }
   onChatDataChange,    // 대화 데이터 변경 콜백
-  prefetchedGreeting,  // 프리로드된 그리팅 { message, timeTravel }
-  lang = 'en'          // 언어 설정
+  prefetchedGreeting,       // 프리로드된 그리팅 { message, timeTravel }
+  transformedImageUrl = null, // v91: 변환된 이미지 URL (GPT-4o Vision용)
+  lang = 'en'               // 언어 설정
 }) => {
   // i18n 데이터 로드
   const chatText = getMasterChat(lang);
@@ -138,7 +139,8 @@ const MasterChat = ({
           userMessage: '',
           lang: lang,
           timeTravel: tt,
-          subjectType: subjectType || 'person'
+          subjectType: subjectType || 'person',
+          transformedImageUrl: transformedImageUrl  // v91
         })
       });
 
@@ -215,7 +217,8 @@ const MasterChat = ({
           conversationHistory: conversationHistory,
           lang: lang,
           timeTravel: timeTravelRef.current,
-          subjectType: subjectType || 'person'
+          subjectType: subjectType || 'person',
+          transformedImageUrl: transformedImageUrl  // v91
         })
       });
       
