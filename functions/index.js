@@ -152,7 +152,7 @@ const FUNCTION_CONFIG = {
   cors: true,
   timeoutSeconds: 540,
   memory: '1GiB',
-  secrets: ['REPLICATE_API_KEY', 'ANTHROPIC_API_KEY']
+  secrets: ['REPLICATE_API_KEY', 'ANTHROPIC_API_KEY', 'GEMINI_API_KEY']
 };
 
 // 공통 핸들러
