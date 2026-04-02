@@ -40,13 +40,13 @@ export const masterChat = {
   },
 
   suggestedQuestions: {
-    'VAN GOGH': ['Saç rengimi değiştir', 'Küpe ekle', 'Kulağının hikâyesini anlat', 'Neden ayçiçeklerini bu kadar seviyorsun?'],
-    'KLIMT': ['Dudak rengimi değiştir', 'Küpe ekle', '\"Öpücük\"ün modeli kimdi?', 'Neden altını bu kadar seviyorsun?'],
-    'MUNCH': ['Saç rengimi değiştir', 'Küpe ekle', 'Hiç evlendin mi?', 'Neden \"Çığlık\"ı çizdin?'],
-    'CHAGALL': ['Saç rengimi değiştir', 'Küpe ekle', 'Hiç aşık oldun mu?', 'Hayvanları seviyor musun?'],
-    'MATISSE': ['Dudak rengimi değiştir', 'Küpe ekle', 'Kendini tanıt', 'Renklerin neden bu kadar canlı?'],
-    'FRIDA': ['Dudak rengimi değiştir', 'Küpe ekle', 'O kazayı anlat', 'Neden bu kadar çok öz portre çizdin?'],
-    'LICHTENSTEIN': ['Saç rengimi değiştir', 'Küpe ekle', 'Kendini tanıt', 'Neden çizgi roman tarzında resim yapıyorsun?']
+    'VAN GOGH': ['Tablo değiştirilebilir mi?', 'Sizi daha yakından tanımak istiyorum'],
+    'KLIMT': ['Tablo değiştirilebilir mi?', 'Sizi daha yakından tanımak istiyorum'],
+    'MUNCH': ['Tablo değiştirilebilir mi?', 'Sizi daha yakından tanımak istiyorum'],
+    'CHAGALL': ['Tablo değiştirilebilir mi?', 'Sizi daha yakından tanımak istiyorum'],
+    'MATISSE': ['Tablo değiştirilebilir mi?', 'Sizi daha yakından tanımak istiyorum'],
+    'FRIDA': ['Tablo değiştirilebilir mi?', 'Sizi daha yakından tanımak istiyorum'],
+    'LICHTENSTEIN': ['Tablo değiştirilebilir mi?', 'Sizi daha yakından tanımak istiyorum'],
   },
 
   resultMessages: {

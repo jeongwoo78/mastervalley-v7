@@ -40,13 +40,13 @@ export const masterChat = {
   },
 
   suggestedQuestions: {
-    'VAN GOGH': ['Muda a cor do meu cabelo', 'Adiciona um brinco', 'Conta-me sobre a tua orelha', 'Porque adoras girassóis?'],
-    'KLIMT': ['Muda a cor dos meus lábios', 'Adiciona um brinco', 'Quem foi o modelo de «O Beijo»?', 'Porque adoras o dourado?'],
-    'MUNCH': ['Muda a cor do meu cabelo', 'Adiciona um brinco', 'Alguma vez te casaste?', 'Porque pintaste «O Grito»?'],
-    'CHAGALL': ['Muda a cor do meu cabelo', 'Adiciona um brinco', 'Já te apaixonaste?', 'Gostas de animais?'],
-    'MATISSE': ['Muda a cor dos meus lábios', 'Adiciona um brinco', 'Apresenta-te', 'Porque são as tuas cores tão vibrantes?'],
-    'FRIDA': ['Muda a cor dos meus lábios', 'Adiciona um brinco', 'Conta-me sobre o teu acidente', 'Porque pintaste tantos autorretratos?'],
-    'LICHTENSTEIN': ['Muda a cor do meu cabelo', 'Adiciona um brinco', 'Apresenta-te', 'Porque pintas em estilo de quadrinhos?']
+    'VAN GOGH': ['É possível modificar a pintura?', 'Gostaria de saber mais sobre você'],
+    'KLIMT': ['É possível modificar a pintura?', 'Gostaria de saber mais sobre você'],
+    'MUNCH': ['É possível modificar a pintura?', 'Gostaria de saber mais sobre você'],
+    'CHAGALL': ['É possível modificar a pintura?', 'Gostaria de saber mais sobre você'],
+    'MATISSE': ['É possível modificar a pintura?', 'Gostaria de saber mais sobre você'],
+    'FRIDA': ['É possível modificar a pintura?', 'Gostaria de saber mais sobre você'],
+    'LICHTENSTEIN': ['É possível modificar a pintura?', 'Gostaria de saber mais sobre você'],
   },
 
   resultMessages: {

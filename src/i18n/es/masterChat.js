@@ -44,13 +44,13 @@ export const masterChat = {
 
   // ===== Preguntas sugeridas (7 × 4 = 28) =====
   suggestedQuestions: {
-    'VAN GOGH': ['Cambia el color de mi pelo', 'Añade pendientes', 'Cuéntame sobre tu oreja', '¿Por qué te gustan los girasoles?'],
-    'KLIMT': ['Cambia el color de mis labios', 'Añade pendientes', '¿Quién fue el modelo de El beso?', '¿Por qué usas tanto el oro?'],
-    'MUNCH': ['Cambia el color de mi pelo', 'Añade pendientes', '¿Te casaste alguna vez?', '¿Por qué pintaste El grito?'],
-    'CHAGALL': ['Cambia el color de mi pelo', 'Añade pendientes', '¿Has estado enamorado?', '¿Te gustan los animales?'],
-    'MATISSE': ['Cambia el color de mis labios', 'Añade pendientes', 'Preséntate', '¿Por qué tus colores son tan vivos?'],
-    'FRIDA': ['Cambia el color de mis labios', 'Añade pendientes', 'Cuéntame sobre el accidente', '¿Por qué pintabas tantos autorretratos?'],
-    'LICHTENSTEIN': ['Cambia el color de mi pelo', 'Añade pendientes', 'Preséntate', '¿Por qué pintas como un cómic?']
+    'VAN GOGH': ['¿Se puede modificar el cuadro?', 'Me gustaría saber más sobre usted'],
+    'KLIMT': ['¿Se puede modificar el cuadro?', 'Me gustaría saber más sobre usted'],
+    'MUNCH': ['¿Se puede modificar el cuadro?', 'Me gustaría saber más sobre usted'],
+    'CHAGALL': ['¿Se puede modificar el cuadro?', 'Me gustaría saber más sobre usted'],
+    'MATISSE': ['¿Se puede modificar el cuadro?', 'Me gustaría saber más sobre usted'],
+    'FRIDA': ['¿Se puede modificar el cuadro?', 'Me gustaría saber más sobre usted'],
+    'LICHTENSTEIN': ['¿Se puede modificar el cuadro?', 'Me gustaría saber más sobre usted'],
   },
 
   // ===== Mensajes de modificación completada (7) =====

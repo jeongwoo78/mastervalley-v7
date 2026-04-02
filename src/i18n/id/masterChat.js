@@ -44,13 +44,13 @@ export const masterChat = {
 
   // ===== Pertanyaan yang Disarankan (7 × 4) =====
   suggestedQuestions: {
-    'VAN GOGH': ['Ubah warna rambutku', 'Tambahkan anting', 'Ceritakan soal telingamu', 'Kenapa kamu suka bunga matahari?'],
-    'KLIMT': ['Ubah warna bibirku', 'Tambahkan anting', 'Siapa model dalam "The Kiss"?', 'Kenapa kamu suka warna emas?'],
-    'MUNCH': ['Ubah warna rambutku', 'Tambahkan anting', 'Pernah menikah?', 'Kenapa kamu melukis "The Scream"?'],
-    'CHAGALL': ['Ubah warna rambutku', 'Tambahkan anting', 'Pernah jatuh cinta?', 'Kamu suka binatang?'],
-    'MATISSE': ['Ubah warna bibirku', 'Tambahkan anting', 'Perkenalkan dirimu', 'Kenapa warnamu begitu cerah?'],
-    'FRIDA': ['Ubah warna bibirku', 'Tambahkan anting', 'Ceritakan tentang kecelakaanmu', 'Kenapa kamu banyak melukis potret diri?'],
-    'LICHTENSTEIN': ['Ubah warna rambutku', 'Tambahkan anting', 'Perkenalkan dirimu', 'Kenapa kamu melukis seperti komik?']
+    'VAN GOGH': ['Bisakah lukisan ini diubah?', 'Saya ingin tahu lebih banyak tentang Anda'],
+    'KLIMT': ['Bisakah lukisan ini diubah?', 'Saya ingin tahu lebih banyak tentang Anda'],
+    'MUNCH': ['Bisakah lukisan ini diubah?', 'Saya ingin tahu lebih banyak tentang Anda'],
+    'CHAGALL': ['Bisakah lukisan ini diubah?', 'Saya ingin tahu lebih banyak tentang Anda'],
+    'MATISSE': ['Bisakah lukisan ini diubah?', 'Saya ingin tahu lebih banyak tentang Anda'],
+    'FRIDA': ['Bisakah lukisan ini diubah?', 'Saya ingin tahu lebih banyak tentang Anda'],
+    'LICHTENSTEIN': ['Bisakah lukisan ini diubah?', 'Saya ingin tahu lebih banyak tentang Anda'],
   },
 
   // ===== Pesan Modifikasi Selesai (7) =====

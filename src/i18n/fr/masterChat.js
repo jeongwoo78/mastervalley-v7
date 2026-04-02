@@ -44,13 +44,13 @@ export const masterChat = {
 
   // ===== Questions suggérées (7 × 4 = 28) =====
   suggestedQuestions: {
-    'VAN GOGH': ['Changez la couleur de mes cheveux', 'Ajoutez des boucles d\'oreilles', 'Parlez-moi de votre oreille', 'Pourquoi aimez-vous les tournesols ?'],
-    'KLIMT': ['Changez la couleur de mes lèvres', 'Ajoutez des boucles d\'oreilles', 'Qui était le modèle du Baiser ?', 'Pourquoi utilisez-vous autant l\'or ?'],
-    'MUNCH': ['Changez la couleur de mes cheveux', 'Ajoutez des boucles d\'oreilles', 'Vous êtes-vous marié ?', 'Pourquoi avez-vous peint Le Cri ?'],
-    'CHAGALL': ['Changez la couleur de mes cheveux', 'Ajoutez des boucles d\'oreilles', 'Avez-vous connu l\'amour ?', 'Aimez-vous les animaux ?'],
-    'MATISSE': ['Changez la couleur de mes lèvres', 'Ajoutez des boucles d\'oreilles', 'Présentez-vous', 'Pourquoi vos couleurs sont-elles si vives ?'],
-    'FRIDA': ['Changez la couleur de mes lèvres', 'Ajoutez des boucles d\'oreilles', 'Parlez-moi de l\'accident', 'Pourquoi peigniez-vous autant d\'autoportraits ?'],
-    'LICHTENSTEIN': ['Changez la couleur de mes cheveux', 'Ajoutez des boucles d\'oreilles', 'Présentez-vous', 'Pourquoi peignez-vous comme une bande dessinée ?']
+    'VAN GOGH': ['Peut-on modifier le tableau ?', 'J'aimerais en savoir plus sur vous'],
+    'KLIMT': ['Peut-on modifier le tableau ?', 'J'aimerais en savoir plus sur vous'],
+    'MUNCH': ['Peut-on modifier le tableau ?', 'J'aimerais en savoir plus sur vous'],
+    'CHAGALL': ['Peut-on modifier le tableau ?', 'J'aimerais en savoir plus sur vous'],
+    'MATISSE': ['Peut-on modifier le tableau ?', 'J'aimerais en savoir plus sur vous'],
+    'FRIDA': ['Peut-on modifier le tableau ?', 'J'aimerais en savoir plus sur vous'],
+    'LICHTENSTEIN': ['Peut-on modifier le tableau ?', 'J'aimerais en savoir plus sur vous'],
   },
 
   // ===== Messages de modification terminée (7) =====
