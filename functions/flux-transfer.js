@@ -3974,11 +3974,11 @@ export default async function handler(req, res) {
       } else {
         // 성인 (기존)
         if (gender === 'male') {
-          attractiveEnhancement = ' Render stunningly handsome - male as dignified, charismatic, with strong refined features.';
+          attractiveEnhancement = ' Render stunningly handsome - male as dignified, charismatic, with strong refined features. Tasteful and dignified.';
         } else if (gender === 'female') {
-          attractiveEnhancement = ' Render stunningly gorgeous - female as elegant, graceful, with luminous refined beauty.';
+          attractiveEnhancement = ' Render stunningly gorgeous - female as elegant, graceful, with luminous refined beauty. Tasteful and dignified.';
         } else {
-          attractiveEnhancement = ' Render stunningly beautiful - male as handsome, dignified; female as gorgeous, elegant, graceful.';
+          attractiveEnhancement = ' Render stunningly beautiful - male as handsome, dignified; female as gorgeous, elegant, graceful. Tasteful and dignified.';
         }
       }
       
