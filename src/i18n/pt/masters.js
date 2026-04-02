@@ -64,10 +64,10 @@ export const mastersBasicInfo = {
     loading: { name: 'Marc Chagall (1887–1985)', subtitle1: 'Surrealismo · Rússia/França', subtitle2: 'Pintor de cem anos de amor' },
     result: {
       name: 'Marc Chagall (1887–1985)',
-      subtitle1: 'O Aniversário · Eu e a Aldeia · A Noiva',
+      subtitle1: 'Amantes com Flores · Eu e a Aldeia · A Noiva',
       subtitle2: 'Poeta do amor e dos sonhos',
       works: {
-        'lovers': { subtitle1: 'Os Amantes (The Lovers)', subtitle2: 'Dois amantes embriagados de amor, esquecidos da gravidade' },
+        'lovers': { subtitle1: 'Amantes com Flores (Lovers with Flowers)', subtitle2: 'Amor que brilha calorosamente em um buquê' },
         'lamariee': { subtitle1: 'A Noiva (La Mariée)', subtitle2: 'Uma noiva voando entre o sonho e a realidade' },
         'village': { subtitle1: 'Eu e a Aldeia (I and the Village)', subtitle2: 'Memórias da terra natal fluindo como sonho' }
       }
@@ -144,7 +144,7 @@ export const mastersResultEducation = {
   'matisse-redroom': { description: `A composição plana de cor que ignora as leis da perspectiva de O Quarto Vermelho foi aplicada.\nA parede e a mesa, ambas vermelhas, se fundem, e a arabesca cobre toda a superfície.\n\nO Quarto Vermelho foi pintado originalmente em azul por Matisse, mas pintado de vermelho antes de ser concluído.\nAté a vista da janela parece uma decoração plana, apagando os limites entre interior e exterior.` },
   'matisse-derain': { description: `As pinceladas brutas e os tons de pele irreais do Retrato de André Derain foram aplicados.\nSombras verdes e pele laranja com cores primárias intensas retratam a figura num estilo "fauve".\n\nO Retrato de André Derain é um retrato de amizade que Matisse pintou de seu colega pintor André Derain.\nOs pintores trocaram retratos no mesmo período, partilhando experiências do fauvismo.` },
 
-  'chagall-lovers': { description: `As cores oníricas e as imagens sobrepostas como sonhos de O Aniversário foram aplicadas.\nRosa, azul cobalto e violeta se fundem, apagando os limites entre sonho e realidade.\n\nO Aniversário é uma obra em que Chagall verteu seu amor por Bella, sua musa e esposa por toda a vida, sobre a tela.\nOs amantes sobrepostos como um sonho sobre um fundo real expressam o êxtase do amor.` },
+  'chagall-lovers': { description: `As cores oníricas e as imagens sobrepostas como sonhos de Amantes com Flores foram aplicadas.\nRosa, azul cobalto e violeta se fundem, apagando os limites entre sonho e realidade.\n\nAmantes com Flores é uma obra em que Chagall verteu seu amor por Bella, sua musa e esposa por toda a vida, sobre a tela.\nOs amantes sobrepostos como um sonho sobre um fundo real expressam o êxtase do amor.` },
   'chagall-lamariee': { description: `O contraste onírico entre o buquê vermelho e o céu noturno azul de A Noiva foi aplicado.\nAnimais e figuras se fundem como espectros, espalhando uma fantasia celebratória.\n\nA Noiva captura os telhados e minaretes de Vitebsk, cidade natal de Chagall, como uma cena da memória.\nA noiva com seu buquê vermelho sobreposto à cena da aldeia carrega nostalgia e alegria ao mesmo tempo.` },
   'chagall-village': { description: `As perspectivas múltiplas e as imagens transparentes sobrepostas de Eu e a Aldeia foram aplicadas.\nSeres humanos, animais e a cena da aldeia se misturam como num sonho, ignorando proporções e tamanhos.\n\nEu e a Aldeia foi pintada por Chagall em Paris, com saudades de sua cidade natal, Vitebsk.\nRealidade e memória se fundem numa só tela, carregando uma nostalgia interminável pela terra natal.` },
 

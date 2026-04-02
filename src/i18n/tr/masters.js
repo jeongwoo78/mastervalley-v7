@@ -64,10 +64,10 @@ export const mastersBasicInfo = {
     loading: { name: 'Marc Chagall (1887–1985)', subtitle1: 'Sürrealizm · Rusya/Fransa', subtitle2: 'Yüz yıllık aşkın ressamı' },
     result: {
       name: 'Marc Chagall (1887–1985)',
-      subtitle1: 'Doğum Günü · Ben ve Köy · Gelin',
+      subtitle1: 'Çiçekli Âşıklar · Ben ve Köy · Gelin',
       subtitle2: 'Aşk ve rüyaların şairi',
       works: {
-        'lovers': { subtitle1: 'Âşıklar (The Lovers)', subtitle2: 'Aşktan sarhoş olup yerçekimini unutan âşıklar' },
+        'lovers': { subtitle1: 'Çiçekli Âşıklar (Lovers with Flowers)', subtitle2: 'Bir buket içinde sıcacık parlayan aşk' },
         'lamariee': { subtitle1: 'Gelin (La Mariée)', subtitle2: 'Rüya ile gerçek arasında süzülen bir gelin' },
         'village': { subtitle1: 'Ben ve Köy (I and the Village)', subtitle2: 'Vatanın anıları bir rüya gibi akıyor' }
       }

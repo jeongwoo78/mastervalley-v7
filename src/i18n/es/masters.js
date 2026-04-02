@@ -89,10 +89,10 @@ export const mastersBasicInfo = {
     },
     result: {
       name: 'Marc Chagall (1887–1985)',
-      subtitle1: 'El cumpleaños · Yo y la aldea · La novia',
+      subtitle1: 'Amantes con flores · Yo y la aldea · La novia',
       subtitle2: 'Poeta del amor y los sueños',
       works: {
-        'lovers': { subtitle1: 'Los amantes (The Lovers)', subtitle2: 'Amantes tan ebrios de amor que olvidaron la gravedad' },
+        'lovers': { subtitle1: 'Amantes con flores (Lovers with Flowers)', subtitle2: 'Amor que brilla cálidamente en un ramo' },
         'lamariee': { subtitle1: 'La novia (La Mariée)', subtitle2: 'Una novia flotando entre el sueño y la realidad' },
         'village': { subtitle1: 'Yo y la aldea (I and the Village)', subtitle2: 'Recuerdos del hogar a la deriva como un sueño' },
       }
@@ -471,11 +471,11 @@ Sombras verdes y piel naranja, con colores primarios audaces, representan al suj
 Los dos pintores intercambiaron retratos el uno del otro al mismo tiempo, compartiendo sus experimentos fauvistas juntos.`
   },
   'chagall-lovers': {
-    description: `Se han aplicado los colores oníricos y las imágenes superpuestas de 〈Los amantes〉.
+    description: `Se han aplicado los colores oníricos y las imágenes superpuestas de 〈Amantes con flores〉.
 El rosa, el azul cobalto y el violeta se mezclan, borrando el límite entre el sueño y la realidad.
 
-〈Los amantes〉 es una obra que Chagall pintó sobre su amor por Bella, su musa y esposa de toda la vida.
-Los amantes superpuestos como un sueño sobre un fondo real expresan la embriaguez del amor.`
+〈Amantes con flores〉 es una obra que Chagall pintó sobre su amor por Bella, su musa y esposa de toda la vida.
+Un ramo vívido de flores rojas y blancas brilla sobre un fondo de verde profundo y azul marino, expresando la calidez del amor.`
   },
   'chagall-lamariee': {
     description: `Se ha aplicado el contraste onírico de los ramos rojos y el cielo nocturno azul en 〈La Mariée〉.

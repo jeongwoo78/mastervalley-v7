@@ -58,7 +58,7 @@ export const mastersBasicInfo = {
       subtitle1: 'Surealisme · Rusia/Prancis',
       subtitle2: 'Penyair cinta dan mimpi',
       works: {
-        'lovers': { subtitle1: 'Kekasih (The Lovers)', subtitle2: 'Sepasang kekasih yang mabuk cinta hingga melupakan gravitasi' },
+        'lovers': { subtitle1: 'Kekasih dengan Bunga (Lovers with Flowers)', subtitle2: 'Cinta yang bersinar hangat dalam sebuket bunga' },
         'lamariee': { subtitle1: 'La Mariée', subtitle2: 'Pengantin yang melayang antara mimpi dan kenyataan' },
         'village': { subtitle1: 'Aku dan Desa (I and the Village)', subtitle2: 'Kenangan rumah yang melayang seperti mimpi' },
       }
@@ -320,11 +320,11 @@ Bayangan hijau dan kulit oranye, dengan warna primer tebal, merender subjek deng
 Kedua pelukis saling bertukar potret satu sama lain pada waktu yang sama, berbagi eksperimen Fauvisme bersama.`
   },
   'chagall-lovers': {
-    description: `Warna seperti mimpi dan gambar yang saling tumpang tindih dari 〈The Lovers〉 telah diterapkan.
+    description: `Warna seperti mimpi dan gambar yang saling tumpang tindih dari 〈Lovers with Flowers〉 telah diterapkan.
 Merah muda, biru kobalt, dan violet berpadu, menghapus batas antara mimpi dan kenyataan.
 
-〈The Lovers〉 adalah karya Chagall yang dilukis tentang cintanya pada Bella, muse dan istrinya seumur hidup.
-Kekasih yang berlapis seperti mimpi di atas latar nyata mengekspresikan mabuk cinta.`
+〈Lovers with Flowers〉 adalah karya Chagall yang dilukis tentang cintanya pada Bella, muse dan istrinya seumur hidup.
+Buket bunga merah dan putih yang cerah bersinar di atas latar hijau tua dan biru laut, mengekspresikan kehangatan cinta.`
   },
   'chagall-lamariee': {
     description: `Kontras seperti mimpi buket merah dan langit malam biru dalam 〈La Mariée〉 telah diterapkan.

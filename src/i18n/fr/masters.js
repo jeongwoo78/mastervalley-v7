@@ -92,7 +92,7 @@ export const mastersBasicInfo = {
       subtitle1: 'L\'Anniversaire · Moi et le village · La Mariée',
       subtitle2: 'Poète de l\'amour et des rêves',
       works: {
-        'lovers': { subtitle1: 'Les Amoureux (The Lovers)', subtitle2: 'Des amants si ivres d\'amour qu\'ils ont oublié la gravité' },
+        'lovers': { subtitle1: 'Les Amoureux aux fleurs (Lovers with Flowers)', subtitle2: 'L\'amour rayonnant au cœur d\'un bouquet' },
         'lamariee': { subtitle1: 'La Mariée (La Mariée)', subtitle2: 'Une mariée flottant entre rêve et réalité' },
         'village': { subtitle1: 'Moi et le village (I and the Village)', subtitle2: 'Des souvenirs du foyer dérivant comme un rêve' },
       }
@@ -471,10 +471,10 @@ Le 〈Portrait d\'André Derain〉 est un portrait d\'amitié que Matisse peigni
 Les deux peintres échangèrent des portraits l\'un de l\'autre en même temps, partageant ensemble leurs expériences fauves.`
   },
   'chagall-lovers': {
-    description: `Les couleurs oniriques et les images superposées de 〈Les Amoureux〉 ont été appliquées.
+    description: `Les couleurs oniriques et les images superposées de 〈Les Amoureux aux fleurs〉 ont été appliquées.
 Le rose, le bleu cobalt et le violet se fondent, effaçant la frontière entre rêve et réalité.
 
-〈Les Amoureux〉 est une œuvre que Chagall peignit sur son amour pour Bella, sa muse et épouse toute sa vie.
+〈Les Amoureux aux fleurs〉 est une œuvre que Chagall peignit sur son amour pour Bella, sa muse et épouse toute sa vie.
 Les amoureux superposés comme un rêve sur un fond réel expriment l\'ivresse de l\'amour.`
   },
   'chagall-lamariee': {

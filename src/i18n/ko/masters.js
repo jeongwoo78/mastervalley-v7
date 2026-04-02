@@ -85,10 +85,10 @@ export const mastersBasicInfo = {
     },
     result: {
       name: '마르크 샤갈(Marc Chagall, 1887~1985)',
-      subtitle1: '생일 · 나와 마을 · 신부',
+      subtitle1: '꽃과 연인들 · 나와 마을 · 신부',
       subtitle2: '사랑과 꿈의 시인',
       works: {
-        'lovers': { subtitle1: '연인들(The Lovers)', subtitle2: '사랑에 취해 중력을 잊은 연인들' },
+        'lovers': { subtitle1: '꽃과 연인들(Lovers with Flowers)', subtitle2: '꽃다발 속에 사랑을 담은 연인들' },
         'lamariee': { subtitle1: '신부(La Mariée)', subtitle2: '꿈과 현실 사이를 떠다니는 붉은 신부' },
         'village': { subtitle1: '나와 마을(I and the Village)', subtitle2: '고향 마을의 기억이 꿈처럼 흘러가다' }
       }
@@ -341,11 +341,11 @@ export const mastersResultEducation = {
 
   // ── 샤갈 ──
   'chagall-lovers': {
-    description: `〈연인들〉에서 나타난 몽환적 색채와 꿈처럼 겹쳐지는 이미지가 적용되었습니다.
+    description: `〈꽃과 연인들〉에서 나타난 몽환적 색채와 꿈처럼 겹쳐지는 이미지가 적용되었습니다.
 분홍, 코발트 블루, 보라가 어우러지며 꿈과 현실의 경계를 지웁니다.
 
-〈연인들〉은 샤갈이 평생의 뮤즈이자 아내 벨라와의 사랑을 화폭에 담은 작품입니다.
-현실의 배경 위에 꿈처럼 겹쳐진 연인이 사랑의 도취를 표현합니다.`
+〈꽃과 연인들〉은 샤갈이 평생의 뮤즈이자 아내 벨라와의 사랑을 화폭에 담은 작품입니다.
+짙은 녹색과 남색 배경 위에 붉고 흰 꽃다발이 빛나며 사랑의 온기를 표현합니다.`
   },
   'chagall-lamariee': {
     description: `〈신부〉에서 나타난 붉은 꽃다발과 파란 밤하늘의 몽환적 대비가 적용되었습니다.

@@ -85,10 +85,10 @@ export const mastersBasicInfo = {
     },
     result: {
       name: 'マルク・シャガール（Marc Chagall, 1887〜1985）',
-      subtitle1: '誕生日 · 私と村 · 花嫁',
+      subtitle1: '花と恋人たち · 私と村 · 花嫁',
       subtitle2: '愛と夢の詩人',
       works: {
-        'lovers': { subtitle1: '恋人たち（The Lovers）', subtitle2: '愛に酔いしれ重力を忘れた恋人たち' },
+        'lovers': { subtitle1: '花と恋人たち（Lovers with Flowers）', subtitle2: '花束の中に愛を込めた恋人たち' },
         'lamariee': { subtitle1: '花嫁（La Mariée）', subtitle2: '夢と現実の間を漂う赤い花嫁' },
         'village': { subtitle1: '私と村（I and the Village）', subtitle2: '故郷の記憶が夢のように流れゆく' }
       }
@@ -341,11 +341,11 @@ export const mastersResultEducation = {
 
   // ── シャガール ──
   'chagall-lovers': {
-    description: `〈恋人たち〉に見られる夢幻的な色彩と夢のように重なり合うイメージが適用されています。
+    description: `〈花と恋人たち〉に見られる夢幻的な色彩と夢のように重なり合うイメージが適用されています。
 ピンク、コバルトブルー、紫が調和し、夢と現実の境界を消し去っています。
 
-〈恋人たち〉はシャガールが生涯のミューズであり妻であったベラとの愛を画布に描いた作品です。
-現実の背景の上に夢のように重なった恋人が、愛の陶酔を表現しています。`
+〈花と恋人たち〉はシャガールが生涯のミューズであり妻であったベラとの愛を画布に描いた作品です。
+深い緑と紺色の背景に赤と白の花束が輝き、愛の温もりを表現しています。`
   },
   'chagall-lamariee': {
     description: `〈花嫁〉に見られる赤い花束と青い夜空の夢幻的な対比が適用されています。

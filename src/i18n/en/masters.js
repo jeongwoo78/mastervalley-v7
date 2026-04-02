@@ -85,10 +85,10 @@ export const mastersBasicInfo = {
     },
     result: {
       name: 'Marc Chagall (1887–1985)',
-      subtitle1: 'The Birthday · I and the Village · La Mariée',
+      subtitle1: 'Lovers with Flowers · I and the Village · La Mariée',
       subtitle2: 'Poet of love and dreams',
       works: {
-        'lovers': { subtitle1: 'The Lovers', subtitle2: 'Lovers so drunk on love, they forgot gravity' },
+        'lovers': { subtitle1: 'Lovers with Flowers', subtitle2: 'Love glowing warmly within a bouquet' },
         'lamariee': { subtitle1: 'La Mariée', subtitle2: 'A bride floating between dream and reality' },
         'village': { subtitle1: 'I and the Village', subtitle2: 'Memories of home drifting like a dream' }
       }
@@ -341,11 +341,11 @@ The two painters exchanged portraits of each other at the same time, sharing the
 
   // ── Chagall ──
   'chagall-lovers': {
-    description: `The dreamlike colors and overlapping images of 〈The Lovers〉 have been applied.
+    description: `The dreamlike colors and overlapping images of 〈Lovers with Flowers〉 have been applied.
 Pink, cobalt blue, and violet blend together, erasing the boundary between dream and reality.
 
-〈The Lovers〉 is a work Chagall painted of his love for Bella, his lifelong muse and wife.
-Lovers layered like a dream over a real background express the intoxication of love.`
+〈Lovers with Flowers〉 is a work Chagall painted of his love for Bella, his lifelong muse and wife.
+A vivid bouquet of red and white flowers glows against a deep green and navy background, expressing the warmth of love.`
   },
   'chagall-lamariee': {
     description: `The dreamlike contrast of red bouquets and blue night sky in 〈La Mariée〉 has been applied.

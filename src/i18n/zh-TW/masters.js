@@ -55,10 +55,10 @@ export const mastersBasicInfo = {
   'chagall': { loading: { name: '馬克·夏卡爾 (1887–1985)', subtitle1: '超現實主義 · 俄羅斯／法國', subtitle2: '愛與夢的詩人' },
     result: {
       name: '馬克·夏卡爾 (1887–1985)',
-      subtitle1: '生日 · 我與村莊 · 新娘',
+      subtitle1: '花與戀人 · 我與村莊 · 新娘',
       subtitle2: '愛與夢的詩人',
       works: {
-        'lovers': { subtitle1: '戀人 (The Lovers)', subtitle2: '沉醉在愛中忘記重力的戀人' },
+        'lovers': { subtitle1: '花與戀人 (Lovers with Flowers)', subtitle2: '花束中綻放溫暖的愛' },
         'lamariee': { subtitle1: '新娘 (La Mariée)', subtitle2: '漂浮在夢與現實之間的新娘' },
         'village': { subtitle1: '我與村莊 (I and the Village)', subtitle2: '如夢般漂流的故鄉記憶' },
       }
@@ -316,11 +316,11 @@ export const mastersResultEducation = {
 兩位畫家同時為彼此作畫，共同分享野獸派的實驗。`
   },
   'chagall-lovers': {
-    description: `〈戀人〉的夢幻色彩與重疊意象已被應用。
+    description: `〈花與戀人〉的夢幻色彩與重疊意象已被應用。
 粉紅、鈷藍與紫羅蘭融合，抹去夢境與現實的界線。
 
-〈戀人〉是夏卡爾描繪對貝拉之愛的作品，貝拉是他一生的繆思與妻子。
-如夢境般疊加在真實背景上的戀人表達了愛情的陶醉。`
+〈花與戀人〉是夏卡爾描繪對貝拉之愛的作品，貝拉是他一生的繆思與妻子。
+深綠與藏青色背景上紅白花束閃耀，表達愛的溫暖。`
   },
   'chagall-lamariee': {
     description: `〈新娘〉中紅色花束與藍色夜空的夢幻對比已被應用。
