@@ -54,8 +54,37 @@ const MasterChat = ({
   const hasGreeted = useRef(savedChatData?.messages?.length > 0);
   const isChatEndedRef = useRef(savedChatData?.isChatEnded || false);
   const timeTravelRef = useRef(null);
+  const resolvedImageUrlRef = useRef(null);  // v91: blob → base64 변환 결과
   
   const MAX_MESSAGES = 20; // 최대 대화 횟수
+
+  // v91: blob URL → base64 data URL 변환
+  useEffect(() => {
+    if (!transformedImageUrl) return;
+    
+    if (transformedImageUrl.startsWith('blob:')) {
+      // blob URL → canvas → base64
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        resolvedImageUrlRef.current = canvas.toDataURL('image/jpeg', 0.7);
+        console.log('[MasterChat] blob → base64 변환 완료');
+      };
+      img.onerror = () => {
+        console.error('[MasterChat] blob → base64 변환 실패');
+        resolvedImageUrlRef.current = null;
+      };
+      img.src = transformedImageUrl;
+    } else {
+      // http:// 또는 data: URL은 그대로 사용
+      resolvedImageUrlRef.current = transformedImageUrl;
+    }
+  }, [transformedImageUrl]);
 
   // 테마 색상
   const theme = MASTER_THEMES[masterKey] || MASTER_THEMES['VAN GOGH'];
@@ -140,7 +169,7 @@ const MasterChat = ({
           lang: lang,
           timeTravel: tt,
           subjectType: subjectType || 'person',
-          transformedImageUrl: transformedImageUrl  // v91
+          transformedImageUrl: resolvedImageUrlRef.current  // v91: blob→base64 변환된 URL
         })
       });
 
@@ -218,7 +247,7 @@ const MasterChat = ({
           lang: lang,
           timeTravel: timeTravelRef.current,
           subjectType: subjectType || 'person',
-          transformedImageUrl: transformedImageUrl  // v91
+          transformedImageUrl: resolvedImageUrlRef.current  // v91: blob→base64 변환된 URL
         })
       });
       
