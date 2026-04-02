@@ -1588,6 +1588,7 @@ const ResultScreen = ({
             key={currentMasterKey}
             masterKey={currentMasterKey}
             subjectType={subjectType}
+            transformedImageUrl={finalDisplayImage}
             onRetransform={(correctionPrompt) => handleMasterRetransform(correctionPrompt, currentMasterKey)}
             isRetransforming={isCurrentMasterWorking}
             retransformCost={100}
