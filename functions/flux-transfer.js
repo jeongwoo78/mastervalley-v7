@@ -2956,11 +2956,13 @@ export default async function handler(req, res) {
         'VAN GOGH': 'vangogh', 'VANGOGH': 'vangogh',
         'KLIMT': 'klimt', 'MUNCH': 'munch',
         'PICASSO': 'picasso', 'MATISSE': 'matisse',
+        'CHAGALL': 'chagall',
         'FRIDA': 'frida', 'LICHTENSTEIN': 'lichtenstein'
       };
       const ARTIST_DISPLAY_NAMES = {
         'vangogh': 'Van Gogh', 'klimt': 'Klimt', 'munch': 'Munch',
         'picasso': 'Picasso', 'matisse': 'Matisse',
+        'chagall': 'Marc Chagall',
         'frida': 'Frida Kahlo', 'lichtenstein': 'Lichtenstein'
       };
       

@@ -132,6 +132,22 @@ async function callGPT4o(messages, systemPrompt) {
 // ========================================
 async function fetchImageAsBase64(imageUrl) {
   try {
+    // data URL이면 직접 추출 (fetch 불필요)
+    if (imageUrl.startsWith('data:')) {
+      const matches = imageUrl.match(/^data:(.+?);base64,(.+)$/);
+      if (matches) {
+        console.log('📎 data URL에서 직접 추출');
+        return { base64: matches[2], contentType: matches[1] };
+      }
+    }
+    
+    // blob URL은 서버에서 접근 불가
+    if (imageUrl.startsWith('blob:')) {
+      console.log('⚠️ blob URL은 서버에서 접근 불가');
+      return null;
+    }
+    
+    // 일반 URL → fetch
     const response = await fetch(imageUrl);
     if (!response.ok) throw new Error(`Image fetch failed: ${response.status}`);
     const arrayBuffer = await response.arrayBuffer();
@@ -208,7 +224,8 @@ Instead of generic phrases like "how do you like it", mention what you actually 
   - 좋은 예: "머리색이라! 내 팔레트에선 붉은 갈색이 가장 아름다울 텐데, 어떤가?"
   - 나쁜 예: "어떤 색을 원하나? 빨강? 갈색? 금색?"
 - 진짜 모호한 요청 (예: "바꿔줘", "다르게 해줘"): 명확히 물어보기, correctionPrompt는 빈 문자열
-- 불가능한 요청 (배경, 포즈, 구도): "재변환" 안내, correctionPrompt는 빈 문자열
+- 배경 변경 요청 (예: "배경 파랗게", "꽃 추가해줘"): 구체적 요청이면 correctionPrompt 작성, 모호하면 3단계로 응답 (①리액션 ②거장이 제안 ③확인)
+- 불가능한 요청 (포즈, 구도 변경): "재변환" 안내, correctionPrompt는 빈 문자열
 - 색상은 구체적으로: red, blue, brown, tan, gold (추상적 표현 "warm tone", "vibrant" 금지)
 
 ## CRITICAL: 수정 버튼 안내 (correctionPrompt가 비어있지 않을 때)
@@ -227,7 +244,8 @@ Instead of generic phrases like "how do you like it", mention what you actually 
   - Good: "Hair color! From my palette, a warm auburn would be most beautiful. What do you think?"
   - Bad: "What color do you want? Red? Brown? Gold?"
 - Truly vague request (e.g., "change it", "make it different"): Ask for clarification, correctionPrompt must be empty string
-- Impossible request (background, pose, composition): Guide to "re-transform", correctionPrompt must be empty string
+- Background change request (e.g., "make background blue", "add flowers"): If specific, write correctionPrompt. If vague, respond in 3 steps (①React ②Suggest ③Ask for opinion)
+- Impossible request (pose, composition change): Guide to "re-transform", correctionPrompt must be empty string
 - Colors must be specific: red, blue, brown, tan, gold (no abstract expressions like "warm tone", "vibrant")
 
 ## CRITICAL: Modify button guidance (when correctionPrompt is not empty)
@@ -416,6 +434,7 @@ export default async function handler(req, res) {
     let imageData = null;
     if (transformedImageUrl && (conversationType === 'greeting' || conversationType === 'feedback')) {
       console.log('🖼️ v91: 변환 이미지 로드 중...');
+      console.log('🔗 URL:', transformedImageUrl?.substring(0, 120));
       imageData = await fetchImageAsBase64(transformedImageUrl);
       if (imageData) {
         console.log(`✅ 이미지 로드 완료 (${Math.round(imageData.base64.length / 1024)}KB)`);
