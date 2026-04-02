@@ -2679,6 +2679,79 @@ function filterArtistByGender(artistName, gender, category = null) {
 // ========================================
 // 메인 핸들러
 // ========================================
+export async function runVisionAnalysis(imageBase64) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 20000);
+  
+  try {
+    console.log('🔍 Vision 분석 시작 (Sonnet, 1회)');
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'x-api-key': process.env.ANTHROPIC_API_KEY,
+        'anthropic-version': '2023-06-01',
+        'content-type': 'application/json'
+      },
+      signal: controller.signal,
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 500,
+        messages: [{
+          role: 'user',
+          content: [
+            {
+              type: 'image',
+              source: {
+                type: 'base64',
+                media_type: 'image/jpeg',
+                data: imageBase64.split(',')[1]
+              }
+            },
+            {
+              type: 'text',
+              text: `Analyze this photo precisely. Return ONLY valid JSON (no markdown):
+{
+  "subject_type": "person" or "landscape" or "animal" or "object" or "flower" or "bird",
+  "gender": "male" or "female" or "both" or null,
+  "age_range": "baby" or "child" or "teen" or "young_adult" or "adult" or "middle_aged" or "elderly" or null,
+  "ethnicity": "asian" or "caucasian" or "african" or "hispanic" or "middle_eastern" or "mixed" or null,
+  "physical_description": "brief physical features including skin tone, facial features, hair, build" or null,
+  "person_count": 1 or 2 or 3 or null,
+  "background_type": "simple" or "complex" or "outdoor" or "indoor" or "studio",
+  "animal_type": "dog" or "cat" or "bird" or null,
+  "fur_color": "color description" or null
+}
+
+CRITICAL: Accurately identify gender and ethnicity based on visible features. If person, ALWAYS provide gender and physical_description.`
+            }
+          ]
+        }]
+      })
+    });
+    
+    clearTimeout(timeout);
+    
+    if (!response.ok) {
+      throw new Error(`Vision API error: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    const text = data.content[0].text
+      .replace(/```json\n?/g, '')
+      .replace(/```\n?/g, '')
+      .trim();
+    
+    const result = JSON.parse(text);
+    console.log(`🔍 Vision 완료: ${result.subject_type}, ${result.gender || 'N/A'}, ${result.person_count || 0}명`);
+    return result;
+    
+  } catch (error) {
+    clearTimeout(timeout);
+    console.error('🔍 Vision 분석 실패:', error.message);
+    return null;
+  }
+}
+
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
