@@ -418,8 +418,7 @@ const MasterChat = ({
         <div className="suggested-questions">
           {(() => {
             const allQuestions = chatText.suggestedQuestions[masterKey] || [];
-            const isPerson = !subjectType || subjectType === 'person' || subjectType === 'portrait';
-            const questions = isPerson ? allQuestions : allQuestions.slice(2);
+            const questions = allQuestions;
             return questions.map((q, qIdx) => (
             <button
               key={qIdx}
