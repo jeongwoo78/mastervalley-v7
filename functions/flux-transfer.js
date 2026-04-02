@@ -1,9 +1,4 @@
 // PicoArt v74 - Kontext 프롬프트 최소화
-// v91: 재변환 엔진 FLUX Kontext Pro → Nano Banana 2 (gemini-3.1-flash-image-preview)
-//      - Gemini API로 이미지 편집 (conversational editing)
-//      - 결과를 data URL로 반환 (테스트용)
-//      - GEMINI_API_KEY 환경변수 필요
-//
 // v76: Kontext 프롬프트 공식 권장 구조 적용
 // "ONLY ${correctionPrompt} while keeping the same painting style"
 //      - 불필요한 보존 명령어 제거
@@ -2576,6 +2571,7 @@ function buildIdentityPrompt(visionAnalysis) {
     }
     parts.push('MUST KEEP FEMININE, MUST KEEP SOFT DELICATE FEATURES, MUST REMAIN FEMALE');
   } else if (visionAnalysis.gender === 'both') {
+    // 남녀 혼합 (커플, 그룹 등)
     parts.push('MIXED GENDER GROUP - PRESERVE BOTH GENDERS EXACTLY');
     if (visionAnalysis.physical_description) {
       parts.push(visionAnalysis.physical_description);
@@ -2585,10 +2581,8 @@ function buildIdentityPrompt(visionAnalysis) {
     parts.push('MALES MUST STAY MASCULINE, FEMALES MUST STAY FEMININE, PRESERVE EACH GENDER EXACTLY');
   }
   
-  // v85: 나이 보존 강화 (estimated_age 활용)
-  if (visionAnalysis.estimated_age) {
-    parts.push(`APPROXIMATELY ${visionAnalysis.estimated_age} YEARS OLD, MUST preserve this age appearance`);
-  } else if (visionAnalysis.age_range) {
+  // 나이
+  if (visionAnalysis.age_range) {
     const ageMap = {
       'baby': 'BABY infant',
       'child': 'CHILD young kid',
@@ -2596,39 +2590,14 @@ function buildIdentityPrompt(visionAnalysis) {
       'young_adult': 'young adult in 20s',
       'adult': 'adult in 30s-40s',
       'middle_aged': 'middle-aged person in 50s',
-      'elderly': 'ELDERLY senior person with aged features, wrinkles, and mature appearance'
+      'elderly': 'ELDERLY senior person'
     };
     parts.push(ageMap[visionAnalysis.age_range] || visionAnalysis.age_range);
   }
   
-  // v85: 피부톤 (ethnicity보다 구체적)
-  if (visionAnalysis.skin_tone) {
-    parts.push(`${visionAnalysis.skin_tone} skin tone`);
-  }
-  
-  // v85: 체형
-  if (visionAnalysis.body_type) {
-    parts.push(`${visionAnalysis.body_type} build`);
-  }
-  
-  // v85: 헤어스타일
-  if (visionAnalysis.hairstyle) {
-    parts.push(visionAnalysis.hairstyle);
-  }
-  
-  // v85: 표정
-  if (visionAnalysis.expression) {
-    parts.push(`${visionAnalysis.expression} expression`);
-  }
-  
-  // v85: 악세서리 (안경 등은 변환 후에도 유지해야)
-  if (visionAnalysis.accessories && visionAnalysis.accessories !== 'none') {
-    parts.push(`wearing ${visionAnalysis.accessories}, MUST preserve these accessories`);
-  }
-  
-  // v85: 의상 (누드 방지 + 원본 충실도)
-  if (visionAnalysis.clothing) {
-    parts.push(`dressed in ${visionAnalysis.clothing}, MUST preserve clothing`);
+  // 머리
+  if (visionAnalysis.hair) {
+    parts.push(visionAnalysis.hair);
   }
   
   // 민족성 (매우 중요!)
@@ -2805,29 +2774,17 @@ export async function runVisionAnalysis(imageBase64) {
               text: `Analyze this photo precisely. Return ONLY valid JSON (no markdown):
 {
   "subject_type": "person" or "landscape" or "animal" or "object" or "flower" or "bird",
-  "person_count": 1 or 2 or 3 or null,
   "gender": "male" or "female" or "both" or null,
   "age_range": "baby" or "child" or "teen" or "young_adult" or "adult" or "middle_aged" or "elderly" or null,
-  "estimated_age": "approximate age number, e.g. 25, 45, 65" or null,
   "ethnicity": "asian" or "caucasian" or "african" or "hispanic" or "middle_eastern" or "mixed" or null,
-  "skin_tone": "fair/light/medium/olive/tan/brown/dark brown/deep dark" or null,
-  "body_type": "slim/average/athletic/heavyset/petite" or null,
-  "hairstyle": "e.g. short black hair, long wavy brown hair, silver-gray hair tied back, bald" or null,
-  "expression": "e.g. warm smile, serious, laughing, contemplative, neutral" or null,
-  "accessories": "e.g. round glasses, straw hat, gold necklace, none" or null,
-  "clothing": "e.g. navy suit with tie, red floral dress, white t-shirt, traditional hanbok" or null,
-  "physical_description": "overall brief description combining above features" or null,
+  "physical_description": "brief physical features including skin tone, facial features, hair, build" or null,
+  "person_count": 1 or 2 or 3 or null,
   "background_type": "simple" or "complex" or "outdoor" or "indoor" or "studio",
   "animal_type": "dog" or "cat" or "bird" or null,
   "fur_color": "color description" or null
 }
 
-CRITICAL RULES:
-- Accurately identify gender, age, and ethnicity based on visible features
-- If person, ALWAYS provide ALL person fields (gender through clothing)
-- estimated_age: be specific (e.g. "65" not just "elderly"). This is crucial for preserving age in art transformation
-- clothing: describe what they are ACTUALLY wearing. This prevents unwanted nudity in output
-- For multiple people, describe the PRIMARY/most prominent person`
+CRITICAL: Accurately identify gender and ethnicity based on visible features. If person, ALWAYS provide gender and physical_description.`
             }
           ]
         }]
@@ -3030,7 +2987,7 @@ export default async function handler(req, res) {
             }],
             generationConfig: {
               responseModalities: ['TEXT', 'IMAGE'],
-              imageConfig: { imageSize: '1K' }  // v91: 1K 해상도 제한 (속도 개선)
+              imageConfig: { imageSize: '1K' }
             }
           })
         }
@@ -3073,7 +3030,7 @@ export default async function handler(req, res) {
         });
       }
       
-      // ── Step 4: data URL로 반환 (테스트용, 추후 Storage 업로드로 전환 가능) ──
+      // ── Step 4: data URL로 반환 ──
       const resultDataUrl = `data:${resultMimeType};base64,${resultBase64}`;
       const elapsedTime = ((Date.now() - startTime) / 1000).toFixed(1);
       
@@ -4078,50 +4035,17 @@ export default async function handler(req, res) {
       } else if (ageRange === 'child') {
         // 아이
         attractiveEnhancement = ' Render adorably cute - child as bright-eyed, carefree, with radiant innocent smile, warm healthy glow, and pure joyful energy. Clean polished composition, perfectly formed elements, single subject focus, every element beautiful and harmonious.';
-      } else if (ageRange === 'teen') {
-        // v85: 10대 — 싱그러운 청춘의 생기
-        if (gender === 'male') {
-          attractiveEnhancement = ' Render stunningly handsome with fresh youthful energy. Flattering portrait true to the subject\'s age.';
-        } else if (gender === 'female') {
-          attractiveEnhancement = ' Render stunningly gorgeous with fresh youthful energy. Flattering portrait true to the subject\'s age.';
-        } else {
-          attractiveEnhancement = ' Render stunningly beautiful with fresh youthful energy. Flattering portrait true to the subjects\' age.';
-        }
-      } else if (ageRange === 'young_adult') {
-        // v85: 20대 — 활기차고 빛나는 젊음의 아름다움
-        if (gender === 'male') {
-          attractiveEnhancement = ' Render stunningly handsome with vibrant youthful beauty. Flattering portrait true to the subject\'s age.';
-        } else if (gender === 'female') {
-          attractiveEnhancement = ' Render stunningly gorgeous with vibrant youthful beauty. Flattering portrait true to the subject\'s age.';
-        } else {
-          attractiveEnhancement = ' Render stunningly beautiful with vibrant youthful beauty. Flattering portrait true to the subjects\' age.';
-        }
-      } else if (ageRange === 'middle_aged') {
-        // v85: 50~60대 초 — 세월이 빚어낸 품격과 우아함 (stunningly 제거)
-        if (gender === 'male') {
-          attractiveEnhancement = ' Render distinguished with graceful seasoned dignity. Flattering portrait true to the subject\'s age.';
-        } else if (gender === 'female') {
-          attractiveEnhancement = ' Render elegant with graceful seasoned beauty. Flattering portrait true to the subject\'s age.';
-        } else {
-          attractiveEnhancement = ' Render elegant with graceful seasoned dignity. Flattering portrait true to the subjects\' age.';
-        }
       } else if (ageRange === 'elderly') {
-        // v85: 70대+ — 지혜로운 품위와 존엄 (stunningly 제거)
-        if (gender === 'male') {
-          attractiveEnhancement = ' Render with wise dignity. Portrait of timeless dignity true to the subject\'s age.';
-        } else if (gender === 'female') {
-          attractiveEnhancement = ' Render with graceful dignity. Portrait of timeless dignity true to the subject\'s age.';
-        } else {
-          attractiveEnhancement = ' Render with graceful dignity. Portrait of timeless dignity true to the subjects\' age.';
-        }
+        // 노인
+        attractiveEnhancement = ' Render with quiet dignity - elderly as wise, with graceful distinguished features, warm knowing eyes, and serene composed presence. Portrait of timeless dignity.';
       } else {
-        // v85: 성인 30~40대 기본값 — 자신감 있는 원숙한 매력
+        // 성인 (기존)
         if (gender === 'male') {
-          attractiveEnhancement = ' Render stunningly handsome with mature confident charisma. Flattering portrait true to the subject\'s age.';
+          attractiveEnhancement = ' Render stunningly handsome - male as dignified, charismatic, with strong refined features.';
         } else if (gender === 'female') {
-          attractiveEnhancement = ' Render stunningly gorgeous with mature elegant charm. Flattering portrait true to the subject\'s age.';
+          attractiveEnhancement = ' Render stunningly gorgeous - female as elegant, graceful, with luminous refined beauty.';
         } else {
-          attractiveEnhancement = ' Render stunningly beautiful with mature elegant charisma. Flattering portrait true to the subjects\' age.';
+          attractiveEnhancement = ' Render stunningly beautiful - male as handsome, dignified; female as gorgeous, elegant, graceful.';
         }
       }
       
