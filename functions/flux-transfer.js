@@ -1924,6 +1924,7 @@ Return ONLY valid JSON (no markdown):
   "subject_type": "person" or "landscape" or "animal" or "object",
   "gender": "male" or "female" or "both" or null,
   "age_range": "baby/child/teen/young_adult/adult/middle_aged/elderly" or null,
+  "estimated_age": "approximate age number, e.g. 25, 45, 65" or null,
   "ethnicity": "asian (East Asian features, golden-brown skin) or caucasian (European features, light/fair skin) or african (Black/African descent, DARK BROWN to BLACK skin, broad nose, full lips) or hispanic (Latin American, tan/brown skin) or middle_eastern (Arab/Persian, olive/tan skin) or mixed or null - MUST accurately identify based on skin color and facial features",
   "physical_description": "for MALE: strong jaw, angular face, short hair, broad shoulders etc. For FEMALE: soft features, delicate face etc. ALWAYS include skin tone and ethnic features." or null,
   "person_count": 1 or 2 or 3 (number of people in photo),
@@ -1969,6 +1970,7 @@ Return ONLY valid JSON (no markdown):
   "subject_type": "person" or "landscape" or "animal" or "object",
   "gender": "male" or "female" or "both" or null,
   "age_range": "baby/child/teen/young_adult/adult/middle_aged/elderly" or null,
+  "estimated_age": "approximate age number, e.g. 25, 45, 65" or null,
   "ethnicity": "asian (East Asian features, golden-brown skin) or caucasian (European features, light/fair skin) or african (Black/African descent, DARK BROWN to BLACK skin, broad nose, full lips) or hispanic (Latin American, tan/brown skin) or middle_eastern (Arab/Persian, olive/tan skin) or mixed or null - MUST accurately identify based on skin color and facial features",
   "physical_description": "for MALE: strong jaw, angular face, short hair, broad shoulders etc. For FEMALE: soft features, delicate face etc. ALWAYS include skin tone and ethnic features." or null,
   "person_count": 1 or 2 or 3,
@@ -2044,6 +2046,7 @@ Return ONLY valid JSON (no markdown):
   "subject_type": "person" or "landscape" or "animal" or "object",
   "gender": "male" or "female" or null,
   "age_range": "baby/child/teen/young_adult/adult/middle_aged/elderly" or null,
+  "estimated_age": "approximate age number, e.g. 25, 45, 65" or null,
   "physical_description": "for MALE: strong jaw, angular face, short hair, broad shoulders etc. For FEMALE: soft features, delicate face etc." or null,
   "animal_type": "dog" or "cat" or "bird" or "tiger" or "fish" or null,
   "fur_color": "describe the animal's exact fur color and pattern in detail, e.g. 'solid white', 'orange tabby with dark stripes', 'white body with black patches on head and ears', 'calico with orange black and white patches', 'solid black', 'grey with white chest'" or null,
@@ -2118,6 +2121,7 @@ Return ONLY valid JSON (no markdown):
   "subject_type": "person" or "landscape" or "animal" or "object",
   "gender": "male" or "female" or null,
   "age_range": "baby/child/teen/young_adult/adult/middle_aged/elderly" or null,
+  "estimated_age": "approximate age number, e.g. 25, 45, 65" or null,
   "physical_description": "for MALE: strong jaw, angular face, short hair, broad shoulders etc. For FEMALE: soft features, delicate face etc." or null,
   "animal_type": "dog" or "cat" or "bird" or "tiger" or "fish" or null,
   "fur_color": "describe the animal's exact fur color and pattern in detail, e.g. 'solid white', 'orange tabby with dark stripes', 'white body with black patches on head and ears', 'calico with orange black and white patches', 'solid black', 'grey with white chest'" or null,
@@ -2196,6 +2200,7 @@ Return ONLY valid JSON (no markdown):
   "subject_type": "person" or "landscape" or "animal" or "object" or "flower" or "bird",
   "gender": "male" or "female" or null,
   "age_range": "baby/child/teen/young_adult/adult/middle_aged/elderly" or null,
+  "estimated_age": "approximate age number, e.g. 25, 45, 65" or null,
   "physical_description": "brief physical features" or null,
   "animal_type": "dog" or "cat" or "bird" or "tiger" or "fish" or null,
   "fur_color": "describe the animal's exact fur color and pattern in detail, e.g. 'solid white', 'orange tabby with dark stripes', 'white body with black patches on head and ears', 'calico with orange black and white patches', 'solid black', 'grey with white chest'" or null,
@@ -2391,6 +2396,7 @@ Return JSON only:
   "subject_type": "person" or "landscape" or "animal" or "object",
   "gender": "male" or "female" or "both" or null,
   "age_range": "baby/child/teen/young_adult/adult/middle_aged/elderly" or null,
+  "estimated_age": "approximate age number, e.g. 25, 45, 65" or null,
   "ethnicity": "asian (East Asian features, golden-brown skin) or caucasian (European features, light/fair skin) or african (Black/African descent, DARK BROWN to BLACK skin, broad nose, full lips) or hispanic (Latin American, tan/brown skin) or middle_eastern (Arab/Persian, olive/tan skin) or mixed or null - MUST accurately identify based on skin color and facial features",
   "physical_description": "for MALE: strong jaw, angular face, short hair, broad shoulders etc. For FEMALE: soft features, delicate face etc. ALWAYS include skin tone and ethnic features." or null,
   "person_count": 1 or 2 or 3 (number of people in photo),
@@ -2522,7 +2528,9 @@ function buildIdentityPrompt(visionAnalysis) {
   }
   
   // 나이
-  if (visionAnalysis.age_range) {
+  if (visionAnalysis.estimated_age) {
+    parts.push(`APPROXIMATELY ${visionAnalysis.estimated_age} YEARS OLD, MUST preserve this age appearance`);
+  } else if (visionAnalysis.age_range) {
     const ageMap = {
       'baby': 'BABY infant',
       'child': 'CHILD young kid',
@@ -2714,6 +2722,7 @@ export async function runVisionAnalysis(imageBase64) {
   "subject_type": "person" or "landscape" or "animal" or "object" or "flower" or "bird",
   "gender": "male" or "female" or "both" or null,
   "age_range": "baby" or "child" or "teen" or "young_adult" or "adult" or "middle_aged" or "elderly" or null,
+  "estimated_age": "approximate age number, e.g. 25, 45, 65" or null,
   "ethnicity": "asian" or "caucasian" or "african" or "hispanic" or "middle_eastern" or "mixed" or null,
   "physical_description": "brief physical features including skin tone, facial features, hair, build" or null,
   "person_count": 1 or 2 or 3 or null,
@@ -2832,120 +2841,151 @@ export default async function handler(req, res) {
     const categoryType = selectedStyle.category; // categoryType 변수 추가
     
     // ========================================
-    // v70: 재변환 모드 (correctionPrompt 있으면)
-    // artistStyles.js 화풍 연동 + MODIFY 먼저 순서
+    // v91: 재변환 모드 — Nano Banana 2 (Gemini 3.1 Flash Image)
+    // FLUX Kontext Pro → gemini-3.1-flash-image-preview
     // ========================================
     if (correctionPrompt) {
       console.log('');
       console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-      console.log('🔄 재변환 모드 (FLUX Kontext Pro) v75');
+      console.log('🔄 재변환 모드 (Nano Banana 2) v91');
       console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
       console.log(`📝 수정 요청: ${correctionPrompt}`);
       console.log(`🖼️ 입력 이미지: ${typeof image === 'string' ? image.substring(0, 100) + '...' : 'base64 data'}`);
-      console.log(`📐 이미지 타입: ${typeof image}, 길이: ${image?.length || 'N/A'}`);
       
-      
-      // v70: 거장 키 → artistStyles 키 매핑
+      // 거장 키 → 이름 변환
       const MASTER_TO_ARTIST_KEY = {
-        'VAN GOGH': 'vangogh',
-        'VANGOGH': 'vangogh',
-        'KLIMT': 'klimt',
-        'MUNCH': 'munch',
-        'PICASSO': 'picasso',
-        'MATISSE': 'matisse',
-        'FRIDA': 'frida',
-        'LICHTENSTEIN': 'lichtenstein'
+        'VAN GOGH': 'vangogh', 'VANGOGH': 'vangogh',
+        'KLIMT': 'klimt', 'MUNCH': 'munch',
+        'PICASSO': 'picasso', 'MATISSE': 'matisse',
+        'CHAGALL': 'chagall',
+        'FRIDA': 'frida', 'LICHTENSTEIN': 'lichtenstein'
+      };
+      const ARTIST_DISPLAY_NAMES = {
+        'vangogh': 'Van Gogh', 'klimt': 'Klimt', 'munch': 'Munch',
+        'picasso': 'Picasso', 'matisse': 'Matisse',
+        'chagall': 'Marc Chagall',
+        'frida': 'Frida Kahlo', 'lichtenstein': 'Lichtenstein'
       };
       
-      // 거장 키 추출 (selectedStyle.id 또는 name에서)
       let masterKey = selectedStyle.id?.toUpperCase() || selectedStyle.name?.toUpperCase() || '';
-      // v70.1: '-MASTER' 접미사 제거
       masterKey = masterKey.replace('-MASTER', '');
       const artistKey = MASTER_TO_ARTIST_KEY[masterKey];
-      
-      // v70.1: 요청 내용 분석해서 동적으로 보존 항목 결정 (충돌 방지)
-      const lowerPrompt = correctionPrompt.toLowerCase();
-      const hasColorChange = /color|colour|blue|red|yellow|green|orange|purple|pink|gold|silver|bright|dark|light|warm|cool|tone/i.test(correctionPrompt);
-      const hasBackgroundChange = /background/i.test(correctionPrompt);
-      const hasFaceChange = /face|expression|eye|nose|mouth|smile|frown/i.test(correctionPrompt);
-      const hasPoseChange = /pose|position|body|arm|leg|hand/i.test(correctionPrompt);
-      
-      let keepUnchanged = [];
-      if (!hasColorChange) keepUnchanged.push('overall colors and tones');
-      if (!hasBackgroundChange) keepUnchanged.push('background');
-      if (!hasFaceChange) keepUnchanged.push('face identity');
-      if (!hasPoseChange) keepUnchanged.push('body pose');
-      keepUnchanged.push('composition');
-      
-      const keepUnchangedStr = keepUnchanged.join(', ');
-      console.log(`🔒 보존 항목: ${keepUnchangedStr}`);
-      
-      // v76: FLUX Kontext 프롬프트 - 화가 이름 포함
-      // "ONLY" + 수정 요청 + "while keeping the same [화가] painting style"
-      
-      // 화가 키 → 이름 변환
-      const ARTIST_DISPLAY_NAMES = {
-        'vangogh': 'Van Gogh',
-        'klimt': 'Klimt',
-        'munch': 'Munch',
-        'picasso': 'Picasso',
-        'matisse': 'Matisse',
-        'frida': 'Frida Kahlo',
-        'lichtenstein': 'Lichtenstein'
-      };
-      
       const artistDisplayName = ARTIST_DISPLAY_NAMES[artistKey] || 'painting';
       
-      // pants → lower garment 치환 (FLUX가 다리 피부와 혼동 방지)
+      // pants → lower garment 치환
       const sanitizedPrompt = correctionPrompt.replace(/pants/gi, 'lower garment');
-      // v80: BFL 공식 가이드 기반 프롬프트 개선
-      // - 구체적 주어 사용 (portrait → the person in the painting)
-      // - focused edit 패턴 ("Add X to the person" not "ONLY X")
-      // - "maintain all other aspects" 추가 (BFL 권장)
-      const kontextPrompt = `${sanitizedPrompt}. Maintain all other aspects of the original image including the ${artistDisplayName} painting style, brushwork, color palette, composition, background, pose, and facial features.`;
+      
+      // Nano Banana 2 프롬프트
+      const editPrompt = `Edit this painting: ${sanitizedPrompt}. Keep the ${artistDisplayName} painting style, brushwork, color palette, composition, background, pose, and facial features exactly the same. Only change what was requested.`;
       
       console.log(`👨‍🎨 거장: ${masterKey} → ${artistDisplayName}`);
-      console.log(`📜 Kontext 프롬프트: ${kontextPrompt}`);
+      console.log(`📜 Nano Banana 2 프롬프트: ${editPrompt}`);
       
-      // v80: Kontext도 predictionId 즉시 반환 (Prefer:wait 제거 → Vercel 60초 타임아웃 방지)
-      const response = await fetch(
-        'https://api.replicate.com/v1/models/black-forest-labs/flux-kontext-pro/predictions',
+      // ── Step 1: 이미지 → base64 변환 ──
+      let imageBase64;
+      try {
+        if (image.startsWith('data:')) {
+          imageBase64 = image.split(',')[1];
+        } else if (image.startsWith('http')) {
+          console.log('📥 원본 이미지 다운로드 중...');
+          const imgResponse = await fetch(image);
+          if (!imgResponse.ok) throw new Error(`Image fetch failed: ${imgResponse.status}`);
+          const imgBuffer = await imgResponse.arrayBuffer();
+          imageBase64 = Buffer.from(imgBuffer).toString('base64');
+        } else {
+          imageBase64 = image;
+        }
+        console.log(`✅ 이미지 준비 완료 (${Math.round(imageBase64.length / 1024)}KB)`);
+      } catch (imgError) {
+        console.error('❌ 이미지 다운로드 실패:', imgError.message);
+        return res.status(500).json({ error: 'Failed to fetch source image', message: imgError.message });
+      }
+      
+      // ── Step 1.5: 입력 이미지 압축 (속도 개선) ──
+      try {
+        const sharp = (await import('sharp')).default;
+        const inputBuffer = Buffer.from(imageBase64, 'base64');
+        const compressed = await sharp(inputBuffer)
+          .resize(1024, 1024, { fit: 'inside', withoutEnlargement: true })
+          .jpeg({ quality: 60 })
+          .toBuffer();
+        imageBase64 = compressed.toString('base64');
+        console.log(`📦 이미지 압축 완료 (${Math.round(imageBase64.length / 1024)}KB)`);
+      } catch (e) {
+        console.log('⚠️ sharp 미설치 → 원본 사용');
+      }
+      
+      // ── Step 2: Nano Banana 2 API 호출 ──
+      console.log('🍌 Nano Banana 2 API 호출 중...');
+      const geminiResponse = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent?key=${process.env.GEMINI_API_KEY}`,
         {
           method: 'POST',
-          headers: {
-            'Authorization': `Token ${process.env.REPLICATE_API_KEY}`,
-            'Content-Type': 'application/json'
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            input: {
-              input_image: image,
-              prompt: kontextPrompt
+            contents: [{
+              parts: [
+                { inline_data: { mime_type: 'image/png', data: imageBase64 } },
+                { text: editPrompt }
+              ]
+            }],
+            generationConfig: {
+              responseModalities: ['TEXT', 'IMAGE'],
+              imageConfig: { imageSize: '1K' }
             }
           })
         }
       );
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error('FLUX Kontext error (retransform):', response.status, errorText);
-        return res.status(response.status).json({ 
-          error: `FLUX Kontext API error: ${response.status}`,
+      
+      if (!geminiResponse.ok) {
+        const errorText = await geminiResponse.text();
+        console.error('❌ Nano Banana 2 API error:', geminiResponse.status, errorText);
+        return res.status(geminiResponse.status).json({ 
+          error: `Nano Banana 2 API error: ${geminiResponse.status}`,
           details: errorText
         });
       }
-
-      const prediction = await response.json();
+      
+      const geminiData = await geminiResponse.json();
+      
+      // ── Step 3: 응답에서 이미지 추출 ──
+      let resultBase64 = null;
+      let resultMimeType = 'image/png';
+      
+      const geminiParts = geminiData.candidates?.[0]?.content?.parts || [];
+      for (const part of geminiParts) {
+        if (part.inlineData) {
+          resultBase64 = part.inlineData.data;
+          resultMimeType = part.inlineData.mimeType || 'image/png';
+          console.log(`🖼️ 이미지 추출 완료 (${resultMimeType}, ${Math.round(resultBase64.length / 1024)}KB)`);
+          break;
+        }
+        if (part.text) {
+          console.log(`💬 Gemini 텍스트: ${part.text.substring(0, 100)}`);
+        }
+      }
+      
+      if (!resultBase64) {
+        console.error('❌ Nano Banana 2: 이미지 미생성');
+        console.error('응답:', JSON.stringify(geminiData).substring(0, 500));
+        return res.status(500).json({ 
+          error: 'Nano Banana 2 did not generate an image',
+          details: 'No inlineData found in response'
+        });
+      }
+      
+      // ── Step 4: data URL로 반환 ──
+      const resultDataUrl = `data:${resultMimeType};base64,${resultBase64}`;
       const elapsedTime = ((Date.now() - startTime) / 1000).toFixed(1);
       
       console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-      console.log(`📤 Kontext Prediction ID 반환 (${elapsedTime}초) → 클라이언트 폴링으로 전환`);
+      console.log(`✅ Nano Banana 2 재변환 완료 (${elapsedTime}초)`);
       console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-      console.log('');
       
-      // 클라이언트에게 predictionId 반환 (1차 변환과 동일 패턴)
       return res.status(200).json({
-        status: 'polling_required',
-        predictionId: prediction.id,
+        status: 'completed',
+        resultUrl: resultDataUrl,
+        predictionId: `nb2-${Date.now()}`,
         selected_artist: '재변환',
         selected_work: correctionPrompt,
         isRetransform: true
@@ -3257,7 +3297,7 @@ export default async function handler(req, res) {
               if (visionAnalysis.subject_type === 'animal' && visionAnalysis.fur_color) {
                 const furDesc = visionAnalysis.fur_color;
                 const animalName = (visionAnalysis.animal_type || 'animal').toUpperCase();
-                genderPrefix = `CRITICAL: This is a ${animalName} with ${furDesc}. MUST paint this animal with EXACTLY this fur color pattern: ${furDesc}. DO NOT change fur color to brown, ochre, or any other color. `;
+                genderPrefix = `CRITICAL: This is a ${animalName} with ${furDesc}. MUST paint this animal with EXACTLY this fur color pattern: ${furDesc}. KEEP EXACTLY this fur color throughout the entire animal body. `;
               } else {
                 genderPrefix = `CRITICAL: This is a ${visionAnalysis.subject_type.toUpperCase()} photo - DO NOT add any people or human figures. Keep as pure ${visionAnalysis.subject_type}. `;
               }
@@ -3475,7 +3515,7 @@ export default async function handler(req, res) {
           if (visionAnalysis.subject_type === 'animal' && visionAnalysis.fur_color) {
             const furDesc = visionAnalysis.fur_color;
             const animalName = (visionAnalysis.animal_type || 'animal').toUpperCase();
-            genderPrefixCommon = `CRITICAL: This is a ${animalName} with ${furDesc}. MUST paint this animal with EXACTLY this fur color pattern: ${furDesc}. DO NOT change fur color to brown, ochre, or any other color. `;
+            genderPrefixCommon = `CRITICAL: This is a ${animalName} with ${furDesc}. MUST paint this animal with EXACTLY this fur color pattern: ${furDesc}. KEEP EXACTLY this fur color throughout the entire animal body. `;
           } else {
             genderPrefixCommon = `This is a ${visionAnalysis.subject_type} - no people. `;
           }
@@ -3934,11 +3974,11 @@ export default async function handler(req, res) {
       } else {
         // 성인 (기존)
         if (gender === 'male') {
-          attractiveEnhancement = ' Render stunningly handsome - male as dignified, charismatic, with strong refined features. Idealized flattering portrait.';
+          attractiveEnhancement = ' Render stunningly handsome - male as dignified, charismatic, with strong refined features.';
         } else if (gender === 'female') {
-          attractiveEnhancement = ' Render stunningly gorgeous - female as elegant, graceful, with luminous refined beauty. Idealized flattering portrait.';
+          attractiveEnhancement = ' Render stunningly gorgeous - female as elegant, graceful, with luminous refined beauty.';
         } else {
-          attractiveEnhancement = ' Render stunningly beautiful - male as handsome, dignified; female as gorgeous, elegant, graceful. Idealized flattering portrait.';
+          attractiveEnhancement = ' Render stunningly beautiful - male as handsome, dignified; female as gorgeous, elegant, graceful.';
         }
       }
       
