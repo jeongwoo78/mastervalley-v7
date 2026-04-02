@@ -44,13 +44,13 @@ export const masterChat = {
 
   // ===== Questions suggérées (7 × 4 = 28) =====
   suggestedQuestions: {
-    'VAN GOGH': ['Peut-on modifier le tableau ?', 'J'aimerais en savoir plus sur vous'],
-    'KLIMT': ['Peut-on modifier le tableau ?', 'J'aimerais en savoir plus sur vous'],
-    'MUNCH': ['Peut-on modifier le tableau ?', 'J'aimerais en savoir plus sur vous'],
-    'CHAGALL': ['Peut-on modifier le tableau ?', 'J'aimerais en savoir plus sur vous'],
-    'MATISSE': ['Peut-on modifier le tableau ?', 'J'aimerais en savoir plus sur vous'],
-    'FRIDA': ['Peut-on modifier le tableau ?', 'J'aimerais en savoir plus sur vous'],
-    'LICHTENSTEIN': ['Peut-on modifier le tableau ?', 'J'aimerais en savoir plus sur vous'],
+    'VAN GOGH': ['Peut-on modifier le tableau ?', 'Parlez-moi de vous'],
+    'KLIMT': ['Peut-on modifier le tableau ?', 'Parlez-moi de vous'],
+    'MUNCH': ['Peut-on modifier le tableau ?', 'Parlez-moi de vous'],
+    'CHAGALL': ['Peut-on modifier le tableau ?', 'Parlez-moi de vous'],
+    'MATISSE': ['Peut-on modifier le tableau ?', 'Parlez-moi de vous'],
+    'FRIDA': ['Peut-on modifier le tableau ?', 'Parlez-moi de vous'],
+    'LICHTENSTEIN': ['Peut-on modifier le tableau ?', 'Parlez-moi de vous'],
   },
 
   // ===== Messages de modification terminée (7) =====
