@@ -64,6 +64,7 @@ import {
 // v72: Anthropic 클라이언트 (일본 우키요에 Vision용)
 // ========================================
 import Anthropic from '@anthropic-ai/sdk';
+import { getStorage } from 'firebase-admin/storage';
 
 const anthropicClient = process.env.ANTHROPIC_API_KEY 
   ? new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
@@ -2975,17 +2976,27 @@ export default async function handler(req, res) {
         });
       }
       
-      // ── Step 4: data URL로 반환 ──
-      const resultDataUrl = `data:${resultMimeType};base64,${resultBase64}`;
+      // ── Step 4: Firebase Storage에 업로드 → URL 반환 ──
+      const bucket = getStorage().bucket();
+      const fileName = `retransforms/nb2-${Date.now()}.jpg`;
+      const file = bucket.file(fileName);
+      
+      await file.save(Buffer.from(resultBase64, 'base64'), {
+        metadata: { contentType: resultMimeType },
+        public: true
+      });
+      
+      const resultUrl = `https://storage.googleapis.com/${bucket.name}/${fileName}`;
       const elapsedTime = ((Date.now() - startTime) / 1000).toFixed(1);
       
+      console.log(`📤 Storage 업로드 완료: ${fileName}`);
       console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
       console.log(`✅ Nano Banana 2 재변환 완료 (${elapsedTime}초)`);
       console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
       
       return res.status(200).json({
         status: 'completed',
-        resultUrl: resultDataUrl,
+        resultUrl: resultUrl,
         predictionId: `nb2-${Date.now()}`,
         selected_artist: '재변환',
         selected_work: correctionPrompt,
@@ -3719,7 +3730,7 @@ export default async function handler(req, res) {
           
             // 프롬프트에 말풍선 + 스타일 강화 추가
             if (!finalPrompt.includes('speech bubble')) {
-              finalPrompt = finalPrompt + `, white comic speech bubble containing ONLY the exact text "${speechText}" in bold font, position bubble at least 3% away from image edges, EXTREMELY LARGE Ben-Day dots 15mm+ halftone pattern on ALL skin and surfaces, ULTRA THICK BLACK OUTLINES 20mm+, COMIC PANEL FRAME with THICK BLACK BORDER around entire image`;
+              finalPrompt = finalPrompt + `, subject speaking with a white oval comic speech bubble, bold black text "${speechText}", EXTREMELY LARGE Ben-Day dots 15mm+ halftone pattern on ALL skin and surfaces, ULTRA THICK BLACK OUTLINES 20mm+, COMIC PANEL FRAME with THICK BLACK BORDER around entire image`;
             }
           }
         }
