@@ -79,39 +79,42 @@ const anthropicClient = process.env.ANTHROPIC_API_KEY
 const LICHTENSTEIN_SPEECH_BUBBLES = {
   // 감탄/기쁨 (12개) - 그룹/밝은 분위기
   excited: [
-    "WOW!", "AMAZING!", "INCREDIBLE!", "PERFECT!", "YES!",
-    "BEST DAY EVER!", "I CAN'T BELIEVE IT!",
-    "IT'LL BE ALRIGHT!", "WE DID IT!", "SO EXCITING!",
-    "WE DID IT!", "NOTHING STOPS US!"
+    "THIS IS SO US!", "ICONIC!", "LIVING OUR BEST LIFE!",
+    "SAY CHEESE... POP ART STYLE!", "WE LOOK UNREAL!",
+    "FRAME THIS IMMEDIATELY!", "MAIN CHARACTER ENERGY!",
+    "TOO GOOD TO BE TRUE!", "LEGENDARY!", "ABSOLUTELY FABULOUS!",
+    "THIS IS ART, BABY!", "UNSTOPPABLE!"
   ],
   // 로맨틱 (10개) - 커플
   romantic: [
-    "I LOVE YOU!", "KISS ME!", "MY DARLING!", "YOU'RE THE ONE!",
-    "THIS MOMENT!", "ONLY FOR YOU!",
-    "NEVER LET GO!", "YOU'RE EVERYTHING!",
-    "STAY FOREVER!", "LIKE A DREAM!"
+    "YOU HAD ME AT HELLO!", "STILL GIVES ME BUTTERFLIES!",
+    "MY FAVORITE PLOT TWIST!", "LOVE LOOKS GOOD ON US!",
+    "BETTER THAN THE MOVIES!", "YOU AND ME, FOREVER!",
+    "HEART GOES BOOM!", "MY WHOLE WORLD!",
+    "STOLEN MY HEART!", "LIKE A SCENE FROM A DREAM!"
   ],
   // 드라마틱 (10개) - 강렬한 감정/여성
   dramatic: [
-    "I CAN'T BELIEVE IT!", "HOW COULD YOU?!", "IT'S OVER!",
-    "I DON'T CARE!", "WHY ME?!",
-    "I SHOULD'VE KNOWN!", "EVERYTHING CHANGED!",
-    "NOT LIKE THIS!", "CAN'T BE REAL!",
-    "WATCH ME!"
+    "I KNEW IT ALL ALONG!", "PLOT TWIST!",
+    "THE AUDACITY!", "SORRY, I'M FABULOUS!",
+    "OOPS, DID I DO THAT?!", "DRAMA? I AM THE DRAMA!",
+    "TOO GLAM TO GIVE A DAMN!", "SILENCE SPEAKS LOUDER!",
+    "THAT WAS MY VILLAIN ARC!", "DARLING, PLEASE!"
   ],
   // 대화체/독백 (10개) - 원작 스타일
   dialogue: [
-    "MAYBE TOMORROW...", "WHAT HAPPENS NEXT?",
-    "THEY SAID NO!", "WAIT HERE!",
-    "HE'LL COME BACK!", "I SAW SOMETHING!",
-    "DO SOMETHING!", "JUST WHAT I NEEDED!",
-    "SOMETHING'S DIFFERENT!", "THIS CHANGES EVERYTHING!"
+    "HMMMM... INTERESTING!", "WAIT, LET ME THINK...",
+    "SOMETHING TELLS ME...", "WELL WELL WELL!",
+    "I HAVE A FEELING!", "NOTE TO SELF...",
+    "AND THEN IT HIT ME!", "THE THINGS I PUT UP WITH!",
+    "FUNNY HOW THAT WORKS!", "CHAPTER ONE: ME!"
   ],
   // 놀람/생각 (8개) - 중립
   surprised: [
-    "WHAT?!", "OH MY!", "REALLY?!", "WAIT... WHAT?!",
-    "NO WAY!", "COULD IT BE?!",
-    "NOT RIGHT...", "WHAT HAPPENED?!"
+    "SHUT THE FRONT DOOR!", "HOLD ON... WHAT?!",
+    "EXCUSE ME?!", "MIND = BLOWN!",
+    "SAY THAT AGAIN?!", "WELL, THAT HAPPENED!",
+    "I DID NOT SEE THAT COMING!", "OH SNAP!"
   ]
 };
 
@@ -3728,9 +3731,9 @@ export default async function handler(req, res) {
             const speechText = selectSpeechBubbleText(visionAnalysis);
             console.log(`💬 Speech bubble text: "${speechText}"`);
           
-            // 프롬프트에 말풍선 + 스타일 강화 추가
+            // 프롬프트에 말풍선 + 스타일 강화 추가 (말풍선을 프롬프트 앞쪽에 배치)
             if (!finalPrompt.includes('speech bubble')) {
-              finalPrompt = finalPrompt + `, subject speaking with a white oval comic speech bubble, bold black text "${speechText}", EXTREMELY LARGE Ben-Day dots 15mm+ halftone pattern on ALL skin and surfaces, ULTRA THICK BLACK OUTLINES 20mm+, COMIC PANEL FRAME with THICK BLACK BORDER around entire image`;
+              finalPrompt = `MANDATORY white oval comic speech bubble with bold black text "${speechText}" in upper area of image, black outline on bubble. ` + finalPrompt + `, EXTREMELY LARGE Ben-Day dots 15mm+ halftone pattern on ALL skin and surfaces, ULTRA THICK BLACK OUTLINES 20mm+, COMIC PANEL FRAME with THICK BLACK BORDER around entire image`;
             }
           }
         }

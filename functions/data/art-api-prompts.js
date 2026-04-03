@@ -78,7 +78,7 @@ export const ARTIST_CONFIG = {
   'magritte':            { control_strength: 0.10, brush_size: '75mm' },
   'miro':                { control_strength: 0.20, brush_size: '75mm' },
   'chagall':             { control_strength: 0.20, brush_size: '75mm' },
-  'lichtenstein':        { control_strength: 0.30, brush_size: null },
+  'lichtenstein':        { control_strength: 0.25, brush_size: null },
   
   // === 거장 ===
   'klimt':               { control_strength: 0.65, brush_size: '40mm' },
@@ -1224,35 +1224,35 @@ export const MODERNISM_PROMPTS = {
   'lichtenstein-inthecar': {
     name: '차 안에서',
     nameEn: 'In the Car',
-    prompt: `COMIC PANEL FRAME with THICK BLACK BORDER around entire image. Pop art painting of the subject by Roy Lichtenstein "In the Car" (1963). EXTREMELY LARGE VISIBLE Ben-Day dots 15mm+ covering ALL skin and background areas. ULTRA THICK BLACK INK OUTLINES 20mm+ surrounding ALL shapes faces and figures. HEAVY BLACK CONTOUR LINES on EVERY edge. FLAT primary colors ONLY, vermilion red 30%, bright yellow 25%, black 25%, white 20%. Horizontal parallel lines create speed across background. Bright yellow hair and coat contrast sharply against red car body. Primary colors applied pure and unmixed with sharp clean boundaries.`
+    prompt: `EXTREMELY LARGE VISIBLE Ben-Day dots 15mm+ on ALL skin, hair, and clothing surfaces, DENSE PROMINENT dot pattern on ALL exposed skin (face, neck, arms, hands). Pop art painting of the subject by Roy Lichtenstein "In the Car" (1963). COMIC PANEL FRAME with THICK BLACK BORDER around entire image. ULTRA THICK BLACK INK OUTLINES 20mm+ surrounding ALL shapes faces and figures. HEAVY BLACK CONTOUR LINES on EVERY edge. FLAT primary colors ONLY, vermilion red 30%, bright yellow 25%, black 25%, white 20%. Horizontal parallel lines create speed across background. Bright yellow hair and coat contrast sharply against red car body. Primary colors applied pure and unmixed with sharp clean boundaries.`
   },
 
   // ★ M-메이비 — ~85w
   'lichtenstein-mmaybe': {
     name: '아마도',
     nameEn: 'M-Maybe',
-    prompt: `COMIC PANEL FRAME with THICK BLACK BORDER around entire image. Pop art painting of the subject by Roy Lichtenstein "M-Maybe" (1965). EXTREMELY LARGE VISIBLE Ben-Day dots 15mm+ covering ALL skin and background areas. ULTRA THICK BLACK INK OUTLINES 20mm+ surrounding ALL shapes faces and figures. HEAVY BLACK CONTOUR LINES on EVERY edge. FLAT primary colors ONLY, bright yellow 30%, blue 25%, black 25%, white 20%. Blue and yellow toned city buildings simplified in background. Bright yellow hair contrasts intensely against blue background. Primary colors applied pure and unmixed with sharp clean boundaries.`
+    prompt: `EXTREMELY LARGE VISIBLE Ben-Day dots 15mm+ on ALL skin, hair, and clothing surfaces, DENSE PROMINENT dot pattern on ALL exposed skin (face, neck, arms, hands). Pop art painting of the subject by Roy Lichtenstein "M-Maybe" (1965). COMIC PANEL FRAME with THICK BLACK BORDER around entire image. ULTRA THICK BLACK INK OUTLINES 20mm+ surrounding ALL shapes faces and figures. HEAVY BLACK CONTOUR LINES on EVERY edge. FLAT primary colors ONLY, bright yellow 30%, blue 25%, black 25%, white 20%. Blue and yellow toned city buildings simplified in background. Bright yellow hair contrasts intensely against blue background. Primary colors applied pure and unmixed with sharp clean boundaries.`
   },
 
   // ★ 잊어! 날 잊어! — ~85w
   'lichtenstein-forgetit': {
     name: '날 잊어',
     nameEn: 'Forget It! Forget Me!',
-    prompt: `COMIC PANEL FRAME with THICK BLACK BORDER around entire image. Pop art painting of the subject by Roy Lichtenstein "Forget It! Forget Me!" (1962). EXTREMELY LARGE VISIBLE Ben-Day dots 15mm+ covering ALL skin and background areas. ULTRA THICK BLACK INK OUTLINES 20mm+ surrounding ALL shapes faces and figures. HEAVY BLACK CONTOUR LINES on EVERY edge. FLAT primary colors ONLY, bright yellow 30%, black 30%, blue 20%, red 20%. Solid flat color fills background behind figures. Bright yellow hair contrasts intensely against dark blue-black male hair. Primary colors applied pure and unmixed with sharp clean boundaries.`
+    prompt: `EXTREMELY LARGE VISIBLE Ben-Day dots 15mm+ on ALL skin, hair, and clothing surfaces, DENSE PROMINENT dot pattern on ALL exposed skin (face, neck, arms, hands). Pop art painting of the subject by Roy Lichtenstein "Forget It! Forget Me!" (1962). COMIC PANEL FRAME with THICK BLACK BORDER around entire image. ULTRA THICK BLACK INK OUTLINES 20mm+ surrounding ALL shapes faces and figures. HEAVY BLACK CONTOUR LINES on EVERY edge. FLAT primary colors ONLY, bright yellow 30%, black 30%, blue 20%, red 20%. Solid flat color fills background behind figures. Bright yellow hair contrasts intensely against dark blue-black male hair. Primary colors applied pure and unmixed with sharp clean boundaries.`
   },
 
   // ★ 오...알겠어 — ~85w
   'lichtenstein-ohhhalright': {
     name: '오 알았어',
     nameEn: 'Ohhh...Alright...',
-    prompt: `COMIC PANEL FRAME with THICK BLACK BORDER around entire image. Pop art painting of the subject by Roy Lichtenstein "Ohhh...Alright..." (1964). EXTREMELY LARGE VISIBLE Ben-Day dots 15mm+ covering ALL skin and background areas. ULTRA THICK BLACK INK OUTLINES 20mm+ surrounding ALL shapes faces and figures. HEAVY BLACK CONTOUR LINES on EVERY edge. FLAT primary colors ONLY, bright yellow 30%, blue 30%, black 20%, red 20%. Blue color field fills area behind figure uniformly. Bright yellow hair contrasts against blue background, red lips accent sharply. Primary colors applied pure and unmixed with sharp clean boundaries.`
+    prompt: `EXTREMELY LARGE VISIBLE Ben-Day dots 15mm+ on ALL skin, hair, and clothing surfaces, DENSE PROMINENT dot pattern on ALL exposed skin (face, neck, arms, hands). Pop art painting of the subject by Roy Lichtenstein "Ohhh...Alright..." (1964). COMIC PANEL FRAME with THICK BLACK BORDER around entire image. ULTRA THICK BLACK INK OUTLINES 20mm+ surrounding ALL shapes faces and figures. HEAVY BLACK CONTOUR LINES on EVERY edge. FLAT primary colors ONLY, bright yellow 30%, blue 30%, black 20%, red 20%. Blue color field fills area behind figure uniformly. Bright yellow hair contrasts against blue background, red lips accent sharply. Primary colors applied pure and unmixed with sharp clean boundaries.`
   },
 
   // ★ 팔레트가 있는 정물 — ~85w
   'lichtenstein-stilllife': {
     name: '정물화',
     nameEn: 'Still Life with Palette',
-    prompt: `COMIC PANEL FRAME with THICK BLACK BORDER around entire image. Pop art painting of the subject by Roy Lichtenstein "Still Life with Palette" (1972). EXTREMELY LARGE VISIBLE Ben-Day dots 15mm+ covering ALL surfaces and background areas. ULTRA THICK BLACK INK OUTLINES 20mm+ surrounding ALL shapes and objects. HEAVY BLACK CONTOUR LINES on EVERY edge. FLAT primary colors ONLY, bright yellow 30%, blue 25%, black 25%, white 20%. Blue and black color fields form walls behind objects. Bright yellow objects contrast sharply against blue-black background. Diagonal leading lines flow toward center. Primary colors applied pure and unmixed with sharp clean boundaries.`
+    prompt: `EXTREMELY LARGE VISIBLE Ben-Day dots 15mm+ on ALL skin, hair, and clothing surfaces. Pop art painting of the subject by Roy Lichtenstein "Still Life with Palette" (1972). COMIC PANEL FRAME with THICK BLACK BORDER around entire image. ULTRA THICK BLACK INK OUTLINES 20mm+ surrounding ALL shapes and objects. HEAVY BLACK CONTOUR LINES on EVERY edge. FLAT primary colors ONLY, bright yellow 30%, blue 25%, black 25%, white 20%. Blue and black color fields form walls behind objects. Bright yellow objects contrast sharply against blue-black background. Diagonal leading lines flow toward center. Primary colors applied pure and unmixed with sharp clean boundaries.`
   }
 };
 
