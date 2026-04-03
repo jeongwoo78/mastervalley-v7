@@ -43,13 +43,13 @@ export const masterChat = {
 
   // ===== Suggested Questions (7 × 4 = 28) =====
   suggestedQuestions: {
-    'VAN GOGH': ['Can I modify the painting?', 'Tell me more about yourself'],
-    'KLIMT': ['Can I modify the painting?', 'Tell me more about yourself'],
-    'MUNCH': ['Can I modify the painting?', 'Tell me more about yourself'],
-    'CHAGALL': ['Can I modify the painting?', 'Tell me more about yourself'],
-    'MATISSE': ['Can I modify the painting?', 'Tell me more about yourself'],
-    'FRIDA': ['Can I modify the painting?', 'Tell me more about yourself'],
-    'LICHTENSTEIN': ['Can I modify the painting?', 'Tell me more about yourself'],
+    'VAN GOGH': ['Can I modify the painting?', 'Who are you? Please introduce yourself.'],
+    'KLIMT': ['Can I modify the painting?', 'Who are you? Please introduce yourself.'],
+    'MUNCH': ['Can I modify the painting?', 'Who are you? Please introduce yourself.'],
+    'CHAGALL': ['Can I modify the painting?', 'Who are you? Please introduce yourself.'],
+    'MATISSE': ['Can I modify the painting?', 'Who are you? Please introduce yourself.'],
+    'FRIDA': ['Can I modify the painting?', 'Who are you? Please introduce yourself.'],
+    'LICHTENSTEIN': ['Can I modify the painting?', 'Who are you? Please introduce yourself.'],
   },
 
   // ===== Result Messages (7) =====

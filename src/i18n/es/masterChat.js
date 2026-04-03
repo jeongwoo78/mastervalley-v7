@@ -44,13 +44,13 @@ export const masterChat = {
 
   // ===== Preguntas sugeridas (7 × 4 = 28) =====
   suggestedQuestions: {
-    'VAN GOGH': ['¿Se puede modificar el cuadro?', 'Me encantaría saber más sobre usted'],
-    'KLIMT': ['¿Se puede modificar el cuadro?', 'Me encantaría saber más sobre usted'],
-    'MUNCH': ['¿Se puede modificar el cuadro?', 'Me encantaría saber más sobre usted'],
-    'CHAGALL': ['¿Se puede modificar el cuadro?', 'Me encantaría saber más sobre usted'],
-    'MATISSE': ['¿Se puede modificar el cuadro?', 'Me encantaría saber más sobre usted'],
-    'FRIDA': ['¿Se puede modificar el cuadro?', 'Me encantaría saber más sobre usted'],
-    'LICHTENSTEIN': ['¿Se puede modificar el cuadro?', 'Me encantaría saber más sobre usted'],
+    'VAN GOGH': ['¿Se puede modificar el cuadro?', '¿Quién es usted? Preséntese, por favor.'],
+    'KLIMT': ['¿Se puede modificar el cuadro?', '¿Quién es usted? Preséntese, por favor.'],
+    'MUNCH': ['¿Se puede modificar el cuadro?', '¿Quién es usted? Preséntese, por favor.'],
+    'CHAGALL': ['¿Se puede modificar el cuadro?', '¿Quién es usted? Preséntese, por favor.'],
+    'MATISSE': ['¿Se puede modificar el cuadro?', '¿Quién es usted? Preséntese, por favor.'],
+    'FRIDA': ['¿Se puede modificar el cuadro?', '¿Quién es usted? Preséntese, por favor.'],
+    'LICHTENSTEIN': ['¿Se puede modificar el cuadro?', '¿Quién es usted? Preséntese, por favor.'],
   },
 
   // ===== Mensajes de modificación completada (7) =====

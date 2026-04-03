@@ -44,13 +44,13 @@ export const masterChat = {
 
   // ===== Pertanyaan yang Disarankan (7 × 4) =====
   suggestedQuestions: {
-    'VAN GOGH': ['Bisakah lukisan ini diubah?', 'Saya ingin tahu lebih banyak tentang Anda'],
-    'KLIMT': ['Bisakah lukisan ini diubah?', 'Saya ingin tahu lebih banyak tentang Anda'],
-    'MUNCH': ['Bisakah lukisan ini diubah?', 'Saya ingin tahu lebih banyak tentang Anda'],
-    'CHAGALL': ['Bisakah lukisan ini diubah?', 'Saya ingin tahu lebih banyak tentang Anda'],
-    'MATISSE': ['Bisakah lukisan ini diubah?', 'Saya ingin tahu lebih banyak tentang Anda'],
-    'FRIDA': ['Bisakah lukisan ini diubah?', 'Saya ingin tahu lebih banyak tentang Anda'],
-    'LICHTENSTEIN': ['Bisakah lukisan ini diubah?', 'Saya ingin tahu lebih banyak tentang Anda'],
+    'VAN GOGH': ['Bisakah lukisan ini diubah?', 'Siapakah Anda? Perkenalkan diri Anda.'],
+    'KLIMT': ['Bisakah lukisan ini diubah?', 'Siapakah Anda? Perkenalkan diri Anda.'],
+    'MUNCH': ['Bisakah lukisan ini diubah?', 'Siapakah Anda? Perkenalkan diri Anda.'],
+    'CHAGALL': ['Bisakah lukisan ini diubah?', 'Siapakah Anda? Perkenalkan diri Anda.'],
+    'MATISSE': ['Bisakah lukisan ini diubah?', 'Siapakah Anda? Perkenalkan diri Anda.'],
+    'FRIDA': ['Bisakah lukisan ini diubah?', 'Siapakah Anda? Perkenalkan diri Anda.'],
+    'LICHTENSTEIN': ['Bisakah lukisan ini diubah?', 'Siapakah Anda? Perkenalkan diri Anda.'],
   },
 
   // ===== Pesan Modifikasi Selesai (7) =====

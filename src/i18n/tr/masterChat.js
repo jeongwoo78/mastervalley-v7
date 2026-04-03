@@ -40,13 +40,13 @@ export const masterChat = {
   },
 
   suggestedQuestions: {
-    'VAN GOGH': ['Tablo değiştirilebilir mi?', 'Sizi daha yakından tanımak istiyorum'],
-    'KLIMT': ['Tablo değiştirilebilir mi?', 'Sizi daha yakından tanımak istiyorum'],
-    'MUNCH': ['Tablo değiştirilebilir mi?', 'Sizi daha yakından tanımak istiyorum'],
-    'CHAGALL': ['Tablo değiştirilebilir mi?', 'Sizi daha yakından tanımak istiyorum'],
-    'MATISSE': ['Tablo değiştirilebilir mi?', 'Sizi daha yakından tanımak istiyorum'],
-    'FRIDA': ['Tablo değiştirilebilir mi?', 'Sizi daha yakından tanımak istiyorum'],
-    'LICHTENSTEIN': ['Tablo değiştirilebilir mi?', 'Sizi daha yakından tanımak istiyorum'],
+    'VAN GOGH': ['Tablo değiştirilebilir mi?', 'Siz kimsiniz? Kendinizi tanıtır mısınız?'],
+    'KLIMT': ['Tablo değiştirilebilir mi?', 'Siz kimsiniz? Kendinizi tanıtır mısınız?'],
+    'MUNCH': ['Tablo değiştirilebilir mi?', 'Siz kimsiniz? Kendinizi tanıtır mısınız?'],
+    'CHAGALL': ['Tablo değiştirilebilir mi?', 'Siz kimsiniz? Kendinizi tanıtır mısınız?'],
+    'MATISSE': ['Tablo değiştirilebilir mi?', 'Siz kimsiniz? Kendinizi tanıtır mısınız?'],
+    'FRIDA': ['Tablo değiştirilebilir mi?', 'Siz kimsiniz? Kendinizi tanıtır mısınız?'],
+    'LICHTENSTEIN': ['Tablo değiştirilebilir mi?', 'Siz kimsiniz? Kendinizi tanıtır mısınız?'],
   },
 
   resultMessages: {

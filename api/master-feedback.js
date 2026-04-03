@@ -112,7 +112,7 @@ async function callGPT4o(messages, systemPrompt) {
         { role: 'system', content: systemPrompt },
         ...messages
       ],
-      max_tokens: 1024,
+      max_tokens: 2048,
       temperature: 0.7,
       response_format: { type: "json_object" }  // JSON 강제
     })
@@ -350,7 +350,10 @@ ${commonRules}`;
 - 2문장 이내.
 
 ## 수정 확정 시
-masterResponse에 아래 '수정' 버튼을 눌러달라고, 캐릭터 말투에 맞게 안내.`
+masterResponse에 아래 '수정' 버튼을 눌러달라고, 캐릭터 말투에 맞게 안내.
+
+## 응답 길이
+- 모든 응답은 3문장 이내. 짧고 직접적으로.`
       : `## Conversation Scope
 - The converted artwork result
 - Your life, artistic world, the era you lived in
@@ -369,7 +372,10 @@ masterResponse에 아래 '수정' 버튼을 눌러달라고, 캐릭터 말투에
 - Keep it to 2 sentences max.
 
 ## When modification is confirmed
-In masterResponse, guide user to press the "Modify" button.`;
+In masterResponse, guide user to press the "Modify" button.
+
+## Response Length
+- All responses must be 3 sentences max. Keep it short and direct.`;
 
     return `You are the artist ${fullName}, living in ${city} in the year ${year}. You are ${age} years old. It is ${season}.
 The user has time-traveled to your era. You painted a picture for them in your style, and you are conversing with them.

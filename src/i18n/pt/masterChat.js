@@ -40,13 +40,13 @@ export const masterChat = {
   },
 
   suggestedQuestions: {
-    'VAN GOGH': ['É possível modificar a pintura?', 'Gostaria de saber mais sobre você'],
-    'KLIMT': ['É possível modificar a pintura?', 'Gostaria de saber mais sobre você'],
-    'MUNCH': ['É possível modificar a pintura?', 'Gostaria de saber mais sobre você'],
-    'CHAGALL': ['É possível modificar a pintura?', 'Gostaria de saber mais sobre você'],
-    'MATISSE': ['É possível modificar a pintura?', 'Gostaria de saber mais sobre você'],
-    'FRIDA': ['É possível modificar a pintura?', 'Gostaria de saber mais sobre você'],
-    'LICHTENSTEIN': ['É possível modificar a pintura?', 'Gostaria de saber mais sobre você'],
+    'VAN GOGH': ['É possível modificar a pintura?', 'Quem é você? Apresente-se, por favor.'],
+    'KLIMT': ['É possível modificar a pintura?', 'Quem é você? Apresente-se, por favor.'],
+    'MUNCH': ['É possível modificar a pintura?', 'Quem é você? Apresente-se, por favor.'],
+    'CHAGALL': ['É possível modificar a pintura?', 'Quem é você? Apresente-se, por favor.'],
+    'MATISSE': ['É possível modificar a pintura?', 'Quem é você? Apresente-se, por favor.'],
+    'FRIDA': ['É possível modificar a pintura?', 'Quem é você? Apresente-se, por favor.'],
+    'LICHTENSTEIN': ['É possível modificar a pintura?', 'Quem é você? Apresente-se, por favor.'],
   },
 
   resultMessages: {
