@@ -4034,17 +4034,17 @@ export default async function handler(req, res) {
           // 아이
           attractiveEnhancement = ' Render the child with radiant endearing charm — bright lively eyes shining with joy, healthy warm complexion with natural glow, and a carefree innocent smile that captures the pure vitality of childhood.';
         } else if (ageRange === 'middle_aged') {
-          // 중년 (v82: 나이 보존 — "젊게" 그리지 않도록)
+          // 중년 (v82: 나이 중립 — 나이 암시 표현 제거, 매력만)
           if (gender === 'male') {
-            attractiveEnhancement = ' Render the man with composed mature dignity — refined features reflecting life experience, warm confident presence with quiet authority and distinguished character.';
+            attractiveEnhancement = ' Render the man with composed elegant presence — refined features painted with warm natural realism, confident poised expression with quiet grace.';
           } else if (gender === 'female') {
-            attractiveEnhancement = ' Render the woman with composed mature elegance — refined features showing graceful life experience, warm confident presence with quiet poise and distinguished beauty.';
+            attractiveEnhancement = ' Render the woman with composed elegant presence — refined features painted with warm natural realism, confident poised expression with graceful poise.';
           } else {
-            attractiveEnhancement = ' Render all people with composed mature presence — refined features reflecting life experience, warm confident dignity and distinguished character.';
+            attractiveEnhancement = ' Render all people with composed elegant presence — refined features painted with warm natural realism, confident poised expressions with quiet grace.';
           }
         } else if (ageRange === 'elderly') {
-          // 노인
-          attractiveEnhancement = ' Render the elderly with quiet dignity and graceful wisdom — refined features illuminated by soft gentle light, warm knowing eyes, and a serene composed presence that radiates timeless inner strength and quiet beauty.';
+          // 노인 (v82: 나이 중립 — authentic vitality로 활기 유지)
+          attractiveEnhancement = ' Render the elderly with quiet dignity and warm presence — refined features painted with warm natural realism, gentle composed expression with authentic vitality and inner grace.';
         } else {
           // 성인
           if (gender === 'male') {

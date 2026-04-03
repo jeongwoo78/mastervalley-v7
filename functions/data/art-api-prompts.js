@@ -11,114 +11,6 @@
 
 
 // ═══════════════════════════════════════════════════════════════════
-// ⚙️ 화가별 설정 (수정하기 쉬운 위치)
-// ═══════════════════════════════════════════════════════════════════
-// control_strength: 원본 구도 유지 정도 (0.0~1.0, 높을수록 원본 유지)
-// brush_size: 붓터치 크기 (null = 붓터치 없음)
-// ═══════════════════════════════════════════════════════════════════
-
-export const ARTIST_CONFIG = {
-  // === 고대/중세 ===
-  'classical-sculpture': { control_strength: 0.55, brush_size: null },
-  'sculpture':           { control_strength: 0.55, brush_size: null },
-  'roman-mosaic':        { control_strength: 0.60, brush_size: '75mm' },
-  'mosaic':              { control_strength: 0.60, brush_size: '75mm' },
-  'byzantine':           { control_strength: 0.60, brush_size: null },
-  'gothic':              { control_strength: 0.50, brush_size: null },
-  'islamic-miniature':   { control_strength: 0.80, brush_size: '25mm' },
-  
-  // === 르네상스 ===
-  'botticelli':          { control_strength: 0.70, brush_size: '75mm' },
-  'leonardo':            { control_strength: 0.65, brush_size: '75mm' },
-  'titian':              { control_strength: 0.70, brush_size: '75mm' },
-  'michelangelo':        { control_strength: 0.70, brush_size: '75mm' },
-  'raphael':             { control_strength: 0.70, brush_size: '75mm' },
-  
-  // === 바로크 ===
-  'caravaggio':          { control_strength: 0.50, brush_size: '75mm' },
-  'rubens':              { control_strength: 0.50, brush_size: '90mm' },
-  'rembrandt':           { control_strength: 0.50, brush_size: '75mm' },
-  'velazquez':           { control_strength: 0.50, brush_size: '75mm' },
-  
-  // === 로코코 ===
-  'watteau':             { control_strength: 0.45, brush_size: '75mm' },
-  'boucher':             { control_strength: 0.45, brush_size: '75mm' },
-  
-  // === 신고전/낭만/사실 ===
-  'david':               { control_strength: 0.50, brush_size: '75mm' },
-  'ingres':              { control_strength: 0.45, brush_size: '75mm' },
-  'turner':              { control_strength: 0.45, brush_size: '75mm' },
-  'delacroix':           { control_strength: 0.50, brush_size: '90mm' },
-  'courbet':             { control_strength: 0.50, brush_size: '75mm' },
-  'manet':               { control_strength: 0.50, brush_size: '75mm' },
-  
-  // === 인상주의 ===
-  'renoir':              { control_strength: 0.30, brush_size: '75mm' },
-  'monet':               { control_strength: 0.30, brush_size: '75mm' },
-  'degas':               { control_strength: 0.50, brush_size: '75mm' },
-  'caillebotte':         { control_strength: 0.50, brush_size: '75mm' },
-  
-  // === 후기인상주의 ===
-  'vangogh':             { control_strength: 0.45, brush_size: '75mm' },
-  'gauguin':             { control_strength: 0.60, brush_size: '75mm' },
-  'cezanne':             { control_strength: 0.65, brush_size: '75mm' },
-  
-  // === 야수파 ===
-  'matisse':             { control_strength: 0.45, brush_size: '75mm' },
-  'derain':              { control_strength: 0.45, brush_size: '90mm' },
-  'vlaminck':            { control_strength: 0.45, brush_size: '100mm' },
-  
-  // === 표현주의 ===
-  'munch':               { control_strength: 0.20, brush_size: '100mm' },
-  'kirchner':            { control_strength: 0.10, brush_size: '100mm' },
-  'kokoschka':           { control_strength: 0.10, brush_size: '100mm' },
-  
-  // === 모더니즘/팝아트 ===
-  'picasso':             { control_strength: 0.10, brush_size: '75mm' },
-  'magritte':            { control_strength: 0.10, brush_size: '75mm' },
-  'miro':                { control_strength: 0.20, brush_size: '75mm' },
-  'chagall':             { control_strength: 0.20, brush_size: '75mm' },
-  'lichtenstein':        { control_strength: 0.25, brush_size: null },
-  
-  // === 거장 ===
-  'klimt':               { control_strength: 0.65, brush_size: '40mm' },
-  'frida':               { control_strength: 0.80, brush_size: '25mm' },
-  
-  // === 동양화 ===
-  'korean':              { control_strength: 0.75, brush_size: null },
-  'chinese':             { control_strength: 0.75, brush_size: null },
-  'japanese':            { control_strength: 0.75, brush_size: null },
-};
-
-
-// ═══════════════════════════════════════════════════════════════════
-// 사조별 기본값 (화가 매칭 안 될 때 fallback)
-// ═══════════════════════════════════════════════════════════════════
-export const MOVEMENT_DEFAULTS = {
-  'ancient-greek-sculpture':              { control_strength: 0.55, brush_size: null },
-  'roman-mosaic':                         { control_strength: 0.60, brush_size: '75mm' },
-  'byzantine':                            { control_strength: 0.55, brush_size: null },
-  'islamic-miniature':                    { control_strength: 0.80, brush_size: '25mm' },
-  'gothic':                               { control_strength: 0.50, brush_size: null },
-  'renaissance':                          { control_strength: 0.80, brush_size: '75mm' },
-  'baroque':                              { control_strength: 0.70, brush_size: '75mm' },
-  'rococo':                               { control_strength: 0.70, brush_size: '75mm' },
-  'neoclassicism':                        { control_strength: 0.80, brush_size: '75mm' },
-  'neoclassicism_vs_romanticism_vs_realism': { control_strength: 0.80, brush_size: '75mm' },
-  'romanticism':                          { control_strength: 0.80, brush_size: '75mm' },
-  'impressionism':                        { control_strength: 0.60, brush_size: '75mm' },
-  'post-impressionism':                   { control_strength: 0.55, brush_size: '75mm' },
-  'pointillism':                          { control_strength: 0.55, brush_size: '25mm' },
-  'fauvism':                              { control_strength: 0.45, brush_size: '75mm' },
-  'expressionism':                        { control_strength: 0.45, brush_size: '75mm' },
-  'modernism':                            { control_strength: 0.50, brush_size: '75mm' },
-  'korean':                               { control_strength: 0.75, brush_size: null },
-  'chinese':                              { control_strength: 0.75, brush_size: null },
-  'japanese':                             { control_strength: 0.75, brush_size: null },
-};
-
-
-// ═══════════════════════════════════════════════════════════════════
 // 텍스처 상수
 // ═══════════════════════════════════════════════════════════════════
 export const PAINT_TEXTURE = ' MUST look like HAND-PAINTED oil painting with VISIBLE THICK BRUSHSTROKES (20mm or thicker on subject).';
@@ -189,23 +81,6 @@ export function normalizeArtistKey(artist) {
   return ARTIST_NAME_MAPPING[normalized] || normalized;
 }
 
-export function getArtistConfig(artist, styleId, category) {
-  const artistKey = normalizeArtistKey(artist);
-  if (artistKey && ARTIST_CONFIG[artistKey]) return ARTIST_CONFIG[artistKey];
-  if (styleId && MOVEMENT_DEFAULTS[styleId]) return MOVEMENT_DEFAULTS[styleId];
-  if (category === 'oriental') return { control_strength: 0.75, brush_size: null };
-  if (category === 'modernism') return { control_strength: 0.50, brush_size: '75mm' };
-  if (category === 'masters') return { control_strength: 0.55, brush_size: '75mm' };
-  return { control_strength: 0.80, brush_size: '75mm' };
-}
-
-export function getBrushSize(artist, styleId, category) {
-  return getArtistConfig(artist, styleId, category).brush_size;
-}
-
-export function getControlStrength(artist, styleId, category) {
-  return getArtistConfig(artist, styleId, category).control_strength;
-}
 
 
 // ═══════════════════════════════════════════════════════════════════
@@ -1040,7 +915,7 @@ export const EXPRESSIONISM_PROMPTS = {
   'munch-madonna': {
     name: '마돈나',
     nameEn: 'Madonna',
-    prompt: `Original clothing from photo covers chest fully. Preserve mysterious evocative mood with closed eyes and flowing dark hair. Powerful hand-painted oil painting of the subject by Edvard Munch. Wavy violently distorted lines swirl across the entire surface trembling with rough unstable thick brushmarks full of dark psychological intensity. Outlines ripple and twist as edges warp into wavy distorted lines. A dark crimson aura wraps around the figure with mysterious yet haunting energy. Crimson red 30%, deep black 30%, ivory 25%, gold 15%. Deep black fills the background with oppressive void. Face and skin crudely distorted with naïve primitive features, the face elongates into a pale glowing oval of sickly ivory with a feverish reddish flush. Red aura light radiates outward aggressively around the hair with hypnotic force. Rough thick brushwork spreads outward following the undulating flow of the hair with passionate intensity. Deep red light radiates from inside the figure outward with inner torment. Deep black sinks heavily into the background and deep within the hair. Ivory claims the glowing skin with crimson claiming the aura and black claiming the void-like background.`
+    prompt: `Original clothing from photo covers chest fully. Preserve mysterious evocative mood with closed eyes and flowing dark hair. Powerful hand-painted oil painting of the subject by Edvard Munch. Wavy violently distorted lines swirl across the entire surface trembling with rough unstable thick brushmarks full of dark psychological intensity. Outlines ripple and twist as edges warp into wavy distorted lines. A dark crimson aura wraps around the figure with dark mysterious atmosphere. Deep black 40%, dark navy blue 25%, ivory 20%, crimson red 15%. Deep black fills the background with oppressive void. Face and skin crudely distorted with naïve primitive features, the face elongates into a pale glowing oval of sickly ivory with a feverish reddish flush. Red aura light radiates softly outward around the hair. Rough thick brushwork spreads outward following the undulating flow of the hair with passionate intensity. Deep red light radiates from inside the figure outward with inner torment. Deep black sinks heavily into the background and deep within the hair. Ivory claims the glowing skin with crimson claiming the aura and dark navy blue claiming the deep background.`
   },
 
 // ★ 바람의 신부 — ~141w
@@ -1418,14 +1293,14 @@ export const ARTIST_STYLES = {
   'cezanne': 'Masterful oil painting by Paul Cézanne. Geometric structural forms, visible constructive brushstrokes, muted earthy palette with solid architectural presence.',
 
   // 🔥 야수파
-  'matisse': 'Masterful oil painting by Henri Matisse. Bold flat pure colors, simplified expressive forms, vibrant emotional intensity with savage decorative freedom.',
-  'derain': 'Masterful oil painting by André Derain. Explosive vivid colors, bold rough brushstrokes, raw fauvist energy with savage primitive force.',
-  'vlaminck': 'Masterful oil painting by Maurice de Vlaminck. Violent intense colors, thick aggressive brushwork, wild untamed energy with brutal power.',
+  'matisse': 'Powerful oil painting by Henri Matisse. Bold flat pure colors, simplified expressive forms, vibrant emotional intensity with savage decorative freedom.',
+  'derain': 'Powerful oil painting by André Derain. Explosive vivid colors, bold rough brushstrokes, raw fauvist energy with savage primitive force.',
+  'vlaminck': 'Powerful oil painting by Maurice de Vlaminck. Violent intense colors, thick aggressive brushwork, wild untamed energy with brutal power.',
 
   // 😱 표현주의
-  'munch': 'Masterful oil painting by Edvard Munch. INTENSE PSYCHOLOGICAL emotional depth, WAVY DISTORTED swirling lines throughout entire image, haunting symbolic colors (blood red sky, sickly yellows, deep blues), raw existential anguish.',
-  'kirchner': 'Masterful oil painting by Ernst Ludwig Kirchner. Sharp angular jagged forms, extreme bold clashing colors, elongated mask-like faces, raw primitive aggressive intensity with urban anxiety.',
-  'kokoschka': 'Masterful oil painting by Oskar Kokoschka. Violent turbulent slashing brushwork, harsh acidic feverish colors, deeply distorted psychological tension with inner torment.',
+  'munch': 'Powerful oil painting by Edvard Munch. INTENSE PSYCHOLOGICAL emotional depth, WAVY DISTORTED swirling lines throughout entire image, haunting symbolic colors (blood red sky, sickly yellows, deep blues), raw existential anguish.',
+  'kirchner': 'Powerful oil painting by Ernst Ludwig Kirchner. Sharp angular jagged forms, extreme bold clashing colors, elongated mask-like faces, raw primitive aggressive intensity with urban anxiety.',
+  'kokoschka': 'Powerful oil painting by Oskar Kokoschka. Violent turbulent slashing brushwork, harsh acidic feverish colors, deeply distorted psychological tension with inner torment.',
 
   // 🎪 모더니즘
   'picasso': 'Masterful oil painting by Pablo Picasso. Geometric fragmentation on face and entire body, face broken into angular planes, nose from side profile while both eyes visible from front, jaw chin cheeks shattered into geometric segments, multiple viewpoints simultaneously with revolutionary cubist energy.',
