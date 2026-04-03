@@ -1900,10 +1900,11 @@ ${masterWorks}
 CRITICAL MATCHING RULES:
 - If SINGLE person (1) → NEVER select "The Kiss" (requires couple)
 - If PARENT with CHILD (adult + child/baby together) → NEVER select "The Kiss" (romantic couple only, NOT for family)
+- If subject is ANIMAL → prefer works with scenic backgrounds (starry night, wheat field, garden, village)
 
 STYLE APPLICATION RULE:
 - Apply the artwork's TECHNIQUE, COLOR, MOOD to the subject.
-- Do NOT literally copy figures from the artwork onto the subject.
+- FLUX PROMPT RULE: Use ONLY positive descriptions. Never include negative words (DO NOT, NEVER, NO, avoid, without) in the generated prompt.
 
 INSTRUCTIONS:
 1. Analyze the photo THOROUGHLY:
@@ -1916,7 +1917,7 @@ INSTRUCTIONS:
 3. From remaining works, select the MOST SUITABLE one
 4. Generate a FLUX prompt that STARTS with detailed subject description
 5. IMPORTANT: Preserve the original subject - if it's a baby, keep it as a baby; if elderly, keep elderly
-6. CRITICAL: If only 1 person in photo, add "DO NOT add extra people in background"
+6. Add "preserve exactly the original number of subjects" in the FLUX prompt
 
 Return ONLY valid JSON (no markdown):
 {
@@ -1932,7 +1933,7 @@ Return ONLY valid JSON (no markdown):
   "selected_artist": "${categoryName}",
   "selected_work": "exact title of the masterwork you selected",
   "reason": "why this masterwork matches this photo (mention gender/count compatibility)",
-  "prompt": "Start with 'MALE/FEMALE SUBJECT with [physical features]' if person, then 'painting by ${categoryName} in the style of [selected work title], [that work's distinctive techniques]'. If person_count=1, END with 'DO NOT add extra people, NO hallucinated figures in background'"
+  "prompt": "Start with 'MALE/FEMALE SUBJECT with [physical features]' if person, then 'painting by ${categoryName} in the style of [selected work title], [that work's distinctive techniques]'. Always END with 'preserve exactly the original number of subjects'"
 }`;
         
       } else {
@@ -1978,7 +1979,7 @@ Return ONLY valid JSON (no markdown):
   "selected_artist": "${categoryName}",
   "selected_work": null,
   "reason": "applying ${categoryName}'s distinctive painting style",
-  "prompt": "Start with subject description (gender, age, features), then '${masterStylePrompt.substring(0, 200)}...'. If person_count=1, END with 'DO NOT add extra people'"
+  "prompt": "Start with subject description (gender, age, features), then '${masterStylePrompt.substring(0, 200)}...'. Always END with 'preserve exactly the original number of subjects'"
 }`;
       }
       
@@ -2388,7 +2389,7 @@ Instructions:
 5. Preserve facial identity and original features
 6. Include the masterwork's SPECIFIC style characteristics in your prompt
 7. IMPORTANT: Start prompt with subject description if person
-8. CRITICAL: If only 1 person in photo, add "DO NOT add extra people in background, keep background clean"
+8. Add "preserve exactly the original number of subjects" in the FLUX prompt
 
 Return JSON only:
 {
@@ -2404,7 +2405,7 @@ Return JSON only:
   "selected_artist": "Artist Full Name",
   "selected_work": "EXACT masterwork title from the list above",
   "reason": "why this artist AND this masterwork fit (1 sentence)",
-  "prompt": "Start with 'MALE/FEMALE SUBJECT with [physical features]' if person, then 'painting by [Artist] in the style of [selected_work], [that work's distinctive techniques and colors]'. If person_count=1, END with 'DO NOT add extra people, NO hallucinated figures in background, keep background CLEAN'"
+  "prompt": "Start with 'MALE/FEMALE SUBJECT with [physical features]' if person, then 'painting by [Artist] in the style of [selected_work], [that work's distinctive techniques and colors]'. Always END with 'preserve exactly the original number of subjects'"
 }`;
         }
       }
