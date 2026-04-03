@@ -3414,11 +3414,11 @@ export default async function handler(req, res) {
               
               if (subjectType === 'person' && count) {
                 if (count === 1) {
-                  antiHallucinationRule += 'Maintain EXACTLY 1 PERSON only, background must stay empty of people. ';
+                  antiHallucinationRule += 'Maintain EXACTLY 1 PERSON only. Background contains only scenery, architecture, and objects. ';
                 } else if (count === 2) {
-                  antiHallucinationRule += 'Maintain EXACTLY 2 PEOPLE only, background must stay empty of additional people. ';
+                  antiHallucinationRule += 'Maintain EXACTLY 2 PEOPLE only. Background contains only scenery, architecture, and objects. ';
                 } else {
-                  antiHallucinationRule += `Maintain EXACTLY ${count} PEOPLE only, background must stay empty of additional people. `;
+                  antiHallucinationRule += `Maintain EXACTLY ${count} PEOPLE only, Background contains only scenery, architecture, and objects. `;
                 }
               } else if (subjectType === 'landscape') {
                 antiHallucinationRule += 'LANDSCAPE only, keep scene free of people and figures. ';
