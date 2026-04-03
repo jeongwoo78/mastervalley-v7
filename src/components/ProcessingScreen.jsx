@@ -386,11 +386,26 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
               </div>
             )}
 
-            {/* 결과 미리보기: 이미지만 */}
-            {viewIndex >= 0 && previewResult && (
+            {/* 결과 미리보기: 성공 → 이미지 */}
+            {viewIndex >= 0 && previewResult?.success && (
               <div className="oneclick-preview">
                 <div className="img-placeholder">
                   <img src={previewResult.resultUrl} alt="" />
+                </div>
+              </div>
+            )}
+
+            {/* 결과 미리보기: 실패 → 안내 */}
+            {viewIndex >= 0 && previewResult && !previewResult.success && (
+              <div className="oneclick-preview">
+                <div className="img-placeholder" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                  <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                    <circle cx="8.5" cy="8.5" r="1.5"/>
+                    <polyline points="21 15 16 10 5 21"/>
+                  </svg>
+                  <p style={{ marginTop: '12px', color: 'rgba(255,255,255,0.5)', fontSize: '13px' }}>{t.conversionFailed}</p>
+                  <p style={{ color: 'rgba(255,255,255,0.35)', fontSize: '11px', marginTop: '4px' }}>{t.retryAfterComplete || '모든 결과 완료 후 재변환해주세요'}</p>
                 </div>
               </div>
             )}
