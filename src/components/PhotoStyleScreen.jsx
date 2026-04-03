@@ -1020,7 +1020,8 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
         /* Art Notice */
         .subscription-info {
           text-align: center;
-          padding: 16px 24px 20px;
+          padding: 0px 24px 20px;
+          margin-top: -8px;
         }
 
         .subscription-info p {
