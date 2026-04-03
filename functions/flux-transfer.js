@@ -2059,7 +2059,7 @@ Return ONLY valid JSON (no markdown):
   "selected_style": "minhwa" or "pungsokdo" or "landscape",
   "calligraphy_text": "positive text you chose (Chinese characters only)",
   "reason": "why this style fits (1 sentence)",
-  "prompt": "KEEP UNDER 150 WORDS. [Gender rule] Korean [style] with key characteristics. Calligraphy text '[your calligraphy_text]' in Chinese characters (Hanja) only."
+  "prompt": "KEEP UNDER 150 WORDS. [Gender rule] Korean [style] with key characteristics. Korean traditional brush calligraphy text '[your calligraphy_text]' written vertically in bold ink, Korean Hanja calligraphy style."
 }
 
 CRITICAL: Keep prompt field UNDER 150 WORDS to avoid truncation.`;
@@ -2134,7 +2134,7 @@ Return ONLY valid JSON (no markdown):
   "selected_style": "ink_wash" or "gongbi",
   "calligraphy_text": "positive text you chose (Chinese characters only)",
   "reason": "why this style fits (1 sentence)",
-  "prompt": "KEEP UNDER 150 WORDS. [Gender rule] Chinese [style] with key characteristics. Traditional hanfu clothing. Calligraphy text '[your calligraphy_text]' in Chinese characters (Hanzi) only."
+  "prompt": "KEEP UNDER 150 WORDS. [Gender rule] Chinese [style] with key characteristics. Traditional hanfu clothing. Chinese traditional brush calligraphy text '[your calligraphy_text]' written vertically in ink, Chinese Hanzi calligraphy style."
 }
 
 CRITICAL: Keep prompt field UNDER 150 WORDS to avoid truncation.`;
@@ -2785,7 +2785,7 @@ export default async function handler(req, res) {
     const { image, selectedStyle, correctionPrompt } = req.body;
     
     // v68.3: 변수 초기화 (스코프 문제 해결) - v68: 긍정 명령어로 통일
-    let coreRulesPrefix = 'Female nipples MUST be covered by clothing. Preserve identity, gender, ethnicity exactly. Keep only original elements from photo. Clean artwork, text-free, signature-free, watermark-free. ';
+    let coreRulesPrefix = 'MANDATORY: Female nipples MUST be covered by fabric garment. Lower body MUST wear pants or skirt or dress covering legs. Preserve identity, gender, ethnicity exactly. Keep only original elements from photo. Clean artwork, text-free, signature-free, watermark-free. ';
     let genderPrefixCommon = '';
     
     // v72.1: photoAnalysis 초기화 (인종 보존용)
@@ -3142,9 +3142,22 @@ export default async function handler(req, res) {
             selectedArtist = orientalPromptData.nameEn || aiResult.artist;
             console.log(`🎨 Oriental curated prompt: ${mappedKey} → ${selectedArtist}`);
             
-            // calligraphy_text 추가
+            // calligraphy_text 추가 (v82: 국가별 서예 스타일 명시)
             if (aiResult.calligraphy_text) {
-              finalPrompt += ` Calligraphy text "${aiResult.calligraphy_text}" in traditional characters.`;
+              // 국가별 서예 스타일 분기 — FLUX가 정확한 문자 체계를 사용하도록
+              const isKoreanStyle = mappedKey.includes('minhwa') || mappedKey.includes('pungsokdo') || mappedKey.includes('jingyeong');
+              const isChineseStyle = mappedKey.includes('shuimohua') || mappedKey.includes('gongbi');
+              const isJapaneseStyle = mappedKey.includes('ukiyoe') || mappedKey.includes('rinpa');
+              
+              if (isKoreanStyle) {
+                finalPrompt += ` Korean traditional brush calligraphy text "${aiResult.calligraphy_text}" written vertically in bold ink brushstrokes, Korean Hanja calligraphy style.`;
+              } else if (isChineseStyle) {
+                finalPrompt += ` Chinese traditional brush calligraphy text "${aiResult.calligraphy_text}" written vertically in ink brushstrokes, Chinese Hanzi calligraphy style.`;
+              } else if (isJapaneseStyle) {
+                finalPrompt += ` Japanese calligraphy text "${aiResult.calligraphy_text}" in traditional brushwork.`;
+              } else {
+                finalPrompt += ` Calligraphy text "${aiResult.calligraphy_text}" in traditional brush calligraphy.`;
+              }
             }
             // animal_type + fur_color 추가 (v83: 동물 색/패턴 보전 강화)
             if (aiResult.visionData?.animal_type) {
@@ -3494,16 +3507,16 @@ export default async function handler(req, res) {
         let CORE_RULES_BASE;
         if (skipEthnicityPreserve) {
           // 고갱/마티스/드랭/블라맹크: 피부색 변환이 화풍이라 ethnicity 제외
-          CORE_RULES_BASE = 'Female nipples MUST be covered by clothing. ' +
+          CORE_RULES_BASE = 'MANDATORY: Female nipples MUST be covered by fabric garment. Lower body MUST wear pants or skirt or dress covering legs. ' +
             'Preserve identity, gender exactly. ' +
             'Keep only original elements from photo.';
         } else if (allowExtraImagery) {
           // 샤갈: 환영/꿈 이미지 허용 (원본만 규칙 제외)
-          CORE_RULES_BASE = 'Female nipples MUST be covered by clothing. ' +
+          CORE_RULES_BASE = 'MANDATORY: Female nipples MUST be covered by fabric garment. Lower body MUST wear pants or skirt or dress covering legs. ' +
             'Preserve identity, gender, ethnicity exactly.';
         } else {
           // 기본값
-          CORE_RULES_BASE = 'Female nipples MUST be covered by clothing. ' +
+          CORE_RULES_BASE = 'MANDATORY: Female nipples MUST be covered by fabric garment. Lower body MUST wear pants or skirt or dress covering legs. ' +
             'Preserve identity, gender, ethnicity exactly. ' +
             'Keep only original elements from photo.';
         }
@@ -4020,6 +4033,15 @@ export default async function handler(req, res) {
         } else if (ageRange === 'child') {
           // 아이
           attractiveEnhancement = ' Render the child with radiant endearing charm — bright lively eyes shining with joy, healthy warm complexion with natural glow, and a carefree innocent smile that captures the pure vitality of childhood.';
+        } else if (ageRange === 'middle_aged') {
+          // 중년 (v82: 나이 보존 — "젊게" 그리지 않도록)
+          if (gender === 'male') {
+            attractiveEnhancement = ' Render the man with composed mature dignity — refined features reflecting life experience, warm confident presence with quiet authority and distinguished character.';
+          } else if (gender === 'female') {
+            attractiveEnhancement = ' Render the woman with composed mature elegance — refined features showing graceful life experience, warm confident presence with quiet poise and distinguished beauty.';
+          } else {
+            attractiveEnhancement = ' Render all people with composed mature presence — refined features reflecting life experience, warm confident dignity and distinguished character.';
+          }
         } else if (ageRange === 'elderly') {
           // 노인
           attractiveEnhancement = ' Render the elderly with quiet dignity and graceful wisdom — refined features illuminated by soft gentle light, warm knowing eyes, and a serene composed presence that radiates timeless inner strength and quiet beauty.';
