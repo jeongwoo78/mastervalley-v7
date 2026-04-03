@@ -453,7 +453,7 @@ const GalleryScreen = ({ onBack, onHome, lang = 'en', externalLoading = false })
       for (const item of selectedItems) {
         try {
           const fileName = `mastervalley_${item.styleName.replace(/\s+/g, '_')}_${Date.now()}.jpg`;
-          const finalImage = WATERMARK_ON_SAVE ? await addWatermark(item.imageData) : item.imageData;
+          const finalImage = item.imageData; // 저장은 워터마크 없음
           const result = await saveToDevice(finalImage, fileName);
           if (result.success) {
             successCount++;
@@ -487,7 +487,7 @@ const GalleryScreen = ({ onBack, onHome, lang = 'en', externalLoading = false })
       const fileName = `mastervalley_${item.styleName.replace(/\s+/g, '_')}_${Date.now()}.jpg`;
       
       // 워터마크 적용 (WATERMARK_ON_SAVE 플래그로 제어)
-      const finalImage = WATERMARK_ON_SAVE ? await addWatermark(item.imageData) : item.imageData;
+      const finalImage = item.imageData; // 저장은 워터마크 없음
       const result = await saveToDevice(finalImage, fileName);
       
       if (result.success) {
