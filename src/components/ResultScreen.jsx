@@ -530,25 +530,25 @@ const ResultScreen = ({
   const handleRetry = async () => {
     if (!originalPhoto || isRetrying) return;
     
-    const failedResults = results.filter(r => !r.success);
-    if (failedResults.length === 0) return;
+    // v82: 전체 재변환 (실패분만이 아니라 전부)
+    const allResults = results;
+    if (allResults.length === 0) return;
     
     setIsRetrying(true);
-    // console.log(`🔄 다시 시도 시작: ${failedResults.length}개 실패한 변환`);
     
     let successCount = 0;
     let updatedResults = [...results];  // 업데이트된 결과 추적용
     
-    for (let i = 0; i < failedResults.length; i++) {
-      const failed = failedResults[i];
-      const failedIndex = results.findIndex(r => r.style?.id === failed.style?.id);
+    for (let i = 0; i < allResults.length; i++) {
+      const target = allResults[i];
+      const targetIndex = i;
       
       setRetryProgress(t.retrying);
       
       try {
         const result = await processStyleTransfer(
           originalPhoto,
-          failed.style,
+          target.style,
           null,
           () => {}  // 진행 콜백 불필요
         );
@@ -556,7 +556,7 @@ const ResultScreen = ({
         if (result.success) {
           // 성공하면 해당 인덱스 결과 업데이트
           const newResult = {
-            style: failed.style,
+            style: target.style,
             resultUrl: result.resultUrl,
             aiSelectedArtist: result.aiSelectedArtist,
             selected_work: result.selected_work,
@@ -565,33 +565,30 @@ const ResultScreen = ({
           
           setResults(prev => {
             const newResults = [...prev];
-            newResults[failedIndex] = newResult;
+            newResults[targetIndex] = newResult;
             return newResults;
           });
           
-          updatedResults[failedIndex] = newResult;  // 로컬 추적용도 업데이트
+          updatedResults[targetIndex] = newResult;  // 로컬 추적용도 업데이트
           successCount++;
-          // console.log(`✅ 다시 시도 성공: ${failed.style?.name}`);
           
           // 갤러리에 저장 - i18n 원본 키 저장
-          const category = failed.style?.category;
-          const rawName = result.aiSelectedArtist || failed.style?.name || 'Converted Image';
+          const category = target.style?.category;
+          const rawName = result.aiSelectedArtist || target.style?.name || 'Converted Image';
           const workName = result.selected_work || null;
           await saveToGallery(result.resultUrl, {
             category,
             artistName: rawName,
-            movementName: failed.style?.name || '',
+            movementName: target.style?.name || '',
             workName,
-            styleId: failed.style?.id || '',
+            styleId: target.style?.id || '',
             isRetransform: false,
             transformId: result.transformId || null
           });
           hasSavedRef.current = true;  // useEffect 이중 저장 방지
-        } else {
-          // console.log(`❌ 다시 시도 실패: ${failed.style?.name} - ${result.error}`);
         }
       } catch (error) {
-        console.error(`❌ 다시 시도 에러: ${failed.style?.name}`, error);
+        console.error(`❌ 재변환 에러: ${target.style?.name}`, error);
       }
     }
     
@@ -1311,7 +1308,7 @@ const ResultScreen = ({
         )}
 
         {/* 원클릭: viewIndex >= 0 → 결과 이미지만 */}
-        {isFullTransform && viewIndex >= 0 && results[viewIndex] && (
+        {isFullTransform && viewIndex >= 0 && results[viewIndex]?.success && (
           <div className="oneclick-result-section">
             <div className="oneclick-image" onClick={() => setShowImageModal(true)} style={{ cursor: 'pointer' }}>
               <img src={masterResultImages[getMasterKey(results[viewIndex]?.aiSelectedArtist)] || results[viewIndex]?.resultUrl} alt="Result" />
@@ -1371,7 +1368,7 @@ const ResultScreen = ({
         )}
 
         {/* 원클릭: viewIndex >= 0 → 스타일정보 + 2차 교육 (단독변환과 동일 구조) */}
-        {isFullTransform && viewIndex >= 0 && results[viewIndex] && (
+        {isFullTransform && viewIndex >= 0 && results[viewIndex]?.success && (
           <div className="technique-card">
             <div className="card-header">
               <h2>
@@ -1581,7 +1578,7 @@ const ResultScreen = ({
                   onClick={handleRetry}
                 >
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
-                  {failedCount > 1 ? t.retryAll : t.retry}
+                  {t.retryAll || t.retry}
                 </button>
               </div>
             )}
