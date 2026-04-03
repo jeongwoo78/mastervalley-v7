@@ -140,6 +140,7 @@ export const ui = {
     shareText: '— Master Valley',
     loadingEducation: '正在生成作品說明...',
     conversionFailedRetry: '轉換失敗，請點擊下方重試。',
+    retryAfterComplete: '所有結果完成後請重新轉換',
     convertedInStyle: '以{style}風格轉換的作品。'
   },
 

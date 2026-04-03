@@ -140,6 +140,7 @@ export const ui = {
     shareText: '— Master Valley',
     loadingEducation: 'กำลังโหลดคำอธิบายผลงาน...',
     conversionFailedRetry: 'การแปลงล้มเหลว กรุณาแตะลองใหม่ด้านล่าง',
+    retryAfterComplete: 'กรุณาลองใหม่หลังจากผลลัพธ์ทั้งหมดเสร็จสิ้น',
     convertedInStyle: 'ผลงานนี้ถูกแปลงในสไตล์ {style}'
   },
 

@@ -140,6 +140,7 @@ export const ui = {
     shareText: '— Master Valley',
     loadingEducation: 'Generando descripción de la obra...',
     conversionFailedRetry: 'La transformación ha fallado. Por favor, toca Reintentar.',
+    retryAfterComplete: 'Vuelva a intentar tras completar todos los resultados',
     convertedInStyle: 'Obra transformada al estilo {style}.'
   },
 

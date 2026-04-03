@@ -1316,6 +1316,32 @@ const ResultScreen = ({
           </div>
         )}
 
+        {/* 원클릭: viewIndex >= 0 → 실패 시 플레이스홀더 */}
+        {isFullTransform && viewIndex >= 0 && results[viewIndex] && !results[viewIndex].success && (
+          <div className="oneclick-result-section">
+            <div className="retry-placeholder" style={{ aspectRatio: '3/4', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'rgba(255,255,255,0.03)', borderRadius: '12px' }}>
+              {isRetrying ? (
+                <>
+                  <div className="spinner-medium"></div>
+                  <p className="placeholder-text">{retryProgress || t.aiRetrying}</p>
+                </>
+              ) : (
+                <>
+                  <div className="placeholder-icon">
+                    <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                      <circle cx="8.5" cy="8.5" r="1.5"/>
+                      <polyline points="21 15 16 10 5 21"/>
+                    </svg>
+                  </div>
+                  <p className="placeholder-text" style={{ marginTop: '12px', color: 'rgba(255,255,255,0.5)', fontSize: '13px', textAlign: 'center' }}>{t.conversionFailed}</p>
+                  <p style={{ color: 'rgba(255,255,255,0.35)', fontSize: '11px', marginTop: '4px' }}>{t.retryAfterComplete || '모든 결과 완료 후 재변환해주세요'}</p>
+                </>
+              )}
+            </div>
+          </div>
+        )}
+
         {/* 원클릭 도트 네비게이션 (이미지 바로 아래) */}
         {isFullTransform && (
           <div className="fullTransform-nav">
@@ -1368,7 +1394,7 @@ const ResultScreen = ({
         )}
 
         {/* 원클릭: viewIndex >= 0 → 스타일정보 + 2차 교육 (단독변환과 동일 구조) */}
-        {isFullTransform && viewIndex >= 0 && results[viewIndex]?.success && (
+        {isFullTransform && viewIndex >= 0 && results[viewIndex] && (
           <div className="technique-card">
             <div className="card-header">
               <h2>
@@ -1380,7 +1406,7 @@ const ResultScreen = ({
                   return getStyleTitle(category, styleId, artistName, lang);
                 })()}
               </h2>
-              {(() => {
+              {results[viewIndex]?.success && (() => {
                 const result = results[viewIndex];
                 const [sub1, sub2] = getStyleSubtitles(
                   result?.style?.category,
@@ -1410,8 +1436,8 @@ const ResultScreen = ({
                 </div>
               )}
             </div>
-            {/* 교육 콘텐츠: masters는 토글, 사조/동양화는 항상 표시 */}
-            {(displayCategory !== 'masters' || showInfo) && educationText && (
+            {/* 교육 콘텐츠: 성공일 때만 + masters는 토글, 사조/동양화는 항상 표시 */}
+            {results[viewIndex]?.success && (displayCategory !== 'masters' || showInfo) && educationText && (
               <div className="card-content">
                 <div className="technique-explanation">
                   {educationText.split('\n\n').map((paragraph, index) => (

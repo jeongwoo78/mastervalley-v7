@@ -136,6 +136,7 @@ export const ui = {
     shareText: '— Master Valley',
     loadingEducation: 'A gerar descrição da obra...',
     conversionFailedRetry: 'Conversão falhou. Por favor prime tentar novamente.',
+    retryAfterComplete: 'Tente novamente após todos os resultados serem concluídos',
     convertedInStyle: 'Obra convertida no estilo {style}.'
   },
 

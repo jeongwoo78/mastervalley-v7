@@ -136,6 +136,7 @@ export const ui = {
     shareText: '— Master Valley',
     loadingEducation: 'Eser açıklaması oluşturuluyor...',
     conversionFailedRetry: 'Dönüşüm başarısız. Lütfen yeniden dene\'ye basın.',
+    retryAfterComplete: 'Tüm sonuçlar tamamlandıktan sonra tekrar deneyin',
     convertedInStyle: '{style} stilinde dönüştürülmüş eser.'
   },
 

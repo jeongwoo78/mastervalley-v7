@@ -139,6 +139,7 @@ export const ui = {
     shareText: '— Master Valley',
     loadingEducation: 'Loading artwork description...',
     conversionFailedRetry: 'Conversion failed. Please tap Retry below.',
+    retryAfterComplete: 'Please retry after all results are complete',
     convertedInStyle: 'This artwork was converted in {style} style.'
   },
 

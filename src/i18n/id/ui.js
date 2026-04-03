@@ -140,6 +140,7 @@ export const ui = {
     shareText: '— Master Valley',
     loadingEducation: 'Membuat deskripsi karya...',
     conversionFailedRetry: 'Transformasi gagal. Silakan ketuk Coba lagi.',
+    retryAfterComplete: 'Silakan coba lagi setelah semua hasil selesai',
     convertedInStyle: 'Karya yang ditransformasi ke gaya {style}.'
   },
 

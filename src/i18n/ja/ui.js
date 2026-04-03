@@ -140,6 +140,7 @@ export const ui = {
     shareText: '— Master Valley',
     loadingEducation: '作品の説明を生成中...',
     conversionFailedRetry: '変換に失敗しました。下の再試行をタップしてください。',
+    retryAfterComplete: 'すべての結果完了後に再変換してください',
     convertedInStyle: '{style}スタイルに変換された作品です。'
   },
 

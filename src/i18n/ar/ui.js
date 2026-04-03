@@ -140,6 +140,7 @@ export const ui = {
     shareText: '— Master Valley',
     loadingEducation: 'جارٍ إنشاء وصف العمل...',
     conversionFailedRetry: 'فشل التحويل. يرجى الضغط على إعادة المحاولة.',
+    retryAfterComplete: 'يرجى إعادة المحاولة بعد اكتمال جميع النتائج',
     convertedInStyle: 'عمل فني محوَّل إلى أسلوب {style}.'
   },
 
