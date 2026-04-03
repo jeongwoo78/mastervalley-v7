@@ -4044,7 +4044,7 @@ export default async function handler(req, res) {
           }
         } else if (ageRange === 'elderly') {
           // 노인 (v82: 나이 중립 — authentic vitality로 활기 유지)
-          attractiveEnhancement = ' Render the elderly with quiet dignity and warm presence — refined features painted with warm natural realism, gentle composed expression with authentic vitality and inner grace.';
+          attractiveEnhancement = ' Render with quiet dignity and warm presence — refined features painted with warm natural realism, gentle composed expression with authentic vitality and inner grace.';
         } else {
           // 성인
           if (gender === 'male') {
