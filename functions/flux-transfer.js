@@ -3888,16 +3888,43 @@ export default async function handler(req, res) {
     // ========================================
     
     // ========================================
-    // v81: 매력 조항 (Attractive Enhancement)
-    // 고통/왜곡이 핵심인 작품은 제외
+    // v82: 매력 조항 3단계 (full / weak / none)
+    // none = 매력이 작품을 파괴하는 경우
+    // weak = 왜곡이 핵심이지만 존재감은 필요한 경우
+    // full = 일반적인 이상화 (99%)
     // ========================================
-    const excludeAttractive = [
-      'munch-scream'       // 절규 - 공포/불안 왜곡
+    
+    // 🔴 완전 제외 — 매력 지시가 작품의 본질을 해침
+    const excludeFull = [
+      'munch-scream',           // 절규 — 공포·불안 왜곡이 본질
+      'kokoschka-degenerate',   // 퇴폐 미술가 — 의도적 추함·저항
+      'kirchner-soldier'        // 군인 자화상 — 전쟁 트라우마·고통
+    ];
+    
+    // 🟡 약한 버전 — "아름답게" 대신 "강렬한 존재감으로"
+    const applyWeak = [
+      'kokoschka-bride',        // 바람의 신부 — 폭풍·격렬함이 핵심
+      'kokoschka-double',       // 2인 초상 — 심리적 긴장
+      'kirchner-berlin',        // 베를린 거리 — 도시 불안·소외
+      'picasso-doramaar'        // 도라 마르 — 입체파 해체가 핵심
     ];
     
     const workKey = categoryType === 'masters' && selectedWork ? 
       convertToWorkKey(selectedArtist, selectedWork) : null;
-    const shouldApplyAttractive = !excludeAttractive.includes(workKey);
+    
+    // 사조 모드에서 표현주의 전체 → 약한 버전
+    const attractArtistLower = (selectedArtist || '').toLowerCase();
+    const isExpressionistMovement = 
+      (categoryType === 'movements' && selectedStyle.id === 'expressionism') ||
+      (attractArtistLower.includes('munch') || attractArtistLower.includes('kokoschka') || attractArtistLower.includes('kirchner'));
+    
+    // 3단계 판단
+    let attractiveMode = 'full';
+    if (excludeFull.includes(workKey)) {
+      attractiveMode = 'none';
+    } else if (applyWeak.includes(workKey) || isExpressionistMovement) {
+      attractiveMode = 'weak';
+    }
     
     // ========================================
     // v71: 붓터치 크기 적용 (화풍 바로 다음, 대전제 앞)
@@ -3959,46 +3986,57 @@ export default async function handler(req, res) {
     logData.prompt.applied.coreRules = true;
     
     // ========================================
-    // v81: 매력 조항 (피사체별 분기)
-    // 아기/아이 → 사랑스러움, 동물 → 아름다움/위엄, 노인 → 품위/지혜, 성인 → 기존
+    // v82: 매력 조항 3단계 적용
+    // none → 아무것도 안 붙음
+    // weak → 존재감만 (표현주의/왜곡 계열)
+    // full → 피사체별 7단계 분기
     // ========================================
-    if (shouldApplyAttractive) {
-      const subjectType = visionAnalysis?.subject_type || 'person';
-      const ageRange = visionAnalysis?.age_range || 'adult';
-      const gender = visionAnalysis?.gender || null;
+    if (attractiveMode !== 'none') {
       
-      let attractiveEnhancement;
-      
-      if (subjectType === 'animal') {
-        // v82: 동양화 동물은 curated 프롬프트에 스타일별 매력 표현 포함됨
-        if (categoryType === 'oriental') {
-          attractiveEnhancement = '';
-        } else {
-          // 서양화 동물
-          attractiveEnhancement = ' Render cute and friendly - animal as adorable, approachable, with bright sparkling eyes and heartwarming charming expression.';
-        }
-      } else if (ageRange === 'baby') {
-        // 아기
-        attractiveEnhancement = ' Render adorably beautiful - baby as cherubic, angelic, with rosy glowing cheeks, sparkling innocent eyes, and irresistibly sweet expression. Idealized heartwarming portrait.';
-      } else if (ageRange === 'child') {
-        // 아이
-        attractiveEnhancement = ' Render adorably cute - child as bright-eyed, carefree, with radiant innocent smile, warm healthy glow, and pure joyful energy. Idealized endearing portrait.';
-      } else if (ageRange === 'elderly') {
-        // 노인
-        attractiveEnhancement = ' Render with quiet dignity - elderly as wise, with graceful distinguished features, warm knowing eyes, and serene composed presence. Portrait of timeless dignity.';
+      if (attractiveMode === 'weak') {
+        // 🟡 표현주의/왜곡 계열 — "아름답게" 대신 "강렬하게"
+        finalPrompt = finalPrompt + ' Render with intense painted presence and raw expressive power.';
+        logData.prompt.applied.attractive = true;
+        
       } else {
-        // 성인 (기존)
-        if (gender === 'male') {
-          attractiveEnhancement = ' Render stunningly handsome - male as dignified, charismatic, with strong refined features. Tasteful and dignified.';
-        } else if (gender === 'female') {
-          attractiveEnhancement = ' Render stunningly gorgeous - female as elegant, graceful, with luminous refined beauty. Tasteful and dignified.';
+        // 🟢 일반 — 피사체별 7단계 분기 (A안 기반, skin-safe)
+        const subjectType = visionAnalysis?.subject_type || 'person';
+        const ageRange = visionAnalysis?.age_range || 'adult';
+        const gender = visionAnalysis?.gender || null;
+        
+        let attractiveEnhancement;
+        
+        if (subjectType === 'animal') {
+          // v82: 동양화 동물은 curated 프롬프트에 스타일별 매력 표현 포함됨
+          if (categoryType === 'oriental') {
+            attractiveEnhancement = '';
+          } else {
+            // 서양화 동물
+            attractiveEnhancement = ' Render the animal with warm charming appeal — bright sparkling eyes full of life, soft luminous fur painted with gentle highlights, and an approachable heartwarming expression that feels naturally lovable.';
+          }
+        } else if (ageRange === 'baby') {
+          // 아기
+          attractiveEnhancement = ' Render the baby with cherubic angelic beauty — delicate luminous complexion with soft warm glow, rosy cheeks, sparkling innocent eyes, and a pure irresistibly sweet expression full of wonder and tenderness.';
+        } else if (ageRange === 'child') {
+          // 아이
+          attractiveEnhancement = ' Render the child with radiant endearing charm — bright lively eyes shining with joy, healthy warm complexion with natural glow, and a carefree innocent smile that captures the pure vitality of childhood.';
+        } else if (ageRange === 'elderly') {
+          // 노인
+          attractiveEnhancement = ' Render the elderly with quiet dignity and graceful wisdom — refined features illuminated by soft gentle light, warm knowing eyes, and a serene composed presence that radiates timeless inner strength and quiet beauty.';
         } else {
-          attractiveEnhancement = ' Render stunningly beautiful - male as handsome, dignified; female as gorgeous, elegant, graceful. Tasteful and dignified.';
+          // 성인
+          if (gender === 'male') {
+            attractiveEnhancement = ' Render the man with refined dignified handsomeness — strong yet graceful facial features painted with masterful subtlety, warm luminous face with natural golden undertones, and a composed charismatic presence full of quiet strength and elegance.';
+          } else if (gender === 'female') {
+            attractiveEnhancement = ' Render the woman with elegant luminous beauty — graceful refined features painted with delicate warm glazes and soft natural highlights, captivating eyes full of depth, and a serene poised expression that radiates timeless feminine grace.';
+          } else {
+            attractiveEnhancement = ' Render all people with refined artistic beauty — men as handsome and dignified with strong graceful features, women as elegantly beautiful with luminous features and natural poise. Paint every figure with warm gentle light and harmonious balance.';
+          }
         }
+        
+        finalPrompt = finalPrompt + attractiveEnhancement;
+        logData.prompt.applied.attractive = true;
       }
-      
-      finalPrompt = finalPrompt + attractiveEnhancement;
-      logData.prompt.applied.attractive = true;
     }
     
     // ========================================
