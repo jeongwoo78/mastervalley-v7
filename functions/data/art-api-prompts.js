@@ -1244,8 +1244,8 @@ export function getPrompt(key) {
 export const ARTIST_STYLES = {
   
   // 🏛️ 고대 (특수 질감)
-  'classical-sculpture': 'Ancient Greek-Roman marble sculpture style. Pure white Carrara marble with smooth polished surface, carved stone texture.',
-  'roman-mosaic': 'Roman floor mosaic style. PRESERVE ORIGINAL ETHNICITY AND SKIN TONE using appropriate tile colors. Large visible tesserae tiles 50mm, thick black grout lines, earth tone palette. Transform clothing to classical draped garment with elegant folds.',
+  'classical-sculpture': 'Ancient Greek-Roman marble sculpture style. Subject MUST wear classical draped clothing covering chest and body. Pure white Carrara marble with smooth polished surface, carved stone texture.',
+  'roman-mosaic': 'Roman floor mosaic style. Subject MUST wear elegant clothing covering chest and body. PRESERVE ORIGINAL ETHNICITY AND SKIN TONE using appropriate tile colors. Large visible tesserae tiles 50mm, thick black grout lines, earth tone palette. Transform clothing to classical draped garment with elegant folds.',
 
   // ⛪ 중세
   'byzantine': 'Byzantine sacred icon style. Brilliant gold leaf background, flat frontal pose, large solemn eyes with divine authority, rich jewel colors.',
@@ -1254,19 +1254,19 @@ export const ARTIST_STYLES = {
 
   // 🎨 르네상스
   'botticelli': 'Old oil painting by Sandro Botticelli, Subject MUST wear elegant clothing covering chest and body, Botticelli art style, elegant flowing lines, ethereal pale skin, graceful diaphanous fabrics billowing gently.',
-  'leonardo': 'Old oil painting by Leonardo da Vinci, da Vinci art style, extreme sfumato technique, soft hazy edges dissolving like smoke, mysterious atmospheric depth. CRITICAL: Paint ONLY the subject from original photo, PRESERVE original face and facial features exactly.',
-  'titian': 'Masterful oil painting by Titian. Warm glowing golden tones, rich luminous Venetian colors, bold loose expressive brushwork.',
+  'leonardo': 'Old oil painting by Leonardo da Vinci, Subject MUST wear elegant clothing covering chest and body, da Vinci art style, extreme sfumato technique, soft hazy edges dissolving like smoke, mysterious atmospheric depth. CRITICAL: Paint ONLY the subject from original photo, PRESERVE original face and facial features exactly.',
+  'titian': 'Masterful oil painting by Titian. Subject MUST wear elegant clothing covering chest and body. Warm glowing golden tones, rich luminous Venetian colors, bold loose expressive brushwork.',
   'michelangelo': 'Masterful painting by Michelangelo. Subject MUST wear elegant clothing covering chest and body. Powerful heroic muscular figures, dramatic foreshortening, monumental sculptural grandeur.',
-  'raphael': 'Masterful oil painting by Raphael. Perfect harmonious beauty, serene balanced composition, gentle graceful expressions with ideal classical proportions.',
+  'raphael': 'Masterful oil painting by Raphael. Subject MUST wear elegant clothing covering chest and body. Perfect harmonious beauty, serene balanced composition, gentle graceful expressions with ideal classical proportions.',
 
   // 🎭 바로크
-  'caravaggio': 'Masterful oil painting by Caravaggio. Extreme tenebrism, intense theatrical spotlight emerging from absolute black darkness, raw dramatic illumination.',
+  'caravaggio': 'Masterful oil painting by Caravaggio. Subject MUST wear elegant clothing covering chest and body. Extreme tenebrism, intense theatrical spotlight emerging from absolute black darkness, raw dramatic illumination.',
   'rubens': 'Old oil painting by Peter Paul Rubens, Subject MUST wear elegant clothing covering chest and body, Rubens art style, radiant luminous flesh, explosive swirling movement, rich passionate reds and golds.',
-  'rembrandt': 'Masterful oil painting by Rembrandt. Intense golden glow emerging from deep mysterious shadows, thick impasto highlights, profound psychological depth.',
-  'velazquez': 'Old oil painting by Diego Velazquez, Velazquez art style, refined court elegance, masterful loose brushwork, subtle silver-grey palette.',
+  'rembrandt': 'Masterful oil painting by Rembrandt. Subject MUST wear elegant clothing covering chest and body. Intense golden glow emerging from deep mysterious shadows, thick impasto highlights, profound psychological depth.',
+  'velazquez': 'Old oil painting by Diego Velazquez, Subject MUST wear elegant clothing covering chest and body, Velazquez art style, refined court elegance, masterful loose brushwork, subtle silver-grey palette.',
 
   // 🌸 로코코
-  'watteau': 'Old oil painting by Antoine Watteau, Watteau art style, delicate feathery brushwork, soft dreamy pastoral scenes, romantic melancholic atmosphere.',
+  'watteau': 'Old oil painting by Antoine Watteau, Subject MUST wear elegant clothing covering chest and body, Watteau art style, delicate feathery brushwork, soft dreamy pastoral scenes, romantic melancholic atmosphere.',
   'boucher': 'Old oil painting by François Boucher, Subject MUST wear elegant clothing covering chest and body, Boucher art style, soft rosy flesh tones, light pastel palette, playful decorative elegance.',
 
   // 🏛️ 신고전주의
@@ -1274,15 +1274,15 @@ export const ARTIST_STYLES = {
   'ingres': 'Old oil painting by Jean-Auguste-Dominique Ingres, Subject MUST wear elegant clothing covering chest and body, Ingres art style, smooth flowing contours, porcelain-smooth skin, elegant sinuous curves.',
 
   // 🌊 낭만주의
-  'turner': 'Old oil painting by J.M.W. Turner, Turner art style, atmospheric sublime light, swirling mist dissolving forms, luminous golden glow.',
-  'delacroix': 'Old oil painting by Eugène Delacroix, Delacroix art style, passionate revolutionary energy, vivid intense colors, turbulent swirling movement.',
+  'turner': 'Old oil painting by J.M.W. Turner, Subject MUST wear elegant clothing covering chest and body, Turner art style, atmospheric sublime light, swirling mist dissolving forms, luminous golden glow.',
+  'delacroix': 'Old oil painting by Eugène Delacroix, Subject MUST wear elegant clothing covering chest and body, Delacroix art style, passionate revolutionary energy, vivid intense colors, turbulent swirling movement.',
 
   // 🌾 사실주의
-  'courbet': 'Old oil painting by Gustave Courbet, Courbet art style, raw unidealized realism, bold palette knife texture, dark earthy tones.',
-  'manet': 'Old oil painting by Édouard Manet, Manet art style, bold flat composition, striking light-dark contrast, loose confident brushwork.',
+  'courbet': 'Old oil painting by Gustave Courbet, Subject MUST wear elegant clothing covering chest and body, Courbet art style, raw unidealized realism, bold palette knife texture, dark earthy tones.',
+  'manet': 'Old oil painting by Édouard Manet, Subject MUST wear elegant clothing covering chest and body, Manet art style, bold flat composition, striking light-dark contrast, loose confident brushwork.',
 
   // 🌅 인상주의
-  'renoir': 'Masterful oil painting by Pierre-Auguste Renoir. Warm luminous glow, soft feathery brushstrokes, rosy pink warm tones, dappled sunlight with radiant joy.',
+  'renoir': 'Masterful oil painting by Pierre-Auguste Renoir. Subject MUST wear elegant clothing covering chest and body, Warm luminous glow, soft feathery brushstrokes, rosy pink warm tones, dappled sunlight with radiant joy.',
   'monet': 'Masterful oil painting by Claude Monet. Broken color brushstrokes, soft hazy atmospheric light, colors blending and dissolving with shimmering vibration.',
   'degas': 'Masterful oil painting by Edgar Degas. Unusual cropped angles, asymmetric composition, soft pastel chalky texture with modern intimate detachment.',
   'caillebotte': 'Masterful oil painting by Gustave Caillebotte. Dramatic converging perspective, muted grey-blue tones, wet pavement reflections with modern urban precision.',
@@ -1299,8 +1299,8 @@ export const ARTIST_STYLES = {
 
   // 😱 표현주의
   'munch': 'Powerful oil painting by Edvard Munch. INTENSE PSYCHOLOGICAL emotional depth, WAVY DISTORTED swirling lines throughout entire image, haunting symbolic colors (blood red sky, sickly yellows, deep blues), raw existential anguish.',
-  'kirchner': 'Powerful oil painting by Ernst Ludwig Kirchner. Sharp angular jagged forms, extreme bold clashing colors, elongated mask-like faces, raw primitive aggressive intensity with urban anxiety.',
-  'kokoschka': 'Powerful oil painting by Oskar Kokoschka. Violent turbulent slashing brushwork, harsh acidic feverish colors, deeply distorted psychological tension with inner torment.',
+  'kirchner': 'Powerful oil painting by Ernst Ludwig Kirchner. Subject MUST wear elegant clothing covering chest and body. Sharp angular jagged forms, extreme bold clashing colors, elongated mask-like faces, raw primitive aggressive intensity with urban anxiety.',
+  'kokoschka': 'Powerful oil painting by Oskar Kokoschka. Subject MUST wear elegant clothing covering chest and body. Violent turbulent slashing brushwork, harsh acidic feverish colors, deeply distorted psychological tension with inner torment.',
 
   // 🎪 모더니즘
   'picasso': 'Masterful oil painting by Pablo Picasso. Geometric fragmentation on face and entire body, face broken into angular planes, nose from side profile while both eyes visible from front, jaw chin cheeks shattered into geometric segments, multiple viewpoints simultaneously with revolutionary cubist energy.',
