@@ -1024,9 +1024,10 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
         }
 
         .subscription-info p {
-          color: rgba(255,255,255,0.2);
-          font-size: 11px;
+          color: rgba(255,255,255,0.55);
+          font-size: 13px;
           margin: 0;
+          line-height: 1.5;
         }
 
         @media (max-width: 400px) {
