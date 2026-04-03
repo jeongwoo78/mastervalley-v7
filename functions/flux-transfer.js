@@ -88,33 +88,33 @@ const LICHTENSTEIN_SPEECH_BUBBLES = {
   // 로맨틱 (10개) - 커플
   romantic: [
     "YOU HAD ME AT HELLO!", "STILL GIVES ME BUTTERFLIES!",
-    "MY FAVORITE PLOT TWIST!", "LOVE LOOKS GOOD ON US!",
-    "BETTER THAN THE MOVIES!", "YOU AND ME, FOREVER!",
+    "MY FAVORITE CHAPTER!", "LOVE LOOKS GOOD ON US!",
+    "BETTER THAN THE MOVIES!", "YOU AND ME, ALWAYS!",
     "HEART GOES BOOM!", "MY WHOLE WORLD!",
-    "STOLEN MY HEART!", "LIKE A SCENE FROM A DREAM!"
+    "YOU STOLE MY HEART!", "LIKE A SCENE FROM A DREAM!"
   ],
-  // 드라마틱 (10개) - 강렬한 감정/여성
+  // 위트/자신감 (10개) - 여성
   dramatic: [
-    "I KNEW IT ALL ALONG!", "PLOT TWIST!",
-    "THE AUDACITY!", "SORRY, I'M FABULOUS!",
-    "OOPS, DID I DO THAT?!", "DRAMA? I AM THE DRAMA!",
-    "TOO GLAM TO GIVE A DAMN!", "SILENCE SPEAKS LOUDER!",
-    "THAT WAS MY VILLAIN ARC!", "DARLING, PLEASE!"
+    "YES, I WOKE UP LIKE THIS!", "PLOT TWIST: I WIN!",
+    "ABSOLUTELY ICONIC!", "SORRY, I'M FABULOUS!",
+    "OOPS, I DID IT AGAIN!", "QUEEN OF THE SCENE!",
+    "TOO GLAM TO HANDLE!", "CONFIDENCE LOOKS GOOD ON ME!",
+    "THIS IS MY MOMENT!", "DARLING, I'M STUNNING!"
   ],
-  // 대화체/독백 (10개) - 원작 스타일
+  // 대화체/독백 (10개) - 원작 스타일 (긍정)
   dialogue: [
-    "HMMMM... INTERESTING!", "WAIT, LET ME THINK...",
-    "SOMETHING TELLS ME...", "WELL WELL WELL!",
-    "I HAVE A FEELING!", "NOTE TO SELF...",
-    "AND THEN IT HIT ME!", "THE THINGS I PUT UP WITH!",
-    "FUNNY HOW THAT WORKS!", "CHAPTER ONE: ME!"
+    "HMMMM... PERFECT!", "LIFE IS BEAUTIFUL!",
+    "BEST DAY EVER!", "WELL WELL WELL!",
+    "I HAVE A GOOD FEELING!", "NOTE TO SELF: BE AMAZING!",
+    "AND THEN MAGIC HAPPENED!", "THIS IS THE LIFE!",
+    "FUNNY HOW WONDERFUL LIFE IS!", "CHAPTER ONE: ME!"
   ],
-  // 놀람/생각 (8개) - 중립
+  // 놀람/감동 (8개) - 긍정적 놀람
   surprised: [
-    "SHUT THE FRONT DOOR!", "HOLD ON... WHAT?!",
-    "EXCUSE ME?!", "MIND = BLOWN!",
-    "SAY THAT AGAIN?!", "WELL, THAT HAPPENED!",
-    "I DID NOT SEE THAT COMING!", "OH SNAP!"
+    "OH WOW!", "IS THIS REAL LIFE?!",
+    "PINCH ME!", "MIND = BLOWN!",
+    "DREAMS DO COME TRUE!", "WHAT A MOMENT!",
+    "BEST SURPRISE EVER!", "OH SNAP... I LOVE IT!"
   ]
 };
 
@@ -3746,7 +3746,7 @@ export default async function handler(req, res) {
           
             // 프롬프트에 말풍선 + 스타일 강화 추가 (말풍선을 프롬프트 앞쪽에 배치)
             if (!finalPrompt.includes('speech bubble')) {
-              finalPrompt = `MANDATORY white oval comic speech bubble with bold black text "${speechText}" in upper area of image, black outline on bubble. ` + finalPrompt + `, EXTREMELY LARGE Ben-Day dots 15mm+ halftone pattern on ALL skin and surfaces, ULTRA THICK BLACK OUTLINES 20mm+, COMIC PANEL FRAME with THICK BLACK BORDER around entire image`;
+              finalPrompt = `MANDATORY white oval comic speech bubble with bold black text "${speechText}" with tail pointing toward the subject, fitting naturally in the composition, black outline on bubble. ` + finalPrompt + `, EXTREMELY LARGE Ben-Day dots 15mm+ halftone pattern on ALL skin and surfaces, ULTRA THICK BLACK OUTLINES 20mm+, COMIC PANEL FRAME with THICK BLACK BORDER around entire image`;
             }
           }
         }
