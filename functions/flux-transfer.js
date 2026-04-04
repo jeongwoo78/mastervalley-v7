@@ -73,25 +73,77 @@ const anthropicClient = process.env.ANTHROPIC_API_KEY
 // v79: artistStyles.js → art-api-prompts.js 통합 완료
 
 // ========================================
-// v65: 리히텐슈타인 말풍선 텍스트 (50개)
+// v83: Replicate Files 병렬 업로드 (Vision과 동시 실행)
+// Vision API 호출 중 이미지를 Replicate에 미리 업로드
+// prediction 생성 시 base64 대신 URL 사용 → 0.5~1초 절약
+// ========================================
+async function uploadToReplicateFiles(base64Image) {
+  try {
+    const base64Data = base64Image.includes(',') ? base64Image.split(',')[1] : base64Image;
+    const buffer = Buffer.from(base64Data, 'base64');
+    
+    // Manual multipart/form-data with field name "content"
+    const boundary = '----ReplicateUpload' + Date.now();
+    const headerBuf = Buffer.from(
+      `--${boundary}\r\n` +
+      `Content-Disposition: form-data; name="content"; filename="input.jpg"\r\n` +
+      `Content-Type: image/jpeg\r\n` +
+      `\r\n`
+    );
+    const footerBuf = Buffer.from(`\r\n--${boundary}--\r\n`);
+    const body = Buffer.concat([headerBuf, buffer, footerBuf]);
+    
+    const response = await fetch('https://api.replicate.com/v1/files', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Token ${process.env.REPLICATE_API_KEY}`,
+        'Content-Type': `multipart/form-data; boundary=${boundary}`,
+        'Content-Length': String(body.length)
+      },
+      body: new Uint8Array(body),
+      duplex: 'half'
+    });
+    
+    if (!response.ok) {
+      const errText = await response.text().catch(() => 'no body');
+      console.log(`⚠️ Replicate Files 업로드 실패 (${response.status}): ${errText}`);
+      return null;
+    }
+    
+    const result = await response.json();
+    console.log('✅ Replicate Files 업로드 완료');
+    return result.urls.get;
+  } catch (err) {
+    console.log('⚠️ Replicate Files 에러, base64 fallback:', err.message);
+    return null;
+  }
+}
+
+// ========================================
+// v65: 리히텐슈타인 말풍선 텍스트 (67개)
 // 짧은 감탄사 + 대화체 + 독백체 + 긴 문장 혼합
 // ========================================
 const LICHTENSTEIN_SPEECH_BUBBLES = {
-  // 감탄/기쁨 (12개) - 그룹/밝은 분위기
+  // 감탄/기쁨 (19개) - 그룹/밝은 분위기
   excited: [
     "THIS IS SO US!", "ICONIC!", "LIVING OUR BEST LIFE!",
     "SAY CHEESE... POP ART STYLE!", "WE LOOK UNREAL!",
     "FRAME THIS IMMEDIATELY!", "MAIN CHARACTER ENERGY!",
     "TOO GOOD TO BE TRUE!", "LEGENDARY!", "ABSOLUTELY FABULOUS!",
-    "THIS IS ART, BABY!", "UNSTOPPABLE!"
+    "THIS IS ART, BABY!", "UNSTOPPABLE!",
+    "WOW!", "AMAZING!", "INCREDIBLE!", "PERFECT!", "YES!",
+    "WE DID IT!", "SO EXCITING!"
   ],
-  // 로맨틱 (10개) - 커플
+  // 로맨틱 (18개) - 커플
   romantic: [
     "YOU HAD ME AT HELLO!", "STILL GIVES ME BUTTERFLIES!",
     "MY FAVORITE CHAPTER!", "LOVE LOOKS GOOD ON US!",
     "BETTER THAN THE MOVIES!", "YOU AND ME, ALWAYS!",
     "HEART GOES BOOM!", "MY WHOLE WORLD!",
-    "YOU STOLE MY HEART!", "LIKE A SCENE FROM A DREAM!"
+    "YOU STOLE MY HEART!", "LIKE A SCENE FROM A DREAM!",
+    "I LOVE YOU!", "KISS ME!", "MY DARLING!", "YOU'RE THE ONE!",
+    "THIS MOMENT!", "ONLY FOR YOU!", "YOU'RE EVERYTHING!",
+    "STAY FOREVER!"
   ],
   // 위트/자신감 (10개) - 여성
   dramatic: [
@@ -109,12 +161,13 @@ const LICHTENSTEIN_SPEECH_BUBBLES = {
     "AND THEN MAGIC HAPPENED!", "THIS IS THE LIFE!",
     "FUNNY HOW WONDERFUL LIFE IS!", "CHAPTER ONE: ME!"
   ],
-  // 놀람/감동 (8개) - 긍정적 놀람
+  // 놀람/감동 (10개) - 긍정적 놀람
   surprised: [
     "OH WOW!", "IS THIS REAL LIFE?!",
     "PINCH ME!", "MIND = BLOWN!",
     "DREAMS DO COME TRUE!", "WHAT A MOMENT!",
-    "BEST SURPRISE EVER!", "OH SNAP... I LOVE IT!"
+    "BEST SURPRISE EVER!", "OH SNAP... I LOVE IT!",
+    "NO WAY!", "COULD IT BE?!"
   ]
 };
 
@@ -1826,17 +1879,17 @@ const fallbackPrompts = {
   // ========================================
   korean: {
     name: '한국 전통화',
-    prompt: 'Korean traditional painting, Joseon Dynasty art style, GENDER PRESERVATION preserve exact gender and facial features from original photo, Choose appropriate Korean style: Minhwa folk art for animals and flowers with light subtle Obangsaek colors and soft gentle pigments, Pungsokdo genre painting for people with LIGHT INK WASH technique and subtle colors over ink lines in Kim Hong-do and Shin Yun-bok style, Jingyeong landscape for nature with expressive ink and minimal color, SINGLE UNIFIED COMPOSITION, HANJI PAPER with visible fiber texture throughout'
+    prompt: 'Exclusively Korean traditional painting, Joseon Dynasty art style, GENDER PRESERVATION preserve exact gender and facial features from original photo, Choose appropriate Korean style: Minhwa folk art for animals and flowers with light subtle Obangsaek colors and soft gentle pigments, Pungsokdo genre painting for people with LIGHT INK WASH technique and subtle colors over ink lines in Kim Hong-do and Shin Yun-bok style, Jingyeong landscape for nature with expressive ink and minimal color, SINGLE UNIFIED COMPOSITION, HANJI PAPER with visible fiber texture throughout'
   },
   
   chinese: {
     name: '중국 전통화',
-    prompt: 'Chinese traditional painting, classical Chinese art style, GENDER PRESERVATION preserve exact gender and facial features from original photo, Choose appropriate Chinese style: Shuimohua ink wash for landscapes with monochrome gradations, Gongbi meticulous painting for people and animals with fine detailed brushwork and rich colors, Chinese aesthetic principles, SINGLE UNIFIED COMPOSITION, XUAN RICE PAPER with visible paper grain texture'
+    prompt: 'Exclusively Chinese traditional painting, classical Chinese art style, GENDER PRESERVATION preserve exact gender and facial features from original photo, Choose appropriate Chinese style: Shuimohua ink wash for landscapes with monochrome gradations, Gongbi meticulous painting for people and animals with fine detailed brushwork and rich colors, Chinese aesthetic principles, SINGLE UNIFIED COMPOSITION, XUAN RICE PAPER with visible paper grain texture'
   },
   
   japanese: {
     name: '일본 전통화',
-    prompt: 'Japanese Ukiyo-e woodblock print, Ukiyo-e art style, flat areas of bold solid colors, strong clear black outlines, completely flat two-dimensional composition, CLOTHING: MUST transform to traditional Japanese attire (elegant kimono for women, hakama pants with haori jacket for men), decorative patterns, stylized simplified forms, elegant refined Japanese aesthetic, authentic Japanese ukiyo-e masterpiece quality, CRITICAL ANTI-HALLUCINATION preserve EXACT number of people from original photo, if 1 person then ONLY 1 person in result, CRITICAL ANIMAL PRESERVATION if photo has animals (dogs cats birds) MUST include them drawn in ukiyo-e style with bold outlines, simple scenic background ONLY Mt Fuji or cherry blossom or waves or sky, CHERRY WOOD BLOCK TEXTURE visible throughout'
+    prompt: 'Exclusively Japanese Ukiyo-e woodblock print, Ukiyo-e art style, flat areas of bold solid colors, strong clear black outlines, completely flat two-dimensional composition, CLOTHING: MUST transform to traditional Japanese attire (elegant kimono for women, hakama pants with haori jacket for men), decorative patterns, stylized simplified forms, elegant refined Japanese aesthetic, authentic Japanese ukiyo-e masterpiece quality, CRITICAL ANTI-HALLUCINATION preserve EXACT number of people from original photo, if 1 person then ONLY 1 person in result, CRITICAL ANIMAL PRESERVATION if photo has animals (dogs cats birds) MUST include them drawn in ukiyo-e style with bold outlines, simple scenic background ONLY Mt Fuji or cherry blossom or waves or sky, CHERRY WOOD BLOCK TEXTURE visible throughout'
   },
   
   masters: {
@@ -1866,7 +1919,7 @@ function analyzePhoto() {
 // ========================================
 // AI 화가 자동 선택 (타임아웃 포함)
 // ========================================
-async function selectArtistWithAI(imageBase64, selectedStyle, timeoutMs = 15000) {
+async function selectArtistWithAI(imageBase64, selectedStyle, timeoutMs = 15000, preVisionData = null) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
   
@@ -2394,6 +2447,13 @@ Instructions:
 6. Include the masterwork's SPECIFIC style characteristics in your prompt
 7. IMPORTANT: Start prompt with subject description if person
 8. Add "preserve exactly the original number of subjects" in the FLUX prompt
+9. If you selected LICHTENSTEIN: Choose the BEST speech bubble text from this list based on photo context (person count, gender, mood):
+   EXCITED: "THIS IS SO US!", "ICONIC!", "LIVING OUR BEST LIFE!", "SAY CHEESE... POP ART STYLE!", "WE LOOK UNREAL!", "FRAME THIS IMMEDIATELY!", "MAIN CHARACTER ENERGY!", "TOO GOOD TO BE TRUE!", "LEGENDARY!", "ABSOLUTELY FABULOUS!", "THIS IS ART, BABY!", "UNSTOPPABLE!"
+   ROMANTIC: "YOU HAD ME AT HELLO!", "STILL GIVES ME BUTTERFLIES!", "MY FAVORITE CHAPTER!", "LOVE LOOKS GOOD ON US!", "BETTER THAN THE MOVIES!", "YOU AND ME, ALWAYS!", "HEART GOES BOOM!", "MY WHOLE WORLD!", "YOU STOLE MY HEART!", "LIKE A SCENE FROM A DREAM!"
+   DRAMATIC: "YES, I WOKE UP LIKE THIS!", "PLOT TWIST: I WIN!", "ABSOLUTELY ICONIC!", "SORRY, I'M FABULOUS!", "OOPS, I DID IT AGAIN!", "QUEEN OF THE SCENE!", "TOO GLAM TO HANDLE!", "CONFIDENCE LOOKS GOOD ON ME!", "THIS IS MY MOMENT!", "DARLING, I'M STUNNING!"
+   DIALOGUE: "HMMMM... PERFECT!", "LIFE IS BEAUTIFUL!", "BEST DAY EVER!", "WELL WELL WELL!", "I HAVE A GOOD FEELING!", "NOTE TO SELF: BE AMAZING!", "AND THEN MAGIC HAPPENED!", "THIS IS THE LIFE!", "FUNNY HOW WONDERFUL LIFE IS!", "CHAPTER ONE: ME!"
+   SURPRISED: "OH WOW!", "IS THIS REAL LIFE?!", "PINCH ME!", "MIND = BLOWN!", "DREAMS DO COME TRUE!", "WHAT A MOMENT!", "BEST SURPRISE EVER!", "OH SNAP... I LOVE IT!"
+   Selection guide: 3+ people → EXCITED, couple → ROMANTIC, single female → DRAMATIC or DIALOGUE, single male → EXCITED or DIALOGUE, default → any positive category.
 
 Return JSON only:
 {
@@ -2408,11 +2468,31 @@ Return JSON only:
   "background_type": "simple" or "complex" or "outdoor" or "indoor" or "studio",
   "selected_artist": "Artist Full Name",
   "selected_work": "EXACT masterwork title from the list above",
+  "speech_bubble_text": "EXACT text from list above if LICHTENSTEIN selected, otherwise null",
   "reason": "why this artist AND this masterwork fit (1 sentence)",
   "prompt": "Start with 'MALE/FEMALE SUBJECT with [physical features]' if person, then 'painting by [Artist] in the style of [selected_work], [that work's distinctive techniques and colors]'. Always END with 'preserve exactly the original number of subjects'"
 }`;
         }
       }
+    }
+    
+    // v84: 사전 분석된 Vision 데이터가 있으면 프롬프트에 주입
+    if (preVisionData) {
+      const visionContext = `IMAGE ANALYSIS (pre-analyzed with high accuracy — use these EXACT values in your JSON response, do NOT re-analyze):
+- subject_type: ${preVisionData.subject_type || 'unknown'}
+- gender: ${preVisionData.gender || 'null'}
+- age_range: ${preVisionData.age_range || 'null'}
+- ethnicity: ${preVisionData.ethnicity || 'null'}
+- physical_description: ${preVisionData.physical_description || 'null'}
+- person_count: ${preVisionData.person_count || 'null'}
+- background_type: ${preVisionData.background_type || 'unknown'}
+${preVisionData.animal_type ? `- animal_type: ${preVisionData.animal_type}` : ''}
+${preVisionData.fur_color ? `- fur_color: ${preVisionData.fur_color}` : ''}
+
+Copy these values exactly into the vision fields of your JSON response. Focus on artist/work selection and prompt generation.
+
+`;
+      promptText = visionContext + promptText;
     }
     
     const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -2483,7 +2563,8 @@ Return JSON only:
         person_count: result.person_count || null,
         background_type: result.background_type || null,
         animal_type: result.animal_type || null,
-        fur_color: result.fur_color || null
+        fur_color: result.fur_color || null,
+        speech_bubble_text: result.speech_bubble_text || null
       }
     };
     
@@ -2782,10 +2863,13 @@ export default async function handler(req, res) {
 
   try {
     const startTime = Date.now();
-    const { image, selectedStyle, correctionPrompt } = req.body;
+    const { image, selectedStyle, correctionPrompt, isOneClick, visionData: preVisionData } = req.body;
+    
+    // v83: Vision과 동시에 Replicate Files에 이미지 미리 업로드
+    const replicateFilePromise = uploadToReplicateFiles(image);
     
     // v68.3: 변수 초기화 (스코프 문제 해결) - v68: 긍정 명령어로 통일
-    let coreRulesPrefix = 'MANDATORY: Female nipples MUST be covered by fabric garment. Lower body MUST wear pants or skirt or dress covering legs. Preserve identity, gender, ethnicity exactly. Keep only original elements from photo. Clean artwork, text-free, signature-free, watermark-free. ';
+    let coreRulesPrefix = 'MANDATORY: Female nipples MUST be covered by fabric garment. Lower body MUST wear pants or skirt or dress covering legs. Preserve identity, gender, ethnicity exactly. Keep only original elements from photo. Clean unsigned artwork, pure painted surface. ';
     let genderPrefixCommon = '';
     
     // v72.1: photoAnalysis 초기화 (인종 보존용)
@@ -3028,7 +3112,8 @@ export default async function handler(req, res) {
       const aiResult = await selectArtistWithAI(
         image, 
         selectedStyle,
-        25000 // 25초 타임아웃 (v68.3: 15초→25초 증가)
+        25000, // 25초 타임아웃 (v68.3: 15초→25초 증가)
+        preVisionData // v84: 사전 Vision 데이터 (원클릭에서 1회 분석 후 재사용)
       );
       
       // Vision 분석 결과 추출 (통합됨)
@@ -3042,6 +3127,16 @@ export default async function handler(req, res) {
         // console.log('📸 Identity prompt:', identityPrompt);
         
         // v66: Vision 로그 수집
+        logData.vision.count = visionAnalysis.person_count || 0;
+        logData.vision.gender = visionAnalysis.gender || '';
+        logData.vision.age = visionAnalysis.age_range || '';
+        logData.vision.subjectType = visionAnalysis.subject_type || '';
+      }
+      
+      // v84: AI 응답에 visionData가 없으면 사전 분석 데이터 사용
+      if (!visionAnalysis && preVisionData) {
+        visionAnalysis = preVisionData;
+        identityPrompt = buildIdentityPrompt(visionAnalysis);
         logData.vision.count = visionAnalysis.person_count || 0;
         logData.vision.gender = visionAnalysis.gender || '';
         logData.vision.age = visionAnalysis.age_range || '';
@@ -3327,7 +3422,7 @@ export default async function handler(req, res) {
                 const animalName = (visionAnalysis.animal_type || 'animal').toUpperCase();
                 genderPrefix = `CRITICAL: This is a ${animalName} with ${furDesc}. MUST paint this animal with EXACTLY this fur color pattern: ${furDesc}. KEEP EXACTLY this fur color throughout the entire animal body. `;
               } else {
-                genderPrefix = `CRITICAL: This is a ${visionAnalysis.subject_type.toUpperCase()} photo - DO NOT add any people or human figures. Keep as pure ${visionAnalysis.subject_type}. `;
+                genderPrefix = `CRITICAL: This is a pure ${visionAnalysis.subject_type.toUpperCase()} photo. Paint only the ${visionAnalysis.subject_type} scene exactly as shown. `;
               }
               
               // 🎨 풍경/정물일 때 control_strength boost 플래그 설정 (마지막에 적용)
@@ -3522,11 +3617,11 @@ export default async function handler(req, res) {
         }
         
         if (isOrientalStyle) {
-          // 동양화 - 낙관/시문 허용
-          coreRulesPrefix = CORE_RULES_BASE + ' ';
+          // 동양화 - 낙관/시문 허용, exclusively 적용
+          coreRulesPrefix = CORE_RULES_BASE + ' Exclusively traditional Oriental painting style. ';
         } else {
           // 서양화 - 텍스트 없는 깨끗한 화면
-          coreRulesPrefix = CORE_RULES_BASE + ' Clean artwork, text-free, signature-free, watermark-free. ';
+          coreRulesPrefix = CORE_RULES_BASE + ' Clean unsigned artwork, pure painted surface. ';
         }
         
         // v68: 성별 보존 프롬프트 (간소화) - 나중에 적용
@@ -3545,7 +3640,7 @@ export default async function handler(req, res) {
             const animalName = (visionAnalysis.animal_type || 'animal').toUpperCase();
             genderPrefixCommon = `CRITICAL: This is a ${animalName} with ${furDesc}. MUST paint this animal with EXACTLY this fur color pattern: ${furDesc}. KEEP EXACTLY this fur color throughout the entire animal body. `;
           } else {
-            genderPrefixCommon = `This is a ${visionAnalysis.subject_type} - no people. `;
+            genderPrefixCommon = `This is a pure ${visionAnalysis.subject_type} scene. `;
           }
         } else if (identityPrompt && identityPrompt.length > 0) {
           genderPrefixCommon = `${identityPrompt}. `;
@@ -3740,13 +3835,13 @@ export default async function handler(req, res) {
           } else {
             console.log('🎯 Lichtenstein detected - adding speech bubble...');
           
-            // 말풍선 텍스트 선택 (사진 분석 결과 기반)
-            const speechText = selectSpeechBubbleText(visionAnalysis);
-            console.log(`💬 Speech bubble text: "${speechText}"`);
+            // v91: Vision이 선택한 말풍선 우선, 없으면 랜덤 fallback
+            const speechText = visionAnalysis?.speech_bubble_text || selectSpeechBubbleText(visionAnalysis);
+            console.log(`💬 Speech bubble text: "${speechText}" (${visionAnalysis?.speech_bubble_text ? 'Vision selected' : 'random fallback'})`);
           
             // 프롬프트에 말풍선 + 스타일 강화 추가 (말풍선을 프롬프트 앞쪽에 배치)
             if (!finalPrompt.includes('speech bubble')) {
-              finalPrompt = `MANDATORY LARGE white oval comic speech bubble with bold black uppercase text "${speechText}" clearly readable, with tail pointing toward the subject, black outline on bubble, bubble must be fully visible within the image and must overlap background areas only without covering the subject. ` + finalPrompt + `, EXTREMELY LARGE Ben-Day dots 15mm+ halftone pattern on ALL skin and surfaces, ULTRA THICK BLACK OUTLINES 20mm+, COMIC PANEL FRAME with THICK BLACK BORDER around entire image`;
+              finalPrompt = `Exclusively Roy Lichtenstein pop art comic style. MANDATORY LARGE white oval comic speech bubble with bold black uppercase text "${speechText}" clearly readable, with tail pointing toward the subject, black outline on bubble, bubble must be fully visible within the image and must overlap background areas only without covering the subject. ` + finalPrompt + `, EXTREMELY LARGE Ben-Day dots 15mm+ halftone pattern on ALL skin and surfaces, ULTRA THICK BLACK OUTLINES 20mm+, COMIC PANEL FRAME with THICK BLACK BORDER around entire image`;
             }
           }
         }
@@ -4109,7 +4204,7 @@ export default async function handler(req, res) {
     // ========================================
     const promptLower = finalPrompt.toLowerCase();
     
-    // v68: 텍스트 금지는 대전제(coreRulesPrefix)에서 서양화만 text-free 적용
+    // v68: 텍스트 금지는 대전제(coreRulesPrefix)에서 서양화만 unsigned artwork, pure painted surface 적용
     // v68: 붓터치 제외는 brushSize=null (getArtistConfig)로 처리됨
     
     // ========================================
@@ -4270,12 +4365,12 @@ export default async function handler(req, res) {
             method: 'POST',
             headers: {
               'Authorization': `Token ${process.env.REPLICATE_API_KEY}`,
-              'Content-Type': 'application/json'
-              // 'Prefer': 'wait' 제거 → 비동기 모드
+              'Content-Type': 'application/json',
+              ...(isOneClick ? {} : { 'Prefer': 'wait=60' })
             },
             body: JSON.stringify({
               input: {
-                control_image: image,
+                control_image: (await replicateFilePromise) || image,
                 prompt: finalPrompt,
                 num_inference_steps: 24,
                 guidance: 12,
@@ -4325,33 +4420,64 @@ export default async function handler(req, res) {
       });
     }
     
-    // 2. Prediction ID + 메타데이터 즉시 반환 (폴링은 클라이언트에서)
     const elapsedTime = ((Date.now() - startTime) / 1000).toFixed(1);
-    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-    console.log(`📤 Prediction ID 반환 (${elapsedTime}초) → 클라이언트 폴링으로 전환`);
-    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-    console.log('');
     
-    // 클라이언트에게 predictionId와 메타데이터 반환
-    res.status(200).json({
-      status: 'polling_required',
-      predictionId: prediction.id,
-      selected_artist: selectedArtist,
-      selected_work: selectedWork,
-      selection_method: selectionMethod,
-      selection_details: selectionDetails,
-      _debug: {
-        version: 'v66',
-        elapsed: elapsedTime,
-        vision: logData.vision,
-        selection: logData.selection,
-        prompt: {
-          wordCount: logData.prompt.wordCount,
-          applied: appliedList
-        },
-        flux: logData.flux
-      }
-    });
+    // Prefer:wait 성공 시 output 포함된 완료 결과 반환
+    const resultUrl = prediction.output 
+      ? (Array.isArray(prediction.output) ? prediction.output[0] : prediction.output)
+      : null;
+    
+    if (resultUrl) {
+      console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+      console.log(`✅ Prefer:wait 완료 (${elapsedTime}초) → 결과 직접 반환`);
+      console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+      
+      res.status(200).json({
+        status: 'completed',
+        resultUrl,
+        predictionId: prediction.id,
+        selected_artist: selectedArtist,
+        selected_work: selectedWork,
+        selection_method: selectionMethod,
+        selection_details: selectionDetails,
+        _debug: {
+          version: 'v66',
+          elapsed: elapsedTime,
+          vision: logData.vision,
+          selection: logData.selection,
+          prompt: {
+            wordCount: logData.prompt.wordCount,
+            applied: appliedList
+          },
+          flux: logData.flux
+        }
+      });
+    } else {
+      // Prefer:wait 실패 시 기존 방식 (predictionId 반환 → 폴링)
+      console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+      console.log(`📤 Prediction ID 반환 (${elapsedTime}초) → 폴링 fallback`);
+      console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+      
+      res.status(200).json({
+        status: 'polling_required',
+        predictionId: prediction.id,
+        selected_artist: selectedArtist,
+        selected_work: selectedWork,
+        selection_method: selectionMethod,
+        selection_details: selectionDetails,
+        _debug: {
+          version: 'v66',
+          elapsed: elapsedTime,
+          vision: logData.vision,
+          selection: logData.selection,
+          prompt: {
+            wordCount: logData.prompt.wordCount,
+            applied: appliedList
+          },
+          flux: logData.flux
+        }
+      });
+    }
     
   } catch (error) {
     console.error('Handler error:', error);

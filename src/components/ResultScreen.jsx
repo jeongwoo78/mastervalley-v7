@@ -43,6 +43,7 @@ import ImageZoomViewer from './ImageZoomViewer';
 
 const ResultScreen = ({ 
   originalPhoto, 
+  photoPreviewBase64,
   resultImage, 
   selectedStyle, 
   aiSelectedArtist,
@@ -115,14 +116,16 @@ const ResultScreen = ({
   const [showModalSaveShare, setShowModalSaveShare] = useState(false);
   const [modalTouchStartX, setModalTouchStartX] = useState(0);
   
-  // v85: Before 이미지 하이브리드 방식
-  // 1단계: URL.createObjectURL → 즉시 표시 (동기식, 검은 화면 방지)
-  // 2단계: FileReader → base64로 교체 (안정적, Blob URL 만료 방지)
+  // v86: Before 이미지 3중 방어
+  // 1단계: URL.createObjectURL → 즉시 표시 (동기식)
+  // 2단계: FileReader → base64로 교체 (Blob URL 만료 대비)
+  // 3단계: photoPreviewBase64 fallback (File 객체 무효화 대비)
   const [originalPhotoUrl, setOriginalPhotoUrl] = useState(null);
   
   useEffect(() => {
+    // File 객체가 없으면 base64 fallback 사용
     if (!originalPhoto) {
-      setOriginalPhotoUrl(null);
+      setOriginalPhotoUrl(photoPreviewBase64 || null);
       return;
     }
     
@@ -132,7 +135,8 @@ const ResultScreen = ({
       blobUrl = URL.createObjectURL(originalPhoto);
       setOriginalPhotoUrl(blobUrl);
     } catch (e) {
-      console.warn('Blob URL 생성 실패:', e);
+      console.warn('Blob URL 생성 실패, base64 fallback 사용');
+      if (photoPreviewBase64) setOriginalPhotoUrl(photoPreviewBase64);
     }
     
     // 2단계: FileReader로 base64 변환 (백그라운드, Blob URL 만료 대비)
@@ -141,14 +145,16 @@ const ResultScreen = ({
     reader.onload = () => {
       if (!isCancel && reader.result) {
         setOriginalPhotoUrl(reader.result);
-        // Blob URL 해제 (base64로 교체 완료)
         if (blobUrl) URL.revokeObjectURL(blobUrl);
         blobUrl = null;
       }
     };
     reader.onerror = () => {
-      console.warn('FileReader 실패, Blob URL 유지');
-      // Blob URL이 이미 표시 중이므로 추가 조치 불필요
+      console.warn('FileReader 실패');
+      // Blob URL도 실패했으면 base64 fallback
+      if (!blobUrl && photoPreviewBase64) {
+        setOriginalPhotoUrl(photoPreviewBase64);
+      }
     };
     reader.readAsDataURL(originalPhoto);
     
@@ -157,7 +163,7 @@ const ResultScreen = ({
       if (reader.readyState === 1) reader.abort();
       if (blobUrl) URL.revokeObjectURL(blobUrl);
     };
-  }, [originalPhoto]);
+  }, [originalPhoto, photoPreviewBase64]);
 
   // 안드로이드 뒤로가기 — 단계별 닫기 (저장/공유메뉴 → 모달 → 결과화면 나가기)
   useEffect(() => {

@@ -166,9 +166,9 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
       const cat = selectedStyle.category || activeCategory;
       const catData = categoryData[cat];
       if (selectedStyle.isFullTransform) {
-        onSelect(photo, { ...selectedStyle, styles: catData.styles });
+        onSelect(photo, { ...selectedStyle, styles: catData.styles }, photoPreview);
       } else {
-        onSelect(photo, selectedStyle);
+        onSelect(photo, selectedStyle, photoPreview);
       }
     }
   }, [photo, selectedStyle]);
