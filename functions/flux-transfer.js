@@ -1974,7 +1974,7 @@ INSTRUCTIONS:
 3. From remaining works, select the MOST SUITABLE one
 4. Generate a FLUX prompt that STARTS with detailed subject description
 5. IMPORTANT: Preserve the original subject - if it's a baby, keep it as a baby; if elderly, keep elderly
-6. Add "preserve exactly the original number of subjects" in the FLUX prompt
+6. CRITICAL: If person_count=1, ensure the FLUX prompt preserves exactly 1 person only, background must stay empty of people
 
 Return ONLY valid JSON (no markdown):
 {
@@ -1990,7 +1990,7 @@ Return ONLY valid JSON (no markdown):
   "selected_artist": "${categoryName}",
   "selected_work": "exact title of the masterwork you selected",
   "reason": "why this masterwork matches this photo (mention gender/count compatibility)",
-  "prompt": "Start with 'MALE/FEMALE SUBJECT with [physical features]' if person, then 'painting by ${categoryName} in the style of [selected work title], [that work's distinctive techniques]'. Always END with 'preserve exactly the original number of subjects'"
+  "prompt": "Start with 'MALE/FEMALE SUBJECT with [physical features]' if person, then 'painting by ${categoryName} in the style of [selected work title], [that work's distinctive techniques]'. If person_count=1, END with 'preserve exactly 1 person only, background must stay empty of people'"
 }`;
         
       } else {
@@ -2036,7 +2036,7 @@ Return ONLY valid JSON (no markdown):
   "selected_artist": "${categoryName}",
   "selected_work": null,
   "reason": "applying ${categoryName}'s distinctive painting style",
-  "prompt": "Start with subject description (gender, age, features), then '${masterStylePrompt.substring(0, 200)}...'. Always END with 'preserve exactly the original number of subjects'"
+  "prompt": "Start with subject description (gender, age, features), then '${masterStylePrompt.substring(0, 200)}...'. If person_count=1, END with 'preserve exactly 1 person only, background must stay empty of people'"
 }`;
       }
       
@@ -2446,7 +2446,7 @@ Instructions:
 5. Preserve facial identity and original features
 6. Include the masterwork's SPECIFIC style characteristics in your prompt
 7. IMPORTANT: Start prompt with subject description if person
-8. Add "preserve exactly the original number of subjects" in the FLUX prompt
+8. CRITICAL: If person_count=1, ensure the FLUX prompt preserves exactly 1 person only, background must stay empty of people
 9. If you selected LICHTENSTEIN: Choose the BEST speech bubble text from this list based on photo context (person count, gender, mood):
    EXCITED: "THIS IS SO US!", "ICONIC!", "LIVING OUR BEST LIFE!", "SAY CHEESE... POP ART STYLE!", "WE LOOK UNREAL!", "FRAME THIS IMMEDIATELY!", "MAIN CHARACTER ENERGY!", "TOO GOOD TO BE TRUE!", "LEGENDARY!", "ABSOLUTELY FABULOUS!", "THIS IS ART, BABY!", "UNSTOPPABLE!"
    ROMANTIC: "YOU HAD ME AT HELLO!", "STILL GIVES ME BUTTERFLIES!", "MY FAVORITE CHAPTER!", "LOVE LOOKS GOOD ON US!", "BETTER THAN THE MOVIES!", "YOU AND ME, ALWAYS!", "HEART GOES BOOM!", "MY WHOLE WORLD!", "YOU STOLE MY HEART!", "LIKE A SCENE FROM A DREAM!"
@@ -2470,7 +2470,7 @@ Return JSON only:
   "selected_work": "EXACT masterwork title from the list above",
   "speech_bubble_text": "EXACT text from list above if LICHTENSTEIN selected, otherwise null",
   "reason": "why this artist AND this masterwork fit (1 sentence)",
-  "prompt": "Start with 'MALE/FEMALE SUBJECT with [physical features]' if person, then 'painting by [Artist] in the style of [selected_work], [that work's distinctive techniques and colors]'. Always END with 'preserve exactly the original number of subjects'"
+  "prompt": "Start with 'MALE/FEMALE SUBJECT with [physical features]' if person, then 'painting by [Artist] in the style of [selected_work], [that work's distinctive techniques and colors]'. If person_count=1, END with 'preserve exactly 1 person only, background must stay empty of people'"
 }`;
         }
       }
@@ -3245,13 +3245,13 @@ export default async function handler(req, res) {
               const isJapaneseStyle = mappedKey.includes('ukiyoe') || mappedKey.includes('rinpa');
               
               if (isKoreanStyle) {
-                finalPrompt += ` Korean traditional brush calligraphy text "${aiResult.calligraphy_text}" written vertically in bold ink brushstrokes, Korean Hanja calligraphy style.`;
+                finalPrompt += ` Korean traditional brush calligraphy text "${aiResult.calligraphy_text}" written vertically in bold ink brushstrokes, Korean Hanja calligraphy style, exclusively these characters.`;
               } else if (isChineseStyle) {
-                finalPrompt += ` Chinese traditional brush calligraphy text "${aiResult.calligraphy_text}" written vertically in ink brushstrokes, Chinese Hanzi calligraphy style.`;
+                finalPrompt += ` Chinese traditional brush calligraphy text "${aiResult.calligraphy_text}" written vertically in ink brushstrokes, Chinese Hanzi calligraphy style, exclusively these characters.`;
               } else if (isJapaneseStyle) {
-                finalPrompt += ` Japanese calligraphy text "${aiResult.calligraphy_text}" in traditional brushwork.`;
+                finalPrompt += ` Japanese calligraphy text "${aiResult.calligraphy_text}" in traditional brushwork, exclusively these characters.`;
               } else {
-                finalPrompt += ` Calligraphy text "${aiResult.calligraphy_text}" in traditional brush calligraphy.`;
+                finalPrompt += ` Calligraphy text "${aiResult.calligraphy_text}" in traditional brush calligraphy, exclusively these characters.`;
               }
             }
             // animal_type + fur_color 추가 (v83: 동물 색/패턴 보전 강화)
@@ -3509,11 +3509,11 @@ export default async function handler(req, res) {
               
               if (subjectType === 'person' && count) {
                 if (count === 1) {
-                  antiHallucinationRule += 'Maintain EXACTLY 1 PERSON only. Background contains only scenery, architecture, and objects. ';
+                  antiHallucinationRule += 'Maintain EXACTLY 1 PERSON only, background must stay empty of people. ';
                 } else if (count === 2) {
-                  antiHallucinationRule += 'Maintain EXACTLY 2 PEOPLE only. Background contains only scenery, architecture, and objects. ';
+                  antiHallucinationRule += 'Maintain EXACTLY 2 PEOPLE only, background must stay empty of additional people. ';
                 } else {
-                  antiHallucinationRule += `Maintain EXACTLY ${count} PEOPLE only, Background contains only scenery, architecture, and objects. `;
+                  antiHallucinationRule += `Maintain EXACTLY ${count} PEOPLE only, background must stay empty of additional people. `;
                 }
               } else if (subjectType === 'landscape') {
                 antiHallucinationRule += 'LANDSCAPE only, keep scene free of people and figures. ';
@@ -3841,7 +3841,7 @@ export default async function handler(req, res) {
           
             // 프롬프트에 말풍선 + 스타일 강화 추가 (말풍선을 프롬프트 앞쪽에 배치)
             if (!finalPrompt.includes('speech bubble')) {
-              finalPrompt = `Exclusively Roy Lichtenstein pop art comic style. MANDATORY LARGE white oval comic speech bubble with bold black uppercase text "${speechText}" clearly readable, with tail pointing toward the subject, black outline on bubble, bubble must be fully visible within the image and must overlap background areas only without covering the subject. ` + finalPrompt + `, EXTREMELY LARGE Ben-Day dots 15mm+ halftone pattern on ALL skin and surfaces, ULTRA THICK BLACK OUTLINES 20mm+, COMIC PANEL FRAME with THICK BLACK BORDER around entire image`;
+              finalPrompt = `Exclusively Roy Lichtenstein pop art comic style. MANDATORY LARGE white oval comic speech bubble with bold black uppercase text "${speechText}" exclusively this text, clearly readable, with tail pointing toward the subject, black outline on bubble, bubble must be fully visible, fitting inside the comic panel frame with comfortable margins. ` + finalPrompt + `, EXTREMELY LARGE Ben-Day dots 15mm+ halftone pattern on ALL skin and surfaces, ULTRA THICK BLACK OUTLINES 20mm+, COMIC PANEL FRAME with THICK BLACK BORDER around entire image`;
             }
           }
         }
