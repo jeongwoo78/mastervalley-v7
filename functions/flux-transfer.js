@@ -4131,23 +4131,23 @@ export default async function handler(req, res) {
         } else if (ageRange === 'middle_aged') {
           // 중년 (v82: 나이 중립 — 나이 암시 표현 제거, 매력만)
           if (gender === 'male') {
-            attractiveEnhancement = ' Render the man with composed elegant presence — refined features painted with warm natural realism, confident poised expression with quiet grace.';
+            attractiveEnhancement = ' Render the man with composed elegant presence — refined features painted with warm natural realism, confident poised expression with quiet grace. True to the subject\'s distinctive features.';
           } else if (gender === 'female') {
-            attractiveEnhancement = ' Render the woman with composed elegant presence — refined features painted with warm natural realism, confident poised expression with graceful poise.';
+            attractiveEnhancement = ' Render the woman with composed elegant presence — refined features painted with warm natural realism, confident poised expression with graceful poise. True to the subject\'s distinctive features.';
           } else {
-            attractiveEnhancement = ' Render all people with composed elegant presence — refined features painted with warm natural realism, confident poised expressions with quiet grace.';
+            attractiveEnhancement = ' Render all people with composed elegant presence — refined features painted with warm natural realism, confident poised expressions with quiet grace. True to each subject\'s distinctive features.';
           }
         } else if (ageRange === 'elderly') {
           // 노인 (v82: 나이 중립 — authentic vitality로 활기 유지)
-          attractiveEnhancement = ' Render with quiet dignity and warm presence — refined features painted with warm natural realism, gentle composed expression with authentic vitality and inner grace.';
+          attractiveEnhancement = ' Render with quiet dignity and warm presence — refined features painted with warm natural realism, gentle composed expression with authentic vitality and inner grace. True to the subject\'s distinctive features.';
         } else {
           // 성인
           if (gender === 'male') {
-            attractiveEnhancement = ' Render the man with refined dignified handsomeness — strong yet graceful facial features painted with masterful subtlety, warm luminous face with natural golden undertones, and a composed charismatic presence full of quiet strength and elegance.';
+            attractiveEnhancement = ' Render the man with refined dignified handsomeness — strong yet graceful facial features painted with masterful subtlety, warm luminous face with natural golden undertones, and a composed charismatic presence full of quiet strength and elegance. True to the subject\'s distinctive features.';
           } else if (gender === 'female') {
-            attractiveEnhancement = ' Render the woman with elegant luminous beauty — graceful refined features painted with delicate warm glazes and soft natural highlights, captivating eyes full of depth, and a serene poised expression that radiates timeless feminine grace.';
+            attractiveEnhancement = ' Render the woman with elegant luminous beauty — graceful refined features painted with delicate warm glazes and soft natural highlights, captivating eyes full of depth, and a serene poised expression that radiates timeless feminine grace. True to the subject\'s distinctive features.';
           } else {
-            attractiveEnhancement = ' Render all people with refined artistic beauty — men as handsome and dignified with strong graceful features, women as elegantly beautiful with luminous features and natural poise. Paint every figure with warm gentle light and harmonious balance.';
+            attractiveEnhancement = ' Render all people with refined artistic beauty — men as handsome and dignified with strong graceful features, women as elegantly beautiful with luminous features and natural poise. Paint every figure with warm gentle light and harmonious balance. True to each subject\'s distinctive features.';
           }
         }
         
