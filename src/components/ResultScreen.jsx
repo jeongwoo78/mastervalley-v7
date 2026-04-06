@@ -472,6 +472,10 @@ const ResultScreen = ({
   useEffect(() => {
     // 원클릭은 별도 저장 로직
     if (isFullTransform) {
+      // v86: 전체 결과 완료 후에만 저장 (점진적 업데이트 시 중복 방지)
+      const completedResults = fullTransformResults.filter(r => r !== null);
+      if (completedResults.length === 0 || completedResults.length < fullTransformResults.length) return;
+      
       // 모든 Save result
       const saveAllResults = async () => {
         const baseTime = Date.now();
