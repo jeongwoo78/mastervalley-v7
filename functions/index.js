@@ -9,6 +9,7 @@ import { getFirestore, FieldValue } from 'firebase-admin/firestore';
 import { getMessaging } from 'firebase-admin/messaging';
 
 import { runTransform, runVisionAnalysis } from './transform-logic.js';
+import { checkAndFixNSFW } from './nsfw-check.js';
 
 initializeApp();
 const db = getFirestore();
@@ -263,6 +264,11 @@ async function handleSingle(req, res, params) {
   try {
     const result = await runTransform(image, selectedStyle, correctionPrompt);
     
+    // 🛡️ NSFW 출력 필터: Vision 판정 → UNSAFE면 Gemini 수정
+    const { resultUrl: finalUrl, wasFixed } = await checkAndFixNSFW(result.resultUrl, transformId);
+    result.resultUrl = finalUrl;
+    if (wasFixed) console.log(`🛡️ NSFW 수정 적용: ${transformId}`);
+    
     console.log(`✅ 단일 변환 완료: ${transformId} | ${result.selectedArtist || '재변환'}`);
     
     await docRef.update({
@@ -390,6 +396,11 @@ async function handleOneClick(req, res, params) {
       
       try {
         const result = await runTransform(image, style, null, true, visionData);
+        
+        // 🛡️ NSFW 출력 필터: Vision 판정 → UNSAFE면 Gemini 수정
+        const { resultUrl: finalUrl, wasFixed } = await checkAndFixNSFW(result.resultUrl, tid);
+        result.resultUrl = finalUrl;
+        if (wasFixed) console.log(`🛡️ NSFW 수정 적용: ${tid}`);
         
         console.log(`✅ 원클릭 [${i + 1}/${totalCount}] 완료: ${tid} | ${result.selectedArtist || style.name}`);
         
