@@ -19,7 +19,8 @@ async function imageUrlToBase64(imageUrl) {
   const response = await fetch(imageUrl);
   if (!response.ok) throw new Error(`이미지 다운로드 실패: ${response.status}`);
   const buffer = await response.arrayBuffer();
-  return Buffer.from(buffer).toString('base64');
+  const mimeType = response.headers.get('content-type') || 'image/jpeg';
+  return { base64: Buffer.from(buffer).toString('base64'), mimeType };
 }
 
 
@@ -29,7 +30,7 @@ async function imageUrlToBase64(imageUrl) {
 async function checkNSFW(imageUrl) {
   const startTime = Date.now();
   
-  const base64Data = await imageUrlToBase64(imageUrl);
+  const { base64: base64Data, mimeType } = await imageUrlToBase64(imageUrl);
   
   const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
   
@@ -41,7 +42,7 @@ async function checkNSFW(imageUrl) {
       content: [
         {
           type: 'image',
-          source: { type: 'base64', media_type: 'image/png', data: base64Data }
+          source: { type: 'base64', media_type: mimeType, data: base64Data }
         },
         {
           type: 'text',

@@ -3498,37 +3498,6 @@ export default async function handler(req, res) {
             }
             logData.prompt.applied.gender = true;
             
-            // ========================================
-            // 🚫 환각 방지: 원본 요소만 유지
-            // ========================================
-            let antiHallucinationRule = ' STRICT COMPOSITION: Keep ONLY elements from original photo. ';
-            
-            if (visionAnalysis) {
-              const count = visionAnalysis.person_count;
-              const subjectType = visionAnalysis.subject_type;
-              
-              if (subjectType === 'person' && count) {
-                if (count === 1) {
-                  antiHallucinationRule += 'Maintain EXACTLY 1 PERSON only, background must stay empty of people. ';
-                } else if (count === 2) {
-                  antiHallucinationRule += 'Maintain EXACTLY 2 PEOPLE only, background must stay empty of additional people. ';
-                } else {
-                  antiHallucinationRule += `Maintain EXACTLY ${count} PEOPLE only, background must stay empty of additional people. `;
-                }
-              } else if (subjectType === 'landscape') {
-                antiHallucinationRule += 'LANDSCAPE only, keep scene free of people and figures. ';
-              } else if (subjectType === 'animal') {
-                antiHallucinationRule += 'ANIMAL photo only, keep scene free of humans. ';
-              } else if (subjectType === 'object') {
-                antiHallucinationRule += 'OBJECT/STILL LIFE only, keep scene free of people. ';
-              }
-              
-              antiHallucinationRule += 'Keep composition faithful to original photo.';
-            }
-            
-            finalPrompt = finalPrompt + antiHallucinationRule;
-            // console.log('🚫 Anti-hallucination rule added:', antiHallucinationRule);
-            
             // console.log(`✅ [WEIGHT-BASED] Final artist: ${selectedArtist}`);
           }
         }
@@ -3841,7 +3810,7 @@ export default async function handler(req, res) {
           
             // 프롬프트에 말풍선 + 스타일 강화 추가 (말풍선을 프롬프트 앞쪽에 배치)
             if (!finalPrompt.includes('speech bubble')) {
-              finalPrompt = `Exclusively Roy Lichtenstein pop art comic style. MANDATORY LARGE white oval comic speech bubble with bold black uppercase text "${speechText}" exclusively this text, clearly readable, with tail pointing toward the subject, black outline on bubble, bubble must be fully visible, fitting inside the comic panel frame with comfortable margins. ` + finalPrompt + `, EXTREMELY LARGE Ben-Day dots 15mm+ halftone pattern on ALL skin and surfaces, ULTRA THICK BLACK OUTLINES 20mm+, COMIC PANEL FRAME with THICK BLACK BORDER around entire image`;
+              finalPrompt = `Exclusively Roy Lichtenstein pop art comic style. MANDATORY white oval comic speech bubble with bold black uppercase text "${speechText}" exclusively this text, clearly readable, with tail pointing toward the subject, black outline on bubble, bubble must be fully visible, fitting inside the comic panel frame with comfortable margins. ` + finalPrompt + `, EXTREMELY LARGE Ben-Day dots 15mm+ halftone pattern on ALL skin and surfaces, ULTRA THICK BLACK OUTLINES 20mm+, COMIC PANEL FRAME with THICK BLACK BORDER around entire image`;
             }
           }
         }
@@ -4092,6 +4061,37 @@ export default async function handler(req, res) {
     
     finalPrompt = finalPrompt + ' ' + coreRulesPrefix;
     logData.prompt.applied.coreRules = true;
+    
+    // ========================================
+    // 🚫 환각 방지: 원본 요소만 유지 (모든 경로 공통 적용)
+    // v86: ARTIST_WEIGHTS 밖으로 이동 → 동양화 포함 전체 적용
+    // ========================================
+    let antiHallucinationRule = ' STRICT COMPOSITION: Keep ONLY elements from original photo. ';
+    
+    if (visionAnalysis) {
+      const count = visionAnalysis.person_count;
+      const subjectType = visionAnalysis.subject_type;
+      
+      if (subjectType === 'person' && count) {
+        if (count === 1) {
+          antiHallucinationRule += 'Maintain EXACTLY 1 PERSON only, background must stay empty of people. ';
+        } else if (count === 2) {
+          antiHallucinationRule += 'Maintain EXACTLY 2 PEOPLE only, background must stay empty of additional people. ';
+        } else {
+          antiHallucinationRule += `Maintain EXACTLY ${count} PEOPLE only, background must stay empty of additional people. `;
+        }
+      } else if (subjectType === 'landscape') {
+        antiHallucinationRule += 'LANDSCAPE only, keep scene free of people and figures. ';
+      } else if (subjectType === 'animal') {
+        antiHallucinationRule += 'ANIMAL photo only, keep scene free of humans. ';
+      } else if (subjectType === 'object') {
+        antiHallucinationRule += 'OBJECT/STILL LIFE only, keep scene free of people. ';
+      }
+      
+      antiHallucinationRule += 'Keep composition faithful to original photo.';
+    }
+    
+    finalPrompt = finalPrompt + antiHallucinationRule;
     
     // ========================================
     // v82: 매력 조항 3단계 적용
