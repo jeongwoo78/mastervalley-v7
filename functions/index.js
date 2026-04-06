@@ -389,78 +389,93 @@ async function handleOneClick(req, res, params) {
   let completedCount = 0;
   let successCount = 0;
   
-  const results = await Promise.all(
-    styles.map(async (style, i) => {
-      const tid = transformIds[i];
-      const docRef = db.collection('transforms').doc(tid);
-      
-      try {
-        const result = await runTransform(image, style, null, true, visionData);
+  // v86: 배치 처리 — 동시 GPU 점유 제한 (다수 유저 동시 접속 대응)
+  const BATCH_SIZE = 3;
+  const results = new Array(totalCount).fill(null);
+  
+  for (let batchStart = 0; batchStart < totalCount; batchStart += BATCH_SIZE) {
+    const batchEnd = Math.min(batchStart + BATCH_SIZE, totalCount);
+    const batchIndices = [];
+    for (let i = batchStart; i < batchEnd; i++) batchIndices.push(i);
+    
+    const batchResults = await Promise.all(
+      batchIndices.map(async (i) => {
+        const style = styles[i];
+        const tid = transformIds[i];
+        const docRef = db.collection('transforms').doc(tid);
         
-        // 🛡️ NSFW 출력 필터: Vision 판정 → UNSAFE면 Gemini 수정
-        const { resultUrl: finalUrl, wasFixed } = await checkAndFixNSFW(result.resultUrl, tid);
-        result.resultUrl = finalUrl;
-        if (wasFixed) console.log(`🛡️ NSFW 수정 적용: ${tid}`);
-        
-        console.log(`✅ 원클릭 [${i + 1}/${totalCount}] 완료: ${tid} | ${result.selectedArtist || style.name}`);
-        
-        await docRef.update({
-          status: 'completed',
-          resultUrl: result.resultUrl,
-          selectedArtist: result.selectedArtist || null,
-          selectedWork: result.selectedWork || null,
-          selectionMethod: result.selectionMethod || null,
-          subjectType: result.subjectType || null,
-          isRetransform: false,
-          completedAt: FieldValue.serverTimestamp(),
-          updatedAt: FieldValue.serverTimestamp()
-        });
-        
-        completedCount++;
-        successCount++;
-        
-        await sessionRef.update({
-          completedCount: FieldValue.increment(1),
-          successCount: FieldValue.increment(1),
-          updatedAt: FieldValue.serverTimestamp()
-        });
-        
-        return {
-          transformId: tid,
-          styleIndex: i,
-          status: 'completed',
-          resultUrl: result.resultUrl,
-          selectedArtist: result.selectedArtist || null,
-          selectedWork: result.selectedWork || null,
-          selectionMethod: result.selectionMethod || null,
-          subjectType: result.subjectType || null
-        };
-        
-      } catch (error) {
-        console.error(`❌ 원클릭 [${i + 1}/${totalCount}] 실패: ${tid}`, error);
-        
-        await docRef.update({
-          status: 'failed',
-          error: error.message,
-          updatedAt: FieldValue.serverTimestamp()
-        });
-        
-        completedCount++;
-        
-        await sessionRef.update({
-          completedCount: FieldValue.increment(1),
-          updatedAt: FieldValue.serverTimestamp()
-        });
-        
-        return {
-          transformId: tid,
-          styleIndex: i,
-          status: 'failed',
-          error: error.message
-        };
-      }
-    })
-  );
+        try {
+          const result = await runTransform(image, style, null, true, visionData);
+          
+          // 🛡️ NSFW 출력 필터: Vision 판정 → UNSAFE면 Gemini 수정
+          const { resultUrl: finalUrl, wasFixed } = await checkAndFixNSFW(result.resultUrl, tid);
+          result.resultUrl = finalUrl;
+          if (wasFixed) console.log(`🛡️ NSFW 수정 적용: ${tid}`);
+          
+          console.log(`✅ 원클릭 [${i + 1}/${totalCount}] 완료: ${tid} | ${result.selectedArtist || style.name}`);
+          
+          await docRef.update({
+            status: 'completed',
+            resultUrl: result.resultUrl,
+            selectedArtist: result.selectedArtist || null,
+            selectedWork: result.selectedWork || null,
+            selectionMethod: result.selectionMethod || null,
+            subjectType: result.subjectType || null,
+            isRetransform: false,
+            completedAt: FieldValue.serverTimestamp(),
+            updatedAt: FieldValue.serverTimestamp()
+          });
+          
+          completedCount++;
+          successCount++;
+          
+          await sessionRef.update({
+            completedCount: FieldValue.increment(1),
+            successCount: FieldValue.increment(1),
+            updatedAt: FieldValue.serverTimestamp()
+          });
+          
+          return {
+            transformId: tid,
+            styleIndex: i,
+            status: 'completed',
+            resultUrl: result.resultUrl,
+            selectedArtist: result.selectedArtist || null,
+            selectedWork: result.selectedWork || null,
+            selectionMethod: result.selectionMethod || null,
+            subjectType: result.subjectType || null
+          };
+          
+        } catch (error) {
+          console.error(`❌ 원클릭 [${i + 1}/${totalCount}] 실패: ${tid}`, error);
+          
+          await docRef.update({
+            status: 'failed',
+            error: error.message,
+            updatedAt: FieldValue.serverTimestamp()
+          });
+          
+          completedCount++;
+          
+          await sessionRef.update({
+            completedCount: FieldValue.increment(1),
+            updatedAt: FieldValue.serverTimestamp()
+          });
+          
+          return {
+            transformId: tid,
+            styleIndex: i,
+            status: 'failed',
+            error: error.message
+          };
+        }
+      })
+    );
+    
+    // 배치 결과를 전체 결과에 배치
+    batchResults.forEach(r => { results[r.styleIndex] = r; });
+    console.log(`📦 배치 ${Math.floor(batchStart / BATCH_SIZE) + 1}/${Math.ceil(totalCount / BATCH_SIZE)} 완료 (${completedCount}/${totalCount})`);
+  }
   
   console.log(`🏁 원클릭 세션 완료: ${sessionId} (${successCount}/${totalCount} 성공)`);
   
