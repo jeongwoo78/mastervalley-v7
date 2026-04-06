@@ -46,7 +46,7 @@ async function checkNSFW(imageUrl) {
         },
         {
           type: 'text',
-          text: 'Does this image contain clearly visible female nipples or genitals? Answer with exactly one word: SAFE or UNSAFE. Artistic draping, shoulder exposure, leg exposure, suggestive poses, thin fabric are all SAFE. Only explicit nipple or genital exposure is UNSAFE.'
+          text: 'Examine this image carefully, including zoomed-in details. Does it contain any female nipples or genitals — even partially visible, slightly exposed, or visible through sheer/thin fabric? Answer with exactly one word: SAFE or UNSAFE. Shoulder exposure, leg exposure, cleavage, suggestive poses are SAFE. Any degree of nipple visibility (full, partial, or outlined through fabric) or genital exposure is UNSAFE.'
         }
       ]
     }]

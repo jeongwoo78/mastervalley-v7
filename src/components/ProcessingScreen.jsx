@@ -100,7 +100,12 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
               const doneText = (cat === 'movements' || cat === 'oriental')
                 ? t.masterDoneLabel
                 : t.doneLabel;
-              setStatusText(`${latestName} ${doneText} (${progress.completedCount}/${progress.totalCount})`);
+              setStatusText(`${latestName} ${doneText}`);
+              if (progress.completedCount < progress.totalCount) {
+                setTimeout(() => {
+                  setStatusText(`${t.masterInProgress} (${progress.completedCount}/${progress.totalCount})`);
+                }, 1500);
+              }
             }
           },
           {},   // fcmOptions (서버가 lang 기반으로 메시지 생성)
