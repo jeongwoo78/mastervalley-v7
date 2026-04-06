@@ -152,6 +152,37 @@ const urlToBase64 = async (url) => {
 };
 
 
+// ========== 삭제된 transformId 추적 (복원 방지) ==========
+const DELETED_IDS_KEY = 'mv_deleted_transformIds';
+
+const addDeletedTransformId = (transformId) => {
+  if (!transformId) return;
+  try {
+    const list = JSON.parse(localStorage.getItem(DELETED_IDS_KEY) || '[]');
+    if (!list.includes(transformId)) {
+      list.push(transformId);
+      localStorage.setItem(DELETED_IDS_KEY, JSON.stringify(list));
+    }
+  } catch (e) { /* ignore */ }
+};
+
+const addDeletedTransformIds = (transformIds) => {
+  try {
+    const list = JSON.parse(localStorage.getItem(DELETED_IDS_KEY) || '[]');
+    const newList = [...new Set([...list, ...transformIds.filter(Boolean)])];
+    localStorage.setItem(DELETED_IDS_KEY, JSON.stringify(newList));
+  } catch (e) { /* ignore */ }
+};
+
+export const isDeletedTransformId = (transformId) => {
+  if (!transformId) return false;
+  try {
+    const list = JSON.parse(localStorage.getItem(DELETED_IDS_KEY) || '[]');
+    return list.includes(transformId);
+  } catch (e) { return false; }
+};
+
+
 // ========== 갤러리에 이미지 저장 (외부에서 사용) ==========
 export const saveToGallery = async (imageUrl, metadataOrStyleName, categoryNameLegacy = '') => {
   try {
@@ -398,6 +429,8 @@ const GalleryScreen = ({ onBack, onHome, lang = 'en', externalLoading = false })
     if (window.confirm(t.confirmDelete)) {
       const success = await deleteImage(id);
       if (success) {
+        const item = galleryItems.find(i => i.id === id);
+        if (item?.transformId) addDeletedTransformId(item.transformId);
         setGalleryItems(prev => prev.filter(item => item.id !== id));
         setSelectedItem(null);
       }
@@ -426,9 +459,13 @@ const GalleryScreen = ({ onBack, onHome, lang = 'en', externalLoading = false })
     if (selectedIds.size === 0) return;
     const msg = t.confirmDeleteSelected.replace('{count}', selectedIds.size);
     if (window.confirm(msg)) {
+      const deletedTransformIds = galleryItems
+        .filter(item => selectedIds.has(item.id) && item.transformId)
+        .map(item => item.transformId);
       for (const id of selectedIds) {
         await deleteImage(id);
       }
+      if (deletedTransformIds.length > 0) addDeletedTransformIds(deletedTransformIds);
       setGalleryItems(prev => prev.filter(item => !selectedIds.has(item.id)));
       setSelectedIds(new Set());
       setSelectMode(false);
@@ -532,8 +569,12 @@ const GalleryScreen = ({ onBack, onHome, lang = 'en', externalLoading = false })
   // Delete All
   const handleClearAll = async () => {
     if (window.confirm(t.confirmDeleteAll)) {
+      const allTransformIds = galleryItems
+        .filter(item => item.transformId)
+        .map(item => item.transformId);
       const success = await clearAllImages();
       if (success) {
+        if (allTransformIds.length > 0) addDeletedTransformIds(allTransformIds);
         setGalleryItems([]);
       }
     }

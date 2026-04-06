@@ -10,7 +10,7 @@ import CategorySelection from './components/CategorySelection';
 import PhotoStyleScreen from './components/PhotoStyleScreen';
 import ProcessingScreen from './components/ProcessingScreen';
 import ResultScreen from './components/ResultScreen';
-import GalleryScreen, { saveToGallery } from './components/GalleryScreen';
+import GalleryScreen, { saveToGallery, isDeletedTransformId } from './components/GalleryScreen';
 import AddFundsScreen from './components/AddFundsScreen';
 import MenuScreen from './components/MenuScreen';
 // LanguageScreen removed - 메뉴 아코디언에서 직접 변경
@@ -202,6 +202,7 @@ const App = () => {
           if (data.status !== 'completed' || !data.resultUrl) continue;
           const createdTime = data.createdAt?.toMillis?.() || new Date(data.createdAt).getTime();
           if (createdTime < oneHourAgo) continue;
+          if (isDeletedTransformId(docSnap.id)) continue;
 
           const saved = await saveToGallery(data.resultUrl, {
             category: data.selectedStyle?.category || data.category || '',
