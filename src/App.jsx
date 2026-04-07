@@ -208,8 +208,15 @@ const App = () => {
           validDocs.push({ id: docSnap.id, data });
         }
 
-        // styleIndex로 정렬 (원클릭 갤러리 순서 보장)
-        validDocs.sort((a, b) => (a.data.styleIndex ?? 999) - (b.data.styleIndex ?? 999));
+        // 세션별 그룹 + styleIndex 정렬 (원클릭 갤러리 순서 보장)
+        validDocs.sort((a, b) => {
+          if (a.data.sessionId !== b.data.sessionId) {
+            const aTime = a.data.createdAt?.toMillis?.() || 0;
+            const bTime = b.data.createdAt?.toMillis?.() || 0;
+            return aTime - bTime;
+          }
+          return (a.data.styleIndex ?? 999) - (b.data.styleIndex ?? 999);
+        });
 
         const baseTime = Date.now();
         for (let i = 0; i < validDocs.length; i++) {
