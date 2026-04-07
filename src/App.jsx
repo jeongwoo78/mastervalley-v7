@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { Preferences } from '@capacitor/preferences';
 import { App as CapApp } from '@capacitor/app';
+import { BackgroundTask } from '@capawesome/capacitor-background-task';
 import { auth, db, doc, onSnapshot, updateDoc, ensureUserDoc, collection, query, where, getDocs, orderBy, Timestamp } from './config/firebase';
 import { setLanguage, getLanguage, t, getUi } from './i18n';
 import LoginScreen from './components/LoginScreen';
@@ -16,7 +17,6 @@ import MenuScreen from './components/MenuScreen';
 // LanguageScreen removed - 메뉴 아코디언에서 직접 변경
 import InsufficientBalancePopup from './components/InsufficientBalancePopup';
 import { getTransformCost } from './utils/pricing';
-import { deductCredit } from './utils/styleTransferAPI';
 import { initRevenueCat } from './utils/revenueCat';
 import { initFCM, onNotificationTap } from './utils/fcm';
 import './styles/App.css';
@@ -197,12 +197,23 @@ const App = () => {
         const oneHourAgo = Date.now() - 60 * 60 * 1000;
         let recovered = 0;
 
+        // 유효한 복원 대상 필터링
+        const validDocs = [];
         for (const docSnap of snapshot.docs) {
           const data = docSnap.data();
           if (data.status !== 'completed' || !data.resultUrl) continue;
           const createdTime = data.createdAt?.toMillis?.() || new Date(data.createdAt).getTime();
           if (createdTime < oneHourAgo) continue;
           if (isDeletedTransformId(docSnap.id)) continue;
+          validDocs.push({ id: docSnap.id, data });
+        }
+
+        // styleIndex로 정렬 (원클릭 갤러리 순서 보장)
+        validDocs.sort((a, b) => (a.data.styleIndex ?? 999) - (b.data.styleIndex ?? 999));
+
+        const baseTime = Date.now();
+        for (let i = 0; i < validDocs.length; i++) {
+          const { id, data } = validDocs[i];
 
           const saved = await saveToGallery(data.resultUrl, {
             category: data.selectedStyle?.category || data.category || '',
@@ -211,7 +222,8 @@ const App = () => {
             workName: data.selectedWork || null,
             styleId: data.selectedStyle?.id || '',
             isRetransform: false,
-            transformId: docSnap.id
+            transformId: id,
+            savedAt: new Date(baseTime + i * 100).toISOString()
           });
           if (saved) recovered++;
         }
@@ -229,17 +241,26 @@ const App = () => {
     return promise;
   };
 
-  // 앱 포그라운드 복귀 시 복원
+  // 앱 포그라운드 복귀 시 복원 + 백그라운드 전환 시 요청 보호
   useEffect(() => {
-    const stateHandler = CapApp.addListener('appStateChange', ({ isActive }) => {
+    const stateHandler = CapApp.addListener('appStateChange', async ({ isActive }) => {
       if (isActive && user) {
         recoverMissedTransforms(user.uid);
+      }
+      
+      // 변환 중 앱 백그라운드 진입 → 요청 전송 완료까지 유지
+      if (!isActive && currentScreen === 'processing') {
+        const taskId = await BackgroundTask.beforeExit(async () => {
+          // 네트워크 요청 전송 완료 대기 (최대 15초)
+          await new Promise(resolve => setTimeout(resolve, 15000));
+          BackgroundTask.finish({ taskId });
+        });
       }
     });
     return () => {
       stateHandler.then(h => h.remove());
     };
-  }, [user]);
+  }, [user, currentScreen]);
 
   // 뒤로가기 차단 토스트
   const [showBackBlockedToast, setShowBackBlockedToast] = useState(false);
@@ -437,22 +458,7 @@ const App = () => {
       ? result.results?.some(r => r.success)  // 원클릭: 1개라도 성공
       : result?.success;
 
-    if (isSuccess && user) {
-      const cost = getTransformCost(style);
-      // 원클릭: 첫 성공 결과의 transformId 사용, 단일: result.transformId
-      const transformId = result?.isFullTransform
-        ? result.results.find(r => r.success)?.transformId || `oneclick-${Date.now()}`
-        : result.transformId || `single-${Date.now()}`;
-
-      if (cost > 0) {
-        const deductResult = await deductCredit(transformId, cost, user.uid);
-        if (!deductResult.success && !deductResult.alreadyCharged) {
-          console.error('💸 크레딧 차감 실패:', deductResult.error);
-          // 차감 실패해도 결과는 보여줌 (소비자 보호 우선)
-        }
-        // 잔액은 onSnapshot이 자동 업데이트
-      }
-    }
+    // 💰 크레딧 차감은 서버(index.js)에서 자동 처리
 
     if (result && result.isFullTransform) {
       setFullTransformResults(result.results);

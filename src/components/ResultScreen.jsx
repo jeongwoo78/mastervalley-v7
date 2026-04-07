@@ -31,7 +31,7 @@ import {
 // 단독변환용 교육자료
 import { educationContent } from '../data/educationContent';
 import { saveToGallery } from './GalleryScreen';
-import { processStyleTransfer, deductCredit } from '../utils/styleTransferAPI';
+import { processStyleTransfer } from '../utils/styleTransferAPI';
 import { getTransformCost } from '../utils/pricing';
 // v73: displayConfig 통합 함수
 import { normalizeKey, getDisplayInfo, getArtistName, getMovementDisplayInfo, getOrientalDisplayInfo, getMasterInfo, getStyleIcon, getStyleTitle, getStyleSubtitle, getStyleSubtitles } from '../utils/displayConfig';
@@ -417,11 +417,7 @@ const ResultScreen = ({
       if (result.success && result.resultUrl) {
         success = true;
         
-        // 크레딧 차감 (재변환)
-        if (userId && retransformCost > 0) {
-          const txId = result.transformId || `retransform-${Date.now()}`;
-          await deductCredit(txId, retransformCost, userId);
-        }
+        // 💰 크레딧 차감은 서버(index.js)에서 자동 처리
         
         // 거장별로 Modify 이미지 저장
         setMasterResultImages(prev => ({

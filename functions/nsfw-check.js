@@ -1,64 +1,105 @@
 // ========================================
-// Master Valley - NSFW Output Filter
-// Claude Vision 판정 + Gemini 수정
-// SAFE건: 판정만 ($0.005)
-// UNSAFE건: 판정 + Gemini 수정 ($0.01)
+// Master Valley - NSFW Output Filter v2
+// Falconsai/nsfw_image_detection (HuggingFace) + Gemini 수정
+// 고위험 스타일 + 여성만 체크
+// Threshold: 0.85+ UNSAFE / 0.70~0.85 모니터링 / 0.70 미만 SAFE
 // ========================================
 
-import Anthropic from '@anthropic-ai/sdk';
 import { getStorage } from 'firebase-admin/storage';
 
 const GEMINI_MODEL = 'gemini-3.1-flash-image-preview';
 const GEMINI_API_BASE = 'https://generativelanguage.googleapis.com/v1beta';
+const HF_MODEL = 'Falconsai/nsfw_image_detection';
+const HF_API_URL = `https://api-inference.huggingface.co/models/${HF_MODEL}`;
+
+const NSFW_THRESHOLD = 0.85;
+const MONITOR_THRESHOLD = 0.70;
+
+// 고위험 스타일 목록
+const HIGH_RISK_STYLES = [
+  // 사조
+  'ancient', 'renaissance', 'baroque', 'rococo', 'impressionism',
+  // 거장
+  'klimt', 'klimt-master', 'munch', 'munch-master', 'matisse', 'matisse-master',
+  // 동양화 전체
+  'korean', 'chinese', 'japanese', 'indian', 'oriental',
+  'minhwa', 'pungsokdo', 'sansuhwa', 'gongbi', 'shuimohua', 'shanshui',
+  'ukiyoe', 'rinpa', 'meisho-e', 'bijin-ga', 'yakusha-e',
+  'mughal', 'rajput', 'pahari'
+];
 
 
 // ========================================
-// 이미지 URL → base64 변환
+// 고위험 여부 판단
 // ========================================
-async function imageUrlToBase64(imageUrl) {
-  const response = await fetch(imageUrl);
-  if (!response.ok) throw new Error(`이미지 다운로드 실패: ${response.status}`);
-  const buffer = await response.arrayBuffer();
-  const mimeType = response.headers.get('content-type') || 'image/jpeg';
-  return { base64: Buffer.from(buffer).toString('base64'), mimeType };
+function isHighRisk(style, gender) {
+  if (gender !== 'female') return false;
+  
+  const styleId = (style?.id || style?.name || '').toLowerCase();
+  const category = (style?.category || '').toLowerCase();
+  
+  // 동양화 카테고리 전체
+  if (category === 'oriental') return true;
+  
+  return HIGH_RISK_STYLES.some(risk => styleId.includes(risk));
 }
 
 
 // ========================================
-// Claude Vision NSFW 판정
+// 이미지 URL → Buffer 변환
+// ========================================
+async function imageUrlToBuffer(imageUrl) {
+  const response = await fetch(imageUrl);
+  if (!response.ok) throw new Error(`이미지 다운로드 실패: ${response.status}`);
+  const buffer = await response.arrayBuffer();
+  return Buffer.from(buffer);
+}
+
+
+// ========================================
+// Falconsai NSFW 판정 (HuggingFace Inference API)
 // ========================================
 async function checkNSFW(imageUrl) {
   const startTime = Date.now();
   
-  const { base64: base64Data, mimeType } = await imageUrlToBase64(imageUrl);
+  const imageBuffer = await imageUrlToBuffer(imageUrl);
   
-  const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-  
-  const response = await anthropic.messages.create({
-    model: 'claude-sonnet-4-20250514',
-    max_tokens: 10,
-    messages: [{
-      role: 'user',
-      content: [
-        {
-          type: 'image',
-          source: { type: 'base64', media_type: mimeType, data: base64Data }
-        },
-        {
-          type: 'text',
-          text: 'Examine this image carefully, including zoomed-in details. Does it contain any female nipples or genitals — even partially visible, slightly exposed, or visible through sheer/thin fabric? Answer with exactly one word: SAFE or UNSAFE. Shoulder exposure, leg exposure, cleavage, suggestive poses are SAFE. Any degree of nipple visibility (full, partial, or outlined through fabric) or genital exposure is UNSAFE.'
-        }
-      ]
-    }]
+  const response = await fetch(HF_API_URL, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${process.env.HF_API_TOKEN}`,
+      'Content-Type': 'application/octet-stream'
+    },
+    body: imageBuffer
   });
   
-  const result = response.content[0]?.text?.trim().toUpperCase() || 'SAFE';
+  if (!response.ok) {
+    const errText = await response.text();
+    throw new Error(`HuggingFace API error: ${response.status} - ${errText}`);
+  }
+  
+  const results = await response.json();
+  // results: [{"label": "nsfw", "score": 0.95}, {"label": "normal", "score": 0.05}]
+  
+  const nsfwScore = results.find(r => r.label === 'nsfw')?.score || 0;
   const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
-  console.log(`🛡️ NSFW 판정: ${result} (${elapsed}초)`);
+  
+  let verdict;
+  if (nsfwScore >= NSFW_THRESHOLD) {
+    verdict = 'UNSAFE';
+    console.log(`🛡️ NSFW 판정: UNSAFE (score: ${nsfwScore.toFixed(3)}) (${elapsed}초)`);
+  } else if (nsfwScore >= MONITOR_THRESHOLD) {
+    verdict = 'SAFE';
+    console.log(`🛡️ NSFW 판정: SAFE (모니터링 구간, score: ${nsfwScore.toFixed(3)}) (${elapsed}초)`);
+  } else {
+    verdict = 'SAFE';
+    console.log(`🛡️ NSFW 판정: SAFE (score: ${nsfwScore.toFixed(3)}) (${elapsed}초)`);
+  }
   
   return { 
-    verdict: result.includes('UNSAFE') ? 'UNSAFE' : 'SAFE',
-    base64Data
+    verdict,
+    nsfwScore,
+    imageBuffer
   };
 }
 
@@ -66,10 +107,12 @@ async function checkNSFW(imageUrl) {
 // ========================================
 // Gemini로 노출 부위 옷 입히기
 // ========================================
-async function fixNSFW(base64Data, transformId) {
+async function fixNSFW(imageBuffer, transformId) {
   const startTime = Date.now();
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) throw new Error('GEMINI_API_KEY not configured');
+  
+  const base64Data = imageBuffer.toString('base64');
   
   console.log(`🔧 NSFW 수정 시작: ${transformId}`);
   
@@ -108,8 +151,8 @@ async function fixNSFW(base64Data, transformId) {
   const filePath = `nsfw-fixed/${transformId}.png`;
   const file = bucket.file(filePath);
   
-  const imageBuffer = Buffer.from(imagePart.inlineData.data, 'base64');
-  await file.save(imageBuffer, {
+  const fixedBuffer = Buffer.from(imagePart.inlineData.data, 'base64');
+  await file.save(fixedBuffer, {
     metadata: { contentType: 'image/png' }
   });
   
@@ -124,19 +167,27 @@ async function fixNSFW(base64Data, transformId) {
 
 
 // ========================================
-// 메인: 판정 + 수정 통합
+// 메인: 조건 체크 + 판정 + 수정 통합
 // ========================================
-export async function checkAndFixNSFW(resultUrl, transformId) {
+export async function checkAndFixNSFW(resultUrl, transformId, style = null, gender = null) {
   try {
-    const { verdict, base64Data } = await checkNSFW(resultUrl);
+    // 고위험 조건 체크
+    if (style && gender) {
+      if (!isHighRisk(style, gender)) {
+        console.log(`🛡️ NSFW 스킵 (저위험): ${style?.name || 'unknown'} / ${gender}`);
+        return { resultUrl, wasFixed: false };
+      }
+    }
+    
+    const { verdict, nsfwScore, imageBuffer } = await checkNSFW(resultUrl);
     
     if (verdict === 'SAFE') {
       return { resultUrl, wasFixed: false };
     }
     
     // UNSAFE → Gemini로 옷 입히기
-    console.log(`⚠️ UNSAFE 감지: ${transformId} — Gemini 수정 진행`);
-    const fixedUrl = await fixNSFW(base64Data, transformId);
+    console.log(`⚠️ UNSAFE 감지: ${transformId} (score: ${nsfwScore.toFixed(3)}) — Gemini 수정 진행`);
+    const fixedUrl = await fixNSFW(imageBuffer, transformId);
     
     return { resultUrl: fixedUrl, wasFixed: true };
     

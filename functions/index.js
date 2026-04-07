@@ -15,6 +15,50 @@ initializeApp();
 const db = getFirestore();
 
 // ========================================
+// 크레딧 비용 산정 + 서버 차감
+// ========================================
+function getTransformCost(style, isRetransform) {
+  if (isRetransform) return 0.10;
+  return style.category === 'masters' ? 0.25 : 0.20;
+}
+
+function getOneClickCost(category) {
+  if (category === 'movements') return 1.99;
+  if (category === 'masters') return 1.50;
+  if (category === 'oriental') return 0.50;
+  return 1.99;
+}
+
+async function deductCredit(userId, deductionKey, cost) {
+  if (!userId) return;
+  const userRef = db.collection('users').doc(userId);
+  const txRef = db.collection('transactions').doc(deductionKey);
+  
+  await db.runTransaction(async (transaction) => {
+    const txDoc = await transaction.get(txRef);
+    if (txDoc.exists) {
+      console.log(`💰 이미 차감됨 (멱등성): ${deductionKey}`);
+      return;
+    }
+    const userDoc = await transaction.get(userRef);
+    const currentBalance = userDoc.data()?.credits || 0;
+    const newBalance = Math.round((currentBalance - cost) * 100) / 100;
+    
+    transaction.update(userRef, {
+      credits: newBalance,
+      lastTransaction: FieldValue.serverTimestamp()
+    });
+    transaction.set(txRef, {
+      userId, cost,
+      balanceBefore: currentBalance,
+      balanceAfter: newBalance,
+      timestamp: FieldValue.serverTimestamp()
+    });
+  });
+  console.log(`💰 서버 크레딧 차감: ${userId} | $${cost} | ${deductionKey}`);
+}
+
+// ========================================
 // FCM 메시지 i18n (11개 언어)
 // ========================================
 const FCM_MESSAGES = {
@@ -153,7 +197,7 @@ const FUNCTION_CONFIG = {
   cors: true,
   timeoutSeconds: 540,
   memory: '1GiB',
-  secrets: ['REPLICATE_API_KEY', 'ANTHROPIC_API_KEY', 'GEMINI_API_KEY']
+  secrets: ['REPLICATE_API_KEY', 'ANTHROPIC_API_KEY', 'GEMINI_API_KEY', 'HF_API_TOKEN']
 };
 
 // 공통 핸들러
@@ -264,12 +308,17 @@ async function handleSingle(req, res, params) {
   try {
     const result = await runTransform(image, selectedStyle, correctionPrompt);
     
-    // 🛡️ NSFW 출력 필터: Vision 판정 → UNSAFE면 Gemini 수정
-    const { resultUrl: finalUrl, wasFixed } = await checkAndFixNSFW(result.resultUrl, transformId);
+    // 🛡️ NSFW 출력 필터: 고위험+여성만 Falconsai 판정 → UNSAFE면 Gemini 수정
+    const gender = result.debug?.vision?.gender || null;
+    const { resultUrl: finalUrl, wasFixed } = await checkAndFixNSFW(result.resultUrl, transformId, selectedStyle, gender);
     result.resultUrl = finalUrl;
     if (wasFixed) console.log(`🛡️ NSFW 수정 적용: ${transformId}`);
     
     console.log(`✅ 단일 변환 완료: ${transformId} | ${result.selectedArtist || '재변환'}`);
+    
+    // 💰 서버 크레딧 차감
+    const cost = getTransformCost(selectedStyle, result.isRetransform);
+    await deductCredit(userId, transformId, cost);
     
     await docRef.update({
       status: 'completed',
@@ -407,8 +456,9 @@ async function handleOneClick(req, res, params) {
         try {
           const result = await runTransform(image, style, null, true, visionData);
           
-          // 🛡️ NSFW 출력 필터: Vision 판정 → UNSAFE면 Gemini 수정
-          const { resultUrl: finalUrl, wasFixed } = await checkAndFixNSFW(result.resultUrl, tid);
+          // 🛡️ NSFW 출력 필터: 고위험+여성만 Falconsai 판정 → UNSAFE면 Gemini 수정
+          const resultGender = result.debug?.vision?.gender || visionData?.gender || null;
+          const { resultUrl: finalUrl, wasFixed } = await checkAndFixNSFW(result.resultUrl, tid, style, resultGender);
           result.resultUrl = finalUrl;
           if (wasFixed) console.log(`🛡️ NSFW 수정 적용: ${tid}`);
           
@@ -478,6 +528,12 @@ async function handleOneClick(req, res, params) {
   }
   
   console.log(`🏁 원클릭 세션 완료: ${sessionId} (${successCount}/${totalCount} 성공)`);
+  
+  // 💰 원클릭 세트 크레딧 차감 (1건 이상 성공 시)
+  if (successCount >= 1) {
+    const oneClickCost = getOneClickCost(category);
+    await deductCredit(userId, sessionId, oneClickCost);
+  }
   
   await sessionRef.update({
     status: 'completed',

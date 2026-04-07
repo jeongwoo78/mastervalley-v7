@@ -1989,10 +1989,24 @@ Return ONLY valid JSON (no markdown):
   "background_type": "simple" or "complex" or "outdoor" or "indoor" or "studio",
   "selected_artist": "${categoryName}",
   "selected_work": "exact title of the masterwork you selected",
+  "speech_bubble_text": "EXACT text from speech bubble list below (for Lichtenstein only, otherwise null)",
   "reason": "why this masterwork matches this photo (mention gender/count compatibility)",
   "prompt": "Start with 'MALE/FEMALE SUBJECT with [physical features]' if person, then 'painting by ${categoryName} in the style of [selected work title], [that work's distinctive techniques]'. If person_count=1, END with 'preserve exactly 1 person only, background must stay empty of people'"
 }`;
-        
+
+        // 리히텐슈타인: speech bubble 리스트 추가
+        if (masterId === 'lichtenstein') {
+          promptText += `
+
+IMPORTANT: Choose the BEST speech bubble text from this list based on photo context (person count, gender, mood):
+   EXCITED: "THIS IS SO US!", "ICONIC!", "LIVING OUR BEST LIFE!", "SAY CHEESE... POP ART STYLE!", "WE LOOK UNREAL!", "FRAME THIS IMMEDIATELY!", "MAIN CHARACTER ENERGY!", "TOO GOOD TO BE TRUE!", "LEGENDARY!", "ABSOLUTELY FABULOUS!", "THIS IS ART, BABY!", "UNSTOPPABLE!"
+   ROMANTIC: "YOU HAD ME AT HELLO!", "STILL GIVES ME BUTTERFLIES!", "MY FAVORITE CHAPTER!", "LOVE LOOKS GOOD ON US!", "BETTER THAN THE MOVIES!", "YOU AND ME, ALWAYS!", "HEART GOES BOOM!", "MY WHOLE WORLD!", "YOU STOLE MY HEART!", "LIKE A SCENE FROM A DREAM!"
+   DRAMATIC: "YES, I WOKE UP LIKE THIS!", "PLOT TWIST: I WIN!", "ABSOLUTELY ICONIC!", "SORRY, I'M FABULOUS!", "OOPS, I DID IT AGAIN!", "QUEEN OF THE SCENE!", "TOO GLAM TO HANDLE!", "CONFIDENCE LOOKS GOOD ON ME!", "THIS IS MY MOMENT!", "DARLING, I'M STUNNING!"
+   DIALOGUE: "HMMMM... PERFECT!", "LIFE IS BEAUTIFUL!", "BEST DAY EVER!", "WELL WELL WELL!", "I HAVE A GOOD FEELING!", "NOTE TO SELF: BE AMAZING!", "AND THEN MAGIC HAPPENED!", "THIS IS THE LIFE!", "FUNNY HOW WONDERFUL LIFE IS!", "CHAPTER ONE: ME!"
+   SURPRISED: "OH WOW!", "IS THIS REAL LIFE?!", "PINCH ME!", "MIND = BLOWN!", "DREAMS DO COME TRUE!", "WHAT A MOMENT!", "BEST SURPRISE EVER!", "OH SNAP... I LOVE IT!"
+   Selection guide: 3+ people → EXCITED, couple → ROMANTIC, single female → DRAMATIC or DIALOGUE, single male → EXCITED or DIALOGUE, default → any positive category.
+You MUST set speech_bubble_text to one of the texts above.`;
+        }
       } else {
         // ========== 대표작 가이드가 없는 화가: 화풍 프롬프트 방식 ==========
         // v68: masterworks.js에 가이드가 없으면 artistStyles.js 사용
