@@ -286,7 +286,7 @@ Dos figuras que se abrazan en el borde de un precipicio se han convertido en sí
   },
   'klimt-adele': {
     description: `La decoración en oro y plata y los colores como joyas del 〈Retrato de Adele Bloch-Bauer I〉 han sido aplicados.
-Un choker de diamantes y un vestido dorado con motivos de ojos crean un mundo de opulenta decoración.
+Un choker de diamantes y un vestido dorado con motivos geométricos crean un mundo de opulenta decoración.
 
 〈Adele〉 es la cumbre de la fase dorada de Klimt, una obra maestra completada en cuatro años con más de 100 bocetos preparatorios.
 Inspirados en los mosaicos bizantinos, el oro y la plata lo envuelven todo, dejando solo el rostro y las manos en un realismo fotográfico.`

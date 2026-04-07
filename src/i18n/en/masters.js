@@ -280,7 +280,7 @@ The endlessly branching spiral limbs are a metaphor for birth, death, and the cy
   },
   'klimt-adele': {
     description: `The gold and silver leaf decoration and jewel-like colors of 〈Portrait of Adele Bloch-Bauer I〉 have been applied.
-A diamond choker and a golden dress adorned with eye motifs create a world of opulent decoration.
+A diamond choker and a golden dress adorned with geometric patterns create a world of opulent decoration.
 
 〈Adele〉 is the pinnacle of Klimt's golden phase, a masterpiece completed over four years with more than 100 preparatory sketches.
 Inspired by Byzantine mosaics, gold and silver leaf envelop everything, leaving only the face and hands rendered in photographic realism.`

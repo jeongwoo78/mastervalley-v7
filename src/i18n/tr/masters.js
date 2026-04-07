@@ -204,7 +204,7 @@ Altınla sarılmış âşıkların kucaklaşması aynı anda aşkın coşkusunu 
 Hayat Ağacı, Klimt\'in Brüksel\'deki Stoclet Sarayı yemek odası için yaptığı duvar resmidir.
 Sonsuzca uzanan sarmal dallar, doğum, ölüm ve yaşam döngüsünün metaforu.` },
   'klimt-adele': { description: `Adele Bloch-Bauer\'ın Portresi I\'in altın ve gümüş varak dekorasyonu ve mücevher gibi renkleri uygulandı.
-Elmas gerdanlık ve göz motifleriyle süslü altın elbise, görkemli bir süsleme dünyası yaratıyor.
+Elmas gerdanlık ve geometrik motiflerle süslü altın elbise, görkemli bir süsleme dünyası yaratıyor.
 
 Adele, Klimt\'in altın döneminin zirvesi ve dört yıl boyunca 100\'den fazla eskizle tamamlanan bir şaheserdir.
 Bizans mozaiklerinden ilham alan altın ve gümüş varak her şeyi sarıyor, yalnızca yüz ve eller fotoğrafik bir gerçekçilikle bırakılıyor.` },

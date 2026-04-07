@@ -193,7 +193,7 @@ Dua figur yang saling memeluk di tepi tebing menjadi simbol universal cinta dan 
   },
   'klimt-adele': {
     description: `Dekorasi emas dan perak serta warna permata dari 〈Potret Adele Bloch-Bauer I〉 telah diterapkan.
-Kalung berlian dan gaun emas bermotif mata menciptakan dunia dekorasi yang mewah.
+Kalung berlian dan gaun emas bermotif geometris menciptakan dunia dekorasi yang mewah.
 
 〈Adele〉 adalah puncak fase emas Klimt, sebuah mahakarya yang diselesaikan selama empat tahun dengan lebih dari 100 sketsa persiapan.
 Terinspirasi mosaik Bizantium, emas dan perak menyelimuti segalanya, menyisakan hanya wajah dan tangan dalam realisme fotografis.`

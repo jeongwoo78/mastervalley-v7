@@ -286,7 +286,7 @@ Deux silhouettes qui s'étreignent au bord d'un précipice sont devenues un symb
   },
   'klimt-adele': {
     description: `La décoration en feuille d'or et d'argent et les couleurs chatoyantes du 〈Portrait d'Adèle Bloch-Bauer I〉 ont été appliquées.
-Un choker en diamants et une robe dorée ornée de motifs d'yeux créent un monde de décoration opulente.
+Un choker en diamants et une robe dorée ornée de motifs géométriques créent un monde de décoration opulente.
 
 〈Adèle〉 est l'apogée de la phase dorée de Klimt, un chef-d'œuvre achevé en quatre ans avec plus de 100 esquisses préparatoires.
 Inspirés des mosaïques byzantines, l'or et l'argent enveloppent tout, ne laissant que le visage et les mains dans un réalisme photographique.`
