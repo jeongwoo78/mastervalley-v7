@@ -121,7 +121,7 @@ export const ui = {
     noImageToSave: 'ไม่มีรูปภาพให้บันทึก',
     savedToGallery: 'บันทึกไปยังแกลเลอรีแล้ว!',
     saved: 'บันทึกแล้ว!',
-    filesLocation: '📁 แอป Files → Documents → MasterValley',
+    filesLocation: 'แอป Files → Documents → MasterValley',
     saveFailed: 'การบันทึกล้มเหลว',
     saveFailedRetry: 'การบันทึกล้มเหลว กรุณาลองใหม่',
     noImageToShare: 'ไม่มีรูปภาพให้แชร์',

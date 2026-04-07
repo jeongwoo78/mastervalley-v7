@@ -13,7 +13,7 @@ export const oneclickMastersBasicInfo = {
   },
   'klimt': {
     name: 'غوستاف كليمت (1862–1918)',
-    subtitle1: 'القبلة · جوديث · شجرة الحياة',
+    subtitle1: 'القبلة · أديل · شجرة الحياة',
     subtitle2: 'عالم من الشهوانية الذهبية'
   },
   'munch': {

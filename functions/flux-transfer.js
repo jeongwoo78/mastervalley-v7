@@ -2896,8 +2896,8 @@ export default async function handler(req, res) {
       prompt: { 
         wordCount: 0, 
         applied: { 
-          coreRules: false, gender: false, artist: false, masterwork: false, sandwich: false, 
-          identity: false, attractive: false, painting: false, brushwork: false, sandwich: false 
+          coreRules: false, gender: false, artist: false, masterwork: false, 
+          identity: false, attractive: false, painting: false, brushwork: false 
         }
       },
       flux: { model: 'flux-depth-dev', control: 0 }
@@ -3491,6 +3491,7 @@ export default async function handler(req, res) {
             } else if (identityPrompt && identityPrompt.length > 0) {
               // Vision 분석 결과 사용 (더 상세함)
               genderPrefix = `ABSOLUTE REQUIREMENT: ${identityPrompt}. `;
+              logData.prompt.applied.identity = true;
               // console.log('🚨 Using Vision-based identity prompt');
             } else if (photoAnalysisFromAI.gender === 'male') {
               genderPrefix = 'ABSOLUTE REQUIREMENT: MALE subject - MUST have MASCULINE face with strong jaw, male bone structure, masculine features only, KEEP AS MAN. ';
@@ -3627,6 +3628,7 @@ export default async function handler(req, res) {
           }
         } else if (identityPrompt && identityPrompt.length > 0) {
           genderPrefixCommon = `${identityPrompt}. `;
+          logData.prompt.applied.identity = true;
         } else if (visionAnalysis && visionAnalysis.gender === 'male') {
           genderPrefixCommon = 'MALE subject with masculine features. ';
         } else if (visionAnalysis && visionAnalysis.gender === 'female') {

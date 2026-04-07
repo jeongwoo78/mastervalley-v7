@@ -117,7 +117,7 @@ export const ui = {
     noImageToSave: 'Sem imagem para guardar.',
     savedToGallery: 'Guardado na galeria!',
     saved: 'Guardado!',
-    filesLocation: '📁 App Ficheiros → Documentos → pasta MasterValley',
+    filesLocation: 'App Ficheiros → Documentos → pasta MasterValley',
     saveFailed: 'Falha ao guardar',
     saveFailedRetry: 'Falha ao guardar. Por favor tenta novamente.',
     noImageToShare: 'Sem imagem para partilhar.',

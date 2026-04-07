@@ -121,7 +121,7 @@ export const ui = {
     noImageToSave: '保存する画像がありません。',
     savedToGallery: 'ギャラリーに保存されました！',
     saved: '保存されました！',
-    filesLocation: '📁 ファイルアプリ → 書類 → MasterValleyフォルダ',
+    filesLocation: 'ファイルアプリ → 書類 → MasterValleyフォルダ',
     saveFailed: '保存に失敗しました',
     saveFailedRetry: '保存に失敗しました。もう一度お試しください。',
     noImageToShare: '共有する画像がありません。',

@@ -121,7 +121,7 @@ export const ui = {
     noImageToSave: '沒有可儲存的圖片。',
     savedToGallery: '已儲存至相簿！',
     saved: '已儲存！',
-    filesLocation: '📁 檔案App → 文件 → MasterValley資料夾',
+    filesLocation: '檔案App → 文件 → MasterValley資料夾',
     saveFailed: '儲存失敗',
     saveFailedRetry: '儲存失敗，請再試一次。',
     noImageToShare: '沒有可分享的圖片。',

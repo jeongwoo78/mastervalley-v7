@@ -120,7 +120,7 @@ export const ui = {
     noImageToSave: 'No image to save.',
     savedToGallery: 'Saved to Gallery!',
     saved: 'Saved!',
-    filesLocation: '📁 Files app → Documents → MasterValley',
+    filesLocation: 'Files app → Documents → MasterValley',
     saveFailed: 'Save failed',
     saveFailedRetry: 'Save failed. Please try again.',
     noImageToShare: 'No image to share.',

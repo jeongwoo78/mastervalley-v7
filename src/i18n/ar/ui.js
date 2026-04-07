@@ -121,7 +121,7 @@ export const ui = {
     noImageToSave: 'لا توجد صورة للحفظ.',
     savedToGallery: 'تم الحفظ في المعرض!',
     saved: 'تم الحفظ!',
-    filesLocation: '📁 تطبيق الملفات ← مستندات ← مجلد MasterValley',
+    filesLocation: 'تطبيق الملفات ← مستندات ← مجلد MasterValley',
     saveFailed: 'فشل الحفظ',
     saveFailedRetry: 'فشل الحفظ. يرجى المحاولة مجدداً.',
     noImageToShare: 'لا توجد صورة للمشاركة.',

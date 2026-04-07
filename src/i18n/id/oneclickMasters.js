@@ -5,7 +5,7 @@
 
 export const oneclickMastersBasicInfo = {
   'vangogh': { name: 'Vincent van Gogh (1853–1890)', subtitle1: 'Malam Berbintang · Bunga Matahari · Potret Diri', subtitle2: 'Gairah kuas yang berputar spiral' },
-  'klimt': { name: 'Gustav Klimt (1862–1918)', subtitle1: 'Ciuman · Judith · Pohon Kehidupan', subtitle2: 'Dunia emas penuh sensualitas' },
+  'klimt': { name: 'Gustav Klimt (1862–1918)', subtitle1: 'Ciuman · Adele · Pohon Kehidupan', subtitle2: 'Dunia emas penuh sensualitas' },
   'munch': { name: 'Edvard Munch (1863–1944)', subtitle1: 'Jeritan · Madonna · Tarian Kehidupan', subtitle2: 'Melukis jeritan batin' },
   'matisse': { name: 'Henri Matisse (1869–1954)', subtitle1: 'Tarian · Kamar Merah · Garis Hijau', subtitle2: 'Pesulap warna' },
   'chagall': { name: 'Marc Chagall (1887–1985)', subtitle1: 'Di Atas Kota · Aku dan Desa · Buket dengan Kekasih Terbang', subtitle2: 'Penyair cinta dan mimpi' },

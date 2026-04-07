@@ -1106,11 +1106,11 @@ export const MODERNISM_PROMPTS = {
     prompt: `Subject MUST wear elegant period-appropriate clothing covering chest and body. Hand-painted oil painting of the subject by Gustav Klimt. Gold leaf and metallic surfaces shimmer across the canvas, rich mosaic patterns fill ornamental shapes. Geometric and floral patterns wrap the figure. Edges blur between realistic skin and golden decoration. Radiant gold leaf wraps the scene in shimmering glow. Gold 40%, ocher yellow 20%, emerald green 20%, purple 20%. Flat golden mist fills the entire background. Rectangular geometric patterns on robe, circular flower patterns on dress, flower meadow. Face and hands painted soft ivory realistically, body disappears under gold leaf patterns. Gold glow spreads radiantly across robes and background. Decorative patterns flow along figure contours. Golden light shines from inside outward. Emerald green and purple sink into flower meadow and dress. Gold dominates figures and background, green and purple remain in flowers and decoration.`
   },
 
-  // ★ 유디트 I — ~144w
-  'klimt-judith': {
-    name: '유디트 I',
-    nameEn: 'Judith I',
-    prompt: `Subject MUST wear elegant period-appropriate clothing covering chest and body. Hand-painted oil painting of the subject by Gustav Klimt. Gold leaf and metallic surfaces shimmer across the canvas, rich mosaic patterns fill ornamental shapes. Geometric and floral patterns wrap the figure. Edges blur between realistic skin and golden decoration. Gold leaf wraps the scene in radiant glow. Gold 35%, deep black 25%, ivory pink 20%, dark green 20%. Gold stylized trees and decorative patterns fill the background. Wide gold choker necklace, jeweled decorative belt. Pink and light blue brushstrokes layered over ivory skin tone making skin appear luminous and alive. Gold leaf light spreads radiantly across necklace and background. Fine brushstrokes densely layered over face and skin. Golden light shines from inside outward illuminating the figure. Dark green and black sink into clothing and hair. Gold dominates background and decoration, ivory pink on skin, black and green remain in hair and clothing.`
+  // ★ 아델레 블로흐-바우어의 초상 I — ~144w
+  'klimt-adele': {
+    name: '아델레 블로흐-바우어의 초상 I',
+    nameEn: 'Portrait of Adele Bloch-Bauer I',
+    prompt: `Subject MUST wear elegant period-appropriate clothing covering chest and body. Hand-painted oil painting of the subject by Gustav Klimt. Gold and silver leaf shimmer across the canvas, rich mosaic patterns fill ornamental shapes. Geometric and floral patterns wrap the figure. Edges blur between realistic skin and golden decoration. Gold leaf wraps the scene in radiant glow. Gold 40%, warm bronze 20%, ivory pink 15%, silver 10%, emerald green 5%, deep brown 10%. Starry golden sky background with scattered geometric motifs. Halo-shaped swirl of spirals and ornamental cells surrounds the head. Triangular-shaped golden dress covered in all-seeing eye motifs, triangles and egg symbols. Diamond choker necklace glitters at the throat. Ornate throne-like armchair covered in flowing spirals. Small patch of green in the lower left corner. Face and hands painted in luminous ivory with flushed cheeks, photographic realism against pure gold. Golden light shines from inside outward. Deep brown sinks into hair. Gold and silver dominate everything, ivory pink on face and hands, bronze in ornamental details.`
   },
 
   // ★ 생명의 나무 — ~144w
@@ -1582,7 +1582,7 @@ export const masterworkNameMapping = {
   // 클림트
   'the kiss': 'klimt-kiss', '키스': 'klimt-kiss',
   'the tree of life': 'klimt-treeoflife', '생명의 나무': 'klimt-treeoflife',
-  'judith i': 'klimt-judith', 'judith': 'klimt-judith', '유디트': 'klimt-judith',
+  'portrait of adele bloch-bauer': 'klimt-adele', 'adele bloch-bauer': 'klimt-adele', 'adele': 'klimt-adele', '아델레': 'klimt-adele', 'woman in gold': 'klimt-adele',
   
   // 뭉크
   'the scream': 'munch-scream', '절규': 'munch-scream',
@@ -1745,7 +1745,7 @@ export function getArtistMasterworkList(artistKey) {
     'matisse': ['matisse-greenstripe', 'matisse-purplecoat', 'matisse-redroom', 'matisse-derain'],
     'derain': ['derain-collioure', 'derain-charingcross', 'derain-matisse'],
     'vlaminck': ['vlaminck-chatou', 'vlaminck-redtrees', 'vlaminck-bougival'],
-    'klimt': ['klimt-kiss', 'klimt-judith', 'klimt-treeoflife'],
+    'klimt': ['klimt-kiss', 'klimt-adele', 'klimt-treeoflife'],
     'munch': ['munch-scream', 'munch-madonna'],
     'kokoschka': ['kokoschka-bride', 'kokoschka-degenerate', 'kokoschka-double'],
     // kirchner-oldwomen 삭제됨
@@ -1817,7 +1817,7 @@ VAN GOGH - SELECT ONE:
   'klimt': `
 KLIMT - SELECT ONE:
 1. "The Kiss" → COUPLE, romantic, embrace | Style: gold leaf, spiral patterns
-2. "Judith I" → FEMALE, powerful, seductive | Style: gold collar, direct gaze
+2. "Portrait of Adele Bloch-Bauer I" → FEMALE, elegant, iconic | Style: gold throne, diamond choker, eye motifs
 3. "The Tree of Life" → decorative, symbolic | Style: spiral tree, gold mosaic`,
 
   'munch': `

@@ -16,7 +16,7 @@ export const oneclickMastersBasicInfo = {
   },
   'klimt': {
     name: 'กุสตาฟ คลิมท์ (Gustav Klimt, 1862–1918)',
-    subtitle1: 'จูบ · จูดิธ · ต้นไม้แห่งชีวิต',
+    subtitle1: 'จูบ · อาเดเล · ต้นไม้แห่งชีวิต',
     subtitle2: 'โลกแห่งประสาทสัมผัสสีทอง'
   },
   'munch': {

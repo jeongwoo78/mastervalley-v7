@@ -121,7 +121,7 @@ export const ui = {
     noImageToSave: 'No hay imagen para guardar.',
     savedToGallery: '¡Guardado en la galería!',
     saved: '¡Guardado!',
-    filesLocation: '📁 App Archivos → Documentos → Carpeta MasterValley',
+    filesLocation: 'App Archivos → Documentos → Carpeta MasterValley',
     saveFailed: 'Error al guardar',
     saveFailedRetry: 'Error al guardar. Por favor, inténtalo de nuevo.',
     noImageToShare: 'No hay imagen para compartir.',

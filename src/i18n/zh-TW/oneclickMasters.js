@@ -5,7 +5,7 @@
 
 export const oneclickMastersBasicInfo = {
   'vangogh': { name: '文森·梵谷 (1853–1890)', subtitle1: '星夜 · 向日葵 · 自畫像', subtitle2: '旋轉的筆觸與熾烈的激情' },
-  'klimt': { name: '古斯塔夫·克林姆 (1862–1918)', subtitle1: '吻 · 乞蒂 · 生命之樹', subtitle2: '金色的官能世界' },
+  'klimt': { name: '古斯塔夫·克林姆 (1862–1918)', subtitle1: '吻 · 阿黛爾 · 生命之樹', subtitle2: '金色的官能世界' },
   'munch': { name: '愛德華·孟克 (1863–1944)', subtitle1: '吶喊 · 聖母 · 生命之舞', subtitle2: '畫下內心的吶喊' },
   'matisse': { name: '亨利·馬蒂斯 (1869–1954)', subtitle1: '舞蹈 · 紅色房間 · 綠色條紋', subtitle2: '色彩的魔術師' },
   'chagall': { name: '馬克·夏卡爾 (1887–1985)', subtitle1: '在城市上空 · 我與村莊 · 花束與飛翔的戀人', subtitle2: '愛與夢的詩人' },

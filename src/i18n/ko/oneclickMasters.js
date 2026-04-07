@@ -16,7 +16,7 @@ export const oneclickMastersBasicInfo = {
   },
   'klimt': {
     name: '구스타프 클림트(Gustav Klimt, 1862~1918)',
-    subtitle1: '키스 · 유디트 · 생명의 나무',
+    subtitle1: '키스 · 아델레 · 생명의 나무',
     subtitle2: '황금빛 관능의 세계'
   },
   'munch': {

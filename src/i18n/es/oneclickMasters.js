@@ -16,7 +16,7 @@ export const oneclickMastersBasicInfo = {
   },
   'klimt': {
     name: 'Gustav Klimt (1862–1918)',
-    subtitle1: 'El beso · Judit · El árbol de la vida',
+    subtitle1: 'El beso · Adele · El árbol de la vida',
     subtitle2: 'El mundo dorado de la sensualidad'
   },
   'munch': {

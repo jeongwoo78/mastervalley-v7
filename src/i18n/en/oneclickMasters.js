@@ -16,7 +16,7 @@ export const oneclickMastersBasicInfo = {
   },
   'klimt': {
     name: 'Gustav Klimt (1862–1918)',
-    subtitle1: 'The Kiss · Judith · The Tree of Life',
+    subtitle1: 'The Kiss · Adele · The Tree of Life',
     subtitle2: 'A world of golden sensuality'
   },
   'munch': {

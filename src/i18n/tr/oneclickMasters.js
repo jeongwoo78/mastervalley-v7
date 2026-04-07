@@ -11,7 +11,7 @@ export const oneclickMastersBasicInfo = {
   },
   'klimt': {
     name: 'Gustav Klimt (1862–1918)',
-    subtitle1: 'Öpücük · Judith · Hayat Ağacı',
+    subtitle1: 'Öpücük · Adele · Hayat Ağacı',
     subtitle2: 'Altın duyusallığın dünyası'
   },
   'munch': {

@@ -120,7 +120,7 @@ export const ui = {
     noImageToSave: '저장할 이미지가 없습니다.',
     savedToGallery: '갤러리에 저장되었습니다!',
     saved: '저장되었습니다!',
-    filesLocation: '📁 파일 앱 → Documents → MasterValley 폴더',
+    filesLocation: '파일 앱 → Documents → MasterValley 폴더',
     saveFailed: '저장에 실패했습니다',
     saveFailedRetry: '저장에 실패했습니다. 다시 시도해주세요.',
     noImageToShare: '공유할 이미지가 없습니다.',

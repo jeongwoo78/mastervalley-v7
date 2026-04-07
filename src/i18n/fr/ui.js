@@ -121,7 +121,7 @@ export const ui = {
     noImageToSave: 'Aucune image à enregistrer.',
     savedToGallery: 'Enregistré dans la galerie !',
     saved: 'Enregistré !',
-    filesLocation: '📁 App Fichiers → Documents → Dossier MasterValley',
+    filesLocation: 'App Fichiers → Documents → Dossier MasterValley',
     saveFailed: 'Échec de l\'enregistrement',
     saveFailedRetry: 'Échec de l\'enregistrement. Veuillez réessayer.',
     noImageToShare: 'Aucune image à partager.',

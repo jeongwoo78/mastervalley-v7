@@ -121,7 +121,7 @@ export const ui = {
     noImageToSave: 'Tidak ada gambar untuk disimpan.',
     savedToGallery: 'Tersimpan di galeri!',
     saved: 'Tersimpan!',
-    filesLocation: '📁 Aplikasi File → Dokumen → Folder MasterValley',
+    filesLocation: 'Aplikasi File → Dokumen → Folder MasterValley',
     saveFailed: 'Gagal menyimpan',
     saveFailedRetry: 'Gagal menyimpan. Silakan coba lagi.',
     noImageToShare: 'Tidak ada gambar untuk dibagikan.',

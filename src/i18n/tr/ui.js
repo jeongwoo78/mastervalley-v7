@@ -117,7 +117,7 @@ export const ui = {
     noImageToSave: 'Kaydedilecek görsel yok.',
     savedToGallery: 'Galeriye kaydedildi!',
     saved: 'Kaydedildi!',
-    filesLocation: '📁 Dosyalar Uyg. → Belgeler → MasterValley klasörü',
+    filesLocation: 'Dosyalar Uyg. → Belgeler → MasterValley klasörü',
     saveFailed: 'Kaydetme başarısız',
     saveFailedRetry: 'Kaydetme başarısız. Lütfen tekrar deneyin.',
     noImageToShare: 'Paylaşılacak görsel yok.',

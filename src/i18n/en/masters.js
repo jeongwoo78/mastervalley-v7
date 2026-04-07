@@ -33,12 +33,12 @@ export const mastersBasicInfo = {
     },
     result: {
       name: 'Gustav Klimt (1862–1918)',
-      subtitle1: 'The Kiss · Judith · The Tree of Life',
+      subtitle1: 'The Kiss · Adele · The Tree of Life',
       subtitle2: 'A world of golden sensuality',
       works: {
         'kiss': { subtitle1: 'The Kiss', subtitle2: 'An eternal kiss dissolved in gold' },
         'treeoflife': { subtitle1: 'The Tree of Life', subtitle2: 'Golden branches singing the song of life' },
-        'judith': { subtitle1: 'Judith I', subtitle2: 'Between the sacred and sensual, golden allure' }
+        'adele': { subtitle1: 'Portrait of Adele Bloch-Bauer I', subtitle2: 'A portrait immortalized in gold' }
       }
     }
   },
@@ -161,7 +161,7 @@ Van Gogh died at 37, but his art profoundly influenced Expressionism and Fauvism
     name: 'Klimt',
     description: `Klimt was the leading Art Nouveau painter of fin-de-siècle Vienna.
 Born the son of a goldsmith, he applied real gold leaf to canvas, creating an opulent decorative world inspired by Byzantine mosaics.
-He left behind golden masterpieces where sensuality and divinity coexist, including The Kiss, Judith, and The Tree of Life.
+He left behind golden masterpieces where sensuality and divinity coexist, including The Kiss, Portrait of Adele Bloch-Bauer, and The Tree of Life.
 
 Klimt founded the Vienna Secession, challenging the conservative art establishment.
 "To every age its art, to every art its freedom." — A painter who captured fin-de-siècle beauty in gold.`
@@ -278,12 +278,12 @@ Triangles, circles, and spirals repeat, creating a rhythmic flow of life's energ
 〈The Tree of Life〉 was created as a dining room mural for the Stoclet Palace in Brussels.
 The endlessly branching spiral limbs are a metaphor for birth, death, and the cycle of life.`
   },
-  'klimt-judith': {
-    description: `The gold leaf decoration and jewel-like sensual colors of 〈Judith〉 have been applied.
-Transparent veils and gold necklaces create tension between the sacred and the sensual.
+  'klimt-adele': {
+    description: `The gold and silver leaf decoration and jewel-like colors of 〈Portrait of Adele Bloch-Bauer I〉 have been applied.
+A diamond choker and a golden dress adorned with eye motifs create a world of opulent decoration.
 
-〈Judith〉 is Klimt's reinterpretation of the biblical heroine as a sensual woman.
-Half-closed eyes and a provocative smile completely overturn the piety of traditional religious painting.`
+〈Adele〉 is the pinnacle of Klimt's golden phase, a masterpiece completed over four years with more than 100 preparatory sketches.
+Inspired by Byzantine mosaics, gold and silver leaf envelop everything, leaving only the face and hands rendered in photographic realism.`
   },
 
   // ── Munch ──
