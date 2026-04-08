@@ -310,7 +310,7 @@ async function handleSingle(req, res, params) {
     
     // 👗 의상 보강: 고위험 화가 + 여성만 Gemini 의상 보강
     const gender = result.debug?.vision?.gender || null;
-    const { resultUrl: finalUrl, wasFixed } = await checkAndFixClothing(result.resultUrl, transformId, selectedStyle, gender);
+    const { resultUrl: finalUrl, wasFixed } = await checkAndFixClothing(result.resultUrl, transformId, selectedStyle, gender, result.selectedArtist);
     result.resultUrl = finalUrl;
     if (wasFixed) console.log(`👗 의상 보강 적용: ${transformId}`);
     
@@ -460,7 +460,7 @@ async function handleOneClick(req, res, params) {
           const resultGender = result.debug?.vision?.gender || visionData?.gender || null;
           
           // 의상 보강 대상이면 Phase 2로 넘김
-          if (isClothingTarget(style, resultGender)) {
+          if (isClothingTarget(style, resultGender, result.selectedArtist)) {
             clothingPending.push({ i, style, tid, docRef, result, resultGender });
             console.log(`✅ 원클릭 [${i + 1}/${totalCount}] FLUX 완료 (의상 보강 대기): ${tid} | ${result.selectedArtist || style.name}`);
           } else {
@@ -492,7 +492,7 @@ async function handleOneClick(req, res, params) {
           return {
             transformId: tid,
             styleIndex: i,
-            status: isClothingTarget(style, resultGender) ? 'pending_clothing' : 'completed',
+            status: isClothingTarget(style, resultGender, result.selectedArtist) ? 'pending_clothing' : 'completed',
             resultUrl: result.resultUrl,
             selectedArtist: result.selectedArtist || null,
             selectedWork: result.selectedWork || null,
@@ -538,7 +538,7 @@ async function handleOneClick(req, res, params) {
     await Promise.all(
       clothingPending.map(async ({ i, style, tid, docRef, result, resultGender }) => {
         try {
-          const { resultUrl: fixedUrl, wasFixed } = await checkAndFixClothing(result.resultUrl, tid, style, resultGender);
+          const { resultUrl: fixedUrl, wasFixed } = await checkAndFixClothing(result.resultUrl, tid, style, resultGender, result.selectedArtist);
           
           await docRef.update({
             status: 'completed',

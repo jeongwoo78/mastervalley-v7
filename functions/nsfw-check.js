@@ -35,12 +35,14 @@ const CLOTHING_TARGETS = [
 // ========================================
 // 의상 보강 대상 여부 판단
 // ========================================
-export function isClothingTarget(style, gender) {
+export function isClothingTarget(style, gender, selectedArtist = null) {
   if (gender !== 'female' && gender !== 'both') return false;
   
   const styleId = (style?.id || style?.name || '').toLowerCase();
+  const artistName = (selectedArtist || '').toLowerCase();
   
-  return CLOTHING_TARGETS.some(t => styleId.includes(t));
+  // 스타일 ID 또는 선택된 화가 이름으로 매칭
+  return CLOTHING_TARGETS.some(t => styleId.includes(t) || artistName.includes(t));
 }
 
 
@@ -139,17 +141,17 @@ async function enforceClothing(imageBuffer, transformId) {
 // ========================================
 // 메인: 조건 체크 + 의상 보강 (동기)
 // ========================================
-export async function checkAndFixClothing(resultUrl, transformId, style = null, gender = null) {
+export async function checkAndFixClothing(resultUrl, transformId, style = null, gender = null, selectedArtist = null) {
   try {
     // 대상 여부 체크
     if (style && gender) {
-      if (!isClothingTarget(style, gender)) {
-        console.log(`👗 스킵 (비대상): ${style?.name || 'unknown'} / ${gender}`);
+      if (!isClothingTarget(style, gender, selectedArtist)) {
+        console.log(`👗 스킵 (비대상): ${selectedArtist || style?.name || 'unknown'} / ${gender}`);
         return { resultUrl, wasFixed: false };
       }
     }
     
-    console.log(`👗 의상 보강 대상: ${style?.name || 'unknown'} / ${gender}`);
+    console.log(`👗 의상 보강 대상: ${selectedArtist || style?.name || 'unknown'} / ${gender}`);
     
     // 이미지 다운로드 → Gemini 의상 보강
     const imageBuffer = await imageUrlToBuffer(resultUrl);
