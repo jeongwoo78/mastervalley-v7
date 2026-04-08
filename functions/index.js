@@ -309,7 +309,7 @@ async function handleSingle(req, res, params) {
     const result = await runTransform(image, selectedStyle, correctionPrompt);
     
     // 🛡️ NSFW 출력 필터: 고위험+여성만 Falconsai 판정 → UNSAFE면 Gemini 수정
-    const gender = result._debug?.vision?.gender || null;
+    const gender = result.debug?.vision?.gender || null;
     const { resultUrl: finalUrl, wasFixed } = await checkAndFixNSFW(result.resultUrl, transformId, selectedStyle, gender);
     result.resultUrl = finalUrl;
     if (wasFixed) console.log(`🛡️ NSFW 수정 적용: ${transformId}`);
@@ -457,7 +457,7 @@ async function handleOneClick(req, res, params) {
           const result = await runTransform(image, style, null, true, visionData);
           
           // 🛡️ NSFW 출력 필터: 고위험+여성만 Falconsai 판정 → UNSAFE면 Gemini 수정
-          const resultGender = result._debug?.vision?.gender || visionData?.gender || null;
+          const resultGender = result.debug?.vision?.gender || visionData?.gender || null;
           const { resultUrl: finalUrl, wasFixed } = await checkAndFixNSFW(result.resultUrl, tid, style, resultGender);
           result.resultUrl = finalUrl;
           if (wasFixed) console.log(`🛡️ NSFW 수정 적용: ${tid}`);

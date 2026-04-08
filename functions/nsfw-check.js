@@ -46,61 +46,93 @@ function isHighRisk(style, gender) {
 
 
 // ========================================
-// 이미지 URL → Buffer 변환
+// 이미지 URL → Buffer 변환 (10초 타임아웃)
 // ========================================
 async function imageUrlToBuffer(imageUrl) {
-  const response = await fetch(imageUrl);
-  if (!response.ok) throw new Error(`이미지 다운로드 실패: ${response.status}`);
-  const buffer = await response.arrayBuffer();
-  return Buffer.from(buffer);
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 10000);
+  try {
+    const response = await fetch(imageUrl, { signal: controller.signal });
+    if (!response.ok) throw new Error(`이미지 다운로드 실패: ${response.status}`);
+    const buffer = await response.arrayBuffer();
+    return Buffer.from(buffer);
+  } finally {
+    clearTimeout(timeout);
+  }
 }
 
 
 // ========================================
 // Falconsai NSFW 판정 (HuggingFace Inference API)
+// 최대 2회 시도 (503 콜드스타트 대응)
 // ========================================
 async function checkNSFW(imageUrl) {
   const startTime = Date.now();
   
   const imageBuffer = await imageUrlToBuffer(imageUrl);
   
-  const response = await fetch(HF_API_URL, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${process.env.HF_API_TOKEN}`,
-      'Content-Type': 'application/octet-stream'
-    },
-    body: imageBuffer
-  });
-  
-  if (!response.ok) {
-    const errText = await response.text();
-    throw new Error(`HuggingFace API error: ${response.status} - ${errText}`);
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 15000);
+    
+    try {
+      const response = await fetch(HF_API_URL, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${process.env.HF_API_TOKEN}`,
+          'Content-Type': 'application/octet-stream'
+        },
+        body: imageBuffer,
+        signal: controller.signal
+      });
+      
+      clearTimeout(timeout);
+      
+      if (response.status === 503 && attempt < 2) {
+        console.log(`🛡️ HuggingFace 모델 로딩 중... 10초 후 재시도`);
+        await new Promise(r => setTimeout(r, 10000));
+        continue;
+      }
+      
+      if (!response.ok) {
+        const errText = await response.text();
+        throw new Error(`HuggingFace API error: ${response.status} - ${errText}`);
+      }
+      
+      const results = await response.json();
+      // results: [{"label": "nsfw", "score": 0.95}, {"label": "normal", "score": 0.05}]
+      
+      const nsfwScore = results.find(r => r.label === 'nsfw')?.score || 0;
+      const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
+      
+      let verdict;
+      if (nsfwScore >= NSFW_THRESHOLD) {
+        verdict = 'UNSAFE';
+        console.log(`🛡️ NSFW 판정: UNSAFE (score: ${nsfwScore.toFixed(3)}) (${elapsed}초)`);
+      } else if (nsfwScore >= MONITOR_THRESHOLD) {
+        verdict = 'SAFE';
+        console.log(`🛡️ NSFW 판정: SAFE (모니터링 구간, score: ${nsfwScore.toFixed(3)}) (${elapsed}초)`);
+      } else {
+        verdict = 'SAFE';
+        console.log(`🛡️ NSFW 판정: SAFE (score: ${nsfwScore.toFixed(3)}) (${elapsed}초)`);
+      }
+      
+      return { 
+        verdict,
+        nsfwScore,
+        imageBuffer
+      };
+      
+    } catch (fetchErr) {
+      clearTimeout(timeout);
+      if (attempt < 2) {
+        console.log(`🛡️ NSFW fetch 실패 (시도 ${attempt}): ${fetchErr.message}, 재시도...`);
+        await new Promise(r => setTimeout(r, 3000));
+        continue;
+      }
+      throw fetchErr;
+    }
   }
-  
-  const results = await response.json();
-  // results: [{"label": "nsfw", "score": 0.95}, {"label": "normal", "score": 0.05}]
-  
-  const nsfwScore = results.find(r => r.label === 'nsfw')?.score || 0;
-  const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
-  
-  let verdict;
-  if (nsfwScore >= NSFW_THRESHOLD) {
-    verdict = 'UNSAFE';
-    console.log(`🛡️ NSFW 판정: UNSAFE (score: ${nsfwScore.toFixed(3)}) (${elapsed}초)`);
-  } else if (nsfwScore >= MONITOR_THRESHOLD) {
-    verdict = 'SAFE';
-    console.log(`🛡️ NSFW 판정: SAFE (모니터링 구간, score: ${nsfwScore.toFixed(3)}) (${elapsed}초)`);
-  } else {
-    verdict = 'SAFE';
-    console.log(`🛡️ NSFW 판정: SAFE (score: ${nsfwScore.toFixed(3)}) (${elapsed}초)`);
-  }
-  
-  return { 
-    verdict,
-    nsfwScore,
-    imageBuffer
-  };
 }
 
 
