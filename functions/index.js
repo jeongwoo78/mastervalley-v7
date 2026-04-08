@@ -9,7 +9,7 @@ import { getFirestore, FieldValue } from 'firebase-admin/firestore';
 import { getMessaging } from 'firebase-admin/messaging';
 
 import { runTransform, runVisionAnalysis } from './transform-logic.js';
-import { checkAndFixNSFW } from './nsfw-check.js';
+import { checkAndFixNSFW, fixNSFWAsync } from './nsfw-check.js';
 
 initializeApp();
 const db = getFirestore();
@@ -458,8 +458,66 @@ async function handleOneClick(req, res, params) {
           
           // 🛡️ NSFW 출력 필터: 고위험+여성만 Falconsai 판정 → UNSAFE면 Gemini 수정
           const resultGender = result.debug?.vision?.gender || visionData?.gender || null;
-          const { resultUrl: finalUrl, wasFixed } = await checkAndFixNSFW(result.resultUrl, tid, style, resultGender);
+          const { resultUrl: finalUrl, wasFixed, nsfwResult } = await checkAndFixNSFW(result.resultUrl, tid, style, resultGender, true);
           result.resultUrl = finalUrl;
+          
+          // UNSAFE → Gemini 비동기 수정 (배치 블로킹 방지)
+          const isUnsafe = nsfwResult?.verdict === 'UNSAFE' && nsfwResult?.imageBuffer;
+          if (isUnsafe) {
+            const capturedDocRef = docRef;
+            const capturedTid = tid;
+            const capturedSessionRef = sessionRef;
+            // Firestore에 수정 중 상태 저장 (클라이언트에 안 보임)
+            await docRef.update({
+              status: 'nsfw_fixing',
+              selectedArtist: result.selectedArtist || null,
+              selectedWork: result.selectedWork || null,
+              updatedAt: FieldValue.serverTimestamp()
+            });
+            // Gemini 비동기 실행 — 배치 안 막음
+            fixNSFWAsync(nsfwResult.imageBuffer, capturedTid).then(async (fixedUrl) => {
+              await capturedDocRef.update({ 
+                status: 'completed', 
+                resultUrl: fixedUrl, 
+                nsfwFixed: true, 
+                completedAt: FieldValue.serverTimestamp(),
+                updatedAt: FieldValue.serverTimestamp() 
+              });
+              await capturedSessionRef.update({
+                completedCount: FieldValue.increment(1),
+                successCount: FieldValue.increment(1),
+                updatedAt: FieldValue.serverTimestamp()
+              });
+              console.log(`🛡️ NSFW 비동기 수정 완료: ${capturedTid}`);
+            }).catch(async (err) => {
+              // Gemini 실패 → 원본이라도 전달
+              await capturedDocRef.update({ 
+                status: 'completed', 
+                resultUrl: result.resultUrl,
+                completedAt: FieldValue.serverTimestamp(),
+                updatedAt: FieldValue.serverTimestamp() 
+              });
+              await capturedSessionRef.update({
+                completedCount: FieldValue.increment(1),
+                successCount: FieldValue.increment(1),
+                updatedAt: FieldValue.serverTimestamp()
+              });
+              console.warn(`⚠️ NSFW 비동기 수정 실패 (원본 전달): ${capturedTid} - ${err.message}`);
+            });
+            
+            console.log(`✅ 원클릭 [${i + 1}/${totalCount}] NSFW 수정 대기: ${tid} | ${result.selectedArtist || style.name}`);
+            
+            return {
+              transformId: tid,
+              styleIndex: i,
+              status: 'nsfw_fixing',
+              resultUrl: null,
+              selectedArtist: result.selectedArtist || null,
+              selectedWork: result.selectedWork || null,
+              selectionMethod: result.selectionMethod || null,
+              subjectType: result.subjectType || null
+            };
+          }
           if (wasFixed) console.log(`🛡️ NSFW 수정 적용: ${tid}`);
           
           console.log(`✅ 원클릭 [${i + 1}/${totalCount}] 완료: ${tid} | ${result.selectedArtist || style.name}`);

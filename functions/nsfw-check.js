@@ -23,8 +23,12 @@ let lastAdminAlert = 0; // 스팸 방지 (1시간 간격)
 
 // 고위험 스타일 목록
 const HIGH_RISK_STYLES = [
-  // 사조
+  // 사조 (영문)
   'ancient', 'renaissance', 'baroque', 'rococo', 'impressionism',
+  'expressionism', 'fauvism', 'post-impressionism',
+  // 사조 (한국어 — 원클릭 사조에서 styleId가 한국어로 올 수 있음)
+  '고대', '르네상스', '바로크', '로코코', '인상주의',
+  '표현주의', '야수파', '후기인상주의',
   // 거장
   'klimt', 'klimt-master', 'munch', 'munch-master', 'matisse', 'matisse-master',
   // 동양화 전체
@@ -273,13 +277,13 @@ async function fixNSFW(imageBuffer, transformId) {
 // ========================================
 // 메인: 조건 체크 + 판정 + 수정 통합
 // ========================================
-export async function checkAndFixNSFW(resultUrl, transformId, style = null, gender = null) {
+export async function checkAndFixNSFW(resultUrl, transformId, style = null, gender = null, skipFix = false) {
   try {
     // 고위험 조건 체크
     if (style && gender) {
       if (!isHighRisk(style, gender)) {
         console.log(`🛡️ NSFW 스킵 (저위험): ${style?.name || 'unknown'} / ${gender}`);
-        return { resultUrl, wasFixed: false };
+        return { resultUrl, wasFixed: false, nsfwResult: null };
       }
     }
     
@@ -297,25 +301,35 @@ export async function checkAndFixNSFW(resultUrl, transformId, style = null, gend
         // Google Vision도 실패 → 원본 전달
         console.warn(`🚨 Google Vision도 실패 (원본 전달): ${gvErr.message}`);
         sendAdminAlert(`NSFW 필터 완전 장애! Falconsai: ${hfErr.message} / Google Vision: ${gvErr.message}`);
-        return { resultUrl, wasFixed: false };
+        return { resultUrl, wasFixed: false, nsfwResult: null };
       }
     }
     
     const { verdict, nsfwScore, imageBuffer } = nsfwResult;
     
     if (verdict === 'SAFE') {
-      return { resultUrl, wasFixed: false };
+      return { resultUrl, wasFixed: false, nsfwResult: null };
     }
     
-    // UNSAFE → Gemini로 옷 입히기
-    console.log(`⚠️ UNSAFE 감지: ${transformId} (score: ${nsfwScore.toFixed(3)}) — Gemini 수정 진행`);
+    // UNSAFE 감지
+    console.log(`⚠️ UNSAFE 감지: ${transformId} (score: ${nsfwScore.toFixed(3)})`);
+    
+    // skipFix 모드 (원클릭): Gemini 수정 안 하고 nsfwResult 반환 → 호출자가 비동기 처리
+    if (skipFix) {
+      return { resultUrl, wasFixed: false, nsfwResult: { verdict, nsfwScore, imageBuffer } };
+    }
+    
+    // 동기 모드 (단일 변환): 바로 Gemini 수정
+    console.log(`🔧 Gemini 수정 진행: ${transformId}`);
     const fixedUrl = await fixNSFW(imageBuffer, transformId);
     
-    return { resultUrl: fixedUrl, wasFixed: true };
+    return { resultUrl: fixedUrl, wasFixed: true, nsfwResult: null };
     
   } catch (err) {
-    // 판정/수정 실패 시 원본 그대로 전달 (서비스 중단 방지)
     console.warn(`⚠️ NSFW 체크 실패 (원본 전달): ${err.message}`);
-    return { resultUrl, wasFixed: false };
+    return { resultUrl, wasFixed: false, nsfwResult: null };
   }
 }
+
+// 비동기 Gemini 수정 (원클릭용 export)
+export { fixNSFW as fixNSFWAsync };
