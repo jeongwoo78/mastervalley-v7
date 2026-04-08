@@ -42,7 +42,7 @@ export const mastersBasicInfo = {
       works: {
         'kiss': { subtitle1: 'Le Baiser (The Kiss)', subtitle2: 'Un baiser éternel dissous dans l\'or' },
         'treeoflife': { subtitle1: 'L\'Arbre de vie (The Tree of Life)', subtitle2: 'Des branches dorées chantant la chanson de la vie' },
-        'adele': { subtitle1: 'Portrait d'Adèle Bloch-Bauer I', subtitle2: 'Un portrait immortalisé dans l'or' },
+        'adele': { subtitle1: 'Portrait d\'Adèle Bloch-Bauer I', subtitle2: 'Un portrait immortalisé dans l\'or' },
       }
     },
   },
