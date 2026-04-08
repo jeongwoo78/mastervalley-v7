@@ -441,8 +441,9 @@ async function handleOneClick(req, res, params) {
   const BATCH_SIZE = 3;
   const sessionStart = Date.now();
   const results = new Array(totalCount).fill(null);
+  const clothingPending = []; // Phase 2용: 의상 보강 대상 수집
   
-  // ========== FLUX 변환 + 의상 보강 (배치 순서대로) ==========
+  // ========== Phase 1: FLUX 변환만 (배치 순서대로) ==========
   for (let batchStart = 0; batchStart < totalCount; batchStart += BATCH_SIZE) {
     const batchEnd = Math.min(batchStart + BATCH_SIZE, totalCount);
     const batchIndices = [];
@@ -458,58 +459,41 @@ async function handleOneClick(req, res, params) {
           const result = await runTransform(image, style, null, true, visionData);
           const resultGender = result.debug?.vision?.gender || visionData?.gender || null;
           
-          // 👗 의상 보강 대상이면 Gemini 동기 처리
-          let finalUrl = result.resultUrl;
+          // 의상 보강 대상이면 Phase 2로 넘김
           if (isClothingTarget(style, resultGender)) {
-            try {
-              const { resultUrl: fixedUrl, wasFixed } = await checkAndFixClothing(result.resultUrl, tid, style, resultGender);
-              finalUrl = fixedUrl;
-              if (wasFixed) console.log(`👗 원클릭 [${i + 1}/${totalCount}] 의상 보강: ${tid}`);
-            } catch (clothingErr) {
-              console.error(`❌ 의상 보강 실패 → 변환 실패 처리: ${tid} - ${clothingErr.message}`);
-              await docRef.update({
-                status: 'failed',
-                error: `의상 보강 실패: ${clothingErr.message}`,
-                updatedAt: FieldValue.serverTimestamp()
-              });
-              completedCount++;
-              await sessionRef.update({
-                completedCount: FieldValue.increment(1),
-                updatedAt: FieldValue.serverTimestamp()
-              });
-              return { transformId: tid, styleIndex: i, status: 'failed', error: clothingErr.message };
-            }
+            clothingPending.push({ i, style, tid, docRef, result, resultGender });
+            console.log(`✅ 원클릭 [${i + 1}/${totalCount}] FLUX 완료 (의상 보강 대기): ${tid} | ${result.selectedArtist || style.name}`);
+          } else {
+            // 저위험 → 바로 완료 처리
+            await docRef.update({
+              status: 'completed',
+              resultUrl: result.resultUrl,
+              selectedArtist: result.selectedArtist || null,
+              selectedWork: result.selectedWork || null,
+              selectionMethod: result.selectionMethod || null,
+              subjectType: result.subjectType || null,
+              isRetransform: false,
+              completedAt: FieldValue.serverTimestamp(),
+              updatedAt: FieldValue.serverTimestamp()
+            });
+            
+            completedCount++;
+            successCount++;
+            
+            await sessionRef.update({
+              completedCount: FieldValue.increment(1),
+              successCount: FieldValue.increment(1),
+              updatedAt: FieldValue.serverTimestamp()
+            });
+            
+            console.log(`✅ 원클릭 [${i + 1}/${totalCount}] 완료: ${tid} | ${result.selectedArtist || style.name}`);
           }
-          
-          // 완료 처리
-          await docRef.update({
-            status: 'completed',
-            resultUrl: finalUrl,
-            selectedArtist: result.selectedArtist || null,
-            selectedWork: result.selectedWork || null,
-            selectionMethod: result.selectionMethod || null,
-            subjectType: result.subjectType || null,
-            isRetransform: false,
-            completedAt: FieldValue.serverTimestamp(),
-            updatedAt: FieldValue.serverTimestamp()
-          });
-          
-          completedCount++;
-          successCount++;
-          
-          await sessionRef.update({
-            completedCount: FieldValue.increment(1),
-            successCount: FieldValue.increment(1),
-            updatedAt: FieldValue.serverTimestamp()
-          });
-          
-          console.log(`✅ 원클릭 [${i + 1}/${totalCount}] 완료: ${tid} | ${result.selectedArtist || style.name}`);
           
           return {
             transformId: tid,
             styleIndex: i,
-            status: 'completed',
-            resultUrl: finalUrl,
+            status: isClothingTarget(style, resultGender) ? 'pending_clothing' : 'completed',
+            resultUrl: result.resultUrl,
             selectedArtist: result.selectedArtist || null,
             selectedWork: result.selectedWork || null,
             selectionMethod: result.selectionMethod || null,
@@ -544,6 +528,61 @@ async function handleOneClick(req, res, params) {
     
     batchResults.forEach(r => { results[r.styleIndex] = r; });
     console.log(`📦 배치 ${Math.floor(batchStart / BATCH_SIZE) + 1}/${Math.ceil(totalCount / BATCH_SIZE)} 완료 (${completedCount}/${totalCount})`);
+  }
+  
+  const fluxElapsed = ((Date.now() - sessionStart) / 1000).toFixed(1);
+  console.log(`⚡ Phase 1 FLUX 완료 (${fluxElapsed}초), 의상 보강 대기: ${clothingPending.length}건`);
+  
+  // ========== Phase 2: 의상 보강 전부 동시 처리 ==========
+  if (clothingPending.length > 0) {
+    await Promise.all(
+      clothingPending.map(async ({ i, style, tid, docRef, result, resultGender }) => {
+        try {
+          const { resultUrl: fixedUrl, wasFixed } = await checkAndFixClothing(result.resultUrl, tid, style, resultGender);
+          
+          await docRef.update({
+            status: 'completed',
+            resultUrl: fixedUrl,
+            selectedArtist: result.selectedArtist || null,
+            selectedWork: result.selectedWork || null,
+            selectionMethod: result.selectionMethod || null,
+            subjectType: result.subjectType || null,
+            isRetransform: false,
+            completedAt: FieldValue.serverTimestamp(),
+            updatedAt: FieldValue.serverTimestamp()
+          });
+          
+          completedCount++;
+          successCount++;
+          
+          await sessionRef.update({
+            completedCount: FieldValue.increment(1),
+            successCount: FieldValue.increment(1),
+            updatedAt: FieldValue.serverTimestamp()
+          });
+          
+          if (wasFixed) console.log(`👗 원클릭 [${i + 1}/${totalCount}] 의상 보강 완료: ${tid}`);
+          results[i] = { ...results[i], status: 'completed', resultUrl: fixedUrl };
+          
+        } catch (err) {
+          console.error(`❌ 의상 보강 실패: ${tid} - ${err.message}`);
+          await docRef.update({
+            status: 'failed',
+            error: `의상 보강 실패: ${err.message}`,
+            updatedAt: FieldValue.serverTimestamp()
+          });
+          completedCount++;
+          await sessionRef.update({
+            completedCount: FieldValue.increment(1),
+            updatedAt: FieldValue.serverTimestamp()
+          });
+          results[i] = { ...results[i], status: 'failed', error: err.message };
+        }
+      })
+    );
+    
+    const clothingElapsed = ((Date.now() - sessionStart) / 1000).toFixed(1);
+    console.log(`👗 Phase 2 의상 보강 완료 (${clothingElapsed}초)`);
   }
   
   const sessionElapsed = ((Date.now() - sessionStart) / 1000).toFixed(1);
