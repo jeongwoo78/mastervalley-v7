@@ -2261,9 +2261,10 @@ CRITICAL INSTRUCTIONS FOR PROMPT GENERATION:
 
 4. CALLIGRAPHY TEXT (POSITIVE MEANING ONLY):
    - Choose appropriate positive text (1-4 characters)
-   - MUST use Japanese/Chinese characters
-   - Single characters: "福" (blessing), "壽" (longevity), "喜" (joy), "美" (beauty), "和" (harmony)
-   - Japanese style: "粋" (iki/stylish), "雅" (miyabi/elegant), "桜" (sakura), "波" (wave), "富士" (Fuji)
+   - MUST use Japanese characters ONLY (Kanji and/or Hiragana)
+   - Kanji: "福" (blessing), "壽" (longevity), "喜" (joy), "美" (beauty), "和" (harmony)
+   - Japanese style Kanji: "粋" (iki/stylish), "雅" (miyabi/elegant), "桜" (sakura), "波" (wave), "富士" (Fuji)
+   - Hiragana: "はな" (flower), "ゆめ" (dream), "こころ" (heart), "さくら" (sakura), "かぜ" (wind)
    - Two characters: "風雅" (elegance), "花鳥" (flowers and birds), "浮世" (floating world)
 
 Return ONLY valid JSON (no markdown):
