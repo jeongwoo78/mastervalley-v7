@@ -43,10 +43,11 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
   const totalCount = styles.length;
 
   // 고위험 스타일 (예술적 누드 경고 대상)
-  const HIGH_RISK_STYLES = ['ancient', 'renaissance', 'baroque', 'neoclassicism', 'romanticism', 'realism', 'post-impressionism', 'expressionism', 'klimt', 'munch', 'gongbi'];
+  const HIGH_RISK_STYLES = ['ancient', 'renaissance', 'baroque', 'neoclassicism_vs_romanticism_vs_realism', 'postImpressionism', 'expressionism', 'klimt-master', 'munch-master', 'chinese'];
   const isHighRisk = isFullTransform
     ? styles.some(s => HIGH_RISK_STYLES.includes(s.id))
     : HIGH_RISK_STYLES.includes(selectedStyle?.id);
+  console.log('🔍 NSFW check:', { id: selectedStyle?.id, category, isFullTransform, isHighRisk, stylesIds: styles.map(s => s.id) });
 
   const startedRef = useRef(false);
   const completedCountRef = useRef(0);
@@ -598,7 +599,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         .nude-warning {
           color: rgba(230, 160, 140, 0.6);
           font-size: 12px;
-          text-align: center;
+          text-align: left;
           margin: 12px 0 4px;
           line-height: 1.4;
         }
