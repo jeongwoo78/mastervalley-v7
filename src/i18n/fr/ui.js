@@ -65,7 +65,7 @@ export const ui = {
     chineseSub: 'Encre · Gongbi',
     japaneseSub: 'Ukiyo-e · Rinpa',
     artNotice: 'En raison de la nature des œuvres originales, certains styles peuvent inclure de la nudité artistique.',
-    nudeWarningSingle: 'La nudité artistique de l'œuvre originale peut se refléter dans le résultat.',
+    nudeWarningSingle: 'La nudité artistique de l\'œuvre originale peut se refléter dans le résultat.',
     nudeWarningOneclick: 'Certains résultats peuvent refléter la nudité artistique des œuvres originales.',
     movementsDesc1: '11 mouvements artistiques — les maîtres de chaque époque peignent votre photo.',
     movementsDesc2: 'En Un Clic, un voyage de 2800 ans à travers l\'histoire de l\'art commence.',
