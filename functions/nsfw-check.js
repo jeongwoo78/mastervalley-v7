@@ -6,14 +6,20 @@
 // ========================================
 
 import { getStorage } from 'firebase-admin/storage';
+import { getFirestore } from 'firebase-admin/firestore';
+import { getMessaging } from 'firebase-admin/messaging';
 
 const GEMINI_MODEL = 'gemini-3.1-flash-image-preview';
 const GEMINI_API_BASE = 'https://generativelanguage.googleapis.com/v1beta';
 const HF_MODEL = 'Falconsai/nsfw_image_detection';
-const HF_API_URL = `https://api-inference.huggingface.co/models/${HF_MODEL}`;
+const HF_API_URL = `https://router.huggingface.co/hf-inference/models/${HF_MODEL}`;
 
 const NSFW_THRESHOLD = 0.85;
 const MONITOR_THRESHOLD = 0.70;
+
+// 관리자 알림 설정
+const ADMIN_USER_ID = '4DHAs1E0lUZxHConl1l6S2OZp6k2';
+let lastAdminAlert = 0; // 스팸 방지 (1시간 간격)
 
 // 고위험 스타일 목록
 const HIGH_RISK_STYLES = [
@@ -137,6 +143,72 @@ async function checkNSFW(imageUrl) {
 
 
 // ========================================
+// 관리자 FCM 알림 (1시간 간격 제한)
+// ========================================
+async function sendAdminAlert(message) {
+  const now = Date.now();
+  if (now - lastAdminAlert < 3600000) return; // 1시간 스팸 방지
+  lastAdminAlert = now;
+  
+  try {
+    const db = getFirestore();
+    const userDoc = await db.collection('users').doc(ADMIN_USER_ID).get();
+    const fcmToken = userDoc.data()?.fcmToken;
+    if (!fcmToken) return;
+    
+    await getMessaging().send({
+      token: fcmToken,
+      notification: { title: '⚠️ NSFW API 장애', body: message },
+      data: { type: 'admin_alert' }
+    });
+    console.log(`📱 관리자 알림 전송: ${message}`);
+  } catch (e) {
+    console.warn(`관리자 알림 실패: ${e.message}`);
+  }
+}
+
+
+// ========================================
+// Google Vision SafeSearch fallback
+// adult: VERY_UNLIKELY(1) ~ VERY_LIKELY(5)
+// LIKELY(4) 이상 → UNSAFE
+// ========================================
+async function checkNSFWGoogleVision(imageUrl) {
+  const startTime = Date.now();
+  
+  const { ImageAnnotatorClient } = await import('@google-cloud/vision');
+  const client = new ImageAnnotatorClient();
+  
+  const [result] = await client.safeSearchDetection(imageUrl);
+  const safe = result.safeSearchAnnotation;
+  
+  // UNKNOWN=0, VERY_UNLIKELY=1, UNLIKELY=2, POSSIBLE=3, LIKELY=4, VERY_LIKELY=5
+  const adultLevel = safe.adult;  // enum string: 'VERY_UNLIKELY', 'LIKELY', etc.
+  const racyLevel = safe.racy;
+  
+  const levelMap = { 'UNKNOWN': 0, 'VERY_UNLIKELY': 1, 'UNLIKELY': 2, 'POSSIBLE': 3, 'LIKELY': 4, 'VERY_LIKELY': 5 };
+  const adultScore = levelMap[adultLevel] || 0;
+  const racyScore = levelMap[racyLevel] || 0;
+  
+  const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
+  
+  let verdict;
+  if (adultScore >= 4) {
+    verdict = 'UNSAFE';
+    console.log(`🛡️ Google Vision 판정: UNSAFE (adult: ${adultLevel}, racy: ${racyLevel}) (${elapsed}초)`);
+  } else {
+    verdict = 'SAFE';
+    console.log(`🛡️ Google Vision 판정: SAFE (adult: ${adultLevel}, racy: ${racyLevel}) (${elapsed}초)`);
+  }
+  
+  // imageBuffer는 Google Vision에서 불필요하지만 fixNSFW 호환용
+  const imageBuffer = await imageUrlToBuffer(imageUrl);
+  
+  return { verdict, nsfwScore: adultScore / 5, imageBuffer };
+}
+
+
+// ========================================
 // Gemini로 노출 부위 옷 입히기
 // ========================================
 async function fixNSFW(imageBuffer, transformId) {
@@ -211,7 +283,25 @@ export async function checkAndFixNSFW(resultUrl, transformId, style = null, gend
       }
     }
     
-    const { verdict, nsfwScore, imageBuffer } = await checkNSFW(resultUrl);
+    // 1차: Falconsai (HuggingFace)
+    let nsfwResult;
+    try {
+      nsfwResult = await checkNSFW(resultUrl);
+    } catch (hfErr) {
+      // Falconsai 실패 → Google Vision fallback
+      console.warn(`🚨 Falconsai 실패 → Google Vision fallback: ${hfErr.message}`);
+      try {
+        nsfwResult = await checkNSFWGoogleVision(resultUrl);
+        sendAdminAlert(`Falconsai 장애 → Google Vision fallback 전환됨. 원인: ${hfErr.message}`);
+      } catch (gvErr) {
+        // Google Vision도 실패 → 원본 전달
+        console.warn(`🚨 Google Vision도 실패 (원본 전달): ${gvErr.message}`);
+        sendAdminAlert(`NSFW 필터 완전 장애! Falconsai: ${hfErr.message} / Google Vision: ${gvErr.message}`);
+        return { resultUrl, wasFixed: false };
+      }
+    }
+    
+    const { verdict, nsfwScore, imageBuffer } = nsfwResult;
     
     if (verdict === 'SAFE') {
       return { resultUrl, wasFixed: false };
