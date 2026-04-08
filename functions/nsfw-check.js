@@ -233,7 +233,7 @@ async function fixNSFW(imageBuffer, transformId) {
         contents: [{
           parts: [
             { inlineData: { mimeType: 'image/png', data: base64Data } },
-            { text: 'This AI-generated artwork contains nudity that must be covered. Add a FULL period-appropriate dress or robe covering the ENTIRE body from shoulders to ankles — chest, torso, hips, and legs must all be fully covered with fabric. The clothing must match this artwork\'s historical style and color palette. Keep everything else — composition, colors, brushwork, facial features, pose, background — completely identical. The clothing should look like it was always part of the original artwork.' }
+            { text: 'This AI-generated artwork contains nudity that must be covered. Cover exposed chest, waist and hip areas with clothing or fabric that naturally matches this artwork\'s historical style and color palette. Keep everything else — composition, colors, brushwork, facial features, pose, background — completely identical. The clothing should look like it was always part of the original artwork.' }
           ]
         }],
         generationConfig: {
