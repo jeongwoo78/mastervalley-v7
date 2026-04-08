@@ -2598,13 +2598,24 @@ function buildIdentityPrompt(visionAnalysis) {
     return '';
   }
   
+  // v85: physical_description에서 의상 묘사 제거 (의상은 art-api-prompts가 지시)
+  function stripClothing(desc) {
+    if (!desc) return desc;
+    return desc
+      .replace(/,?\s*wearing [^,.]+/gi, '')
+      .replace(/,?\s*dressed in [^,.]+/gi, '')
+      .replace(/,?\s*in [^,.]*(outfit|clothing|jeans|shirt|dress|jacket|hoodie|t-shirt|blouse|sweater|coat|pants|shorts|skirt|suit)[^,.]*/gi, '')
+      .replace(/\s{2,}/g, ' ')
+      .trim();
+  }
+  
   const parts = [];
   
   // 성별 강조 (가장 중요)
   if (visionAnalysis.gender === 'male') {
     parts.push('MALE SUBJECT with MASCULINE features');
     if (visionAnalysis.physical_description) {
-      parts.push(visionAnalysis.physical_description);
+      parts.push(stripClothing(visionAnalysis.physical_description));
     } else {
       parts.push('strong angular jaw, male bone structure, masculine build');
     }
@@ -2612,7 +2623,7 @@ function buildIdentityPrompt(visionAnalysis) {
   } else if (visionAnalysis.gender === 'female') {
     parts.push('FEMALE SUBJECT with FEMININE features');
     if (visionAnalysis.physical_description) {
-      parts.push(visionAnalysis.physical_description);
+      parts.push(stripClothing(visionAnalysis.physical_description));
     } else {
       parts.push('soft delicate features, female bone structure, feminine build');
     }
@@ -2621,7 +2632,7 @@ function buildIdentityPrompt(visionAnalysis) {
     // 남녀 혼합 (커플, 그룹 등)
     parts.push('MIXED GENDER GROUP - PRESERVE BOTH GENDERS EXACTLY');
     if (visionAnalysis.physical_description) {
-      parts.push(visionAnalysis.physical_description);
+      parts.push(stripClothing(visionAnalysis.physical_description));
     }
     parts.push('MALE figures MUST remain MASCULINE with strong jaw and male bone structure');
     parts.push('FEMALE figures MUST remain FEMININE with soft features and female bone structure');
