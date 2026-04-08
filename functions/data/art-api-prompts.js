@@ -1657,6 +1657,7 @@ export const masterworkNameMapping = {
  // 로코코
  'pilgrimage to cythera': 'watteau-cythera', 'pierrot': 'watteau-pierrot',
  'the pleasures of the ball': 'watteau-fete', '사랑의 축제': 'watteau-fete',
+ 'fête galante': 'watteau-fete', 'fete galante': 'watteau-fete',
  'madame de pompadour': 'boucher-pompadour', '퐁파두르 부인': 'boucher-pompadour',
  'le dejeuner': 'boucher-breakfast', '아침 식사': 'boucher-breakfast',
  
