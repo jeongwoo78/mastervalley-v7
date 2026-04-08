@@ -37,12 +37,12 @@ export const mastersBasicInfo = {
     },
     result: {
       name: 'Gustav Klimt (1862–1918)',
-      subtitle1: 'El beso · Adele · El árbol de la vida',
+      subtitle1: 'El beso · Judith · El árbol de la vida',
       subtitle2: 'Un mundo de sensualidad dorada',
       works: {
         'kiss': { subtitle1: 'El beso (The Kiss)', subtitle2: 'Un beso eterno disuelto en oro' },
         'treeoflife': { subtitle1: 'El árbol de la vida (The Tree of Life)', subtitle2: 'Ramas doradas cantando la canción de la vida' },
-        'adele': { subtitle1: 'Retrato de Adele Bloch-Bauer I', subtitle2: 'Un retrato inmortalizado en oro' },
+        'judith': { subtitle1: 'Judith I (Judith I)', subtitle2: 'Entre lo sagrado y lo sensual, seducción dorada' },
       }
     },
   },
@@ -284,12 +284,13 @@ El oro real brilla sobre el lienzo—Klimt mezcló técnicas de pintura tradicio
 
 Dos figuras que se abrazan en el borde de un precipicio se han convertido en símbolo universal del amor y la vulnerabilidad.`
   },
-  'klimt-adele': {
-    description: `La decoración en oro y plata y los colores como joyas del 〈Retrato de Adele Bloch-Bauer I〉 han sido aplicados.
-Un choker de diamantes y un vestido dorado con motivos geométricos crean un mundo de opulenta decoración.
+  'klimt-judith': {
+    description: `La decoración de lámina de oro y los colores sensuales joya de 〈Judith〉 han sido aplicados.
+Terciopelo transparente y manto dorado crean una expresión contradictoria de poder y deseo.
 
-〈Adele〉 es la cumbre de la fase dorada de Klimt, una obra maestra completada en cuatro años con más de 100 bocetos preparatorios.
-Inspirados en los mosaicos bizantinos, el oro y la plata lo envuelven todo, dejando solo el rostro y las manos en un realismo fotográfico.`
+〈Judith〉 es la guerrera del Antiguo Testamento que decapitó a Holofernes—pero Klimt la pintó no como heroína, sino como femme fatale en éxtasis.
+
+Los ojos entrecerrados y la expresión de labios entreabiertos crean una ambigüedad entre el placer y la victoria que es la marca distintiva de Klimt.`
   },
   'klimt-treeoflife': {
     description: `Las curvas espirales y los patrones decorativos dorados de 〈El árbol de la vida〉 han sido aplicados.

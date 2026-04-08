@@ -44,10 +44,15 @@ const getAllImages = async () => {
       
       request.onerror = () => reject(request.error);
       request.onsuccess = () => {
-        // 최신순 정렬
-        const items = request.result.sort((a, b) => 
-          new Date(b.createdAt) - new Date(a.createdAt)
-        );
+        // 1차: 분 단위 세션 그룹 → 2차: styleIndex 순
+        const items = request.result.sort((a, b) => {
+          const aMin = a.createdAt?.slice(0, 16) || '';
+          const bMin = b.createdAt?.slice(0, 16) || '';
+          if (aMin !== bMin) return bMin.localeCompare(aMin);
+          const aIdx = a.styleIndex ?? 999;
+          const bIdx = b.styleIndex ?? 999;
+          return aIdx - bIdx;
+        });
         resolve(items);
       };
     });
@@ -75,8 +80,8 @@ const saveImage = async (imageData) => {
   }
 };
 
-// createdAt 업데이트 (원클릭 순서 보정용)
-const updateCreatedAt = async (id, newCreatedAt) => {
+// createdAt + styleIndex 업데이트 (원클릭 순서 보정용)
+const updateCreatedAt = async (id, newCreatedAt, newStyleIndex) => {
   try {
     const db = await openDB();
     return new Promise((resolve, reject) => {
@@ -87,6 +92,7 @@ const updateCreatedAt = async (id, newCreatedAt) => {
         const item = getReq.result;
         if (item) {
           item.createdAt = newCreatedAt;
+          if (newStyleIndex != null) item.styleIndex = newStyleIndex;
           store.put(item);
         }
         resolve(true);
@@ -196,7 +202,7 @@ export const saveToGallery = async (imageUrl, metadataOrStyleName, categoryNameL
       if (existing) {
         // 중복이지만 savedAt이 있으면 순서 보정 (원클릭 갤러리 정렬용)
         if (isMetadata && metadataOrStyleName.savedAt) {
-          await updateCreatedAt(existing.id, metadataOrStyleName.savedAt);
+          await updateCreatedAt(existing.id, metadataOrStyleName.savedAt, metadataOrStyleName.styleIndex ?? null);
         }
         return true;
       }
@@ -229,6 +235,7 @@ export const saveToGallery = async (imageUrl, metadataOrStyleName, categoryNameL
       workName: isMetadata ? (metadataOrStyleName.workName || null) : null,
       styleId: isMetadata ? (metadataOrStyleName.styleId || '') : '',
       isRetransform: isMetadata ? (metadataOrStyleName.isRetransform || false) : false,
+      styleIndex: isMetadata ? (metadataOrStyleName.styleIndex ?? null) : null,
       // 레거시 호환 필드
       styleName: isMetadata ? (metadataOrStyleName.artistName || 'Converted Image') : metadataOrStyleName,
       categoryName: isMetadata ? (metadataOrStyleName.category || '') : categoryNameLegacy,

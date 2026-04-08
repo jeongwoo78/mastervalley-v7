@@ -216,13 +216,13 @@ export const MASTERS = {
     originEn: 'Austria · Art Nouveau',
     icon: '✨',
     description: '1862-1918 | 아르누보',
-    featuredWorks: '키스 · 아델레 · 생명의 나무',
-    featuredWorksEn: 'The Kiss · Adele · The Tree of Life',
+    featuredWorks: '키스 · 유디트 · 생명의 나무',
+    featuredWorksEn: 'The Kiss · Judith · The Tree of Life',
     aliases: ['gustav', 'gustav klimt', '클림트', 'クリムト', 'グスタフ・クリムト', 'كليمت', 'غوستاف كليمت', 'คลิมต์', '克林姆', '古斯塔夫·克林姆'],
     works: {
       'kiss': ['The Kiss, 1907', '키스, 1907', 'Kiss'],
       'treeoflife': ['The Tree of Life, 1909', '생명의 나무, 1909', 'Tree of Life'],
-      'adele': ['Portrait of Adele Bloch-Bauer I, 1907', '아델레 블로흐-바우어의 초상 I, 1907', 'Adele']
+      'judith': ['Judith I, 1901', '유디트, 1901', 'Judith']
     }
   },
   'munch-master': {

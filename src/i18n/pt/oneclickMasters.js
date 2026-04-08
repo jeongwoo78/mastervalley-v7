@@ -11,7 +11,7 @@ export const oneclickMastersBasicInfo = {
   },
   'klimt': {
     name: 'Gustav Klimt (1862–1918)',
-    subtitle1: 'O Beijo · Adele · A Árvore da Vida',
+    subtitle1: 'O Beijo · Judite · A Árvore da Vida',
     subtitle2: 'Um mundo de sensualidade dourada'
   },
   'munch': {

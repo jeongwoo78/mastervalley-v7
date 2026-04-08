@@ -37,12 +37,12 @@ export const mastersBasicInfo = {
     },
     result: {
       name: 'Gustav Klimt (1862–1918)',
-      subtitle1: 'Le Baiser · Adèle · L\'Arbre de vie',
+      subtitle1: 'Le Baiser · Judith · L\'Arbre de vie',
       subtitle2: 'Un monde de sensualité dorée',
       works: {
         'kiss': { subtitle1: 'Le Baiser (The Kiss)', subtitle2: 'Un baiser éternel dissous dans l\'or' },
         'treeoflife': { subtitle1: 'L\'Arbre de vie (The Tree of Life)', subtitle2: 'Des branches dorées chantant la chanson de la vie' },
-        'adele': { subtitle1: 'Portrait d\'Adèle Bloch-Bauer I', subtitle2: 'Un portrait immortalisé dans l\'or' },
+        'judith': { subtitle1: 'Judith I', subtitle2: 'Entre le sacré et le sensuel, séduction dorée' },
       }
     },
   },
@@ -284,12 +284,13 @@ L'or véritable brille sur la toile—Klimt a mélangé les techniques de peintu
 
 Deux silhouettes qui s'étreignent au bord d'un précipice sont devenues un symbole universel de l'amour et de la vulnérabilité.`
   },
-  'klimt-adele': {
-    description: `La décoration en feuille d'or et d'argent et les couleurs chatoyantes du 〈Portrait d'Adèle Bloch-Bauer I〉 ont été appliquées.
-Un choker en diamants et une robe dorée ornée de motifs géométriques créent un monde de décoration opulente.
+  'klimt-judith': {
+    description: `La décoration en feuille d'or et les couleurs sensuelles chatoyantes de 〈Judith〉 ont été appliquées.
+Du velours transparent et un manteau doré créent une expression contradictoire de pouvoir et de désir.
 
-〈Adèle〉 est l'apogée de la phase dorée de Klimt, un chef-d'œuvre achevé en quatre ans avec plus de 100 esquisses préparatoires.
-Inspirés des mosaïques byzantines, l'or et l'argent enveloppent tout, ne laissant que le visage et les mains dans un réalisme photographique.`
+〈Judith〉 est la guerrière de l'Ancien Testament qui a décapité Holopherne—mais Klimt l'a peinte non comme une héroïne, mais comme une femme fatale en extase.
+
+Les yeux mi-clos et l'expression des lèvres entrouvertes créent une ambiguïté entre plaisir et victoire qui est la marque distinctive de Klimt.`
   },
   'klimt-treeoflife': {
     description: `Les courbes spirales et les motifs décoratifs dorés de 〈L'Arbre de vie〉 ont été appliqués.

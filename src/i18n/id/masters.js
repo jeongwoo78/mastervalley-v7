@@ -26,7 +26,7 @@ export const mastersBasicInfo = {
       works: {
         'kiss': { subtitle1: 'Ciuman (The Kiss)', subtitle2: 'Ciuman abadi yang larut dalam emas' },
         'treeoflife': { subtitle1: 'Pohon Kehidupan (The Tree of Life)', subtitle2: 'Dahan emas menyanyikan lagu kehidupan' },
-        'adele': { subtitle1: 'Potret Adele Bloch-Bauer I', subtitle2: 'Potret yang diabadikan dalam emas' },
+        'judith': { subtitle1: 'Judith I', subtitle2: 'Antara yang sakral dan sensual, pesona emas' },
       }
     }, },
   'munch': { loading: { name: 'Edvard Munch (1863–1944)', subtitle1: 'Ekspresionisme · Norwegia', subtitle2: 'Melukis jeritan batin' },
@@ -191,12 +191,13 @@ Emas nyata bersinar di atas kanvas—Klimt mencampur teknik lukis tradisional de
 
 Dua figur yang saling memeluk di tepi tebing menjadi simbol universal cinta dan kerentanan.`
   },
-  'klimt-adele': {
-    description: `Dekorasi emas dan perak serta warna permata dari 〈Potret Adele Bloch-Bauer I〉 telah diterapkan.
-Kalung berlian dan gaun emas bermotif geometris menciptakan dunia dekorasi yang mewah.
+  'klimt-judith': {
+    description: `Dekorasi daun emas dan warna sensual permata dari 〈Judith〉 telah diterapkan.
+Velvet transparan dan jubah emas menciptakan ekspresi daya dan hasrat yang kontradiktif.
 
-〈Adele〉 adalah puncak fase emas Klimt, sebuah mahakarya yang diselesaikan selama empat tahun dengan lebih dari 100 sketsa persiapan.
-Terinspirasi mosaik Bizantium, emas dan perak menyelimuti segalanya, menyisakan hanya wajah dan tangan dalam realisme fotografis.`
+〈Judith〉 adalah pejuang Perjanjian Lama yang memenggal kepala Holofernes—namun Klimt melukisnya bukan sebagai pahlawan, melainkan sebagai femme fatale yang ekstatik.
+
+Mata setengah tertutup dan ekspresi bibir terbuka menciptakan ambiguitas antara kenikmatan dan kemenangan yang menjadi ciri khas Klimt.`
   },
   'klimt-treeoflife': {
     description: `Kurva spiral dan pola dekoratif emas dari 〈The Tree of Life〉 telah diterapkan.

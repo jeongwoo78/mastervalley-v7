@@ -489,7 +489,8 @@ const ResultScreen = ({
               styleId: result.style?.id || selectedStyle?.id || '',
               isRetransform: false,
               transformId: result.transformId || null,
-              savedAt: new Date(baseTime + i * 100).toISOString()
+              savedAt: new Date(baseTime + i * 100).toISOString(),
+              styleIndex: i
             });
           }
         }
@@ -589,7 +590,8 @@ const ResultScreen = ({
             workName,
             styleId: target.style?.id || '',
             isRetransform: false,
-            transformId: result.transformId || null
+            transformId: result.transformId || null,
+            styleIndex: targetIndex
           });
           hasSavedRef.current = true;  // useEffect 이중 저장 방지
         }
@@ -1322,10 +1324,34 @@ const ResultScreen = ({
           </div>
         )}
 
-        {/* 원클릭: viewIndex >= 0 → 실패 시 높이 유지 빈 영역 */}
+        {/* 원클릭: viewIndex >= 0 → 실패 시 (재시도 중이면 스피너, 아니면 빈 영역) */}
         {isFullTransform && viewIndex >= 0 && results[viewIndex] && !results[viewIndex].success && (
           <div className="oneclick-result-section">
-            <div className="oneclick-image" style={{ aspectRatio: '3/4' }}></div>
+            <div className="oneclick-image" style={{ aspectRatio: '3/4', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              {isRetrying ? (
+                <div style={{ textAlign: 'center' }}>
+                  <div className="spinner-medium"></div>
+                  <p style={{ color: 'rgba(255,255,255,0.6)', marginTop: '12px', fontSize: '14px' }}>{t.aiRetrying}</p>
+                </div>
+              ) : (
+                <div style={{ textAlign: 'center' }}>
+                  <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                    <circle cx="8.5" cy="8.5" r="1.5"/>
+                    <polyline points="21 15 16 10 5 21"/>
+                  </svg>
+                  <p style={{ color: 'rgba(255,255,255,0.5)', marginTop: '8px', fontSize: '13px' }}>{t.conversionFailed}</p>
+                  <button 
+                    className="btn-retry-inline"
+                    onClick={handleRetry}
+                    style={{ marginTop: '12px' }}
+                  >
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                    {t.retryAll || t.retry}
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         )}
 
@@ -1569,35 +1595,7 @@ const ResultScreen = ({
         )}
 
 
-        {/* v79: 원클릭 실패 시 이미지 영역 대체 */}
-        {isFullTransform && currentResult && !currentResult.success && viewIndex >= 0 && (
-          <div className="retry-section">
-            {isRetrying ? (
-              <div className="retry-placeholder">
-                <div className="spinner-medium"></div>
-                <p className="placeholder-text">{t.aiRetrying}</p>
-              </div>
-            ) : (
-              <div className="retry-placeholder">
-                <div className="placeholder-icon">
-                  <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.8)" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                    <circle cx="8.5" cy="8.5" r="1.5"/>
-                    <polyline points="21 15 16 10 5 21"/>
-                  </svg>
-                </div>
-                <p className="placeholder-text">{t.conversionFailed}</p>
-                <button 
-                  className="btn-retry-inline"
-                  onClick={handleRetry}
-                >
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
-                  {t.retryAll || t.retry}
-                </button>
-              </div>
-            )}
-          </div>
-        )}
+        {/* v79 retry-section → 이미지 영역에 통합됨 (화면 분리 방지) */}
 
         {/* 거장(AI) 대화 섹션 - 거장 카테고리 + 결과 화면일 때만 표시 */}
         {displayCategory === 'masters' && currentMasterKey && viewIndex >= 0 && (

@@ -24,12 +24,12 @@ export const mastersBasicInfo = {
     loading: { name: 'Gustav Klimt (1862–1918)', subtitle1: 'Art Nouveau · Avusturya', subtitle2: 'Yüzyıl sonu Viyana\'nın altın rüyası' },
     result: {
       name: 'Gustav Klimt (1862–1918)',
-      subtitle1: 'Öpücük · Adele · Hayat Ağacı',
+      subtitle1: 'Öpücük · Judith · Hayat Ağacı',
       subtitle2: 'Altın bir şehvet dünyası',
       works: {
         'kiss': { subtitle1: 'Öpücük (The Kiss)', subtitle2: 'Altında eriyen sonsuz bir öpücük' },
         'treeoflife': { subtitle1: 'Hayat Ağacı (The Tree of Life)', subtitle2: 'Altın dallar hayatın şarkısını söylüyor' },
-        'adele': { subtitle1: 'Adele Bloch-Bauer\'ın Portresi I', subtitle2: 'Altınla ölümsüzleşen bir portre' }
+        'judith': { subtitle1: 'Judith I (Judith I)', subtitle2: 'Kutsal ile şehvani arasında altın bir baştan çıkarma' }
       }
     }
   },
@@ -122,7 +122,7 @@ Van Gogh 37 yaşında hayata veda etti, ama sanatı Ekspresyonizm ve Fovizm\'i d
 "Kalbimi ve ruhumu işime koyuyorum." — Acıdan ölümsüz güzellik dokuyan ressam.` },
   'klimt': { name: 'Klimt', description: `Klimt, yüzyıl sonu Viyana\'sında Art Nouveau\'yu temsil eden sanatçıdır.
 Bir oymacının oğlu olarak tuval üzerine gerçek altın varak yapıştırdı, Bizans mozaiklerinden ilham alarak göz kamaştırıcı bir dekoratif dünya yarattı.
-Öpücük, Adele Bloch-Bauer\'ın Portresi ve Hayat Ağacı, şehvanilik ile kutsallığın bir arada yaşadığı altın başyapıtlardır.
+Öpücük, Judith ve Hayat Ağacı, şehvanilik ile kutsallığın bir arada yaşadığı altın başyapıtlardır.
 
 Klimt, Viyana Secession\'unu kurarak muhafazakâr sanat dünyasına meydan okudu.
 "Her çağın kendi sanatı, sanatın kendi özgürlüğü vardır." — Yüzyıl sonu güzelliğini altınla yakalayan ressam.` },
@@ -203,11 +203,11 @@ Altınla sarılmış âşıkların kucaklaşması aynı anda aşkın coşkusunu 
 
 Hayat Ağacı, Klimt\'in Brüksel\'deki Stoclet Sarayı yemek odası için yaptığı duvar resmidir.
 Sonsuzca uzanan sarmal dallar, doğum, ölüm ve yaşam döngüsünün metaforu.` },
-  'klimt-adele': { description: `Adele Bloch-Bauer\'ın Portresi I\'in altın ve gümüş varak dekorasyonu ve mücevher gibi renkleri uygulandı.
-Elmas gerdanlık ve geometrik motiflerle süslü altın elbise, görkemli bir süsleme dünyası yaratıyor.
+  'klimt-judith': { description: `Judith\'in altın varak dekorasyonu ve mücevher gibi şehvani renkleri uygulandı.
+Şeffaf peçe ve altın kolye, kutsal ile şehvani arasında bir gerilim yaratıyor.
 
-Adele, Klimt\'in altın döneminin zirvesi ve dört yıl boyunca 100\'den fazla eskizle tamamlanan bir şaheserdir.
-Bizans mozaiklerinden ilham alan altın ve gümüş varak her şeyi sarıyor, yalnızca yüz ve eller fotoğrafik bir gerçekçilikle bırakılıyor.` },
+Judith, Klimt\'in İncil\'deki kadın kahramanı şehvani bir kadın olarak yeniden yorumladığı eserdir.
+Yarı kapalı gözler ve kışkırtıcı gülümseme, geleneksel dini resmin ciddiyetini tamamen altüst ediyor.` },
 
   // ── Munch ──
   'munch-scream': { description: `Çığlık\'ın dalgalanan eğrileri ve çarpık biçimleri uygulandı.

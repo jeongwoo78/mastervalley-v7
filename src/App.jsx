@@ -230,7 +230,8 @@ const App = () => {
             styleId: data.selectedStyle?.id || '',
             isRetransform: false,
             transformId: id,
-            savedAt: new Date(baseTime + i * 100).toISOString()
+            savedAt: new Date(baseTime + i * 100).toISOString(),
+            styleIndex: i
           });
           if (saved) recovered++;
         }

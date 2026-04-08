@@ -21,12 +21,12 @@ export const mastersBasicInfo = {
   'klimt': { loading: { name: '古斯塔夫·克林姆 (1862–1918)', subtitle1: '新藝術 · 奧地利', subtitle2: '金色的官能世界' },
     result: {
       name: '古斯塔夫·克林姆 (1862–1918)',
-      subtitle1: '吻 · 阿黛爾 · 生命之樹',
+      subtitle1: '吻 · 乞蒂 · 生命之樹',
       subtitle2: '金色官能的世界',
       works: {
         'kiss': { subtitle1: '吻 (The Kiss)', subtitle2: '溶入金色的永恆之吻' },
         'treeoflife': { subtitle1: '生命之樹 (The Tree of Life)', subtitle2: '金色枝椏唱響生命之歌' },
-        'adele': { subtitle1: '阿黛爾·布洛赫-鮑爾肖像 I', subtitle2: '在黃金中永恆閃耀的肖像' },
+        'judith': { subtitle1: '乞蒂一世 (Judith I)', subtitle2: '在神聖與官能之間，金色誘惑' },
       }
     }, },
   'munch': { loading: { name: '愛德華·孟克 (1863–1944)', subtitle1: '表現主義 · 挪威', subtitle2: '畫下內心的吶喊' },
@@ -187,12 +187,13 @@ export const mastersResultEducation = {
 
 兩個相擁於懸崖邊的身影，已成為愛與脆弱的普世象徵。`
   },
-  'klimt-adele': {
-    description: `〈阿黛爾·布洛赫-鮑爾肖像 I〉的金銀箔裝飾與珠寶般的色彩已被應用。
-鑽石頸鏈與飾有幾何圖案的金色長裙，創造出一個華麗裝飾的世界。
+  'klimt-judith': {
+    description: `〈茱蒂絲〉的金箔裝飾與珠寶般的感官色彩已被應用。
+透明絲絨與金色外衣創造出權力與慾望矛盾並存的表達。
 
-〈阿黛爾〉是克林姆黃金時期的巔峰之作，歷時四年、經過100多幅素描才完成的傑作。
-受拜占庭馬賽克啟發，金箔與銀箔包裹一切，僅留下面部與雙手以寫實手法呈現。`
+〈茱蒂絲〉是舊約聖經中斬殺霍洛菲尼斯的女戰士——但克林姆描繪她不是英雄，而是狂喜的蛇蠍美人。
+
+半閉的眼睛與微啟的嘴唇表情，在快感與勝利之間創造出克林姆標誌性的曖昧。`
   },
   'klimt-treeoflife': {
     description: `〈生命之樹〉的螺旋曲線與金色裝飾圖案已被應用。

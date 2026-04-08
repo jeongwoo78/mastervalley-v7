@@ -16,7 +16,7 @@ export const oneclickMastersBasicInfo = {
   },
   'klimt': {
     name: 'グスタフ・クリムト（Gustav Klimt, 1862〜1918）',
-    subtitle1: '接吻 · アデーレ · 生命の樹',
+    subtitle1: '接吻 · ユディト · 生命の樹',
     subtitle2: '黄金色の官能の世界'
   },
   'munch': {

@@ -502,13 +502,30 @@ function getBrushstrokeSize(artist, styleId, category) {
 function convertToWorkKey(artistName, workTitle) {
   if (!artistName || !workTitle) return null;
   
-  // 작품명으로 직접 조회 (masterworks.js에서 관리)
-  const normalized = workTitle.toLowerCase().trim();
-  const directKey = masterworkNameMapping[normalized];
-  
+  // 1차: masterworkNameMapping 직접 조회
+  const normalizedWork = workTitle.toLowerCase().trim();
+  const directKey = masterworkNameMapping[normalizedWork];
   if (directKey) return directKey;
   
-  // 매핑에 없으면 null 반환 (fallback 처리는 호출하는 쪽에서)
+  // 2차: artist-aware nameEn 매칭
+  // artistName → artistKey 변환 (masterworkNameMapping에 대문자 키로 저장됨)
+  const normalizedArtist = artistName.toUpperCase().trim();
+  const artistKey = masterworkNameMapping[normalizedArtist];
+  if (artistKey) {
+    const masterworkList = getArtistMasterworkList(artistKey);
+    for (const workKey of masterworkList) {
+      const artwork = getPrompt(workKey);
+      if (!artwork || !artwork.nameEn) continue;
+      const nameEn = artwork.nameEn.toLowerCase().trim();
+      if (nameEn === normalizedWork || 
+          normalizedWork.includes(nameEn) || 
+          nameEn.includes(normalizedWork)) {
+        console.log(`✅ artist-aware 매칭: "${workTitle}" → ${workKey}`);
+        return workKey;
+      }
+    }
+  }
+  
   return null;
 }
 
