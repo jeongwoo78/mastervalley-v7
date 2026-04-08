@@ -3,7 +3,7 @@
 // 2콜 분리: 텍스트 분석 (화가 선택) + 이미지 생성 (변환)
 // 1콜 통합 대비 화풍 적용 강도 대폭 향상
 // ========================================
-// 모델: gemini-3.1-flash-image-preview (Nano Banana 2)
+// 모델: gemini-2.5-flash-image (Nano Banana)
 // 해상도: 1K (~1024px)
 // ========================================
 
@@ -193,7 +193,7 @@ function convertToWorkKey(artistName, workTitle) {
 // ========================================
 // 🚀 Gemini API 호출 (공통)
 // ========================================
-const GEMINI_MODEL = 'gemini-3.1-flash-image-preview';
+const GEMINI_MODEL = 'gemini-2.5-flash-image';
 const GEMINI_API_BASE = 'https://generativelanguage.googleapis.com/v1beta';
 const MAX_RETRIES = 3;
 
