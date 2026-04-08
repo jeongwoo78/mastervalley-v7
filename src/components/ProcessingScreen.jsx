@@ -42,6 +42,12 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
   const styles = isFullTransform ? (selectedStyle?.styles || []) : [];
   const totalCount = styles.length;
 
+  // 고위험 스타일 (예술적 누드 경고 대상)
+  const HIGH_RISK_STYLES = ['ancient', 'renaissance', 'baroque', 'neoclassicism', 'romanticism', 'realism', 'post-impressionism', 'expressionism', 'klimt', 'munch', 'gongbi'];
+  const isHighRisk = isFullTransform
+    ? styles.some(s => HIGH_RISK_STYLES.includes(s.id))
+    : HIGH_RISK_STYLES.includes(selectedStyle?.id);
+
   const startedRef = useRef(false);
   const completedCountRef = useRef(0);
   const phaseTimerRef = useRef(null);
@@ -454,6 +460,11 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
               </div>
             </div>
 
+            {/* 고위험 스타일 경고 (원클릭) */}
+            {isHighRisk && viewIndex === -1 && (
+              <p className="nude-warning">{tPhotoStyle.nudeWarningOneclick}</p>
+            )}
+
             {/* 1차: 스타일정보 + 교육 */}
             {viewIndex === -1 && showEducation && getPrimaryEducation() && (
               <>
@@ -536,6 +547,11 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
               </div>
             </div>
             
+            {/* 고위험 스타일 경고 */}
+            {isHighRisk && (
+              <p className="nude-warning">{tPhotoStyle.nudeWarningSingle}</p>
+            )}
+
             {/* 콘텐츠 - 진행바 아래 */}
             <div className="single-loading-content">
               <div className="single-loading-title">
@@ -578,6 +594,13 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           width: 100%;
           max-height: 90vh;
           overflow-y: auto;
+        }
+        .nude-warning {
+          color: rgba(230, 160, 140, 0.6);
+          font-size: 12px;
+          text-align: center;
+          margin: 12px 0 4px;
+          line-height: 1.4;
         }
         
         .status.oneclick {
