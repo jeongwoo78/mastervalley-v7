@@ -29,7 +29,7 @@ export const mastersBasicInfo = {
       works: {
         'kiss': { subtitle1: 'Öpücük (The Kiss)', subtitle2: 'Altında eriyen sonsuz bir öpücük' },
         'treeoflife': { subtitle1: 'Hayat Ağacı (The Tree of Life)', subtitle2: 'Altın dallar hayatın şarkısını söylüyor' },
-        'adele': { subtitle1: 'Adele Bloch-Bauer'ın Portresi I', subtitle2: 'Altınla ölümsüzleşen bir portre' }
+        'adele': { subtitle1: 'Adele Bloch-Bauer\'ın Portresi I', subtitle2: 'Altınla ölümsüzleşen bir portre' }
       }
     }
   },
@@ -122,7 +122,7 @@ Van Gogh 37 yaşında hayata veda etti, ama sanatı Ekspresyonizm ve Fovizm\'i d
 "Kalbimi ve ruhumu işime koyuyorum." — Acıdan ölümsüz güzellik dokuyan ressam.` },
   'klimt': { name: 'Klimt', description: `Klimt, yüzyıl sonu Viyana\'sında Art Nouveau\'yu temsil eden sanatçıdır.
 Bir oymacının oğlu olarak tuval üzerine gerçek altın varak yapıştırdı, Bizans mozaiklerinden ilham alarak göz kamaştırıcı bir dekoratif dünya yarattı.
-Öpücük, Adele Bloch-Bauer'ın Portresi ve Hayat Ağacı, şehvanilik ile kutsallığın bir arada yaşadığı altın başyapıtlardır.
+Öpücük, Adele Bloch-Bauer\'ın Portresi ve Hayat Ağacı, şehvanilik ile kutsallığın bir arada yaşadığı altın başyapıtlardır.
 
 Klimt, Viyana Secession\'unu kurarak muhafazakâr sanat dünyasına meydan okudu.
 "Her çağın kendi sanatı, sanatın kendi özgürlüğü vardır." — Yüzyıl sonu güzelliğini altınla yakalayan ressam.` },
