@@ -43,11 +43,18 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
   const totalCount = styles.length;
 
   // 고위험 스타일 (예술적 누드 경고 대상)
-  const HIGH_RISK_STYLES = ['ancient', 'renaissance', 'baroque', 'neoclassicism_vs_romanticism_vs_realism', 'postImpressionism', 'expressionism', 'klimt-master', 'munch-master', 'chinese'];
+  const isHighRiskStyle = (id) => {
+    if (!id) return false;
+    const riskMovements = ['ancient', 'renaissance', 'baroque', 'rococo', 'neoclassicism', 'impressionism', 'postImpressionism', 'expressionism'];
+    const riskMasters = ['klimt', 'munch'];
+    const riskOriental = ['chinese', 'gongbi'];
+    return riskMovements.some(r => id.includes(r)) ||
+           riskMasters.some(r => id.startsWith(r)) ||
+           riskOriental.some(r => id.includes(r));
+  };
   const isHighRisk = isFullTransform
-    ? styles.some(s => HIGH_RISK_STYLES.includes(s.id))
-    : HIGH_RISK_STYLES.includes(selectedStyle?.id);
-  console.log('🔍 NSFW check:', { id: selectedStyle?.id, category, isFullTransform, isHighRisk, stylesIds: styles.map(s => s.id) });
+    ? styles.some(s => isHighRiskStyle(s.id))
+    : isHighRiskStyle(selectedStyle?.id);
 
   const startedRef = useRef(false);
   const completedCountRef = useRef(0);
