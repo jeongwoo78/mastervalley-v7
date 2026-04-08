@@ -25,31 +25,29 @@ let lastAdminAlert = 0; // 스팸 방지 (1시간 간격)
 const HIGH_RISK_STYLES = [
   // 사조 (영문)
   'ancient', 'renaissance', 'baroque', 'rococo', 'impressionism',
-  'expressionism', 'fauvism', 'post-impressionism',
-  // 사조 (한국어 — 원클릭 사조에서 styleId가 한국어로 올 수 있음)
+  'expressionism', 'post-impressionism',
+  // 사조 (한국어)
   '고대', '르네상스', '바로크', '로코코', '인상주의',
-  '표현주의', '야수파', '후기인상주의',
+  '표현주의', '후기인상주의',
   // 거장
-  'klimt', 'klimt-master', 'munch', 'munch-master', 'matisse', 'matisse-master',
-  // 동양화 전체
-  'korean', 'chinese', 'japanese', 'indian', 'oriental',
-  'minhwa', 'pungsokdo', 'sansuhwa', 'gongbi', 'shuimohua', 'shanshui',
-  'ukiyoe', 'rinpa', 'meisho-e', 'bijin-ga', 'yakusha-e',
-  'mughal', 'rajput', 'pahari'
+  'klimt', 'klimt-master', 'munch', 'munch-master',
+  // 동양화 — 중국만 (한국/일본은 의상 변환으로 안전)
+  'chinese',
+  'shuimohua', 'gongbi'
 ];
 
 
 // ========================================
 // 고위험 여부 판단
 // ========================================
-function isHighRisk(style, gender) {
+export function isHighRisk(style, gender) {
   if (gender !== 'female') return false;
   
   const styleId = (style?.id || style?.name || '').toLowerCase();
   const category = (style?.category || '').toLowerCase();
   
-  // 동양화 카테고리 전체
-  if (category === 'oriental') return true;
+  // 중국 동양화만 체크 (한국/일본은 의상 변환으로 안전)
+  // category === 'oriental' 전체 체크 제거 → styleId로 개별 매칭
   
   return HIGH_RISK_STYLES.some(risk => styleId.includes(risk));
 }

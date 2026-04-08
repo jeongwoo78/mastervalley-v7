@@ -9,7 +9,7 @@ import { getFirestore, FieldValue } from 'firebase-admin/firestore';
 import { getMessaging } from 'firebase-admin/messaging';
 
 import { runTransform, runVisionAnalysis } from './transform-logic.js';
-import { checkAndFixNSFW, fixNSFWAsync } from './nsfw-check.js';
+import { checkAndFixNSFW, fixNSFWAsync, isHighRisk } from './nsfw-check.js';
 
 initializeApp();
 const db = getFirestore();
@@ -440,8 +440,11 @@ async function handleOneClick(req, res, params) {
   
   // v86: 배치 처리 — 동시 GPU 점유 제한 (다수 유저 동시 접속 대응)
   const BATCH_SIZE = 3;
+  const sessionStart = Date.now();
   const results = new Array(totalCount).fill(null);
+  const nsfwPending = []; // Phase 2용: 고위험 결과 수집
   
+  // ========== Phase 1: FLUX 변환만 (배치 순서대로) ==========
   for (let batchStart = 0; batchStart < totalCount; batchStart += BATCH_SIZE) {
     const batchEnd = Math.min(batchStart + BATCH_SIZE, totalCount);
     const batchIndices = [];
@@ -455,98 +458,45 @@ async function handleOneClick(req, res, params) {
         
         try {
           const result = await runTransform(image, style, null, true, visionData);
-          
-          // 🛡️ NSFW 출력 필터: 고위험+여성만 Falconsai 판정 → UNSAFE면 Gemini 수정
           const resultGender = result.debug?.vision?.gender || visionData?.gender || null;
-          const { resultUrl: finalUrl, wasFixed, nsfwResult } = await checkAndFixNSFW(result.resultUrl, tid, style, resultGender, true);
-          result.resultUrl = finalUrl;
           
-          // UNSAFE → Gemini 비동기 수정 (배치 블로킹 방지)
-          const isUnsafe = nsfwResult?.verdict === 'UNSAFE' && nsfwResult?.imageBuffer;
-          if (isUnsafe) {
-            const capturedDocRef = docRef;
-            const capturedTid = tid;
-            const capturedSessionRef = sessionRef;
-            // Firestore에 수정 중 상태 저장 (클라이언트에 안 보임)
+          // 고위험 여부 판단 — 고위험이면 Phase 2로 넘김
+          const needsNSFW = isHighRisk(style, resultGender);
+          
+          if (needsNSFW) {
+            // Phase 2용 수집 (Firestore는 아직 업데이트 안 함)
+            nsfwPending.push({ i, style, tid, docRef, result, resultGender });
+            console.log(`✅ 원클릭 [${i + 1}/${totalCount}] FLUX 완료 (NSFW 대기): ${tid} | ${result.selectedArtist || style.name}`);
+          } else {
+            // 저위험 → 바로 완료 처리
             await docRef.update({
-              status: 'nsfw_fixing',
-              selectedArtist: result.selectedArtist || null,
-              selectedWork: result.selectedWork || null,
-              updatedAt: FieldValue.serverTimestamp()
-            });
-            // Gemini 비동기 실행 — 배치 안 막음
-            fixNSFWAsync(nsfwResult.imageBuffer, capturedTid).then(async (fixedUrl) => {
-              await capturedDocRef.update({ 
-                status: 'completed', 
-                resultUrl: fixedUrl, 
-                nsfwFixed: true, 
-                completedAt: FieldValue.serverTimestamp(),
-                updatedAt: FieldValue.serverTimestamp() 
-              });
-              await capturedSessionRef.update({
-                completedCount: FieldValue.increment(1),
-                successCount: FieldValue.increment(1),
-                updatedAt: FieldValue.serverTimestamp()
-              });
-              console.log(`🛡️ NSFW 비동기 수정 완료: ${capturedTid}`);
-            }).catch(async (err) => {
-              // Gemini 실패 → 원본이라도 전달
-              await capturedDocRef.update({ 
-                status: 'completed', 
-                resultUrl: result.resultUrl,
-                completedAt: FieldValue.serverTimestamp(),
-                updatedAt: FieldValue.serverTimestamp() 
-              });
-              await capturedSessionRef.update({
-                completedCount: FieldValue.increment(1),
-                successCount: FieldValue.increment(1),
-                updatedAt: FieldValue.serverTimestamp()
-              });
-              console.warn(`⚠️ NSFW 비동기 수정 실패 (원본 전달): ${capturedTid} - ${err.message}`);
-            });
-            
-            console.log(`✅ 원클릭 [${i + 1}/${totalCount}] NSFW 수정 대기: ${tid} | ${result.selectedArtist || style.name}`);
-            
-            return {
-              transformId: tid,
-              styleIndex: i,
-              status: 'nsfw_fixing',
-              resultUrl: null,
+              status: 'completed',
+              resultUrl: result.resultUrl,
               selectedArtist: result.selectedArtist || null,
               selectedWork: result.selectedWork || null,
               selectionMethod: result.selectionMethod || null,
-              subjectType: result.subjectType || null
-            };
+              subjectType: result.subjectType || null,
+              isRetransform: false,
+              completedAt: FieldValue.serverTimestamp(),
+              updatedAt: FieldValue.serverTimestamp()
+            });
+            
+            completedCount++;
+            successCount++;
+            
+            await sessionRef.update({
+              completedCount: FieldValue.increment(1),
+              successCount: FieldValue.increment(1),
+              updatedAt: FieldValue.serverTimestamp()
+            });
+            
+            console.log(`✅ 원클릭 [${i + 1}/${totalCount}] 완료: ${tid} | ${result.selectedArtist || style.name}`);
           }
-          if (wasFixed) console.log(`🛡️ NSFW 수정 적용: ${tid}`);
-          
-          console.log(`✅ 원클릭 [${i + 1}/${totalCount}] 완료: ${tid} | ${result.selectedArtist || style.name}`);
-          
-          await docRef.update({
-            status: 'completed',
-            resultUrl: result.resultUrl,
-            selectedArtist: result.selectedArtist || null,
-            selectedWork: result.selectedWork || null,
-            selectionMethod: result.selectionMethod || null,
-            subjectType: result.subjectType || null,
-            isRetransform: false,
-            completedAt: FieldValue.serverTimestamp(),
-            updatedAt: FieldValue.serverTimestamp()
-          });
-          
-          completedCount++;
-          successCount++;
-          
-          await sessionRef.update({
-            completedCount: FieldValue.increment(1),
-            successCount: FieldValue.increment(1),
-            updatedAt: FieldValue.serverTimestamp()
-          });
           
           return {
             transformId: tid,
             styleIndex: i,
-            status: 'completed',
+            status: needsNSFW ? 'pending_nsfw' : 'completed',
             resultUrl: result.resultUrl,
             selectedArtist: result.selectedArtist || null,
             selectedWork: result.selectedWork || null,
@@ -580,12 +530,114 @@ async function handleOneClick(req, res, params) {
       })
     );
     
-    // 배치 결과를 전체 결과에 배치
     batchResults.forEach(r => { results[r.styleIndex] = r; });
     console.log(`📦 배치 ${Math.floor(batchStart / BATCH_SIZE) + 1}/${Math.ceil(totalCount / BATCH_SIZE)} 완료 (${completedCount}/${totalCount})`);
   }
   
-  console.log(`🏁 원클릭 세션 완료: ${sessionId} (${successCount}/${totalCount} 성공)`);
+  const fluxElapsed = ((Date.now() - sessionStart) / 1000).toFixed(1);
+  console.log(`⚡ Phase 1 FLUX 완료 (${fluxElapsed}초), NSFW 대기: ${nsfwPending.length}건`);
+  
+  // ========== Phase 2: NSFW 전부 동시 체크 ==========
+  if (nsfwPending.length > 0) {
+    const nsfwResults = await Promise.all(
+      nsfwPending.map(async ({ i, style, tid, docRef, result, resultGender }) => {
+        try {
+          const { resultUrl: finalUrl, wasFixed, nsfwResult } = await checkAndFixNSFW(result.resultUrl, tid, style, resultGender, true);
+          
+          // UNSAFE → Phase 3: Gemini 비동기 수정
+          if (nsfwResult?.verdict === 'UNSAFE' && nsfwResult?.imageBuffer) {
+            await docRef.update({
+              status: 'nsfw_fixing',
+              selectedArtist: result.selectedArtist || null,
+              selectedWork: result.selectedWork || null,
+              updatedAt: FieldValue.serverTimestamp()
+            });
+            
+            // Gemini 비동기 (안 기다림)
+            const capturedDocRef = docRef;
+            const capturedTid = tid;
+            const capturedSessionRef = sessionRef;
+            fixNSFWAsync(nsfwResult.imageBuffer, capturedTid).then(async (fixedUrl) => {
+              await capturedDocRef.update({ 
+                status: 'completed', resultUrl: fixedUrl, nsfwFixed: true,
+                completedAt: FieldValue.serverTimestamp(), updatedAt: FieldValue.serverTimestamp()
+              });
+              await capturedSessionRef.update({
+                completedCount: FieldValue.increment(1), successCount: FieldValue.increment(1),
+                updatedAt: FieldValue.serverTimestamp()
+              });
+              console.log(`🛡️ NSFW 비동기 수정 완료: ${capturedTid}`);
+            }).catch(async (err) => {
+              await capturedDocRef.update({ 
+                status: 'completed', resultUrl: result.resultUrl,
+                completedAt: FieldValue.serverTimestamp(), updatedAt: FieldValue.serverTimestamp()
+              });
+              await capturedSessionRef.update({
+                completedCount: FieldValue.increment(1), successCount: FieldValue.increment(1),
+                updatedAt: FieldValue.serverTimestamp()
+              });
+              console.warn(`⚠️ NSFW 비동기 수정 실패 (원본 전달): ${capturedTid} - ${err.message}`);
+            });
+            
+            console.log(`🛡️ 원클릭 [${i + 1}/${totalCount}] NSFW UNSAFE → Gemini 대기: ${tid}`);
+            results[i] = { ...results[i], status: 'nsfw_fixing', resultUrl: null };
+            return;
+          }
+          
+          // SAFE → 완료 처리
+          await docRef.update({
+            status: 'completed',
+            resultUrl: result.resultUrl,
+            selectedArtist: result.selectedArtist || null,
+            selectedWork: result.selectedWork || null,
+            selectionMethod: result.selectionMethod || null,
+            subjectType: result.subjectType || null,
+            isRetransform: false,
+            completedAt: FieldValue.serverTimestamp(),
+            updatedAt: FieldValue.serverTimestamp()
+          });
+          
+          completedCount++;
+          successCount++;
+          
+          await sessionRef.update({
+            completedCount: FieldValue.increment(1),
+            successCount: FieldValue.increment(1),
+            updatedAt: FieldValue.serverTimestamp()
+          });
+          
+          console.log(`✅ 원클릭 [${i + 1}/${totalCount}] NSFW SAFE 완료: ${tid} | ${result.selectedArtist || style.name}`);
+          results[i] = { ...results[i], status: 'completed' };
+          
+        } catch (err) {
+          // NSFW 체크 실패 → 원본 전달
+          console.warn(`⚠️ NSFW 체크 실패 (원본 전달): ${tid} - ${err.message}`);
+          await docRef.update({
+            status: 'completed',
+            resultUrl: result.resultUrl,
+            selectedArtist: result.selectedArtist || null,
+            selectedWork: result.selectedWork || null,
+            completedAt: FieldValue.serverTimestamp(),
+            updatedAt: FieldValue.serverTimestamp()
+          });
+          completedCount++;
+          successCount++;
+          await sessionRef.update({
+            completedCount: FieldValue.increment(1),
+            successCount: FieldValue.increment(1),
+            updatedAt: FieldValue.serverTimestamp()
+          });
+          results[i] = { ...results[i], status: 'completed' };
+        }
+      })
+    );
+    
+    const nsfwElapsed = ((Date.now() - sessionStart) / 1000).toFixed(1);
+    console.log(`🛡️ Phase 2 NSFW 완료 (${nsfwElapsed}초)`);
+  }
+  
+  const sessionElapsed = ((Date.now() - sessionStart) / 1000).toFixed(1);
+  console.log(`🏁 원클릭 세션 완료: ${sessionId} (${successCount}/${totalCount} 성공, ${sessionElapsed}초)`);
   
   // 💰 원클릭 세트 크레딧 차감 (1건 이상 성공 시)
   if (successCount >= 1) {
