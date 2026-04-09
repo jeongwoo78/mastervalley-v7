@@ -1379,7 +1379,7 @@ const ResultScreen = ({
 
         {/* 원클릭: 누드 경고 (교육자료 아래, 원본 화면에서만) */}
         {isFullTransform && isHighRisk && viewIndex === -1 && (
-          <p className="nude-warning">{tPhotoStyle.nudeWarningOneclick}</p>
+          <p className="nude-warning">〈 {tPhotoStyle.nudeWarningOneclick} 〉</p>
         )}
 
         {/* 원클릭: viewIndex >= 0 → 스타일정보 + 2차 교육 (단독변환과 동일 구조) */}
@@ -1514,18 +1514,18 @@ const ResultScreen = ({
           </div>
         )}
 
-        {/* 단독: viewIndex === -1 → 1차 교육 (스타일별) */}
+        {/* 단독: viewIndex === -1 → 1차 교육 (ProcessingScreen과 동일 구조) */}
         {!isFullTransform && viewIndex === -1 && getPrimaryEducation() && (
           <>
-            <div className="card-header" style={{ padding: '32px 0 0' }}>
-              <h2>
+            <div className="oneclick-style-info">
+              <h3>
                 {(() => {
                   const category = selectedStyle?.category;
                   const styleId = selectedStyle?.id;
                   const artistName = selectedStyle?.name;
                   return getStyleTitle(category, styleId, artistName, lang);
                 })()}
-              </h2>
+              </h3>
               {(() => {
                 const [sub1, sub2] = getStyleSubtitles(selectedStyle?.category, selectedStyle?.id, 'loading-single', null, null, selectedStyle?.name, lang);
                 return (
@@ -1536,15 +1536,15 @@ const ResultScreen = ({
                 );
               })()}
             </div>
-            <div className="technique-explanation" style={{ padding: '0 0 8px' }}>
-              <p>{getPrimaryEducation().content || getPrimaryEducation().desc}</p>
+            <div className="oneclick-edu-content">
+              {getPrimaryEducation().content || getPrimaryEducation().desc}
             </div>
           </>
         )}
 
         {/* 단독: 누드 경고 (교육자료 아래, 원본 화면에서만) */}
         {!isFullTransform && isHighRisk && viewIndex === -1 && (
-          <p className="nude-warning">{tPhotoStyle.nudeWarningSingle}</p>
+          <p className="nude-warning">〈 {tPhotoStyle.nudeWarningSingle} 〉</p>
         )}
 
         {/* Toggle Button - 단독 변환 거장(masters)만 표시 (목업 준수) */}
@@ -1848,6 +1848,40 @@ const ResultScreen = ({
 
         /* ===== 단독변환: v87에서 원클릭과 동일 구조로 통일 (ba-section 제거) ===== */
 
+        /* 단독 원본 화면용 (ProcessingScreen과 동일) */
+        .oneclick-style-info {
+          width: 100%;
+          max-width: 340px;
+          text-align: center;
+          margin: 32px auto 12px;
+        }
+        .oneclick-style-info h3 {
+          font-size: 17px;
+          font-weight: 700;
+          color: #fff;
+          margin: 0 0 6px;
+        }
+        .oneclick-style-info .subtitle1 {
+          font-size: 14px;
+          color: rgba(255,255,255,0.8);
+          margin-bottom: 4px;
+        }
+        .oneclick-style-info .subtitle2 {
+          font-size: 12px;
+          color: rgba(255,255,255,0.4);
+          margin-bottom: 12px;
+        }
+        .oneclick-edu-content {
+          width: 100%;
+          max-width: 340px;
+          font-size: 13px;
+          color: rgba(255,255,255,0.6);
+          line-height: 1.8;
+          text-align: start;
+          white-space: pre-line;
+          margin: 0 auto;
+        }
+
         .comparison-wrapper {
           background: none;
           padding: 0;
@@ -1873,7 +1907,7 @@ const ResultScreen = ({
           color: rgba(255,255,255,0.2);
           padding: 4px 8px;
           border-radius: 0;
-          font-size: 11px;
+          font-size: 12px;
           font-weight: 400;
           cursor: pointer;
           transition: color 0.2s;
@@ -2266,10 +2300,13 @@ const ResultScreen = ({
 
         /* 누드 경고 */
         .nude-warning {
-          text-align: center;
+          text-align: left;
           font-size: 12px;
+          font-style: italic;
           color: rgba(255, 255, 255, 0.5);
-          margin: 8px auto 0;
+          margin: 20px auto 0;
+          padding-top: 12px;
+          border-top: 1px solid rgba(255, 255, 255, 0.08);
           max-width: 340px;
           line-height: 1.4;
         }
@@ -2291,7 +2328,7 @@ const ResultScreen = ({
           color: rgba(255,255,255,0.6);
           padding: 6px 10px;
           border-radius: 12px;
-          font-size: 11px;
+          font-size: 12px;
           cursor: pointer;
         }
         .nav-btn:disabled {
@@ -2327,7 +2364,7 @@ const ResultScreen = ({
           width: auto;
           height: auto;
           background: none;
-          font-size: 11px;
+          font-size: 12px;
           display: flex;
           align-items: center;
           justify-content: center;

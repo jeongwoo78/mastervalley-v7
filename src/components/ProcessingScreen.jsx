@@ -470,7 +470,7 @@ const ProcessingScreen = ({ photo, originalPhotoUrl, selectedStyle, onComplete, 
 
             {/* 고위험 스타일 경고 (원클릭) */}
             {isHighRisk && viewIndex === -1 && (
-              <p className="nude-warning">{tPhotoStyle.nudeWarningOneclick}</p>
+              <p className="nude-warning">〈 {tPhotoStyle.nudeWarningOneclick} 〉</p>
             )}
 
             {/* 1차: 스타일정보 + 교육 */}
@@ -582,7 +582,7 @@ const ProcessingScreen = ({ photo, originalPhotoUrl, selectedStyle, onComplete, 
 
             {/* 고위험 스타일 경고 (교육자료 아래) */}
             {isHighRisk && (
-              <p className="nude-warning">{tPhotoStyle.nudeWarningSingle}</p>
+              <p className="nude-warning">〈 {tPhotoStyle.nudeWarningSingle} 〉</p>
             )}
           </>
         )}
@@ -609,8 +609,11 @@ const ProcessingScreen = ({ photo, originalPhotoUrl, selectedStyle, onComplete, 
         .nude-warning {
           color: rgba(255, 255, 255, 0.5);
           font-size: 12px;
+          font-style: italic;
           text-align: left;
-          margin: 12px 0 4px;
+          margin: 20px 0 4px;
+          padding-top: 12px;
+          border-top: 1px solid rgba(255, 255, 255, 0.08);
           line-height: 1.4;
         }
         
@@ -716,7 +719,7 @@ const ProcessingScreen = ({ photo, originalPhotoUrl, selectedStyle, onComplete, 
           gap: 0;
         }
         .progress-left {
-          font-size: 11px;
+          font-size: 12px;
           color: rgba(255,255,255,0.4);
           white-space: nowrap;
         }
@@ -724,7 +727,7 @@ const ProcessingScreen = ({ photo, originalPhotoUrl, selectedStyle, onComplete, 
           display: flex;
           align-items: center;
           gap: 6px;
-          font-size: 11px;
+          font-size: 12px;
           color: rgba(255,255,255,0.4);
           white-space: nowrap;
           overflow: hidden;
@@ -733,7 +736,7 @@ const ProcessingScreen = ({ photo, originalPhotoUrl, selectedStyle, onComplete, 
         .progress-status p {
           margin: 0;
           color: rgba(255,255,255,0.4);
-          font-size: 11px;
+          font-size: 12px;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -865,7 +868,7 @@ const ProcessingScreen = ({ photo, originalPhotoUrl, selectedStyle, onComplete, 
           width: auto;
           height: auto;
           background: none;
-          font-size: 11px;
+          font-size: 12px;
           display: flex;
           align-items: center;
           justify-content: center;
