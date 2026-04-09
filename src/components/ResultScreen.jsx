@@ -1377,6 +1377,11 @@ const ResultScreen = ({
           </>
         )}
 
+        {/* 원클릭: 누드 경고 (교육자료 아래, 원본 화면에서만) */}
+        {isFullTransform && isHighRisk && viewIndex === -1 && (
+          <p className="nude-warning">{tPhotoStyle.nudeWarningOneclick}</p>
+        )}
+
         {/* 원클릭: viewIndex >= 0 → 스타일정보 + 2차 교육 (단독변환과 동일 구조) */}
         {isFullTransform && viewIndex >= 0 && results[viewIndex] && (
           <div className="technique-card">
