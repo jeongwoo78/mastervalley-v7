@@ -44,14 +44,11 @@ const getAllImages = async () => {
       
       request.onerror = () => reject(request.error);
       request.onsuccess = () => {
-        // 1차: 분 단위 세션 그룹 → 2차: styleIndex 순
+        // 1차: createdAt 내림차순 (원클릭은 100ms 간격으로 savedAt 부여)
         const items = request.result.sort((a, b) => {
-          const aMin = a.createdAt?.slice(0, 16) || '';
-          const bMin = b.createdAt?.slice(0, 16) || '';
-          if (aMin !== bMin) return bMin.localeCompare(aMin);
-          const aIdx = a.styleIndex ?? 999;
-          const bIdx = b.styleIndex ?? 999;
-          return bIdx - aIdx;
+          const aTime = a.createdAt || '';
+          const bTime = b.createdAt || '';
+          return bTime.localeCompare(aTime);
         });
         resolve(items);
       };
