@@ -1509,11 +1509,6 @@ const ResultScreen = ({
           </div>
         )}
 
-        {/* 단독: 누드 경고 (원본 화면에서만) */}
-        {!isFullTransform && isHighRisk && viewIndex === -1 && (
-          <p className="nude-warning">{tPhotoStyle.nudeWarningSingle}</p>
-        )}
-
         {/* 단독: viewIndex === -1 → 1차 교육 (스타일별) */}
         {!isFullTransform && viewIndex === -1 && getPrimaryEducation() && (
           <>
@@ -1540,6 +1535,11 @@ const ResultScreen = ({
               <p>{getPrimaryEducation().content || getPrimaryEducation().desc}</p>
             </div>
           </>
+        )}
+
+        {/* 단독: 누드 경고 (교육자료 아래, 원본 화면에서만) */}
+        {!isFullTransform && isHighRisk && viewIndex === -1 && (
+          <p className="nude-warning">{tPhotoStyle.nudeWarningSingle}</p>
         )}
 
         {/* Toggle Button - 단독 변환 거장(masters)만 표시 (목업 준수) */}
@@ -2263,7 +2263,7 @@ const ResultScreen = ({
         .nude-warning {
           text-align: center;
           font-size: 12px;
-          color: rgba(230, 160, 140, 0.6);
+          color: rgba(255, 255, 255, 0.5);
           margin: 8px auto 0;
           max-width: 340px;
           line-height: 1.4;

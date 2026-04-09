@@ -559,11 +559,6 @@ const ProcessingScreen = ({ photo, originalPhotoUrl, selectedStyle, onComplete, 
               </div>
             </div>
 
-            {/* 고위험 스타일 경고 */}
-            {isHighRisk && (
-              <p className="nude-warning">{tPhotoStyle.nudeWarningSingle}</p>
-            )}
-
             {/* 스타일 정보 + 교육 (원클릭과 동일 클래스) */}
             <div className="oneclick-style-info">
               <h3>
@@ -583,6 +578,11 @@ const ProcessingScreen = ({ photo, originalPhotoUrl, selectedStyle, onComplete, 
               <div className="oneclick-edu-content">
                 {getSingleEducationContent(selectedStyle).desc}
               </div>
+            )}
+
+            {/* 고위험 스타일 경고 (교육자료 아래) */}
+            {isHighRisk && (
+              <p className="nude-warning">{tPhotoStyle.nudeWarningSingle}</p>
             )}
           </>
         )}
@@ -607,7 +607,7 @@ const ProcessingScreen = ({ photo, originalPhotoUrl, selectedStyle, onComplete, 
           overflow-y: auto;
         }
         .nude-warning {
-          color: rgba(230, 160, 140, 0.6);
+          color: rgba(255, 255, 255, 0.5);
           font-size: 12px;
           text-align: left;
           margin: 12px 0 4px;
