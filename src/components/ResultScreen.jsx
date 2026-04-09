@@ -1,4 +1,5 @@
 // PicoArt v75 - ResultScreen (모바일 공유/저장 지원)
+// v87: 단독변환 원클릭 구조 통일 (스와이프, 동일 CSS, originalPhotoUrl App.jsx 원천 생성)
 // v75: Original 이미지 깜빡임 버그 수정 (originalPhotoUrl state 캐싱)
 // v74: Capacitor Share/Filesystem 네이티브 API 지원
 // v72: Original+1차교육 ↔ 결과+2차교육 스와이프
@@ -7,7 +8,7 @@
 
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { App as CapApp } from '@capacitor/app';
-import BeforeAfter from './BeforeAfter';
+// v87: BeforeAfter 제거 (단독변환도 원클릭 구조로 통일)
 import MasterChat from './MasterChat';
 // v77: i18n 구조에서 교육 데이터 가져오기
 import { 
@@ -43,6 +44,7 @@ import ImageZoomViewer from './ImageZoomViewer';
 
 const ResultScreen = ({ 
   originalPhoto, 
+  originalPhotoUrl: appOriginalPhotoUrl,
   photoPreviewBase64,
   resultImage, 
   selectedStyle, 
@@ -116,54 +118,23 @@ const ResultScreen = ({
   const [showModalSaveShare, setShowModalSaveShare] = useState(false);
   const [modalTouchStartX, setModalTouchStartX] = useState(0);
   
-  // v86: Before 이미지 3중 방어
-  // 1단계: URL.createObjectURL → 즉시 표시 (동기식)
-  // 2단계: FileReader → base64로 교체 (Blob URL 만료 대비)
-  // 3단계: photoPreviewBase64 fallback (File 객체 무효화 대비)
-  const [originalPhotoUrl, setOriginalPhotoUrl] = useState(null);
-  
-  useEffect(() => {
-    // File 객체가 없으면 base64 fallback 사용
-    if (!originalPhoto) {
-      setOriginalPhotoUrl(photoPreviewBase64 || null);
-      return;
-    }
-    
-    // 1단계: Blob URL 즉시 생성 (동기식 → 검은 화면 0초)
-    let blobUrl = null;
-    try {
-      blobUrl = URL.createObjectURL(originalPhoto);
-      setOriginalPhotoUrl(blobUrl);
-    } catch (e) {
-      console.warn('Blob URL 생성 실패, base64 fallback 사용');
-      if (photoPreviewBase64) setOriginalPhotoUrl(photoPreviewBase64);
-    }
-    
-    // 2단계: FileReader로 base64 변환 (백그라운드, Blob URL 만료 대비)
-    let isCancel = false;
-    const reader = new FileReader();
-    reader.onload = () => {
-      if (!isCancel && reader.result) {
-        setOriginalPhotoUrl(reader.result);
-        if (blobUrl) URL.revokeObjectURL(blobUrl);
-        blobUrl = null;
-      }
-    };
-    reader.onerror = () => {
-      console.warn('FileReader 실패');
-      // Blob URL도 실패했으면 base64 fallback
-      if (!blobUrl && photoPreviewBase64) {
-        setOriginalPhotoUrl(photoPreviewBase64);
-      }
-    };
-    reader.readAsDataURL(originalPhoto);
-    
-    return () => {
-      isCancel = true;
-      if (reader.readyState === 1) reader.abort();
-      if (blobUrl) URL.revokeObjectURL(blobUrl);
-    };
-  }, [originalPhoto, photoPreviewBase64]);
+  // v87: originalPhotoUrl은 App.jsx에서 하이브리드 방식으로 생성하여 prop으로 전달
+  // 깜빡임 + Blob URL 만료 원천 차단
+  const originalPhotoUrl = appOriginalPhotoUrl || photoPreviewBase64 || null;
+
+  // v87: 고위험 스타일 (누드 경고)
+  const isHighRiskStyle = (id) => {
+    if (!id) return false;
+    const riskMovements = ['ancient', 'renaissance', 'baroque', 'rococo', 'neoclassicism', 'impressionism', 'postImpressionism', 'expressionism'];
+    const riskMasters = ['klimt', 'munch'];
+    const riskOriental = ['chinese', 'gongbi'];
+    return riskMovements.some(r => id.includes(r)) ||
+           riskMasters.some(r => id.startsWith(r)) ||
+           riskOriental.some(r => id.includes(r));
+  };
+  const isHighRisk = isFullTransform
+    ? results.some(r => isHighRiskStyle(r?.style?.id))
+    : isHighRiskStyle(selectedStyle?.id);
 
   // 안드로이드 뒤로가기 — 단계별 닫기 (저장/공유메뉴 → 모달 → 결과화면 나가기)
   useEffect(() => {
@@ -1471,48 +1442,98 @@ const ResultScreen = ({
           </div>
         )}
 
-        {/* v81: 단독 변환 원본 탭 제거 (죽은 코드) - 스와이프 없어서 viewIndex === -1 도달 불가 */}
+        {/* v87: 단독 변환 — 원클릭과 동일 구조 (스와이프 -1:원본, 0:결과) */}
+        {/* 단독: viewIndex === -1 → Original 이미지 + 1차 교육 */}
+        {!isFullTransform && viewIndex === -1 && getPrimaryEducation() && (
+          <div className="preview-card">
+            <img src={originalPhotoUrl} alt="Original 사진" className="preview-image" />
+          </div>
+        )}
+
+        {/* 단독: viewIndex === 0 → 결과 이미지 */}
         {!isFullTransform && viewIndex >= 0 && finalDisplayImage && (
-          <div className="single-result-section">
-            <div className="ba-section">
-              <div className="ba-image">
-                <img src={originalPhotoUrl} alt="Before" />
-              </div>
-              <div className="ba-image" onClick={() => setShowImageModal(true)} style={{ cursor: 'pointer' }}>
-                <img src={finalDisplayImage} alt="After" />
-              </div>
+          <div className="oneclick-result-section">
+            <div className="oneclick-image" onClick={() => setShowImageModal(true)} style={{ cursor: 'pointer' }}>
+              <img src={finalDisplayImage} alt="Result" />
             </div>
           </div>
         )}
 
-        {/* v79: 단독변환 실패 시 이미지 영역 대체 */}
-        {!isFullTransform && (!finalDisplayImage || isRetrying) && (
-          <div className="retry-section">
-            {isRetrying ? (
-              <div className="retry-placeholder">
-                <div className="spinner-medium"></div>
-                <p className="placeholder-text">{t.aiRetrying}</p>
-              </div>
-            ) : (
-              <div className="retry-placeholder">
-                <div className="placeholder-icon">
-                  <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.8)" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+        {/* 단독: 실패/재시도 */}
+        {!isFullTransform && viewIndex >= 0 && (!finalDisplayImage || isRetrying) && (
+          <div className="oneclick-result-section">
+            <div className="oneclick-image" style={{ aspectRatio: '3/4', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              {isRetrying ? (
+                <div style={{ textAlign: 'center' }}>
+                  <div className="spinner-medium"></div>
+                  <p style={{ color: 'rgba(255,255,255,0.6)', marginTop: '12px', fontSize: '14px' }}>{t.aiRetrying}</p>
+                </div>
+              ) : (
+                <div style={{ textAlign: 'center' }}>
+                  <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
                     <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
                     <circle cx="8.5" cy="8.5" r="1.5"/>
                     <polyline points="21 15 16 10 5 21"/>
                   </svg>
+                  <p style={{ color: 'rgba(255,255,255,0.5)', marginTop: '8px', fontSize: '13px' }}>{t.conversionFailed}</p>
+                  <button 
+                    className="btn-retry-inline"
+                    onClick={handleSingleModeRetry}
+                    style={{ marginTop: '12px' }}
+                  >
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                    {t.retry}
+                  </button>
                 </div>
-                <p className="placeholder-text">{t.conversionFailed}</p>
-                <button 
-                  className="btn-retry-inline"
-                  onClick={handleSingleModeRetry}
-                >
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
-                  {t.retry}
-                </button>
-              </div>
-            )}
+              )}
+            </div>
           </div>
+        )}
+
+        {/* 단독: 도트 네비게이션 (원클릭과 동일) */}
+        {!isFullTransform && (
+          <div className="fullTransform-nav">
+            <button className={`dot edu ${viewIndex === -1 ? 'active' : ''}`} onClick={() => setViewIndex(-1)}>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+            </button>
+            <button 
+              className={`dot ${finalDisplayImage ? 'done' : ''} ${viewIndex === 0 ? 'active' : ''}`}
+              onClick={() => setViewIndex(0)}
+            />
+          </div>
+        )}
+
+        {/* 단독: 누드 경고 (원본 화면에서만) */}
+        {!isFullTransform && isHighRisk && viewIndex === -1 && (
+          <p className="nude-warning">{tPhotoStyle.nudeWarningSingle}</p>
+        )}
+
+        {/* 단독: viewIndex === -1 → 1차 교육 (스타일별) */}
+        {!isFullTransform && viewIndex === -1 && getPrimaryEducation() && (
+          <>
+            <div className="card-header" style={{ padding: '32px 0 0' }}>
+              <h2>
+                {(() => {
+                  const category = selectedStyle?.category;
+                  const styleId = selectedStyle?.id;
+                  const artistName = selectedStyle?.name;
+                  return getStyleTitle(category, styleId, artistName, lang);
+                })()}
+              </h2>
+              {(() => {
+                const [sub1, sub2] = getStyleSubtitles(selectedStyle?.category, selectedStyle?.id, 'loading-single', null, null, selectedStyle?.name, lang);
+                return (
+                  <>
+                    {sub1 && <div className="subtitle1">{sub1}</div>}
+                    {sub2 && <div className="subtitle2">{sub2}</div>}
+                  </>
+                );
+              })()}
+            </div>
+            <div className="technique-explanation" style={{ padding: '0 0 8px' }}>
+              <p>{getPrimaryEducation().content}</p>
+            </div>
+          </>
         )}
 
         {/* Toggle Button - 단독 변환 거장(masters)만 표시 (목업 준수) */}
@@ -1812,32 +1833,7 @@ const ResultScreen = ({
           object-fit: cover;
         }
 
-        /* ===== 단독변환 결과 (목업 06-result-single.html 준수) ===== */
-        .single-result-section {
-          width: 100%;
-          max-width: 340px;
-          margin: 0 auto 16px;
-        }
-
-        .ba-section {
-          margin-bottom: 16px;
-        }
-
-        .ba-section .ba-image {
-          width: 100%;
-          aspect-ratio: 6 / 5;
-          margin-bottom: 10px;
-          background: #1a2a2f;
-          border-radius: 12px;
-          overflow: hidden;
-          box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-
-        .ba-section .ba-image img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
+        /* ===== 단독변환: v87에서 원클릭과 동일 구조로 통일 (ba-section 제거) ===== */
 
         .comparison-wrapper {
           background: none;
@@ -2253,6 +2249,16 @@ const ResultScreen = ({
           .card-header h2 {
             font-size: 1.25rem;
           }
+        }
+
+        /* 누드 경고 */
+        .nude-warning {
+          text-align: center;
+          font-size: 12px;
+          color: rgba(230, 160, 140, 0.6);
+          margin: 8px auto 0;
+          max-width: 340px;
+          line-height: 1.4;
         }
 
         /* 원클릭 네비게이션 */

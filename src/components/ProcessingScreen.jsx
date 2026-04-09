@@ -17,7 +17,7 @@ import {
 import { normalizeKey, getDisplayInfo, getArtistName, getMovementDisplayInfo, getOrientalDisplayInfo, getMasterInfo, getCategoryIcon, getStyleIcon, getStyleTitle, getStyleSubtitle, getStyleSubtitles } from '../utils/displayConfig';
 import { getEducationKey, getEducationContent } from '../utils/educationMatcher';
 
-const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => {
+const ProcessingScreen = ({ photo, originalPhotoUrl, selectedStyle, onComplete, lang = 'en' }) => {
   const t = getUi(lang).processing;
   const tPhotoStyle = getUi(lang).photoStyle;
   
@@ -400,7 +400,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
             {viewIndex === -1 && showEducation && getPrimaryEducation() && (
               <div className="oneclick-preview">
                 <div className="img-placeholder">
-                  <img src={URL.createObjectURL(photo)} alt="Original" />
+                  <img src={originalPhotoUrl} alt="Original" />
                 </div>
               </div>
             )}
@@ -538,13 +538,17 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         )}
 
         {/* ===== 단일 변환 모드 (이모지 → 진행바 → 제목 → 교육) ===== */}
+        {/* v87: 단독 변환 — 원클릭과 동일 구조 (원본사진 + 진행바 + 교육) */}
         {!isFullTransform && showEducation && (
-          <div className="single-loading-container">
-            <div className="single-loading-icon">
-              {getStyleIcon(selectedStyle?.category, selectedStyle?.id, selectedStyle?.name)}
+          <>
+            {/* 원본 사진 (원클릭과 동일 스타일) */}
+            <div className="oneclick-preview">
+              <div className="img-placeholder">
+                <img src={originalPhotoUrl} alt="Original" />
+              </div>
             </div>
-            
-            {/* 진행바 - 이모지 바로 아래 */}
+
+            {/* 진행바 */}
             <div className="progress-section">
               <div className="progress-status">
                 <div className="spinner"></div>
@@ -554,34 +558,33 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
                 <div className="progress-fill single-anim"></div>
               </div>
             </div>
-            
+
             {/* 고위험 스타일 경고 */}
             {isHighRisk && (
               <p className="nude-warning">{tPhotoStyle.nudeWarningSingle}</p>
             )}
 
-            {/* 콘텐츠 - 진행바 아래 */}
-            <div className="single-loading-content">
-              <div className="single-loading-title">
+            {/* 스타일 정보 + 교육 (원클릭 viewIndex -1과 동일 구조) */}
+            <div className="card-header" style={{ padding: '16px 0 0' }}>
+              <h2 style={{ fontSize: '16px', fontWeight: '700', color: '#fff', margin: '0 0 4px' }}>
                 {getStyleTitle(selectedStyle?.category, selectedStyle?.id, selectedStyle?.name, lang)}
-              </div>
+              </h2>
               {(() => {
                 const [sub1, sub2] = getStyleSubtitles(selectedStyle?.category, selectedStyle?.id, 'loading-single', null, null, selectedStyle?.name, lang);
                 return (
                   <>
-                    {sub1 && <div className="single-loading-subtitle">{sub1}</div>}
-                    {sub2 && <div className="single-loading-subtitle sub2">{sub2}</div>}
+                    {sub1 && <div className="subtitle1" style={{ fontSize: '13px', color: 'rgba(255,255,255,0.7)', margin: '0 0 2px' }}>{sub1}</div>}
+                    {sub2 && <div className="subtitle2" style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)' }}>{sub2}</div>}
                   </>
                 );
               })()}
-              
-              {getSingleEducationContent(selectedStyle) && (
-                <div className="single-loading-edu">
-                  <p>{getSingleEducationContent(selectedStyle).desc}</p>
-                </div>
-              )}
             </div>
-          </div>
+            {getSingleEducationContent(selectedStyle) && (
+              <div className="technique-explanation" style={{ padding: '8px 0' }}>
+                <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.75)', lineHeight: '1.6' }}>{getSingleEducationContent(selectedStyle).desc}</p>
+              </div>
+            )}
+          </>
         )}
       </div>
 
@@ -701,10 +704,6 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
           margin-top: 4px;
           padding: 0;
         }
-        .single-loading-container .progress-section {
-          margin-top: 0;
-          padding: 0;
-        }
         .progress-status {
           display: flex;
           align-items: center;
@@ -787,63 +786,7 @@ const ProcessingScreen = ({ photo, selectedStyle, onComplete, lang = 'en' }) => 
         .hint { color: rgba(255,255,255,0.4); font-size: 12px; text-align: center; margin-top: 12px !important; }
         
         /* 단독 로딩 화면 (flexbox 레이아웃) */
-        .single-loading-container {
-          width: 100%;
-          min-height: 80vh;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
-        .single-loading-icon {
-          margin-top: 25vh;
-          font-size: 56px;
-          margin-bottom: 4px;
-        }
-        .single-loading-content {
-          width: 100%;
-          max-width: 340px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          margin-top: 32px;
-        }
-        .single-loading-title {
-          width: 100%;
-          max-width: 340px;
-          font-size: 15px;
-          font-weight: 700;
-          color: #fff;
-          margin-bottom: 6px;
-          text-align: center;
-        }
-        .single-loading-subtitle {
-          width: 100%;
-          max-width: 340px;
-          font-size: 13px;
-          color: rgba(255,255,255,0.6);
-          margin-bottom: 4px;
-          text-align: center;
-        }
-        .single-loading-subtitle.sub2 {
-          font-size: 12px;
-          color: rgba(255,255,255,0.4);
-          margin-bottom: 20px;
-        }
-        .single-loading-edu {
-          width: 100%;
-          max-width: 340px;
-          text-align: start;
-        }
-        .single-loading-edu p {
-          color: rgba(255,255,255,0.6);
-          line-height: 1.8;
-          font-size: 13px;
-          margin: 0 0 12px;
-          white-space: pre-line;
-        }
-        .single-loading-edu p:last-child {
-          margin-bottom: 0;
-        }
+        /* v87: single-loading CSS 제거 (원클릭과 동일 구조로 통일) */
         
         /* 단독 변환: 프로그레스바 애니메이션 (진행률 모름) */
         .progress-fill.single-anim {
