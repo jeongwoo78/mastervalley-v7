@@ -564,24 +564,24 @@ const ProcessingScreen = ({ photo, originalPhotoUrl, selectedStyle, onComplete, 
               <p className="nude-warning">{tPhotoStyle.nudeWarningSingle}</p>
             )}
 
-            {/* 스타일 정보 + 교육 (원클릭 viewIndex -1과 동일 구조) */}
-            <div className="card-header" style={{ padding: '16px 0 0' }}>
-              <h2 style={{ fontSize: '16px', fontWeight: '700', color: '#fff', margin: '0 0 4px' }}>
+            {/* 스타일 정보 + 교육 (원클릭과 동일 클래스) */}
+            <div className="oneclick-style-info">
+              <h3>
                 {getStyleTitle(selectedStyle?.category, selectedStyle?.id, selectedStyle?.name, lang)}
-              </h2>
+              </h3>
               {(() => {
                 const [sub1, sub2] = getStyleSubtitles(selectedStyle?.category, selectedStyle?.id, 'loading-single', null, null, selectedStyle?.name, lang);
                 return (
                   <>
-                    {sub1 && <div className="subtitle1" style={{ fontSize: '13px', color: 'rgba(255,255,255,0.7)', margin: '0 0 2px' }}>{sub1}</div>}
-                    {sub2 && <div className="subtitle2" style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)' }}>{sub2}</div>}
+                    {sub1 && <div className="subtitle1">{sub1}</div>}
+                    {sub2 && <div className="subtitle2">{sub2}</div>}
                   </>
                 );
               })()}
             </div>
             {getSingleEducationContent(selectedStyle) && (
-              <div className="technique-explanation" style={{ padding: '8px 0' }}>
-                <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.75)', lineHeight: '1.6' }}>{getSingleEducationContent(selectedStyle).desc}</p>
+              <div className="oneclick-edu-content">
+                {getSingleEducationContent(selectedStyle).desc}
               </div>
             )}
           </>

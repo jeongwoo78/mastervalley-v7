@@ -1490,16 +1490,22 @@ const ResultScreen = ({
           </div>
         )}
 
-        {/* 단독: 도트 네비게이션 (원클릭과 동일) */}
+        {/* 단독: 도트 네비게이션 (원클릭과 동일 구조) */}
         {!isFullTransform && (
           <div className="fullTransform-nav">
-            <button className={`dot edu ${viewIndex === -1 ? 'active' : ''}`} onClick={() => setViewIndex(-1)}>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-            </button>
-            <button 
-              className={`dot ${finalDisplayImage ? 'done' : ''} ${viewIndex === 0 ? 'active' : ''}`}
-              onClick={() => setViewIndex(0)}
-            />
+            <div className="nav-dots">
+              <button
+                className={`nav-dot edu ${viewIndex === -1 ? 'active' : ''}`}
+                onClick={() => setViewIndex(-1)}
+              >
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+              </button>
+              <button 
+                className={`nav-dot ${finalDisplayImage ? 'done' : ''} ${viewIndex === 0 ? 'active' : ''}`}
+                onClick={() => setViewIndex(0)}
+              />
+              <span className="nav-count">[{viewIndex === -1 ? 0 : 1}/1]</span>
+            </div>
           </div>
         )}
 
@@ -1638,7 +1644,8 @@ const ResultScreen = ({
         {/* 단독 변환 네비게이션 - 목업 준수: 제거됨 */}
         {/* 단독 변환은 네비게이션 없음 */}
 
-        {/* Action Buttons */}
+        {/* Action Buttons (결과 화면에서만 표시) */}
+        {viewIndex >= 0 && (
         <div className="action-buttons">
           <button 
             className="btn btn-save-share" 
@@ -1669,6 +1676,7 @@ const ResultScreen = ({
             {t.newPhoto}
           </button>
         </div>
+        )}
         
         {/* Save/Share 팝업 메뉴 */}
         {showSaveShareMenu && (
