@@ -1922,6 +1922,7 @@ const ResultScreen = ({
           background: none;
           border-radius: 0;
           padding: 0;
+          margin-top: 32px;
           margin-bottom: 1rem;
           max-width: 340px;
           margin-left: auto;
