@@ -133,7 +133,7 @@ const ResultScreen = ({
            riskOriental.some(r => id.includes(r));
   };
   const isHighRisk = isFullTransform
-    ? results.some(r => isHighRiskStyle(r?.style?.id))
+    ? (fullTransformResults || []).some(r => isHighRiskStyle(r?.style?.id))
     : isHighRiskStyle(selectedStyle?.id);
 
   // 안드로이드 뒤로가기 — 단계별 닫기 (저장/공유메뉴 → 모달 → 결과화면 나가기)
@@ -1531,7 +1531,7 @@ const ResultScreen = ({
               })()}
             </div>
             <div className="technique-explanation" style={{ padding: '0 0 8px' }}>
-              <p>{getPrimaryEducation().content}</p>
+              <p>{getPrimaryEducation().content || getPrimaryEducation().desc}</p>
             </div>
           </>
         )}
