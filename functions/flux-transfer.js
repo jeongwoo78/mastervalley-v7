@@ -2536,7 +2536,7 @@ Copy these values exactly into the vision fields of your JSON response. Focus on
       },
       signal: controller.signal,
       body: JSON.stringify({
-        model: 'claude-sonnet-4-5',  // Claude Sonnet 4.5 (최신)
+        model: 'claude-sonnet-4-20250514',  // Claude Sonnet 4 (속도 최적화)
         max_tokens: 1000,  // 500 → 1000 (JSON 잘림 방지)
         messages: [{
           role: 'user',

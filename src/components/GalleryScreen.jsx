@@ -51,7 +51,7 @@ const getAllImages = async () => {
           if (aMin !== bMin) return bMin.localeCompare(aMin);
           const aIdx = a.styleIndex ?? 999;
           const bIdx = b.styleIndex ?? 999;
-          return aIdx - bIdx;
+          return bIdx - aIdx;
         });
         resolve(items);
       };
