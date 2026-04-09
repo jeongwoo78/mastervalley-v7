@@ -255,9 +255,11 @@ export const ALIASES = {
   'อองรี มาติส': 'matisse',
   'ชาร์กาล': 'chagall',
   'มาร์ก ชาร์กาล': 'chagall',
+  'ชาการ์ล': 'chagall',
   'ปิกัสโซ': 'picasso',
   'ฟรีดา คาห์โล': 'frida',
   'ลิคเทนสไตน์': 'lichtenstein',
+  'ลิชเทนสไตน์': 'lichtenstein',
 
   // ===== 중국어(번체) 거장 별칭 =====
   '梵谷': 'vangogh',
@@ -611,11 +613,13 @@ export const ALIASES = {
   'คลิมต์': 'klimt',
   'มุงค์': 'munch',
   'ชากาล': 'chagall',
+  'ชาการ์ล': 'chagall',
   'フリーダ': 'frida',
   'فريدا': 'frida',
   'ฟรีดา': 'frida',
   '芙烈達': 'frida',
-  'ลิกเตนสไตน์': 'lichtenstein'
+  'ลิกเตนสไตน์': 'lichtenstein',
+  'ลิชเทนสไตน์': 'lichtenstein'
 };
 
 // ========================================
