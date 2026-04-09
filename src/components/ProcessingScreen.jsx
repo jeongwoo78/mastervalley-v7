@@ -292,7 +292,8 @@ const ProcessingScreen = ({ photo, originalPhotoUrl, selectedStyle, onComplete, 
     const workName = result.selected_work || '';
     const resultCategory = result.style?.category;
     
-    const key = getEducationKey(resultCategory, artistName, workName);
+    const keyInput = resultCategory === 'oriental' ? (result.style?.id || artistName) : artistName;
+    const key = getEducationKey(resultCategory, keyInput, workName);
     
     console.log(`📚 교육자료 매칭: ${resultCategory} → ${key || '없음'} (${artistName}, ${workName || '-'})`);
     

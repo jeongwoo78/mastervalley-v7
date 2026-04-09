@@ -718,12 +718,8 @@ const ResultScreen = ({
       const artist = currentResult?.aiSelectedArtist || displayArtist;
       const work = currentResult?.selected_work || displayWork;
       
-      // console.log('   - category:', category);
-      // console.log('   - artist:', artist);
-      // console.log('   - work:', work);
-      
-      // 새로운 매칭 함수 사용
-      const key = getEducationKey(category, artist, work);
+      const keyInput = category === 'oriental' ? (currentResult?.style?.id || artist) : artist;
+      const key = getEducationKey(category, keyInput, work);
       // console.log('   - matched key:', key);
       
       if (key) {
