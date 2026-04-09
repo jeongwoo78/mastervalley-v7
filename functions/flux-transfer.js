@@ -1882,6 +1882,22 @@ const fallbackPrompts = {
     prompt: 'Cubist painting by Pablo Picasso, Picasso Cubism art style, MOST IMPORTANT THE FACE MUST BE CUBIST DECONSTRUCTED NOT REALISTIC, REQUIRED DISTORTIONS: show PROFILE NOSE side view while BOTH EYES face FORWARD on same face, FRAGMENT face into FLAT ANGULAR GEOMETRIC PLANES, break JAW FOREHEAD CHEEKS into separate angular shapes like shattered glass, Les Demoiselles d Avignon African mask angular style, Earth tones, ochre, brown, olive, grey, If the face looks normal or realistic YOU ARE DOING IT WRONG faces must look abstracted and geometrically impossible, Picasso Cubist masterpiece quality'
   },
   
+  chagall: {
+    name: '샤갈',
+    artist: 'Marc Chagall (1887-1985)',
+    movement: '초현실주의 (Surrealism)',
+    defaultWork: 'I and the Village',
+    prompt: 'Dreamy painting by Marc Chagall, Chagall art style, floating figures defying gravity, vivid jewel-like colors, dreamlike surreal composition, folk art influences, romantic poetic atmosphere, village scenes with lovers and animals, stained glass luminosity.'
+  },
+  
+  lichtenstein: {
+    name: '리히텐슈타인',
+    artist: 'Roy Lichtenstein (1923-1997)',
+    movement: '팝 아트 (Pop Art)',
+    defaultWork: 'M-Maybe',
+    prompt: 'Pop art painting by Roy Lichtenstein, Lichtenstein art style, bold black outlines, Ben-Day dots pattern, primary colors red blue yellow, comic book panel aesthetic, dramatic graphic composition, speech bubbles optional, flat areas of saturated color.'
+  },
+  
   frida: {
     name: '프리다 칼로',
     artist: 'Frida Kahlo (1907-1954)',
@@ -3892,7 +3908,7 @@ export default async function handler(req, res) {
         }
         
         // console.log('Using fallback key:', fallbackKey);
-        const fallback = fallbackPrompts[fallbackKey];
+        const fallback = fallbackPrompts[fallbackKey] || fallbackPrompts[selectedStyle.category] || fallbackPrompts['masters'];
         
         if (!fallback) {
           console.error('ERROR: No fallback found for key:', fallbackKey);
@@ -3955,7 +3971,7 @@ export default async function handler(req, res) {
       }
       
       // console.log('Using fallback key:', fallbackKey);
-      const fallback = fallbackPrompts[fallbackKey];
+      const fallback = fallbackPrompts[fallbackKey] || fallbackPrompts[selectedStyle.category] || fallbackPrompts['masters'];
       
       if (!fallback) {
         console.error('ERROR: No fallback found for key:', fallbackKey);
