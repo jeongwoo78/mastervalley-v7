@@ -718,8 +718,7 @@ const ResultScreen = ({
       const artist = currentResult?.aiSelectedArtist || displayArtist;
       const work = currentResult?.selected_work || displayWork;
       
-      const keyInput = category === 'oriental' ? (currentResult?.style?.id || artist) : artist;
-      const key = getEducationKey(category, keyInput, work);
+      const key = getEducationKey(category, artist, work);
       // console.log('   - matched key:', key);
       
       if (key) {
