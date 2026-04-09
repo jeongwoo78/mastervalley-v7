@@ -492,7 +492,7 @@ const ProcessingScreen = ({ photo, originalPhotoUrl, selectedStyle, onComplete, 
 
             {/* 고위험 스타일 경고 (교육자료 아래) */}
             {isHighRisk && viewIndex === -1 && (
-              <p className="nude-warning">〈 {tPhotoStyle.nudeWarningOneclick} 〉</p>
+              <p className="nude-warning">〈 {tPhotoStyle.nudeWarningOneclick?.replace(/[.。]$/, '')} 〉</p>
             )}
 
             {/* 결과: 스타일정보 + 교육 */}
@@ -582,7 +582,7 @@ const ProcessingScreen = ({ photo, originalPhotoUrl, selectedStyle, onComplete, 
 
             {/* 고위험 스타일 경고 (교육자료 아래) */}
             {isHighRisk && (
-              <p className="nude-warning">〈 {tPhotoStyle.nudeWarningSingle} 〉</p>
+              <p className="nude-warning">〈 {tPhotoStyle.nudeWarningSingle?.replace(/[.。]$/, '')} 〉</p>
             )}
           </>
         )}
@@ -607,13 +607,14 @@ const ProcessingScreen = ({ photo, originalPhotoUrl, selectedStyle, onComplete, 
           overflow-y: auto;
         }
         .nude-warning {
-          color: rgba(255, 255, 255, 0.5);
+          text-align: center;
           font-size: 12px;
           font-style: italic;
-          text-align: left;
-          margin: 20px 0 4px;
+          color: rgba(255, 255, 255, 0.5);
+          margin: 20px auto 0;
           padding-top: 12px;
           border-top: 1px solid rgba(255, 255, 255, 0.08);
+          max-width: 340px;
           line-height: 1.4;
         }
         

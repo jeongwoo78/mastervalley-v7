@@ -1354,12 +1354,12 @@ const ResultScreen = ({
         {/* 원클릭: viewIndex === -1 → 스타일정보 + 1차 교육 */}
         {isFullTransform && viewIndex === -1 && getPrimaryEducation() && (
           <>
-            <div className="card-header" style={{ padding: '32px 0 0' }}>
-              <h2>
+            <div className="oneclick-style-info">
+              <h3>
                 {displayCategory === 'movements' ? tPhotoStyle.movementsFullTitle :
                  displayCategory === 'masters' ? tPhotoStyle.mastersFullTitle :
                  tPhotoStyle.orientalFullTitle}
-              </h2>
+              </h3>
               <div className="subtitle1">
                 {displayCategory === 'movements' ? tProcessing.movementsSub1 :
                  displayCategory === 'masters' ? tProcessing.mastersSub1 :
@@ -1371,15 +1371,15 @@ const ResultScreen = ({
                  tProcessing.orientalSub2}
               </div>
             </div>
-            <div className="technique-explanation" style={{ padding: '0 0 8px' }}>
-              <p>{getPrimaryEducation().content}</p>
+            <div className="oneclick-edu-content">
+              {getPrimaryEducation().content}
             </div>
           </>
         )}
 
         {/* 원클릭: 누드 경고 (교육자료 아래, 원본 화면에서만) */}
         {isFullTransform && isHighRisk && viewIndex === -1 && (
-          <p className="nude-warning">〈 {tPhotoStyle.nudeWarningOneclick} 〉</p>
+          <p className="nude-warning">〈 {tPhotoStyle.nudeWarningOneclick?.replace(/[.。]$/, '')} 〉</p>
         )}
 
         {/* 원클릭: viewIndex >= 0 → 스타일정보 + 2차 교육 (단독변환과 동일 구조) */}
@@ -1544,7 +1544,7 @@ const ResultScreen = ({
 
         {/* 단독: 누드 경고 (교육자료 아래, 원본 화면에서만) */}
         {!isFullTransform && isHighRisk && viewIndex === -1 && (
-          <p className="nude-warning">〈 {tPhotoStyle.nudeWarningSingle} 〉</p>
+          <p className="nude-warning">〈 {tPhotoStyle.nudeWarningSingle?.replace(/[.。]$/, '')} 〉</p>
         )}
 
         {/* Toggle Button - 단독 변환 거장(masters)만 표시 (목업 준수) */}
@@ -2300,7 +2300,7 @@ const ResultScreen = ({
 
         /* 누드 경고 */
         .nude-warning {
-          text-align: left;
+          text-align: center;
           font-size: 12px;
           font-style: italic;
           color: rgba(255, 255, 255, 0.5);
@@ -2308,6 +2308,8 @@ const ResultScreen = ({
           padding-top: 12px;
           border-top: 1px solid rgba(255, 255, 255, 0.08);
           max-width: 340px;
+          line-height: 1.4;
+        }
           line-height: 1.4;
         }
 
