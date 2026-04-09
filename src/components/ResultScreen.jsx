@@ -295,11 +295,11 @@ const ResultScreen = ({
         name.includes('كليمت') || name.includes('คลิมต์') || name.includes('KLİMT')) return 'KLIMT';
     // MUNCH
     if (name.includes('MUNCH') || name.includes('뭉크') || name.includes('ムンク') || name.includes('孟克') || name.includes('蒙克') ||
-        name.includes('مونك') || name.includes('มุงค์') || name.includes('MUNK') ||
+        name.includes('مونك') || name.includes('มุงก์') || name.includes('MUNK') ||
         name.includes('MUNCK')) return 'MUNCH';
     // CHAGALL
     if (name.includes('CHAGALL') || name.includes('샤갈') || name.includes('シャガール') || name.includes('夏卡爾') || name.includes('夏加尔') ||
-        name.includes('شاغال') || name.includes('ชากาล') || name.includes('ŞAGAL')) return 'CHAGALL';
+        name.includes('شاغال') || name.includes('ชาการ์ล') || name.includes('ŞAGAL')) return 'CHAGALL';
     // MATISSE
     if (name.includes('MATISSE') || name.includes('마티스') || name.includes('マティス') || name.includes('馬蒂斯') || name.includes('马蒂斯') ||
         name.includes('ماتيس') || name.includes('มาติส') || name.includes('MATİS')) return 'MATISSE';
@@ -309,7 +309,7 @@ const ResultScreen = ({
         name.includes('ฟรีดา') || name.includes('คาห์โล') || name.includes('FRİDA')) return 'FRIDA';
     // LICHTENSTEIN
     if (name.includes('LICHTENSTEIN') || name.includes('리히텐') || name.includes('リキテンスタイン') || name.includes('李奇登斯坦') || name.includes('利希滕斯坦') ||
-        name.includes('ليختنشتاين') || name.includes('ลิกเตนสไตน์') || name.includes('LİCHTENSTEİN')) return 'LICHTENSTEIN';
+        name.includes('ليختنشتاين') || name.includes('ลิชเทนสไตน์') || name.includes('LİCHTENSTEİN')) return 'LICHTENSTEIN';
     // PICASSO (마지막 — 다른 이름과 충돌 없음)
     if (name.includes('PICASSO') || name.includes('피카소') || name.includes('ピカソ') ||
         name.includes('بيكاسو') || name.includes('ปิกาสโซ') || name.includes('PİKASO') ||

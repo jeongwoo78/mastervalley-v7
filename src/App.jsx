@@ -424,11 +424,11 @@ const App = () => {
     const n = name.toUpperCase();
     if (n.includes('GOGH') || n.includes('고흐')) return 'VAN GOGH';
     if (n.includes('KLIMT') || n.includes('클림트')) return 'KLIMT';
-    if (n.includes('MUNCH') || n.includes('뭉크')) return 'MUNCH';
-    if (n.includes('CHAGALL') || n.includes('샤갈')) return 'CHAGALL';
-    if (n.includes('MATISSE') || n.includes('마티스')) return 'MATISSE';
-    if (n.includes('FRIDA') || n.includes('KAHLO') || n.includes('프리다')) return 'FRIDA';
-    if (n.includes('LICHTENSTEIN') || n.includes('리히텐')) return 'LICHTENSTEIN';
+    if (n.includes('MUNCH') || n.includes('뭉크') || n.includes('มุงก์')) return 'MUNCH';
+    if (n.includes('CHAGALL') || n.includes('샤갈') || n.includes('ชาการ์ล')) return 'CHAGALL';
+    if (n.includes('MATISSE') || n.includes('마티스') || n.includes('มาติส')) return 'MATISSE';
+    if (n.includes('FRIDA') || n.includes('KAHLO') || n.includes('프리다') || n.includes('ฟรีดา')) return 'FRIDA';
+    if (n.includes('LICHTENSTEIN') || n.includes('리히텐') || n.includes('ลิชเทนสไตน์')) return 'LICHTENSTEIN';
     return null;
   };
 
