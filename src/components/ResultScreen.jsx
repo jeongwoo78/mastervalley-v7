@@ -2340,6 +2340,8 @@ const ResultScreen = ({
         .nav-dots {
           display: flex;
           align-items: center;
+          justify-content: center;
+          width: 100%;
           gap: 4px;
         }
         .nav-dot {
