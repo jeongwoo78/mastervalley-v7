@@ -2244,6 +2244,7 @@ const ResultScreen = ({
         .spinner-medium {
           width: 40px;
           height: 40px;
+          margin: 0 auto;
           border: 3px solid rgba(58, 122, 122, 0.3);
           border-top-color: #3a7a7a;
           border-radius: 50%;

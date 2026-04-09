@@ -387,6 +387,15 @@ export const ALIASES = {
   '일본 린파': 'japanese-rinpa',
   '일본린파': 'japanese-rinpa',
   
+  // 동양화 generic fallback (AI 실패 시 서버가 보내는 영문명)
+  'korean traditional painting': 'korean-minhwa',
+  'chinese traditional painting': 'chinese-ink',
+  'japanese traditional painting': 'japanese-ukiyoe',
+  // 기존 한글 fallback도 매핑 (과거 데이터 호환)
+  '한국 전통화': 'korean-minhwa',
+  '중국 전통화': 'chinese-ink',
+  '일본 전통화': 'japanese-ukiyoe',
+  
   // ===== 화가 별칭 (37명) =====
   // 그리스·로마
   'classical sculpture': 'classical-sculpture',

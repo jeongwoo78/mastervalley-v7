@@ -1895,17 +1895,17 @@ const fallbackPrompts = {
   // v60: 텍스트는 A가 생성 → F가 그림 (텍스트 금지 규칙 제거)
   // ========================================
   korean: {
-    name: '한국 전통화',
+    name: 'Korean Traditional Painting',
     prompt: 'Exclusively Korean traditional painting, Joseon Dynasty art style, GENDER PRESERVATION preserve exact gender and facial features from original photo, Choose appropriate Korean style: Minhwa folk art for animals and flowers with light subtle Obangsaek colors and soft gentle pigments, Pungsokdo genre painting for people with LIGHT INK WASH technique and subtle colors over ink lines in Kim Hong-do and Shin Yun-bok style, Jingyeong landscape for nature with expressive ink and minimal color, SINGLE UNIFIED COMPOSITION, HANJI PAPER with visible fiber texture throughout'
   },
   
   chinese: {
-    name: '중국 전통화',
+    name: 'Chinese Traditional Painting',
     prompt: 'Exclusively Chinese traditional painting, classical Chinese art style, GENDER PRESERVATION preserve exact gender and facial features from original photo, Choose appropriate Chinese style: Shuimohua ink wash for landscapes with monochrome gradations, Gongbi meticulous painting for people and animals with fine detailed brushwork and rich colors, Chinese aesthetic principles, SINGLE UNIFIED COMPOSITION, XUAN RICE PAPER with visible paper grain texture'
   },
   
   japanese: {
-    name: '일본 전통화',
+    name: 'Japanese Traditional Painting',
     prompt: 'Exclusively Japanese Ukiyo-e woodblock print, Ukiyo-e art style, flat areas of bold solid colors, strong clear black outlines, completely flat two-dimensional composition, CLOTHING: MUST transform to traditional Japanese attire (elegant kimono for women, hakama pants with haori jacket for men), decorative patterns, stylized simplified forms, elegant refined Japanese aesthetic, authentic Japanese ukiyo-e masterpiece quality, CRITICAL ANTI-HALLUCINATION preserve EXACT number of people from original photo, if 1 person then ONLY 1 person in result, CRITICAL ANIMAL PRESERVATION if photo has animals (dogs cats birds) MUST include them drawn in ukiyo-e style with bold outlines, simple scenic background ONLY Mt Fuji or cherry blossom or waves or sky, CHERRY WOOD BLOCK TEXTURE visible throughout'
   },
   
@@ -3273,7 +3273,12 @@ export default async function handler(req, res) {
             }
           }
           
-          const orientalPromptData = getPrompt(mappedKey);
+          let orientalPromptData = getPrompt(mappedKey);
+          if (!orientalPromptData && mappedKey.includes('_')) {
+            const baseKey = mappedKey.split('_')[0];
+            orientalPromptData = getPrompt(baseKey);
+            console.log(`⚠️ Oriental fallback to base key: ${mappedKey} → ${baseKey}`);
+          }
           
           if (orientalPromptData) {
             finalPrompt = orientalPromptData.prompt;
