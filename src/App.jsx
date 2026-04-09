@@ -3,24 +3,22 @@ import React, { useState, useEffect, useRef } from 'react';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { Preferences } from '@capacitor/preferences';
 import { App as CapApp } from '@capacitor/app';
-import { auth, db, doc, onSnapshot, updateDoc, ensureUserDoc } from './config/firebase';
+import { auth, db, doc, onSnapshot, updateDoc, ensureUserDoc, collection, query, where, getDocs, orderBy, Timestamp } from './config/firebase';
 import { setLanguage, getLanguage, t, getUi } from './i18n';
 import LoginScreen from './components/LoginScreen';
 import CategorySelection from './components/CategorySelection';
 import PhotoStyleScreen from './components/PhotoStyleScreen';
 import ProcessingScreen from './components/ProcessingScreen';
 import ResultScreen from './components/ResultScreen';
-import GalleryScreen from './components/GalleryScreen';
+import GalleryScreen, { saveToGallery, isDeletedTransformId } from './components/GalleryScreen';
 import AddFundsScreen from './components/AddFundsScreen';
 import MenuScreen from './components/MenuScreen';
 // LanguageScreen removed - 메뉴 아코디언에서 직접 변경
 import InsufficientBalancePopup from './components/InsufficientBalancePopup';
-import TransformBanner from './components/TransformBanner';
 import { getTransformCost } from './utils/pricing';
 import { deductCredit } from './utils/styleTransferAPI';
-import transformManager from './utils/transformManager';
 import { initRevenueCat } from './utils/revenueCat';
-import { initFCM } from './utils/fcm';
+import { initFCM, onNotificationTap } from './utils/fcm';
 import './styles/App.css';
 
 const App = () => {
@@ -45,7 +43,9 @@ const App = () => {
   // 화면 상태: 'category' | 'photoStyle' | 'processing' | 'result' | 'addFunds' | 'menu'
   const [currentScreen, setCurrentScreen] = useState('category');
   const prevScreenRef = useRef('category');
+  const recoverPromiseRef = useRef(null);  // 진행 중인 복원 Promise 공유
   const [showGallery, setShowGallery] = useState(false);
+  const [galleryLoading, setGalleryLoading] = useState(false);
   
   // 크레딧 상태 (Firestore 실시간 구독)
   const [userCredits, setUserCredits] = useState(0);
@@ -64,11 +64,13 @@ const App = () => {
   const [mainCategory, setMainCategory] = useState(null);
   const [uploadedPhoto, setUploadedPhoto] = useState(null);
   const [originalPhotoUrl, setOriginalPhotoUrl] = useState(null);
+  const [photoPreviewBase64, setPhotoPreviewBase64] = useState(null);
   const [selectedStyle, setSelectedStyle] = useState(null);
   const [resultImage, setResultImage] = useState(null);
   const [aiSelectedArtist, setAiSelectedArtist] = useState(null);
   const [aiSelectedWork, setAiSelectedWork] = useState(null);
   const [subjectType, setSubjectType] = useState(null);
+  const [currentTransformId, setCurrentTransformId] = useState(null);
   
   // 원클릭 결과
   const [fullTransformResults, setFullTransformResults] = useState(null);
@@ -78,6 +80,7 @@ const App = () => {
   const [currentMasterIndex, setCurrentMasterIndex] = useState(0);
   const [masterResultImages, setMasterResultImages] = useState({});
   const [retransformingMasters, setRetransformingMasters] = useState({});
+  const [prefetchedGreetings, setPrefetchedGreetings] = useState({});
 
   // 앱 시작 시 저장된 언어 로드
   useEffect(() => {
@@ -87,9 +90,12 @@ const App = () => {
         if (value) {
           setLang(value);
           setLanguage(value);
+        } else {
+          setLanguage(lang);
         }
       } catch (e) {
         console.log('Failed to load language setting');
+        setLanguage(lang);
       }
     };
     loadSavedLanguage();
@@ -132,6 +138,24 @@ const App = () => {
         // FCM 푸시 알림 초기화 (네이티브 앱에서만 동작)
         initFCM();
 
+        // 알림 탭 시 갤러리 즉시 열기 + 복원 후 새로고침
+        onNotificationTap(async () => {
+          setGalleryLoading(true);
+          setShowGallery(true);
+          
+          const timeout = setTimeout(() => setGalleryLoading(false), 15000);
+          
+          await recoverMissedTransforms(currentUser.uid);
+          
+          clearTimeout(timeout);
+          // true→false 전환으로 GalleryScreen 새로고침 트리거
+          setGalleryLoading(true);
+          setTimeout(() => setGalleryLoading(false), 150);
+        });
+
+        // 미수신 변환 복원 (앱 재시작 시)
+        recoverMissedTransforms(currentUser.uid);
+
         // Firestore 실시간 잔액 구독
         const userRef = doc(db, 'users', currentUser.uid);
         unsubCredits = onSnapshot(userRef, (snapshot) => {
@@ -139,8 +163,8 @@ const App = () => {
             const data = snapshot.data();
             setUserCredits(data.credits ?? 0);
             setAiConsentGiven(data.aiConsent === true);
-            setCreditsLoaded(true);
           }
+          setCreditsLoaded(true);
         }, (error) => {
           console.error('Credits subscription error:', error);
           setCreditsLoaded(true);  // 에러 시에도 로딩 완료 처리
@@ -157,12 +181,96 @@ const App = () => {
     };
   }, []);
 
+  // 미수신 변환 복원 (강제종료/백그라운드 복구)
+  // Promise 공유: 동시 호출 시 실제 작업은 1회만, 모든 호출자가 같은 완료를 기다림
+  const recoverMissedTransforms = (userId) => {
+    if (recoverPromiseRef.current) return recoverPromiseRef.current;
+    
+    const promise = (async () => {
+      try {
+        const q = query(
+          collection(db, 'transforms'),
+          where('userId', '==', userId)
+        );
+        const snapshot = await getDocs(q);
+        if (snapshot.empty) return;
+
+        const oneHourAgo = Date.now() - 60 * 60 * 1000;
+        let recovered = 0;
+
+        // 유효한 복원 대상 필터링
+        const validDocs = [];
+        for (const docSnap of snapshot.docs) {
+          const data = docSnap.data();
+          if (data.status !== 'completed' || !data.resultUrl) continue;
+          const createdTime = data.createdAt?.toMillis?.() || new Date(data.createdAt).getTime();
+          if (createdTime < oneHourAgo) continue;
+          if (isDeletedTransformId(docSnap.id)) continue;
+          validDocs.push({ id: docSnap.id, data });
+        }
+
+        // 세션별 그룹 + styleIndex 정렬 (원클릭 갤러리 순서 보장)
+        validDocs.sort((a, b) => {
+          if (a.data.sessionId !== b.data.sessionId) {
+            const aTime = a.data.createdAt?.toMillis?.() || 0;
+            const bTime = b.data.createdAt?.toMillis?.() || 0;
+            return aTime - bTime;
+          }
+          return (a.data.styleIndex ?? 999) - (b.data.styleIndex ?? 999);
+        });
+
+        const baseTime = Date.now();
+        for (let i = 0; i < validDocs.length; i++) {
+          const { id, data } = validDocs[i];
+
+          const saved = await saveToGallery(data.resultUrl, {
+            category: data.selectedStyle?.category || data.category || '',
+            artistName: data.selectedArtist || data.selectedStyle?.name || '',
+            movementName: data.selectedStyle?.name || '',
+            workName: data.selectedWork || null,
+            styleId: data.selectedStyle?.id || '',
+            isRetransform: false,
+            transformId: id,
+            savedAt: new Date(baseTime + i * 100).toISOString(),
+            styleIndex: data.styleIndex ?? i
+          });
+          if (saved) recovered++;
+        }
+        if (recovered > 0) {
+          console.log(`✅ ${recovered}건 갤러리 복원 완료`);
+        }
+      } catch (error) {
+        console.error('갤러리 복원 실패:', error);
+      } finally {
+        recoverPromiseRef.current = null;  // 완료 후 다음 호출 허용
+      }
+    })();
+    
+    recoverPromiseRef.current = promise;
+    return promise;
+  };
+
+  // 앱 포그라운드 복귀 시 복원
+  useEffect(() => {
+    const stateHandler = CapApp.addListener('appStateChange', ({ isActive }) => {
+      if (isActive && user) {
+        recoverMissedTransforms(user.uid);
+      }
+    });
+    return () => {
+      stateHandler.then(h => h.remove());
+    };
+  }, [user]);
+
+  // 뒤로가기 차단 토스트
+  const [showBackBlockedToast, setShowBackBlockedToast] = useState(false);
+  const backBlockedTimerRef = useRef(null);
+
   // 안드로이드 뒤로가기 버튼 처리
   useEffect(() => {
     const backHandler = CapApp.addListener('backButton', () => {
-      // 갤러리 열려있으면 닫기
+      // 갤러리 열려있으면 GalleryScreen이 자체 처리 (모달→선택모드→닫기)
       if (showGallery) {
-        setShowGallery(false);
         return;
       }
       
@@ -182,18 +290,19 @@ const App = () => {
       // 화면별 뒤로가기
       switch (currentScreen) {
         case 'result':
-          // 결과 → 스타일 선택 (카테고리/사진 유지, 다른 스타일 시도 가능)
-          setCurrentScreen('photoStyle');
-          setResultImage(null);
-          setAiSelectedArtist(null);
-          setAiSelectedWork(null);
-          setSubjectType(null);
-          setFullTransformResults(null);
+          // ResultScreen이 자체 처리 (모달→저장/공유→결과화면 나가기)
           break;
         case 'processing':
-          // 변환 중 → 스타일 선택 (서버에서 계속 진행, 완료 시 푸시 알림)
-          setCurrentScreen('photoStyle');
-          break;
+          // 변환 중 → 차단 + 토스트 메시지
+          if (!showBackBlockedToast) {
+            setShowBackBlockedToast(true);
+            if (backBlockedTimerRef.current) clearTimeout(backBlockedTimerRef.current);
+            backBlockedTimerRef.current = setTimeout(() => {
+              setShowBackBlockedToast(false);
+              backBlockedTimerRef.current = null;
+            }, 1000);
+          }
+          return;  // 화면 전환 차단
         case 'photoStyle':
           handleBackToCategory();
           break;
@@ -215,7 +324,7 @@ const App = () => {
     return () => {
       backHandler.then(h => h.remove());
     };
-  }, [currentScreen, showGallery, showInsufficientPopup, showAiConsent]);
+  }, [currentScreen, showGallery, showInsufficientPopup, showAiConsent, showBackBlockedToast]);
 
   // 로그인 성공
   const handleLoginSuccess = (loggedInUser) => {
@@ -240,12 +349,7 @@ const App = () => {
   };
 
   // 변환 시작 공통 로직 (잔액 체크 포함)
-  const startTransform = (photo, style) => {
-    // 동시 변환 제한 체크 (최대 4건)
-    if (!transformManager.canStartNew()) {
-      alert(`동시 변환은 최대 ${transformManager.MAX_CONCURRENT}건까지 가능합니다. 완료 후 다시 시도해 주세요.`);
-      return;
-    }
+  const startTransform = (photo, style, preview) => {
     const cost = getTransformCost(style);
     if (cost > 0 && userCredits < cost) {
       setRequiredAmount(cost);
@@ -253,7 +357,7 @@ const App = () => {
       return;
     }
     setUploadedPhoto(photo);
-    // 하이브리드 원본 URL: Blob URL 즉시 → base64 교체 (깜빡임+만료 원천 차단)
+    // v87: 하이브리드 원본 URL (Blob 즉시 → base64 교체, 깜빡임+만료 원천 차단)
     try {
       const blobUrl = URL.createObjectURL(photo);
       setOriginalPhotoUrl(blobUrl);
@@ -266,19 +370,20 @@ const App = () => {
     } catch (e) {
       console.warn('originalPhotoUrl 생성 실패:', e);
     }
+    if (preview) setPhotoPreviewBase64(preview);
     setSelectedStyle(style);
     setCurrentScreen('processing');
   };
 
   // 2단계: 사진 + 스타일 선택 완료 → 변환 시작
-  const handlePhotoStyleSelect = (photo, style) => {
+  const handlePhotoStyleSelect = (photo, style, preview) => {
     // AI 데이터 처리 동의 확인 (Firestore 기반, 첫 1회만)
     if (!aiConsentGiven) {
-      setPendingTransform({ photo, style });
+      setPendingTransform({ photo, style, preview });
       setShowAiConsent(true);
       return;
     }
-    startTransform(photo, style);
+    startTransform(photo, style, preview);
   };
 
   // AI 동의 확인 후 변환 진행
@@ -295,9 +400,68 @@ const App = () => {
     setAiConsentGiven(true);
     setShowAiConsent(false);
     if (pendingTransform) {
-      startTransform(pendingTransform.photo, pendingTransform.style);
+      startTransform(pendingTransform.photo, pendingTransform.style, pendingTransform.preview);
       setPendingTransform(null);
     }
+  };
+
+  // ========================================
+  // MasterChat 그리팅 프리로드
+  // ========================================
+  const MASTER_AGE_RANGE = {
+    'VAN GOGH': { min: 35, max: 37 }, 'KLIMT': { min: 48, max: 53 },
+    'MUNCH': { min: 33, max: 77 }, 'CHAGALL': { min: 31, max: 94 },
+    'MATISSE': { min: 39, max: 81 }, 'FRIDA': { min: 23, max: 44 },
+    'LICHTENSTEIN': { min: 41, max: 70 }
+  };
+  const MASTER_BIRTH = {
+    'VAN GOGH': 1853, 'KLIMT': 1862, 'MUNCH': 1863, 'CHAGALL': 1887,
+    'MATISSE': 1869, 'FRIDA': 1907, 'LICHTENSTEIN': 1923
+  };
+
+  const artistToMasterKey = (name) => {
+    if (!name) return null;
+    const n = name.toUpperCase();
+    if (n.includes('GOGH') || n.includes('고흐')) return 'VAN GOGH';
+    if (n.includes('KLIMT') || n.includes('클림트')) return 'KLIMT';
+    if (n.includes('MUNCH') || n.includes('뭉크')) return 'MUNCH';
+    if (n.includes('CHAGALL') || n.includes('샤갈')) return 'CHAGALL';
+    if (n.includes('MATISSE') || n.includes('마티스')) return 'MATISSE';
+    if (n.includes('FRIDA') || n.includes('KAHLO') || n.includes('프리다')) return 'FRIDA';
+    if (n.includes('LICHTENSTEIN') || n.includes('리히텐')) return 'LICHTENSTEIN';
+    return null;
+  };
+
+  const prefetchGreeting = (masterKey, subType) => {
+    const range = MASTER_AGE_RANGE[masterKey] || { min: 30, max: 50 };
+    const age = Math.floor(Math.random() * (range.max - range.min + 1)) + range.min;
+    const birth = MASTER_BIRTH[masterKey] || 1870;
+    const year = birth + age;
+    const month = new Date().getMonth() + 1;
+    const tt = { year, age, month };
+
+    fetch('https://mastervalley-v7.vercel.app/api/master-feedback', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        masterName: masterKey,
+        conversationType: 'greeting',
+        userMessage: '',
+        lang: lang,
+        timeTravel: tt,
+        subjectType: subType || 'person'
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success && data.masterResponse) {
+        setPrefetchedGreetings(prev => ({
+          ...prev,
+          [masterKey]: { message: data.masterResponse, timeTravel: tt }
+        }));
+      }
+    })
+    .catch(err => console.warn('⚠️ 그리팅 프리로드 실패:', err.message));
   };
 
   // 변환 완료 → 크레딧 차감 + 화면 전환
@@ -331,9 +495,11 @@ const App = () => {
       setAiSelectedWork(null);
       setSubjectType(result.results?.find(r => r.subjectType)?.subjectType || null);
       setCurrentMasterIndex(0);
+      setCurrentTransformId(null);  // 원클릭은 개별 transformId 사용
     } else {
       setFullTransformResults(null);
       setResultImage(resultImageUrl);
+      setCurrentTransformId(result?.transformId || null);  // 단일 변환 transformId 저장
       
       if (result && result.aiSelectedArtist) {
         setAiSelectedArtist(result.aiSelectedArtist);
@@ -350,6 +516,18 @@ const App = () => {
       setSubjectType(result?.subjectType || null);
     }
     
+    // masters 카테고리 원클릭이면 그리팅 프리로드 (백그라운드)
+    // 단독변환은 MasterChat이 직접 loadGreeting 호출 (프리페치 중복 방지)
+    if (style?.category === 'masters' && result?.isFullTransform && result.results) {
+      const subType = result.results?.find(r => r.subjectType)?.subjectType;
+      result.results.forEach(r => {
+        if (r.success && r.aiSelectedArtist) {
+          const key = artistToMasterKey(r.aiSelectedArtist);
+          if (key) prefetchGreeting(key, subType);
+        }
+      });
+    }
+    
     setCurrentScreen('result');
   };
 
@@ -359,13 +537,16 @@ const App = () => {
     setMainCategory(null);
     setUploadedPhoto(null);
     setOriginalPhotoUrl(null);
+    setPhotoPreviewBase64(null);
     setSelectedStyle(null);
     setResultImage(null);
     setAiSelectedArtist(null);
     setAiSelectedWork(null);
     setSubjectType(null);
+    setCurrentTransformId(null);
     setFullTransformResults(null);
     setMasterChatData({});
+    setPrefetchedGreetings({});
     setCurrentMasterIndex(0);
     setMasterResultImages({});
     setRetransformingMasters({});
@@ -377,6 +558,7 @@ const App = () => {
     setMainCategory(null);
     setUploadedPhoto(null);
     setOriginalPhotoUrl(null);
+    setPhotoPreviewBase64(null);
   };
 
   // Add Funds 화면
@@ -410,8 +592,8 @@ const App = () => {
     }
   };
 
-  // 로딩 중
-  if (authLoading) {
+  // 로딩 중 (인증 + 로그인 유저는 크레딧까지)
+  if (authLoading || (user && !creditsLoaded)) {
     return (
       <div className="auth-loading">
         <div className="loading-spinner"></div>
@@ -423,7 +605,7 @@ const App = () => {
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            background: #0a1a1f;
             color: white;
           }
           .loading-spinner {
@@ -450,12 +632,11 @@ const App = () => {
 
   return (
     <div className="app" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
-      {/* 동시다중 변환 배너 */}
-      {currentScreen !== 'processing' && (
-        <TransformBanner 
-          onTapGallery={() => setShowGallery(true)} 
-          lang={lang} 
-        />
+      {/* 변환 중 뒤로가기 차단 토스트 */}
+      {showBackBlockedToast && (
+        <div className="back-blocked-toast">
+          {getUi(lang).processing.backBlocked}
+        </div>
       )}
       {/* AI 데이터 처리 동의 팝업 */}
       {showAiConsent && (
@@ -486,12 +667,17 @@ const App = () => {
       {/* 갤러리 화면 */}
       {showGallery && (
         <GalleryScreen 
-          onBack={() => setShowGallery(false)} 
+          onBack={() => {
+            setShowGallery(false);
+            setGalleryLoading(false);  // 갤러리 닫을 때 로딩 해제
+          }} 
           onHome={() => {
             setShowGallery(false);
+            setGalleryLoading(false);
             handleReset();
           }}
           lang={lang}
+          externalLoading={galleryLoading}
         />
       )}
 
@@ -504,6 +690,7 @@ const App = () => {
               onMenu={handleGoToMenu}
               onAddFunds={handleGoToAddFunds}
               userCredits={userCredits}
+              creditsLoaded={creditsLoaded}
               lang={lang}
             />
           )}
@@ -542,6 +729,7 @@ const App = () => {
               onMenu={handleGoToMenu}
               onAddFunds={handleGoToAddFunds}
               userCredits={userCredits}
+              creditsLoaded={creditsLoaded}
               lang={lang}
             />
           )}
@@ -560,16 +748,27 @@ const App = () => {
             <ResultScreen
               originalPhoto={uploadedPhoto}
               originalPhotoUrl={originalPhotoUrl}
+              photoPreviewBase64={photoPreviewBase64}
               resultImage={resultImage}
               selectedStyle={selectedStyle}
               aiSelectedArtist={aiSelectedArtist}
               aiSelectedWork={aiSelectedWork}
               subjectType={subjectType}
+              transformId={currentTransformId}
               fullTransformResults={fullTransformResults}
               onReset={handleReset}
+              onBack={() => {
+                setCurrentScreen('photoStyle');
+                setResultImage(null);
+                setAiSelectedArtist(null);
+                setAiSelectedWork(null);
+                setSubjectType(null);
+                setFullTransformResults(null);
+              }}
               onGallery={() => setShowGallery(true)}
               onRetrySuccess={handleRetrySuccess}
               masterChatData={masterChatData}
+              prefetchedGreetings={prefetchedGreetings}
               onMasterChatDataChange={setMasterChatData}
               currentMasterIndex={currentMasterIndex}
               onMasterIndexChange={setCurrentMasterIndex}
@@ -665,6 +864,25 @@ const App = () => {
           font-size: 14px;
           font-weight: 600;
           cursor: pointer;
+        }
+        .back-blocked-toast {
+          position: fixed;
+          bottom: 80px;
+          left: 50%;
+          transform: translateX(-50%);
+          background: rgba(0,0,0,0.85);
+          color: #fff;
+          padding: 10px 20px;
+          border-radius: 8px;
+          font-size: 13px;
+          z-index: 9999;
+          text-align: center;
+          white-space: pre-line;
+          animation: toastFadeIn 0.2s ease;
+        }
+        @keyframes toastFadeIn {
+          from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+          to { opacity: 1; transform: translateX(-50%) translateY(0); }
         }
       `}</style>
     </div>
