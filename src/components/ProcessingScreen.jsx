@@ -468,11 +468,6 @@ const ProcessingScreen = ({ photo, originalPhotoUrl, selectedStyle, onComplete, 
               </div>
             </div>
 
-            {/* 고위험 스타일 경고 (원클릭) */}
-            {isHighRisk && viewIndex === -1 && (
-              <p className="nude-warning">〈 {tPhotoStyle.nudeWarningOneclick} 〉</p>
-            )}
-
             {/* 1차: 스타일정보 + 교육 */}
             {viewIndex === -1 && showEducation && getPrimaryEducation() && (
               <>
@@ -493,6 +488,11 @@ const ProcessingScreen = ({ photo, originalPhotoUrl, selectedStyle, onComplete, 
                   {getPrimaryEducation().content}
                 </div>
               </>
+            )}
+
+            {/* 고위험 스타일 경고 (교육자료 아래) */}
+            {isHighRisk && viewIndex === -1 && (
+              <p className="nude-warning">〈 {tPhotoStyle.nudeWarningOneclick} 〉</p>
             )}
 
             {/* 결과: 스타일정보 + 교육 */}
