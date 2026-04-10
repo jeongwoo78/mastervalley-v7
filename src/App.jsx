@@ -636,6 +636,117 @@ const App = () => {
 
   return (
     <div className="app" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
+      {/* Desktop Light Theme - 데스크톱(768px+)만 라이트, 모바일은 다크 유지 */}
+      <style>{`
+        @media (min-width: 768px) {
+          /* === 바깥 배경: 흰색 === */
+          html, body { background: #ffffff !important; }
+
+          /* === 앱 메인 배경: #0a1a1f → 크림 === */
+          .main-screen,
+          .photo-style-screen,
+          .processing-screen,
+          .result-screen,
+          .add-funds-screen,
+          .menu-screen,
+          .language-screen,
+          .app {
+            background: #faf7f2 !important;
+          }
+
+          /* === 대기 분위기 레이어 제거 (다크용 그라디언트) === */
+          .atmo-layer, .atmo-blob, .atmo-blue, .atmo-gold, .atmo-pink, .atmo-line {
+            opacity: 0 !important;
+          }
+
+          /* === 카드 배경: #1a2a2f / #2a3a3f → 흰색 === */
+          .category-card,
+          .style-card,
+          .menu-item-svg,
+          .pack-card,
+          .funds-option,
+          .insufficient-modal,
+          .insufficient-option {
+            background: #ffffff !important;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05) !important;
+          }
+          .menu-item-svg:hover,
+          .menu-item-svg:active,
+          .category-card:hover {
+            background: #f5f0e8 !important;
+          }
+
+          /* === 제목 텍스트: 흰색 → 검정 === */
+          .brand-title {
+            background: none !important;
+            -webkit-background-clip: unset !important;
+            -webkit-text-fill-color: #1a1a1a !important;
+            background-clip: unset !important;
+            color: #1a1a1a !important;
+          }
+          .screen-title,
+          .menu-title,
+          .funds-title,
+          .card-name {
+            color: #1a1a1a !important;
+          }
+
+          /* === 서브 텍스트: rgba(255,255,255,X) → 어두운 톤 === */
+          .brand-tagline {
+            color: #b8922d !important;
+          }
+          .brand-sub-tagline,
+          .card-desc,
+          .subscription-info p,
+          .menu-label,
+          .funds-desc {
+            color: #6b6560 !important;
+          }
+
+          /* === 일반 텍스트 === */
+          .app p, .app span, .app label, .app div {
+            color: inherit;
+          }
+
+          /* === 메뉴/크레딧 버튼 === */
+          .menu-btn { color: #6b6560 !important; }
+          .menu-icon-svg { stroke: rgba(0,0,0,0.4) !important; }
+          .credits-btn { color: #b8922d !important; }
+
+          /* === 카드 화살표 === */
+          .card-arrow-svg { stroke: rgba(0,0,0,0.3) !important; }
+
+          /* === 크레딧 스켈레톤 === */
+          .credits-skeleton {
+            background: linear-gradient(90deg, rgba(0,0,0,0.04) 25%, rgba(0,0,0,0.08) 50%, rgba(0,0,0,0.04) 75%) !important;
+          }
+
+          /* === 구독 정보 === */
+          .subscription-info {
+            color: #6b6560 !important;
+          }
+
+          /* === 갤러리/뒤로가기 버튼 텍스트 === */
+          .back-btn, .gallery-btn {
+            color: #6b6560 !important;
+          }
+
+          /* === 팝업/모달은 다크 유지 (오버레이 위에 뜨니까) === */
+          .ai-consent-overlay,
+          .insufficient-overlay,
+          .back-blocked-toast {
+            /* 다크 유지 - 오버라이드 안 함 */
+          }
+
+          /* === 골드 악센트 유지 === */
+          .gold, [class*="gold"] { color: #b8922d !important; }
+
+          /* === 틸 악센트 유지 === */
+          .primary-btn, .confirm-btn {
+            background: linear-gradient(135deg, #3a7a7a 0%, #2a5a5a 100%) !important;
+          }
+        }
+      `}</style>
       {/* 변환 중 뒤로가기 차단 토스트 */}
       {showBackBlockedToast && (
         <div className="back-blocked-toast">
