@@ -424,7 +424,7 @@ const ProcessingScreen = ({ photo, originalPhotoUrl, selectedStyle, onComplete, 
                     <polyline points="21 15 16 10 5 21"/>
                   </svg>
                   <p style={{ marginTop: '12px', color: 'rgba(255,255,255,0.5)', fontSize: '13px' }}>{t.conversionFailed}</p>
-                  <p style={{ color: 'rgba(255,255,255,0.35)', fontSize: '11px', marginTop: '4px' }}>{t.retryAfterComplete || '모든 결과 완료 후 재변환해주세요'}</p>
+                  <p style={{ color: 'rgba(255,255,255,0.35)', fontSize: '11px', marginTop: '4px' }}>{t.retryAfterComplete || 'Please retry after all results complete'}</p>
                 </div>
               </div>
             )}

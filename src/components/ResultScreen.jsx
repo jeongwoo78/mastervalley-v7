@@ -190,7 +190,7 @@ const ResultScreen = ({
     // 원클릭: 카테고리 전체 소개
     if (isFullTransform) {
       if (category === 'movements') {
-        return { ...oneclickMovementsPrimary, title: '2,500년 서양미술사 관통' };
+        return { ...oneclickMovementsPrimary, title: 'Traversing 2,500 Years of Western Art' };
       } else if (category === 'masters') {
         return oneclickMastersPrimary;
       } else if (category === 'oriental') {
@@ -1717,7 +1717,7 @@ const ResultScreen = ({
                 className="menu-item menu-cancel"
                 onClick={() => setShowSaveShareMenu(false)}
               >
-                {t.close || '닫기'}
+                {t.close || 'Close'}
               </button>
             </div>
           </div>
@@ -1786,7 +1786,7 @@ const ResultScreen = ({
                       {t.shareArt}
                     </button>
                     <button className="menu-item menu-cancel" onClick={() => setShowModalSaveShare(false)}>
-                      {t.close || '닫기'}
+                      {t.close || 'Close'}
                     </button>
                   </div>
                 </div>

@@ -322,7 +322,7 @@ const MasterChat = ({
     if (savedChatData?.retransformFailed) {
       setMessages(prev => [
         ...prev,
-        { role: 'system', content: '⚠️ 재변환에 실패하였습니다. 다시 아래 수정 버튼을 눌러주세요.' }
+        { role: 'system', content: chatText.common?.retransformFailed || '⚠️ Retransformation failed. Please tap the modify button again.' }
       ]);
       // 플래그 리셋 (pendingCorrection은 유지 → 재시도 가능)
       if (onChatDataChange) {

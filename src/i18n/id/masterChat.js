@@ -10,6 +10,7 @@ export const masterChat = {
     chatWith: 'Bicara dengan {masterName} (AI)',
     helpText: 'Bicara dengan maestro',
     chatEnded: 'Percakapan dengan maestro telah berakhir.',
+    retransformFailed: '⚠️ Retransformasi gagal. Silakan ketuk tombol modifikasi lagi.',
     retransformComplete: '💡 Retransformasi selesai! Gambar sebelumnya tersimpan di galeri.',
     requestModify: 'Modifikasi',
     errorMessage: '...Maaf, pikiranku sempat teralihkan. Bisakah kau ulangi?',

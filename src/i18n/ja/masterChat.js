@@ -10,6 +10,7 @@ export const masterChat = {
     chatWith: '{masterName}（AI）と話す',
     helpText: '巨匠と対話しよう',
     chatEnded: '巨匠との会話が終了しました。',
+    retransformFailed: '⚠️ 再変換に失敗しました。もう一度修正ボタンを押してください。',
     retransformComplete: '💡 再変換完了！前の画像はギャラリーに保存されています。',
     requestModify: '修正',
     errorMessage: '...すまない、少し考えが乱れた。もう一度言ってくれるか？',

@@ -9,6 +9,7 @@ export const masterChat = {
     chatWith: '{masterName}(AI)와 대화하기',
     helpText: '거장과 대화하세요',
     chatEnded: '거장과의 대화가 종료되었습니다.',
+    retransformFailed: '⚠️ 재변환에 실패하였습니다. 다시 아래 수정 버튼을 눌러주세요.',
     retransformComplete: '💡 재변환 완료! 이전 이미지는 갤러리에 저장되어 있습니다.',
     requestModify: '수정',
     errorMessage: '...미안하네, 잠시 생각이 흐트러졌어. 다시 말해주겠나?',

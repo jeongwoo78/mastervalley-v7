@@ -135,19 +135,19 @@ export const processStyleTransfer = async (photoFile, selectedStyle, correctionP
               selectionDetails: null
             });
           } catch (dlErr) {
-            resolve({ success: false, transformId, error: '이미지 다운로드 실패: ' + dlErr.message });
+            resolve({ success: false, transformId, error: 'Image download failed: ' + dlErr.message });
           }
         }
         
         if (data.status === 'failed') {
           cleanup();
-          resolve({ success: false, transformId, error: data.error || '변환 실패' });
+          resolve({ success: false, transformId, error: data.error || 'Transform failed' });
         }
       };
       
       const timeoutId = setTimeout(() => {
         cleanup();
-        resolve({ success: false, transformId, error: '변환 타임아웃 (180초)' });
+        resolve({ success: false, transformId, error: 'Transform timeout (180s)' });
       }, 180000);
       
       // 1) Firestore onSnapshot (실시간 감시)
@@ -157,7 +157,7 @@ export const processStyleTransfer = async (photoFile, selectedStyle, correctionP
         handleResult(snapshot.data());
       }, (error) => {
         cleanup();
-        resolve({ success: false, transformId, error: 'Firestore 리스닝 에러: ' + error.message });
+        resolve({ success: false, transformId, error: 'Firestore listener error: ' + error.message });
       });
       
       // 2) 포그라운드 복귀 시 수동 확인 (onSnapshot이 못 받았을 때 fallback)
@@ -193,7 +193,7 @@ export const processStyleTransfer = async (photoFile, selectedStyle, correctionP
         setTimeout(() => {
           if (!resolved) {
             cleanup();
-            resolve({ success: false, transformId, error: '서버 연결 실패: ' + err.message });
+            resolve({ success: false, transformId, error: 'Server connection failed: ' + err.message });
           }
         }, 15000);
       });
@@ -274,7 +274,7 @@ export const processFullTransform = async (photoFile, styles, selectedStyle, onP
               results[idx] = {
                 style: styles[idx],
                 transformId: tid,
-                error: '이미지 다운로드 실패',
+                error: 'Image download failed',
                 success: false
               };
             }
@@ -295,7 +295,7 @@ export const processFullTransform = async (photoFile, styles, selectedStyle, onP
             results[idx] = {
               style: styles[idx],
               transformId: tid,
-              error: data.error || '변환 실패',
+              error: data.error || 'Transform failed',
               success: false
             };
             
@@ -349,7 +349,7 @@ export const processFullTransform = async (photoFile, styles, selectedStyle, onP
         setTimeout(() => {
           if (completedCount === 0) {
             cleanup();
-            reject(new Error('서버 연결 실패: ' + err.message));
+            reject(new Error('Server connection failed: ' + err.message));
           }
         }, 15000);
       });

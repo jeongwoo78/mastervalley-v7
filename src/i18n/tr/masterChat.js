@@ -9,6 +9,7 @@ export const masterChat = {
     chatWith: '{masterName} (AI) ile sohbet',
     helpText: 'Usta ile konuşun',
     chatEnded: 'Usta ile sohbet sona erdi.',
+    retransformFailed: '⚠️ Yeniden dönüşüm başarısız. Lütfen değiştir düğmesine tekrar basın.',
     retransformComplete: '💡 Yeniden dönüşüm tamamlandı! Önceki görsel galeriye kaydedildi.',
     requestModify: 'Düzenle',
     errorMessage: '...Özür dilerim, düşüncelerim biraz dağıldı. Tekrar söyler misiniz?',

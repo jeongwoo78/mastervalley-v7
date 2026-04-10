@@ -10,6 +10,7 @@ export const masterChat = {
     chatWith: 'Chatear con {masterName} (IA)',
     helpText: 'Habla con el maestro',
     chatEnded: 'La conversación con el maestro ha finalizado.',
+    retransformFailed: '⚠️ La retransformación ha fallado. Por favor, toca el botón de modificar.',
     retransformComplete: '💡 ¡Retransformación completada! La imagen anterior está guardada en tu galería.',
     requestModify: 'Modificar',
     errorMessage: '...Perdona, me he distraído un momento. ¿Podrías repetirlo?',

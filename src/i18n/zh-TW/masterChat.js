@@ -10,6 +10,7 @@ export const masterChat = {
     chatWith: '與{masterName}（AI）對話',
     helpText: '與大師對話',
     chatEnded: '與大師的對話已結束。',
+    retransformFailed: '⚠️ 重新轉換失敗，請再次點擊修改按鈕。',
     retransformComplete: '💡 重新轉換完成！先前的圖片已儲存至相簿。',
     requestModify: '修改',
     errorMessage: '...抱歉，思緒有些紊亂，可以再說一次嗎？',

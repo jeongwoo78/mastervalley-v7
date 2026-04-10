@@ -10,6 +10,7 @@ export const masterChat = {
     chatWith: 'تحدّث مع {masterName} (AI)',
     helpText: 'تحدث مع الأستاذ',
     chatEnded: 'انتهت المحادثة مع الفنان.',
+    retransformFailed: '⚠️ فشلت إعادة التحويل. يرجى الضغط على زر التعديل مرة أخرى.',
     retransformComplete: '💡 اكتمل إعادة التحويل! الصورة السابقة محفوظة في المعرض.',
     requestModify: 'تعديل',
     errorMessage: '...عذراً، تشتّتت أفكاري قليلاً. هل يمكنك التكرار؟',
