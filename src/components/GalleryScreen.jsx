@@ -44,11 +44,14 @@ const getAllImages = async () => {
       
       request.onerror = () => reject(request.error);
       request.onsuccess = () => {
-        // 1차: createdAt 내림차순 (원클릭은 100ms 간격으로 savedAt 부여)
+        // 결정적 정렬: 같은 세션은 styleIndex, 다른 세션은 createdAt
         const items = request.result.sort((a, b) => {
-          const aTime = a.createdAt || '';
-          const bTime = b.createdAt || '';
-          return bTime.localeCompare(aTime);
+          // 같은 세션 내: styleIndex 내림차순 (최신 스타일 위)
+          if (a.sessionId && a.sessionId === b.sessionId) {
+            return (b.styleIndex ?? 0) - (a.styleIndex ?? 0);
+          }
+          // 다른 세션/레거시: createdAt 내림차순
+          return (b.createdAt || '').localeCompare(a.createdAt || '');
         });
         resolve(items);
       };
@@ -73,30 +76,6 @@ const saveImage = async (imageData) => {
     });
   } catch (error) {
     console.error('IndexedDB 저장 실패:', error);
-    return false;
-  }
-};
-
-// createdAt + styleIndex 업데이트 (원클릭 순서 보정용)
-const updateCreatedAt = async (id, newCreatedAt, newStyleIndex) => {
-  try {
-    const db = await openDB();
-    return new Promise((resolve, reject) => {
-      const transaction = db.transaction(STORE_NAME, 'readwrite');
-      const store = transaction.objectStore(STORE_NAME);
-      const getReq = store.get(id);
-      getReq.onsuccess = () => {
-        const item = getReq.result;
-        if (item) {
-          item.createdAt = newCreatedAt;
-          if (newStyleIndex != null) item.styleIndex = newStyleIndex;
-          store.put(item);
-        }
-        resolve(true);
-      };
-      getReq.onerror = () => resolve(false);
-    });
-  } catch (error) {
     return false;
   }
 };
@@ -197,11 +176,8 @@ export const saveToGallery = async (imageUrl, metadataOrStyleName, categoryNameL
       const existingItems = await getAllImages();
       const existing = existingItems.find(item => item.transformId === transformId);
       if (existing) {
-        // 중복이지만 savedAt이 있으면 순서 보정 (원클릭 갤러리 정렬용)
-        if (isMetadata && metadataOrStyleName.savedAt) {
-          await updateCreatedAt(existing.id, metadataOrStyleName.savedAt, metadataOrStyleName.styleIndex ?? null);
-        }
-        return true;
+        // 이미 저장된 항목은 건너뜀 (createdAt 덮어쓰기 방지)
+        return false;
       }
     }
     
@@ -233,6 +209,7 @@ export const saveToGallery = async (imageUrl, metadataOrStyleName, categoryNameL
       styleId: isMetadata ? (metadataOrStyleName.styleId || '') : '',
       isRetransform: isMetadata ? (metadataOrStyleName.isRetransform || false) : false,
       styleIndex: isMetadata ? (metadataOrStyleName.styleIndex ?? null) : null,
+      sessionId: isMetadata ? (metadataOrStyleName.sessionId || null) : null,
       // 레거시 호환 필드
       styleName: isMetadata ? (metadataOrStyleName.artistName || 'Converted Image') : metadataOrStyleName,
       categoryName: isMetadata ? (metadataOrStyleName.category || '') : categoryNameLegacy,

@@ -43,6 +43,7 @@ import ImageZoomViewer from './ImageZoomViewer';
 
 
 const ResultScreen = ({ 
+  resultScreenActiveRef,
   originalPhoto, 
   originalPhotoUrl: appOriginalPhotoUrl,
   photoPreviewBase64,
@@ -135,6 +136,14 @@ const ResultScreen = ({
   const isHighRisk = isFullTransform
     ? (fullTransformResults || []).some(r => isHighRiskStyle(r?.style?.id))
     : isHighRiskStyle(selectedStyle?.id);
+
+  // Lock: ResultScreen 활성 상태 관리 (recovery 차단용)
+  useEffect(() => {
+    if (resultScreenActiveRef) resultScreenActiveRef.current = true;
+    return () => {
+      if (resultScreenActiveRef) resultScreenActiveRef.current = false;
+    };
+  }, []);
 
   // 안드로이드 뒤로가기 — 단계별 닫기 (저장/공유메뉴 → 모달 → 결과화면 나가기)
   useEffect(() => {
@@ -446,6 +455,7 @@ const ResultScreen = ({
       // 모든 Save result
       const saveAllResults = async () => {
         const baseTime = Date.now();
+        const sessionId = `session_${baseTime}`;
         for (let i = 0; i < fullTransformResults.length; i++) {
           const result = fullTransformResults[i];
           if (result?.success && result.resultUrl) {
@@ -460,6 +470,7 @@ const ResultScreen = ({
               styleId: result.style?.id || selectedStyle?.id || '',
               isRetransform: false,
               transformId: result.transformId || null,
+              sessionId,
               savedAt: new Date(baseTime + i * 100).toISOString(),
               styleIndex: i
             });

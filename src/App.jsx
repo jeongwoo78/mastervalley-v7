@@ -44,6 +44,7 @@ const App = () => {
   const [currentScreen, setCurrentScreen] = useState('category');
   const prevScreenRef = useRef('category');
   const recoverPromiseRef = useRef(null);  // 진행 중인 복원 Promise 공유
+  const resultScreenActiveRef = useRef(false);  // ResultScreen 활성 시 recovery 차단
   const [showGallery, setShowGallery] = useState(false);
   const [galleryLoading, setGalleryLoading] = useState(false);
   
@@ -184,27 +185,29 @@ const App = () => {
   // 미수신 변환 복원 (강제종료/백그라운드 복구)
   // Promise 공유: 동시 호출 시 실제 작업은 1회만, 모든 호출자가 같은 완료를 기다림
   const recoverMissedTransforms = (userId) => {
+    // Lock: ResultScreen이 활성이면 recovery 불필요
+    if (resultScreenActiveRef.current) return Promise.resolve();
     if (recoverPromiseRef.current) return recoverPromiseRef.current;
     
     const promise = (async () => {
       try {
+        const oneHourAgo = Timestamp.fromDate(new Date(Date.now() - 60 * 60 * 1000));
         const q = query(
           collection(db, 'transforms'),
-          where('userId', '==', userId)
+          where('userId', '==', userId),
+          where('status', '==', 'completed'),
+          where('completedAt', '>=', oneHourAgo)
         );
         const snapshot = await getDocs(q);
         if (snapshot.empty) return;
 
-        const oneHourAgo = Date.now() - 60 * 60 * 1000;
         let recovered = 0;
 
-        // 유효한 복원 대상 필터링
+        // 유효한 복원 대상 필터링 (status+completedAt은 서버에서 필터됨)
         const validDocs = [];
         for (const docSnap of snapshot.docs) {
           const data = docSnap.data();
-          if (data.status !== 'completed' || !data.resultUrl) continue;
-          const createdTime = data.createdAt?.toMillis?.() || new Date(data.createdAt).getTime();
-          if (createdTime < oneHourAgo) continue;
+          if (!data.resultUrl) continue;
           if (isDeletedTransformId(docSnap.id)) continue;
           validDocs.push({ id: docSnap.id, data });
         }
@@ -231,6 +234,7 @@ const App = () => {
             styleId: data.selectedStyle?.id || '',
             isRetransform: false,
             transformId: id,
+            sessionId: data.sessionId || null,
             savedAt: new Date(baseTime + i * 100).toISOString(),
             styleIndex: data.styleIndex ?? i
           });
@@ -746,6 +750,7 @@ const App = () => {
 
           {currentScreen === 'result' && (
             <ResultScreen
+              resultScreenActiveRef={resultScreenActiveRef}
               originalPhoto={uploadedPhoto}
               originalPhotoUrl={originalPhotoUrl}
               photoPreviewBase64={photoPreviewBase64}
