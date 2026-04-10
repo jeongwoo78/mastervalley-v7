@@ -223,6 +223,7 @@ export const processFullTransform = async (photoFile, styles, selectedStyle, onP
       const results = new Array(transformIds.length).fill(null);
       let completedCount = 0;
       const unsubscribes = [];
+      let pollIntervalId = null;
       
       const timeoutId = setTimeout(() => {
         cleanup();
@@ -233,6 +234,7 @@ export const processFullTransform = async (photoFile, styles, selectedStyle, onP
       const cleanup = () => {
         unsubscribes.forEach(u => u());
         clearTimeout(timeoutId);
+        if (pollIntervalId) clearInterval(pollIntervalId);
       };
       
       const checkAllDone = () => {
@@ -242,76 +244,69 @@ export const processFullTransform = async (photoFile, styles, selectedStyle, onP
         }
       };
       
+      // 결과 처리 헬퍼 (onSnapshot + fallback polling 공용)
+      const processResult = async (idx, tid, data) => {
+        if (results[idx] !== null) return; // 이미 처리됨
+        
+        if (data.status === 'completed' && data.resultUrl) {
+          try {
+            const imageResponse = await fetch(data.resultUrl);
+            const blob = await imageResponse.blob();
+            const localUrl = URL.createObjectURL(blob);
+            
+            results[idx] = {
+              style: styles[idx],
+              resultUrl: localUrl,
+              blob,
+              remoteUrl: data.resultUrl,
+              transformId: tid,
+              aiSelectedArtist: data.selectedArtist || null,
+              selected_work: data.selectedWork || null,
+              selectionMethod: data.selectionMethod || null,
+              subjectType: data.subjectType || null,
+              success: true
+            };
+          } catch (dlErr) {
+            console.error(`❌ Image download failed: ${tid}`, dlErr);
+            results[idx] = {
+              style: styles[idx],
+              transformId: tid,
+              error: 'Image download failed',
+              success: false
+            };
+          }
+        } else if (data.status === 'failed') {
+          results[idx] = {
+            style: styles[idx],
+            transformId: tid,
+            error: data.error || 'Transform failed',
+            success: false
+          };
+        } else {
+          return; // 아직 진행 중
+        }
+        
+        completedCount++;
+        if (onProgress) {
+          onProgress({
+            completedCount,
+            totalCount: transformIds.length,
+            results: [...results],
+            latestIndex: idx
+          });
+        }
+        checkAllDone();
+      };
+      
       // Firestore 리스너 설정
       transformIds.forEach((tid, idx) => {
         const docRef = doc(db, 'transforms', tid);
         
         const unsub = onSnapshot(docRef, async (snapshot) => {
           if (!snapshot.exists()) return;
-          const data = snapshot.data();
-          if (results[idx] !== null) return;
-          
-          if (data.status === 'completed' && data.resultUrl) {
-            try {
-              const imageResponse = await fetch(data.resultUrl);
-              const blob = await imageResponse.blob();
-              const localUrl = URL.createObjectURL(blob);
-              
-              results[idx] = {
-                style: styles[idx],
-                resultUrl: localUrl,
-                blob,
-                remoteUrl: data.resultUrl,
-                transformId: tid,
-                aiSelectedArtist: data.selectedArtist || null,
-                selected_work: data.selectedWork || null,
-                selectionMethod: data.selectionMethod || null,
-                subjectType: data.subjectType || null,
-                success: true
-              };
-            } catch (dlErr) {
-              console.error(`❌ 이미지 다운로드 실패: ${tid}`, dlErr);
-              results[idx] = {
-                style: styles[idx],
-                transformId: tid,
-                error: 'Image download failed',
-                success: false
-              };
-            }
-            
-            completedCount++;
-            if (onProgress) {
-              onProgress({
-                completedCount,
-                totalCount: transformIds.length,
-                results: [...results],
-                latestIndex: idx
-              });
-            }
-            checkAllDone();
-          }
-          
-          if (data.status === 'failed') {
-            results[idx] = {
-              style: styles[idx],
-              transformId: tid,
-              error: data.error || 'Transform failed',
-              success: false
-            };
-            
-            completedCount++;
-            if (onProgress) {
-              onProgress({
-                completedCount,
-                totalCount: transformIds.length,
-                results: [...results],
-                latestIndex: idx
-              });
-            }
-            checkAllDone();
-          }
+          await processResult(idx, tid, snapshot.data());
         }, (error) => {
-          console.error(`❌ Firestore 리스닝 에러: ${tid}`, error);
+          console.error(`❌ Firestore listener error: ${tid}`, error);
           if (results[idx] === null) {
             results[idx] = {
               style: styles[idx],
@@ -326,6 +321,29 @@ export const processFullTransform = async (photoFile, styles, selectedStyle, onP
         
         unsubscribes.push(unsub);
       });
+      
+      // Fallback polling: 30초마다 미완료 슬롯 수동 확인
+      pollIntervalId = setInterval(async () => {
+        const pending = transformIds
+          .map((tid, idx) => ({ tid, idx }))
+          .filter(({ idx }) => results[idx] === null);
+        
+        if (pending.length === 0) return;
+        
+        console.log(`🔄 Fallback polling: ${pending.length} pending`);
+        
+        for (const { tid, idx } of pending) {
+          try {
+            const docRef = doc(db, 'transforms', tid);
+            const snapshot = await getDocFromServer(docRef);
+            if (snapshot.exists()) {
+              await processResult(idx, tid, snapshot.data());
+            }
+          } catch (e) {
+            console.warn(`⚠️ Fallback poll error: ${tid}`, e.message);
+          }
+        }
+      }, 30000);
       
       // HTTP 호출 (fire-and-forget)
       const userId = auth.currentUser?.uid || null;

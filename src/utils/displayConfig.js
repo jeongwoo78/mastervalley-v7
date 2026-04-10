@@ -1125,16 +1125,23 @@ export function getMovementDisplayInfo(styleName, artistName, lang = 'en') {
  * @returns {{ title: string, subtitle: string }}
  */
 export function getOrientalDisplayInfo(artistName, lang = 'en') {
-  const orientalDataKo = {
-    'korean-minhwa': { title: '한국 전통회화', subtitle: '민화' },
-    'korean-pungsokdo': { title: '한국 전통회화', subtitle: '풍속도' },
-    'korean-jingyeong': { title: '한국 전통회화', subtitle: '진경산수화' },
-    'chinese-ink': { title: '중국 전통회화', subtitle: '수묵화' },
-    'chinese-gongbi': { title: '중국 전통회화', subtitle: '공필화' },
-    'japanese-ukiyoe': { title: '일본 전통회화', subtitle: '우키요에' },
-    'japanese-rinpa': { title: '일본 전통회화', subtitle: '린파' }
-  };
-  const orientalDataEn = {
+  const key = normalizeKey(artistName);
+
+  // 모든 언어: i18n oriental.js 사용
+  const i18nOriental = getOrientalBasicInfo ? getOrientalBasicInfo(lang) : null;
+  if (i18nOriental) {
+    const entry = i18nOriental[key];
+    if (entry) {
+      const rawName = entry.loading?.name || entry.result?.name || '';
+      const title = rawName.replace(/\s*[(\（].*?[)\）]/g, '').trim();
+      const rawSub = entry.result?.subtitle1 || entry.loading?.subtitle1 || '';
+      const subtitle = rawSub.replace(/\s*[(\（].*?[)\）]/g, '').trim();
+      if (title) return { title, subtitle };
+    }
+  }
+
+  // fallback: en
+  const fallbackEn = {
     'korean-minhwa': { title: 'Korean Traditional Art', subtitle: 'Minhwa' },
     'korean-pungsokdo': { title: 'Korean Traditional Art', subtitle: 'Pungsokdo' },
     'korean-jingyeong': { title: 'Korean Traditional Art', subtitle: 'Jingyeong' },
@@ -1143,30 +1150,7 @@ export function getOrientalDisplayInfo(artistName, lang = 'en') {
     'japanese-ukiyoe': { title: 'Japanese Traditional Art', subtitle: 'Ukiyo-e' },
     'japanese-rinpa': { title: 'Japanese Traditional Art', subtitle: 'Rinpa' }
   };
-
-  const key = normalizeKey(artistName);
-
-  // ko/en: 하드코딩 사용
-  if (lang === 'ko') return orientalDataKo[key] || { title: '동양화', subtitle: artistName || '' };
-  if (lang === 'en') return orientalDataEn[key] || { title: 'East Asian Art', subtitle: artistName || '' };
-
-  // 기타 언어: i18n oriental.js 우선
-  const i18nOriental = getOrientalBasicInfo ? getOrientalBasicInfo(lang) : null;
-  if (i18nOriental) {
-    const entry = i18nOriental[key];
-    if (entry) {
-      // title: loading.name 또는 result.name (전각/반각 괄호 제거)
-      const rawName = entry.loading?.name || entry.result?.name || '';
-      const title = rawName.replace(/\s*[(\（].*?[)\）]/g, '').trim();
-      // subtitle: result.subtitle1 (기법명, 괄호 제거)
-      const rawSub = entry.result?.subtitle1 || entry.loading?.subtitle1 || '';
-      const subtitle = rawSub.replace(/\s*[(\（].*?[)\）]/g, '').trim();
-      if (title) return { title, subtitle };
-    }
-  }
-
-  // fallback: en
-  return orientalDataEn[key] || { title: 'East Asian Art', subtitle: artistName || '' };
+  return fallbackEn[key] || { title: 'East Asian Art', subtitle: artistName || '' };
 }
 
 /**
@@ -1176,46 +1160,32 @@ export function getOrientalDisplayInfo(artistName, lang = 'en') {
  * @returns {{ fullName: string, movement: string, tagline: string }}
  */
 export function getMasterInfo(artistName, lang = 'en') {
-  const masterDataKo = {
-    'vangogh': { fullName: '빈센트 반 고흐(Vincent van Gogh, 1853~1890)', movement: '후기인상주의', tagline: '별과 소용돌이의 열정' },
-    'klimt': { fullName: '구스타프 클림트(Gustav Klimt, 1862~1918)', movement: '아르누보', tagline: '황금빛 사랑과 죽음' },
-    'munch': { fullName: '에드바르 뭉크(Edvard Munch, 1863~1944)', movement: '표현주의', tagline: '내면의 고독과 불안' },
-    'matisse': { fullName: '앙리 마티스(Henri Matisse, 1869~1954)', movement: '야수파', tagline: '색채의 기쁨과 해방' },
-    'chagall': { fullName: '마르크 샤갈(Marc Chagall, 1887~1985)', movement: '초현실주의', tagline: '사랑과 꿈의 비행' },
-    'frida': { fullName: '프리다 칼로(Frida Kahlo, 1907~1954)', movement: '초현실주의', tagline: '고통 속 강인한 자아' },
-    'picasso': { fullName: '파블로 피카소(Pablo Picasso, 1881~1973)', movement: '입체주의', tagline: '형태를 해체한 혁명가' },
-    'lichtenstein': { fullName: '로이 리히텐슈타인(Roy Lichtenstein, 1923~1997)', movement: '팝아트', tagline: '만화로 묻는 예술' }
-  };
-
-  const masterDataEn = {
-    'vangogh': { fullName: 'Vincent van Gogh (1853-1890)', movement: 'Post-Impressionism', tagline: 'Swirling passion of the brush' },
-    'klimt': { fullName: 'Gustav Klimt (1862-1918)', movement: 'Art Nouveau', tagline: 'A world of golden sensuality' },
-    'munch': { fullName: 'Edvard Munch (1863-1944)', movement: 'Expressionism', tagline: 'Painting the inner scream' },
-    'matisse': { fullName: 'Henri Matisse (1869-1954)', movement: 'Fauvism', tagline: 'Master of color' },
-    'chagall': { fullName: 'Marc Chagall (1887-1985)', movement: 'Surrealism', tagline: 'Poet of love and dreams' },
-    'frida': { fullName: 'Frida Kahlo (1907-1954)', movement: 'Surrealism', tagline: 'Self-portrait gazing at pain' },
-    'picasso': { fullName: 'Pablo Picasso (1881-1973)', movement: 'Cubism', tagline: 'Revolutionary who deconstructed vision' },
-    'lichtenstein': { fullName: 'Roy Lichtenstein (1923-1997)', movement: 'Pop Art', tagline: 'Dots that changed art' }
-  };
-
-  if (!artistName) return lang === 'ko' ? { fullName: '거장', movement: '', tagline: '' } : { fullName: 'Master', movement: '', tagline: '' };
+  if (!artistName) return { fullName: lang === 'ko' ? '거장' : 'Master', movement: '', tagline: '' };
   const key = normalizeKey(artistName);
 
-  // i18n 언어별 name 우선 사용
-  if (lang !== 'ko' && lang !== 'en') {
-    const i18nBasic = getMastersBasicInfo(lang) || {};
-    const i18nMaster = key ? i18nBasic[key] : null;
-    if (i18nMaster?.loading?.name) {
-      return {
-        fullName: i18nMaster.loading.name,
-        movement: i18nMaster.loading.subtitle1 || '',
-        tagline: i18nMaster.loading.subtitle2 || ''
-      };
-    }
+  // 모든 언어: i18n masters.js 사용
+  const i18nBasic = getMastersBasicInfo(lang) || {};
+  const i18nMaster = key ? i18nBasic[key] : null;
+  if (i18nMaster?.loading?.name) {
+    return {
+      fullName: i18nMaster.loading.name,
+      movement: i18nMaster.loading.subtitle1 || '',
+      tagline: i18nMaster.loading.subtitle2 || ''
+    };
   }
 
-  const masterData = lang === 'ko' ? masterDataKo : masterDataEn;
-  return masterData[key] || { fullName: artistName, movement: '', tagline: '' };
+  // fallback: en
+  const fallbackEn = {
+    'vangogh': { fullName: 'Vincent van Gogh (1853-1890)', movement: 'Post-Impressionism', tagline: '' },
+    'klimt': { fullName: 'Gustav Klimt (1862-1918)', movement: 'Art Nouveau', tagline: '' },
+    'munch': { fullName: 'Edvard Munch (1863-1944)', movement: 'Expressionism', tagline: '' },
+    'matisse': { fullName: 'Henri Matisse (1869-1954)', movement: 'Fauvism', tagline: '' },
+    'chagall': { fullName: 'Marc Chagall (1887-1985)', movement: 'Surrealism', tagline: '' },
+    'frida': { fullName: 'Frida Kahlo (1907-1954)', movement: 'Surrealism', tagline: '' },
+    'picasso': { fullName: 'Pablo Picasso (1881-1973)', movement: 'Cubism', tagline: '' },
+    'lichtenstein': { fullName: 'Roy Lichtenstein (1923-1997)', movement: 'Pop Art', tagline: '' }
+  };
+  return fallbackEn[key] || { fullName: artistName, movement: '', tagline: '' };
 }
 
 // ========== v73: 통합 스타일 표시 함수 ==========
