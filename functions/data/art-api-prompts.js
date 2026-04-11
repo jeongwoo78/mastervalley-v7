@@ -35,7 +35,7 @@ export const ARTIST_CONFIG = {
  'raphael': { control_strength: 0.70, brush_size: '75mm' },
  
  // === 바로크 ===
- 'caravaggio': { control_strength: 0.50, brush_size: '75mm' },
+ 'caravaggio': { control_strength: 0.62, brush_size: '75mm' },
  'rubens': { control_strength: 0.50, brush_size: '90mm' },
  'rembrandt': { control_strength: 0.50, brush_size: '75mm' },
  'velazquez': { control_strength: 0.50, brush_size: '75mm' },
@@ -81,7 +81,7 @@ export const ARTIST_CONFIG = {
  'lichtenstein': { control_strength: 0.25, brush_size: null },
  
  // === 거장 ===
- 'klimt': { control_strength: 0.72, brush_size: '40mm' },
+ 'klimt': { control_strength: 0.65, brush_size: '40mm' },
  'frida': { control_strength: 0.80, brush_size: '25mm' },
  
  // === 동양화 ===
@@ -1390,7 +1390,7 @@ export const ARTIST_STYLES = {
  'raphael': 'Old oil painting by Raphael, Raphael art style, perfect harmonious beauty, serene balanced composition, gentle graceful expressions.',
 
  // 🎭 바로크
- 'caravaggio': 'Old oil painting by Caravaggio, Caravaggio art style, extreme tenebrism, intense spotlight from absolute black darkness, dramatic theatrical illumination.',
+ 'caravaggio': 'Old oil painting by Caravaggio, Caravaggio art style, extreme tenebrism, intense spotlight from deep black background, dramatic theatrical illumination.',
  'rubens': 'Old oil painting by Peter Paul Rubens, Rubens art style, radiant luminous flesh, explosive swirling movement, rich passionate reds and golds.',
  'rembrandt': 'Old oil painting by Rembrandt, Rembrandt art style, intense golden glow, deep mysterious shadows, thick impasto highlights.',
  'velazquez': 'Old oil painting by Diego Velazquez, Velazquez art style, refined court elegance, masterful loose brushwork, subtle silver-grey palette.',
@@ -1440,7 +1440,7 @@ export const ARTIST_STYLES = {
  'lichtenstein': 'by Roy Lichtenstein, COMIC BOOK POP ART style, LARGE VISIBLE Ben-Day dots pattern covering entire surface, BOLD HEAVY BLACK INK OUTLINES 8mm+ like comic book printing surrounding ALL shapes faces and figures, FLAT primary colors ONLY (red blue yellow white black), halftone printing effect, THICK BLACK CONTOUR LINES on every edge.',
 
  // ⭐ 거장 전용
- 'klimt': 'by Gustav Klimt, Klimt art style, ornate gold leaf patterns, intricate decorative mosaic, richly textured Byzantine-inspired figures, jewel-like embedded details, geometric robes with spirals and rectangles.',
+ 'klimt': 'by Gustav Klimt, Klimt art style, ornate gold leaf patterns, intricate decorative mosaic, flat Byzantine-inspired figures, jewel-like embedded details, geometric robes with spirals and rectangles.',
  'frida': 'Old oil painting by Frida Kahlo, Frida Kahlo art style, intense direct gaze, symbolic personal elements, vibrant Mexican folk colors, lush tropical foliage background, raw emotional honesty.',
 
  // 🎎 동양화
