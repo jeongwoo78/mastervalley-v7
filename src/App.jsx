@@ -788,6 +788,7 @@ const App = () => {
                 setShowInsufficientPopup(true);
               }}
               lang={lang}
+              isGalleryOpen={showGallery}
             />
           )}
       </div>

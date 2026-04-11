@@ -70,7 +70,8 @@ const ResultScreen = ({
   userId,
   userCredits = 0,
   onInsufficientBalance,
-  lang = 'en'
+  lang = 'en',
+  isGalleryOpen = false
 }) => {
 
   // i18n texts from ui.js
@@ -148,6 +149,7 @@ const ResultScreen = ({
   // 안드로이드 뒤로가기 — 단계별 닫기 (저장/공유메뉴 → 모달 → 결과화면 나가기)
   useEffect(() => {
     const handler = CapApp.addListener('backButton', () => {
+      if (isGalleryOpen) return;
       if (showModalSaveShare) {
         setShowModalSaveShare(false);
         return;
@@ -161,7 +163,7 @@ const ResultScreen = ({
       else onReset();
     });
     return () => { handler.then(h => h.remove()); };
-  }, [showModalSaveShare, showImageModal]);
+  }, [showModalSaveShare, showImageModal, isGalleryOpen]);
   
   // v72: viewIndex - Original/결과 스와이프용 (-1: Original, 0~n: 결과)
   // 단독 변환: 항상 0 (결과만 표시, 목업 준수)
@@ -1873,7 +1875,7 @@ const ResultScreen = ({
           margin-bottom: 4px;
         }
         .oneclick-style-info .subtitle2 {
-          font-size: 12px;
+          font-size: 14px;
           color: rgba(255,255,255,0.4);
           margin-bottom: 12px;
         }
@@ -1972,6 +1974,7 @@ const ResultScreen = ({
           font-size: 14px;
           color: rgba(255,255,255,0.4);
           text-align: center;
+          margin-bottom: 12px;
         }
 
         .style-badge {
@@ -2302,7 +2305,7 @@ const ResultScreen = ({
           }
 
           .card-header h2 {
-            font-size: 1.25rem;
+            font-size: 17px;
           }
         }
 
