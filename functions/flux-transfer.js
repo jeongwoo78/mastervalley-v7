@@ -1786,42 +1786,42 @@ const fallbackPrompts = {
   
   medieval: {
     name: '중세 미술',
-    prompt: 'Medieval art style selection: 1) ANIMALS → ALWAYS ISLAMIC MINIATURE, 2) PEOPLE → ISLAMIC MINIATURE 50% OR BYZANTINE 50%, 3) STILL LIFE/OBJECTS → ISLAMIC MINIATURE, 4) LANDSCAPE/BUILDING only → GOTHIC STAINED GLASS. ISLAMIC MINIATURE: Persian Ottoman court painting, intricate delicate details, vibrant jewel colors ruby sapphire emerald gold, flat decorative composition, ornamental floral patterns, courtly elegant aesthetic, garden or hunting scenes. BYZANTINE: GOLDEN MOSAIC sacred background, shimmering gold leaf, CIRCULAR GOLDEN HALO behind head, flat hieratic frontal iconic figures, divine transcendent atmosphere. GOTHIC: CATHEDRAL STAINED GLASS jewel tones, THICK BLACK LEAD LINES dividing colored segments, vertical elongated figures, FLAT TWO-DIMENSIONAL medieval aesthetic. Medieval masterpiece quality'
+    prompt: 'Medieval art style selection: 1) ANIMALS → ALWAYS ISLAMIC MINIATURE, 2) PEOPLE → ISLAMIC MINIATURE 50% OR BYZANTINE 50%, 3) STILL LIFE/OBJECTS → ISLAMIC MINIATURE, 4) LANDSCAPE/BUILDING only → GOTHIC STAINED GLASS. Subject clothing transforms into medieval robes covering chest waist and hip areas. ISLAMIC MINIATURE: Persian Ottoman court painting, intricate delicate details, vibrant jewel colors ruby sapphire emerald gold, flat decorative composition, ornamental floral patterns, courtly elegant aesthetic, garden or hunting scenes. BYZANTINE: GOLDEN MOSAIC sacred background, shimmering gold leaf, CIRCULAR GOLDEN HALO behind head, flat hieratic frontal iconic figures, divine transcendent atmosphere. GOTHIC: CATHEDRAL STAINED GLASS jewel tones, THICK BLACK LEAD LINES dividing colored segments, vertical elongated figures, FLAT TWO-DIMENSIONAL medieval aesthetic. Medieval masterpiece quality'
   },
   
   renaissance: {
     name: 'Leonardo da Vinci',
-    prompt: 'Renaissance painting by Leonardo da Vinci, Leonardo art style, EXTREME sfumato technique, PRESERVE original person face and features exactly, apply Leonardo PAINTING TECHNIQUE ONLY with sfumato haze, apply Leonardo STYLE not any specific portrait LIKENESS, apply very strong soft atmospheric haze throughout, all edges must be completely blurred, no sharp outlines anywhere in entire painting, mysterious smoky depth with sfumato technique, every boundary softly dissolved into atmosphere, warm golden Renaissance colors, harmonious balanced composition, unified composition all figures together NOT separated, preserve facial identity, Renaissance masterpiece quality'
+    prompt: 'Renaissance painting by Leonardo da Vinci, Leonardo art style, Subject clothing transforms into elegant Renaissance garments covering chest waist and hip areas, EXTREME sfumato technique, PRESERVE original person face and features exactly, apply Leonardo PAINTING TECHNIQUE ONLY with sfumato haze, apply Leonardo STYLE not any specific portrait LIKENESS, apply very strong soft atmospheric haze throughout, all edges must be completely blurred, no sharp outlines anywhere in entire painting, mysterious smoky depth with sfumato technique, every boundary softly dissolved into atmosphere, warm golden Renaissance colors, harmonious balanced composition, unified composition all figures together NOT separated, preserve facial identity, Renaissance masterpiece quality'
   },
   
   baroque: {
     name: 'Caravaggio',
-    prompt: 'Baroque painting by Caravaggio, Caravaggio art style, DRAMATIC chiaroscuro lighting with extreme light-dark contrast, theatrical spotlight effect, deep black shadows, tenebrism technique, rich deep colors, dynamic diagonal composition, theatrical emotional atmosphere, single unified composition with all figures together in one cohesive continuous scene NOT separated into multiple groups, Baroque masterpiece quality'
+    prompt: 'Baroque painting by Caravaggio, Caravaggio art style, Subject clothing transforms into elegant Baroque garments covering chest waist and hip areas, DRAMATIC chiaroscuro lighting with extreme light-dark contrast, theatrical spotlight effect, deep black shadows, tenebrism technique, rich deep colors, dynamic diagonal composition, theatrical emotional atmosphere, single unified composition with all figures together in one cohesive continuous scene NOT separated into multiple groups, Baroque masterpiece quality'
   },
   
   rococo: {
     name: 'Antoine Watteau',
-    prompt: 'Rococo oil painting by Watteau, Watteau art style, VISIBLE BRUSHSTROKES with oil paint texture throughout, light pastel colors, playful ornate decoration, soft delicate brushwork, romantic elegant atmosphere, graceful curved lines, whimsical charm, single unified composition with all figures together in one cohesive scene NOT separated into multiple groups, painted on canvas with VISIBLE PAINT TEXTURE, Rococo masterpiece quality'
+    prompt: 'Rococo oil painting by Watteau, Watteau art style, Subject clothing transforms into elegant Rococo garments covering chest waist and hip areas, VISIBLE BRUSHSTROKES with oil paint texture throughout, light pastel colors, playful ornate decoration, soft delicate brushwork, romantic elegant atmosphere, graceful curved lines, whimsical charm, single unified composition with all figures together in one cohesive scene NOT separated into multiple groups, painted on canvas with VISIBLE PAINT TEXTURE, Rococo masterpiece quality'
   },
   
   neoclassicism_vs_romanticism_vs_realism: {
     name: '신고전 vs 낭만 vs 사실주의',
-    prompt: 'Choose best style based on photo: if static balanced formal use Neoclassical style by Jacques-Louis David, David art style, with cold perfection and clear lines, if dynamic emotional landscape use Romantic style by J.M.W. Turner, Turner art style, with atmospheric sublime effects, if rural peaceful use Realist style by Gustave Courbet, Courbet art style, with honest rural reality, if urban modern use Realist style by Édouard Manet, Manet art style, with sophisticated Paris realism, masterpiece quality with single unified composition NOT separated'
+    prompt: 'Choose best style based on photo: Subject clothing transforms into elegant period garments covering chest waist and hip areas. if static balanced formal use Neoclassical style by Jacques-Louis David, David art style, with cold perfection and clear lines, if dynamic emotional landscape use Romantic style by J.M.W. Turner, Turner art style, with atmospheric sublime effects, if rural peaceful use Realist style by Gustave Courbet, Courbet art style, with honest rural reality, if urban modern use Realist style by Édouard Manet, Manet art style, with sophisticated Paris realism, masterpiece quality with single unified composition NOT separated'
   },
   
   impressionism: {
     name: 'Claude Monet',
-    prompt: 'Impressionist painting by Claude Monet, Monet art style, ROUGH VISIBLE BROKEN brushstrokes, SOFT HAZY atmospheric effects like morning mist, colors BLENDED and DISSOLVED into each other, NO sharp edges, dreamy blurred boundaries, dappled light filtering through atmosphere, Woman with a Parasol style atmospheric haze, everything slightly out of focus and impressionistic, Impressionist masterpiece quality'
+    prompt: 'Impressionist painting by Claude Monet, Monet art style, Clothing covers chest waist and hip areas, ROUGH VISIBLE BROKEN brushstrokes, SOFT HAZY atmospheric effects like morning mist, colors BLENDED and DISSOLVED into each other, NO sharp edges, dreamy blurred boundaries, dappled light filtering through atmosphere, Woman with a Parasol style atmospheric haze, everything slightly out of focus and impressionistic, Impressionist masterpiece quality'
   },
   
   postImpressionism: {
     name: 'Vincent van Gogh',
-    prompt: 'Post-Impressionist painting, Post-Impressionist art style, bold expressive colors, personal artistic vision, emotional depth and symbolic meaning, visible distinctive brushwork, Post-Impressionist masterpiece quality'
+    prompt: 'Post-Impressionist painting, Post-Impressionist art style, Clothing covers chest waist and hip areas, bold expressive colors, personal artistic vision, emotional depth and symbolic meaning, visible distinctive brushwork, Post-Impressionist masterpiece quality'
   },
   
   fauvism: {
     name: 'Henri Matisse',
-    prompt: 'Fauvist painting by Henri Matisse, Matisse Fauvist art style, pure bold unmixed colors, flat decorative patterns, intense color contrasts, liberation of color from reality, simplified forms, joyful energetic atmosphere, The Dance-like pure color harmony, Fauvist masterpiece quality'
+    prompt: 'Fauvist painting by Henri Matisse, Matisse Fauvist art style, Clothing covers chest waist and hip areas, pure bold unmixed colors, flat decorative patterns, intense color contrasts, liberation of color from reality, simplified forms, joyful energetic atmosphere, The Dance-like pure color harmony, Fauvist masterpiece quality'
   },
   
   expressionism: {
@@ -1847,7 +1847,7 @@ const fallbackPrompts = {
     artist: 'Vincent van Gogh (1853-1890)',
     movement: '후기인상주의 (Post-Impressionism)',
     defaultWork: 'The Starry Night',
-    prompt: 'painting by Vincent van Gogh, Van Gogh art style, THICK SWIRLING IMPASTO brushstrokes visible throughout, VIBRANT INTENSE emotional colors, cobalt blue, chrome yellow, emerald green, dynamic energetic turbulent sky and background, Starry Night style spiraling movement, passionate expressive emotional power, preserve subject identity, Van Gogh masterpiece quality'
+    prompt: 'painting by Vincent van Gogh, Van Gogh art style, Clothing covers chest waist and hip areas, THICK SWIRLING IMPASTO brushstrokes visible throughout, VIBRANT INTENSE emotional colors, cobalt blue, chrome yellow, emerald green, dynamic energetic turbulent sky and background, Starry Night style spiraling movement, passionate expressive emotional power, preserve subject identity, Van Gogh masterpiece quality'
   },
   
   klimt: {
@@ -1855,7 +1855,7 @@ const fallbackPrompts = {
     artist: 'Gustav Klimt (1862-1918)',
     movement: '아르누보 (Art Nouveau)',
     defaultWork: 'The Kiss',
-    prompt: 'painting by Gustav Klimt, Klimt Golden Phase art style, GOLD LEAF decorative patterns throughout background, Byzantine mosaic geometric ornaments, The Kiss style intimate sensuous atmosphere, MYSTERIOUS ALLURING EXPRESSION, femme fatale for women, homme fatale for men, jewel-like rich colors, gold, bronze, deep reds, flowing organic Art Nouveau lines, symbolic decorative elements, golden glow on skin, preserve subject identity, Klimt masterpiece quality'
+    prompt: 'painting by Gustav Klimt, Klimt Golden Phase art style, Clothing covers chest waist and hip areas, GOLD LEAF decorative patterns throughout background, Byzantine mosaic geometric ornaments, The Kiss style intimate sensuous atmosphere, MYSTERIOUS ALLURING EXPRESSION, femme fatale for women, homme fatale for men, jewel-like rich colors, gold, bronze, deep reds, flowing organic Art Nouveau lines, symbolic decorative elements, golden glow on skin, preserve subject identity, Klimt masterpiece quality'
   },
   
   munch: {
@@ -1863,7 +1863,7 @@ const fallbackPrompts = {
     artist: 'Edvard Munch (1863-1944)',
     movement: '표현주의 (Expressionism)',
     defaultWork: 'The Scream',
-    prompt: 'painting by Edvard Munch, Munch Expressionist art style, INTENSE PSYCHOLOGICAL emotional depth, The Scream style existential anxiety atmosphere, WAVY DISTORTED flowing lines throughout background AND on figure, haunting symbolic colors, blood red orange sky, sickly yellows, deep blues, TRANSFORM expression to melancholic anxious mood, raw emotional vulnerability exposed, visible brushwork, preserve subject identity, Munch Expressionist masterpiece quality'
+    prompt: 'painting by Edvard Munch, Munch Expressionist art style, Clothing covers chest waist and hip areas, INTENSE PSYCHOLOGICAL emotional depth, The Scream style existential anxiety atmosphere, WAVY DISTORTED flowing lines throughout background AND on figure, haunting symbolic colors, blood red orange sky, sickly yellows, deep blues, TRANSFORM expression to melancholic anxious mood, raw emotional vulnerability exposed, visible brushwork, preserve subject identity, Munch Expressionist masterpiece quality'
   },
   
   matisse: {
@@ -1871,7 +1871,7 @@ const fallbackPrompts = {
     artist: 'Henri Matisse (1869-1954)',
     movement: '야수파 (Fauvism)',
     defaultWork: 'The Dance',
-    prompt: 'painting by Henri Matisse, Matisse Fauvist art style, PURE BOLD UNMIXED COLORS in flat decorative areas, The Dance style simplified joyful forms, complete liberation of color from reality, saturated intense primary colors, red, blue, green, APPLY UNREALISTIC COLORS TO FACE AND SKIN, green purple red on face OK, simplified facial features, rhythmic flowing harmonious lines, ROUGH FAUVIST BRUSHSTROKES clearly visible throughout including on skin textured, life-affirming energetic atmosphere, preserve subject identity, Matisse Fauvist masterpiece quality'
+    prompt: 'painting by Henri Matisse, Matisse Fauvist art style, Clothing covers chest waist and hip areas, PURE BOLD UNMIXED COLORS in flat decorative areas, The Dance style simplified joyful forms, complete liberation of color from reality, saturated intense primary colors, red, blue, green, APPLY UNREALISTIC COLORS TO FACE AND SKIN, green purple red on face OK, simplified facial features, rhythmic flowing harmonious lines, ROUGH FAUVIST BRUSHSTROKES clearly visible throughout including on skin textured, life-affirming energetic atmosphere, preserve subject identity, Matisse Fauvist masterpiece quality'
   },
   
   picasso: {
@@ -1879,7 +1879,7 @@ const fallbackPrompts = {
     artist: 'Pablo Picasso (1881-1973)',
     movement: '입체주의 (Cubism)',
     defaultWork: 'Les Demoiselles d\'Avignon',
-    prompt: 'Cubist painting by Pablo Picasso, Picasso Cubism art style, MOST IMPORTANT THE FACE MUST BE CUBIST DECONSTRUCTED NOT REALISTIC, REQUIRED DISTORTIONS: show PROFILE NOSE side view while BOTH EYES face FORWARD on same face, FRAGMENT face into FLAT ANGULAR GEOMETRIC PLANES, break JAW FOREHEAD CHEEKS into separate angular shapes like shattered glass, Les Demoiselles d Avignon African mask angular style, Earth tones, ochre, brown, olive, grey, If the face looks normal or realistic YOU ARE DOING IT WRONG faces must look abstracted and geometrically impossible, Picasso Cubist masterpiece quality'
+    prompt: 'Cubist painting by Pablo Picasso, Picasso Cubism art style, Clothing covers chest waist and hip areas, MOST IMPORTANT THE FACE MUST BE CUBIST DECONSTRUCTED NOT REALISTIC, REQUIRED DISTORTIONS: show PROFILE NOSE side view while BOTH EYES face FORWARD on same face, FRAGMENT face into FLAT ANGULAR GEOMETRIC PLANES, break JAW FOREHEAD CHEEKS into separate angular shapes like shattered glass, Les Demoiselles d Avignon African mask angular style, Earth tones, ochre, brown, olive, grey, If the face looks normal or realistic YOU ARE DOING IT WRONG faces must look abstracted and geometrically impossible, Picasso Cubist masterpiece quality'
   },
   
   chagall: {
@@ -1887,7 +1887,7 @@ const fallbackPrompts = {
     artist: 'Marc Chagall (1887-1985)',
     movement: '초현실주의 (Surrealism)',
     defaultWork: 'I and the Village',
-    prompt: 'Dreamy painting by Marc Chagall, Chagall art style, floating figures defying gravity, vivid jewel-like colors, dreamlike surreal composition, folk art influences, romantic poetic atmosphere, village scenes with lovers and animals, stained glass luminosity.'
+    prompt: 'Dreamy painting by Marc Chagall, Chagall art style, Clothing covers chest waist and hip areas, floating figures defying gravity, vivid jewel-like colors, dreamlike surreal composition, folk art influences, romantic poetic atmosphere, village scenes with lovers and animals, stained glass luminosity.'
   },
   
   lichtenstein: {
@@ -1895,7 +1895,7 @@ const fallbackPrompts = {
     artist: 'Roy Lichtenstein (1923-1997)',
     movement: '팝 아트 (Pop Art)',
     defaultWork: 'M-Maybe',
-    prompt: 'Pop art painting by Roy Lichtenstein, Lichtenstein art style, bold black outlines, Ben-Day dots pattern, primary colors red blue yellow, comic book panel aesthetic, dramatic graphic composition, speech bubbles optional, flat areas of saturated color.'
+    prompt: 'Pop art painting by Roy Lichtenstein, Lichtenstein art style, Clothing covers chest waist and hip areas, bold black outlines, Ben-Day dots pattern, primary colors red blue yellow, comic book panel aesthetic, dramatic graphic composition, speech bubbles optional, flat areas of saturated color.'
   },
   
   frida: {
@@ -1903,7 +1903,7 @@ const fallbackPrompts = {
     artist: 'Frida Kahlo (1907-1954)',
     movement: '멕시코 초현실주의 (Mexican Surrealism)',
     defaultWork: 'Me and My Parrots',
-    prompt: 'painting by Frida Kahlo, Frida Kahlo art style, INTENSE DIRECT GAZE portrait style, vibrant Mexican folk art colors, symbolic personal imagery, flowers, animals, vines, hearts, emotional raw vulnerability, Mexican traditional dress and floral headpiece, lush tropical green foliage background, autobiographical symbolic elements, rich saturated colors, detailed oil painting brushwork visible, preserve subject identity, Frida Kahlo masterpiece quality'
+    prompt: 'painting by Frida Kahlo, Frida Kahlo art style, Clothing covers chest waist and hip areas, INTENSE DIRECT GAZE portrait style, vibrant Mexican folk art colors, symbolic personal imagery, flowers, animals, vines, hearts, emotional raw vulnerability, Mexican traditional dress and floral headpiece, lush tropical green foliage background, autobiographical symbolic elements, rich saturated colors, detailed oil painting brushwork visible, preserve subject identity, Frida Kahlo masterpiece quality'
   },
   
   // ========================================
@@ -2709,10 +2709,10 @@ function buildIdentityPrompt(visionAnalysis) {
   }
   
   // v80: 피부색 밝기 하한선 (모든 인종 공통)
-  parts.push('Skin always rendered warmer than deep warm brown (#5C3A1E), with visible warm undertones, luminous and lifelike');
+  parts.push('Skin always rendered warmer than warm brown (#8D5524), with visible warm undertones, luminous and lifelike');
   
   // v80: 노출 한도 (가슴+골반은 기존 의류 clause에서 커버)
-  parts.push('Skin may be visible above the chest line, on the midriff, and on the legs including thighs');
+  parts.push('Skin may be visible above the chest line, on the midriff, and on the legs including thighs. Chest fully covered by clothing, nipples always beneath fabric');
   
   return parts.join(', ');
 }

@@ -228,7 +228,7 @@ const ResultScreen = ({
   }, [fullTransformResults]);
   
   // 실패한 결과 개수
-  const failedCount = results.filter(r => !r.success).length;
+  const failedCount = results.filter(r => r && !r.success).length;
   
   // currentIndex 범위 체크 (results 범위 내로 보정)
   const safeCurrentIndex = isFullTransform 
