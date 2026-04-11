@@ -680,7 +680,7 @@ const ProcessingScreen = ({ photo, originalPhotoUrl, selectedStyle, onComplete, 
           margin-bottom: 4px;
         }
         .oneclick-style-info .subtitle2 {
-          font-size: 12px;
+          font-size: 14px;
           color: rgba(255,255,255,0.4);
           margin-bottom: 12px;
         }

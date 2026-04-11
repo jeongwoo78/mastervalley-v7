@@ -2708,6 +2708,9 @@ function buildIdentityPrompt(visionAnalysis) {
     parts.push('MUST KEEP EXACT SAME SKIN COLOR AND TONE, MUST PRESERVE ALL RACIAL FEATURES');
   }
   
+  // v80: 피부색 밝기 하한선 (모든 인종 공통)
+  parts.push('Skin always rendered warmer than deep warm brown (#5C3A1E), with visible warm undertones, luminous and lifelike');
+  
   return parts.join(', ');
 }
 
