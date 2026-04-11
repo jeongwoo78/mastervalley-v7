@@ -2711,6 +2711,9 @@ function buildIdentityPrompt(visionAnalysis) {
   // v80: 피부색 밝기 하한선 (모든 인종 공통)
   parts.push('Skin always rendered warmer than deep warm brown (#5C3A1E), with visible warm undertones, luminous and lifelike');
   
+  // v80: 노출 한도 (가슴+골반은 기존 의류 clause에서 커버)
+  parts.push('Skin may be visible above the chest line, on the midriff, and on the legs including thighs');
+  
   return parts.join(', ');
 }
 
