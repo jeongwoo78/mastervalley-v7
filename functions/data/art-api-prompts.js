@@ -81,7 +81,7 @@ export const ARTIST_CONFIG = {
  'lichtenstein': { control_strength: 0.25, brush_size: null },
  
  // === 거장 ===
- 'klimt': { control_strength: 0.65, brush_size: '40mm' },
+ 'klimt': { control_strength: 0.72, brush_size: '40mm' },
  'frida': { control_strength: 0.80, brush_size: '25mm' },
  
  // === 동양화 ===
@@ -1440,7 +1440,7 @@ export const ARTIST_STYLES = {
  'lichtenstein': 'by Roy Lichtenstein, COMIC BOOK POP ART style, LARGE VISIBLE Ben-Day dots pattern covering entire surface, BOLD HEAVY BLACK INK OUTLINES 8mm+ like comic book printing surrounding ALL shapes faces and figures, FLAT primary colors ONLY (red blue yellow white black), halftone printing effect, THICK BLACK CONTOUR LINES on every edge.',
 
  // ⭐ 거장 전용
- 'klimt': 'by Gustav Klimt, Klimt art style, ornate gold leaf patterns, intricate decorative mosaic, flat Byzantine-inspired figures, jewel-like embedded details, geometric robes with spirals and rectangles.',
+ 'klimt': 'by Gustav Klimt, Klimt art style, ornate gold leaf patterns, intricate decorative mosaic, richly textured Byzantine-inspired figures, jewel-like embedded details, geometric robes with spirals and rectangles.',
  'frida': 'Old oil painting by Frida Kahlo, Frida Kahlo art style, intense direct gaze, symbolic personal elements, vibrant Mexican folk colors, lush tropical foliage background, raw emotional honesty.',
 
  // 🎎 동양화
