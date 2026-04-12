@@ -1,0 +1,714 @@
+Master Valley — English (en)
+============================================================
+
+[NAV] Try Web Now
+
+--- Hero ---
+[TAG] AI Time Travel Studio
+[H1] One photo.  2,800 years.  One click.
+[SUB] Your photo, reborn through the master's brushstroke.
+[STORE 1] Download on the / App Store
+[STORE 2] Get it on / Google Play
+[LINK] No download needed — Try Now Free in your browser
+
+--- Rotation Cards ---
+[EYEBROW] One Photo · Across Time and Space
+[H2] You are in.  A different time. Another place.
+[HINT] Watch one photo travel through 2,800 years of art — from Ancient Greece to East Asia.
+
+[Cat 1] Movements — Your Photo
+  Your Photo → Greco-Roman · Classical Sculpture → Medieval · Islamic Miniature → Renaissance · Botticelli → Baroque · Caravaggio → Rococo · Boucher → Neoclassicism · Ingres → Impressionism · Renoir → Post-Impressionism · Van Gogh → Fauvism · Matisse → Expressionism · Munch → Modernism · Chagall
+
+[Cat 2] Masters — Van Gogh
+  Van Gogh → Klimt → Munch → Matisse → Chagall → Frida → Lichtenstein
+
+[Cat 3] Oriental — Gongbi · China
+  Gongbi · China → Ukiyo-e · Japan → Pungsokdo · Korea
+
+--- MasterChat ---
+[EYEBROW] An Unbelievable Encounter
+[H2] You meet the masters.  And talk back.
+[DESC1] During your time travel, you'll meet history's greatest artists — face to face.
+[DESC2] They see your photo. They react. They paint. And you can talk back.
+[DESC3] Ask Van Gogh to paint you under swirling stars. Tell Klimt to wrap you in gold. Request Frida to make it bolder.
+[DESC4] Not just a filter. Redrawn through the master's eye.
+[FEAT] You commission. The masters paint.
+
+[Artist] Van Gogh (AI)
+[Input] Chat with Van Gogh...
+[CHIP1] Can I modify the painting?
+[CHIP2] Who are you?
+
+[Chat]
+  🎨 Van Gogh here, in Arles, 1888. I painted your photo with my brush — this swirling cobalt background turned out quite nicely.
+  👤 Hi Van Gogh! Nice to meet you!
+  👤 Who are you? Please introduce yourself.
+  🎨 I'm Vincent, a painter living in the south of France. The sunlight here drives me to paint day and night — sunflowers, wheat fields, the night sky...
+  👤 Can you add swirling stars behind me?
+  🎨 Stars! The night sky was always my companion. How about this — a deep indigo sky with golden spirals above you?
+  👤 Yes, that sounds amazing!
+  ✦ ✦ Van Gogh transformed your photo
+  👤 I love it!
+
+--- Gallery ---
+[EYEBROW] Masterpieces Once Behind Glass
+[H2] Hang masterpieces in your space.
+[SUB] Masterworks made for you — hang them in your space.
+[Frames] Matisse · Lichtenstein · Frida · Van Gogh · Klimt · Munch · Modernism(Picasso) · Chagall
+
+--- Web ---
+[H2] For bigger screens, meet Master Valley.
+[P] No download needed. Try it right in your browser.
+
+--- Bottom CTA ---
+[H2] Turn your photo into a masterpiece — now.
+[SUB] Your first transformation is free.
+
+--- Footer ---
+Privacy Policy
+Terms of Service
+Support
+
+============================================================
+
+
+Master Valley — 한국어 (ko)
+============================================================
+
+[NAV] 웹에서 바로 시작
+
+--- Hero ---
+[TAG] AI Time Travel Studio
+[H1] 사진 한 장.  2,800년.  원클릭.
+[SUB] 당신의 사진이 거장의 붓 터치로 다시 태어납니다.
+[STORE 1] 다운로드 / App Store
+[STORE 2] 다운로드 / Google Play
+[LINK] 다운로드 없이, 브라우저에서 무료로 시작하기
+
+--- Rotation Cards ---
+[EYEBROW] 사진 한 장 · 시간과 공간을 넘어
+[H2] 당신은 지금.  다른 시간, 다른 장소에.
+[HINT] 당신의 사진 한 장이 2,800년의 미술사를 여행합니다 — 고대 그리스부터 동아시아까지.
+
+[Cat 1] 미술사조 — 당신의 사진
+  당신의 사진 → 그리스로마 · 고전조각 → 중세 · 이슬람 세밀화 → 르네상스 · 보티첼리 → 바로크 · 카라바조 → 로코코 · 부셰 → 신고전주의 · 앵그르 → 인상주의 · 르누아르 → 후기인상주의 · 반 고흐 → 야수파 · 마티스 → 표현주의 · 뭉크 → 모더니즘 · 샤갈
+
+[Cat 2] 마스터 — 반 고흐
+  반 고흐 → 클림트 → 뭉크 → 마티스 → 샤갈 → 프리다 → 리히텐슈타인
+
+[Cat 3] 동양화 — 공필화 · 중국
+  공필화 · 중국 → 우키요에 · 일본 → 풍속도 · 한국
+
+--- MasterChat ---
+[EYEBROW] 믿을 수 없는 만남
+[H2] 거장을 만나다.  그리고 대화하다.
+[DESC1] 시간여행 중, 역사상 가장 위대한 예술가들을 마주합니다.
+[DESC2] 반 고흐에게 소용돌이치는 별을 그려달라 하세요. 클림트에게 황금빛으로 감싸달라 하세요. 프리다에게 더욱더 대담하게 표현해달라 하세요.
+[DESC3] 단순한 필터가 아닙니다. 거장의 시선으로 다시 그려집니다.
+[FEAT] 당신이 주문하고. 거장이 그립니다.
+
+[Artist] 반 고흐 (AI)
+[Input] 반 고흐와 대화하기...
+[CHIP1] 그림을 수정할 수 있나요?
+[CHIP2] 당신은 누구인가요?
+
+[Chat]
+  🎨 아를의 반 고흐일세, 1888년. 자네 사진을 내 붓으로 그렸네 — 이 소용돌이치는 코발트 배경이 꽤 잘 나왔어.
+  👤 안녕하세요 반 고흐! 만나서 반갑습니다!
+  👤 당신은 누구인가요. 소개 부탁해요.
+  🎨 나는 빈센트, 프랑스 남부에 사는 화가일세. 이곳의 햇빛이 나를 밤낮으로 그리게 만든다네 — 해바라기, 밀밭, 밤하늘...
+  👤 뒤에 소용돌이치는 별을 넣어줄 수 있어요?
+  🎨 별이라! 밤하늘은 늘 나의 벗이었네. 이건 어떤가 — 진한 남색 하늘에 황금빛 소용돌이를 자네 위에?
+  👤 네, 정말 멋질 것 같아요!
+  ✦ ✦ 반 고흐가 작품을 수정했습니다
+  👤 정말 마음에 들어요!
+
+--- Gallery ---
+[EYEBROW] 유리 너머의 걸작, 이제 당신의 것
+[H2] 걸작을 당신의 공간에 걸다.
+[SUB] 당신을 위한 거장의 작품, 당신의 공간에 걸어 두세요.
+[Frames] 마티스 · 리히텐슈타인 · 프리다 · 반 고흐 · 클림트 · 뭉크 · 모더니즘(피카소) · 샤갈
+
+--- Web ---
+[H2] 더 큰 화면으로, Master Valley를 만나보세요.
+[P] 다운로드 없이, 브라우저에서 바로 시작하세요.
+
+--- Bottom CTA ---
+[H2] 지금, 당신의 사진을 작품으로 만들어보세요.
+[SUB] 첫 번째 변환은 무료입니다.
+
+--- Footer ---
+개인정보처리방침
+이용약관
+고객지원
+
+============================================================
+
+
+Master Valley — 日本語 (ja)
+============================================================
+
+[NAV] Webで今すぐ試す
+
+--- Hero ---
+[TAG] AI Time Travel Studio
+[H1] 写真1枚。  2,800年。  ワンクリック。
+[SUB] あなたの写真が、巨匠の筆致で生まれ変わります。
+[STORE 1] ダウンロード / App Store
+[STORE 2] ダウンロード / Google Play
+[LINK] ダウンロード不要 — ブラウザで無料体験
+
+--- Rotation Cards ---
+[EYEBROW] 1枚の写真 · 時空を超えて
+[H2] あなたは今。 別の時代、別の場所に。
+[HINT] 1枚の写真が2,800年の美術史を旅します — 古代ギリシャから東アジアまで。
+
+[Cat 1] 美術史 — あなたの写真
+  あなたの写真 → Greco-Roman · Classical Sculpture → Medieval · Islamic Miniature → Renaissance · Botticelli → Baroque · Caravaggio → Rococo · Boucher → Neoclassicism · Ingres → Impressionism · Renoir → Post-Impressionism · Van Gogh → Fauvism · Matisse → Expressionism · Munch → Modernism · Chagall
+
+[Cat 2] マスター — ゴッホ
+  Van Gogh → Klimt → Munch → Matisse → Chagall → Frida → Lichtenstein
+
+[Cat 3] 東洋画 — Gongbi · China
+  Gongbi · China → Ukiyo-e · Japan → Pungsokdo · Korea
+
+--- MasterChat ---
+[EYEBROW] 信じられない出会い
+[H2] 巨匠に会う。  そして語り合う。
+[DESC1] 時間旅行中、歴史上最も偉大な芸術家たちに出会います — 面と向かって。
+[DESC2] 彼らはあなたの写真を見て、反応し、描きます。そしてあなたは話しかけることができます。
+[DESC3] ゴッホに渦巻く星を描いてもらいましょう。クリムトに金で包んでもらいましょう。フリーダにもっと大胆にしてもらいましょう。
+[DESC4] 単なるフィルターではありません。巨匠の眼で描き直されます。
+[FEAT] あなたが注文し。巨匠が描く。
+
+[Artist] ゴッホ (AI)
+[Input] ゴッホとチャット...
+[CHIP1] 絵を修正できますか？
+[CHIP2] あなたは誰ですか？
+
+--- Gallery ---
+[EYEBROW] ガラスの向こうの名画、今はあなたのもの
+[H2] 名画をあなたの空間に飾る。
+[SUB] あなたのための名画、あなたの空間に飾りましょう。
+[Frames] マティス · リキテンスタイン · フリーダ · ゴッホ · クリムト · ムンク · モダニズム(ピカソ) · シャガール
+
+--- Web ---
+[H2] もっと大きなスクリーンで、 Master Valleyに出会う。
+[P] ダウンロード不要。ブラウザですぐに体験できます。
+
+--- Bottom CTA ---
+[H2] 今すぐ、あなたの写真を作品にしましょう。
+[SUB] 最初の変換は無料です。
+
+--- Footer ---
+プライバシーポリシー
+利用規約
+サポート
+
+============================================================
+
+
+Master Valley — Español (es)
+============================================================
+
+[NAV] Prueba la Web
+
+--- Hero ---
+[TAG] AI Time Travel Studio
+[H1] Una foto.  2.800 años.  Un clic.
+[SUB] Tu foto, renacida a través de la pincelada del maestro.
+[STORE 1] Descargar en / App Store
+[STORE 2] Disponible en / Google Play
+[LINK] Sin descargas — Prueba gratis en tu navegador
+
+--- Rotation Cards ---
+[EYEBROW] Una foto · A través del tiempo y el espacio
+[H2] Estás dentro.  Otra época. Otro lugar.
+[HINT] Observa cómo una foto viaja a través de 2.800 años de arte — desde la Antigua Grecia hasta Asia Oriental.
+
+[Cat 1] Movimientos — Tu foto
+  Tu foto → Greco-Roman · Classical Sculpture → Medieval · Islamic Miniature → Renaissance · Botticelli → Baroque · Caravaggio → Rococo · Boucher → Neoclassicism · Ingres → Impressionism · Renoir → Post-Impressionism · Van Gogh → Fauvism · Matisse → Expressionism · Munch → Modernism · Chagall
+
+[Cat 2] Maestros — Van Gogh
+  Van Gogh → Klimt → Munch → Matisse → Chagall → Frida → Lichtenstein
+
+[Cat 3] Oriental — Gongbi · China
+  Gongbi · China → Ukiyo-e · Japan → Pungsokdo · Korea
+
+--- MasterChat ---
+[EYEBROW] Un encuentro increíble
+[H2] Conoces a los maestros.  Y tú puedes responder.
+[DESC1] Durante tu viaje en el tiempo, conocerás a los más grandes artistas de la historia — cara a cara.
+[DESC2] Ven tu foto. Reaccionan. Pintan. Y tú puedes responder.
+[DESC3] Pide a Van Gogh que pinte estrellas arremolinadas. Dile a Klimt que te envuelva en oro. Pide a Frida que sea más audaz.
+[DESC4] No es solo un filtro. Redibujado a través de los ojos del maestro.
+[FEAT] Tú encargas. Los maestros pintan.
+
+[Artist] Van Gogh (AI)
+[Input] Chatea con Van Gogh...
+[CHIP1] ¿Puedo modificar la pintura?
+[CHIP2] ¿Quién eres?
+
+--- Gallery ---
+[EYEBROW] Obras maestras que estaban tras el cristal
+[H2] Cuelga obras maestras en tu espacio.
+[SUB] Obras maestras hechas para ti — cuélgalas en tu espacio.
+[Frames] Matisse · Lichtenstein · Frida · Van Gogh · Klimt · Munch · Modernismo(Picasso) · Chagall
+
+--- Web ---
+[H2] Para pantallas más grandes, conoce Master Valley.
+[P] Sin descargas. Pruébalo directamente en tu navegador.
+
+--- Bottom CTA ---
+[H2] Convierte tu foto en una obra maestra — ahora.
+[SUB] Tu primera transformación es gratis.
+
+--- Footer ---
+Política de Privacidad
+Términos del Servicio
+Soporte
+
+============================================================
+
+
+Master Valley — Français (fr)
+============================================================
+
+[NAV] Essayer le Web
+
+--- Hero ---
+[TAG] AI Time Travel Studio
+[H1] Une photo.  2 800 ans.  Un clic.
+[SUB] Votre photo, ressuscitée par le coup de pinceau du maître.
+[STORE 1] Télécharger sur / App Store
+[STORE 2] Disponible sur / Google Play
+[LINK] Sans téléchargement — Essayez gratuitement dans votre navigateur
+
+--- Rotation Cards ---
+[EYEBROW] Une photo · À travers le temps et l'espace
+[H2] Vous y êtes.  Une autre époque. Un autre lieu.
+[HINT] Regardez une photo traverser 2 800 ans d'art — de la Grèce antique à l'Asie orientale.
+
+[Cat 1] Mouvements — Votre photo
+  Votre photo → Greco-Roman · Classical Sculpture → Medieval · Islamic Miniature → Renaissance · Botticelli → Baroque · Caravaggio → Rococo · Boucher → Neoclassicism · Ingres → Impressionism · Renoir → Post-Impressionism · Van Gogh → Fauvism · Matisse → Expressionism · Munch → Modernism · Chagall
+
+[Cat 2] Maîtres — Van Gogh
+  Van Gogh → Klimt → Munch → Matisse → Chagall → Frida → Lichtenstein
+
+[Cat 3] Oriental — Gongbi · China
+  Gongbi · China → Ukiyo-e · Japan → Pungsokdo · Korea
+
+--- MasterChat ---
+[EYEBROW] Une rencontre incroyable
+[H2] Vous rencontrez les maîtres.  Et vous leur répondez.
+[DESC1] Lors de votre voyage dans le temps, vous rencontrerez les plus grands artistes — face à face.
+[DESC2] Ils voient votre photo. Ils réagissent. Ils peignent. Et vous pouvez répondre.
+[DESC3] Demandez à Van Gogh de peindre des étoiles tourbillonnantes. Dites à Klimt de vous envelopper d'or. Demandez à Frida d'être plus audacieuse.
+[DESC4] Pas un simple filtre. Redessiné à travers le regard du maître.
+[FEAT] Vous commandez. Les maîtres peignent.
+
+[Artist] Van Gogh (AI)
+[Input] Discutez avec Van Gogh...
+[CHIP1] Puis-je modifier la peinture ?
+[CHIP2] Qui êtes-vous ?
+
+--- Gallery ---
+[EYEBROW] Des chefs-d'œuvre autrefois derrière la vitre
+[H2] Accrochez des chefs-d'œuvre dans votre espace.
+[SUB] Des chefs-d'œuvre créés pour vous — accrochez-les dans votre espace.
+[Frames] Matisse · Lichtenstein · Frida · Van Gogh · Klimt · Munch · Modernisme(Picasso) · Chagall
+
+--- Web ---
+[H2] Sur grand écran, découvrez Master Valley.
+[P] Sans téléchargement. Essayez-le directement dans votre navigateur.
+
+--- Bottom CTA ---
+[H2] Transformez votre photo en chef-d'œuvre — maintenant.
+[SUB] Votre première transformation est gratuite.
+
+--- Footer ---
+Politique de Confidentialité
+Conditions d'Utilisation
+Assistance
+
+============================================================
+
+
+Master Valley — Português (pt)
+============================================================
+
+[NAV] Experimente na Web
+
+--- Hero ---
+[TAG] AI Time Travel Studio
+[H1] Uma foto.  2.800 anos.  Um clique.
+[SUB] Sua foto, renascida através da pincelada do mestre.
+[STORE 1] Baixar na / App Store
+[STORE 2] Disponível no / Google Play
+[LINK] Sem download — Experimente grátis no seu navegador
+
+--- Rotation Cards ---
+[EYEBROW] Uma foto · Através do tempo e do espaço
+[H2] Você está lá.  Outra época. Outro lugar.
+[HINT] Veja uma foto viajar por 2.800 anos de arte — da Grécia Antiga à Ásia Oriental.
+
+[Cat 1] Movimentos — Sua foto
+  Sua foto → Greco-Roman · Classical Sculpture → Medieval · Islamic Miniature → Renaissance · Botticelli → Baroque · Caravaggio → Rococo · Boucher → Neoclassicism · Ingres → Impressionism · Renoir → Post-Impressionism · Van Gogh → Fauvism · Matisse → Expressionism · Munch → Modernism · Chagall
+
+[Cat 2] Mestres — Van Gogh
+  Van Gogh → Klimt → Munch → Matisse → Chagall → Frida → Lichtenstein
+
+[Cat 3] Oriental — Gongbi · China
+  Gongbi · China → Ukiyo-e · Japan → Pungsokdo · Korea
+
+--- MasterChat ---
+[EYEBROW] Um encontro inacreditável
+[H2] Você encontra os mestres.  E você pode responder.
+[DESC1] Durante sua viagem no tempo, você encontrará os maiores artistas da história — cara a cara.
+[DESC2] Eles veem sua foto. Reagem. Pintam. E você pode responder.
+[DESC3] Peça a Van Gogh para pintar estrelas giratórias. Diga a Klimt para envolvê-lo em ouro. Peça a Frida para ser mais ousada.
+[DESC4] Não é apenas um filtro. Redesenhado pelo olhar do mestre.
+[FEAT] Você encomenda. Os mestres pintam.
+
+[Artist] Van Gogh (AI)
+[Input] Converse com Van Gogh...
+[CHIP1] Posso modificar a pintura?
+[CHIP2] Quem é você?
+
+--- Gallery ---
+[EYEBROW] Obras-primas que estavam atrás do vidro
+[H2] Pendure obras-primas no seu espaço.
+[SUB] Obras-primas feitas para você — pendure-as no seu espaço.
+[Frames] Matisse · Lichtenstein · Frida · Van Gogh · Klimt · Munch · Modernismo(Picasso) · Chagall
+
+--- Web ---
+[H2] Para telas maiores, conheça o Master Valley.
+[P] Sem download. Experimente direto no seu navegador.
+
+--- Bottom CTA ---
+[H2] Transforme sua foto em uma obra-prima — agora.
+[SUB] Sua primeira transformação é gratuita.
+
+--- Footer ---
+Política de Privacidade
+Termos de Serviço
+Suporte
+
+============================================================
+
+
+Master Valley — العربية (ar)
+============================================================
+
+[NAV] جرّب الويب الآن
+
+--- Hero ---
+[TAG] AI Time Travel Studio
+[H1] صورة واحدة.  2,800 عام.  نقرة واحدة.
+[SUB] صورتك، تولد من جديد بلمسة فرشاة العمالقة.
+[STORE 1] تحميل من / App Store
+[STORE 2] احصل عليه من / Google Play
+[LINK] بدون تحميل — جرّب مجاناً في متصفحك
+
+--- Rotation Cards ---
+[EYEBROW] صورة واحدة · عبر الزمان والمكان
+[H2] أنت الآن.  زمن مختلف. مكان آخر.
+[HINT] شاهد صورة واحدة تسافر عبر 2,800 عام من الفن — من اليونان القديمة إلى شرق آسيا.
+
+[Cat 1] الحركات الفنية — صورتك
+  صورتك → Greco-Roman · Classical Sculpture → Medieval · Islamic Miniature → Renaissance · Botticelli → Baroque · Caravaggio → Rococo · Boucher → Neoclassicism · Ingres → Impressionism · Renoir → Post-Impressionism · Van Gogh → Fauvism · Matisse → Expressionism · Munch → Modernism · Chagall
+
+[Cat 2] العمالقة — فان جوخ
+  Van Gogh → Klimt → Munch → Matisse → Chagall → Frida → Lichtenstein
+
+[Cat 3] الفن الشرقي — Gongbi · China
+  Gongbi · China → Ukiyo-e · Japan → Pungsokdo · Korea
+
+--- MasterChat ---
+[EYEBROW] لقاء لا يُصدَّق
+[H2] تلتقي بالعمالقة.  وتحادثهم.
+[DESC1] خلال رحلتك عبر الزمن، ستلتقي بأعظم الفنانين في التاريخ — وجهاً لوجه.
+[DESC2] يرون صورتك. يتفاعلون. يرسمون. ويمكنك الرد.
+[DESC3] اطلب من فان جوخ رسم النجوم الدوّارة. أخبر كليمت أن يلفّك بالذهب. اطلب من فريدا أن تجعلها أكثر جرأة.
+[DESC4] ليس مجرد فلتر. يُعاد رسمه بعين العمالقة.
+[FEAT] أنت تطلب. العمالقة يرسمون.
+
+[Artist] فان جوخ (AI)
+[Input] ...تحدث مع فان جوخ
+[CHIP1] هل يمكنني تعديل اللوحة؟
+[CHIP2] من أنت؟
+
+--- Gallery ---
+[EYEBROW] روائع كانت خلف الزجاج
+[H2] علّق روائع فنية في مساحتك.
+[SUB] روائع صُنعت لك — علّقها في مساحتك.
+[Frames] ماتيس · ليختنشتاين · فريدا · فان جوخ · كليمت · مونك · الحداثة(بيكاسو) · شاغال
+
+--- Web ---
+[H2] للشاشات الأكبر، تعرّف على Master Valley.
+[P] بدون تحميل. جرّبه مباشرة في متصفحك.
+
+--- Bottom CTA ---
+[H2] حوّل صورتك إلى تحفة فنية — الآن.
+[SUB] أول تحويل مجاني.
+
+--- Footer ---
+سياسة الخصوصية
+شروط الخدمة
+الدعم
+
+============================================================
+
+
+Master Valley — 繁體中文 (zh-TW)
+============================================================
+
+[NAV] 立即體驗網頁版
+
+--- Hero ---
+[TAG] AI Time Travel Studio
+[H1] 一張照片。  2,800年。  一鍵完成。
+[SUB] 你的照片，在大師的筆觸下重生。
+[STORE 1] 下載於 / App Store
+[STORE 2] 下載於 / Google Play
+[LINK] 無需下載 — 在瀏覽器中免費體驗
+
+--- Rotation Cards ---
+[EYEBROW] 一張照片 · 跨越時空
+[H2] 你已身在其中。 不同的時代，不同的地方。
+[HINT] 觀看一張照片穿越2,800年的藝術史 — 從古希臘到東亞。
+
+[Cat 1] 藝術流派 — 你的照片
+  你的照片 → Greco-Roman · Classical Sculpture → Medieval · Islamic Miniature → Renaissance · Botticelli → Baroque · Caravaggio → Rococo · Boucher → Neoclassicism · Ingres → Impressionism · Renoir → Post-Impressionism · Van Gogh → Fauvism · Matisse → Expressionism · Munch → Modernism · Chagall
+
+[Cat 2] 大師 — 梵谷
+  Van Gogh → Klimt → Munch → Matisse → Chagall → Frida → Lichtenstein
+
+[Cat 3] 東方藝術 — Gongbi · China
+  Gongbi · China → Ukiyo-e · Japan → Pungsokdo · Korea
+
+--- MasterChat ---
+[EYEBROW] 不可思議的相遇
+[H2] 你遇見大師。  並與他們對話。
+[DESC1] 在時空旅行中，你將面對面遇見歷史上最偉大的藝術家。
+[DESC2] 他們看到你的照片。有所反應。開始繪畫。而你可以回應。
+[DESC3] 請梵谷畫上旋轉的星星。請克林姆用金箔包裹你。請芙烈達讓畫面更大膽。
+[DESC4] 不只是濾鏡。透過大師之眼重新繪製。
+[FEAT] 你委託。大師作畫。
+
+[Artist] 梵谷 (AI)
+[Input] 與梵谷對話...
+[CHIP1] 我可以修改畫作嗎？
+[CHIP2] 你是誰？
+
+--- Gallery ---
+[EYEBROW] 曾在玻璃後的傑作，現在屬於你
+[H2] 在你的空間掛上名畫。
+[SUB] 為你而生的名畫，掛在你的空間裡。
+[Frames] 馬蒂斯 · 利希滕斯坦 · 芙烈達 · 梵谷 · 克林姆 · 孟克 · 現代主義(畢卡索) · 夏卡爾
+
+--- Web ---
+[H2] 在更大的螢幕上， 認識 Master Valley。
+[P] 無需下載。直接在瀏覽器中體驗。
+
+--- Bottom CTA ---
+[H2] 現在，將你的照片變成一幅名畫。
+[SUB] 第一次轉換免費。
+
+--- Footer ---
+隱私權政策
+服務條款
+支援
+
+============================================================
+
+
+Master Valley — Bahasa Indonesia (id)
+============================================================
+
+[NAV] Coba Web Sekarang
+
+--- Hero ---
+[TAG] AI Time Travel Studio
+[H1] Satu foto.  2.800 tahun.  Satu klik.
+[SUB] Foto Anda, terlahir kembali melalui sapuan kuas sang maestro.
+[STORE 1] Unduh di / App Store
+[STORE 2] Dapatkan di / Google Play
+[LINK] Tanpa unduhan — Coba gratis di browser Anda
+
+--- Rotation Cards ---
+[EYEBROW] Satu foto · Melintasi waktu dan ruang
+[H2] Anda di sana.  Waktu berbeda. Tempat lain.
+[HINT] Saksikan satu foto melintasi 2.800 tahun seni — dari Yunani Kuno hingga Asia Timur.
+
+[Cat 1] Aliran Seni — Foto Anda
+  Foto Anda → Greco-Roman · Classical Sculpture → Medieval · Islamic Miniature → Renaissance · Botticelli → Baroque · Caravaggio → Rococo · Boucher → Neoclassicism · Ingres → Impressionism · Renoir → Post-Impressionism · Van Gogh → Fauvism · Matisse → Expressionism · Munch → Modernism · Chagall
+
+[Cat 2] Maestro — Van Gogh
+  Van Gogh → Klimt → Munch → Matisse → Chagall → Frida → Lichtenstein
+
+[Cat 3] Oriental — Gongbi · China
+  Gongbi · China → Ukiyo-e · Japan → Pungsokdo · Korea
+
+--- MasterChat ---
+[EYEBROW] Pertemuan yang tak terduga
+[H2] Anda bertemu sang maestro.  Dan Anda bisa membalas.
+[DESC1] Selama perjalanan waktu, Anda akan bertemu seniman terhebat sepanjang sejarah — bertatap muka.
+[DESC2] Mereka melihat foto Anda. Bereaksi. Melukis. Dan Anda bisa membalas.
+[DESC3] Minta Van Gogh melukis bintang berputar. Suruh Klimt membungkus Anda dengan emas. Minta Frida membuatnya lebih berani.
+[DESC4] Bukan sekadar filter. Digambar ulang melalui mata sang maestro.
+[FEAT] Anda memesan. Sang maestro melukis.
+
+[Artist] Van Gogh (AI)
+[Input] Ngobrol dengan Van Gogh...
+[CHIP1] Bisakah saya mengubah lukisannya?
+[CHIP2] Siapa Anda?
+
+--- Gallery ---
+[EYEBROW] Mahakarya yang dulu di balik kaca
+[H2] Gantung mahakarya di ruang Anda.
+[SUB] Mahakarya dibuat untuk Anda — gantung di ruang Anda.
+[Frames] Matisse · Lichtenstein · Frida · Van Gogh · Klimt · Munch · Modernisme(Picasso) · Chagall
+
+--- Web ---
+[H2] Untuk layar lebih besar, temui Master Valley.
+[P] Tanpa unduhan. Coba langsung di browser Anda.
+
+--- Bottom CTA ---
+[H2] Ubah foto Anda menjadi mahakarya — sekarang.
+[SUB] Transformasi pertama Anda gratis.
+
+--- Footer ---
+Kebijakan Privasi
+Ketentuan Layanan
+Dukungan
+
+============================================================
+
+
+Master Valley — ไทย (th)
+============================================================
+
+[NAV] ลองเว็บเลย
+
+--- Hero ---
+[TAG] AI Time Travel Studio
+[H1] หนึ่งภาพ  2,800 ปี  คลิกเดียว
+[SUB] รูปของคุณ เกิดใหม่ผ่านฝีแปรงของปรมาจารย์
+[STORE 1] ดาวน์โหลดบน / App Store
+[STORE 2] ดาวน์โหลดบน / Google Play
+[LINK] ไม่ต้องดาวน์โหลด — ลองฟรีในเบราว์เซอร์ของคุณ
+
+--- Rotation Cards ---
+[EYEBROW] หนึ่งภาพ · ข้ามกาลเวลาและอวกาศ
+[H2] คุณอยู่ที่นั่น  ต่างยุค ต่างสถานที่
+[HINT] ชมภาพหนึ่งภาพเดินทางผ่าน 2,800 ปีแห่งศิลปะ — จากกรีกโบราณถึงเอเชียตะวันออก
+
+[Cat 1] สไตล์ศิลปะ — รูปของคุณ
+  รูปของคุณ → Greco-Roman · Classical Sculpture → Medieval · Islamic Miniature → Renaissance · Botticelli → Baroque · Caravaggio → Rococo · Boucher → Neoclassicism · Ingres → Impressionism · Renoir → Post-Impressionism · Van Gogh → Fauvism · Matisse → Expressionism · Munch → Modernism · Chagall
+
+[Cat 2] ปรมาจารย์ — แวนโก๊ะ
+  Van Gogh → Klimt → Munch → Matisse → Chagall → Frida → Lichtenstein
+
+[Cat 3] ตะวันออก — Gongbi · China
+  Gongbi · China → Ukiyo-e · Japan → Pungsokdo · Korea
+
+--- MasterChat ---
+[EYEBROW] การพบกันที่เหลือเชื่อ
+[H2] คุณพบปรมาจารย์  และพูดคุยกลับ
+[DESC1] ระหว่างการเดินทางข้ามเวลา คุณจะได้พบศิลปินที่ยิ่งใหญ่ที่สุดในประวัติศาสตร์ — แบบตัวต่อตัว
+[DESC2] พวกเขาเห็นรูปของคุณ ตอบสนอง วาด และคุณสามารถพูดคุยกลับได้
+[DESC3] ขอให้แวนโก๊ะวาดดาวหมุนวน บอกคลิมต์ให้ห่อคุณด้วยทอง ขอฟรีดาให้ทำให้กล้าหาญขึ้น
+[DESC4] ไม่ใช่แค่ฟิลเตอร์ วาดใหม่ผ่านสายตาของปรมาจารย์
+[FEAT] คุณสั่ง ปรมาจารย์วาด
+
+[Artist] แวนโก๊ะ (AI)
+[Input] แชทกับแวนโก๊ะ...
+[CHIP1] ฉันแก้ไขภาพวาดได้ไหม?
+[CHIP2] คุณเป็นใคร?
+
+--- Gallery ---
+[EYEBROW] ผลงานชิ้นเอกที่เคยอยู่หลังกระจก
+[H2] แขวนผลงานชิ้นเอกในพื้นที่ของคุณ
+[SUB] ผลงานชิ้นเอกที่สร้างเพื่อคุณ — แขวนในพื้นที่ของคุณ
+[Frames] มาติส · ลิคเทนสไตน์ · ฟรีดา · แวนโก๊ะ · คลิมต์ · มุงค์ · โมเดิร์นนิสม์(ปิกัสโซ) · ชากาลล์
+
+--- Web ---
+[H2] สำหรับหน้าจอที่ใหญ่กว่า พบกับ Master Valley
+[P] ไม่ต้องดาวน์โหลด ลองได้เลยในเบราว์เซอร์
+
+--- Bottom CTA ---
+[H2] เปลี่ยนรูปของคุณเป็นผลงานชิ้นเอก — ตอนนี้เลย
+[SUB] การแปลงครั้งแรกฟรี
+
+--- Footer ---
+นโยบายความเป็นส่วนตัว
+ข้อกำหนดการใช้งาน
+ฝ่ายสนับสนุน
+
+============================================================
+
+
+Master Valley — Türkçe (tr)
+============================================================
+
+[NAV] Web'de Deneyin
+
+--- Hero ---
+[TAG] AI Time Travel Studio
+[H1] Bir fotoğraf.  2.800 yıl.  Tek tıklama.
+[SUB] Fotoğrafınız, ustanın fırça darbesiyle yeniden doğuyor.
+[STORE 1] İndir / App Store
+[STORE 2] İndir / Google Play
+[LINK] İndirme gereksiz — Tarayıcınızda ücretsiz deneyin
+
+--- Rotation Cards ---
+[EYEBROW] Bir fotoğraf · Zaman ve mekân boyunca
+[H2] Oradasınız.  Farklı bir zaman. Başka bir yer.
+[HINT] Bir fotoğrafın 2.800 yıllık sanat yolculuğunu izleyin — Antik Yunan'dan Doğu Asya'ya.
+
+[Cat 1] Akımlar — Fotoğrafınız
+  Fotoğrafınız → Greco-Roman · Classical Sculpture → Medieval · Islamic Miniature → Renaissance · Botticelli → Baroque · Caravaggio → Rococo · Boucher → Neoclassicism · Ingres → Impressionism · Renoir → Post-Impressionism · Van Gogh → Fauvism · Matisse → Expressionism · Munch → Modernism · Chagall
+
+[Cat 2] Ustalar — Van Gogh
+  Van Gogh → Klimt → Munch → Matisse → Chagall → Frida → Lichtenstein
+
+[Cat 3] Doğu — Gongbi · China
+  Gongbi · China → Ukiyo-e · Japan → Pungsokdo · Korea
+
+--- MasterChat ---
+[EYEBROW] İnanılmaz bir karşılaşma
+[H2] Ustalarla tanışıyorsunuz.  Ve siz de cevap verebilirsiniz.
+[DESC1] Zaman yolculuğunuz sırasında tarihin en büyük sanatçılarıyla tanışacaksınız — yüz yüze.
+[DESC2] Fotoğrafınızı görüyorlar. Tepki veriyorlar. Çiziyorlar. Ve siz de cevap verebilirsiniz.
+[DESC3] Van Gogh'dan dönen yıldızlar çizmesini isteyin. Klimt'e sizi altınla sarmasını söyleyin. Frida'dan daha cesur yapmasını isteyin.
+[DESC4] Sadece bir filtre değil. Ustanın gözünden yeniden çizilir.
+[FEAT] Siz sipariş verin. Ustalar boyasın.
+
+[Artist] Van Gogh (AI)
+[Input] Van Gogh ile sohbet...
+[CHIP1] Resmi değiştirebilir miyim?
+[CHIP2] Sen kimsin?
+
+--- Gallery ---
+[EYEBROW] Camın ardındaki başyapıtlar
+[H2] Başyapıtları mekânınıza asın.
+[SUB] Sizin için yapılan başyapıtlar — mekânınıza asın.
+[Frames] Matisse · Lichtenstein · Frida · Van Gogh · Klimt · Munch · Modernizm(Picasso) · Chagall
+
+--- Web ---
+[H2] Daha büyük ekranlar için, Master Valley ile tanışın.
+[P] İndirme gereksiz. Doğrudan tarayıcınızda deneyin.
+
+--- Bottom CTA ---
+[H2] Fotoğrafınızı bir başyapıta dönüştürün — şimdi.
+[SUB] İlk dönüşümünüz ücretsiz.
+
+--- Footer ---
+Gizlilik Politikası
+Hizmet Şartları
+Destek
+
+============================================================
+
+
