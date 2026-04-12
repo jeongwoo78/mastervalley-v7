@@ -9,8 +9,8 @@
       "destination": "/invite.html"
     },
     {
-      "source": "/home/homepage/:path*",
-      "destination": "/home/homepage/:path*"
+      "source": "/homepage/:path*",
+      "destination": "/homepage/:path*"
     },
     {
       "source": "/(.*)",
