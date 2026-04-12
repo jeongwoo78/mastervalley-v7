@@ -9,6 +9,10 @@
       "destination": "/invite.html"
     },
     {
+      "source": "/home/homepage/:path*",
+      "destination": "/home/homepage/:path*"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
