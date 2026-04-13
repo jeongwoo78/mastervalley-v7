@@ -1,5 +1,5 @@
-// LoginScreen.jsx - Master Valley v76
-import React, { useState, useEffect } from 'react';
+// LoginScreen.jsx - Master Valley v78 — 가속 캐러셀 11개 언어 완성
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import {
   signInWithPopup,
   signInWithCredential,
@@ -11,15 +11,48 @@ import { auth, googleProvider, appleProvider } from '../config/firebase';
 import { Capacitor } from '@capacitor/core';
 import { getUi } from '../i18n';
 
-// Carousel images — public/login/ 폴더에 배치
-const CAROUSEL_SLIDES = [
-  { src: '/login/chagall.jpg', label: 'Chagall · Modernism' },
-  { src: '/login/islamic.jpg', label: 'Islamic Miniature · Medieval' },
-  { src: '/login/vangogh.jpg', label: 'Van Gogh · Post-Impressionism' },
-  { src: '/login/watteau.jpg', label: 'Watteau · Rococo' },
-  { src: '/login/matisse.jpg', label: 'Matisse · Fauvism' },
-  { src: '/login/original.jpg', label: 'Your Photo' },
+// Carousel — 11개 언어, 18장 통일 파일명, 가속 회전 + 2회차부터 셔플
+const SUPPORTED_LANGS = ['ko','en','ja','es','fr','ar','th','zh','pt','id','tr'];
+
+const SLIDE_KEYS = [
+  'original', 'mosaic', 'islamic', 'renaissance', 'baroque', 'rococo',
+  'ingres', 'renoir', 'vangogh', 'klimt', 'munch', 'matisse',
+  'chagall', 'frida', 'lichtenstein', 'oriental1', 'oriental2', 'oriental3',
 ];
+
+const LABELS = {
+  original: null, // i18n t.yourPhoto 사용
+  mosaic: 'Roman Mosaic', islamic: 'Islamic Miniature',
+  renaissance: 'Renaissance', baroque: 'Baroque', rococo: 'Rococo',
+  ingres: 'Ingres', renoir: 'Renoir', vangogh: 'Van Gogh',
+  klimt: 'Klimt', munch: 'Munch', matisse: 'Matisse',
+  chagall: 'Chagall', frida: 'Frida', lichtenstein: 'Lichtenstein',
+  oriental1: 'Oriental · 東洋', oriental2: 'Oriental · 東洋', oriental3: 'Oriental · 東洋',
+};
+
+// 가속 타이밍 (ms) — 1.2초→0.25초
+const TIMINGS = [
+  1200, 1000, 850, 700, 600, 500, 450, 400,
+  350, 300, 280, 250, 250, 250, 250, 250, 250, 250,
+];
+
+function shuffleArray(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function buildSlides(lang) {
+  const l = SUPPORTED_LANGS.includes(lang) ? lang : 'en';
+  return SLIDE_KEYS.map(k => ({
+    key: k,
+    src: `/login/${l}/${k}.jpg`,
+    label: LABELS[k],
+  }));
+}
 
 const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
   const [email, setEmail]       = useState('');
@@ -30,17 +63,35 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
   const [isNative, setIsNative] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [showPassword, setShowPassword] = useState(false);
+  const [slideOrder, setSlideOrder] = useState(() =>
+    Array.from({ length: SLIDE_KEYS.length }, (_, i) => i)
+  );
+  const roundRef = useRef(0);
+
+  const allSlides = useMemo(() => buildSlides(lang), [lang]);
 
   const t = getUi(lang).login;
 
-  // Carousel auto-play — 전체 1.5초, 원본 마지막
+  // Carousel auto-play — 가속 회전 + 2회차부터 셔플
   useEffect(() => {
-    const delay = 1500;
+    const total = allSlides.length;
+    const idx = currentSlide % total;
+    const delay = TIMINGS[Math.min(idx, TIMINGS.length - 1)];
+
     const timer = setTimeout(() => {
-      setCurrentSlide(prev => (prev + 1) % CAROUSEL_SLIDES.length);
+      const nextIdx = idx + 1;
+      if (nextIdx >= total) {
+        // 한 바퀴 완료 → 셔플 (원본은 항상 첫 번째)
+        roundRef.current += 1;
+        const artIndices = shuffleArray(Array.from({ length: total - 1 }, (_, i) => i + 1));
+        setSlideOrder([0, ...artIndices]);
+        setCurrentSlide(0);
+      } else {
+        setCurrentSlide(nextIdx);
+      }
     }, delay);
     return () => clearTimeout(timer);
-  }, [currentSlide]);
+  }, [currentSlide, allSlides.length]);
 
   useEffect(() => {
     const initGoogleAuth = async () => {
@@ -139,27 +190,27 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
 
         {/* Carousel */}
         <div style={s.carouselWrap}>
-          {CAROUSEL_SLIDES.map((slide, i) => (
+          {allSlides.map((slide, i) => (
             <img
-              key={i}
+              key={slide.key}
               src={slide.src}
-              alt={slide.label}
+              alt={slide.label || 'Your Photo'}
               style={{
                 ...s.carouselImg,
-                opacity: i === currentSlide ? 1 : 0,
+                opacity: i === slideOrder[currentSlide] ? 1 : 0,
               }}
             />
           ))}
           <span style={s.carouselLabel}>
-            {CAROUSEL_SLIDES[currentSlide].label}
+            {allSlides[slideOrder[currentSlide]]?.label || t.yourPhoto || 'Your Photo'}
           </span>
           <div style={s.carouselDots}>
-            {CAROUSEL_SLIDES.map((_, i) => (
+            {allSlides.map((_, i) => (
               <span
                 key={i}
                 style={{
                   ...s.dot,
-                  background: i === currentSlide
+                  background: i === slideOrder[currentSlide]
                     ? 'rgba(255,255,255,0.8)'
                     : 'rgba(255,255,255,0.2)',
                 }}
@@ -317,7 +368,7 @@ const s = {
     height: '100%',
     objectFit: 'cover',
     borderRadius: '12px',
-    transition: 'opacity 1s ease',
+    transition: 'opacity 0.25s ease',
   },
   carouselLabel: {
     position: 'absolute',
