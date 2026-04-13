@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>body{margin:0;background:#000}</style>
+<script>
+(function(){
+  var m={
+    ko:'ko',ja:'ja',es:'es',fr:'fr',pt:'pt',
+    ar:'ar',tr:'tr',th:'th',id:'id'
+  };
+  var l=(navigator.language||navigator.userLanguage||'en').toLowerCase();
+  var p=l;
+  if(l.indexOf('zh')===0&&(l.indexOf('tw')>0||l.indexOf('hant')>0)){p='zh-TW';}
+  else{p=m[l.split('-')[0]]||'en';}
+  window.location.replace(p+'.html');
+})();
+</script>
+</head>
+<body></body>
+</html>
