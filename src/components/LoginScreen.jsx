@@ -167,6 +167,11 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
     img.onload = () => {
       if (!isFirstRef.current) return;
       isFirstRef.current = false;
+      // 나머지 21장 백그라운드 프리로드
+      allSlides.slice(1).forEach(slide => {
+        const p = new Image();
+        p.src = slide.src;
+      });
       timerRef.current = setTimeout(advance, 700);
     };
     // 로드 실패 대비 — 3초 후 강제 시작
@@ -442,6 +447,7 @@ const s = {
     borderRadius: '12px',
     overflow: 'hidden',
     marginBottom: '16px',
+    background: '#1a2a2f',
   },
   carouselImg: {
     position: 'absolute',
