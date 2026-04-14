@@ -397,20 +397,20 @@ const s = {
     alignItems: 'flex-start',
   },
   eyebrow: {
-    fontSize: '11px',
+    fontSize: '12px',
     letterSpacing: '2.5px',
     textTransform: 'uppercase',
-    color: 'rgba(255,255,255,0.2)',
+    color: 'rgba(138,154,184,0.55)',
     marginBottom: '28px',
     direction: 'ltr',
   },
   eyebrowDot: {
-    color: 'rgba(184,154,90,0.4)',
+    color: 'rgba(184,154,90,0.6)',
     margin: '0 2px',
     letterSpacing: '0',
   },
   eyebrowSub: {
-    color: 'rgba(184,154,90,0.35)',
+    color: 'rgba(184,154,90,0.55)',
     letterSpacing: '2.5px',
   },
   title: {
@@ -420,7 +420,7 @@ const s = {
     lineHeight: 1.1,
     marginBottom: '16px',
     fontStyle: 'normal',
-    background: 'linear-gradient(135deg, #6a7a9a 20%, #8a9ab8 50%, #6a7a9a 80%)',
+    background: 'linear-gradient(135deg, #6a9a9a 0%, #6a9a9a 25%, #ccaa62 42%, #ccaa62 55%, #c87098 65%, #c87098 100%)',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
     backgroundClip: 'text',
