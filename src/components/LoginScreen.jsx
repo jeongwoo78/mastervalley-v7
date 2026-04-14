@@ -101,8 +101,14 @@ const CYCLE_ORDERS = [
 
 const CYCLES = CYCLE_ORDERS.map(keys => [0, ...keys.map(k => KEY_INDEX[k])]);
 
+function normalizeLang(lang) {
+  if (!lang) return 'en';
+  const base = lang.split('-')[0].toLowerCase();
+  return SUPPORTED_LANGS.includes(base) ? base : 'en';
+}
+
 function buildSlides(lang) {
-  const l = SUPPORTED_LANGS.includes(lang) ? lang : 'en';
+  const l = normalizeLang(lang);
   const labels = SLIDE_LABELS[l] || SLIDE_LABELS.en;
   return SLIDE_KEYS.map(k => ({
     key: k,
