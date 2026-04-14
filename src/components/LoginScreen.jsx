@@ -36,10 +36,10 @@ const LABELS_COMMON = {
 };
 
 const SLIDE_LABELS = {
-  ko: { ...LABELS_COMMON, o01:'Korean · 韓', o02:'Chinese · 中', o03:'Japanese · 日' },
-  ja: { ...LABELS_COMMON, o01:'Japanese · 日', o02:'Chinese · 中', o03:'Korean · 韓' },
-  zh: { ...LABELS_COMMON, o01:'Chinese · 中', o02:'Japanese · 日', o03:'Korean · 韓' },
-  ar: { ...LABELS_COMMON, o01:'Chinese · 中', o02:'Japanese · 日', o03:'Korean · 韓' },
+  ko: { ...LABELS_COMMON, o01:'Korean', o02:'Chinese', o03:'Japanese' },
+  ja: { ...LABELS_COMMON, o01:'Japanese', o02:'Chinese', o03:'Korean' },
+  zh: { ...LABELS_COMMON, o01:'Chinese', o02:'Japanese', o03:'Korean' },
+  ar: { ...LABELS_COMMON, o01:'Chinese', o02:'Japanese', o03:'Korean' },
 };
 // 나머지 언어 = 중일한
 ['en','es','fr','th','pt','id','tr'].forEach(l => { SLIDE_LABELS[l] = SLIDE_LABELS.zh; });
@@ -48,7 +48,7 @@ const SLIDE_LABELS = {
 // 가속 3장 → 고속 점진하강 → 피크 250ms×3 → 복귀 → 감속 → 여운 1000
 const TIMINGS = [
   0,           // [0]  원본 — onLoad+700(1회차) / 1200(2회차~)
-  800,         // [1]  가속
+  700,         // [1]  가속
   600,         // [2]  가속
   450,         // [3]  가속 끝
   400,         // [4]  고속
@@ -263,7 +263,7 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
     <div style={s.screen}>
       <div style={{ ...s.container, alignItems: isRTL ? 'flex-end' : 'flex-start' }}>
 
-        <p style={s.eyebrow}>Master Valley</p>
+        <p style={s.eyebrow}>Master Valley <span style={s.eyebrowDot}>·</span> <span style={s.eyebrowSub}>AI Time Travel Studio</span></p>
 
         <h1 style={s.title}>
           One photo.<br />
@@ -397,12 +397,21 @@ const s = {
     alignItems: 'flex-start',
   },
   eyebrow: {
-    fontSize: '10px',
-    letterSpacing: '3px',
+    fontSize: '11px',
+    letterSpacing: '2.5px',
     textTransform: 'uppercase',
     color: 'rgba(255,255,255,0.2)',
     marginBottom: '28px',
     direction: 'ltr',
+  },
+  eyebrowDot: {
+    color: 'rgba(184,154,90,0.4)',
+    margin: '0 2px',
+    letterSpacing: '0',
+  },
+  eyebrowSub: {
+    color: 'rgba(184,154,90,0.35)',
+    letterSpacing: '2.5px',
   },
   title: {
     fontFamily: "'Cormorant Garamond', Georgia, serif",
@@ -411,7 +420,7 @@ const s = {
     lineHeight: 1.1,
     marginBottom: '16px',
     fontStyle: 'normal',
-    background: 'linear-gradient(135deg, #6a9a9a 0%, #6a9a9a 25%, #ccaa62 42%, #ccaa62 55%, #c87098 65%, #c87098 100%)',
+    background: 'linear-gradient(135deg, #6a7a9a 20%, #8a9ab8 50%, #6a7a9a 80%)',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
     backgroundClip: 'text',
@@ -438,13 +447,14 @@ const s = {
   carouselLabel: {
     position: 'absolute',
     bottom: '10px', right: '10px',
-    fontSize: '11px',
-    fontWeight: 500,
-    letterSpacing: '1.5px',
-    textTransform: 'uppercase',
-    color: 'rgba(255,255,255,0.8)',
-    background: 'rgba(0,0,0,0.45)',
-    padding: '3px 10px',
+    fontSize: '13px',
+    fontFamily: "'Cormorant Garamond', Georgia, serif",
+    fontWeight: 400,
+    fontStyle: 'italic',
+    letterSpacing: '0.5px',
+    color: 'rgba(255,255,255,0.75)',
+    background: 'rgba(0,0,0,0.4)',
+    padding: '4px 12px',
     borderRadius: '4px',
     backdropFilter: 'blur(4px)',
     zIndex: 2,
