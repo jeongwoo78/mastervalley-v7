@@ -71,35 +71,35 @@ SLIDE_LABELS.fr = {
 };
 ['en','es','th','pt','id','tr'].forEach(l => { SLIDE_LABELS[l] = SLIDE_LABELS.zh; });
 
-// 종형 타이밍 — 시각 인지 과학 기반
-// 가속 4장 → 고속 6장(300ms=눈 고정) → 진입 2장 → 피크 4장(200ms=의식 인지 경계) → 복귀 2장 → 고속 2장 → 감속 4장
+// 일방향 가속 타이밍 — 끝으로 갈수록 빨라짐 → 원본 1500ms "탁" 리셋
+// 사이클 경계 극명: 최고속 250ms → 원본 1500ms (6배 점프)
 const TIMINGS = [
-  0,           // [0]  원본 — onLoad+700(1회차) / 1000(2회차~)
-  900,         // [1]  가속
-  700,         // [2]  가속
-  500,         // [3]  가속
-  400,         // [4]  가속 끝
-  350,         // [5]  고속
-  300,         // [6]  고속 (눈 고정 속도)
-  300,         // [7]  고속
-  300,         // [8]  고속
-  300,         // [9]  고속
-  300,         // [10] 고속
-  280,         // [11] ↘ 진입
-  250,         // [12] ↘
-  220,         // [13] 피크 진입
-  200,         // [14] 피크 (의식 인지 경계)
-  200,         // [15] 피크
-  200,         // [16] 피크
-  220,         // [17] ↗ 복귀
-  250,         // [18] ↗
-  280,         // [19] 복귀
-  300,         // [20] 고속
-  300,         // [21] 고속
-  400,         // [22] 감속
-  500,         // [23] 감속
-  700,         // [24] 감속
-  1200,        // [25] 여운
+  0,           // [0]  원본 — onLoad+1000(1회차) / 1500(2회차~)
+  1000,        // [1]  느린 시작
+  800,         // [2]
+  650,         // [3]  가속
+  550,         // [4]
+  450,         // [5]
+  400,         // [6]  고속
+  400,         // [7]
+  400,         // [8]
+  400,         // [9]
+  380,         // [10]
+  360,         // [11]
+  340,         // [12]
+  330,         // [13] 빨라진다
+  320,         // [14]
+  310,         // [15]
+  300,         // [16] 피크
+  300,         // [17]
+  300,         // [18]
+  280,         // [19] 더 빠름
+  280,         // [20]
+  270,         // [21]
+  270,         // [22]
+  260,         // [23]
+  260,         // [24]
+  250,         // [25] 최고속 → 끝 → 원본 "탁"
 ];
 
 // ─── 5사이클 프리빌드 순서 ────────────────────────────────
@@ -167,7 +167,7 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
   const t = getUi(lang).login;
 
   function getDelay(position) {
-    if (position === 0) return 1000; // 2회차~
+    if (position === 0) return 1500; // 2회차~: 사이클 경계 명확
     return TIMINGS[position];
   }
 
@@ -191,11 +191,11 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
       timerRef.current = setTimeout(advance, getDelay(nextPos));
     }
 
-    // 원본 이미지 프리로드 → onLoad + 700ms 후 시작
+    // 원본 이미지 프리로드 → onLoad + 1000ms 후 시작 (1회차)
     const img = new Image();
     img.src = allSlides[0].src;
     img.onload = () => {
-      timerRef.current = setTimeout(advance, 700);
+      timerRef.current = setTimeout(advance, 1000);
     };
     // 로드 실패 대비 — 3초 후 강제 시작
     const fallback = setTimeout(() => {
@@ -467,7 +467,7 @@ const s = {
     width: '100%', height: '100%',
     objectFit: 'cover',
     borderRadius: '12px',
-    transition: 'opacity 0.15s ease',
+    transition: 'opacity 0.2s ease',
   },
   carouselLabel: {
     position: 'absolute',
