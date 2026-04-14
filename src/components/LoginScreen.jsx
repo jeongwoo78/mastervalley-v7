@@ -1,5 +1,5 @@
 // LoginScreen.jsx - Master Valley v79 — 26장 종형 가속 캐러셀
-// 숫자 기반 파일명, 언어별 라벨 테이블, 5사이클 프리빌드, useRef 타이머 체인
+// 숫자 기반 파일명, 언어별 라벨, 5사이클 프리빌드, onLoad 기반 시작
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import {
   signInWithPopup,
@@ -15,7 +15,6 @@ import { getUi } from '../i18n';
 // ─── 캐러셀 설정 ─────────────────────────────────────────
 const SUPPORTED_LANGS = ['ko','en','ja','es','fr','ar','th','zh','pt','id','tr'];
 
-// 26장 슬라이드 키 (숫자 기반, 전 언어 공통 파일명)
 const SLIDE_KEYS = [
   'original',
   's01','s02','s03','s04','s05','s06','s07','s08','s09','s10','s11',
@@ -24,12 +23,10 @@ const SLIDE_KEYS = [
   'o01','o02','o03',
 ];
 
-// 키 → 인덱스 매핑
 const KEY_INDEX = {};
 SLIDE_KEYS.forEach((k, i) => { KEY_INDEX[k] = i; });
 
 // 언어별 라벨 테이블
-// original의 라벨은 null → t.yourPhoto 사용
 const SLIDE_LABELS = {
   ko: {
     s01:'Classical Sculpture', s02:'Islamic Miniature', s03:'Renaissance',
@@ -68,32 +65,36 @@ const SLIDE_LABELS = {
     o01:'Chinese · 中', o02:'Japanese · 日', o03:'Korean · 韓',
   },
 };
-// en/es/fr/th/pt/id/tr → zh와 동일 (중일한)
-['en','es','fr','th','pt','id','tr'].forEach(l => { SLIDE_LABELS[l] = SLIDE_LABELS.zh; });
+SLIDE_LABELS.fr = {
+  ...SLIDE_LABELS.zh,
+  e01:'Van Gogh', e02:'Matisse', e03:'Chagall', e04:'Van Gogh',
+};
+['en','es','th','pt','id','tr'].forEach(l => { SLIDE_LABELS[l] = SLIDE_LABELS.zh; });
 
-// 종형 타이밍 커브 + 미니 다이브 (위치 0~25)
+// 종형 타이밍 (위치 1~25, 위치 0은 별도 처리)
+// 가속 4장 → 최고속 6장 → 진입 2장 → 피크 6장(150ms) → 복귀 1장 → 최고속 2장 → 감속 4장
 const TIMINGS = [
-  0,           // [0]  원본 — 최초 1500 / 이후 1000
+  0,           // [0]  원본 — onLoad+700(1회차) / 1000(2회차~)
   1100,        // [1]  가속
-  800,         // [2]
-  550,         // [3]
-  400,         // [4]
-  320,         // [5]
-  280,         // [6]  가속 끝
-  250,         // [7]  최고속
+  700,         // [2]  가속
+  400,         // [3]  가속
+  280,         // [4]  가속 끝
+  250,         // [5]  최고속
+  250,         // [6]
+  250,         // [7]
   250,         // [8]
   250,         // [9]
   250,         // [10]
-  250,         // [11]
-  230,         // [12] ↘ 다이브 진입
-  200,         // [13] ↘
-  180,         // [14] 피크
-  180,         // [15] 피크
-  180,         // [16] 피크
-  200,         // [17] ↗ 복귀
-  230,         // [18] ↗
-  250,         // [19] 최고속
-  250,         // [20]
+  200,         // [11] ↘ 진입
+  180,         // [12] ↘
+  150,         // [13] 피크
+  150,         // [14] 피크
+  150,         // [15] 피크
+  150,         // [16] 피크
+  150,         // [17] 피크
+  150,         // [18] 피크
+  200,         // [19] ↗ 복귀
+  250,         // [20] 최고속
   250,         // [21]
   300,         // [22] 감속
   450,         // [23]
@@ -102,13 +103,8 @@ const TIMINGS = [
 ];
 
 // ─── 5사이클 프리빌드 순서 ────────────────────────────────
-// 위치 0은 항상 original (코드에서 자동 삽입)
-// 같은 아티스트 최소 5장 이상 간격
-// 감속 여운(22~25) 매 사이클 다른 분위기
-// 사이클 경계 중복 없음 (5→1 루프백 포함)
-
 const CYCLE_ORDERS = [
-  // 사이클 1: 사조→거장→엑스트라→동양화 (정석 순서)
+  // 사이클 1: 사조→거장→엑스트라→동양화 (정석)
   ['s01','s02','s03','s04','s05','s06','s07','s08','s09','s10','s11',
    'm01','m02','m03','m04','m05','m06','m07',
    'e01','e02','e03','e04',
@@ -139,7 +135,6 @@ const CYCLE_ORDERS = [
    's08','e03','m06','s11','o02'],
 ];
 
-// 키 배열 → 인덱스 배열 변환 (original=0 선두 삽입)
 const CYCLES = CYCLE_ORDERS.map(keys => [0, ...keys.map(k => KEY_INDEX[k])]);
 
 function buildSlides(lang) {
@@ -161,11 +156,8 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
   const [loading, setLoading]   = useState(false);
   const [isNative, setIsNative] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-
-  // 캐러셀 — 렌더 트리거용 state
   const [displaySlide, setDisplaySlide] = useState(0);
 
-  // 타이머 체인 ref
   const posRef      = useRef(0);
   const cycleRef    = useRef(0);
   const isFirstRef  = useRef(true);
@@ -175,14 +167,11 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
   const t = getUi(lang).login;
 
   function getDelay(position) {
-    if (position === 0) {
-      if (isFirstRef.current) { isFirstRef.current = false; return 1500; }
-      return 1000;
-    }
+    if (position === 0) return 1000; // 2회차~
     return TIMINGS[position];
   }
 
-  // 캐러셀 자동 재생
+  // 캐러셀 자동 재생 — 원본 이미지 로드 후 시작
   useEffect(() => {
     const total = SLIDE_KEYS.length;
     posRef.current = 0;
@@ -202,8 +191,24 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
       timerRef.current = setTimeout(advance, getDelay(nextPos));
     }
 
-    timerRef.current = setTimeout(advance, getDelay(0));
-    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
+    // 원본 이미지 프리로드 → onLoad + 700ms 후 시작
+    const img = new Image();
+    img.src = allSlides[0].src;
+    img.onload = () => {
+      timerRef.current = setTimeout(advance, 700);
+    };
+    // 로드 실패 대비 — 3초 후 강제 시작
+    const fallback = setTimeout(() => {
+      if (isFirstRef.current) {
+        isFirstRef.current = false;
+        timerRef.current = setTimeout(advance, 0);
+      }
+    }, 3000);
+
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+      clearTimeout(fallback);
+    };
   }, []);
 
   // Google Auth 초기화
@@ -462,11 +467,11 @@ const s = {
     width: '100%', height: '100%',
     objectFit: 'cover',
     borderRadius: '12px',
-    transition: 'opacity 0.25s ease',
+    transition: 'opacity 0.12s ease',
   },
   carouselLabel: {
     position: 'absolute',
-    bottom: '10px', left: '10px',
+    bottom: '10px', right: '10px',
     fontSize: '11px',
     fontWeight: 500,
     letterSpacing: '1.5px',
