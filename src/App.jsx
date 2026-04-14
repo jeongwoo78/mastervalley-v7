@@ -26,13 +26,21 @@ const App = () => {
   const [user, setUser] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
 
-  // 브라우저 언어 감지 → 지원 언어 매칭
+  // URL 파라미터 → 저장된 언어 → 브라우저 언어 순으로 감지
   const SUPPORTED_LANGS = ['en', 'ko', 'ja', 'es', 'fr', 'id', 'pt', 'ar', 'tr', 'th', 'zh-TW'];
   const detectBrowserLang = () => {
+    // 1순위: URL ?lang= 파라미터 (홈페이지에서 유입)
+    try {
+      const urlLang = new URLSearchParams(window.location.search).get('lang');
+      if (urlLang) {
+        if (urlLang.startsWith('zh')) return 'zh-TW';
+        const short = urlLang.split('-')[0].toLowerCase();
+        if (SUPPORTED_LANGS.includes(short)) return short;
+      }
+    } catch (e) {}
+    // 2순위: 브라우저 언어 감지
     const browserLang = navigator.language || navigator.userLanguage || 'en';
-    // zh-TW, zh-Hant 등 → zh-TW
     if (browserLang.startsWith('zh')) return 'zh-TW';
-    // 언어코드 앞 2자리로 매칭 (en-US → en, ko-KR → ko)
     const short = browserLang.split('-')[0].toLowerCase();
     return SUPPORTED_LANGS.includes(short) ? short : 'en';
   };
@@ -83,10 +91,17 @@ const App = () => {
   const [retransformingMasters, setRetransformingMasters] = useState({});
   const [prefetchedGreetings, setPrefetchedGreetings] = useState({});
 
-  // 앱 시작 시 저장된 언어 로드
+  // 앱 시작 시 저장된 언어 로드 (URL 파라미터가 있으면 우선)
   useEffect(() => {
     const loadSavedLanguage = async () => {
       try {
+        // URL ?lang= 파라미터가 있으면 최우선 (홈페이지에서 유입)
+        const urlLang = new URLSearchParams(window.location.search).get('lang');
+        if (urlLang) {
+          setLanguage(lang); // detectBrowserLang에서 이미 처리됨
+          return;
+        }
+        // URL 파라미터 없으면 저장된 언어 로드
         const { value } = await Preferences.get({ key: 'mastervalley-lang' });
         if (value) {
           setLang(value);
