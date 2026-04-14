@@ -287,6 +287,7 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
               style={{
                 ...s.carouselImg,
                 opacity: i === displaySlide ? 1 : 0,
+                objectPosition: normalizeLang(lang) === 'th' ? '70% center' : 'center',
               }}
             />
           ))}
