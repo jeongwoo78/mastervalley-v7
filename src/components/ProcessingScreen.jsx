@@ -42,20 +42,6 @@ const ProcessingScreen = ({ photo, originalPhotoUrl, selectedStyle, onComplete, 
   const styles = isFullTransform ? (selectedStyle?.styles || []) : [];
   const totalCount = styles.length;
 
-  // 고위험 스타일 (예술적 누드 경고 대상)
-  const isHighRiskStyle = (id) => {
-    if (!id) return false;
-    const riskMovements = ['ancient', 'renaissance', 'baroque', 'rococo', 'neoclassicism', 'impressionism', 'postImpressionism', 'expressionism'];
-    const riskMasters = ['klimt', 'munch'];
-    const riskOriental = ['chinese', 'gongbi'];
-    return riskMovements.some(r => id.includes(r)) ||
-           riskMasters.some(r => id.startsWith(r)) ||
-           riskOriental.some(r => id.includes(r));
-  };
-  const isHighRisk = isFullTransform
-    ? styles.some(s => isHighRiskStyle(s.id))
-    : isHighRiskStyle(selectedStyle?.id);
-
   const startedRef = useRef(false);
   const completedCountRef = useRef(0);
   const phaseTimerRef = useRef(null);
@@ -490,11 +476,6 @@ const ProcessingScreen = ({ photo, originalPhotoUrl, selectedStyle, onComplete, 
               </>
             )}
 
-            {/* 고위험 스타일 경고 (교육자료 아래) */}
-            {isHighRisk && viewIndex === -1 && (
-              <p className="nude-warning">〈 {tPhotoStyle.nudeWarningOneclick?.replace(/[.。]$/, '')} 〉</p>
-            )}
-
             {/* 결과: 스타일정보 + 교육 */}
             {viewIndex >= 0 && previewResult && (
               <>
@@ -580,10 +561,6 @@ const ProcessingScreen = ({ photo, originalPhotoUrl, selectedStyle, onComplete, 
               </div>
             )}
 
-            {/* 고위험 스타일 경고 (교육자료 아래) */}
-            {isHighRisk && (
-              <p className="nude-warning">〈 {tPhotoStyle.nudeWarningSingle?.replace(/[.。]$/, '')} 〉</p>
-            )}
           </>
         )}
       </div>
@@ -605,17 +582,6 @@ const ProcessingScreen = ({ photo, originalPhotoUrl, selectedStyle, onComplete, 
           width: 100%;
           max-height: 90vh;
           overflow-y: auto;
-        }
-        .nude-warning {
-          text-align: center;
-          font-size: 12px;
-          font-style: italic;
-          color: rgba(255, 255, 255, 0.5);
-          margin: 20px auto 0;
-          padding-top: 12px;
-          border-top: 1px solid rgba(255, 255, 255, 0.08);
-          max-width: 340px;
-          line-height: 1.4;
         }
         
         .status.oneclick {

@@ -124,20 +124,6 @@ const ResultScreen = ({
   // 깜빡임 + Blob URL 만료 원천 차단
   const originalPhotoUrl = appOriginalPhotoUrl || photoPreviewBase64 || null;
 
-  // v87: 고위험 스타일 (누드 경고)
-  const isHighRiskStyle = (id) => {
-    if (!id) return false;
-    const riskMovements = ['ancient', 'renaissance', 'baroque', 'rococo', 'neoclassicism', 'impressionism', 'postImpressionism', 'expressionism'];
-    const riskMasters = ['klimt', 'munch'];
-    const riskOriental = ['chinese', 'gongbi'];
-    return riskMovements.some(r => id.includes(r)) ||
-           riskMasters.some(r => id.startsWith(r)) ||
-           riskOriental.some(r => id.includes(r));
-  };
-  const isHighRisk = isFullTransform
-    ? (fullTransformResults || []).some(r => isHighRiskStyle(r?.style?.id))
-    : isHighRiskStyle(selectedStyle?.id);
-
   // Lock: ResultScreen 활성 상태 관리 (recovery 차단용)
   useEffect(() => {
     if (resultScreenActiveRef) resultScreenActiveRef.current = true;
@@ -1385,11 +1371,6 @@ const ResultScreen = ({
           </>
         )}
 
-        {/* 원클릭: 누드 경고 (교육자료 아래, 원본 화면에서만) */}
-        {isFullTransform && isHighRisk && viewIndex === -1 && (
-          <p className="nude-warning">〈 {tPhotoStyle.nudeWarningOneclick?.replace(/[.。]$/, '')} 〉</p>
-        )}
-
         {/* 원클릭: viewIndex >= 0 → 스타일정보 + 2차 교육 (단독변환과 동일 구조) */}
         {isFullTransform && viewIndex >= 0 && results[viewIndex] && (
           <div className="technique-card">
@@ -1548,11 +1529,6 @@ const ResultScreen = ({
               {getPrimaryEducation().content || getPrimaryEducation().desc}
             </div>
           </>
-        )}
-
-        {/* 단독: 누드 경고 (교육자료 아래, 원본 화면에서만) */}
-        {!isFullTransform && isHighRisk && viewIndex === -1 && (
-          <p className="nude-warning">〈 {tPhotoStyle.nudeWarningSingle?.replace(/[.。]$/, '')} 〉</p>
         )}
 
         {/* Toggle Button - 단독 변환 거장(masters)만 표시 (목업 준수) */}
@@ -2310,19 +2286,6 @@ const ResultScreen = ({
         }
 
         /* 누드 경고 */
-        .nude-warning {
-          text-align: center;
-          font-size: 12px;
-          font-style: italic;
-          color: rgba(255, 255, 255, 0.5);
-          margin: 20px auto 0;
-          padding-top: 12px;
-          border-top: 1px solid rgba(255, 255, 255, 0.08);
-          max-width: 340px;
-          line-height: 1.4;
-        }
-          line-height: 1.4;
-        }
 
         /* 원클릭 네비게이션 */
         .fullTransform-nav {

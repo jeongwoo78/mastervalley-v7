@@ -1781,7 +1781,7 @@ function getModernismHints(photoAnalysis) {
 const fallbackPrompts = {
   ancient: {
     name: '그리스·로마',
-    prompt: 'Transform this image into ancient Greek-Roman art. STRICT RULES: 1) ANY SPORTS/ATHLETIC ACTION (soccer, football, running, jumping, throwing, catching ball, ANY physical activity) → ALWAYS Greek/Roman MARBLE SCULPTURE in style of Discobolus or ancient Olympic athletes, pure white Carrara marble with visible carved muscles and dynamic frozen movement, classical athletic proportions, museum display style. CRITICAL: Ball games = SCULPTURE, NOT mosaic. 2) INDOOR PORTRAITS (no sports) → Greek/Roman marble sculpture with classical poses, ENTIRE FIGURE INCLUDING ALL CLOTHING must be PURE WHITE MARBLE, NO colored clothing, convert ALL fabric to carved white marble drapery folds. 3) OUTDOOR SCENES WITHOUT SPORTS → Roman mosaic with LARGE CHUNKY TESSERAE TILES 50mm, THICK BLACK GROUT LINES clearly visible between EVERY tile, LIMITED COLORS (terracotta, ochre, umber, ivory, slate blue), Pompeii villa floor style. PRIORITY: Sports/athletic = ALWAYS SCULPTURE regardless of indoor/outdoor. CRITICAL FOR ALL SCULPTURES: Convert ALL clothing colors to pure white marble, no original clothing colors preserved, entire figure is carved from single block of white Carrara marble. MANDATORY: ALL nipples and private areas must be covered with carved marble fabric draping or strategic arm positioning. Ancient masterpiece quality'
+    prompt: 'Transform this image into ancient Greek-Roman art. STRICT RULES: 1) ANY SPORTS/ATHLETIC ACTION (soccer, football, running, jumping, throwing, catching ball, ANY physical activity) → ALWAYS Greek/Roman MARBLE SCULPTURE in style of Discobolus or ancient Olympic athletes, pure white Carrara marble with visible carved muscles and dynamic frozen movement, classical athletic proportions, museum display style. CRITICAL: Ball games = SCULPTURE, NOT mosaic. 2) INDOOR PORTRAITS (no sports) → Greek/Roman marble sculpture with classical poses, ENTIRE FIGURE INCLUDING ALL CLOTHING must be PURE WHITE MARBLE, NO colored clothing, convert ALL fabric to carved white marble drapery folds. 3) OUTDOOR SCENES WITHOUT SPORTS → Roman mosaic with LARGE CHUNKY TESSERAE TILES 50mm, THICK BLACK GROUT LINES clearly visible between EVERY tile, LIMITED COLORS (terracotta, ochre, umber, ivory, slate blue), Pompeii villa floor style. PRIORITY: Sports/athletic = ALWAYS SCULPTURE regardless of indoor/outdoor. CRITICAL FOR ALL SCULPTURES: Convert ALL clothing colors to pure white marble, no original clothing colors preserved, entire figure is carved from single block of white Carrara marble. MANDATORY: Carved marble fabric draping covers chest, waist and hip areas. Ancient masterpiece quality'
   },
   
   medieval: {
@@ -1826,13 +1826,13 @@ const fallbackPrompts = {
   
   expressionism: {
     name: 'Edvard Munch',
-    prompt: 'MUNCH_EXPRESSIONISM',  // 기본값 - 실제로는 artistStyles.js에서 동적 생성
+    prompt: 'Clothing covers chest waist and hip areas. Expressionist painting by Edvard Munch, Munch art style, INTENSE PSYCHOLOGICAL emotional depth, WAVY DISTORTED swirling lines, haunting symbolic colors, blood red sky, sickly yellows, deep blues, raw emotional vulnerability, visible brushwork, Expressionist masterpiece quality',
     dynamicPrompt: true
   },
   
   modernism: {
     name: 'Pablo Picasso',
-    prompt: 'PICASSO_CUBIST',  // 기본값 - 실제로는 artistStyles.js에서 동적 생성
+    prompt: 'Clothing covers chest waist and hip areas. Cubist painting by Pablo Picasso, Picasso art style, geometric fragmentation, face broken into angular planes, multiple viewpoints simultaneously, earth tones ochre brown olive grey, bold black contour lines, Cubist masterpiece quality',
     dynamicPrompt: true  // 동적 프롬프트 플래그
   },
   
@@ -1912,12 +1912,12 @@ const fallbackPrompts = {
   // ========================================
   korean: {
     name: 'Korean Traditional Painting',
-    prompt: 'Exclusively Korean traditional painting, Joseon Dynasty art style, GENDER PRESERVATION preserve exact gender and facial features from original photo, Choose appropriate Korean style: Minhwa folk art for animals and flowers with light subtle Obangsaek colors and soft gentle pigments, Pungsokdo genre painting for people with LIGHT INK WASH technique and subtle colors over ink lines in Kim Hong-do and Shin Yun-bok style, Jingyeong landscape for nature with expressive ink and minimal color, SINGLE UNIFIED COMPOSITION, HANJI PAPER with visible fiber texture throughout'
+    prompt: 'Traditional Korean hanbok clothing covering chest, waist and hip areas. Exclusively Korean traditional painting, Joseon Dynasty art style, GENDER PRESERVATION preserve exact gender and facial features from original photo, Choose appropriate Korean style: Minhwa folk art for animals and flowers with light subtle Obangsaek colors and soft gentle pigments, Pungsokdo genre painting for people with LIGHT INK WASH technique and subtle colors over ink lines in Kim Hong-do and Shin Yun-bok style, Jingyeong landscape for nature with expressive ink and minimal color, SINGLE UNIFIED COMPOSITION, HANJI PAPER with visible fiber texture throughout'
   },
   
   chinese: {
     name: 'Chinese Traditional Painting',
-    prompt: 'Exclusively Chinese traditional painting, classical Chinese art style, GENDER PRESERVATION preserve exact gender and facial features from original photo, Choose appropriate Chinese style: Shuimohua ink wash for landscapes with monochrome gradations, Gongbi meticulous painting for people and animals with fine detailed brushwork and rich colors, Chinese aesthetic principles, SINGLE UNIFIED COMPOSITION, XUAN RICE PAPER with visible paper grain texture'
+    prompt: 'Traditional Chinese hanfu clothing covering chest, waist and hip areas. Exclusively Chinese traditional painting, classical Chinese art style, GENDER PRESERVATION preserve exact gender and facial features from original photo, Choose appropriate Chinese style: Shuimohua ink wash for landscapes with monochrome gradations, Gongbi meticulous painting for people and animals with fine detailed brushwork and rich colors, Chinese aesthetic principles, SINGLE UNIFIED COMPOSITION, XUAN RICE PAPER with visible paper grain texture'
   },
   
   japanese: {
@@ -1927,12 +1927,12 @@ const fallbackPrompts = {
   
   masters: {
     name: '거장 화풍',
-    prompt: 'Master artist painting, master artist art style, exceptional technical skill, distinctive artistic vision, profound emotional depth, timeless masterpiece quality'
+    prompt: 'Clothing covers chest waist and hip areas. Master artist painting, master artist art style, exceptional technical skill, distinctive artistic vision, profound emotional depth, timeless masterpiece quality'
   },
   
   oriental: {
     name: '동양화',
-    prompt: 'Traditional East Asian painting, East Asian art style, ink wash brushwork, minimalist composition, harmony with nature, philosophical contemplation, classical Oriental masterpiece quality, traditional ink brush texture on paper'
+    prompt: 'Traditional clothing covering chest, waist and hip areas. Traditional East Asian painting, East Asian art style, ink wash brushwork, minimalist composition, harmony with nature, philosophical contemplation, classical Oriental masterpiece quality, traditional ink brush texture on paper'
   }
 };
 
@@ -2711,8 +2711,8 @@ function buildIdentityPrompt(visionAnalysis) {
   // v80: 피부색 밝기 하한선 (모든 인종 공통)
   parts.push('Skin always rendered warmer than warm brown (#8D5524), with visible warm undertones, luminous and lifelike');
   
-  // v80: 노출 한도 (가슴+골반은 기존 의류 clause에서 커버)
-  parts.push('Skin may be visible above the chest line, on the midriff, and on the legs including thighs. Chest fully covered by clothing, nipples always beneath fabric');
+  // v80: 노출 방지 (긍정형)
+  parts.push('Clothing covers chest, waist and hip areas');
   
   return parts.join(', ');
 }
@@ -2934,7 +2934,7 @@ export default async function handler(req, res) {
     const replicateFilePromise = uploadToReplicateFiles(image);
     
     // v68.3: 변수 초기화 (스코프 문제 해결) - v68: 긍정 명령어로 통일
-    let coreRulesPrefix = 'MANDATORY: Female nipples MUST be covered by fabric garment. Lower body MUST wear pants or skirt or dress covering legs. Preserve identity, gender, ethnicity exactly. Keep only original elements from photo. Clean unsigned artwork, pure painted surface. ';
+    let coreRulesPrefix = 'Clothing covers chest, waist and hip areas. Preserve identity, gender, ethnicity exactly. Keep only original elements from photo. Clean unsigned artwork, pure painted surface. ';
     let genderPrefixCommon = '';
     
     // v72.1: photoAnalysis 초기화 (인종 보존용)
@@ -3642,16 +3642,16 @@ export default async function handler(req, res) {
         let CORE_RULES_BASE;
         if (skipEthnicityPreserve) {
           // 고갱/마티스/드랭/블라맹크: 피부색 변환이 화풍이라 ethnicity 제외
-          CORE_RULES_BASE = 'MANDATORY: Female nipples MUST be covered by fabric garment. Lower body MUST wear pants or skirt or dress covering legs. ' +
+          CORE_RULES_BASE = 'Clothing covers chest, waist and hip areas. ' +
             'Preserve identity, gender exactly. ' +
             'Keep only original elements from photo.';
         } else if (allowExtraImagery) {
           // 샤갈: 환영/꿈 이미지 허용 (원본만 규칙 제외)
-          CORE_RULES_BASE = 'MANDATORY: Female nipples MUST be covered by fabric garment. Lower body MUST wear pants or skirt or dress covering legs. ' +
+          CORE_RULES_BASE = 'Clothing covers chest, waist and hip areas. ' +
             'Preserve identity, gender, ethnicity exactly.';
         } else {
           // 기본값
-          CORE_RULES_BASE = 'MANDATORY: Female nipples MUST be covered by fabric garment. Lower body MUST wear pants or skirt or dress covering legs. ' +
+          CORE_RULES_BASE = 'Clothing covers chest, waist and hip areas. ' +
             'Preserve identity, gender, ethnicity exactly. ' +
             'Keep only original elements from photo.';
         }

@@ -421,9 +421,6 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
             </button>
           ))}
         </div>
-        <div className="subscription-info">
-          <p>{ps.artNotice}</p>
-        </div>
       </div>
     );
   };
