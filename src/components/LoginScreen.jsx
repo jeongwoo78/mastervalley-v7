@@ -195,6 +195,8 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
     const img = new Image();
     img.src = allSlides[0].src;
     img.onload = () => {
+      if (!isFirstRef.current) return; // 이미 시작됨 (StrictMode 대응)
+      isFirstRef.current = false;
       timerRef.current = setTimeout(advance, 1000);
     };
     // 로드 실패 대비 — 3초 후 강제 시작
