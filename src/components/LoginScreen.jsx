@@ -1,5 +1,5 @@
 // LoginScreen.jsx - Master Valley v79 — 26장 종형 가속 캐러셀
-// 5사이클 프리빌드 순서, useRef 타이머 체인, dots 제거
+// 숫자 기반 파일명, 언어별 라벨 테이블, 5사이클 프리빌드, useRef 타이머 체인
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import {
   signInWithPopup,
@@ -15,98 +15,128 @@ import { getUi } from '../i18n';
 // ─── 캐러셀 설정 ─────────────────────────────────────────
 const SUPPORTED_LANGS = ['ko','en','ja','es','fr','ar','th','zh','pt','id','tr'];
 
-// 26장 슬라이드 키
+// 26장 슬라이드 키 (숫자 기반, 전 언어 공통 파일명)
 const SLIDE_KEYS = [
   'original',
-  // 사조 11 (시간순)
-  'ancient', 'medieval', 'renaissance', 'baroque', 'rococo',
-  'neoclassicism', 'impressionism', 'postimpressionism', 'fauvism',
-  'expressionism', 'modernism',
-  // 거장 7 (출생순)
-  'vangogh', 'klimt', 'munch', 'matisse', 'chagall', 'frida', 'lichtenstein',
-  // 중복 아티스트 (다른 변환 결과)
-  'klimt2', 'munch2', 'matisse2', 'chagall2',
-  // 동양화 (ko=한중일, ja=일중한, zh/나머지=중일한)
-  'oriental1', 'oriental2', 'oriental3',
+  's01','s02','s03','s04','s05','s06','s07','s08','s09','s10','s11',
+  'm01','m02','m03','m04','m05','m06','m07',
+  'e01','e02','e03','e04',
+  'o01','o02','o03',
 ];
 
-// 키 → 인덱스 매핑 (사이클 빌드용)
+// 키 → 인덱스 매핑
 const KEY_INDEX = {};
 SLIDE_KEYS.forEach((k, i) => { KEY_INDEX[k] = i; });
 
-const LABELS = {
-  original: null,
-  ancient: 'Ancient Greece · Rome', medieval: 'Islamic Miniature',
-  renaissance: 'Renaissance', baroque: 'Baroque', rococo: 'Rococo',
-  neoclassicism: 'Neoclassicism', impressionism: 'Impressionism',
-  postimpressionism: 'Post-Impressionism', fauvism: 'Fauvism',
-  expressionism: 'Expressionism', modernism: 'Modernism',
-  vangogh: 'Van Gogh', klimt: 'Klimt', munch: 'Munch',
-  matisse: 'Matisse', chagall: 'Chagall', frida: 'Frida',
-  lichtenstein: 'Lichtenstein',
-  klimt2: 'Klimt', munch2: 'Munch', matisse2: 'Matisse', chagall2: 'Chagall',
-  oriental1: 'Korea', oriental2: 'China', oriental3: 'Japan',
+// 언어별 라벨 테이블
+// original의 라벨은 null → t.yourPhoto 사용
+const SLIDE_LABELS = {
+  ko: {
+    s01:'Classical Sculpture', s02:'Islamic Miniature', s03:'Renaissance',
+    s04:'Baroque', s05:'Rococo', s06:'Neoclassicism', s07:'Impressionism',
+    s08:'Post-Impressionism', s09:'Fauvism', s10:'Expressionism', s11:'Modernism',
+    m01:'Van Gogh', m02:'Klimt', m03:'Munch', m04:'Matisse',
+    m05:'Chagall', m06:'Frida', m07:'Lichtenstein',
+    e01:'Klimt', e02:'Munch', e03:'Matisse', e04:'Chagall',
+    o01:'Korean · 韓', o02:'Chinese · 中', o03:'Japanese · 日',
+  },
+  ar: {
+    s01:'Classical Sculpture', s02:'Islamic Miniature', s03:'Renaissance',
+    s04:'Baroque', s05:'Rococo', s06:'Neoclassicism', s07:'Impressionism',
+    s08:'Post-Impressionism', s09:'Fauvism', s10:'Expressionism', s11:'Modernism',
+    m01:'Van Gogh', m02:'Klimt', m03:'Munch', m04:'Matisse',
+    m05:'Chagall', m06:'Frida', m07:'Lichtenstein',
+    e01:'Klimt', e02:'Munch', e03:'Matisse', e04:'Picasso',
+    o01:'Chinese · 中', o02:'Japanese · 日', o03:'Korean · 韓',
+  },
+  ja: {
+    s01:'Classical Sculpture', s02:'Islamic Miniature', s03:'Renaissance',
+    s04:'Baroque', s05:'Rococo', s06:'Neoclassicism', s07:'Impressionism',
+    s08:'Post-Impressionism', s09:'Fauvism', s10:'Expressionism', s11:'Modernism',
+    m01:'Van Gogh', m02:'Klimt', m03:'Munch', m04:'Matisse',
+    m05:'Chagall', m06:'Frida', m07:'Lichtenstein',
+    e01:'Klimt', e02:'Munch', e03:'Matisse', e04:'Chagall',
+    o01:'Japanese · 日', o02:'Chinese · 中', o03:'Korean · 韓',
+  },
+  zh: {
+    s01:'Classical Sculpture', s02:'Islamic Miniature', s03:'Renaissance',
+    s04:'Baroque', s05:'Rococo', s06:'Neoclassicism', s07:'Impressionism',
+    s08:'Post-Impressionism', s09:'Fauvism', s10:'Expressionism', s11:'Modernism',
+    m01:'Van Gogh', m02:'Klimt', m03:'Munch', m04:'Matisse',
+    m05:'Chagall', m06:'Frida', m07:'Lichtenstein',
+    e01:'Klimt', e02:'Munch', e03:'Matisse', e04:'Chagall',
+    o01:'Chinese · 中', o02:'Japanese · 日', o03:'Korean · 韓',
+  },
 };
+// en/es/fr/th/pt/id/tr → zh와 동일 (중일한)
+['en','es','fr','th','pt','id','tr'].forEach(l => { SLIDE_LABELS[l] = SLIDE_LABELS.zh; });
 
-// 종형 타이밍 커브 (위치 0~25)
-// 가속 6 → 최고속 15 → 감속 4
-// 위치 0(원본)은 getDelay()에서 별도 처리
+// 종형 타이밍 커브 + 미니 다이브 (위치 0~25)
 const TIMINGS = [
   0,           // [0]  원본 — 최초 1500 / 이후 1000
-  1100,        // [1]  가속 시작
+  1100,        // [1]  가속
   800,         // [2]
   550,         // [3]
   400,         // [4]
   320,         // [5]
   280,         // [6]  가속 끝
-  250, 250, 250, 250, 250,  // [7-11]   최고속
-  250, 250, 250, 250, 250,  // [12-16]
-  250, 250, 250, 250, 250,  // [17-21]
-  300,         // [22] 감속 시작
+  250,         // [7]  최고속
+  250,         // [8]
+  250,         // [9]
+  250,         // [10]
+  250,         // [11]
+  230,         // [12] ↘ 다이브 진입
+  200,         // [13] ↘
+  180,         // [14] 피크
+  180,         // [15] 피크
+  180,         // [16] 피크
+  200,         // [17] ↗ 복귀
+  230,         // [18] ↗
+  250,         // [19] 최고속
+  250,         // [20]
+  250,         // [21]
+  300,         // [22] 감속
   450,         // [23]
   700,         // [24]
-  1000,        // [25] 여운
+  1200,        // [25] 여운
 ];
 
 // ─── 5사이클 프리빌드 순서 ────────────────────────────────
-// 설계 원칙:
-//   - 위치 0은 항상 original (코드에서 자동 삽입)
-//   - 같은 아티스트 최소 5장 이상 간격
-//   - 감속 여운(22~25) 매 사이클 다른 분위기
-//   - 사이클 경계 중복 없음 (N의 마지막 ≠ N+1의 첫 번째)
-//   - 5→1 루프백도 안전
+// 위치 0은 항상 original (코드에서 자동 삽입)
+// 같은 아티스트 최소 5장 이상 간격
+// 감속 여운(22~25) 매 사이클 다른 분위기
+// 사이클 경계 중복 없음 (5→1 루프백 포함)
 
 const CYCLE_ORDERS = [
-  // 사이클 1: 사조(시간순) → 거장(출생순) → 중복 → 동양화(한중일) — 첫인상 내러티브
-  ['ancient','medieval','renaissance','baroque','rococo','neoclassicism','impressionism',
-   'postimpressionism','fauvism','expressionism','modernism',
-   'vangogh','klimt','munch','matisse','chagall','frida','lichtenstein',
-   'klimt2','munch2','matisse2','chagall2',
-   'oriental1','oriental2','oriental3'],
+  // 사이클 1: 사조→거장→엑스트라→동양화 (정석 순서)
+  ['s01','s02','s03','s04','s05','s06','s07','s08','s09','s10','s11',
+   'm01','m02','m03','m04','m05','m06','m07',
+   'e01','e02','e03','e04',
+   'o01','o02','o03'],
 
-  // 사이클 2: 동양화 분산(4,10,16) / 감속=클림트②·리히텐★·반고흐★·프리다★
-  ['expressionism','modernism','baroque','oriental2','postimpressionism','klimt','rococo',
-   'munch2','matisse','oriental3','ancient','chagall','renaissance','fauvism',
-   'neoclassicism','oriental1','impressionism','chagall2','medieval','munch',
-   'matisse2','klimt2','lichtenstein','vangogh','frida'],
+  // 사이클 2
+  ['s10','m02','s04','s09','s02','m01','s05',
+   'e02','m06','s11','s01','m05','s03','e01',
+   'o03','m04','o01','s08','s06','e04',
+   's07','e03','m07','m03','o02'],
 
-  // 사이클 3: 동양화 분산(2,12,17) / 감속=표현주의·후기인상·샤갈★·리히텐★
-  ['baroque','oriental2','munch','neoclassicism','chagall2','impressionism','klimt2',
-   'fauvism','ancient','modernism','rococo','oriental1','klimt','renaissance',
-   'matisse2','medieval','oriental3','vangogh','frida','munch2',
-   'matisse','expressionism','postimpressionism','chagall','lichtenstein'],
+  // 사이클 3
+  ['s04','o02','m03','s06','e04','s07','e01',
+   's08','s01','m04','s05','s10','m07',
+   's02','m01','m06','m02','s09','e02','o01',
+   's11','m05','s03','e03','o03'],
 
-  // 사이클 4: 동양화 분산(2,11,18) / 감속=클림트★·후기인상·프리다★·모더니즘
-  ['neoclassicism','oriental2','lichtenstein','munch2','renaissance','chagall','ancient',
-   'fauvism','klimt2','munch','oriental3','vangogh','rococo','impressionism',
-   'chagall2','matisse2','baroque','oriental1','expressionism','medieval',
-   'matisse','klimt','postimpressionism','frida','modernism'],
+  // 사이클 4
+  ['s06','m06','m07','e02','s03','m05','s01',
+   's09','m02','o02','m01','m03','s05','e03',
+   's10','e01','s08','o03','e04','s04',
+   's11','m04','s02','s07','o01'],
 
-  // 사이클 5: 동양화 분산(4,8,20) / 감속=반고흐★·야수파·클림트②·표현주의
-  ['impressionism','chagall2','medieval','oriental1','matisse','munch2','rococo',
-   'oriental3','baroque','lichtenstein','renaissance','matisse2','chagall',
-   'neoclassicism','klimt','munch','postimpressionism','ancient','modernism',
-   'oriental2','frida','vangogh','fauvism','klimt2','expressionism'],
+  // 사이클 5
+  ['s07','e04','s02','m02','s09','o01','m03',
+   's10','s04','m07','s03','m01','m05',
+   's06','e01','m04','e02','s05','o03','s01',
+   's08','e03','m06','s11','o02'],
 ];
 
 // 키 배열 → 인덱스 배열 변환 (original=0 선두 삽입)
@@ -114,10 +144,11 @@ const CYCLES = CYCLE_ORDERS.map(keys => [0, ...keys.map(k => KEY_INDEX[k])]);
 
 function buildSlides(lang) {
   const l = SUPPORTED_LANGS.includes(lang) ? lang : 'en';
+  const labels = SLIDE_LABELS[l] || SLIDE_LABELS.en;
   return SLIDE_KEYS.map(k => ({
     key: k,
     src: `/login/${l}/${k}.jpg`,
-    label: LABELS[k],
+    label: labels[k] || null,
   }));
 }
 
@@ -131,19 +162,18 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
   const [isNative, setIsNative] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  // 캐러셀 — 렌더 트리거용 state는 이것 하나만
+  // 캐러셀 — 렌더 트리거용 state
   const [displaySlide, setDisplaySlide] = useState(0);
 
-  // 타이머 체인 전부 ref로 관리
-  const posRef      = useRef(0);      // 현재 위치 (0~25)
-  const cycleRef    = useRef(0);      // 현재 사이클 (0~4)
-  const isFirstRef  = useRef(true);   // 최초 1회 원본 1500ms용
+  // 타이머 체인 ref
+  const posRef      = useRef(0);
+  const cycleRef    = useRef(0);
+  const isFirstRef  = useRef(true);
   const timerRef    = useRef(null);
 
   const allSlides = useMemo(() => buildSlides(lang), [lang]);
   const t = getUi(lang).login;
 
-  // 위치 기반 딜레이
   function getDelay(position) {
     if (position === 0) {
       if (isFirstRef.current) { isFirstRef.current = false; return 1500; }
@@ -152,11 +182,9 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
     return TIMINGS[position];
   }
 
-  // 캐러셀 자동 재생 — 자기 완결 타이머 체인
+  // 캐러셀 자동 재생
   useEffect(() => {
-    const total = SLIDE_KEYS.length; // 26
-
-    // StrictMode 대응: 초기화
+    const total = SLIDE_KEYS.length;
     posRef.current = 0;
     cycleRef.current = 0;
     isFirstRef.current = true;
@@ -164,24 +192,19 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
 
     function advance() {
       let nextPos = posRef.current + 1;
-
       if (nextPos >= total) {
-        // 사이클 완료 → 다음 사이클
         cycleRef.current = (cycleRef.current + 1) % CYCLES.length;
         nextPos = 0;
       }
-
       posRef.current = nextPos;
       const slideIdx = CYCLES[cycleRef.current][nextPos];
       setDisplaySlide(slideIdx);
       timerRef.current = setTimeout(advance, getDelay(nextPos));
     }
 
-    // 첫 슬라이드(원본) 표시 후 딜레이 → 시작
     timerRef.current = setTimeout(advance, getDelay(0));
-
     return () => { if (timerRef.current) clearTimeout(timerRef.current); };
-  }, []); // 빈 deps — 타이머 체인이 자체 관리
+  }, []);
 
   // Google Auth 초기화
   useEffect(() => {
@@ -269,10 +292,8 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
     <div style={s.screen}>
       <div style={{ ...s.container, alignItems: isRTL ? 'flex-end' : 'flex-start' }}>
 
-        {/* Eyebrow */}
         <p style={s.eyebrow}>Master Valley</p>
 
-        {/* Title */}
         <h1 style={s.title}>
           One photo.<br />
           2800 years.<br />
@@ -330,7 +351,6 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
           {t.continueWithApple}
         </button>
 
-        {/* Divider */}
         <div style={s.divider} />
 
         {/* Form */}
