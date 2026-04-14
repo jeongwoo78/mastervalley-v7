@@ -99,6 +99,7 @@ const App = () => {
         const urlLang = new URLSearchParams(window.location.search).get('lang');
         if (urlLang) {
           setLanguage(lang); // detectBrowserLang에서 이미 처리됨
+          await Preferences.set({ key: 'mastervalley-lang', value: lang });
           return;
         }
         // URL 파라미터 없으면 저장된 언어 로드
