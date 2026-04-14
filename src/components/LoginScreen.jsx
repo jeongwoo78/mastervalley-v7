@@ -1,4 +1,5 @@
-// LoginScreen.jsx - Master Valley v78 — 가속 캐러셀 11개 언어 완성
+// LoginScreen.jsx - Master Valley v79 — 26장 종형 가속 캐러셀
+// 5사이클 프리빌드 순서, useRef 타이머 체인, dots 제거
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import {
   signInWithPopup,
@@ -11,39 +12,105 @@ import { auth, googleProvider, appleProvider } from '../config/firebase';
 import { Capacitor } from '@capacitor/core';
 import { getUi } from '../i18n';
 
-// Carousel — 11개 언어, 18장 통일 파일명, 가속 회전 + 2회차부터 셔플
+// ─── 캐러셀 설정 ─────────────────────────────────────────
 const SUPPORTED_LANGS = ['ko','en','ja','es','fr','ar','th','zh','pt','id','tr'];
 
+// 26장 슬라이드 키
 const SLIDE_KEYS = [
-  'original', 'mosaic', 'islamic', 'renaissance', 'baroque', 'rococo',
-  'ingres', 'renoir', 'vangogh', 'klimt', 'munch', 'matisse',
-  'chagall', 'frida', 'lichtenstein', 'oriental1', 'oriental2', 'oriental3',
+  'original',
+  // 사조 11 (시간순)
+  'ancient', 'medieval', 'renaissance', 'baroque', 'rococo',
+  'neoclassicism', 'impressionism', 'postimpressionism', 'fauvism',
+  'expressionism', 'modernism',
+  // 거장 7 (출생순)
+  'vangogh', 'klimt', 'munch', 'matisse', 'chagall', 'frida', 'lichtenstein',
+  // 중복 아티스트 (다른 변환 결과)
+  'klimt2', 'munch2', 'matisse2', 'chagall2',
+  // 동양화 (ko=한중일, ja=일중한, zh/나머지=중일한)
+  'oriental1', 'oriental2', 'oriental3',
 ];
+
+// 키 → 인덱스 매핑 (사이클 빌드용)
+const KEY_INDEX = {};
+SLIDE_KEYS.forEach((k, i) => { KEY_INDEX[k] = i; });
 
 const LABELS = {
-  original: null, // i18n t.yourPhoto 사용
-  mosaic: 'Roman Mosaic', islamic: 'Islamic Miniature',
+  original: null,
+  ancient: 'Ancient Greece · Rome', medieval: 'Islamic Miniature',
   renaissance: 'Renaissance', baroque: 'Baroque', rococo: 'Rococo',
-  ingres: 'Ingres', renoir: 'Renoir', vangogh: 'Van Gogh',
-  klimt: 'Klimt', munch: 'Munch', matisse: 'Matisse',
-  chagall: 'Chagall', frida: 'Frida', lichtenstein: 'Lichtenstein',
-  oriental1: 'Oriental · 東洋', oriental2: 'Oriental · 東洋', oriental3: 'Oriental · 東洋',
+  neoclassicism: 'Neoclassicism', impressionism: 'Impressionism',
+  postimpressionism: 'Post-Impressionism', fauvism: 'Fauvism',
+  expressionism: 'Expressionism', modernism: 'Modernism',
+  vangogh: 'Van Gogh', klimt: 'Klimt', munch: 'Munch',
+  matisse: 'Matisse', chagall: 'Chagall', frida: 'Frida',
+  lichtenstein: 'Lichtenstein',
+  klimt2: 'Klimt', munch2: 'Munch', matisse2: 'Matisse', chagall2: 'Chagall',
+  oriental1: 'Korea', oriental2: 'China', oriental3: 'Japan',
 };
 
-// 가속 타이밍 (ms) — 1.2초→0.25초
+// 종형 타이밍 커브 (위치 0~25)
+// 가속 6 → 최고속 15 → 감속 4
+// 위치 0(원본)은 getDelay()에서 별도 처리
 const TIMINGS = [
-  1200, 1000, 850, 700, 600, 500, 450, 400,
-  350, 300, 280, 250, 250, 250, 250, 250, 250, 250,
+  0,           // [0]  원본 — 최초 1500 / 이후 1000
+  1100,        // [1]  가속 시작
+  800,         // [2]
+  550,         // [3]
+  400,         // [4]
+  320,         // [5]
+  280,         // [6]  가속 끝
+  250, 250, 250, 250, 250,  // [7-11]   최고속
+  250, 250, 250, 250, 250,  // [12-16]
+  250, 250, 250, 250, 250,  // [17-21]
+  300,         // [22] 감속 시작
+  450,         // [23]
+  700,         // [24]
+  1000,        // [25] 여운
 ];
 
-function shuffleArray(arr) {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
+// ─── 5사이클 프리빌드 순서 ────────────────────────────────
+// 설계 원칙:
+//   - 위치 0은 항상 original (코드에서 자동 삽입)
+//   - 같은 아티스트 최소 5장 이상 간격
+//   - 감속 여운(22~25) 매 사이클 다른 분위기
+//   - 사이클 경계 중복 없음 (N의 마지막 ≠ N+1의 첫 번째)
+//   - 5→1 루프백도 안전
+
+const CYCLE_ORDERS = [
+  // 사이클 1: 사조(시간순) → 거장(출생순) → 중복 → 동양화(한중일) — 첫인상 내러티브
+  ['ancient','medieval','renaissance','baroque','rococo','neoclassicism','impressionism',
+   'postimpressionism','fauvism','expressionism','modernism',
+   'vangogh','klimt','munch','matisse','chagall','frida','lichtenstein',
+   'klimt2','munch2','matisse2','chagall2',
+   'oriental1','oriental2','oriental3'],
+
+  // 사이클 2: 동양화 분산(4,10,16) / 감속=클림트②·리히텐★·반고흐★·프리다★
+  ['expressionism','modernism','baroque','oriental2','postimpressionism','klimt','rococo',
+   'munch2','matisse','oriental3','ancient','chagall','renaissance','fauvism',
+   'neoclassicism','oriental1','impressionism','chagall2','medieval','munch',
+   'matisse2','klimt2','lichtenstein','vangogh','frida'],
+
+  // 사이클 3: 동양화 분산(2,12,17) / 감속=표현주의·후기인상·샤갈★·리히텐★
+  ['baroque','oriental2','munch','neoclassicism','chagall2','impressionism','klimt2',
+   'fauvism','ancient','modernism','rococo','oriental1','klimt','renaissance',
+   'matisse2','medieval','oriental3','vangogh','frida','munch2',
+   'matisse','expressionism','postimpressionism','chagall','lichtenstein'],
+
+  // 사이클 4: 동양화 분산(2,11,18) / 감속=클림트★·후기인상·프리다★·모더니즘
+  ['neoclassicism','oriental2','lichtenstein','munch2','renaissance','chagall','ancient',
+   'fauvism','klimt2','munch','oriental3','vangogh','rococo','impressionism',
+   'chagall2','matisse2','baroque','oriental1','expressionism','medieval',
+   'matisse','klimt','postimpressionism','frida','modernism'],
+
+  // 사이클 5: 동양화 분산(4,8,20) / 감속=반고흐★·야수파·클림트②·표현주의
+  ['impressionism','chagall2','medieval','oriental1','matisse','munch2','rococo',
+   'oriental3','baroque','lichtenstein','renaissance','matisse2','chagall',
+   'neoclassicism','klimt','munch','postimpressionism','ancient','modernism',
+   'oriental2','frida','vangogh','fauvism','klimt2','expressionism'],
+];
+
+// 키 배열 → 인덱스 배열 변환 (original=0 선두 삽입)
+const CYCLES = CYCLE_ORDERS.map(keys => [0, ...keys.map(k => KEY_INDEX[k])]);
 
 function buildSlides(lang) {
   const l = SUPPORTED_LANGS.includes(lang) ? lang : 'en';
@@ -54,6 +121,7 @@ function buildSlides(lang) {
   }));
 }
 
+// ─── 컴포넌트 ─────────────────────────────────────────────
 const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
   const [email, setEmail]       = useState('');
   const [password, setPassword] = useState('');
@@ -61,38 +129,61 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
   const [error, setError]       = useState('');
   const [loading, setLoading]   = useState(false);
   const [isNative, setIsNative] = useState(false);
-  const [currentSlide, setCurrentSlide] = useState(0);
   const [showPassword, setShowPassword] = useState(false);
-  const [slideOrder, setSlideOrder] = useState(() =>
-    Array.from({ length: SLIDE_KEYS.length }, (_, i) => i)
-  );
-  const roundRef = useRef(0);
+
+  // 캐러셀 — 렌더 트리거용 state는 이것 하나만
+  const [displaySlide, setDisplaySlide] = useState(0);
+
+  // 타이머 체인 전부 ref로 관리
+  const posRef      = useRef(0);      // 현재 위치 (0~25)
+  const cycleRef    = useRef(0);      // 현재 사이클 (0~4)
+  const isFirstRef  = useRef(true);   // 최초 1회 원본 1500ms용
+  const timerRef    = useRef(null);
 
   const allSlides = useMemo(() => buildSlides(lang), [lang]);
-
   const t = getUi(lang).login;
 
-  // Carousel auto-play — 가속 회전 + 2회차부터 셔플
+  // 위치 기반 딜레이
+  function getDelay(position) {
+    if (position === 0) {
+      if (isFirstRef.current) { isFirstRef.current = false; return 1500; }
+      return 1000;
+    }
+    return TIMINGS[position];
+  }
+
+  // 캐러셀 자동 재생 — 자기 완결 타이머 체인
   useEffect(() => {
-    const total = allSlides.length;
-    const idx = currentSlide % total;
-    const delay = TIMINGS[Math.min(idx, TIMINGS.length - 1)];
+    const total = SLIDE_KEYS.length; // 26
 
-    const timer = setTimeout(() => {
-      const nextIdx = idx + 1;
-      if (nextIdx >= total) {
-        // 한 바퀴 완료 → 셔플 (원본은 항상 첫 번째)
-        roundRef.current += 1;
-        const artIndices = shuffleArray(Array.from({ length: total - 1 }, (_, i) => i + 1));
-        setSlideOrder([0, ...artIndices]);
-        setCurrentSlide(0);
-      } else {
-        setCurrentSlide(nextIdx);
+    // StrictMode 대응: 초기화
+    posRef.current = 0;
+    cycleRef.current = 0;
+    isFirstRef.current = true;
+    setDisplaySlide(0);
+
+    function advance() {
+      let nextPos = posRef.current + 1;
+
+      if (nextPos >= total) {
+        // 사이클 완료 → 다음 사이클
+        cycleRef.current = (cycleRef.current + 1) % CYCLES.length;
+        nextPos = 0;
       }
-    }, delay);
-    return () => clearTimeout(timer);
-  }, [currentSlide, allSlides.length]);
 
+      posRef.current = nextPos;
+      const slideIdx = CYCLES[cycleRef.current][nextPos];
+      setDisplaySlide(slideIdx);
+      timerRef.current = setTimeout(advance, getDelay(nextPos));
+    }
+
+    // 첫 슬라이드(원본) 표시 후 딜레이 → 시작
+    timerRef.current = setTimeout(advance, getDelay(0));
+
+    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
+  }, []); // 빈 deps — 타이머 체인이 자체 관리
+
+  // Google Auth 초기화
   useEffect(() => {
     const initGoogleAuth = async () => {
       const native = Capacitor.isNativePlatform();
@@ -197,26 +288,13 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
               alt={slide.label || 'Your Photo'}
               style={{
                 ...s.carouselImg,
-                opacity: i === slideOrder[currentSlide] ? 1 : 0,
+                opacity: i === displaySlide ? 1 : 0,
               }}
             />
           ))}
           <span style={s.carouselLabel}>
-            {allSlides[slideOrder[currentSlide]]?.label || t.yourPhoto || 'Your Photo'}
+            {allSlides[displaySlide]?.label || t.yourPhoto || 'Your Photo'}
           </span>
-          <div style={s.carouselDots}>
-            {allSlides.map((_, i) => (
-              <span
-                key={i}
-                style={{
-                  ...s.dot,
-                  background: i === slideOrder[currentSlide]
-                    ? 'rgba(255,255,255,0.8)'
-                    : 'rgba(255,255,255,0.2)',
-                }}
-              />
-            ))}
-          </div>
         </div>
 
         {/* Developer message */}
@@ -308,6 +386,7 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
   );
 };
 
+// ─── 스타일 ───────────────────────────────────────────────
 const s = {
   screen: {
     minHeight: '100vh',
@@ -347,11 +426,8 @@ const s = {
     backgroundClip: 'text',
     direction: 'ltr',
   },
-  em: {
-    fontStyle: 'italic',
-  },
+  em: { fontStyle: 'italic' },
 
-  // Carousel
   carouselWrap: {
     position: 'relative',
     width: '100%',
@@ -362,18 +438,15 @@ const s = {
   },
   carouselImg: {
     position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
+    top: 0, left: 0,
+    width: '100%', height: '100%',
     objectFit: 'cover',
     borderRadius: '12px',
     transition: 'opacity 0.25s ease',
   },
   carouselLabel: {
     position: 'absolute',
-    bottom: '10px',
-    left: '10px',
+    bottom: '10px', left: '10px',
     fontSize: '11px',
     fontWeight: 500,
     letterSpacing: '1.5px',
@@ -386,124 +459,66 @@ const s = {
     zIndex: 2,
     direction: 'ltr',
   },
-  carouselDots: {
-    position: 'absolute',
-    bottom: '10px',
-    right: '10px',
-    display: 'flex',
-    gap: '4px',
-    zIndex: 2,
-  },
-  dot: {
-    width: '5px',
-    height: '5px',
-    borderRadius: '50%',
-    transition: 'background 0.3s',
-  },
 
-  // Developer message
   devMsg: {
-    fontSize: '14px',
-    lineHeight: 1.7,
+    fontSize: '14px', lineHeight: 1.7,
     color: 'rgba(255,255,255,0.4)',
     marginBottom: '16px',
     fontFamily: "'DM Sans', -apple-system, sans-serif",
     fontWeight: 500,
   },
-  devMsgHi: {
-    color: 'rgba(150,100,200,0.75)',
-    fontWeight: 600,
-  },
+  devMsgHi: { color: 'rgba(150,100,200,0.75)', fontWeight: 600 },
   devMsgSign: {
-    color: 'rgba(255,255,255,0.2)',
-    fontWeight: 500,
-    fontStyle: 'italic',
-    display: 'block',
-    textAlign: 'right',
-    marginTop: '8px',
+    color: 'rgba(255,255,255,0.2)', fontWeight: 500, fontStyle: 'italic',
+    display: 'block', textAlign: 'right', marginTop: '8px',
   },
 
   socialBtn: {
-    width: '100%',
-    height: '50px',
+    width: '100%', height: '50px',
     background: 'transparent',
     border: '1px solid rgba(255,255,255,0.08)',
     borderRadius: '8px',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '12px',
+    display: 'flex', alignItems: 'center', gap: '12px',
     padding: '0 16px',
     fontFamily: "'DM Sans', -apple-system, sans-serif",
-    fontSize: '14px',
-    color: 'rgba(255,255,255,0.6)',
-    cursor: 'pointer',
-    marginBottom: '8px',
+    fontSize: '14px', color: 'rgba(255,255,255,0.6)',
+    cursor: 'pointer', marginBottom: '8px',
   },
   divider: {
-    width: '100%',
-    height: '1px',
+    width: '100%', height: '1px',
     background: 'rgba(255,255,255,0.08)',
     marginBottom: '10px',
   },
-  form: {
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-  },
+  form: { width: '100%', display: 'flex', flexDirection: 'column' },
   input: {
-    width: '100%',
-    height: '44px',
-    background: 'transparent',
-    border: 'none',
+    width: '100%', height: '44px',
+    background: 'transparent', border: 'none',
     borderBottom: '1px solid rgba(255,255,255,0.08)',
-    padding: '0 4px',
-    fontSize: '14px',
-    color: '#fff',
+    padding: '0 4px', fontSize: '14px', color: '#fff',
     fontFamily: "'DM Sans', -apple-system, sans-serif",
-    marginBottom: '12px',
-    outline: 'none',
+    marginBottom: '12px', outline: 'none',
     transition: 'border-color 0.2s',
   },
-  passwordWrap: {
-    position: 'relative',
-    width: '100%',
-    marginBottom: '12px',
-  },
+  passwordWrap: { position: 'relative', width: '100%', marginBottom: '12px' },
   eyeIcon: {
-    position: 'absolute',
-    top: '50%',
-    transform: 'translateY(-50%)',
-    cursor: 'pointer',
-    padding: '4px',
-    display: 'flex',
-    alignItems: 'center',
+    position: 'absolute', top: '50%', transform: 'translateY(-50%)',
+    cursor: 'pointer', padding: '4px',
+    display: 'flex', alignItems: 'center',
   },
-  error: {
-    fontSize: '12px',
-    color: 'rgba(239,68,68,0.9)',
-    marginBottom: '12px',
-  },
+  error: { fontSize: '12px', color: 'rgba(239,68,68,0.9)', marginBottom: '12px' },
   row: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginTop: '6px',
+    display: 'flex', alignItems: 'center',
+    justifyContent: 'space-between', marginTop: '6px',
   },
   submitBtn: {
-    background: 'transparent',
-    border: 'none',
+    background: 'transparent', border: 'none',
     fontFamily: "'DM Sans', -apple-system, sans-serif",
-    fontSize: '14px',
-    fontWeight: 400,
-    color: '#fff',
-    cursor: 'pointer',
-    padding: 0,
+    fontSize: '14px', fontWeight: 400, color: '#fff',
+    cursor: 'pointer', padding: 0,
   },
   signupLink: {
-    fontSize: '13px',
-    color: 'rgba(255,255,255,0.2)',
-    cursor: 'pointer',
-    textDecoration: 'underline',
+    fontSize: '13px', color: 'rgba(255,255,255,0.2)',
+    cursor: 'pointer', textDecoration: 'underline',
     textUnderlineOffset: '3px',
   },
 };
