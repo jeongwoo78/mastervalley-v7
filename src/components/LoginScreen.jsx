@@ -99,6 +99,14 @@ const CYCLE_ORDERS = [
    'm07','s09','s08','m06','o03','s01','s05','m04','s11','m03'],
 ];
 
+// 사이클 순서: 순서대로×2 → (ABCD+순서대로) 무한반복
+// 0,1 → 정석 / 2=A, 3=B, 4=C, 5=D, 6=정석, 7=A, 8=B ...
+function getCycleOrder(n) {
+  if (n < 2) return 0;
+  const PATTERN = [1, 2, 3, 4, 0]; // A,B,C,D,순서대로
+  return PATTERN[(n - 2) % 5];
+}
+
 const CYCLES = CYCLE_ORDERS.map(keys => [0, ...keys.map(k => KEY_INDEX[k])]);
 
 function normalizeLang(lang) {
@@ -153,14 +161,15 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
     function advance() {
       let nextPos = posRef.current + 1;
       if (nextPos >= total) {
-        cycleRef.current = (cycleRef.current + 1) % CYCLES.length;
+        cycleRef.current = cycleRef.current + 1;
         nextPos = 0;
       }
       posRef.current = nextPos;
-      const slideIdx = CYCLES[cycleRef.current][nextPos];
+      const cycleIdx = getCycleOrder(cycleRef.current);
+      const slideIdx = CYCLES[cycleIdx][nextPos];
       // 다음 슬라이드도 미리 로드 등록
       const peekPos = nextPos + 1 < total ? nextPos + 1 : 0;
-      const peekIdx = CYCLES[cycleRef.current][Math.min(peekPos, total - 1)];
+      const peekIdx = CYCLES[cycleIdx][Math.min(peekPos, total - 1)];
       setLoadedSlides(prev => {
         const next = new Set(prev);
         next.add(slideIdx);
