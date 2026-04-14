@@ -127,6 +127,7 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
   const [isNative, setIsNative] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [displaySlide, setDisplaySlide] = useState(0);
+  const [loadedSlides, setLoadedSlides] = useState(new Set([0])); // 원본만 초기 로드
 
   const posRef      = useRef(0);
   const cycleRef    = useRef(0);
@@ -157,6 +158,15 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
       }
       posRef.current = nextPos;
       const slideIdx = CYCLES[cycleRef.current][nextPos];
+      // 다음 슬라이드도 미리 로드 등록
+      const peekPos = nextPos + 1 < total ? nextPos + 1 : 0;
+      const peekIdx = CYCLES[cycleRef.current][Math.min(peekPos, total - 1)];
+      setLoadedSlides(prev => {
+        const next = new Set(prev);
+        next.add(slideIdx);
+        next.add(peekIdx);
+        return next;
+      });
       setDisplaySlide(slideIdx);
       timerRef.current = setTimeout(advance, getDelay(nextPos));
     }
@@ -167,11 +177,8 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
     img.onload = () => {
       if (!isFirstRef.current) return;
       isFirstRef.current = false;
-      // 나머지 21장 백그라운드 프리로드
-      allSlides.slice(1).forEach(slide => {
-        const p = new Image();
-        p.src = slide.src;
-      });
+      // 전체 슬라이드 로드 등록 (백그라운드)
+      setLoadedSlides(new Set(Array.from({ length: total }, (_, i) => i)));
       timerRef.current = setTimeout(advance, 700);
     };
     // 로드 실패 대비 — 3초 후 강제 시작
@@ -287,7 +294,7 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
           {allSlides.map((slide, i) => (
             <img
               key={slide.key}
-              src={slide.src}
+              src={loadedSlides.has(i) ? slide.src : undefined}
               alt={slide.label || 'Your Photo'}
               style={{
                 ...s.carouselImg,
@@ -447,7 +454,7 @@ const s = {
     borderRadius: '12px',
     overflow: 'hidden',
     marginBottom: '16px',
-    background: '#1a2a2f',
+    background: '#0a1a1f',
   },
   carouselImg: {
     position: 'absolute',
@@ -456,6 +463,7 @@ const s = {
     objectFit: 'cover',
     borderRadius: '12px',
     transition: 'opacity 0.2s ease',
+    color: 'transparent',
   },
   carouselLabel: {
     position: 'absolute',
