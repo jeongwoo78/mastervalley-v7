@@ -4381,31 +4381,42 @@ export default async function handler(req, res) {
     logData.prompt.applied.gender = true;
     
     // ========================================
+    // 모자이크/타일 계열 감지 (미성년자 보호보다 먼저 체크)
+    // ========================================
+    const normalizedForTile = (selectedArtist || '').toLowerCase().replace(/\s+/g, '');
+    const isTileStyle = ['romanmosaic', 'mosaic'].includes(normalizedForTile);
+    
+    // ========================================
     // 미성년자 보호 Layer 4: clothing 프롬프트 강화
-    // 일반: "Clothing covers chest, waist and hip areas."
-    // 미성년자: "Full modest age-appropriate clothing covering entire body."
+    // 모자이크: 타일 호환 문구로 적용
+    // 일반: 기존 문구
     // ========================================
     if (isMinor) {
-      coreRulesPrefix = coreRulesPrefix.replace(
-        'Clothing covers chest, waist and hip areas.',
-        'Full modest age-appropriate clothing covering entire body.'
-      );
-      console.log(`🛡️ [MINOR-CLOTHING] Enhanced clothing prompt applied for ${ageRange}`);
+      if (isTileStyle) {
+        coreRulesPrefix = coreRulesPrefix.replace(
+          'Clothing covers chest, waist and hip areas.',
+          'Full modest age-appropriate clothing rendered entirely in tesserae tiles covering entire body.'
+        );
+      } else {
+        coreRulesPrefix = coreRulesPrefix.replace(
+          'Clothing covers chest, waist and hip areas.',
+          'Full modest age-appropriate clothing covering entire body.'
+        );
+      }
+      console.log(`🛡️ [MINOR-CLOTHING] Enhanced clothing prompt applied for ${ageRange}${isTileStyle ? ' (tile-compatible)' : ''}`);
       logData.prompt.applied.minorClothing = true;
     }
     
     // ========================================
-    // 모자이크/타일 계열: 의상 문구를 타일 텍스처 호환으로 변경
-    // "Clothing covers..." → 타일로 렌더링된 의상으로 교체
+    // 모자이크/타일 계열: 대전제에서 의상/유화 문구 제거
+    // 미성년자가 아닌 경우만 의상 제거 (미성년자는 위에서 타일 호환으로 처리)
     // ========================================
-    const normalizedForTile = (selectedArtist || '').toLowerCase().replace(/\s+/g, '');
-    const isTileStyle = ['romanmosaic', 'mosaic'].includes(normalizedForTile);
-    if (isTileStyle) {
+    if (isTileStyle && !isMinor) {
       coreRulesPrefix = coreRulesPrefix.replace(
-        'Clothing covers chest, waist and hip areas.',
-        'Clothing area covered by classical draped garment rendered entirely in tesserae tiles, covering chest, waist and hip areas.'
+        'Clothing covers chest, waist and hip areas. ', ''
       );
-      // "Clean unsigned artwork, pure painted surface" → 모자이크에 맞게 변경
+    }
+    if (isTileStyle) {
       coreRulesPrefix = coreRulesPrefix.replace(
         'Clean unsigned artwork, pure painted surface.',
         'Clean mosaic surface with visible tile texture throughout.'
@@ -4414,6 +4425,15 @@ export default async function handler(req, res) {
     
     finalPrompt = finalPrompt + ' ' + coreRulesPrefix;
     logData.prompt.applied.coreRules = true;
+    
+    // 모자이크/타일 계열: finalPrompt에서 유화/사실적 렌더링 유발 문구 제거
+    if (isTileStyle) {
+      finalPrompt = finalPrompt.replace(/,?\s*luminous and lifelike/gi, '');
+      finalPrompt = finalPrompt.replace(/,?\s*Clothing covers chest,?\s*waist and hip areas/gi, '');
+      finalPrompt = finalPrompt.replace(/painted with delicate warm glazes[^,]*/gi, '');
+      finalPrompt = finalPrompt.replace(/painted with masterful subtlety[^,]*/gi, '');
+      finalPrompt = finalPrompt.replace(/painted with warm natural realism[^,]*/gi, '');
+    }
     
     // ========================================
     // 🚫 환각 방지: 원본 요소만 유지 (모든 경로 공통 적용)
@@ -4508,8 +4528,11 @@ export default async function handler(req, res) {
           }
         }
         
-        finalPrompt = finalPrompt + attractiveEnhancement;
-        logData.prompt.applied.attractive = true;
+        // 모자이크/타일 계열: 유화식 매력 강화 스킵 (타일 텍스처와 충돌)
+        if (!isTileStyle) {
+          finalPrompt = finalPrompt + attractiveEnhancement;
+        }
+        logData.prompt.applied.attractive = !isTileStyle;
       }
     }
     
