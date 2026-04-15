@@ -220,7 +220,7 @@ export const ANCIENT_MEDIEVAL_PROMPTS = {
  'marble': {
  name: '대리석 조각',
  nameEn: 'Marble Sculpture',
- prompt: `Transform the subject to look like an ancient marble statue. Ancient Greek-Roman marble sculpture style. ONLY pure white Carrara marble with smooth polished surface, carved stone texture. Subject's clothing transforms into classical draped toga or stola, covering chest, waist and hip areas. Style reference sculptures: Nike of Samothrace, Augustus of Prima Porta, Eirene, Pietà. Preserve original gender and body proportions. MONOCHROME white throughout, 100% white stone surface. White marble 85%, light grey 15%. Pure white marble tone dominates entirely with only faint natural marble grain.`
+ prompt: `Ancient Greek-Roman marble sculpture style. Pure white Carrara marble with smooth polished surface, carved stone texture. Subject's clothing transforms into classical draped toga or stola, covering chest, waist and hip areas. Style reference sculptures: Nike of Samothrace, Augustus of Prima Porta, Eirene, Pietà. Preserve original gender and body proportions. MONOCHROME pure white palette. White marble 85%, light grey 15%. Completely desaturated with zero color. Pure white marble tone dominates entirely with only faint natural marble grain.`
  },
 
  // ─────────────────────────────────────────
