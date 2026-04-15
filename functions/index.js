@@ -4,14 +4,34 @@
 // ========================================
 
 import { onRequest } from 'firebase-functions/v2/https';
+import { onSchedule } from 'firebase-functions/v2/scheduler';
 import { initializeApp } from 'firebase-admin/app';
-import { getFirestore, FieldValue } from 'firebase-admin/firestore';
+import { getAuth } from 'firebase-admin/auth';
+import { getFirestore, FieldValue, Timestamp } from 'firebase-admin/firestore';
 import { getMessaging } from 'firebase-admin/messaging';
 
 import { runTransform, runVisionAnalysis } from './transform-logic.js';
 
 initializeApp();
 const db = getFirestore();
+
+// ========================================
+// A-2: Firebase Auth 토큰 검증
+// ========================================
+async function verifyAuth(req) {
+  const authHeader = req.headers.authorization;
+  if (!authHeader?.startsWith('Bearer ')) {
+    return null;
+  }
+  try {
+    const idToken = authHeader.split('Bearer ')[1];
+    const decodedToken = await getAuth().verifyIdToken(idToken);
+    return decodedToken.uid;
+  } catch (err) {
+    console.warn('⚠️ 토큰 검증 실패:', err.message);
+    return null;
+  }
+}
 
 // ========================================
 // 크레딧 비용 산정 + 서버 차감
@@ -210,13 +230,18 @@ async function handleRequest(req, res) {
   }
   
   try {
+    // A-2: Firebase Auth 토큰 검증 → userId를 토큰에서 추출
+    const userId = await verifyAuth(req);
+    if (!userId) {
+      return res.status(401).json({ error: 'Unauthorized: invalid or missing auth token' });
+    }
+    
     const {
       image,
       selectedStyle,
       styles,
       isFullTransform,
       correctionPrompt,
-      userId,
       fcmToken,
       lang,
       transformId: clientTransformId,
@@ -250,19 +275,16 @@ async function handleRequest(req, res) {
 }
 
 // ========================================
-// 리전별 배포 (동일 핸들러, 다른 리전)
+// Cloud Functions 배포 (us-central1 통합)
+// Replicate/Anthropic API가 US에 있어 us-central1이 최적
 // ========================================
-// 미국/유럽/남미 (en, es, pt, fr, ar, tr)
 export const startTransform = onRequest({
   ...FUNCTION_CONFIG,
   region: 'us-central1'
 }, handleRequest);
 
-// 아시아 (ko, ja, zh-TW, id, th)
-export const startTransformAsia = onRequest({
-  ...FUNCTION_CONFIG,
-  region: 'asia-northeast1'
-}, handleRequest);
+// startTransformAsia 제거됨 — asia-northeast1 경유 시 오히려 느림 (A-7)
+// 배포 후 firebase functions:delete startTransformAsia --region asia-northeast1 실행 필요
 
 // ========================================
 // 단일 변환 처리
@@ -299,7 +321,8 @@ async function handleSingle(req, res, params) {
     correctionPrompt: correctionPrompt || null,
     userId: userId || null,
     createdAt: FieldValue.serverTimestamp(),
-    updatedAt: FieldValue.serverTimestamp()
+    updatedAt: FieldValue.serverTimestamp(),
+    expireAt: Timestamp.fromDate(new Date(Date.now() + 30 * 24 * 60 * 60 * 1000))  // F-3: 30일 후 TTL 삭제
   });
   
   console.log(`🚀 단일 변환 시작: ${transformId} (${selectedStyle.category}/${selectedStyle.name})`);
@@ -388,6 +411,7 @@ async function handleOneClick(req, res, params) {
   const batch = db.batch();
   
   const sessionRef = db.collection('oneclick_sessions').doc(sessionId);
+  const expireAt = Timestamp.fromDate(new Date(Date.now() + 30 * 24 * 60 * 60 * 1000));  // F-3: 30일 후 TTL 삭제
   batch.set(sessionRef, {
     userId: userId || null,
     totalCount,
@@ -398,7 +422,8 @@ async function handleOneClick(req, res, params) {
     selectedStyle: selectedStyle || null,
     status: 'processing',
     createdAt: FieldValue.serverTimestamp(),
-    updatedAt: FieldValue.serverTimestamp()
+    updatedAt: FieldValue.serverTimestamp(),
+    expireAt
   });
   
   for (let i = 0; i < totalCount; i++) {
@@ -410,7 +435,8 @@ async function handleOneClick(req, res, params) {
       sessionId,
       styleIndex: i,
       createdAt: FieldValue.serverTimestamp(),
-      updatedAt: FieldValue.serverTimestamp()
+      updatedAt: FieldValue.serverTimestamp(),
+      expireAt
     });
   }
   
@@ -577,3 +603,53 @@ function sendFCM(token, { title, body, data, imageUrl }) {
     console.warn(`⚠️ FCM 전송 실패: ${err.message}`);
   });
 }
+
+// ========================================
+// A-6: 좀비 세션 정리 (매일 새벽 실행)
+// processing 상태로 1시간 이상 방치된 세션/변환을 timeout으로 변경
+// ========================================
+export const dailyCleanup = onSchedule({
+  schedule: 'every day 19:00',  // UTC 19:00 = KST 04:00
+  timeZone: 'UTC',
+  region: 'us-central1',
+  memory: '256MiB',
+  timeoutSeconds: 120
+}, async (event) => {
+  const oneHourAgo = Timestamp.fromDate(new Date(Date.now() - 60 * 60 * 1000));
+  let cleanedSessions = 0;
+  let cleanedTransforms = 0;
+  
+  try {
+    // 1) 좀비 oneclick_sessions 정리
+    const zombieSessions = await db.collection('oneclick_sessions')
+      .where('status', '==', 'processing')
+      .where('createdAt', '<=', oneHourAgo)
+      .get();
+    
+    for (const doc of zombieSessions.docs) {
+      await doc.ref.update({
+        status: 'timeout',
+        updatedAt: FieldValue.serverTimestamp()
+      });
+      cleanedSessions++;
+    }
+    
+    // 2) 좀비 transforms 정리
+    const zombieTransforms = await db.collection('transforms')
+      .where('status', '==', 'processing')
+      .where('createdAt', '<=', oneHourAgo)
+      .get();
+    
+    for (const doc of zombieTransforms.docs) {
+      await doc.ref.update({
+        status: 'timeout',
+        updatedAt: FieldValue.serverTimestamp()
+      });
+      cleanedTransforms++;
+    }
+    
+    console.log(`🧹 dailyCleanup 완료: 세션 ${cleanedSessions}건, 변환 ${cleanedTransforms}건 timeout 처리`);
+  } catch (error) {
+    console.error('❌ dailyCleanup 에러:', error);
+  }
+});

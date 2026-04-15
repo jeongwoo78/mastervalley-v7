@@ -3,6 +3,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { getMasterChat } from '../i18n';
+import { auth } from '../config/firebase';
 
 // v79: 거장 아바타 이미지 (자화상/본인사진 → 앱변환 → 120x120 크롭)
 import vangoghAvatar from '../assets/avatars/vangogh.webp';
@@ -167,9 +168,13 @@ const MasterChat = ({
 
     setIsLoading(true);
     try {
+      const authToken = await auth.currentUser?.getIdToken().catch(() => null);
       const response = await fetch(`${API_BASE_URL}/api/master-feedback`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...(authToken && { 'Authorization': `Bearer ${authToken}` })
+        },
         body: JSON.stringify({
           masterName: masterKey,
           conversationType: 'greeting',
@@ -244,9 +249,13 @@ const MasterChat = ({
           content: msg.content
         }));
 
+      const authToken = await auth.currentUser?.getIdToken().catch(() => null);
       const response = await fetch(`${API_BASE_URL}/api/master-feedback`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...(authToken && { 'Authorization': `Bearer ${authToken}` })
+        },
         body: JSON.stringify({
           masterName: masterKey,
           conversationType: 'feedback',

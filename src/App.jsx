@@ -16,7 +16,6 @@ import MenuScreen from './components/MenuScreen';
 // LanguageScreen removed - 메뉴 아코디언에서 직접 변경
 import InsufficientBalancePopup from './components/InsufficientBalancePopup';
 import { getTransformCost } from './utils/pricing';
-import { deductCredit } from './utils/styleTransferAPI';
 import { initRevenueCat } from './utils/revenueCat';
 import { initFCM, onNotificationTap } from './utils/fcm';
 import './styles/App.css';
@@ -452,7 +451,7 @@ const App = () => {
     return null;
   };
 
-  const prefetchGreeting = (masterKey, subType) => {
+  const prefetchGreeting = async (masterKey, subType) => {
     const range = MASTER_AGE_RANGE[masterKey] || { min: 30, max: 50 };
     const age = Math.floor(Math.random() * (range.max - range.min + 1)) + range.min;
     const birth = MASTER_BIRTH[masterKey] || 1870;
@@ -460,9 +459,13 @@ const App = () => {
     const month = new Date().getMonth() + 1;
     const tt = { year, age, month };
 
+    const authToken = await auth.currentUser?.getIdToken().catch(() => null);
     fetch('https://mastervalley-v7.vercel.app/api/master-feedback', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        ...(authToken && { 'Authorization': `Bearer ${authToken}` })
+      },
       body: JSON.stringify({
         masterName: masterKey,
         conversationType: 'greeting',
@@ -484,29 +487,8 @@ const App = () => {
     .catch(err => console.warn('⚠️ 그리팅 프리로드 실패:', err.message));
   };
 
-  // 변환 완료 → 크레딧 차감 + 화면 전환
+  // 변환 완료 → 화면 전환 (크레딧 차감은 서버에서 처리, 잔액은 onSnapshot 자동 업데이트)
   const handleProcessingComplete = async (style, resultImageUrl, result) => {
-    // 성공한 변환에 대해 크레딧 차감
-    const isSuccess = result?.isFullTransform 
-      ? result.results?.some(r => r.success)  // 원클릭: 1개라도 성공
-      : result?.success;
-
-    if (isSuccess && user) {
-      const cost = getTransformCost(style);
-      // 원클릭: 첫 성공 결과의 transformId 사용, 단일: result.transformId
-      const transformId = result?.isFullTransform
-        ? result.results.find(r => r.success)?.transformId || `oneclick-${Date.now()}`
-        : result.transformId || `single-${Date.now()}`;
-
-      if (cost > 0) {
-        const deductResult = await deductCredit(transformId, cost, user.uid);
-        if (!deductResult.success && !deductResult.alreadyCharged) {
-          console.error('💸 크레딧 차감 실패:', deductResult.error);
-          // 차감 실패해도 결과는 보여줌 (소비자 보호 우선)
-        }
-        // 잔액은 onSnapshot이 자동 업데이트
-      }
-    }
 
     if (result && result.isFullTransform) {
       setFullTransformResults(result.results);

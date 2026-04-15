@@ -2,6 +2,7 @@
 // Firestore transaction으로 이중 차감 완전 방지
 
 import { initializeApp, getApps, cert } from 'firebase-admin/app';
+import { getAuth } from 'firebase-admin/auth';
 import { getFirestore, FieldValue } from 'firebase-admin/firestore';
 
 // Firebase Admin 초기화
@@ -28,12 +29,25 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   try {
-    const { transformId, cost, userId } = req.body;
+    // A-2: Firebase Auth 토큰 검증
+    const authHeader = req.headers.authorization;
+    if (!authHeader?.startsWith('Bearer ')) {
+      return res.status(401).json({ error: 'Unauthorized: missing auth token' });
+    }
+    let userId;
+    try {
+      const decodedToken = await getAuth().verifyIdToken(authHeader.split('Bearer ')[1]);
+      userId = decodedToken.uid;
+    } catch (authErr) {
+      return res.status(401).json({ error: 'Unauthorized: invalid auth token' });
+    }
+
+    const { transformId, cost } = req.body;
 
     // 필수 파라미터 검증
-    if (!transformId || !cost || !userId) {
+    if (!transformId || !cost) {
       return res.status(400).json({ 
-        error: 'Missing required fields: transformId, cost, userId' 
+        error: 'Missing required fields: transformId, cost' 
       });
     }
 

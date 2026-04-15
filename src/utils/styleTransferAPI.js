@@ -16,9 +16,17 @@ const CLOUD_FUNCTIONS_URL = 'https://us-central1-master-valley.cloudfunctions.ne
 
 const getCloudFunctionUrl = () => CLOUD_FUNCTIONS_URL;
 
-const VERCEL_API_URL = 'https://mastervalley-v7.vercel.app';
+// A-2: Firebase Auth ID 토큰 가져오기 (서버 인증용)
+const getAuthToken = async () => {
+  try {
+    return await auth.currentUser?.getIdToken();
+  } catch (e) {
+    console.warn('⚠️ Auth 토큰 획득 실패:', e.message);
+    return null;
+  }
+};
 
-const chargedTransformIds = new Set();
+const chargedTransformIds = new Set(); // 레거시 — 향후 제거 예정
 
 const fileToBase64 = async (file) => {
   return new Promise((resolve, reject) => {
@@ -93,7 +101,6 @@ export const processStyleTransfer = async (photoFile, selectedStyle, correctionP
     }
     
     const transformId = generateId();
-    const userId = auth.currentUser?.uid || null;
     
     // Firestore 리스닝으로 결과 수신 (원클릭과 동일 패턴)
     return new Promise((resolve, reject) => {
@@ -176,15 +183,18 @@ export const processStyleTransfer = async (photoFile, selectedStyle, correctionP
       });
       
       // 3) HTTP fire-and-forget (서버에 요청만 보내고 응답은 기다리지 않음)
+      const authToken = await getAuthToken();
       fetch(getCloudFunctionUrl(), {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...(authToken && { 'Authorization': `Bearer ${authToken}` })
+        },
         body: JSON.stringify({
           image: photoBase64,
           selectedStyle,
           correctionPrompt: correctionPrompt || null,
           transformId,
-          userId,
           lang,
           fcmToken: fcmOptions.skipFcm ? null : (getFCMToken() || null)
         })
@@ -346,11 +356,14 @@ export const processFullTransform = async (photoFile, styles, selectedStyle, onP
       }, 30000);
       
       // HTTP 호출 (fire-and-forget)
-      const userId = auth.currentUser?.uid || null;
+      const authToken = await getAuthToken();
       
       fetch(getCloudFunctionUrl(), {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...(authToken && { 'Authorization': `Bearer ${authToken}` })
+        },
         body: JSON.stringify({
           image: photoBase64,
           isFullTransform: true,
@@ -358,7 +371,6 @@ export const processFullTransform = async (photoFile, styles, selectedStyle, onP
           selectedStyle,
           sessionId,
           transformIds,
-          userId,
           lang,
           fcmToken: getFCMToken() || null
         })
@@ -379,32 +391,8 @@ export const processFullTransform = async (photoFile, styles, selectedStyle, onP
   }
 };
 
-// ========================================
-// 크레딧 차감 (Vercel 유지)
-// ========================================
-
-export const deductCredit = async (transformId, cost, userId) => {
-  if (chargedTransformIds.has(transformId)) {
-    console.warn(`⚠️ 이미 차감된 transformId: ${transformId}`);
-    return { success: true, alreadyCharged: true };
-  }
-  
-  try {
-    const response = await fetch(`${VERCEL_API_URL}/api/deduct-credit`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ transformId, cost, userId })
-    });
-    const data = await response.json();
-    if (data.success) chargedTransformIds.add(transformId);
-    return data;
-  } catch (error) {
-    console.error('Credit deduction error:', error);
-    return { success: false, error: error.message };
-  }
-};
-
 // submitTransform 제거 — v1은 단일+원클릭만 (멀티 동시변환은 v2)
+// 크레딧 차감: 서버(index.js)에서 처리 — 클라이언트 차감 제거됨 (A-1)
 
 export const mockStyleTransfer = async (photoFile, selectedStyle, onProgress) => {
   return new Promise((resolve) => {

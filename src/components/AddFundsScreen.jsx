@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { getUi } from '../i18n';
 import { purchasePack, isNativeIAP } from '../utils/revenueCat';
+import { auth } from '../config/firebase';
 
 const API_BASE_URL = 'https://mastervalley-v7.vercel.app';
 
@@ -42,11 +43,14 @@ const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, l
 
       // 2. 서버에 크레딧 추가 요청
       const transactionId = `rc_${pack.productId}_${Date.now()}`;
+      const authToken = await auth.currentUser?.getIdToken().catch(() => null);
       const addResult = await fetch(`${API_BASE_URL}/api/add-credit`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...(authToken && { 'Authorization': `Bearer ${authToken}` })
+        },
         body: JSON.stringify({
-          userId,
           productId: pack.productId,
           transactionId
         })

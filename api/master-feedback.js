@@ -10,6 +10,20 @@
 // - 한국어: speakingStyleKo 사용
 // - 다른 언어: personality + formality로 GPT 자동 적응
 
+// A-2: Firebase Auth 토큰 검증용
+import { initializeApp, getApps, cert } from 'firebase-admin/app';
+import { getAuth } from 'firebase-admin/auth';
+
+if (!getApps().length) {
+  initializeApp({
+    credential: cert({
+      projectId: process.env.FIREBASE_PROJECT_ID,
+      clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+      privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n')
+    })
+  });
+}
+
 // ========================================
 // 거장 페르소나 (간소화)
 // ========================================
@@ -425,7 +439,7 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
   if (req.method === 'OPTIONS') {
     res.status(200).end();
@@ -437,6 +451,17 @@ export default async function handler(req, res) {
   }
 
   try {
+    // A-2: Firebase Auth 토큰 검증
+    const authHeader = req.headers.authorization;
+    if (!authHeader?.startsWith('Bearer ')) {
+      return res.status(401).json({ error: 'Unauthorized: missing auth token' });
+    }
+    try {
+      await getAuth().verifyIdToken(authHeader.split('Bearer ')[1]);
+    } catch (authErr) {
+      return res.status(401).json({ error: 'Unauthorized: invalid auth token' });
+    }
+
     const { 
       masterName,
       conversationType,
