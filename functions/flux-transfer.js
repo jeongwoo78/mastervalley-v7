@@ -2166,11 +2166,11 @@ Return ONLY valid JSON (no markdown):
   "analysis": "brief photo analysis",
   "subject_type": "person" or "landscape" or "animal" or "object",
   "gender": "male" or "female" or "both" or null,
-  "age_range": "baby/child/teen/young_adult/adult/middle_aged/elderly" or null,
+  "age_range": "baby/child/teen/young_adult/adult/middle_aged/elderly/mixed" or null,
   "estimated_age": "approximate age number, e.g. 25, 45, 65" or null,
   "ethnicity": "asian (East Asian features, golden-brown skin) or caucasian (European features, light/fair skin) or african (Black/African descent, DARK BROWN to BLACK skin, broad nose, full lips) or hispanic (Latin American, tan/brown skin) or middle_eastern (Arab/Persian, olive/tan skin) or mixed or null - MUST accurately identify based on skin color and facial features",
   "physical_description": "for MALE: strong jaw, angular face, short hair, broad shoulders etc. For FEMALE: soft features, delicate face etc. ALWAYS include skin tone and ethnic features. NEVER describe clothing." or null,
-  "person_count": 1 or 2 or 3 (number of people in photo),
+  "person_count": actual number of people in photo (1, 2, 3, 4, 5, 6...),
   "background_type": "simple" or "complex" or "outdoor" or "indoor" or "studio",
   "selected_artist": "${categoryName}",
   "selected_work": "exact title of the masterwork you selected",
@@ -2226,11 +2226,11 @@ Return ONLY valid JSON (no markdown):
   "analysis": "brief photo analysis",
   "subject_type": "person" or "landscape" or "animal" or "object",
   "gender": "male" or "female" or "both" or null,
-  "age_range": "baby/child/teen/young_adult/adult/middle_aged/elderly" or null,
+  "age_range": "baby/child/teen/young_adult/adult/middle_aged/elderly/mixed" or null,
   "estimated_age": "approximate age number, e.g. 25, 45, 65" or null,
   "ethnicity": "asian (East Asian features, golden-brown skin) or caucasian (European features, light/fair skin) or african (Black/African descent, DARK BROWN to BLACK skin, broad nose, full lips) or hispanic (Latin American, tan/brown skin) or middle_eastern (Arab/Persian, olive/tan skin) or mixed or null - MUST accurately identify based on skin color and facial features",
   "physical_description": "for MALE: strong jaw, angular face, short hair, broad shoulders etc. For FEMALE: soft features, delicate face etc. ALWAYS include skin tone and ethnic features. NEVER describe clothing." or null,
-  "person_count": 1 or 2 or 3,
+  "person_count": actual number of people in photo (1, 2, 3, 4, 5, 6...),
   "background_type": "simple" or "complex" or "outdoor" or "indoor" or "studio",
   "selected_artist": "${categoryName}",
   "selected_work": null,
@@ -2302,7 +2302,7 @@ Return ONLY valid JSON (no markdown):
   "analysis": "brief photo description including gender if person present (1 sentence)",
   "subject_type": "person" or "landscape" or "animal" or "object",
   "gender": "male" or "female" or null,
-  "age_range": "baby/child/teen/young_adult/adult/middle_aged/elderly" or null,
+  "age_range": "baby/child/teen/young_adult/adult/middle_aged/elderly/mixed" or null,
   "estimated_age": "approximate age number, e.g. 25, 45, 65" or null,
   "physical_description": "for MALE: strong jaw, angular face, short hair, broad shoulders etc. For FEMALE: soft features, delicate face etc. NEVER describe clothing." or null,
   "animal_type": "dog" or "cat" or "bird" or "tiger" or "fish" or null,
@@ -2377,7 +2377,7 @@ Return ONLY valid JSON (no markdown):
   "analysis": "brief photo description including gender if person present (1 sentence)",
   "subject_type": "person" or "landscape" or "animal" or "object",
   "gender": "male" or "female" or null,
-  "age_range": "baby/child/teen/young_adult/adult/middle_aged/elderly" or null,
+  "age_range": "baby/child/teen/young_adult/adult/middle_aged/elderly/mixed" or null,
   "estimated_age": "approximate age number, e.g. 25, 45, 65" or null,
   "physical_description": "for MALE: strong jaw, angular face, short hair, broad shoulders etc. For FEMALE: soft features, delicate face etc. NEVER describe clothing." or null,
   "animal_type": "dog" or "cat" or "bird" or "tiger" or "fish" or null,
@@ -2457,7 +2457,7 @@ Return ONLY valid JSON (no markdown):
   "analysis": "brief photo description including gender if person present (1 sentence)",
   "subject_type": "person" or "landscape" or "animal" or "object" or "flower" or "bird",
   "gender": "male" or "female" or null,
-  "age_range": "baby/child/teen/young_adult/adult/middle_aged/elderly" or null,
+  "age_range": "baby/child/teen/young_adult/adult/middle_aged/elderly/mixed" or null,
   "estimated_age": "approximate age number, e.g. 25, 45, 65" or null,
   "physical_description": "brief physical features, face and body only. NEVER describe clothing." or null,
   "animal_type": "dog" or "cat" or "bird" or "tiger" or "fish" or null,
@@ -2582,6 +2582,13 @@ Instructions - PRIORITY ORDER:
 Return JSON only:
 {
   "analysis": "brief - note if animals/dynamic/static (1 sentence)",
+  "subject_type": "person" or "landscape" or "animal" or "object",
+  "gender": "male" or "female" or "both" or null,
+  "age_range": "baby" or "child" or "teen" or "young_adult" or "adult" or "middle_aged" or "elderly" or "mixed" or null,
+  "ethnicity": "asian" or "caucasian" or "african" or "hispanic" or "middle_eastern" or "mixed" or null,
+  "physical_description": "brief physical features including skin tone. NEVER describe clothing." or null,
+  "person_count": actual number of people in photo (1, 2, 3, 4, 5, 6...),
+  "background_type": "simple" or "complex" or "outdoor" or "indoor" or "studio",
   "selected_artist": "Classical Sculpture" or "Roman Mosaic",
   "selected_work": "If Roman Mosaic, select best masterwork from list above (e.g. 'Alexander Mosaic'). If Classical Sculpture, use null",
   "reason": "why this style fits, mention animals/dynamic/static (1 sentence)",
@@ -2613,6 +2620,13 @@ Style characteristics:
 Return JSON only:
 {
   "analysis": "brief (1 sentence)",
+  "subject_type": "person" or "landscape" or "animal" or "object",
+  "gender": "male" or "female" or "both" or null,
+  "age_range": "baby" or "child" or "teen" or "young_adult" or "adult" or "middle_aged" or "elderly" or "mixed" or null,
+  "ethnicity": "asian" or "caucasian" or "african" or "hispanic" or "middle_eastern" or "mixed" or null,
+  "physical_description": "brief physical features including skin tone. NEVER describe clothing." or null,
+  "person_count": actual number of people in photo (1, 2, 3, 4, 5, 6...),
+  "background_type": "simple" or "complex" or "outdoor" or "indoor" or "studio",
   "selected_artist": "Islamic Miniature or Byzantine or Gothic",
   "selected_work": null,
   "reason": "why (1 sentence)",
@@ -2660,11 +2674,11 @@ Return JSON only:
   "analysis": "brief (1 sentence)",
   "subject_type": "person" or "landscape" or "animal" or "object",
   "gender": "male" or "female" or "both" or null,
-  "age_range": "baby/child/teen/young_adult/adult/middle_aged/elderly" or null,
+  "age_range": "baby/child/teen/young_adult/adult/middle_aged/elderly/mixed" or null,
   "estimated_age": "approximate age number, e.g. 25, 45, 65" or null,
   "ethnicity": "asian (East Asian features, golden-brown skin) or caucasian (European features, light/fair skin) or african (Black/African descent, DARK BROWN to BLACK skin, broad nose, full lips) or hispanic (Latin American, tan/brown skin) or middle_eastern (Arab/Persian, olive/tan skin) or mixed or null - MUST accurately identify based on skin color and facial features",
   "physical_description": "for MALE: strong jaw, angular face, short hair, broad shoulders etc. For FEMALE: soft features, delicate face etc. ALWAYS include skin tone and ethnic features. NEVER describe clothing." or null,
-  "person_count": 1 or 2 or 3 (number of people in photo),
+  "person_count": actual number of people in photo (1, 2, 3, 4, 5, 6...),
   "background_type": "simple" or "complex" or "outdoor" or "indoor" or "studio",
   "selected_artist": "Artist Full Name",
   "selected_work": "EXACT masterwork title from the list above",
@@ -3033,11 +3047,11 @@ export async function runVisionAnalysis(imageBase64) {
 {
   "subject_type": "person" or "landscape" or "animal" or "object" or "flower" or "bird",
   "gender": "male" or "female" or "both" or null,
-  "age_range": "baby" or "child" or "teen" or "young_adult" or "adult" or "middle_aged" or "elderly" or null,
+  "age_range": "baby" or "child" or "teen" or "young_adult" or "adult" or "middle_aged" or "elderly" or "mixed" or null,
   "estimated_age": "approximate age number, e.g. 25, 45, 65" or null,
   "ethnicity": "asian" or "caucasian" or "african" or "hispanic" or "middle_eastern" or "mixed" or null,
   "physical_description": "brief physical features including skin tone, facial features, hair, build. NEVER describe clothing." or null,
-  "person_count": 1 or 2 or 3 or null,
+  "person_count": actual number of people in photo or null,
   "background_type": "simple" or "complex" or "outdoor" or "indoor" or "studio",
   "animal_type": "dog" or "cat" or "bird" or null,
   "fur_color": "color description" or null
@@ -3387,10 +3401,11 @@ export default async function handler(req, res) {
       
       // ========================================
       // 미성년자 보호 Layer 1: 감지 (MINOR_PROTECTION.md 참조)
-      // baby/child/teen → isMinor = true
+      // baby/child/teen/mixed → isMinor = true
+      // mixed: 성인+미성년자 혼합 (가족 사진 등)
       // ========================================
       ageRange = visionAnalysis?.age_range || 'adult';
-      isMinor = ['baby', 'child', 'teen'].includes(ageRange);
+      isMinor = ['baby', 'child', 'teen', 'mixed'].includes(ageRange);
       if (isMinor) {
         console.log(`🛡️ [MINOR PROTECTION] Detected: ${ageRange} → 5-Layer safety activated`);
       }
@@ -4377,6 +4392,24 @@ export default async function handler(req, res) {
       );
       console.log(`🛡️ [MINOR-CLOTHING] Enhanced clothing prompt applied for ${ageRange}`);
       logData.prompt.applied.minorClothing = true;
+    }
+    
+    // ========================================
+    // 모자이크/타일 계열: 의상 문구를 타일 텍스처 호환으로 변경
+    // "Clothing covers..." → 타일로 렌더링된 의상으로 교체
+    // ========================================
+    const normalizedForTile = (selectedArtist || '').toLowerCase().replace(/\s+/g, '');
+    const isTileStyle = ['romanmosaic', 'mosaic'].includes(normalizedForTile);
+    if (isTileStyle) {
+      coreRulesPrefix = coreRulesPrefix.replace(
+        'Clothing covers chest, waist and hip areas.',
+        'Clothing area covered by classical draped garment rendered entirely in tesserae tiles, covering chest, waist and hip areas.'
+      );
+      // "Clean unsigned artwork, pure painted surface" → 모자이크에 맞게 변경
+      coreRulesPrefix = coreRulesPrefix.replace(
+        'Clean unsigned artwork, pure painted surface.',
+        'Clean mosaic surface with visible tile texture throughout.'
+      );
     }
     
     finalPrompt = finalPrompt + ' ' + coreRulesPrefix;
