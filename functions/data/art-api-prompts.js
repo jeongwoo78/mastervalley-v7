@@ -220,7 +220,7 @@ export const ANCIENT_MEDIEVAL_PROMPTS = {
  'marble': {
  name: '대리석 조각',
  nameEn: 'Marble Sculpture',
- prompt: `Ancient Greek-Roman marble sculpture style. Pure white Carrara marble with smooth polished surface, carved stone texture. Subject's clothing transforms into classical draped toga or stola, covering chest, waist and hip areas. Style reference sculptures: Nike of Samothrace, Augustus of Prima Porta, Eirene, Pietà. Preserve original gender and body proportions. MONOCHROME pure white palette. White marble 85%, light grey 15%. Completely desaturated with zero color. Pure white marble tone dominates entirely with only faint natural marble grain.`
+ prompt: `Transform the subject to look like an ancient marble statue. Ancient Greek-Roman marble sculpture style. ONLY pure white Carrara marble with smooth polished surface, carved stone texture. Subject's clothing transforms into classical draped toga or stola, covering chest, waist and hip areas. Style reference sculptures: Nike of Samothrace, Augustus of Prima Porta, Eirene, Pietà. Preserve original gender and body proportions. MONOCHROME white throughout, 100% white stone surface. White marble 85%, light grey 15%. Pure white marble tone dominates entirely with only faint natural marble grain.`
  },
 
  // ─────────────────────────────────────────
@@ -229,7 +229,7 @@ export const ANCIENT_MEDIEVAL_PROMPTS = {
  'mosaic': {
  name: '로마 모자이크',
  nameEn: 'Roman Mosaic',
- prompt: `Powerful ancient Roman mosaic art of the subject. Paint visible square tile patterns directly on the subject's face, skin, hair, and clothing. ENTIRE SURFACE including face, skin, hair, and clothing rendered as BOLD THICK tesserae tiles — every part of the subject must be composed of LARGE HEAVY stone tiles with DEEP DARK grout lines clearly visible between each tile. CRITICAL: PRESERVE ORIGINAL ETHNICITY, SKIN TONE AND FACIAL FEATURES exactly using appropriate colored tiles. Large visible tesserae tiles 100mm, THICK BLACK grout lines between every tile. Earth tone palette terracotta 30%, ochre 25%, umber 25%, ivory 20%. Clothing area covered by classical draped garment rendered entirely in BOLD tesserae tiles, covering chest, waist and hip areas. Skin rendered in warm natural toned THICK tesserae matching the original complexion. Opus tessellatum technique with geometric decorative borders. BOLD flat mosaic aesthetic with strong graphic presence.`
+ prompt: `Powerful ancient Roman mosaic art of the subject. Paint LARGE, VIVID, BOLD square tile patterns directly on the subject's face, skin, hair, and clothing. ENTIRE SURFACE including face, skin, hair, and clothing rendered as BOLD THICK tesserae tiles — every part of the subject must be composed of LARGE HEAVY stone tiles with DEEP DARK grout lines clearly visible between each tile. CRITICAL: PRESERVE ORIGINAL ETHNICITY, SKIN TONE AND FACIAL FEATURES exactly using appropriate colored tiles. Large visible tesserae tiles 100mm, THICK BLACK grout lines between every tile. Earth tone palette terracotta 30%, ochre 25%, umber 25%, ivory 20%. Clothing area covered by classical draped garment rendered entirely in BOLD tesserae tiles, covering chest, waist and hip areas. Skin rendered in warm natural toned THICK tesserae matching the original complexion. Opus tessellatum technique with geometric decorative borders. BOLD flat mosaic aesthetic with strong graphic presence.`
  },
 
  // ─────────────────────────────────────────
