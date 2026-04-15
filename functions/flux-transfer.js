@@ -1332,7 +1332,7 @@ Available Ancient Greek-Roman Styles (2가지):
               City scenes, buildings
               Beach photos, mountain photos
               ANY outdoor photos with people
-   - Technique: LARGE VISIBLE tesserae tiles 50mm, THICK DARK GROUT LINES between tiles
+   - Technique: LARGE VISIBLE tesserae tiles 100mm, THICK DARK GROUT LINES between tiles
    - CRITICAL: Each tile must be CLEARLY DISTINGUISHABLE as individual square/rectangular pieces
    - Aesthetic: Roman floor/wall mosaic with chunky stone tiles, jewel-tone colors
    📚 ROMAN MOSAIC MASTERWORKS - Select one matching photo characteristics:
@@ -1933,7 +1933,7 @@ function getModernismHints(photoAnalysis) {
 const fallbackPrompts = {
   ancient: {
     name: '그리스·로마',
-    prompt: 'Transform this image into ancient Greek-Roman art. STRICT RULES: 1) ANY SPORTS/ATHLETIC ACTION (soccer, football, running, jumping, throwing, catching ball, ANY physical activity) → ALWAYS Greek/Roman MARBLE SCULPTURE in style of Discobolus or ancient Olympic athletes, pure white Carrara marble with visible carved muscles and dynamic frozen movement, classical athletic proportions, museum display style. CRITICAL: Ball games = SCULPTURE, NOT mosaic. 2) INDOOR PORTRAITS (no sports) → Greek/Roman marble sculpture with classical poses, ENTIRE FIGURE INCLUDING ALL CLOTHING must be PURE WHITE MARBLE, NO colored clothing, convert ALL fabric to carved white marble drapery folds. 3) OUTDOOR SCENES WITHOUT SPORTS → Roman mosaic with LARGE CHUNKY TESSERAE TILES 50mm, THICK BLACK GROUT LINES clearly visible between EVERY tile, LIMITED COLORS (terracotta, ochre, umber, ivory, slate blue), Pompeii villa floor style. PRIORITY: Sports/athletic = ALWAYS SCULPTURE regardless of indoor/outdoor. CRITICAL FOR ALL SCULPTURES: Convert ALL clothing colors to pure white marble, no original clothing colors preserved, entire figure is carved from single block of white Carrara marble. MANDATORY: Carved marble fabric draping covers chest, waist and hip areas. Ancient masterpiece quality'
+    prompt: 'Transform this image into ancient Greek-Roman art. STRICT RULES: 1) ANY SPORTS/ATHLETIC ACTION (soccer, football, running, jumping, throwing, catching ball, ANY physical activity) → ALWAYS Greek/Roman MARBLE SCULPTURE in style of Discobolus or ancient Olympic athletes, pure white Carrara marble with visible carved muscles and dynamic frozen movement, classical athletic proportions, museum display style. CRITICAL: Ball games = SCULPTURE, NOT mosaic. 2) INDOOR PORTRAITS (no sports) → Greek/Roman marble sculpture with classical poses, ENTIRE FIGURE INCLUDING ALL CLOTHING must be PURE WHITE MARBLE, NO colored clothing, convert ALL fabric to carved white marble drapery folds. 3) OUTDOOR SCENES WITHOUT SPORTS → Roman mosaic with LARGE CHUNKY TESSERAE TILES 100mm, THICK BLACK GROUT LINES clearly visible between EVERY tile, LIMITED COLORS (terracotta, ochre, umber, ivory, slate blue), Pompeii villa floor style. PRIORITY: Sports/athletic = ALWAYS SCULPTURE regardless of indoor/outdoor. CRITICAL FOR ALL SCULPTURES: Convert ALL clothing colors to pure white marble, no original clothing colors preserved, entire figure is carved from single block of white Carrara marble. MANDATORY: Carved marble fabric draping covers chest, waist and hip areas. Ancient masterpiece quality'
   },
   
   medieval: {
