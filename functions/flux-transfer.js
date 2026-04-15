@@ -3154,6 +3154,8 @@ export default async function handler(req, res) {
     let selectionDetails = {};
     let controlStrength = 0.80; // 기본값 (getControlStrength에서 덮어씀)
     const categoryType = selectedStyle.category; // categoryType 변수 추가
+    let isMinor = false;       // 미성년자 보호 플래그 (Vision 분석 후 설정)
+    let ageRange = 'adult';    // 연령대 (Vision 분석 후 설정)
     
     // ========================================
     // v91: 재변환 모드 — Nano Banana 2 (Gemini 3.1 Flash Image)
@@ -3387,8 +3389,8 @@ export default async function handler(req, res) {
       // 미성년자 보호 Layer 1: 감지 (MINOR_PROTECTION.md 참조)
       // baby/child/teen → isMinor = true
       // ========================================
-      const ageRange = visionAnalysis?.age_range || 'adult';
-      const isMinor = ['baby', 'child', 'teen'].includes(ageRange);
+      ageRange = visionAnalysis?.age_range || 'adult';
+      isMinor = ['baby', 'child', 'teen'].includes(ageRange);
       if (isMinor) {
         console.log(`🛡️ [MINOR PROTECTION] Detected: ${ageRange} → 5-Layer safety activated`);
       }
