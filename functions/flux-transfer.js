@@ -669,158 +669,6 @@ function detectPhotoType(photoAnalysis) {
 }
 
 // ========================================
-// 미성년자 보호 Layer 2~3: 안전 매칭 테이블
-// MINOR_PROTECTION.md 참조
-// ========================================
-
-const MINOR_SAFE_MATCHING = {
-  // 사조 (categoryType 키 사용)
-  movements: {
-    ancient: null,  // 제한 없음 (2개 스타일 전부 안전)
-    medieval: {
-      artists: ['byzantine', 'islamic-miniature'],
-      displayNames: ['BYZANTINE', 'ISLAMIC MINIATURE'],
-      masterworks: {
-        'byzantine': ['byzantine-justinian', 'byzantine-deesis'],
-        'islamic-miniature': ['islamic-youth', 'islamic-simurgh']
-      }
-    },
-    renaissance: {
-      artists: ['leonardo', 'raphael'],
-      displayNames: ['LEONARDO DA VINCI', 'RAPHAEL'],
-      masterworks: {
-        'leonardo': ['leonardo-lastsupper', 'leonardo-virginrocks'],
-        'raphael': ['raphael-athens', 'raphael-sistinamadonna']
-      }
-    },
-    baroque: {
-      artists: ['rembrandt', 'velazquez'],
-      displayNames: ['REMBRANDT', 'VELÁZQUEZ'],
-      masterworks: {
-        'rembrandt': ['rembrandt-nightwatch', 'rembrandt-selfportrait'],
-        'velazquez': ['velazquez-meninas', 'velazquez-breda']
-      }
-    },
-    rococo: {
-      artists: ['watteau'],
-      displayNames: ['WATTEAU'],
-      masterworks: {
-        'watteau': ['watteau-pierrot', 'watteau-cythera']
-      }
-    },
-    neoclassicism_vs_romanticism_vs_realism: {
-      artists: ['david'],
-      displayNames: ['DAVID'],
-      masterworks: {
-        'david': ['david-coronation', 'david-horatii']
-      }
-    },
-    impressionism: {
-      artists: ['monet', 'caillebotte'],
-      displayNames: ['MONET', 'CAILLEBOTTE'],
-      masterworks: {
-        'monet': ['monet-waterlilies', 'monet-parasol'],
-        'caillebotte': ['caillebotte-paris', 'caillebotte-window']
-      }
-    },
-    postImpressionism: {
-      artists: ['vangogh'],
-      displayNames: ['VAN GOGH'],
-      masterworks: {
-        'vangogh': ['vangogh-starrynight', 'vangogh-sunflowers', 'vangogh-wheatfield']
-      }
-    },
-    fauvism: {
-      artists: ['derain'],
-      displayNames: ['DERAIN'],
-      masterworks: {
-        'derain': ['derain-matisse']
-      }
-    },
-    expressionism: {
-      artists: ['kokoschka'],
-      displayNames: ['KOKOSCHKA'],
-      masterworks: {
-        'kokoschka': ['kokoschka-degenerate', 'kokoschka-double']
-      }
-    },
-    modernism: {
-      artists: ['chagall', 'lichtenstein'],
-      displayNames: ['CHAGALL', 'LICHTENSTEIN'],
-      masterworks: {
-        'chagall': ['chagall-lovers', 'chagall-village'],
-        'lichtenstein': ['lichtenstein-mmaybe', 'lichtenstein-ohhhalright']
-      }
-    }
-  },
-  // 거장 (masterId 키 사용)
-  masters: {
-    'vangogh': ['vangogh-starrynight', 'vangogh-sunflowers', 'vangogh-wheatfield'],
-    'klimt': ['klimt-treeoflife'],
-    'munch': ['munch-scream'],
-    'matisse': ['matisse-redroom', 'matisse-derain'],
-    'chagall': ['chagall-lovers', 'chagall-village'],
-    'frida': ['frida-parrots', 'frida-monkeys'],
-    'lichtenstein': ['lichtenstein-mmaybe', 'lichtenstein-ohhhalright']
-  },
-  // 동양화 (안전 서브스타일)
-  oriental: {
-    'korean': 'pungsokdo',
-    'chinese': 'gongbi',
-    'japanese': 'ukiyoe'
-  }
-};
-
-// ========================================
-// 미성년자 보호 B안: AI 프롬프트용 안전 지시 생성
-// Claude Sonnet 4에게 전달 (FLUX가 아님 — 긍정형 통일)
-// ========================================
-
-function getMinorSafetyPrompt(categoryType, selectedStyle) {
-  // 사조
-  const movementData = MINOR_SAFE_MATCHING.movements[categoryType];
-  if (movementData) {
-    const artistNames = movementData.displayNames.join(', ');
-    const safeWorks = Object.values(movementData.masterworks).flat().join(', ');
-    return `CRITICAL SAFETY INSTRUCTION — MINOR PROTECTION:
-If this photo contains ANY person appearing under 18 (baby, child, or teenager), you MUST strictly follow these rules:
-- ONLY select from these safe artists: ${artistNames}
-- ONLY use these safe masterworks: ${safeWorks}
-- Apply full modest age-appropriate clothing covering the entire body.
-This is mandatory for child safety compliance. Use ONLY the artists and works listed above.`;
-  }
-  // ancient (null) = 제한 없음
-  if (categoryType in MINOR_SAFE_MATCHING.movements) return '';
-
-  // 거장
-  if (categoryType === 'masters') {
-    const masterId = selectedStyle?.id?.replace('-master', '') || '';
-    const safeWorks = MINOR_SAFE_MATCHING.masters[masterId];
-    if (safeWorks) {
-      return `CRITICAL SAFETY INSTRUCTION — MINOR PROTECTION:
-If this photo contains ANY person appearing under 18 (baby, child, or teenager), you MUST strictly follow these rules:
-- ONLY select from these safe masterworks: ${safeWorks.join(', ')}
-- Apply full modest age-appropriate clothing covering the entire body.
-This is mandatory for child safety compliance. Use ONLY the works listed above.`;
-    }
-  }
-
-  // 동양화
-  if (categoryType === 'oriental') {
-    const safeStyle = MINOR_SAFE_MATCHING.oriental[selectedStyle?.id];
-    if (safeStyle) {
-      return `CRITICAL SAFETY INSTRUCTION — MINOR PROTECTION:
-If this photo contains ANY person appearing under 18 (baby, child, or teenager), you MUST strictly follow these rules:
-- ONLY select style: ${safeStyle}
-- Apply full modest traditional clothing covering the entire body.
-This is mandatory for child safety compliance.`;
-    }
-  }
-
-  return '';
-}
-
-// ========================================
 // 사조별 가중치 테이블
 // ========================================
 
@@ -1332,7 +1180,7 @@ Available Ancient Greek-Roman Styles (2가지):
               City scenes, buildings
               Beach photos, mountain photos
               ANY outdoor photos with people
-   - Technique: LARGE VISIBLE tesserae tiles 100mm, THICK DARK GROUT LINES between tiles
+   - Technique: LARGE VISIBLE tesserae tiles 50mm, THICK DARK GROUT LINES between tiles
    - CRITICAL: Each tile must be CLEARLY DISTINGUISHABLE as individual square/rectangular pieces
    - Aesthetic: Roman floor/wall mosaic with chunky stone tiles, jewel-tone colors
    📚 ROMAN MOSAIC MASTERWORKS - Select one matching photo characteristics:
@@ -1933,7 +1781,7 @@ function getModernismHints(photoAnalysis) {
 const fallbackPrompts = {
   ancient: {
     name: '그리스·로마',
-    prompt: 'Transform this image into ancient Greek-Roman art. STRICT RULES: 1) ANY SPORTS/ATHLETIC ACTION (soccer, football, running, jumping, throwing, catching ball, ANY physical activity) → ALWAYS Greek/Roman MARBLE SCULPTURE in style of Discobolus or ancient Olympic athletes, pure white Carrara marble with visible carved muscles and dynamic frozen movement, classical athletic proportions, museum display style. CRITICAL: Ball games = SCULPTURE, NOT mosaic. 2) INDOOR PORTRAITS (no sports) → Greek/Roman marble sculpture with classical poses, ENTIRE FIGURE INCLUDING ALL CLOTHING must be PURE WHITE MARBLE, NO colored clothing, convert ALL fabric to carved white marble drapery folds. 3) OUTDOOR SCENES WITHOUT SPORTS → Roman mosaic with LARGE CHUNKY TESSERAE TILES 100mm, THICK BLACK GROUT LINES clearly visible between EVERY tile, LIMITED COLORS (terracotta, ochre, umber, ivory, slate blue), Pompeii villa floor style. PRIORITY: Sports/athletic = ALWAYS SCULPTURE regardless of indoor/outdoor. CRITICAL FOR ALL SCULPTURES: Convert ALL clothing colors to pure white marble, no original clothing colors preserved, entire figure is carved from single block of white Carrara marble. MANDATORY: Carved marble fabric draping covers chest, waist and hip areas. Ancient masterpiece quality'
+    prompt: 'Transform this image into ancient Greek-Roman art. STRICT RULES: 1) ANY SPORTS/ATHLETIC ACTION (soccer, football, running, jumping, throwing, catching ball, ANY physical activity) → ALWAYS Greek/Roman MARBLE SCULPTURE in style of Discobolus or ancient Olympic athletes, pure white Carrara marble with visible carved muscles and dynamic frozen movement, classical athletic proportions, museum display style. CRITICAL: Ball games = SCULPTURE, NOT mosaic. 2) INDOOR PORTRAITS (no sports) → Greek/Roman marble sculpture with classical poses, ENTIRE FIGURE INCLUDING ALL CLOTHING must be PURE WHITE MARBLE, NO colored clothing, convert ALL fabric to carved white marble drapery folds. 3) OUTDOOR SCENES WITHOUT SPORTS → Roman mosaic with LARGE CHUNKY TESSERAE TILES 50mm, THICK BLACK GROUT LINES clearly visible between EVERY tile, LIMITED COLORS (terracotta, ochre, umber, ivory, slate blue), Pompeii villa floor style. PRIORITY: Sports/athletic = ALWAYS SCULPTURE regardless of indoor/outdoor. CRITICAL FOR ALL SCULPTURES: Convert ALL clothing colors to pure white marble, no original clothing colors preserved, entire figure is carved from single block of white Carrara marble. MANDATORY: Carved marble fabric draping covers chest, waist and hip areas. Ancient masterpiece quality'
   },
   
   medieval: {
@@ -2166,11 +2014,11 @@ Return ONLY valid JSON (no markdown):
   "analysis": "brief photo analysis",
   "subject_type": "person" or "landscape" or "animal" or "object",
   "gender": "male" or "female" or "both" or null,
-  "age_range": "baby/child/teen/young_adult/adult/middle_aged/elderly/mixed" or null,
+  "age_range": "baby/child/teen/young_adult/adult/middle_aged/elderly" or null,
   "estimated_age": "approximate age number, e.g. 25, 45, 65" or null,
   "ethnicity": "asian (East Asian features, golden-brown skin) or caucasian (European features, light/fair skin) or african (Black/African descent, DARK BROWN to BLACK skin, broad nose, full lips) or hispanic (Latin American, tan/brown skin) or middle_eastern (Arab/Persian, olive/tan skin) or mixed or null - MUST accurately identify based on skin color and facial features",
   "physical_description": "for MALE: strong jaw, angular face, short hair, broad shoulders etc. For FEMALE: soft features, delicate face etc. ALWAYS include skin tone and ethnic features. NEVER describe clothing." or null,
-  "person_count": actual number of people in photo (1, 2, 3, 4, 5, 6...),
+  "person_count": 1 or 2 or 3 (number of people in photo),
   "background_type": "simple" or "complex" or "outdoor" or "indoor" or "studio",
   "selected_artist": "${categoryName}",
   "selected_work": "exact title of the masterwork you selected",
@@ -2226,11 +2074,11 @@ Return ONLY valid JSON (no markdown):
   "analysis": "brief photo analysis",
   "subject_type": "person" or "landscape" or "animal" or "object",
   "gender": "male" or "female" or "both" or null,
-  "age_range": "baby/child/teen/young_adult/adult/middle_aged/elderly/mixed" or null,
+  "age_range": "baby/child/teen/young_adult/adult/middle_aged/elderly" or null,
   "estimated_age": "approximate age number, e.g. 25, 45, 65" or null,
   "ethnicity": "asian (East Asian features, golden-brown skin) or caucasian (European features, light/fair skin) or african (Black/African descent, DARK BROWN to BLACK skin, broad nose, full lips) or hispanic (Latin American, tan/brown skin) or middle_eastern (Arab/Persian, olive/tan skin) or mixed or null - MUST accurately identify based on skin color and facial features",
   "physical_description": "for MALE: strong jaw, angular face, short hair, broad shoulders etc. For FEMALE: soft features, delicate face etc. ALWAYS include skin tone and ethnic features. NEVER describe clothing." or null,
-  "person_count": actual number of people in photo (1, 2, 3, 4, 5, 6...),
+  "person_count": 1 or 2 or 3,
   "background_type": "simple" or "complex" or "outdoor" or "indoor" or "studio",
   "selected_artist": "${categoryName}",
   "selected_work": null,
@@ -2302,7 +2150,7 @@ Return ONLY valid JSON (no markdown):
   "analysis": "brief photo description including gender if person present (1 sentence)",
   "subject_type": "person" or "landscape" or "animal" or "object",
   "gender": "male" or "female" or null,
-  "age_range": "baby/child/teen/young_adult/adult/middle_aged/elderly/mixed" or null,
+  "age_range": "baby/child/teen/young_adult/adult/middle_aged/elderly" or null,
   "estimated_age": "approximate age number, e.g. 25, 45, 65" or null,
   "physical_description": "for MALE: strong jaw, angular face, short hair, broad shoulders etc. For FEMALE: soft features, delicate face etc. NEVER describe clothing." or null,
   "animal_type": "dog" or "cat" or "bird" or "tiger" or "fish" or null,
@@ -2377,7 +2225,7 @@ Return ONLY valid JSON (no markdown):
   "analysis": "brief photo description including gender if person present (1 sentence)",
   "subject_type": "person" or "landscape" or "animal" or "object",
   "gender": "male" or "female" or null,
-  "age_range": "baby/child/teen/young_adult/adult/middle_aged/elderly/mixed" or null,
+  "age_range": "baby/child/teen/young_adult/adult/middle_aged/elderly" or null,
   "estimated_age": "approximate age number, e.g. 25, 45, 65" or null,
   "physical_description": "for MALE: strong jaw, angular face, short hair, broad shoulders etc. For FEMALE: soft features, delicate face etc. NEVER describe clothing." or null,
   "animal_type": "dog" or "cat" or "bird" or "tiger" or "fish" or null,
@@ -2457,7 +2305,7 @@ Return ONLY valid JSON (no markdown):
   "analysis": "brief photo description including gender if person present (1 sentence)",
   "subject_type": "person" or "landscape" or "animal" or "object" or "flower" or "bird",
   "gender": "male" or "female" or null,
-  "age_range": "baby/child/teen/young_adult/adult/middle_aged/elderly/mixed" or null,
+  "age_range": "baby/child/teen/young_adult/adult/middle_aged/elderly" or null,
   "estimated_age": "approximate age number, e.g. 25, 45, 65" or null,
   "physical_description": "brief physical features, face and body only. NEVER describe clothing." or null,
   "animal_type": "dog" or "cat" or "bird" or "tiger" or "fish" or null,
@@ -2582,13 +2430,6 @@ Instructions - PRIORITY ORDER:
 Return JSON only:
 {
   "analysis": "brief - note if animals/dynamic/static (1 sentence)",
-  "subject_type": "person" or "landscape" or "animal" or "object",
-  "gender": "male" or "female" or "both" or null,
-  "age_range": "baby" or "child" or "teen" or "young_adult" or "adult" or "middle_aged" or "elderly" or "mixed" or null,
-  "ethnicity": "asian" or "caucasian" or "african" or "hispanic" or "middle_eastern" or "mixed" or null,
-  "physical_description": "brief physical features including skin tone. NEVER describe clothing." or null,
-  "person_count": actual number of people in photo (1, 2, 3, 4, 5, 6...),
-  "background_type": "simple" or "complex" or "outdoor" or "indoor" or "studio",
   "selected_artist": "Classical Sculpture" or "Roman Mosaic",
   "selected_work": "If Roman Mosaic, select best masterwork from list above (e.g. 'Alexander Mosaic'). If Classical Sculpture, use null",
   "reason": "why this style fits, mention animals/dynamic/static (1 sentence)",
@@ -2620,13 +2461,6 @@ Style characteristics:
 Return JSON only:
 {
   "analysis": "brief (1 sentence)",
-  "subject_type": "person" or "landscape" or "animal" or "object",
-  "gender": "male" or "female" or "both" or null,
-  "age_range": "baby" or "child" or "teen" or "young_adult" or "adult" or "middle_aged" or "elderly" or "mixed" or null,
-  "ethnicity": "asian" or "caucasian" or "african" or "hispanic" or "middle_eastern" or "mixed" or null,
-  "physical_description": "brief physical features including skin tone. NEVER describe clothing." or null,
-  "person_count": actual number of people in photo (1, 2, 3, 4, 5, 6...),
-  "background_type": "simple" or "complex" or "outdoor" or "indoor" or "studio",
   "selected_artist": "Islamic Miniature or Byzantine or Gothic",
   "selected_work": null,
   "reason": "why (1 sentence)",
@@ -2674,11 +2508,11 @@ Return JSON only:
   "analysis": "brief (1 sentence)",
   "subject_type": "person" or "landscape" or "animal" or "object",
   "gender": "male" or "female" or "both" or null,
-  "age_range": "baby/child/teen/young_adult/adult/middle_aged/elderly/mixed" or null,
+  "age_range": "baby/child/teen/young_adult/adult/middle_aged/elderly" or null,
   "estimated_age": "approximate age number, e.g. 25, 45, 65" or null,
   "ethnicity": "asian (East Asian features, golden-brown skin) or caucasian (European features, light/fair skin) or african (Black/African descent, DARK BROWN to BLACK skin, broad nose, full lips) or hispanic (Latin American, tan/brown skin) or middle_eastern (Arab/Persian, olive/tan skin) or mixed or null - MUST accurately identify based on skin color and facial features",
   "physical_description": "for MALE: strong jaw, angular face, short hair, broad shoulders etc. For FEMALE: soft features, delicate face etc. ALWAYS include skin tone and ethnic features. NEVER describe clothing." or null,
-  "person_count": actual number of people in photo (1, 2, 3, 4, 5, 6...),
+  "person_count": 1 or 2 or 3 (number of people in photo),
   "background_type": "simple" or "complex" or "outdoor" or "indoor" or "studio",
   "selected_artist": "Artist Full Name",
   "selected_work": "EXACT masterwork title from the list above",
@@ -2707,15 +2541,6 @@ Copy these values exactly into the vision fields of your JSON response. Focus on
 
 `;
       promptText = visionContext + promptText;
-    }
-    
-    // ========================================
-    // 미성년자 보호 Layer 2 B안: AI 프롬프트에 안전 화가 제한
-    // (모든 사진에 조건부 지시 — AI가 이미지를 보고 미성년자 판단)
-    // ========================================
-    const minorSafetyPrompt = getMinorSafetyPrompt(categoryType, selectedStyle);
-    if (minorSafetyPrompt) {
-      promptText += '\n\n' + minorSafetyPrompt;
     }
     
     const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -3047,11 +2872,11 @@ export async function runVisionAnalysis(imageBase64) {
 {
   "subject_type": "person" or "landscape" or "animal" or "object" or "flower" or "bird",
   "gender": "male" or "female" or "both" or null,
-  "age_range": "baby" or "child" or "teen" or "young_adult" or "adult" or "middle_aged" or "elderly" or "mixed" or null,
+  "age_range": "baby" or "child" or "teen" or "young_adult" or "adult" or "middle_aged" or "elderly" or null,
   "estimated_age": "approximate age number, e.g. 25, 45, 65" or null,
   "ethnicity": "asian" or "caucasian" or "african" or "hispanic" or "middle_eastern" or "mixed" or null,
   "physical_description": "brief physical features including skin tone, facial features, hair, build. NEVER describe clothing." or null,
-  "person_count": actual number of people in photo or null,
+  "person_count": 1 or 2 or 3 or null,
   "background_type": "simple" or "complex" or "outdoor" or "indoor" or "studio",
   "animal_type": "dog" or "cat" or "bird" or null,
   "fur_color": "color description" or null
@@ -3168,8 +2993,6 @@ export default async function handler(req, res) {
     let selectionDetails = {};
     let controlStrength = 0.80; // 기본값 (getControlStrength에서 덮어씀)
     const categoryType = selectedStyle.category; // categoryType 변수 추가
-    let isMinor = false;       // 미성년자 보호 플래그 (Vision 분석 후 설정)
-    let ageRange = 'adult';    // 연령대 (Vision 분석 후 설정)
     
     // ========================================
     // v91: 재변환 모드 — Nano Banana 2 (Gemini 3.1 Flash Image)
@@ -3397,17 +3220,6 @@ export default async function handler(req, res) {
         photoAnalysis.age_range = visionAnalysis.age_range;
         photoAnalysis.count = visionAnalysis.person_count || 0;
         photoAnalysis.ethnicity = visionAnalysis.ethnicity;  // v72.1: 인종 정보 추가
-      }
-      
-      // ========================================
-      // 미성년자 보호 Layer 1: 감지 (MINOR_PROTECTION.md 참조)
-      // baby/child/teen/mixed → isMinor = true
-      // mixed: 성인+미성년자 혼합 (가족 사진 등)
-      // ========================================
-      ageRange = visionAnalysis?.age_range || 'adult';
-      isMinor = ['baby', 'child', 'teen', 'mixed'].includes(ageRange);
-      if (isMinor) {
-        console.log(`🛡️ [MINOR PROTECTION] Detected: ${ageRange} → 5-Layer safety activated`);
       }
       
       // 이미지에서 기본 정보 추출 시도 (카테고리별 가중치 테이블이 있는 경우)
@@ -3763,67 +3575,6 @@ export default async function handler(req, res) {
         // ========================================
         // 끝: 가중치 기반 화가 재선택
         // ========================================
-        
-        // ========================================
-        // 미성년자 보호 Layer 2~3 A안: 코드 강제 필터 (보험)
-        // B안(AI 프롬프트)이 무시되었을 때 대비
-        // 동양화는 B안 + 의상 프롬프트로 충분하여 A안 미적용
-        // ========================================
-        if (isMinor) {
-          // 악센트 문자 → ASCII 변환 후 정규화 (VELÁZQUEZ → velazquez, André → andre)
-          const accentFixed = (selectedArtist || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-          const normalizedArtist = normalizeArtistKey(accentFixed);
-          
-          // ── 사조: 화가 필터링 ──
-          const safeData = MINOR_SAFE_MATCHING.movements[categoryType];
-          // 하이픈 무시 비교 (islamic-miniature vs islamicminiature)
-          const matchedSafeArtist = safeData ? safeData.artists.find(a => 
-            a.replace(/-/g, '') === normalizedArtist || a === normalizedArtist
-          ) : null;
-          
-          if (safeData && !matchedSafeArtist) {
-            const replacementIdx = 0;
-            const replacementArtist = safeData.artists[replacementIdx];
-            const replacementDisplayName = safeData.displayNames[replacementIdx];
-            const artistStyle = getArtistStyleByName(replacementArtist);
-            
-            console.log(`🛡️ [MINOR-FILTER] Unsafe artist "${selectedArtist}" (${normalizedArtist}) → "${replacementDisplayName}"`);
-            selectedArtist = replacementDisplayName;
-            if (artistStyle) finalPrompt = artistStyle;
-            
-            const safeWorks = safeData.masterworks[replacementArtist];
-            if (safeWorks && safeWorks.length > 0) {
-              selectedWork = safeWorks[0];
-              console.log(`🛡️ [MINOR-FILTER] Safe work assigned: ${selectedWork}`);
-            }
-            logData.prompt.applied.minorArtistFilter = true;
-          }
-          
-          // ── 사조: 대표작 필터링 (화가는 안전하지만 대표작이 안전하지 않은 경우) ──
-          if (safeData && matchedSafeArtist && selectedWork) {
-            const workKey = convertToWorkKey(selectedArtist, selectedWork);
-            const safeWorksForArtist = safeData.masterworks[matchedSafeArtist];
-            if (workKey && safeWorksForArtist && !safeWorksForArtist.includes(workKey)) {
-              console.log(`🛡️ [MINOR-FILTER] Unsafe work "${selectedWork}" (${workKey}) → "${safeWorksForArtist[0]}"`);
-              selectedWork = safeWorksForArtist[0];
-              logData.prompt.applied.minorWorkFilter = true;
-            }
-          }
-          
-          // ── 거장: 대표작 필터링 ──
-          if (categoryType === 'masters') {
-            const masterId = selectedStyle?.id?.replace('-master', '') || '';
-            const safeMasterWorks = MINOR_SAFE_MATCHING.masters[masterId];
-            if (safeMasterWorks && selectedWork) {
-              const workKey = convertToWorkKey(selectedArtist, selectedWork);
-              if (workKey && !safeMasterWorks.includes(workKey)) {
-                console.log(`🛡️ [MINOR-FILTER] Unsafe master work "${selectedWork}" (${workKey}) → "${safeMasterWorks[0]}"`);
-                selectedWork = safeMasterWorks[0];
-                logData.prompt.applied.minorWorkFilter = true;
-              }
-            }
-          }
-        }
         
         // ========================================
         // v67: 대전제 - 스타일별 분기 (고대/중세는 유화 아님)
@@ -4380,60 +4131,8 @@ export default async function handler(req, res) {
     }
     logData.prompt.applied.gender = true;
     
-    // ========================================
-    // 모자이크/타일 계열 감지 (미성년자 보호보다 먼저 체크)
-    // ========================================
-    const normalizedForTile = (selectedArtist || '').toLowerCase().replace(/\s+/g, '');
-    const isTileStyle = ['romanmosaic', 'mosaic'].includes(normalizedForTile);
-    
-    // ========================================
-    // 미성년자 보호 Layer 4: clothing 프롬프트 강화
-    // 모자이크: 타일 호환 문구로 적용
-    // 일반: 기존 문구
-    // ========================================
-    if (isMinor) {
-      if (isTileStyle) {
-        coreRulesPrefix = coreRulesPrefix.replace(
-          'Clothing covers chest, waist and hip areas.',
-          'Full modest age-appropriate clothing rendered entirely in tesserae tiles covering entire body.'
-        );
-      } else {
-        coreRulesPrefix = coreRulesPrefix.replace(
-          'Clothing covers chest, waist and hip areas.',
-          'Full modest age-appropriate clothing covering entire body.'
-        );
-      }
-      console.log(`🛡️ [MINOR-CLOTHING] Enhanced clothing prompt applied for ${ageRange}${isTileStyle ? ' (tile-compatible)' : ''}`);
-      logData.prompt.applied.minorClothing = true;
-    }
-    
-    // ========================================
-    // 모자이크/타일 계열: 대전제에서 의상/유화 문구 제거
-    // 미성년자가 아닌 경우만 의상 제거 (미성년자는 위에서 타일 호환으로 처리)
-    // ========================================
-    if (isTileStyle && !isMinor) {
-      coreRulesPrefix = coreRulesPrefix.replace(
-        'Clothing covers chest, waist and hip areas. ', ''
-      );
-    }
-    if (isTileStyle) {
-      coreRulesPrefix = coreRulesPrefix.replace(
-        'Clean unsigned artwork, pure painted surface.',
-        'Clean mosaic surface with visible tile texture throughout.'
-      );
-    }
-    
     finalPrompt = finalPrompt + ' ' + coreRulesPrefix;
     logData.prompt.applied.coreRules = true;
-    
-    // 모자이크/타일 계열: finalPrompt에서 유화/사실적 렌더링 유발 문구 제거
-    if (isTileStyle) {
-      finalPrompt = finalPrompt.replace(/,?\s*luminous and lifelike/gi, '');
-      finalPrompt = finalPrompt.replace(/,?\s*Clothing covers chest,?\s*waist and hip areas/gi, '');
-      finalPrompt = finalPrompt.replace(/painted with delicate warm glazes[^,]*/gi, '');
-      finalPrompt = finalPrompt.replace(/painted with masterful subtlety[^,]*/gi, '');
-      finalPrompt = finalPrompt.replace(/painted with warm natural realism[^,]*/gi, '');
-    }
     
     // ========================================
     // 🚫 환각 방지: 원본 요소만 유지 (모든 경로 공통 적용)
@@ -4501,10 +4200,6 @@ export default async function handler(req, res) {
         } else if (ageRange === 'child') {
           // 아이
           attractiveEnhancement = ' Render the child with radiant endearing charm — bright lively eyes shining with joy, healthy warm complexion with natural glow, and a carefree innocent smile that captures the pure vitality of childhood.';
-        } else if (ageRange === 'teen') {
-          // 청소년 (미성년자 보호 Layer 5: 성인 매력 표현 제외, 순수한 표현만)
-          attractiveEnhancement = ' Render the young person with fresh youthful energy — bright clear eyes full of curiosity, healthy natural complexion with warm glow, and a genuine spirited expression that captures the natural vitality of youth.';
-          logData.prompt.applied.minorAttractiveness = true;
         } else if (ageRange === 'middle_aged') {
           // 중년 (v82: 나이 중립 — 나이 암시 표현 제거, 매력만)
           if (gender === 'male') {
@@ -4528,11 +4223,8 @@ export default async function handler(req, res) {
           }
         }
         
-        // 모자이크/타일 계열: 유화식 매력 강화 스킵 (타일 텍스처와 충돌)
-        if (!isTileStyle) {
-          finalPrompt = finalPrompt + attractiveEnhancement;
-        }
-        logData.prompt.applied.attractive = !isTileStyle;
+        finalPrompt = finalPrompt + attractiveEnhancement;
+        logData.prompt.applied.attractive = true;
       }
     }
     
@@ -4812,44 +4504,9 @@ export default async function handler(req, res) {
       console.log(`✅ Prefer:wait 완료 (${elapsedTime}초) → 결과 직접 반환`);
       console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
       
-      // ========================================
-      // AI 생성물 메타데이터 삽입 (EXIF)
-      // 한국 AI 기본법 대응 — 모든 출력에 AI 생성 표시
-      // ========================================
-      let finalResultUrl = resultUrl;
-      try {
-        const imgResponse = await fetch(resultUrl);
-        const imgBuffer = Buffer.from(await imgResponse.arrayBuffer());
-        const sharp = (await import('sharp')).default;
-        
-        const withExifBuffer = await sharp(imgBuffer)
-          .withExif({
-            IFD0: {
-              Software: 'Master Valley AI Art',
-              ImageDescription: 'AI-generated art style transformation',
-              Copyright: 'AI Generated by Master Valley'
-            }
-          })
-          .jpeg({ quality: 90 })
-          .toBuffer();
-        
-        const bucket = getStorage().bucket();
-        const fileName = `results/${prediction.id}.jpg`;
-        const file = bucket.file(fileName);
-        await file.save(withExifBuffer, {
-          metadata: { contentType: 'image/jpeg' },
-          public: true
-        });
-        
-        finalResultUrl = `https://storage.googleapis.com/${bucket.name}/${fileName}`;
-        console.log(`📋 EXIF 메타데이터 삽입 완료: ${fileName}`);
-      } catch (exifErr) {
-        console.log(`⚠️ EXIF 삽입 실패, 원본 URL 사용: ${exifErr.message}`);
-      }
-      
       res.status(200).json({
         status: 'completed',
-        resultUrl: finalResultUrl,
+        resultUrl,
         predictionId: prediction.id,
         selected_artist: selectedArtist,
         selected_work: selectedWork,

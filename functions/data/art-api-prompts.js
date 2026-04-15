@@ -21,8 +21,8 @@ export const ARTIST_CONFIG = {
  // === 고대/중세 ===
  'classical-sculpture': { control_strength: 0.55, brush_size: null },
  'sculpture': { control_strength: 0.55, brush_size: null },
- 'roman-mosaic': { control_strength: 0.20, brush_size: null },
- 'mosaic': { control_strength: 0.20, brush_size: null },
+ 'roman-mosaic': { control_strength: 0.60, brush_size: '75mm' },
+ 'mosaic': { control_strength: 0.60, brush_size: '75mm' },
  'byzantine': { control_strength: 0.60, brush_size: null },
  'gothic': { control_strength: 0.50, brush_size: null },
  'islamic-miniature': { control_strength: 0.80, brush_size: '25mm' },
@@ -96,7 +96,7 @@ export const ARTIST_CONFIG = {
 // ═══════════════════════════════════════════════════════════════════
 export const MOVEMENT_DEFAULTS = {
  'ancient-greek-sculpture': { control_strength: 0.55, brush_size: null },
- 'roman-mosaic': { control_strength: 0.20, brush_size: null },
+ 'roman-mosaic': { control_strength: 0.60, brush_size: '75mm' },
  'byzantine': { control_strength: 0.55, brush_size: null },
  'islamic-miniature': { control_strength: 0.80, brush_size: '25mm' },
  'gothic': { control_strength: 0.50, brush_size: null },
@@ -220,7 +220,7 @@ export const ANCIENT_MEDIEVAL_PROMPTS = {
  'marble': {
  name: '대리석 조각',
  nameEn: 'Marble Sculpture',
- prompt: `Transform the subject to look like an ancient marble statue. Ancient Greek-Roman marble sculpture style. ONLY pure white Carrara marble with smooth polished surface, carved stone texture. Subject's clothing transforms into classical draped toga or stola, covering chest, waist and hip areas. Style reference sculptures: Nike of Samothrace, Augustus of Prima Porta, Eirene, Pietà. Preserve original gender and body proportions. MONOCHROME white throughout, 100% white stone surface. White marble 85%, light grey 15%. Pure white marble tone dominates entirely with only faint natural marble grain.`
+ prompt: `Ancient Greek-Roman marble sculpture style. Pure white Carrara marble with smooth polished surface, carved stone texture. Subject's clothing transforms into classical draped toga or stola, covering chest, waist and hip areas. Style reference sculptures: Nike of Samothrace, Augustus of Prima Porta, Eirene, Pietà. Preserve original gender and body proportions. MONOCHROME pure white palette. White marble 85%, light grey 15%. Completely desaturated with zero color. Pure white marble tone dominates entirely with only faint natural marble grain.`
  },
 
  // ─────────────────────────────────────────
@@ -229,7 +229,7 @@ export const ANCIENT_MEDIEVAL_PROMPTS = {
  'mosaic': {
  name: '로마 모자이크',
  nameEn: 'Roman Mosaic',
- prompt: `Powerful ancient Roman mosaic art of the subject. Paint LARGE, VIVID, BOLD square tile patterns directly on the subject's face, skin, hair, and clothing. ENTIRE SURFACE including face, skin, hair, and clothing rendered as BOLD THICK tesserae tiles — every part of the subject must be composed of LARGE HEAVY stone tiles with DEEP DARK grout lines clearly visible between each tile. CRITICAL: PRESERVE ORIGINAL ETHNICITY, SKIN TONE AND FACIAL FEATURES exactly using appropriate colored tiles. Large visible tesserae tiles 100mm, THICK BLACK grout lines between every tile. Earth tone palette terracotta 30%, ochre 25%, umber 25%, ivory 20%. Clothing area covered by classical draped garment rendered entirely in BOLD tesserae tiles, covering chest, waist and hip areas. Skin rendered in warm natural toned THICK tesserae matching the original complexion. Opus tessellatum technique with geometric decorative borders. BOLD flat mosaic aesthetic with strong graphic presence.`
+ prompt: `Powerful ancient Roman mosaic art of the subject. CRITICAL: PRESERVE ORIGINAL ETHNICITY, SKIN TONE AND FACIAL FEATURES exactly using appropriate colored tiles. Large visible tesserae tiles 50mm, thick black grout lines between every tile. Earth tone palette terracotta 30%, ochre 25%, umber 25%, ivory 20%. Subject's clothing transforms into classical draped garment with elegant folds, covering chest, waist and hip areas. Skin rendered in warm natural toned tesserae matching the original complexion. Opus tessellatum technique with geometric decorative borders. Detailed yet flat mosaic aesthetic with strong graphic presence.`
  },
 
  // ─────────────────────────────────────────
@@ -1375,7 +1375,7 @@ export const ARTIST_STYLES = {
  
  // 🏛️ 고대 (특수 질감)
  'classical-sculpture': 'Subject clothing transforms into classical draped toga or stola, covering chest, waist and hip areas. Ancient Greek-Roman marble sculpture style. Pure white Carrara marble with smooth polished surface, carved stone texture.',
- 'roman-mosaic': 'Roman floor mosaic style. Large visible tesserae tiles 100mm, thick black grout lines, earth tone palette. PRESERVE ORIGINAL SKIN TONE AND FACIAL FEATURES using appropriate tile colors. Transform clothing to Roman toga or tunic with draped folds, covering chest, waist and hip areas.',
+ 'roman-mosaic': 'Roman floor mosaic style. Large visible tesserae tiles 50mm, thick black grout lines, earth tone palette. PRESERVE ORIGINAL SKIN TONE AND FACIAL FEATURES using appropriate tile colors. Transform clothing to Roman toga or tunic with draped folds, covering chest, waist and hip areas.',
 
  // ⛪ 중세
  'byzantine': 'Clothing covers chest, waist and hip areas. Byzantine sacred icon style. Brilliant gold leaf background, flat frontal pose, large solemn eyes, rich jewel colors.',
