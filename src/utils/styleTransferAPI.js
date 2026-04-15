@@ -101,6 +101,7 @@ export const processStyleTransfer = async (photoFile, selectedStyle, correctionP
     }
     
     const transformId = generateId();
+    const authToken = await getAuthToken();
     
     // Firestore 리스닝으로 결과 수신 (원클릭과 동일 패턴)
     return new Promise((resolve, reject) => {
@@ -183,7 +184,6 @@ export const processStyleTransfer = async (photoFile, selectedStyle, correctionP
       });
       
       // 3) HTTP fire-and-forget (서버에 요청만 보내고 응답은 기다리지 않음)
-      const authToken = await getAuthToken();
       fetch(getCloudFunctionUrl(), {
         method: 'POST',
         headers: {
@@ -228,6 +228,7 @@ export const processFullTransform = async (photoFile, styles, selectedStyle, onP
     const transformIds = styles.map(() => generateId());
     
     console.log(`📋 원클릭 준비: ${sessionId} (${transformIds.length}건)`);
+    const authToken = await getAuthToken();
     
     return new Promise((resolve, reject) => {
       const results = new Array(transformIds.length).fill(null);
@@ -356,7 +357,6 @@ export const processFullTransform = async (photoFile, styles, selectedStyle, onP
       }, 30000);
       
       // HTTP 호출 (fire-and-forget)
-      const authToken = await getAuthToken();
       
       fetch(getCloudFunctionUrl(), {
         method: 'POST',
