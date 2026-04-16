@@ -3097,6 +3097,11 @@ export default async function handler(req, res) {
     const startTime = Date.now();
     const { image, selectedStyle, correctionPrompt, isOneClick, visionData: preVisionData } = req.body;
     
+    // A-8: 입력 이미지 크기 제한 (10MB 초과 시 거부)
+    if (image && image.length > 10 * 1024 * 1024) {
+      return res.status(413).json({ error: 'Image too large' });
+    }
+    
     // v83: Vision과 동시에 Replicate Files에 이미지 미리 업로드
     const replicateFilePromise = uploadToReplicateFiles(image);
     
@@ -3195,8 +3200,21 @@ export default async function handler(req, res) {
       const artistKey = MASTER_TO_ARTIST_KEY[masterKey];
       const artistDisplayName = ARTIST_DISPLAY_NAMES[artistKey] || 'painting';
       
-      // pants → lower garment 치환
-      const sanitizedPrompt = correctionPrompt.replace(/pants/gi, 'lower garment');
+      // NSFW/부적절 키워드 제거 + pants 치환
+      const BLOCKED_WORDS = [
+        'nude', 'naked', 'undress', 'topless', 'bottomless',
+        'remove clothing', 'remove clothes', 'take off',
+        'bikini', 'lingerie', 'underwear', 'bra',
+        'sexy', 'seductive', 'erotic', 'sexual',
+        'revealing', 'transparent', 'see-through',
+        'shorter skirt', 'shorter dress', 'less clothing',
+        'younger', 'make younger', 'child', 'kid'
+      ];
+      let sanitizedPrompt = correctionPrompt;
+      for (const word of BLOCKED_WORDS) {
+        sanitizedPrompt = sanitizedPrompt.replace(new RegExp(word, 'gi'), '');
+      }
+      sanitizedPrompt = sanitizedPrompt.replace(/pants/gi, 'lower garment').replace(/\s{2,}/g, ' ').trim();
       
       // Nano Banana 2 프롬프트
       const editPrompt = `Edit this painting: ${sanitizedPrompt}. Keep the ${artistDisplayName} painting style, brushwork, color palette, composition, background, pose, and facial features exactly the same. Only change what was requested.`;
@@ -3230,7 +3248,7 @@ export default async function handler(req, res) {
         const inputBuffer = Buffer.from(imageBase64, 'base64');
         const compressed = await sharp(inputBuffer)
           .resize(1024, 1024, { fit: 'inside', withoutEnlargement: true })
-          .jpeg({ quality: 60 })
+          .jpeg({ quality: 80 })
           .toBuffer();
         imageBase64 = compressed.toString('base64');
         console.log(`📦 이미지 압축 완료 (${Math.round(imageBase64.length / 1024)}KB)`);
@@ -4721,7 +4739,7 @@ export default async function handler(req, res) {
                 guidance: 12,
                 control_strength: controlStrength,
                 output_format: 'jpg',
-                output_quality: 90
+                output_quality: 95
               }
             })
           }
