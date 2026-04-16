@@ -1268,15 +1268,18 @@ const ResultScreen = ({
         const newIndex = viewIndex + 1;
         setViewIndex(newIndex);
         setCurrentIndex(newIndex);
-      } else if (e.key === 'ArrowLeft' && viewIndex > 0) {
-        const newIndex = viewIndex - 1;
-        setViewIndex(newIndex);
-        setCurrentIndex(newIndex);
+      } else if (e.key === 'ArrowLeft') {
+        const minIndex = showImageModal ? 0 : -1;
+        if (viewIndex > minIndex) {
+          const newIndex = viewIndex - 1;
+          setViewIndex(newIndex);
+          if (newIndex >= 0) setCurrentIndex(newIndex);
+        }
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isFullTransform, viewIndex, totalResults]);
+  }, [isFullTransform, viewIndex, totalResults, showImageModal]);
 
 
   // ========== Render ==========
