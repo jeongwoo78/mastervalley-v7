@@ -1339,7 +1339,7 @@ Available Ancient Greek-Roman Styles (2가지):
 5. OUTDOOR 2 people → SCULPTURE 50% / MOSAIC 50%
 6. OUTDOOR 3+ people → ALWAYS SCULPTURE
 7. SPORTS/ATHLETIC → ALWAYS SCULPTURE
-8. LANDSCAPE (no people) → ALWAYS MOSAIC
+8. LANDSCAPE (empty of people) → ALWAYS MOSAIC
 9. PERSON + ANIMAL → ALWAYS SCULPTURE
 10. ANIMAL ONLY → SCULPTURE 20% / MOSAIC 80%
 
@@ -1351,7 +1351,7 @@ Examples:
 - Couple at park = SCULPTURE or MOSAIC 50/50 (outdoor 2 people)
 - Group hiking (5 people) = SCULPTURE (outdoor 3+)
 - Soccer game = SCULPTURE (sports)
-- Mountain landscape = MOSAIC (landscape no people)
+- Mountain landscape = MOSAIC (empty landscape)
 - Girl with dog = SCULPTURE (person + animal)
 - Cat photo = MOSAIC 80% (animal only)
 `;
@@ -1927,7 +1927,7 @@ function getModernismHints(photoAnalysis) {
 const fallbackPrompts = {
   ancient: {
     name: '그리스·로마',
-    prompt: 'Transform this image into ancient Greek-Roman art. Choose between MARBLE SCULPTURE or ROMAN MOSAIC based on these STRICT RULES: 1) INDOOR 1 person → MARBLE SCULPTURE 70% / ROMAN MOSAIC 30%. 2) INDOOR 2 people → MARBLE SCULPTURE 80% / ROMAN MOSAIC 20%. 3) INDOOR 3 or more people → ALWAYS MARBLE SCULPTURE. 4) OUTDOOR 1 person → MARBLE SCULPTURE 50% / ROMAN MOSAIC 50%. 5) OUTDOOR 2 people → MARBLE SCULPTURE 50% / ROMAN MOSAIC 50%. 6) OUTDOOR 3 or more people → ALWAYS MARBLE SCULPTURE. 7) SPORTS or ATHLETIC ACTION → ALWAYS MARBLE SCULPTURE in style of Discobolus or ancient Olympic athletes. 8) LANDSCAPE with no people → ALWAYS ROMAN MOSAIC in Pompeii villa floor style. 9) PERSON with ANIMAL together → ALWAYS MARBLE SCULPTURE. 10) ANIMAL ONLY (no person) → MARBLE SCULPTURE 20% / ROMAN MOSAIC 80%. CRITICAL FOR ALL MARBLE SCULPTURES: Pure white Carrara marble, ENTIRE FIGURE INCLUDING ALL CLOTHING must be PURE WHITE MARBLE, convert ALL fabric to carved white marble drapery folds, no original clothing colors preserved, entire figure carved from single block of white Carrara marble. Carved marble fabric draping covers chest, waist and hip areas. CRITICAL FOR ALL ROMAN MOSAICS: LARGE CHUNKY TESSERAE TILES 50mm, THICK BLACK GROUT LINES clearly visible between EVERY tile, LIMITED COLORS (terracotta, ochre, umber, ivory, slate blue), Pompeii villa floor style. Ancient masterpiece quality'
+    prompt: 'Transform this image into ancient Greek-Roman art. Choose between MARBLE SCULPTURE or ROMAN MOSAIC based on these STRICT RULES: 1) INDOOR 1 person → MARBLE SCULPTURE 70% / ROMAN MOSAIC 30%. 2) INDOOR 2 people → MARBLE SCULPTURE 80% / ROMAN MOSAIC 20%. 3) INDOOR 3 or more people → ALWAYS MARBLE SCULPTURE. 4) OUTDOOR 1 person → MARBLE SCULPTURE 50% / ROMAN MOSAIC 50%. 5) OUTDOOR 2 people → MARBLE SCULPTURE 50% / ROMAN MOSAIC 50%. 6) OUTDOOR 3 or more people → ALWAYS MARBLE SCULPTURE. 7) SPORTS or ATHLETIC ACTION → ALWAYS MARBLE SCULPTURE in style of Discobolus or ancient Olympic athletes, pure white Carrara marble with visible carved muscles and dynamic frozen movement, classical athletic proportions, museum display style. 8) LANDSCAPE (empty of people) → ALWAYS ROMAN MOSAIC in Pompeii villa floor style. 9) PERSON with ANIMAL together → ALWAYS MARBLE SCULPTURE. 10) ANIMAL ONLY (landscape with animals) → MARBLE SCULPTURE 20% / ROMAN MOSAIC 80%. CRITICAL FOR ALL MARBLE SCULPTURES: Pure white Carrara marble throughout. ENTIRE FIGURE INCLUDING ALL CLOTHING transforms into PURE WHITE MARBLE. ALL fabric becomes carved white marble drapery folds. ALL clothing colors convert to pure white marble. Entire figure carved from single block of white Carrara marble. Carved marble fabric draping covers chest, waist and hip areas. CRITICAL FOR ALL ROMAN MOSAICS: LARGE CHUNKY TESSERAE TILES 50mm. THICK BLACK GROUT LINES visible between EVERY tile. LIMITED COLORS (terracotta, ochre, umber, ivory, slate blue). Pompeii villa floor style. Ancient masterpiece quality'
   },
   
   medieval: {
@@ -2558,22 +2558,23 @@ ${ancientMasterworkGuide}
 
 ${hints}
 
-Instructions - PRIORITY ORDER:
-1. FIRST check: Are there ANIMALS in this photo?
-   SELECTION PROBABILITY TABLE:
-   1. INDOOR 1 person → SCULPTURE 70% / MOSAIC 30%
-   2. INDOOR 2 people → SCULPTURE 80% / MOSAIC 20%
-   3. INDOOR 3+ people → ALWAYS SCULPTURE
-   4. OUTDOOR 1 person → SCULPTURE 50% / MOSAIC 50%
-   5. OUTDOOR 2 people → SCULPTURE 50% / MOSAIC 50%
-   6. OUTDOOR 3+ people → ALWAYS SCULPTURE
-   7. SPORTS/ATHLETIC → ALWAYS SCULPTURE
-   8. LANDSCAPE (no people) → ALWAYS MOSAIC
-   9. PERSON + ANIMAL → ALWAYS SCULPTURE
-   10. ANIMAL ONLY → SCULPTURE 20% / MOSAIC 80%
-5. If ROMAN MOSAIC selected, also choose the BEST MASTERWORK from the list above
-6. Follow RECOMMENDATIONS (80% weight)
-7. Preserve subject identity
+Instructions:
+SELECTION PROBABILITY TABLE:
+1. INDOOR 1 person → SCULPTURE 70% / MOSAIC 30%
+2. INDOOR 2 people → SCULPTURE 80% / MOSAIC 20%
+3. INDOOR 3+ people → ALWAYS SCULPTURE
+4. OUTDOOR 1 person → SCULPTURE 50% / MOSAIC 50%
+5. OUTDOOR 2 people → SCULPTURE 50% / MOSAIC 50%
+6. OUTDOOR 3+ people → ALWAYS SCULPTURE
+7. SPORTS/ATHLETIC → ALWAYS SCULPTURE
+8. LANDSCAPE (empty of people) → ALWAYS MOSAIC
+9. PERSON + ANIMAL → ALWAYS SCULPTURE
+10. ANIMAL ONLY → SCULPTURE 20% / MOSAIC 80%
+
+After selecting style:
+- If ROMAN MOSAIC selected, also choose the BEST MASTERWORK from the list above
+- Follow RECOMMENDATIONS (80% weight)
+- Preserve subject identity
 
 Return JSON only:
 {
