@@ -1313,13 +1313,26 @@ ONLY "CLASSICAL SCULPTURE" or "ROMAN MOSAIC" are allowed!
 Available Ancient Greek-Roman Styles (2가지):
 
 ⭐ STYLE 1: CLASSICAL SCULPTURE (고대 그리스-로마 조각)
+   - For: INDOOR PORTRAITS or SPORTS/ACTION PHOTOS ONLY
+   - PRIORITY: Sports/athletic action OR indoor portrait settings
+   - Examples: Sports action shots (running, jumping, throwing)
+              Indoor portraits (studio, home, office settings)
+              Athletic poses, gym photos
+              Indoor group photos
+   - NOT for: Outdoor portraits, casual outdoor photos, landscapes with people
    - Material: Pure white marble only (classical aesthetic)
-   - Technique: Dynamic poses for sports, classical poses for portraits
+   - Technique: Dynamic poses for sports, classical poses for indoor portraits
    - Background: Simple plain neutral background (museum-like)
    - Aesthetic: Classical Greek/Roman white marble sculpture
 
 ⭐ STYLE 2: ROMAN MOSAIC (로마 모자이크)
-   - For: Outdoor portraits, landscapes, animals, nature scenes
+   - For: ALL OTHER PHOTOS (outdoor portraits, landscapes, nature, etc.)
+   - Examples: Outdoor portraits (any setting)
+              All landscape shots (with or without people)
+              Nature scenes, flowers, plants
+              City scenes, buildings
+              Beach photos, mountain photos
+              ANY outdoor photos with people
    - Technique: LARGE VISIBLE tesserae tiles 50mm, THICK DARK GROUT LINES between tiles
    - CRITICAL: Each tile must be CLEARLY DISTINGUISHABLE as individual square/rectangular pieces
    - Aesthetic: Roman floor/wall mosaic with chunky stone tiles, jewel-tone colors
@@ -1331,25 +1344,23 @@ Available Ancient Greek-Roman Styles (2가지):
    • Four Seasons (사계절 모자이크) → Portrait busts, seasonal themes, elegant female
    • Nile Mosaic (닐 모자이크) → Landscape panorama, exotic wildlife, river scenes
 
-🎯 SELECTION RULES (priority order):
-1. SPORTS/ATHLETIC ACTION → SCULPTURE
-2. OUTDOOR with 3+ humans → SCULPTURE
-3. INDOOR scene (any content) → SCULPTURE
-4. OUTDOOR scene → MOSAIC
+🎯 KEY DECISION RULE - SIMPLIFIED:
+1. SPORTS/ATHLETIC ACTION? → SCULPTURE (highest priority!)
+2. INDOOR PORTRAIT/GROUP? → SCULPTURE
+3. OUTDOOR PORTRAIT? → MOSAIC
+4. LANDSCAPE/NATURE? → MOSAIC
+5. ANY OTHER OUTDOOR SCENE? → MOSAIC
 
 Examples:
-- Soccer game = SCULPTURE (sports)
-- Group hiking 5 people = SCULPTURE (outdoor 3+)
-- Selfie at home = SCULPTURE (indoor)
-- Couple at home = SCULPTURE (indoor)
-- Family indoors 4 people = SCULPTURE (indoor)
-- Dog at home = SCULPTURE (indoor)
-- Girl with dog indoors = SCULPTURE (indoor)
-- Mountain landscape = MOSAIC (outdoor)
-- Person at beach = MOSAIC (outdoor)
-- Couple at park = MOSAIC (outdoor)
-- Cat in garden = MOSAIC (outdoor)
-- Person with dog outdoors = MOSAIC (outdoor)
+- Volleyball game = SCULPTURE (sports action)
+- Indoor portrait at home = SCULPTURE (indoor setting)
+- Gym workout = SCULPTURE (athletic/indoor)
+- Office team photo = SCULPTURE (indoor group)
+- Couple at beach = MOSAIC (outdoor portrait)
+- Person in garden = MOSAIC (outdoor setting)
+- Mountain hiking = MOSAIC (outdoor landscape)
+- Street portrait = MOSAIC (outdoor)
+- Sunflower = MOSAIC (nature)
 `;
 }
 
@@ -1923,7 +1934,7 @@ function getModernismHints(photoAnalysis) {
 const fallbackPrompts = {
   ancient: {
     name: '그리스·로마',
-    prompt: 'Transform this image into ancient Greek-Roman art. Choose between MARBLE SCULPTURE or ROMAN MOSAIC based on these STRICT RULES (priority order): 1) SPORTS or ATHLETIC ACTION → MARBLE SCULPTURE in style of Discobolus or ancient Olympic athletes, pure white Carrara marble with visible carved muscles and dynamic frozen movement, classical athletic proportions, museum display style. 2) OUTDOOR with 3 OR MORE humans → MARBLE SCULPTURE (crowd covers the complex background). 3) INDOOR scene (any content) → MARBLE SCULPTURE. 4) OUTDOOR scene → ROMAN MOSAIC in Pompeii villa floor style. CRITICAL FOR ALL MARBLE SCULPTURES: The ENTIRE COMPOSITION transforms into pure white Carrara marble — every element without exception becomes white marble. All humans transform into white marble (skin, hair, eyes, face). Eyes become solid white carved marble in classical sculpture style. All clothing and fabric become carved white marble drapery folds. All animals transform into matching white marble sculptures. All props and objects held or nearby transform into white marble (bouquets, balls, bags, tools, instruments). All furniture and foreground items transform into white marble. All backgrounds transform into white marble (walls, floors, architecture, pillars). Every color converts to white marble throughout. The entire scene carved from single block of white Carrara marble — a unified museum-quality sculptural composition. Carved marble fabric draping covers chest, waist and hip areas. CRITICAL FOR ALL ROMAN MOSAICS: LARGE CHUNKY TESSERAE TILES 50mm. THICK BLACK GROUT LINES visible between EVERY tile. LIMITED COLORS (terracotta, ochre, umber, ivory, slate blue). Pompeii villa floor style. Ancient masterpiece quality'
+    prompt: 'Transform this image into ancient Greek-Roman art. STRICT RULES: 1) ANY SPORTS/ATHLETIC ACTION (soccer, football, running, jumping, throwing, catching ball, ANY physical activity) → ALWAYS Greek/Roman MARBLE SCULPTURE in style of Discobolus or ancient Olympic athletes, pure white Carrara marble with visible carved muscles and dynamic frozen movement, classical athletic proportions, museum display style. CRITICAL: Ball games = SCULPTURE, NOT mosaic. 2) INDOOR PORTRAITS (no sports) → Greek/Roman marble sculpture with classical poses, ENTIRE FIGURE INCLUDING ALL CLOTHING must be PURE WHITE MARBLE, NO colored clothing, convert ALL fabric to carved white marble drapery folds. 3) OUTDOOR SCENES WITHOUT SPORTS → Roman mosaic with LARGE CHUNKY TESSERAE TILES 50mm, THICK BLACK GROUT LINES clearly visible between EVERY tile, LIMITED COLORS (terracotta, ochre, umber, ivory, slate blue), Pompeii villa floor style. PRIORITY: Sports/athletic = ALWAYS SCULPTURE regardless of indoor/outdoor. CRITICAL FOR ALL SCULPTURES: Convert ALL clothing colors to pure white marble, no original clothing colors preserved, entire figure is carved from single block of white Carrara marble. MANDATORY: Carved marble fabric draping covers chest, waist and hip areas. Ancient masterpiece quality'
   },
   
   medieval: {
@@ -2554,17 +2565,20 @@ ${ancientMasterworkGuide}
 
 ${hints}
 
-Instructions:
-SELECTION RULES (priority order):
-1. SPORTS/ATHLETIC ACTION → SCULPTURE
-2. OUTDOOR with 3+ humans → SCULPTURE
-3. INDOOR scene (any content) → SCULPTURE
-4. OUTDOOR scene → MOSAIC
-
-After selecting style:
-- If ROMAN MOSAIC selected, also choose the BEST MASTERWORK from the list above
-- Follow RECOMMENDATIONS (80% weight)
-- Preserve subject identity
+Instructions - PRIORITY ORDER:
+1. FIRST check: Are there ANIMALS in this photo?
+   - Dogs, cats, horses, birds, fish, any animals → ROMAN MOSAIC
+   - Historical accuracy: Romans excelled at animal mosaics (Pompeii Cave Canem)
+   - Animals = MOSAIC priority!
+2. SECOND check: Is there DYNAMIC MOVEMENT/ACTION/SPORTS in this photo?
+   - If YES → CLASSICAL SCULPTURE (even if landscape/stadium visible!)
+   - Sports, jumping, running, athletic action = SCULPTURE priority!
+3. THIRD check: Is it a STATIC photo WITH landscape/nature elements?
+   - If YES → ROMAN MOSAIC
+4. FOURTH: Portrait without landscape → CLASSICAL SCULPTURE
+5. If ROMAN MOSAIC selected, also choose the BEST MASTERWORK from the list above
+6. Follow RECOMMENDATIONS (80% weight)
+7. Preserve subject identity
 
 Return JSON only:
 {
@@ -3083,11 +3097,6 @@ export default async function handler(req, res) {
     const startTime = Date.now();
     const { image, selectedStyle, correctionPrompt, isOneClick, visionData: preVisionData } = req.body;
     
-    // A-8: 입력 이미지 크기 제한 (10MB 초과 시 거부)
-    if (image && image.length > 10 * 1024 * 1024) {
-      return res.status(413).json({ error: 'Image too large' });
-    }
-    
     // v83: Vision과 동시에 Replicate Files에 이미지 미리 업로드
     const replicateFilePromise = uploadToReplicateFiles(image);
     
@@ -3186,21 +3195,8 @@ export default async function handler(req, res) {
       const artistKey = MASTER_TO_ARTIST_KEY[masterKey];
       const artistDisplayName = ARTIST_DISPLAY_NAMES[artistKey] || 'painting';
       
-      // NSFW/부적절 키워드 제거 + pants 치환
-      const BLOCKED_WORDS = [
-        'nude', 'naked', 'undress', 'topless', 'bottomless',
-        'remove clothing', 'remove clothes', 'take off',
-        'bikini', 'lingerie', 'underwear', 'bra',
-        'sexy', 'seductive', 'erotic', 'sexual',
-        'revealing', 'transparent', 'see-through',
-        'shorter skirt', 'shorter dress', 'less clothing',
-        'younger', 'make younger', 'child', 'kid'
-      ];
-      let sanitizedPrompt = correctionPrompt;
-      for (const word of BLOCKED_WORDS) {
-        sanitizedPrompt = sanitizedPrompt.replace(new RegExp(word, 'gi'), '');
-      }
-      sanitizedPrompt = sanitizedPrompt.replace(/pants/gi, 'lower garment').replace(/\s{2,}/g, ' ').trim();
+      // pants → lower garment 치환
+      const sanitizedPrompt = correctionPrompt.replace(/pants/gi, 'lower garment');
       
       // Nano Banana 2 프롬프트
       const editPrompt = `Edit this painting: ${sanitizedPrompt}. Keep the ${artistDisplayName} painting style, brushwork, color palette, composition, background, pose, and facial features exactly the same. Only change what was requested.`;
@@ -3234,7 +3230,7 @@ export default async function handler(req, res) {
         const inputBuffer = Buffer.from(imageBase64, 'base64');
         const compressed = await sharp(inputBuffer)
           .resize(1024, 1024, { fit: 'inside', withoutEnlargement: true })
-          .jpeg({ quality: 80 })
+          .jpeg({ quality: 60 })
           .toBuffer();
         imageBase64 = compressed.toString('base64');
         console.log(`📦 이미지 압축 완료 (${Math.round(imageBase64.length / 1024)}KB)`);
@@ -3938,10 +3934,6 @@ export default async function handler(req, res) {
           } else {
             genderPrefixCommon = `This is a pure ${visionAnalysis.subject_type} scene. `;
           }
-        } else if (isNonPaintMedia) {
-          // 비회화 매체(대리석/모자이크/비잔틴): 성별 보존 문구 스킵
-          // "preserve each gender" → FLUX가 원본 유지로 해석 → 의상 변환 방해
-          genderPrefixCommon = '';
         } else if (identityPrompt && identityPrompt.length > 0) {
           genderPrefixCommon = `${identityPrompt}. `;
           logData.prompt.applied.identity = true;
@@ -4725,7 +4717,7 @@ export default async function handler(req, res) {
                 guidance: 12,
                 control_strength: controlStrength,
                 output_format: 'jpg',
-                output_quality: 95
+                output_quality: 90
               }
             })
           }
@@ -4799,7 +4791,7 @@ export default async function handler(req, res) {
               Copyright: 'AI Generated by Master Valley'
             }
           })
-          .jpeg({ quality: 100 })
+          .jpeg({ quality: 90 })
           .toBuffer();
         
         const bucket = getStorage().bucket();
