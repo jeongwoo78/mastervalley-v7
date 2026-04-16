@@ -372,6 +372,26 @@ const ProcessingScreen = ({ photo, originalPhotoUrl, selectedStyle, onComplete, 
     return completedResults.some(r => r?.style === styles[idx]);
   };
 
+  // 웹 키보드 화살표 지원 (원클릭 미리보기)
+  useEffect(() => {
+    if (!isFullTransform) return;
+    const handleKeyDown = (e) => {
+      if (e.key === 'ArrowRight') {
+        for (let i = viewIndex + 1; i < styles.length; i++) {
+          if (isDotDone(i)) { setViewIndex(i); break; }
+        }
+      } else if (e.key === 'ArrowLeft') {
+        let found = false;
+        for (let i = viewIndex - 1; i >= 0; i--) {
+          if (isDotDone(i)) { setViewIndex(i); found = true; break; }
+        }
+        if (!found) setViewIndex(-1);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isFullTransform, viewIndex, styles?.length, completedResults?.length]);
+
   return (
     <div className="processing-screen">
       <div 
