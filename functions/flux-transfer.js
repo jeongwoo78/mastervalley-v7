@@ -1331,29 +1331,25 @@ Available Ancient Greek-Roman Styles (2가지):
    • Four Seasons (사계절 모자이크) → Portrait busts, seasonal themes, elegant female
    • Nile Mosaic (닐 모자이크) → Landscape panorama, exotic wildlife, river scenes
 
-🎯 SELECTION PROBABILITY TABLE:
-1. INDOOR 1 person → SCULPTURE 70% / MOSAIC 30%
-2. INDOOR 2 people → SCULPTURE 80% / MOSAIC 20%
-3. INDOOR 3+ people → ALWAYS SCULPTURE
-4. OUTDOOR 1 person → SCULPTURE 50% / MOSAIC 50%
-5. OUTDOOR 2 people → SCULPTURE 50% / MOSAIC 50%
-6. OUTDOOR 3+ people → ALWAYS SCULPTURE
-7. SPORTS/ATHLETIC → ALWAYS SCULPTURE
-8. LANDSCAPE (empty of people) → ALWAYS MOSAIC
-9. PERSON + ANIMAL → ALWAYS SCULPTURE
-10. ANIMAL ONLY → SCULPTURE 20% / MOSAIC 80%
+🎯 SELECTION RULES (priority order):
+1. SPORTS/ATHLETIC ACTION → SCULPTURE
+2. OUTDOOR with 3+ humans → SCULPTURE
+3. INDOOR scene (any content) → SCULPTURE
+4. OUTDOOR scene → MOSAIC
 
 Examples:
-- Selfie at home = SCULPTURE 70% (indoor 1 person)
-- Couple selfie indoors = SCULPTURE 80% (indoor 2 people)
-- Family photo indoors (4 people) = SCULPTURE (indoor 3+)
-- Person at beach = SCULPTURE or MOSAIC 50/50 (outdoor 1 person)
-- Couple at park = SCULPTURE or MOSAIC 50/50 (outdoor 2 people)
-- Group hiking (5 people) = SCULPTURE (outdoor 3+)
 - Soccer game = SCULPTURE (sports)
-- Mountain landscape = MOSAIC (empty landscape)
-- Girl with dog = SCULPTURE (person + animal)
-- Cat photo = MOSAIC 80% (animal only)
+- Group hiking 5 people = SCULPTURE (outdoor 3+)
+- Selfie at home = SCULPTURE (indoor)
+- Couple at home = SCULPTURE (indoor)
+- Family indoors 4 people = SCULPTURE (indoor)
+- Dog at home = SCULPTURE (indoor)
+- Girl with dog indoors = SCULPTURE (indoor)
+- Mountain landscape = MOSAIC (outdoor)
+- Person at beach = MOSAIC (outdoor)
+- Couple at park = MOSAIC (outdoor)
+- Cat in garden = MOSAIC (outdoor)
+- Person with dog outdoors = MOSAIC (outdoor)
 `;
 }
 
@@ -1927,7 +1923,7 @@ function getModernismHints(photoAnalysis) {
 const fallbackPrompts = {
   ancient: {
     name: '그리스·로마',
-    prompt: 'Transform this image into ancient Greek-Roman art. Choose between MARBLE SCULPTURE or ROMAN MOSAIC based on these STRICT RULES: 1) INDOOR 1 person → MARBLE SCULPTURE 70% / ROMAN MOSAIC 30%. 2) INDOOR 2 people → MARBLE SCULPTURE 80% / ROMAN MOSAIC 20%. 3) INDOOR 3 or more people → ALWAYS MARBLE SCULPTURE. 4) OUTDOOR 1 person → MARBLE SCULPTURE 50% / ROMAN MOSAIC 50%. 5) OUTDOOR 2 people → MARBLE SCULPTURE 50% / ROMAN MOSAIC 50%. 6) OUTDOOR 3 or more people → ALWAYS MARBLE SCULPTURE. 7) SPORTS or ATHLETIC ACTION → ALWAYS MARBLE SCULPTURE in style of Discobolus or ancient Olympic athletes, pure white Carrara marble with visible carved muscles and dynamic frozen movement, classical athletic proportions, museum display style. 8) LANDSCAPE (empty of people) → ALWAYS ROMAN MOSAIC in Pompeii villa floor style. 9) PERSON with ANIMAL together → ALWAYS MARBLE SCULPTURE. 10) ANIMAL ONLY (landscape with animals) → MARBLE SCULPTURE 20% / ROMAN MOSAIC 80%. CRITICAL FOR ALL MARBLE SCULPTURES: Pure white Carrara marble throughout. ENTIRE FIGURE INCLUDING ALL CLOTHING transforms into PURE WHITE MARBLE. ALL fabric becomes carved white marble drapery folds. ALL clothing colors convert to pure white marble. Entire figure carved from single block of white Carrara marble. Carved marble fabric draping covers chest, waist and hip areas. CRITICAL FOR ALL ROMAN MOSAICS: LARGE CHUNKY TESSERAE TILES 50mm. THICK BLACK GROUT LINES visible between EVERY tile. LIMITED COLORS (terracotta, ochre, umber, ivory, slate blue). Pompeii villa floor style. Ancient masterpiece quality'
+    prompt: 'Transform this image into ancient Greek-Roman art. Choose between MARBLE SCULPTURE or ROMAN MOSAIC based on these STRICT RULES (priority order): 1) SPORTS or ATHLETIC ACTION → MARBLE SCULPTURE in style of Discobolus or ancient Olympic athletes, pure white Carrara marble with visible carved muscles and dynamic frozen movement, classical athletic proportions, museum display style. 2) OUTDOOR with 3 OR MORE humans → MARBLE SCULPTURE (crowd covers the complex background). 3) INDOOR scene (any content) → MARBLE SCULPTURE. 4) OUTDOOR scene → ROMAN MOSAIC in Pompeii villa floor style. CRITICAL FOR ALL MARBLE SCULPTURES: The ENTIRE COMPOSITION transforms into pure white Carrara marble — every element without exception becomes white marble. All humans transform into white marble (skin, hair, eyes, face). Eyes become solid white carved marble in classical sculpture style. All clothing and fabric become carved white marble drapery folds. All animals transform into matching white marble sculptures. All props and objects held or nearby transform into white marble (bouquets, balls, bags, tools, instruments). All furniture and foreground items transform into white marble. All backgrounds transform into white marble (walls, floors, architecture, pillars). Every color converts to white marble throughout. The entire scene carved from single block of white Carrara marble — a unified museum-quality sculptural composition. Carved marble fabric draping covers chest, waist and hip areas. CRITICAL FOR ALL ROMAN MOSAICS: LARGE CHUNKY TESSERAE TILES 50mm. THICK BLACK GROUT LINES visible between EVERY tile. LIMITED COLORS (terracotta, ochre, umber, ivory, slate blue). Pompeii villa floor style. Ancient masterpiece quality'
   },
   
   medieval: {
@@ -2559,17 +2555,11 @@ ${ancientMasterworkGuide}
 ${hints}
 
 Instructions:
-SELECTION PROBABILITY TABLE:
-1. INDOOR 1 person → SCULPTURE 70% / MOSAIC 30%
-2. INDOOR 2 people → SCULPTURE 80% / MOSAIC 20%
-3. INDOOR 3+ people → ALWAYS SCULPTURE
-4. OUTDOOR 1 person → SCULPTURE 50% / MOSAIC 50%
-5. OUTDOOR 2 people → SCULPTURE 50% / MOSAIC 50%
-6. OUTDOOR 3+ people → ALWAYS SCULPTURE
-7. SPORTS/ATHLETIC → ALWAYS SCULPTURE
-8. LANDSCAPE (empty of people) → ALWAYS MOSAIC
-9. PERSON + ANIMAL → ALWAYS SCULPTURE
-10. ANIMAL ONLY → SCULPTURE 20% / MOSAIC 80%
+SELECTION RULES (priority order):
+1. SPORTS/ATHLETIC ACTION → SCULPTURE
+2. OUTDOOR with 3+ humans → SCULPTURE
+3. INDOOR scene (any content) → SCULPTURE
+4. OUTDOOR scene → MOSAIC
 
 After selecting style:
 - If ROMAN MOSAIC selected, also choose the BEST MASTERWORK from the list above

@@ -1260,20 +1260,19 @@ const ResultScreen = ({
     setModalTouchStartX(0);
   };
 
-  // 웹 키보드 화살표 지원 (원클릭 결과 이동 + 모달)
+  // 웹 키보드 화살표 지원 (원클릭 결과 이동 + 단일 원본/결과 토글 + 모달)
   useEffect(() => {
-    if (!isFullTransform) return;
     const handleKeyDown = (e) => {
       if (e.key === 'ArrowRight' && viewIndex < totalResults - 1) {
         const newIndex = viewIndex + 1;
         setViewIndex(newIndex);
-        setCurrentIndex(newIndex);
+        if (isFullTransform) setCurrentIndex(newIndex);
       } else if (e.key === 'ArrowLeft') {
         const minIndex = showImageModal ? 0 : -1;
         if (viewIndex > minIndex) {
           const newIndex = viewIndex - 1;
           setViewIndex(newIndex);
-          if (newIndex >= 0) setCurrentIndex(newIndex);
+          if (isFullTransform && newIndex >= 0) setCurrentIndex(newIndex);
         }
       }
     };
