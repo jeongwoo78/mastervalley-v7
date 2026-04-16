@@ -1313,26 +1313,13 @@ ONLY "CLASSICAL SCULPTURE" or "ROMAN MOSAIC" are allowed!
 Available Ancient Greek-Roman Styles (2가지):
 
 ⭐ STYLE 1: CLASSICAL SCULPTURE (고대 그리스-로마 조각)
-   - For: INDOOR PORTRAITS or SPORTS/ACTION PHOTOS ONLY
-   - PRIORITY: Sports/athletic action OR indoor portrait settings
-   - Examples: Sports action shots (running, jumping, throwing)
-              Indoor portraits (studio, home, office settings)
-              Athletic poses, gym photos
-              Indoor group photos
-   - NOT for: Outdoor portraits, casual outdoor photos, landscapes with people
    - Material: Pure white marble only (classical aesthetic)
-   - Technique: Dynamic poses for sports, classical poses for indoor portraits
+   - Technique: Dynamic poses for sports, classical poses for portraits
    - Background: Simple plain neutral background (museum-like)
    - Aesthetic: Classical Greek/Roman white marble sculpture
 
 ⭐ STYLE 2: ROMAN MOSAIC (로마 모자이크)
-   - For: ALL OTHER PHOTOS (outdoor portraits, landscapes, nature, etc.)
-   - Examples: Outdoor portraits (any setting)
-              All landscape shots (with or without people)
-              Nature scenes, flowers, plants
-              City scenes, buildings
-              Beach photos, mountain photos
-              ANY outdoor photos with people
+   - For: Outdoor portraits, landscapes, animals, nature scenes
    - Technique: LARGE VISIBLE tesserae tiles 50mm, THICK DARK GROUT LINES between tiles
    - CRITICAL: Each tile must be CLEARLY DISTINGUISHABLE as individual square/rectangular pieces
    - Aesthetic: Roman floor/wall mosaic with chunky stone tiles, jewel-tone colors
@@ -1344,23 +1331,29 @@ Available Ancient Greek-Roman Styles (2가지):
    • Four Seasons (사계절 모자이크) → Portrait busts, seasonal themes, elegant female
    • Nile Mosaic (닐 모자이크) → Landscape panorama, exotic wildlife, river scenes
 
-🎯 KEY DECISION RULE - SIMPLIFIED:
-1. SPORTS/ATHLETIC ACTION? → SCULPTURE (highest priority!)
-2. INDOOR PORTRAIT/GROUP? → SCULPTURE
-3. OUTDOOR PORTRAIT? → MOSAIC
-4. LANDSCAPE/NATURE? → MOSAIC
-5. ANY OTHER OUTDOOR SCENE? → MOSAIC
+🎯 SELECTION PROBABILITY TABLE:
+1. INDOOR 1 person → SCULPTURE 70% / MOSAIC 30%
+2. INDOOR 2 people → SCULPTURE 80% / MOSAIC 20%
+3. INDOOR 3+ people → ALWAYS SCULPTURE
+4. OUTDOOR 1 person → SCULPTURE 50% / MOSAIC 50%
+5. OUTDOOR 2 people → SCULPTURE 50% / MOSAIC 50%
+6. OUTDOOR 3+ people → ALWAYS SCULPTURE
+7. SPORTS/ATHLETIC → ALWAYS SCULPTURE
+8. LANDSCAPE (no people) → ALWAYS MOSAIC
+9. PERSON + ANIMAL → ALWAYS SCULPTURE
+10. ANIMAL ONLY → SCULPTURE 20% / MOSAIC 80%
 
 Examples:
-- Volleyball game = SCULPTURE (sports action)
-- Indoor portrait at home = SCULPTURE (indoor setting)
-- Gym workout = SCULPTURE (athletic/indoor)
-- Office team photo = SCULPTURE (indoor group)
-- Couple at beach = MOSAIC (outdoor portrait)
-- Person in garden = MOSAIC (outdoor setting)
-- Mountain hiking = MOSAIC (outdoor landscape)
-- Street portrait = MOSAIC (outdoor)
-- Sunflower = MOSAIC (nature)
+- Selfie at home = SCULPTURE 70% (indoor 1 person)
+- Couple selfie indoors = SCULPTURE 80% (indoor 2 people)
+- Family photo indoors (4 people) = SCULPTURE (indoor 3+)
+- Person at beach = SCULPTURE or MOSAIC 50/50 (outdoor 1 person)
+- Couple at park = SCULPTURE or MOSAIC 50/50 (outdoor 2 people)
+- Group hiking (5 people) = SCULPTURE (outdoor 3+)
+- Soccer game = SCULPTURE (sports)
+- Mountain landscape = MOSAIC (landscape no people)
+- Girl with dog = SCULPTURE (person + animal)
+- Cat photo = MOSAIC 80% (animal only)
 `;
 }
 
@@ -1934,7 +1927,7 @@ function getModernismHints(photoAnalysis) {
 const fallbackPrompts = {
   ancient: {
     name: '그리스·로마',
-    prompt: 'Transform this image into ancient Greek-Roman art. STRICT RULES: 1) ANY SPORTS/ATHLETIC ACTION (soccer, football, running, jumping, throwing, catching ball, ANY physical activity) → ALWAYS Greek/Roman MARBLE SCULPTURE in style of Discobolus or ancient Olympic athletes, pure white Carrara marble with visible carved muscles and dynamic frozen movement, classical athletic proportions, museum display style. CRITICAL: Ball games = SCULPTURE, NOT mosaic. 2) INDOOR PORTRAITS (no sports) → Greek/Roman marble sculpture with classical poses, ENTIRE FIGURE INCLUDING ALL CLOTHING must be PURE WHITE MARBLE, NO colored clothing, convert ALL fabric to carved white marble drapery folds. 3) OUTDOOR SCENES WITHOUT SPORTS → Roman mosaic with LARGE CHUNKY TESSERAE TILES 50mm, THICK BLACK GROUT LINES clearly visible between EVERY tile, LIMITED COLORS (terracotta, ochre, umber, ivory, slate blue), Pompeii villa floor style. PRIORITY: Sports/athletic = ALWAYS SCULPTURE regardless of indoor/outdoor. CRITICAL FOR ALL SCULPTURES: Convert ALL clothing colors to pure white marble, no original clothing colors preserved, entire figure is carved from single block of white Carrara marble. MANDATORY: Carved marble fabric draping covers chest, waist and hip areas. Ancient masterpiece quality'
+    prompt: 'Transform this image into ancient Greek-Roman art. Choose between MARBLE SCULPTURE or ROMAN MOSAIC based on these STRICT RULES: 1) INDOOR 1 person → MARBLE SCULPTURE 70% / ROMAN MOSAIC 30%. 2) INDOOR 2 people → MARBLE SCULPTURE 80% / ROMAN MOSAIC 20%. 3) INDOOR 3 or more people → ALWAYS MARBLE SCULPTURE. 4) OUTDOOR 1 person → MARBLE SCULPTURE 50% / ROMAN MOSAIC 50%. 5) OUTDOOR 2 people → MARBLE SCULPTURE 50% / ROMAN MOSAIC 50%. 6) OUTDOOR 3 or more people → ALWAYS MARBLE SCULPTURE. 7) SPORTS or ATHLETIC ACTION → ALWAYS MARBLE SCULPTURE in style of Discobolus or ancient Olympic athletes. 8) LANDSCAPE with no people → ALWAYS ROMAN MOSAIC in Pompeii villa floor style. 9) PERSON with ANIMAL together → ALWAYS MARBLE SCULPTURE. 10) ANIMAL ONLY (no person) → MARBLE SCULPTURE 20% / ROMAN MOSAIC 80%. CRITICAL FOR ALL MARBLE SCULPTURES: Pure white Carrara marble, ENTIRE FIGURE INCLUDING ALL CLOTHING must be PURE WHITE MARBLE, convert ALL fabric to carved white marble drapery folds, no original clothing colors preserved, entire figure carved from single block of white Carrara marble. Carved marble fabric draping covers chest, waist and hip areas. CRITICAL FOR ALL ROMAN MOSAICS: LARGE CHUNKY TESSERAE TILES 50mm, THICK BLACK GROUT LINES clearly visible between EVERY tile, LIMITED COLORS (terracotta, ochre, umber, ivory, slate blue), Pompeii villa floor style. Ancient masterpiece quality'
   },
   
   medieval: {
@@ -2567,15 +2560,17 @@ ${hints}
 
 Instructions - PRIORITY ORDER:
 1. FIRST check: Are there ANIMALS in this photo?
-   - Dogs, cats, horses, birds, fish, any animals → ROMAN MOSAIC
-   - Historical accuracy: Romans excelled at animal mosaics (Pompeii Cave Canem)
-   - Animals = MOSAIC priority!
-2. SECOND check: Is there DYNAMIC MOVEMENT/ACTION/SPORTS in this photo?
-   - If YES → CLASSICAL SCULPTURE (even if landscape/stadium visible!)
-   - Sports, jumping, running, athletic action = SCULPTURE priority!
-3. THIRD check: Is it a STATIC photo WITH landscape/nature elements?
-   - If YES → ROMAN MOSAIC
-4. FOURTH: Portrait without landscape → CLASSICAL SCULPTURE
+   SELECTION PROBABILITY TABLE:
+   1. INDOOR 1 person → SCULPTURE 70% / MOSAIC 30%
+   2. INDOOR 2 people → SCULPTURE 80% / MOSAIC 20%
+   3. INDOOR 3+ people → ALWAYS SCULPTURE
+   4. OUTDOOR 1 person → SCULPTURE 50% / MOSAIC 50%
+   5. OUTDOOR 2 people → SCULPTURE 50% / MOSAIC 50%
+   6. OUTDOOR 3+ people → ALWAYS SCULPTURE
+   7. SPORTS/ATHLETIC → ALWAYS SCULPTURE
+   8. LANDSCAPE (no people) → ALWAYS MOSAIC
+   9. PERSON + ANIMAL → ALWAYS SCULPTURE
+   10. ANIMAL ONLY → SCULPTURE 20% / MOSAIC 80%
 5. If ROMAN MOSAIC selected, also choose the BEST MASTERWORK from the list above
 6. Follow RECOMMENDATIONS (80% weight)
 7. Preserve subject identity
