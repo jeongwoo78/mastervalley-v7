@@ -1,5 +1,6 @@
-// LoginScreen.jsx - Master Valley v79 — 22장 종형 가속 캐러셀
-// 숫자 기반 파일명, 언어별 라벨, 5사이클 프리빌드, onLoad 기반 시작
+// LoginScreen.jsx - Master Valley v80 — 22장 종형 가속 캐러셀
+// 숫자 기반 파일명, 언어별 라벨, 5사이클 프리빌드
+// 1회차 첫 4장(원본+s01~s03) 병렬 프리로드로 검은 화면 방지
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import {
   signInWithPopup,
@@ -180,16 +181,23 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
       timerRef.current = setTimeout(advance, getDelay(nextPos));
     }
 
-    // 원본 이미지 프리로드 → onLoad + 700ms 후 시작 (1회차)
-    const img = new Image();
-    img.src = allSlides[0].src;
-    img.onload = () => {
+    // 1회차 첫 4장(원본 + s01~s03) 병렬 프리로드 → 완료 후 700ms 뒤 시작
+    // 나머지 18장은 DOM에 src 등록해서 백그라운드 로드
+    setLoadedSlides(new Set(Array.from({ length: total }, (_, i) => i)));
+
+    const preloadIndices = CYCLES[0].slice(0, 4); // [0, 1, 2, 3] = original, s01, s02, s03
+    const preloadPromises = preloadIndices.map(idx => new Promise((resolve) => {
+      const img = new Image();
+      img.src = allSlides[idx].src;
+      img.onload = resolve;
+      img.onerror = resolve; // 에러여도 진행은 계속
+    }));
+
+    Promise.all(preloadPromises).then(() => {
       if (!isFirstRef.current) return;
       isFirstRef.current = false;
-      // 전체 슬라이드 로드 등록 (백그라운드)
-      setLoadedSlides(new Set(Array.from({ length: total }, (_, i) => i)));
       timerRef.current = setTimeout(advance, 700);
-    };
+    });
     // 로드 실패 대비 — 3초 후 강제 시작
     const fallback = setTimeout(() => {
       if (isFirstRef.current) {
