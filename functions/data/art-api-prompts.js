@@ -213,15 +213,6 @@ export function getControlStrength(artist, styleId, category) {
 // ═══════════════════════════════════════════════════════════════════
 
 export const ANCIENT_MEDIEVAL_PROMPTS = {
- 
- // ─────────────────────────────────────────
- // 대리석 (통합) — 84w
- // ─────────────────────────────────────────
- 'marble': {
- name: '대리석 조각',
- nameEn: 'Marble Sculpture',
- prompt: `Ancient Greek-Roman marble sculpture style. Pure white Carrara marble with smooth polished surface, carved stone texture. All elements of every subject, including animals, props, and background, rendered as marble sculpture. Subject's clothing transforms into classical draped toga or stola, covering chest, waist and hip areas. Style reference sculptures: Nike of Samothrace, Augustus of Prima Porta, Eirene, Pietà. Preserve original gender and body proportions. MONOCHROME pure white palette. White marble 85%, light grey 15%. Completely desaturated with zero color. Pure white marble tone dominates entirely with only faint natural marble grain.`
- },
 
  // ─────────────────────────────────────────
  // 로마 모자이크 (통합) — 노출 없는 안전한 참조작품만
@@ -1374,7 +1365,7 @@ export function getPrompt(key) {
 export const ARTIST_STYLES = {
  
  // 🏛️ 고대 (특수 질감)
- 'classical-sculpture': 'Subject clothing transforms into classical draped toga or stola, covering chest, waist and hip areas. Ancient Greek-Roman marble sculpture style. Pure white Carrara marble with smooth polished surface, carved stone texture.',
+ 'classical-sculpture': `Ancient Greek-Roman marble sculpture style. Pure white Carrara marble with smooth polished surface, carved stone texture. All elements of every subject, including animals, props, and background, rendered as marble sculpture. Subject's clothing transforms into classical draped toga or stola, covering chest, waist and hip areas. Style reference sculptures: Nike of Samothrace, Augustus of Prima Porta, Eirene, Pietà. Preserve original gender and body proportions. MONOCHROME pure white palette. White marble 85%, light grey 15%. Completely desaturated with zero color. Pure white marble tone dominates entirely with only faint natural marble grain.`,
  'roman-mosaic': 'Roman floor mosaic style. Large visible tesserae tiles 100mm, thick black grout lines, earth tone palette. PRESERVE ORIGINAL SKIN TONE AND FACIAL FEATURES using appropriate tile colors. Transform clothing to Roman toga or tunic with draped folds, covering chest, waist and hip areas.',
 
  // ⛪ 중세

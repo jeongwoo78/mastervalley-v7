@@ -620,6 +620,7 @@ const MasterChat = ({
           border-radius: 50%;
           object-fit: cover;
           border: 2px solid rgba(255,255,255,0.2);
+          -webkit-tap-highlight-color: transparent;
         }
 
         .master-info h3 {
@@ -666,6 +667,7 @@ const MasterChat = ({
           object-fit: cover;
           flex-shrink: 0;
           border: 1.5px solid rgba(255,255,255,0.08);
+          -webkit-tap-highlight-color: transparent;
         }
 
         .chat-message .sender {

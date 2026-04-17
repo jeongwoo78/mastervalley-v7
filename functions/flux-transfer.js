@@ -3909,11 +3909,24 @@ export default async function handler(req, res) {
         // v68 대전제 (긍정 명령어로 통일)
         // FLUX는 부정어 미지원 → 긍정형으로 변환
         // ========================================
+        // v91.1: 대리석 계열 판별 (모자이크/비잔틴 제외)
+        const isMarbleCategory = selectedArtist && (
+          selectedArtist.toUpperCase().includes('SCULPTURE') ||
+          selectedArtist.toUpperCase().includes('CLASSICAL') ||
+          selectedArtist.toUpperCase().includes('MARBLE')
+        );
+        
         let CORE_RULES_BASE;
         if (skipEthnicityPreserve) {
           // 고갱/마티스/드랭/블라맹크: 피부색 변환이 화풍이라 ethnicity 제외
           CORE_RULES_BASE = 'Clothing covers chest, waist and hip areas. ' +
             'Preserve identity, gender exactly. ' +
+            'Keep only original elements from photo.';
+        } else if (isMarbleCategory) {
+          // v91.1: 대리석 - 인종(얼굴 형태) 유지하되 피부색만 순백으로 강제
+          CORE_RULES_BASE = 'Clothing covers chest, waist and hip areas. ' +
+            'Preserve identity, gender, ethnicity exactly. ' +
+            'Render entire subject in pure white marble without any skin color. ' +
             'Keep only original elements from photo.';
         } else if (allowExtraImagery) {
           // 샤갈: 환영/꿈 이미지 허용 (원본만 규칙 제외)
@@ -4473,7 +4486,24 @@ export default async function handler(req, res) {
         
         let attractiveEnhancement;
         
-        if (subjectType === 'animal') {
+        // v91.1: 대리석 조각 전용 매력 문구 (비회화 매체 - 돌의 품격)
+        // skin/warm/glaze/complexion 표현 제거하여 MONOCHROME 프롬프트와 충돌 방지
+        const isMarbleSculpture = isNonPaintMedia && selectedArtist && (
+          selectedArtist.toUpperCase().includes('SCULPTURE') ||
+          selectedArtist.toUpperCase().includes('CLASSICAL') ||
+          selectedArtist.toUpperCase().includes('MARBLE')
+        );
+        
+        if (isMarbleSculpture) {
+          if (gender === 'female') {
+            attractiveEnhancement = ' Render with noble classical grace — idealized features chiseled with masterful craftsmanship, serene composed expression that captures timeless feminine beauty carved entirely from pure white marble.';
+          } else if (gender === 'male') {
+            attractiveEnhancement = ' Render with noble classical dignity — idealized features chiseled with masterful craftsmanship, composed authoritative expression that captures timeless masculine nobility carved entirely from pure white marble.';
+          } else {
+            attractiveEnhancement = ' Render with noble classical presence — idealized features chiseled with masterful craftsmanship, serene composed expression that captures timeless classical beauty carved entirely from pure white marble.';
+          }
+          logData.prompt.applied.marbleAttractiveness = true;
+        } else if (subjectType === 'animal') {
           // v82: 동양화 동물은 curated 프롬프트에 스타일별 매력 표현 포함됨
           if (categoryType === 'oriental') {
             attractiveEnhancement = '';
