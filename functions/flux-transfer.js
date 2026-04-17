@@ -4488,7 +4488,7 @@ export default async function handler(req, res) {
         
         // v91.1: 대리석 조각 전용 매력 문구 (비회화 매체 - 돌의 품격)
         // skin/warm/glaze/complexion 표현 제거하여 MONOCHROME 프롬프트와 충돌 방지
-        const isMarbleSculpture = isNonPaintMedia && selectedArtist && (
+        const isMarbleSculpture = selectedArtist && (
           selectedArtist.toUpperCase().includes('SCULPTURE') ||
           selectedArtist.toUpperCase().includes('CLASSICAL') ||
           selectedArtist.toUpperCase().includes('MARBLE')
