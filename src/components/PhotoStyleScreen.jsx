@@ -37,6 +37,14 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
   const [photoPreview, setPhotoPreview] = useState(null);
   const [selectedStyle, setSelectedStyle] = useState(null);
 
+  // 미니 바 sticky (풀 배너가 화면 밖으로 나가면 상단에 고정)
+  const fullBannerRefs = useRef({});
+  const [miniBarStates, setMiniBarStates] = useState({
+    movements: false,
+    masters: false,
+    oriental: false
+  });
+
   // 카테고리 스와이프
   const categoryOrder = ['movements', 'masters', 'oriental'];
   const [activeCategory, setActiveCategory] = useState(mainCategory || 'movements');
@@ -194,6 +202,35 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
     const _dir = lang === 'ar' ? 1 : -1; setTrackTransform(_dir * idx * PAGE_W_REF.current, true);
   }, [activeCategory]);
 
+  // 미니 바 IntersectionObserver: 풀 배너가 화면 밖 나가면 미니 바 노출
+  useEffect(() => {
+    const observers = {};
+    const timeoutId = setTimeout(() => {
+      ['movements', 'masters', 'oriental'].forEach(catKey => {
+        const el = fullBannerRefs.current[catKey];
+        if (!el) return;
+        const scrollRoot = el.closest('.swipe-page');
+        if (!scrollRoot) return;
+        observers[catKey] = new IntersectionObserver(
+          ([entry]) => {
+            setMiniBarStates(prev => {
+              const next = !entry.isIntersecting;
+              if (prev[catKey] === next) return prev;
+              return { ...prev, [catKey]: next };
+            });
+          },
+          { root: scrollRoot, threshold: 0 }
+        );
+        observers[catKey].observe(el);
+      });
+    }, 100);
+
+    return () => {
+      clearTimeout(timeoutId);
+      Object.values(observers).forEach(o => o?.disconnect());
+    };
+  }, []);
+
   const handlePhotoClick = () => {
     fileInputRef.current?.click();
   };
@@ -337,6 +374,30 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
     const isCircle = catKey === 'masters';
     return (
       <div className="swipe-page" key={catKey}>
+        {/* Sticky 미니 바 (풀 배너가 화면 밖 나갔을 때 상단 고정) */}
+        <div
+          className={`mini-bar ${miniBarStates[catKey] ? 'visible' : ''}`}
+          style={{
+            background: cat.gradient,
+            color: cat.color,
+            boxShadow: cat.boxShadow
+          }}
+          onClick={() => handleFullTransform(catKey)}
+        >
+          <div className="mini-row-1">
+            <span className="mini-label-inline">
+              <span className="mini-label">One-Click</span>
+              <span className="mini-pipe">|</span>
+              <span className="mini-sub">{cat.fullTransformLabel}</span>
+            </span>
+            <span className="mini-price">{cat.fullPrice}</span>
+          </div>
+          <div className="mini-row-2">
+            <span className="mini-desc">{cat.fullTransform.title}</span>
+            <span className="mini-emojis">{cat.emojis}</span>
+          </div>
+        </div>
+
         {cat.desc1 && (
           <div className="category-desc" style={{ borderLeftColor: `${cat.accent}40` }}>
             <p className="category-desc-1">{cat.desc1}</p>
@@ -344,6 +405,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
           </div>
         )}
         <button
+          ref={(el) => { fullBannerRefs.current[catKey] = el; }}
           className={`full-transform-btn ${selectedStyle?.isFullTransform && selectedStyle?.category === catKey ? 'selected' : ''}`}
           onClick={() => handleFullTransform(catKey)}
           style={{
@@ -761,6 +823,79 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
         }
         .swipe-page::-webkit-scrollbar {
           display: none;
+        }
+
+        /* Sticky 미니 바 (풀 배너 스크롤 시 상단 고정) */
+        .mini-bar {
+          position: sticky;
+          top: 0;
+          margin: 0 28px;
+          border-radius: 0 0 12px 12px;
+          z-index: 10;
+          cursor: pointer;
+          max-height: 0;
+          overflow: hidden;
+          opacity: 0;
+          padding: 0 14px;
+          transition: max-height 0.3s ease, opacity 0.25s ease, padding 0.3s ease;
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
+        }
+        .mini-bar.visible {
+          max-height: 80px;
+          padding: 9px 14px;
+          opacity: 1;
+        }
+        .mini-row-1 {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 8px;
+          width: 100%;
+        }
+        .mini-row-2 {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 8px;
+          width: 100%;
+        }
+        .mini-label-inline {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          min-width: 0;
+        }
+        .mini-label {
+          font-size: 11px;
+          font-weight: 600;
+        }
+        .mini-pipe {
+          opacity: 0.5;
+          font-size: 11px;
+        }
+        .mini-sub {
+          font-size: 11px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+        .mini-price {
+          font-size: 11px;
+          font-weight: 600;
+          flex-shrink: 0;
+        }
+        .mini-desc {
+          font-size: 9px;
+          opacity: 0.8;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+        .mini-emojis {
+          font-size: 9px;
+          flex-shrink: 0;
         }
 
         .full-transform-btn {
