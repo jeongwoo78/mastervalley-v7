@@ -59,6 +59,14 @@ const MasterChat = ({
   
   const MAX_MESSAGES = 20; // 최대 대화 횟수
 
+  // 7명 거장 아바타 프리로드 - 프로필 모달 즉시 표시용
+  useEffect(() => {
+    Object.values(MASTER_THEMES).forEach(t => {
+      const img = new Image();
+      img.src = t.avatar;
+    });
+  }, []);
+
   // v91: blob URL → base64 data URL 변환
   useEffect(() => {
     if (!transformedImageUrl) return;
@@ -375,7 +383,7 @@ const MasterChat = ({
       }}>
       {/* 헤더 (v79: 원형 아바타 이미지) */}
       <div className="master-chat-header">
-        <img className="master-avatar-img" src={theme.avatar} alt={masterName} onClick={() => setShowProfile(true)} style={{ cursor: 'pointer' }} />
+        <img className="master-avatar-img" src={theme.avatar} alt={masterName} onClick={() => setShowProfile(true)} style={{ cursor: 'pointer', backgroundColor: `${theme.primary}30` }} />
         <div className="master-info">
           <h3>{masterName}<span className="ai-tag">(AI)</span></h3>
         </div>
@@ -386,7 +394,7 @@ const MasterChat = ({
         {messages.map((msg, idx) => (
           <div key={idx} className={`chat-message ${msg.role}`}>
             {msg.role === 'master' && (
-              <img className="avatar-img-small" src={theme.avatar} alt={masterName} onClick={() => setShowProfile(true)} style={{ cursor: "pointer" }} />
+              <img className="avatar-img-small" src={theme.avatar} alt={masterName} onClick={() => setShowProfile(true)} style={{ cursor: "pointer", backgroundColor: `${theme.primary}30` }} />
             )}
             {msg.role === 'system' ? (
               <div className="system-message">
@@ -411,7 +419,7 @@ const MasterChat = ({
         {/* 타이핑 인디케이터 */}
         {isLoading && (
           <div className="chat-message master">
-            <img className="avatar-img-small" src={theme.avatar} alt={masterName} onClick={() => setShowProfile(true)} style={{ cursor: "pointer" }} />
+            <img className="avatar-img-small" src={theme.avatar} alt={masterName} onClick={() => setShowProfile(true)} style={{ cursor: "pointer", backgroundColor: `${theme.primary}30` }} />
             <div className="bubble typing" style={{ 
               background: `${theme.primary}20`,
               borderColor: `${theme.primary}40`
@@ -558,7 +566,8 @@ const MasterChat = ({
                   width: 160, height: 160,
                   borderRadius: '50%', objectFit: 'cover',
                   border: `3px solid ${theme.primary}60`,
-                  boxShadow: `0 0 24px ${theme.primary}30`
+                  boxShadow: `0 0 24px ${theme.primary}30`,
+                  backgroundColor: `${theme.primary}30`
                 }}
                 alt={masterName}
               />

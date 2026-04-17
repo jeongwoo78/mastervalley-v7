@@ -376,26 +376,36 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
       <div className="swipe-page" key={catKey}>
         {/* Sticky 미니 바 (풀 배너가 화면 밖 나갔을 때 상단 고정) */}
         <div
-          className={`mini-bar ${miniBarStates[catKey] ? 'visible' : ''}`}
+          className={`mini-bar ${miniBarStates[catKey] ? 'visible' : ''} ${selectedStyle?.isFullTransform && selectedStyle?.category === catKey ? 'selected' : ''}`}
           style={{
             background: cat.gradient,
             color: cat.color,
-            boxShadow: cat.boxShadow
+            boxShadow: selectedStyle?.isFullTransform && selectedStyle?.category === catKey
+              ? `0 0 0 2px ${cat.accent}, 0 0 12px ${cat.accent}66`
+              : cat.boxShadow
           }}
           onClick={() => handleFullTransform(catKey)}
         >
-          <div className="mini-row-1">
-            <span className="mini-label-inline">
-              <span className="mini-label">One-Click</span>
-              <span className="mini-pipe">|</span>
-              <span className="mini-sub">{cat.fullTransformLabel}</span>
-            </span>
-            <span className="mini-price">{cat.fullPrice}</span>
+          <div className="mini-content">
+            <div className="mini-row-1">
+              <span className="mini-label-inline">
+                <span className="mini-label">One-Click</span>
+                <span className="mini-pipe">|</span>
+                <span className="mini-sub">{cat.fullTransformLabel}</span>
+                {selectedStyle?.isFullTransform && selectedStyle?.category === catKey && (
+                  <span className="mini-check">✓</span>
+                )}
+              </span>
+              <span className="mini-price">{cat.fullPrice}</span>
+            </div>
+            <div className="mini-row-2">
+              <span className="mini-desc">{cat.fullTransform.title}</span>
+              <span className="mini-emojis">{cat.emojis}</span>
+            </div>
           </div>
-          <div className="mini-row-2">
-            <span className="mini-desc">{cat.fullTransform.title}</span>
-            <span className="mini-emojis">{cat.emojis}</span>
-          </div>
+          {!(selectedStyle?.isFullTransform && selectedStyle?.category === catKey) && (
+            <span className="mini-indicator">›</span>
+          )}
         </div>
 
         {cat.desc1 && (
@@ -828,7 +838,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
         /* Sticky 미니 바 (풀 배너 스크롤 시 상단 고정) */
         .mini-bar {
           position: sticky;
-          top: 8px;
+          top: 6px;
           margin: 0 28px;
           border-radius: 12px;
           z-index: 10;
@@ -838,14 +848,34 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
           opacity: 0;
           padding: 0 14px;
           transition: max-height 0.3s ease, opacity 0.25s ease, padding 0.3s ease;
+        }
+        .mini-bar.visible {
+          max-height: 90px;
+          padding: 9px 32px 9px 14px;
+          opacity: 1;
+        }
+        .mini-bar.visible.selected {
+          padding: 9px 14px;
+        }
+        .mini-content {
           display: flex;
           flex-direction: column;
           gap: 2px;
         }
-        .mini-bar.visible {
-          max-height: 80px;
-          padding: 9px 14px;
-          opacity: 1;
+        .mini-indicator {
+          position: absolute;
+          right: 10px;
+          top: 50%;
+          transform: translateY(-50%);
+          font-size: 18px;
+          font-weight: 300;
+          opacity: 0.55;
+          line-height: 1;
+        }
+        .mini-check {
+          font-size: 13px;
+          font-weight: 700;
+          margin-left: 4px;
         }
         .mini-row-1 {
           display: flex;
@@ -868,8 +898,27 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
           min-width: 0;
         }
         .mini-label {
-          font-size: 11px;
-          font-weight: 600;
+          font-family: 'Cormorant Garamond', Georgia, serif;
+          font-style: italic;
+          font-size: 14px;
+          font-weight: 700;
+          letter-spacing: 0.3px;
+          position: relative;
+          display: inline-block;
+          overflow: hidden;
+        }
+        .mini-label::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 50%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+          animation: ft-shimmer 1.5s ease-in-out infinite;
+        }
+        .mini-bar.selected .mini-label::after {
+          display: none;
         }
         .mini-pipe {
           opacity: 0.5;
@@ -887,15 +936,16 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
           flex-shrink: 0;
         }
         .mini-desc {
-          font-size: 9px;
+          font-size: 10px;
           opacity: 0.8;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
         }
         .mini-emojis {
-          font-size: 9px;
+          font-size: 14px;
           flex-shrink: 0;
+          letter-spacing: 2px;
         }
 
         .full-transform-btn {
