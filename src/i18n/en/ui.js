@@ -140,6 +140,7 @@ export const ui = {
     shareTitle: 'Master Valley Art',
     shareText: '— Master Valley',
     loadingEducation: 'Loading artwork description...',
+    loadingEducationFallback: 'The story behind this work is being prepared.',
     conversionFailedRetry: 'Conversion failed. Please tap Retry below.',
     retryAfterComplete: 'Please retry after all results are complete',
     convertedInStyle: 'This artwork was converted in {style} style.'

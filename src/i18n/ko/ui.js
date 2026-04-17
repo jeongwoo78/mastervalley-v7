@@ -140,6 +140,7 @@ export const ui = {
     shareTitle: 'Master Valley 작품',
     shareText: '— Master Valley',
     loadingEducation: '작품 설명을 생성하고 있습니다...',
+    loadingEducationFallback: '이 작품의 이야기는 곧 업데이트됩니다.',
     conversionFailedRetry: '변환에 실패하였습니다. 아래 다시 시도를 눌러주세요.',
     retryAfterComplete: '모든 결과 완료 후 재변환해주세요',
     convertedInStyle: '{style} 스타일로 변환된 작품입니다.'

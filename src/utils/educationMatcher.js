@@ -1,17 +1,20 @@
 // ========================================
 // educationMatcher.js - displayConfig 기반 교육자료 매칭
-// v72 - 2026-01-18
+// v73 - 2026-04-18 (null-safe fallback 추가)
 // ========================================
 //
 // 모든 정규화는 displayConfig.js에서 처리
 // 이 파일은 교육자료 연결만 담당
 //
 // v72: getEducationKey 3개 인자 지원, getEducationContent 카테고리별 데이터 지원
+// v73: getEducationContent null-safe fallback 추가 (화면 날아감 방지)
+//      매칭 실패 시에도 i18n fallback 메시지 반환하여 UI 유지
 //
 // ========================================
 
 import { normalizeKey, getArtistName, ALIASES } from './displayConfig.js';
 import { MASTERS } from '../data/masterData.js';
+import { getUi, getLanguage } from '../i18n';
 
 // ========================================
 // 거장 작품 매칭 헬퍼: selected_work → workKey
@@ -20,13 +23,13 @@ import { MASTERS } from '../data/masterData.js';
 
 function findWorkKey(masterKey, selectedWork) {
   if (!selectedWork || !masterKey) return null;
-  
+
   const masterStyleId = `${masterKey}-master`;
   const master = MASTERS[masterStyleId];
   if (!master?.works) return null;
-  
+
   const workLower = selectedWork.toLowerCase().trim();
-  
+
   for (const [workKey, aliases] of Object.entries(master.works)) {
     for (const alias of aliases) {
       if (alias.toLowerCase() === workLower) {
@@ -34,7 +37,7 @@ function findWorkKey(masterKey, selectedWork) {
       }
     }
   }
-  
+
   // 부분 매칭 (포함 관계)
   for (const [workKey, aliases] of Object.entries(master.works)) {
     for (const alias of aliases) {
@@ -43,12 +46,32 @@ function findWorkKey(masterKey, selectedWork) {
       }
     }
   }
-  
+
   return null;
 }
 
 // ========================================
-// 메인 함수: 교육자료 키 가져오기
+// v73: 매칭 실패 시 i18n fallback 메시지 반환
+// ========================================
+
+/**
+ * 매칭 실패 시 반환할 안전한 fallback 콘텐츠
+ * 현재 언어 ui.result.loadingEducationFallback을 사용
+ * 화면이 날아가지 않도록 빈 문자열 대신 사용자 메시지 제공
+ */
+function makeEducationFallback() {
+  try {
+    const lang = getLanguage();
+    const ui = getUi(lang);
+    return ui?.result?.loadingEducationFallback || '';
+  } catch (e) {
+    // i18n 로드 실패 시에도 안전하게
+    return '';
+  }
+}
+
+// ========================================
+// 메인 함수: 교육자료 콘텐츠 가져오기
 // ========================================
 
 /**
@@ -58,41 +81,60 @@ function findWorkKey(masterKey, selectedWork) {
  * @param {object} educationData - 교육자료 데이터 객체
  *   - 카테고리별 구조: { masters: {...}, movements: {...}, oriental: {...} }
  *   - 또는 직접 데이터: { vangogh: {...}, klimt: {...} }
+ * @returns {string} 콘텐츠 문자열 (매칭 실패 시 fallback 메시지)
  */
 export function getEducationContent(category, key, educationData) {
-  if (!educationData || !key) return null;
-  
+  // === v73: 방어적 early return (화면 날아감 방지) ===
+  if (!key) {
+    console.warn('⚠️ getEducationContent: key가 비어있음 → fallback 반환');
+    return makeEducationFallback();
+  }
+  if (!educationData) {
+    console.warn(`⚠️ getEducationContent: educationData 없음 (key=${key}) → fallback 반환`);
+    return makeEducationFallback();
+  }
+
   // 카테고리별 데이터 구조인지 확인 (ProcessingScreen, ResultScreen에서 사용하는 형태)
   let targetData = educationData;
   if (educationData[category] && typeof educationData[category] === 'object') {
     targetData = educationData[category];
   }
-  
+
   // 직접 매칭 시도
   if (targetData[key]) {
     console.log(`✅ getEducationContent: direct match for ${key}`);
     // v78: content → description → desc 순서로 fallback
-    return targetData[key].content || targetData[key].description || targetData[key].desc || null;
+    return targetData[key].content
+      || targetData[key].description
+      || targetData[key].desc
+      || makeEducationFallback();
   }
-  
+
   // ALIASES를 통한 정규화 후 재시도
   const normalizedKey = normalizeKey(key);
   if (normalizedKey !== key && targetData[normalizedKey]) {
     console.log(`✅ getEducationContent: alias match ${key} → ${normalizedKey}`);
-    return targetData[normalizedKey].content || targetData[normalizedKey].description || targetData[normalizedKey].desc || null;
+    return targetData[normalizedKey].content
+      || targetData[normalizedKey].description
+      || targetData[normalizedKey].desc
+      || makeEducationFallback();
   }
-  
+
   // 거장 작품키 fallback: 'vangogh-starrynight' → 'vangogh'
   if (category === 'masters' && key.includes('-')) {
     const masterOnly = key.split('-')[0];
     if (targetData[masterOnly]) {
       console.log(`✅ getEducationContent: master fallback ${key} → ${masterOnly}`);
-      return targetData[masterOnly].content || targetData[masterOnly].description || targetData[masterOnly].desc || null;
+      return targetData[masterOnly].content
+        || targetData[masterOnly].description
+        || targetData[masterOnly].desc
+        || makeEducationFallback();
     }
   }
-  
-  console.log(`❌ getEducationContent: no match found for key: ${key} in category: ${category}`);
-  return null;
+
+  // v73: 모든 매칭 실패 — null 대신 i18n fallback 메시지 반환
+  console.warn(`⚠️ getEducationContent: 매칭 실패 (key=${key}, category=${category}) → fallback 반환`);
+  return makeEducationFallback();
 }
 
 /**
@@ -103,7 +145,7 @@ export function getEducationContent(category, key, educationData) {
  */
 export function getMasterEducationKey(masterKey, selectedWork) {
   const normalizedMaster = normalizeKey(masterKey);
-  
+
   // 작품별 키 시도: vangogh + "The Starry Night" → "vangogh-starrynight"
   const workKey = findWorkKey(normalizedMaster, selectedWork);
   if (workKey) {
@@ -111,7 +153,7 @@ export function getMasterEducationKey(masterKey, selectedWork) {
     console.log(`🎨 getMasterEducationKey: ${normalizedMaster} + "${selectedWork}" → ${compositeKey}`);
     return compositeKey;
   }
-  
+
   // fallback: 거장 키만 반환
   console.log(`🎨 getMasterEducationKey: ${normalizedMaster} (no work match for "${selectedWork}")`);
   return normalizedMaster;
@@ -140,20 +182,20 @@ export function getOrientalEducationKey(styleId) {
  * @param {string} category - 'movements' | 'masters' | 'oriental'
  * @param {object|string} apiResponseOrArtist - API 응답 객체 또는 화가명 문자열
  * @param {string} [selectedWork] - 작품명 (문자열로 호출할 때만 사용)
- * 
+ *
  * 사용법 1 (객체): getEducationKey('masters', { aiSelectedArtist: 'vangogh', selected_work: 'The Starry Night' })
  * 사용법 2 (문자열): getEducationKey('masters', 'vangogh', 'The Starry Night')
  */
 export function getEducationKey(category, apiResponseOrArtist, selectedWork) {
   let aiSelectedArtist, selected_work, styleId, masterId;
-  
+
   // 문자열로 호출된 경우 (ProcessingScreen, ResultScreen에서 사용)
   if (typeof apiResponseOrArtist === 'string') {
     aiSelectedArtist = apiResponseOrArtist;
     selected_work = selectedWork;
     styleId = apiResponseOrArtist;
     masterId = apiResponseOrArtist;
-  } 
+  }
   // 객체로 호출된 경우
   else if (apiResponseOrArtist && typeof apiResponseOrArtist === 'object') {
     aiSelectedArtist = apiResponseOrArtist.aiSelectedArtist;
@@ -165,17 +207,17 @@ export function getEducationKey(category, apiResponseOrArtist, selectedWork) {
   else {
     return null;
   }
-  
+
   switch (category) {
     case 'masters':
       return getMasterEducationKey(masterId || aiSelectedArtist, selected_work);
-      
+
     case 'movements':
       return getMovementEducationKey(aiSelectedArtist);
-      
+
     case 'oriental':
       return getOrientalEducationKey(styleId || aiSelectedArtist);
-      
+
     default:
       return normalizeKey(aiSelectedArtist || styleId || '');
   }

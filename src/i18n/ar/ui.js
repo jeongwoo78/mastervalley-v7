@@ -141,6 +141,7 @@ export const ui = {
     shareTitle: 'عمل Master Valley',
     shareText: '— Master Valley',
     loadingEducation: 'جارٍ إنشاء وصف العمل...',
+    loadingEducationFallback: 'ستُحدَّث قصة هذا العمل قريباً.',
     conversionFailedRetry: 'فشل التحويل. يرجى الضغط على إعادة المحاولة.',
     retryAfterComplete: 'يرجى إعادة المحاولة بعد اكتمال جميع النتائج',
     convertedInStyle: 'عمل فني محوَّل إلى أسلوب {style}.'

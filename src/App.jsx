@@ -18,6 +18,7 @@ import InsufficientBalancePopup from './components/InsufficientBalancePopup';
 import { getTransformCost } from './utils/pricing';
 import { initRevenueCat } from './utils/revenueCat';
 import { initFCM, onNotificationTap } from './utils/fcm';
+import { runEducationSyncCheck } from './utils/educationSyncCheck';
 import './styles/App.css';
 
 const App = () => {
@@ -91,6 +92,11 @@ const App = () => {
   const [prefetchedGreetings, setPrefetchedGreetings] = useState({});
 
   // 앱 시작 시 저장된 언어 로드 (URL 파라미터가 있으면 우선)
+  // v73: 교육 데이터 동기화 검증 (개발 모드에서만 실행)
+  useEffect(() => {
+    runEducationSyncCheck();
+  }, []);
+
   useEffect(() => {
     const loadSavedLanguage = async () => {
       try {

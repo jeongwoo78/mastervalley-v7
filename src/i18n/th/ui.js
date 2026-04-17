@@ -141,6 +141,7 @@ export const ui = {
     shareTitle: 'Master Valley Art',
     shareText: '— Master Valley',
     loadingEducation: 'กำลังโหลดคำอธิบายผลงาน...',
+    loadingEducationFallback: 'เรื่องราวของผลงานชิ้นนี้จะได้รับการอัปเดตเร็วๆ นี้',
     conversionFailedRetry: 'การแปลงล้มเหลว กรุณาแตะลองใหม่ด้านล่าง',
     retryAfterComplete: 'กรุณาลองใหม่หลังจากผลลัพธ์ทั้งหมดเสร็จสิ้น',
     convertedInStyle: 'ผลงานนี้ถูกแปลงในสไตล์ {style}'

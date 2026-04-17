@@ -137,6 +137,7 @@ export const ui = {
     shareTitle: 'Master Valley Eseri',
     shareText: '— Master Valley',
     loadingEducation: 'Eser açıklaması oluşturuluyor...',
+    loadingEducationFallback: 'Bu eserin hikâyesi yakında güncellenecek.',
     conversionFailedRetry: 'Dönüşüm başarısız. Lütfen yeniden dene\'ye basın.',
     retryAfterComplete: 'Tüm sonuçlar tamamlandıktan sonra tekrar deneyin',
     convertedInStyle: '{style} stilinde dönüştürülmüş eser.'

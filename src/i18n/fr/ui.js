@@ -141,6 +141,7 @@ export const ui = {
     shareTitle: 'Œuvre Master Valley',
     shareText: '— Master Valley',
     loadingEducation: 'Génération de la description de l\'œuvre...',
+    loadingEducationFallback: "L'histoire de cette œuvre sera bientôt disponible.",
     conversionFailedRetry: 'La transformation a échoué. Veuillez toucher Réessayer.',
     retryAfterComplete: 'Veuillez réessayer une fois tous les résultats terminés',
     convertedInStyle: 'Œuvre transformée dans le style {style}.'

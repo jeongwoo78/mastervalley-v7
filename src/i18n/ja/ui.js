@@ -141,6 +141,7 @@ export const ui = {
     shareTitle: 'Master Valley 作品',
     shareText: '— Master Valley',
     loadingEducation: '作品の説明を生成中...',
+    loadingEducationFallback: 'この作品の物語は近日更新されます。',
     conversionFailedRetry: '変換に失敗しました。下の再試行をタップしてください。',
     retryAfterComplete: 'すべての結果完了後に再変換してください',
     convertedInStyle: '{style}スタイルに変換された作品です。'

@@ -141,6 +141,7 @@ export const ui = {
     shareTitle: 'Karya Master Valley',
     shareText: '— Master Valley',
     loadingEducation: 'Membuat deskripsi karya...',
+    loadingEducationFallback: 'Kisah di balik karya ini akan segera hadir.',
     conversionFailedRetry: 'Transformasi gagal. Silakan ketuk Coba lagi.',
     retryAfterComplete: 'Silakan coba lagi setelah semua hasil selesai',
     convertedInStyle: 'Karya yang ditransformasi ke gaya {style}.'
