@@ -828,9 +828,9 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
         /* Sticky 미니 바 (풀 배너 스크롤 시 상단 고정) */
         .mini-bar {
           position: sticky;
-          top: 0;
+          top: 8px;
           margin: 0 28px;
-          border-radius: 0 0 12px 12px;
+          border-radius: 12px;
           z-index: 10;
           cursor: pointer;
           max-height: 0;
