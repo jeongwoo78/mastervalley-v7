@@ -353,7 +353,8 @@ async function handleSingle(req, res, params) {
       resultUrl: existing.data().resultUrl,
       selectedArtist: existing.data().selectedArtist || null,
       selectedWork: existing.data().selectedWork || null,
-      duplicate: true
+      duplicate: true,
+      wasRetry: retryValidated  // v94 safety
     });
   }
   
@@ -412,7 +413,8 @@ async function handleSingle(req, res, params) {
       selectedWork: result.selectedWork || null,
       selectionMethod: result.selectionMethod || null,
       subjectType: result.subjectType || null,
-      isRetransform: result.isRetransform || false
+      isRetransform: result.isRetransform || false,
+      wasRetry: retryValidated  // v94 safety: 클라이언트가 서버 버전 확인 가능
     });
     
   } catch (error) {

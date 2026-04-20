@@ -40,6 +40,9 @@ import { getEducationKey, getEducationContent, getMasterEducationKey } from '../
 // v74: 모바일 공유/저장 유틸리티
 import { saveImage, shareImage, isNativePlatform, addWatermark } from '../utils/mobileShare';
 import ImageZoomViewer from './ImageZoomViewer';
+// v94: 수동 새로고침용 Firestore 직접 조회
+import { db } from '../config/firebase';
+import { doc, getDocFromServer } from 'firebase/firestore';
 
 
 const ResultScreen = ({ 
@@ -54,6 +57,7 @@ const ResultScreen = ({
   subjectType,
   transformId,
   fullTransformResults,
+  fullTransformIds,
   onReset,
   onBack,
   onGallery,
@@ -205,6 +209,8 @@ const ResultScreen = ({
   const [results, setResults] = useState(fullTransformResults || []);
   const [isRetrying, setIsRetrying] = useState(false);
   const [retryProgress, setRetryProgress] = useState('');
+  // v94: 슬롯별 새로고침 상태 ({ [idx]: boolean })
+  const [refreshingSlots, setRefreshingSlots] = useState({});
   
   // fullTransformResults가 변경되면 results도 업데이트
   useEffect(() => {
@@ -432,6 +438,87 @@ const ResultScreen = ({
   };
 
 
+  // ========== v94: 원클릭 슬롯 수동 새로고침 ==========
+  const handleRefreshSlot = async (idx) => {
+    if (refreshingSlots[idx]) return;  // 이미 진행 중
+    
+    const tid = fullTransformIds?.[idx];
+    if (!tid) {
+      console.warn(`[v94] refresh[${idx}] transformId 없음`);
+      return;
+    }
+    
+    setRefreshingSlots(prev => ({ ...prev, [idx]: true }));
+    
+    try {
+      console.log(`[v94] refresh[${idx}] Firestore 조회: ${tid}`);
+      const snap = await getDocFromServer(doc(db, 'transforms', tid));
+      
+      if (!snap.exists()) {
+        console.warn(`[v94] refresh[${idx}] 문서 없음`);
+        alert(t.refreshFailed || 'Could not load result');
+        return;
+      }
+      
+      const data = snap.data();
+      if (data.status === 'completed' && data.resultUrl) {
+        const imageResponse = await fetch(data.resultUrl);
+        const blob = await imageResponse.blob();
+        const localUrl = URL.createObjectURL(blob);
+        
+        const slotStyle = results[idx]?.style || fullTransformResults?.[idx]?.style;
+        const recovered = {
+          style: slotStyle,
+          resultUrl: localUrl,
+          remoteUrl: data.resultUrl,
+          transformId: tid,
+          aiSelectedArtist: data.selectedArtist || null,
+          selected_work: data.selectedWork || null,
+          subjectType: data.subjectType || null,
+          success: true
+        };
+        
+        setResults(prev => {
+          const next = [...prev];
+          next[idx] = recovered;
+          return next;
+        });
+        
+        // 갤러리 저장
+        try {
+          await saveToGallery(localUrl, {
+            category: slotStyle?.category || selectedStyle?.category,
+            artistName: data.selectedArtist || slotStyle?.name || 'Converted Image',
+            movementName: slotStyle?.name || selectedStyle?.name || '',
+            workName: data.selectedWork || null,
+            styleId: slotStyle?.id || selectedStyle?.id || '',
+            isRetransform: false,
+            transformId: tid,
+            styleIndex: idx
+          });
+          console.log(`[v94] refresh[${idx}] 갤러리 저장 완료`);
+        } catch (saveErr) {
+          console.warn(`[v94] refresh[${idx}] 갤러리 저장 실패:`, saveErr.message);
+        }
+        
+        console.log(`[v94] refresh[${idx}] 성공: ${data.selectedArtist}`);
+      } else if (data.status === 'failed') {
+        console.warn(`[v94] refresh[${idx}] 서버 실패 확정`);
+        alert(t.refreshFailed || 'Could not load result');
+      } else {
+        // 아직 processing — 잠시 후 다시 시도 안내
+        console.log(`[v94] refresh[${idx}] 아직 processing`);
+        alert(t.refreshInProgress || 'Still processing. Please try again in a moment.');
+      }
+    } catch (e) {
+      console.error(`[v94] refresh[${idx}] 에러:`, e);
+      alert(t.refreshFailed || 'Could not load result');
+    } finally {
+      setRefreshingSlots(prev => ({ ...prev, [idx]: false }));
+    }
+  };
+
+
   // ========== 갤러리 자동 저장 ==========
   useEffect(() => {
     // 원클릭은 별도 저장 로직
@@ -507,36 +594,64 @@ const ResultScreen = ({
   const handleRetry = async () => {
     if (!originalPhoto || isRetrying) return;
     
-    // v82: 전체 재변환 (실패분만이 아니라 전부)
-    const allResults = results;
-    if (allResults.length === 0) return;
+    // v94: 실패분만 필터링 (success === false)
+    const failedTargets = results
+      .map((r, idx) => ({ result: r, idx }))
+      .filter(({ result }) => result && result.success === false);
     
+    if (failedTargets.length === 0) return;
+    
+    console.log(`[v94 retry] 시작: ${failedTargets.length}개 실패분 재시도`);
     setIsRetrying(true);
     
     let successCount = 0;
-    let updatedResults = [...results];  // 업데이트된 결과 추적용
+    let skippedCount = 0;
+    let failCount = 0;
+    let limitExceeded = false;
+    let serverVersionError = false;  // 서버 구버전 감지
+    let unauthorizedError = false;   // 어뷰징 감지
+    let updatedResults = [...results];
     
-    for (let i = 0; i < allResults.length; i++) {
-      const target = allResults[i];
-      const targetIndex = i;
-      
+    for (const { result: target, idx: targetIndex } of failedTargets) {
       setRetryProgress(t.retrying);
+      
+      // ===== 안전장치 #1: originalTransformId 사전 검증 =====
+      const originalTid = target.transformId || fullTransformIds?.[targetIndex] || null;
+      
+      if (!originalTid) {
+        console.warn(`[v94 retry] 슬롯 ${targetIndex}: originalTransformId 없음 → 스킵`);
+        skippedCount++;
+        continue;
+      }
+      
+      console.log(`[v94 retry] 슬롯 ${targetIndex}: isRetry=true, originalTid=${originalTid}`);
       
       try {
         const result = await processStyleTransfer(
           originalPhoto,
           target.style,
           null,
-          () => {}  // 진행 콜백 불필요
+          () => {},
+          {},
+          lang,
+          { isRetry: true, originalTransformId: originalTid }
         );
         
+        // ===== 안전장치 #2: 서버 wasRetry 응답 검증 (구버전 서버 감지) =====
+        if (result.success && result.wasRetry !== true) {
+          console.error(`[v94 retry] ⚠️ 심각: 슬롯 ${targetIndex} 재시도 요청했는데 wasRetry=${result.wasRetry}. 서버 구버전 가능성! 크레딧 차감 의심`);
+          serverVersionError = true;
+          failCount++;
+          break;  // 즉시 중단 (추가 차감 방지)
+        }
+        
         if (result.success) {
-          // 성공하면 해당 인덱스 결과 업데이트
           const newResult = {
             style: target.style,
             resultUrl: result.resultUrl,
             aiSelectedArtist: result.aiSelectedArtist,
             selected_work: result.selected_work,
+            transformId: result.transformId || null,
             success: true
           };
           
@@ -546,10 +661,11 @@ const ResultScreen = ({
             return newResults;
           });
           
-          updatedResults[targetIndex] = newResult;  // 로컬 추적용도 업데이트
+          updatedResults[targetIndex] = newResult;
           successCount++;
+          console.log(`[v94 retry] 슬롯 ${targetIndex}: ✅ 성공 (wasRetry 확인됨)`);
           
-          // 갤러리에 저장 - i18n 원본 키 저장
+          // 갤러리에 저장
           const category = target.style?.category;
           const rawName = result.aiSelectedArtist || target.style?.name || 'Converted Image';
           const workName = result.selected_work || null;
@@ -563,24 +679,53 @@ const ResultScreen = ({
             transformId: result.transformId || null,
             styleIndex: targetIndex
           });
-          hasSavedRef.current = true;  // useEffect 이중 저장 방지
+          hasSavedRef.current = true;
+        } else {
+          // ===== 안전장치 #5: HTTP 에러 구분 처리 =====
+          const errMsg = result.error || '';
+          
+          if (errMsg.includes('Retry limit exceeded')) {
+            console.warn(`[v94 retry] 슬롯 ${targetIndex}: 429 한도 초과`);
+            limitExceeded = true;
+            break;
+          } else if (errMsg.includes('Unauthorized retry')) {
+            console.error(`[v94 retry] 슬롯 ${targetIndex}: 403 어뷰징 차단`);
+            unauthorizedError = true;
+            break;
+          } else if (errMsg.includes('Original transform not found') || errMsg.includes('isRetry requires')) {
+            console.warn(`[v94 retry] 슬롯 ${targetIndex}: 400 검증 실패 - ${errMsg}`);
+            failCount++;
+          } else {
+            console.warn(`[v94 retry] 슬롯 ${targetIndex}: 실패 - ${errMsg}`);
+            failCount++;
+          }
         }
       } catch (error) {
-        console.error(`❌ 재변환 에러: ${target.style?.name}`, error);
+        console.error(`[v94 retry] 슬롯 ${targetIndex}: 예외 발생`, error);
+        failCount++;
       }
     }
     
     setIsRetrying(false);
     setRetryProgress('');
     
-    if (successCount > 0) {
-      // App.jsx 상태도 업데이트 (갤러리 이동 후에도 유지)
+    console.log(`[v94 retry] 결과: 성공 ${successCount}, 스킵 ${skippedCount}, 실패 ${failCount}, 한도초과 ${limitExceeded}`);
+    
+    // ===== 결과별 알림 =====
+    if (serverVersionError) {
+      alert(t.retryServerError || 'Retry failed due to server error. Please contact support.');
+    } else if (unauthorizedError) {
+      alert(t.retryUnauthorized || 'Retry not authorized.');
+    } else if (limitExceeded) {
+      alert(t.retryLimitExceeded || 'Retry limit exceeded (max 3)');
+    } else if (successCount > 0) {
       if (onRetrySuccess) {
         onRetrySuccess({ isFullTransform: true, results: updatedResults });
       }
       alert(t.retrySuccess);
+    } else if (skippedCount > 0 || failCount > 0) {
+      alert(t.retryFailed || 'Retry failed');
     }
-    // 실패 시 alert 없이 자연스럽게 UI로 복귀
   };
 
   // ========== 단독변환 다시 시도 함수 ==========
@@ -1309,6 +1454,50 @@ const ResultScreen = ({
           </div>
         )}
 
+        {/* v94: 원클릭 null 슬라이드 → 새로고침 버튼 */}
+        {isFullTransform && viewIndex >= 0 && results[viewIndex] === null && fullTransformIds?.[viewIndex] && (
+          <div className="oneclick-result-section">
+            <div className="oneclick-image" style={{ aspectRatio: '3/4', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              {refreshingSlots[viewIndex] ? (
+                <div style={{ textAlign: 'center' }}>
+                  <div className="spinner-medium"></div>
+                  <p style={{ color: 'rgba(255,255,255,0.6)', marginTop: '12px', fontSize: '14px' }}>
+                    {t.refreshing || 'Loading...'}
+                  </p>
+                </div>
+              ) : (
+                <div style={{ textAlign: 'center' }}>
+                  <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                    <circle cx="8.5" cy="8.5" r="1.5"/>
+                    <polyline points="21 15 16 10 5 21"/>
+                  </svg>
+                  <p style={{ marginTop: '12px', color: 'rgba(255,255,255,0.5)', fontSize: '13px' }}>
+                    {t.refreshFailed || 'Could not load result'}
+                  </p>
+                  <button
+                    onClick={() => handleRefreshSlot(viewIndex)}
+                    style={{
+                      marginTop: '14px', padding: '10px 20px',
+                      background: '#3b82f6', color: '#fff',
+                      border: 'none', borderRadius: '8px',
+                      fontSize: '14px', fontWeight: 500, cursor: 'pointer',
+                      display: 'inline-flex', alignItems: 'center', gap: '6px'
+                    }}
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="23 4 23 10 17 10"/>
+                      <polyline points="1 20 1 14 7 14"/>
+                      <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+                    </svg>
+                    {t.refreshButton || 'Refresh'}
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
         {/* 원클릭: viewIndex >= 0 → 실패 시 (재시도 중이면 스피너, 아니면 빈 영역) */}
         {isFullTransform && viewIndex >= 0 && results[viewIndex] && !results[viewIndex].success && (
           <div className="oneclick-result-section">
@@ -1329,10 +1518,15 @@ const ResultScreen = ({
                   <button 
                     className="btn-retry-inline"
                     onClick={handleRetry}
-                    style={{ marginTop: '12px' }}
+                    disabled={isRetrying}
+                    style={{ 
+                      marginTop: '12px',
+                      opacity: isRetrying ? 0.5 : 1,
+                      cursor: isRetrying ? 'not-allowed' : 'pointer'
+                    }}
                   >
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
-                    {t.retryAll || t.retry}
+                    {t.retry}
                   </button>
                 </div>
               )}

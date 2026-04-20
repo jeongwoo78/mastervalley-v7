@@ -69,7 +69,7 @@ const ProcessingScreen = ({ photo, originalPhotoUrl, selectedStyle, onComplete, 
       }, 3000);
       
       try {
-        const results = await processFullTransform(
+        const { results, transformIds } = await processFullTransform(
           photo,
           styles,
           selectedStyle,
@@ -124,7 +124,7 @@ const ProcessingScreen = ({ photo, originalPhotoUrl, selectedStyle, onComplete, 
         
         await sleep(1000);
         
-        onComplete(selectedStyle, results, { isFullTransform: true, category, results });
+        onComplete(selectedStyle, results, { isFullTransform: true, category, results, transformIds });
         
       } catch (error) {
         console.error('원클릭 변환 에러:', error);

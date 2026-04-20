@@ -88,7 +88,7 @@ const generateId = () => {
 // (HTTP fire-and-forget + Firestore 리스닝, 백그라운드 복귀에도 안전)
 // ========================================
 
-export const processStyleTransfer = async (photoFile, selectedStyle, correctionPrompt = null, onProgress = null, fcmOptions = {}, lang = 'en') => {
+export const processStyleTransfer = async (photoFile, selectedStyle, correctionPrompt = null, onProgress = null, fcmOptions = {}, lang = 'en', retryOptions = {}) => {
   try {
     const resizedPhoto = await resizeImage(photoFile, 1024);
     const photoBase64 = await fileToBase64(resizedPhoto);
@@ -196,7 +196,10 @@ export const processStyleTransfer = async (photoFile, selectedStyle, correctionP
           correctionPrompt: correctionPrompt || null,
           transformId,
           lang,
-          fcmToken: fcmOptions.skipFcm ? null : (getFCMToken() || null)
+          fcmToken: fcmOptions.skipFcm ? null : (getFCMToken() || null),
+          // v94: 재시도 플래그 (서버가 크레딧 차감 스킵)
+          isRetry: !!retryOptions.isRetry,
+          originalTransformId: retryOptions.originalTransformId || null
         })
       }).catch(err => {
         console.error('HTTP 전송 에러:', err);
@@ -239,7 +242,7 @@ export const processFullTransform = async (photoFile, styles, selectedStyle, onP
       const timeoutId = setTimeout(() => {
         cleanup();
         console.warn(`⏰ 원클릭 타임아웃: ${completedCount}/${transformIds.length}`);
-        resolve(results);
+        resolve({ results, transformIds });
       }, 600000);
       
       const cleanup = () => {
@@ -251,7 +254,7 @@ export const processFullTransform = async (photoFile, styles, selectedStyle, onP
       const checkAllDone = () => {
         if (completedCount >= transformIds.length) {
           cleanup();
-          resolve(results);
+          resolve({ results, transformIds });
         }
       };
       
