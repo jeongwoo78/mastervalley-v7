@@ -120,6 +120,7 @@ export const ui = {
     retrying: 'Nouvel essai...',
     conversionFailed: 'La transformation a échoué.',
     aiRetrying: 'Le maître retouche l\'œuvre...',
+    recoveringResult: 'Récupération du résultat...',
     noImageToSave: 'Aucune image à enregistrer.',
     savedToGallery: 'Enregistré dans la galerie !',
     saved: 'Enregistré !',

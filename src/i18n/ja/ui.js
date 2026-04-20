@@ -120,6 +120,7 @@ export const ui = {
     retrying: '再試行中...',
     conversionFailed: '変換に失敗しました。',
     aiRetrying: '巨匠が再び作業中です...',
+    recoveringResult: '結果を読み込んでいます...',
     noImageToSave: '保存する画像がありません。',
     savedToGallery: 'ギャラリーに保存されました！',
     saved: '保存されました！',

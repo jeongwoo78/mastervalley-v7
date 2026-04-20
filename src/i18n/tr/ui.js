@@ -116,6 +116,7 @@ export const ui = {
     retrying: 'Yeniden deneniyor...',
     conversionFailed: 'Dönüşüm başarısız.',
     aiRetrying: 'Usta yeniden yaratıyor...',
+    recoveringResult: 'Sonuç kurtarılıyor...',
     noImageToSave: 'Kaydedilecek görsel yok.',
     savedToGallery: 'Galeriye kaydedildi!',
     saved: 'Kaydedildi!',

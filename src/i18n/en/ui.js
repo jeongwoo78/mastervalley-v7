@@ -119,6 +119,7 @@ export const ui = {
     retrying: 'Retrying...',
     conversionFailed: 'Operation failed.',
     aiRetrying: 'The master is retrying...',
+    recoveringResult: 'Recovering result...',
     noImageToSave: 'No image to save.',
     savedToGallery: 'Saved to Gallery!',
     saved: 'Saved!',

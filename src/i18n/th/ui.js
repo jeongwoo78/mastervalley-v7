@@ -120,6 +120,7 @@ export const ui = {
     retrying: 'กำลังลองใหม่...',
     conversionFailed: 'การแปลงล้มเหลว',
     aiRetrying: 'ปรมาจารย์กำลังลองใหม่...',
+    recoveringResult: 'กำลังกู้คืนผลลัพธ์...',
     noImageToSave: 'ไม่มีรูปภาพให้บันทึก',
     savedToGallery: 'บันทึกไปยังแกลเลอรีแล้ว!',
     saved: 'บันทึกแล้ว!',

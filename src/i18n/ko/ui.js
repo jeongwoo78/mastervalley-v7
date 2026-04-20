@@ -119,6 +119,7 @@ export const ui = {
     retrying: '다시 시도 중...',
     conversionFailed: '작업에 실패하였습니다.',
     aiRetrying: '거장이 다시 작업 중입니다...',
+    recoveringResult: '결과를 불러오는 중입니다...',
     noImageToSave: '저장할 이미지가 없습니다.',
     savedToGallery: '갤러리에 저장되었습니다!',
     saved: '저장되었습니다!',

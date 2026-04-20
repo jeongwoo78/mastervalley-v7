@@ -231,7 +231,13 @@ export const processFullTransform = async (photoFile, styles, selectedStyle, onP
     const authToken = await getAuthToken();
     
     return new Promise((resolve, reject) => {
-      const results = new Array(transformIds.length).fill(null);
+      // v93: null 대신 pending 객체로 초기화 → ResultScreen이 transformId 접근 가능
+      const results = transformIds.map((tid, idx) => ({
+        style: styles[idx],
+        transformId: tid,
+        success: null,    // null=진행중, true=성공, false=실패
+        pending: true
+      }));
       let completedCount = 0;
       const unsubscribes = [];
       let pollIntervalId = null;
@@ -257,7 +263,7 @@ export const processFullTransform = async (photoFile, styles, selectedStyle, onP
       
       // 결과 처리 헬퍼 (onSnapshot + fallback polling 공용)
       const processResult = async (idx, tid, data) => {
-        if (results[idx] !== null) return; // 이미 처리됨
+        if (!results[idx]?.pending) return; // v93: 이미 처리됨 (pending=false)
         
         if (data.status === 'completed' && data.resultUrl) {
           try {
@@ -275,7 +281,8 @@ export const processFullTransform = async (photoFile, styles, selectedStyle, onP
               selected_work: data.selectedWork || null,
               selectionMethod: data.selectionMethod || null,
               subjectType: data.subjectType || null,
-              success: true
+              success: true,
+              pending: false
             };
           } catch (dlErr) {
             console.error(`❌ Image download failed: ${tid}`, dlErr);
@@ -283,7 +290,8 @@ export const processFullTransform = async (photoFile, styles, selectedStyle, onP
               style: styles[idx],
               transformId: tid,
               error: 'Image download failed',
-              success: false
+              success: false,
+              pending: false
             };
           }
         } else if (data.status === 'failed') {
@@ -291,7 +299,8 @@ export const processFullTransform = async (photoFile, styles, selectedStyle, onP
             style: styles[idx],
             transformId: tid,
             error: data.error || 'Transform failed',
-            success: false
+            success: false,
+            pending: false
           };
         } else {
           return; // 아직 진행 중
@@ -318,12 +327,13 @@ export const processFullTransform = async (photoFile, styles, selectedStyle, onP
           await processResult(idx, tid, snapshot.data());
         }, (error) => {
           console.error(`❌ Firestore listener error: ${tid}`, error);
-          if (results[idx] === null) {
+          if (results[idx]?.pending) {  // v93
             results[idx] = {
               style: styles[idx],
               transformId: tid,
               error: error.message,
-              success: false
+              success: false,
+              pending: false
             };
             completedCount++;
             checkAllDone();
@@ -337,7 +347,7 @@ export const processFullTransform = async (photoFile, styles, selectedStyle, onP
       pollIntervalId = setInterval(async () => {
         const pending = transformIds
           .map((tid, idx) => ({ tid, idx }))
-          .filter(({ idx }) => results[idx] === null);
+          .filter(({ idx }) => results[idx]?.pending === true);  // v93
         
         if (pending.length === 0) return;
         

@@ -40,6 +40,9 @@ import { getEducationKey, getEducationContent, getMasterEducationKey } from '../
 // v74: 모바일 공유/저장 유틸리티
 import { saveImage, shareImage, isNativePlatform, addWatermark } from '../utils/mobileShare';
 import ImageZoomViewer from './ImageZoomViewer';
+// v93: null 복구용 Firestore 직접 조회
+import { db } from '../config/firebase';
+import { doc, getDocFromServer } from 'firebase/firestore';
 
 
 const ResultScreen = ({ 
@@ -431,13 +434,87 @@ const ResultScreen = ({
   };
 
 
+  // ========== v93: 마운트 시 pending 결과 Firestore 재조회 (onSnapshot 유실 대비) ==========
+  useEffect(() => {
+    if (!isFullTransform || !fullTransformResults || fullTransformResults.length === 0) return;
+    
+    const pendingIndices = fullTransformResults
+      .map((r, i) => (r?.pending === true || r === null) ? i : -1)
+      .filter(i => i >= 0);
+    
+    if (pendingIndices.length === 0) return;
+    
+    console.log(`⚠️ [v93] pending 결과 ${pendingIndices.length}건 감지 → Firestore 재조회`);
+    
+    pendingIndices.forEach(async (idx) => {
+      const slot = fullTransformResults[idx];
+      const tid = slot?.transformId;
+      if (!tid) {
+        console.warn(`[v93] pending[${idx}] transformId 없음 — 복구 불가`);
+        return;
+      }
+      
+      try {
+        const snap = await getDocFromServer(doc(db, 'transforms', tid));
+        if (!snap.exists()) {
+          console.warn(`[v93] pending[${idx}] Firestore 문서 없음: ${tid}`);
+          return;
+        }
+        
+        const data = snap.data();
+        if (data.status === 'completed' && data.resultUrl) {
+          const imageResponse = await fetch(data.resultUrl);
+          const blob = await imageResponse.blob();
+          const localUrl = URL.createObjectURL(blob);
+          
+          const recoveredResult = {
+            style: slot.style,
+            resultUrl: localUrl,
+            blob,
+            remoteUrl: data.resultUrl,
+            transformId: tid,
+            aiSelectedArtist: data.selectedArtist || null,
+            selected_work: data.selectedWork || null,
+            subjectType: data.subjectType || null,
+            success: true,
+            pending: false
+          };
+          
+          setResults(prev => {
+            const next = [...prev];
+            next[idx] = recoveredResult;
+            return next;
+          });
+          
+          console.log(`✅ [v93] pending[${idx}] 복구 성공: ${data.selectedArtist}`);
+        } else if (data.status === 'failed') {
+          setResults(prev => {
+            const next = [...prev];
+            next[idx] = {
+              ...slot,
+              error: data.error || 'Transform failed',
+              success: false,
+              pending: false
+            };
+            return next;
+          });
+          console.log(`❌ [v93] pending[${idx}] 실패 확정: ${data.error}`);
+        }
+      } catch (e) {
+        console.warn(`[v93] pending[${idx}] 재조회 에러:`, e.message);
+      }
+    });
+  }, []);  // 마운트 시 1회만
+
+
   // ========== 갤러리 자동 저장 ==========
   useEffect(() => {
     // 원클릭은 별도 저장 로직
     if (isFullTransform) {
-      // v86: 전체 결과 완료 후에만 저장 (점진적 업데이트 시 중복 방지)
-      const completedResults = fullTransformResults.filter(r => r !== null);
-      if (completedResults.length === 0 || completedResults.length < fullTransformResults.length) return;
+      // v93: pending이 있어도 성공한 것은 즉시 저장 (pending은 복구 후 별도 저장)
+      // saveToGallery의 transformId 중복 체크가 이중 저장 방지
+      const completedResults = fullTransformResults.filter(r => r?.success === true);
+      if (completedResults.length === 0) return;
       
       // 모든 Save result
       const saveAllResults = async () => {
@@ -1308,8 +1385,22 @@ const ResultScreen = ({
           </div>
         )}
 
+        {/* v93: pending/null 상태 → 복구 중 UI 표시 (빈 화면 방지) */}
+        {isFullTransform && viewIndex >= 0 && (results[viewIndex]?.pending === true || results[viewIndex] === null) && (
+          <div className="oneclick-result-section">
+            <div className="oneclick-image" style={{ aspectRatio: '3/4', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div style={{ textAlign: 'center' }}>
+                <div className="spinner-medium"></div>
+                <p style={{ color: 'rgba(255,255,255,0.6)', marginTop: '12px', fontSize: '14px' }}>
+                  {t.recoveringResult || 'Recovering result...'}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* 원클릭: viewIndex >= 0 → 실패 시 (재시도 중이면 스피너, 아니면 빈 영역) */}
-        {isFullTransform && viewIndex >= 0 && results[viewIndex] && !results[viewIndex].success && (
+        {isFullTransform && viewIndex >= 0 && results[viewIndex] && results[viewIndex].success === false && (
           <div className="oneclick-result-section">
             <div className="oneclick-image" style={{ aspectRatio: '3/4', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               {isRetrying ? (

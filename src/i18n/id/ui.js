@@ -120,6 +120,7 @@ export const ui = {
     retrying: 'Mencoba lagi...',
     conversionFailed: 'Transformasi gagal.',
     aiRetrying: 'Maestro sedang mengerjakan ulang...',
+    recoveringResult: 'Memulihkan hasil...',
     noImageToSave: 'Tidak ada gambar untuk disimpan.',
     savedToGallery: 'Tersimpan di galeri!',
     saved: 'Tersimpan!',

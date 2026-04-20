@@ -116,6 +116,7 @@ export const ui = {
     retrying: 'A tentar novamente...',
     conversionFailed: 'Conversão falhou.',
     aiRetrying: 'O mestre está a recriar...',
+    recoveringResult: 'Recuperando resultado...',
     noImageToSave: 'Sem imagem para guardar.',
     savedToGallery: 'Guardado na galeria!',
     saved: 'Guardado!',

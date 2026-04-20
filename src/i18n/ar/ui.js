@@ -120,6 +120,7 @@ export const ui = {
     retrying: 'جارٍ إعادة المحاولة...',
     conversionFailed: 'فشل التحويل.',
     aiRetrying: 'الأستاذ يعيد العمل...',
+    recoveringResult: 'جاري استرداد النتيجة...',
     noImageToSave: 'لا توجد صورة للحفظ.',
     savedToGallery: 'تم الحفظ في المعرض!',
     saved: 'تم الحفظ!',

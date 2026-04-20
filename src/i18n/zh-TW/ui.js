@@ -120,6 +120,7 @@ export const ui = {
     retrying: '重試中...',
     conversionFailed: '轉換失敗。',
     aiRetrying: '大師正在重新創作中...',
+    recoveringResult: '正在恢復結果...',
     noImageToSave: '沒有可儲存的圖片。',
     savedToGallery: '已儲存至相簿！',
     saved: '已儲存！',
