@@ -59,6 +59,10 @@ const App = () => {
   const [userCredits, setUserCredits] = useState(0);
   const [creditsLoaded, setCreditsLoaded] = useState(false);
   
+  // v96: UI 표시용 잔액 (환불로 마이너스가 된 경우 $0.00으로 숨김)
+  // 내부 로직(userCredits < cost 체크 등)은 원본 userCredits 사용 (마이너스면 자동 차단)
+  const displayCredits = Math.max(0, userCredits);
+  
   // 잔액 부족 팝업
   const [showInsufficientPopup, setShowInsufficientPopup] = useState(false);
   const [requiredAmount, setRequiredAmount] = useState(0);
@@ -659,7 +663,7 @@ const App = () => {
       {showInsufficientPopup && (
         <InsufficientBalancePopup
           requiredAmount={requiredAmount}
-          currentBalance={userCredits}
+          currentBalance={displayCredits}
           onAddFunds={() => {
             setShowInsufficientPopup(false);
             setCurrentScreen('addFunds');
@@ -694,7 +698,7 @@ const App = () => {
               onGallery={() => setShowGallery(true)}
               onMenu={handleGoToMenu}
               onAddFunds={handleGoToAddFunds}
-              userCredits={userCredits}
+              userCredits={displayCredits}
               creditsLoaded={creditsLoaded}
               lang={lang}
             />
@@ -703,7 +707,7 @@ const App = () => {
           {currentScreen === 'addFunds' && (
             <AddFundsScreen
               onBack={() => setCurrentScreen('category')}
-              userCredits={userCredits}
+              userCredits={displayCredits}
               userId={user?.uid}
               onPurchaseComplete={() => {
                 // 잔액은 Firestore onSnapshot이 자동 반영
@@ -733,7 +737,7 @@ const App = () => {
               onSelect={handlePhotoStyleSelect}
               onMenu={handleGoToMenu}
               onAddFunds={handleGoToAddFunds}
-              userCredits={userCredits}
+              userCredits={displayCredits}
               creditsLoaded={creditsLoaded}
               lang={lang}
             />
@@ -785,7 +789,7 @@ const App = () => {
               retransformingMasters={retransformingMasters}
               onRetransformingMastersChange={setRetransformingMasters}
               userId={user?.uid}
-              userCredits={userCredits}
+              userCredits={displayCredits}
               onInsufficientBalance={(cost) => {
                 setRequiredAmount(cost);
                 setShowInsufficientPopup(true);
