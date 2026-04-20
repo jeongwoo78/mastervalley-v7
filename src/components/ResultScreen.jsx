@@ -182,7 +182,7 @@ const ResultScreen = ({
     // 원클릭: 카테고리 전체 소개
     if (isFullTransform) {
       if (category === 'movements') {
-        return { ...oneclickMovementsPrimary, title: 'Traversing 2,500 Years of Western Art' };
+        return oneclickMovementsPrimary;
       } else if (category === 'masters') {
         return oneclickMastersPrimary;
       } else if (category === 'oriental') {
