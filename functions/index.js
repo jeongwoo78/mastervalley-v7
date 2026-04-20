@@ -246,7 +246,9 @@ async function handleRequest(req, res) {
       lang,
       transformId: clientTransformId,
       sessionId: clientSessionId,
-      transformIds: clientTransformIds
+      transformIds: clientTransformIds,
+      isRetry,                    // v94: 실패 재시도 플래그 (크레딧 차감 스킵)
+      originalTransformId         // v94: 재시도 대상 원본 transformId (검증용)
     } = req.body;
     
     if (!image) {
@@ -265,7 +267,9 @@ async function handleRequest(req, res) {
     return await handleSingle(req, res, {
       image, selectedStyle, correctionPrompt,
       userId, fcmToken, lang: lang || 'en',
-      transformId: clientTransformId
+      transformId: clientTransformId,
+      isRetry: !!isRetry,
+      originalTransformId: originalTransformId || null
     });
     
   } catch (error) {
@@ -292,11 +296,49 @@ export const startTransform = onRequest({
 async function handleSingle(req, res, params) {
   const {
     image, selectedStyle, correctionPrompt,
-    userId, fcmToken, lang, transformId
+    userId, fcmToken, lang, transformId,
+    isRetry = false,
+    originalTransformId = null
   } = params;
   
   if (!selectedStyle || !selectedStyle.name || !selectedStyle.category) {
     return res.status(400).json({ error: 'Invalid style' });
+  }
+  
+  // v94: 재시도 요청 검증 (어뷰징 방어)
+  let retryValidated = false;
+  if (isRetry) {
+    if (!originalTransformId) {
+      return res.status(400).json({ error: 'isRetry requires originalTransformId' });
+    }
+    try {
+      const origRef = db.collection('transforms').doc(originalTransformId);
+      const origSnap = await origRef.get();
+      if (!origSnap.exists) {
+        return res.status(400).json({ error: 'Original transform not found' });
+      }
+      const origData = origSnap.data();
+      if (origData.userId !== userId) {
+        console.warn(`⚠️ Retry 어뷰징 시도: ${userId}가 ${origData.userId}의 transformId 접근`);
+        return res.status(403).json({ error: 'Unauthorized retry' });
+      }
+      // 재시도 카운터 (서버측 이중 방어)
+      const retryCount = origData.retryCount || 0;
+      if (retryCount >= 3) {
+        return res.status(429).json({ error: 'Retry limit exceeded (max 3)' });
+      }
+      // 원본 상태 확인: failed 이거나 completed인데 클라이언트가 실패로 간주한 경우 모두 허용
+      // (NSFW 왜곡 등 서버는 성공이지만 실제로는 실패한 케이스 대응)
+      await origRef.update({
+        retryCount: retryCount + 1,
+        lastRetryAt: FieldValue.serverTimestamp()
+      });
+      retryValidated = true;
+      console.log(`🔁 재시도 승인: ${userId} | 원본 ${originalTransformId} (${retryCount + 1}/3)`);
+    } catch (e) {
+      console.error('Retry 검증 실패:', e);
+      return res.status(500).json({ error: 'Retry validation failed' });
+    }
   }
   
   const docRef = db.collection('transforms').doc(transformId);
@@ -332,9 +374,13 @@ async function handleSingle(req, res, params) {
     
     console.log(`✅ 단일 변환 완료: ${transformId} | ${result.selectedArtist || '재변환'}`);
     
-    // 💰 서버 크레딧 차감
-    const cost = getTransformCost(selectedStyle, result.isRetransform);
-    await deductCredit(userId, transformId, cost);
+    // 💰 서버 크레딧 차감 (v94: 재시도는 무료)
+    if (!retryValidated) {
+      const cost = getTransformCost(selectedStyle, result.isRetransform);
+      await deductCredit(userId, transformId, cost);
+    } else {
+      console.log(`💰 재시도로 크레딧 차감 스킵: ${transformId}`);
+    }
     
     await docRef.update({
       status: 'completed',
