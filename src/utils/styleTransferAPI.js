@@ -107,11 +107,13 @@ export const processStyleTransfer = async (photoFile, selectedStyle, correctionP
     return new Promise((resolve, reject) => {
       let resolved = false;  // 중복 resolve 방지
       let stateListener = null;  // Capacitor appStateChange 리스너
+      let pollId = null;  // v94: fallback polling
       
       const cleanup = () => {
         resolved = true;
         unsub();
         clearTimeout(timeoutId);
+        if (pollId) clearInterval(pollId);
         if (stateListener) { stateListener.remove(); stateListener = null; }
       };
       
@@ -168,7 +170,18 @@ export const processStyleTransfer = async (photoFile, selectedStyle, correctionP
         resolve({ success: false, transformId, error: 'Firestore listener error: ' + error.message });
       });
       
-      // 2) 포그라운드 복귀 시 수동 확인 (onSnapshot이 못 받았을 때 fallback)
+      // 2) Fallback polling: 3초마다 Firestore 직접 확인 (onSnapshot 유실 방어)
+      pollId = setInterval(async () => {
+        if (resolved) { clearInterval(pollId); return; }
+        try {
+          const snap = await getDocFromServer(docRef);
+          if (snap.exists()) handleResult(snap.data());
+        } catch (e) {
+          console.warn('🔄 단독 polling 에러:', e.message);
+        }
+      }, 3000);
+      
+      // 3) 포그라운드 복귀 시 수동 확인 (onSnapshot이 못 받았을 때 fallback)
       CapApp.addListener('appStateChange', async ({ isActive }) => {
         if (isActive && !resolved) {
           try {
@@ -336,7 +349,7 @@ export const processFullTransform = async (photoFile, styles, selectedStyle, onP
         unsubscribes.push(unsub);
       });
       
-      // Fallback polling: 30초마다 미완료 슬롯 수동 확인
+      // Fallback polling: 3초마다 미완료 슬롯 수동 확인
       pollIntervalId = setInterval(async () => {
         const pending = transformIds
           .map((tid, idx) => ({ tid, idx }))
@@ -357,7 +370,7 @@ export const processFullTransform = async (photoFile, styles, selectedStyle, onP
             console.warn(`⚠️ Fallback poll error: ${tid}`, e.message);
           }
         }
-      }, 30000);
+      }, 3000);
       
       // HTTP 호출 (fire-and-forget)
       
