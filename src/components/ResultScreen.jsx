@@ -729,20 +729,41 @@ const ResultScreen = ({
   };
 
   // ========== 단독변환 다시 시도 함수 ==========
+  // P0-#3 (v95): 원본 transformId가 있으면 isRetry로 요청 → 서버 차감 스킵 (이중 차감 방지)
+  //   시나리오: 서버는 성공했는데 클라이언트 이미지 다운로드 실패로 UI는 실패 표시
+  //   이 경우 "다시 시도" 시 새 transformId로 또 차감되는 버그를 막음
+  //   원클릭(handleRetry)과 동일한 v94 패턴을 단독 변환에도 적용
   const handleSingleModeRetry = async () => {
     if (!originalPhoto || !selectedStyle || isRetrying) return;
     
     setIsRetrying(true);
     setRetryProgress(`${selectedStyle.name} ${t.retrying}`);
-    // console.log(`🔄 단독변환 다시 시도: ${selectedStyle.name}`);
+    
+    // 원본 transformId 존재 시 재시도 모드 (서버가 크레딧 차감 스킵)
+    const useIsRetry = !!transformId;
+    if (useIsRetry) {
+      console.log(`[v95 single retry] isRetry=true, originalTid=${transformId}`);
+    } else {
+      console.log(`[v95 single retry] 최초 시도 (transformId 없음 → 일반 변환)`);
+    }
     
     try {
       const result = await processStyleTransfer(
         originalPhoto,
         selectedStyle,
         null,
-        () => setRetryProgress(`${selectedStyle.name} ${t.retrying}`)
+        () => setRetryProgress(`${selectedStyle.name} ${t.retrying}`),
+        { skipFcm: true },  // 재시도는 FCM 푸시 중복 방지
+        lang,               // 실패 시 FCM 메시지가 올바른 언어로
+        useIsRetry
+          ? { isRetry: true, originalTransformId: transformId }
+          : {}
       );
+      
+      // 서버 wasRetry 응답 검증 (구버전 서버 감지 — 원클릭과 동일 패턴)
+      if (useIsRetry && result.success && result.wasRetry !== true) {
+        console.error(`[v95 single retry] ⚠️ wasRetry=${result.wasRetry}, 서버 구버전 가능성 (크레딧 차감 의심)`);
+      }
       
       if (result.success) {
         // console.log(`✅ 단독변환 다시 시도 성공: ${selectedStyle.name}`);

@@ -174,7 +174,13 @@ const ProcessingScreen = ({ photo, originalPhotoUrl, selectedStyle, onComplete, 
       } else {
         setStatusText(`${t.error}: ${result.error}`);
         await sleep(1500);
-        onComplete(selectedStyle, null, { success: false, error: result.error });
+        // P0-#3 (v95): 실패해도 transformId 전달 → ResultScreen이 재시도 시
+        // isRetry + originalTransformId로 서버에 요청하여 이중 차감 방지
+        onComplete(selectedStyle, null, {
+          success: false,
+          error: result.error,
+          transformId: result.transformId || null
+        });
       }
     }
   };
