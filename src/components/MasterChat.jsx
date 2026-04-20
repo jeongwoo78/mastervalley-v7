@@ -231,7 +231,7 @@ const MasterChat = ({
   const sendMessage = async () => {
     if (!inputValue.trim() || isLoading || isRetransforming || isChatEnded) return;
     
-    // 30회 제한 체크
+    // 20회 제한 체크
     if (messageCount >= MAX_MESSAGES) {
       setIsChatEnded(true);
       isChatEndedRef.current = true;
@@ -246,7 +246,7 @@ const MasterChat = ({
     const newCount = messageCount + 1;
     setMessageCount(newCount);
     
-    // 30회 도달 시 종료 처리
+    // 20회 도달 시 종료 처리
     if (newCount >= MAX_MESSAGES) {
       setIsChatEnded(true);
       isChatEndedRef.current = true;
