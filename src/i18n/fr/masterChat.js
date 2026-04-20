@@ -18,7 +18,8 @@ export const masterChat = {
     senderMe: 'Moi',
     placeholderEnded: 'Conversation avec le maître terminée',
     placeholderConverting: 'Transformation en cours...',
-    placeholderDefault: 'Converser avec {masterName}...'
+    placeholderDefault: 'Converser avec {masterName}...',
+    paintingFinalStroke: '{masterName} ajoute les dernières touches...'
   },
 
   // ===== Noms des maîtres (7) =====

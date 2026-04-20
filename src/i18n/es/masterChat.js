@@ -18,7 +18,8 @@ export const masterChat = {
     senderMe: 'Yo',
     placeholderEnded: 'Conversación con el maestro finalizada',
     placeholderConverting: 'Transformando...',
-    placeholderDefault: 'Conversar con {masterName}...'
+    placeholderDefault: 'Conversar con {masterName}...',
+    paintingFinalStroke: '{masterName} está dando las últimas pinceladas...'
   },
 
   // ===== Nombres de maestros (7) =====

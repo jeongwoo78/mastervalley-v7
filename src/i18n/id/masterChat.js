@@ -18,7 +18,8 @@ export const masterChat = {
     senderMe: 'Saya',
     placeholderEnded: 'Percakapan dengan maestro telah berakhir',
     placeholderConverting: 'Mentransformasi...',
-    placeholderDefault: 'Bicara dengan {masterName}...'
+    placeholderDefault: 'Bicara dengan {masterName}...',
+    paintingFinalStroke: '{masterName} sedang menambahkan sapuan terakhir...'
   },
 
   // ===== Nama Maestro (7) =====

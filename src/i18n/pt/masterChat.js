@@ -17,7 +17,8 @@ export const masterChat = {
     senderMe: 'Eu',
     placeholderEnded: 'A conversa com o mestre terminou',
     placeholderConverting: 'A transformar...',
-    placeholderDefault: 'Conversa com {masterName}...'
+    placeholderDefault: 'Conversa com {masterName}...',
+    paintingFinalStroke: '{masterName} está dando as últimas pinceladas...'
   },
 
   masterNames: {

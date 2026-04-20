@@ -17,7 +17,8 @@ export const masterChat = {
     senderMe: 'Ben',
     placeholderEnded: 'Usta ile sohbet sona erdi',
     placeholderConverting: 'Dönüştürülüyor...',
-    placeholderDefault: '{masterName} ile sohbet et...'
+    placeholderDefault: '{masterName} ile sohbet et...',
+    paintingFinalStroke: '{masterName} son fırça darbelerini atıyor...'
   },
 
   masterNames: {

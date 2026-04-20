@@ -18,7 +18,8 @@ export const masterChat = {
     senderMe: 'ฉัน',
     placeholderEnded: 'การสนทนากับศิลปินเอกสิ้นสุดแล้ว',
     placeholderConverting: 'กำลังแปลง...',
-    placeholderDefault: 'สนทนากับ {masterName}...'
+    placeholderDefault: 'สนทนากับ {masterName}...',
+    paintingFinalStroke: '{masterName} กำลังลงฝีแปรงสุดท้าย...'
   },
 
   // ===== Master Names (7) =====

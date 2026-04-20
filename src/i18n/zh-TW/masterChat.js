@@ -18,7 +18,8 @@ export const masterChat = {
     senderMe: '我',
     placeholderEnded: '與大師的對話已結束',
     placeholderConverting: '轉換中...',
-    placeholderDefault: '與{masterName}對話...'
+    placeholderDefault: '與{masterName}對話...',
+    paintingFinalStroke: '{masterName}正在完成最後的筆觸...'
   },
 
   // ===== 大師名稱 (7位) =====

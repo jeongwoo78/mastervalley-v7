@@ -89,7 +89,6 @@ const App = () => {
   const [currentMasterIndex, setCurrentMasterIndex] = useState(0);
   const [masterResultImages, setMasterResultImages] = useState({});
   const [retransformingMasters, setRetransformingMasters] = useState({});
-  const [prefetchedGreetings, setPrefetchedGreetings] = useState({});
 
   // 앱 시작 시 저장된 언어 로드 (URL 파라미터가 있으면 우선)
   // v73: 교육 데이터 동기화 검증 (개발 모드에서만 실행)
@@ -430,70 +429,8 @@ const App = () => {
     }
   };
 
-  // ========================================
-  // MasterChat 그리팅 프리로드
-  // ========================================
-  const MASTER_AGE_RANGE = {
-    'VAN GOGH': { min: 35, max: 37 }, 'KLIMT': { min: 48, max: 53 },
-    'MUNCH': { min: 33, max: 77 }, 'CHAGALL': { min: 31, max: 94 },
-    'MATISSE': { min: 39, max: 81 }, 'FRIDA': { min: 23, max: 44 },
-    'LICHTENSTEIN': { min: 41, max: 70 }
-  };
-  const MASTER_BIRTH = {
-    'VAN GOGH': 1853, 'KLIMT': 1862, 'MUNCH': 1863, 'CHAGALL': 1887,
-    'MATISSE': 1869, 'FRIDA': 1907, 'LICHTENSTEIN': 1923
-  };
-
-  const artistToMasterKey = (name) => {
-    if (!name) return null;
-    const n = name.toUpperCase();
-    if (n.includes('GOGH') || n.includes('고흐')) return 'VAN GOGH';
-    if (n.includes('KLIMT') || n.includes('클림트')) return 'KLIMT';
-    if (n.includes('MUNCH') || n.includes('뭉크') || n.includes('มุงก์')) return 'MUNCH';
-    if (n.includes('CHAGALL') || n.includes('샤갈') || n.includes('ชาการ์ล')) return 'CHAGALL';
-    if (n.includes('MATISSE') || n.includes('마티스') || n.includes('มาติส')) return 'MATISSE';
-    if (n.includes('FRIDA') || n.includes('KAHLO') || n.includes('프리다') || n.includes('ฟรีดา')) return 'FRIDA';
-    if (n.includes('LICHTENSTEIN') || n.includes('리히텐') || n.includes('ลิชเทนสไตน์')) return 'LICHTENSTEIN';
-    return null;
-  };
-
-  const prefetchGreeting = async (masterKey, subType) => {
-    const range = MASTER_AGE_RANGE[masterKey] || { min: 30, max: 50 };
-    const age = Math.floor(Math.random() * (range.max - range.min + 1)) + range.min;
-    const birth = MASTER_BIRTH[masterKey] || 1870;
-    const year = birth + age;
-    const month = new Date().getMonth() + 1;
-    const tt = { year, age, month };
-
-    const authToken = await auth.currentUser?.getIdToken().catch(() => null);
-    fetch('https://mastervalley-v7.vercel.app/api/master-feedback', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        ...(authToken && { 'Authorization': `Bearer ${authToken}` })
-      },
-      body: JSON.stringify({
-        masterName: masterKey,
-        conversationType: 'greeting',
-        userMessage: '',
-        lang: lang,
-        timeTravel: tt,
-        subjectType: subType || 'person'
-      })
-    })
-    .then(res => res.json())
-    .then(data => {
-      if (data.success && data.masterResponse) {
-        setPrefetchedGreetings(prev => ({
-          ...prev,
-          [masterKey]: { message: data.masterResponse, timeTravel: tt }
-        }));
-      }
-    })
-    .catch(err => console.warn('⚠️ 그리팅 프리로드 실패:', err.message));
-  };
-
   // 변환 완료 → 화면 전환 (크레딧 차감은 서버에서 처리, 잔액은 onSnapshot 자동 업데이트)
+  // v92: 프리페치 제거 → MasterChat이 직접 loadGreeting 호출하여 Vision(이미지 첨부) 활용
   const handleProcessingComplete = async (style, resultImageUrl, result) => {
 
     if (result && result.isFullTransform) {
@@ -524,18 +461,6 @@ const App = () => {
       setSubjectType(result?.subjectType || null);
     }
     
-    // masters 카테고리 원클릭이면 그리팅 프리로드 (백그라운드)
-    // 단독변환은 MasterChat이 직접 loadGreeting 호출 (프리페치 중복 방지)
-    if (style?.category === 'masters' && result?.isFullTransform && result.results) {
-      const subType = result.results?.find(r => r.subjectType)?.subjectType;
-      result.results.forEach(r => {
-        if (r.success && r.aiSelectedArtist) {
-          const key = artistToMasterKey(r.aiSelectedArtist);
-          if (key) prefetchGreeting(key, subType);
-        }
-      });
-    }
-    
     setCurrentScreen('result');
   };
 
@@ -554,7 +479,6 @@ const App = () => {
     setCurrentTransformId(null);
     setFullTransformResults(null);
     setMasterChatData({});
-    setPrefetchedGreetings({});
     setCurrentMasterIndex(0);
     setMasterResultImages({});
     setRetransformingMasters({});
@@ -777,7 +701,6 @@ const App = () => {
               onGallery={() => setShowGallery(true)}
               onRetrySuccess={handleRetrySuccess}
               masterChatData={masterChatData}
-              prefetchedGreetings={prefetchedGreetings}
               onMasterChatDataChange={setMasterChatData}
               currentMasterIndex={currentMasterIndex}
               onMasterIndexChange={setCurrentMasterIndex}

@@ -18,7 +18,8 @@ export const masterChat = {
     senderMe: '私',
     placeholderEnded: '巨匠との会話が終了しました',
     placeholderConverting: '変換中...',
-    placeholderDefault: '{masterName}と話す...'
+    placeholderDefault: '{masterName}と話す...',
+    paintingFinalStroke: '{masterName}が最後の筆を入れています...'
   },
 
   // ===== 巨匠名 (7人) =====

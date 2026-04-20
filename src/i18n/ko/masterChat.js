@@ -17,7 +17,8 @@ export const masterChat = {
     senderMe: '나',
     placeholderEnded: '거장과의 대화가 종료되었습니다',
     placeholderConverting: '변환 중...',
-    placeholderDefault: '{masterName}{withParticle} 대화...'
+    placeholderDefault: '{masterName}{withParticle} 대화...',
+    paintingFinalStroke: '{masterName}{withParticle} 마지막 붓질을 하는 중입니다...'
   },
 
   // ===== 거장 이름 (7명) =====

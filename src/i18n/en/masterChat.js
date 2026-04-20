@@ -17,7 +17,8 @@ export const masterChat = {
     senderMe: 'Me',
     placeholderEnded: 'Chat with the master has ended',
     placeholderConverting: 'Converting...',
-    placeholderDefault: 'Chat with {masterName}...'
+    placeholderDefault: 'Chat with {masterName}...',
+    paintingFinalStroke: '{masterName} is adding the final strokes...'
   },
 
   // ===== Master Names (7) =====

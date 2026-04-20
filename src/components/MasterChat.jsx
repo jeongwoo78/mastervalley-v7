@@ -36,7 +36,6 @@ const MasterChat = ({
   retransformCost = 100,  // 재변환 비용
   savedChatData,       // 저장된 대화 데이터 { messages, pendingCorrection, messageCount, isChatEnded }
   onChatDataChange,    // 대화 데이터 변경 콜백
-  prefetchedGreeting,       // 프리로드된 그리팅 { message, timeTravel }
   transformedImageUrl = null, // v91: 변환된 이미지 URL (GPT-4o Vision용)
   lang = 'en'               // 언어 설정
 }) => {
@@ -55,7 +54,7 @@ const MasterChat = ({
   const hasGreeted = useRef(savedChatData?.messages?.length > 0);
   const isChatEndedRef = useRef(savedChatData?.isChatEnded || false);
   const timeTravelRef = useRef(null);
-  const resolvedImageUrlRef = useRef(null);  // v91: blob → base64 변환 결과
+  const resolvedImagePromiseRef = useRef(null);  // v92: blob → base64 변환 Promise (loadGreeting이 await)
   
   const MAX_MESSAGES = 20; // 최대 대화 횟수
 
@@ -67,16 +66,16 @@ const MasterChat = ({
     });
   }, []);
 
-  // v91: blob URL → base64 data URL 변환
-  useEffect(() => {
-    if (!transformedImageUrl) return;
+  // v92: blob URL → base64 변환을 Promise로 감쌈 (Vision greeting이 완료 대기 가능)
+  const resolveImageToBase64 = (url) => {
+    if (!url) return Promise.resolve(null);
+    if (!url.startsWith('blob:')) return Promise.resolve(url);
     
-    if (transformedImageUrl.startsWith('blob:')) {
-      // blob URL → canvas → base64 (리사이즈+압축)
+    return new Promise((resolve) => {
       const img = new Image();
       img.crossOrigin = 'anonymous';
       img.onload = () => {
-        const MAX_DIM = 800;  // v91: 최대 800px (속도 개선)
+        const MAX_DIM = 800;
         let w = img.naturalWidth;
         let h = img.naturalHeight;
         if (w > MAX_DIM || h > MAX_DIM) {
@@ -89,19 +88,38 @@ const MasterChat = ({
         canvas.height = h;
         const ctx = canvas.getContext('2d');
         ctx.drawImage(img, 0, 0, w, h);
-        resolvedImageUrlRef.current = canvas.toDataURL('image/jpeg', 0.5);  // JPEG 50%
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.5);
         console.log(`[MasterChat] blob → base64 변환 완료 (${w}x${h})`);
+        resolve(dataUrl);
       };
       img.onerror = () => {
         console.error('[MasterChat] blob → base64 변환 실패');
-        resolvedImageUrlRef.current = null;
+        resolve(null);
       };
-      img.src = transformedImageUrl;
-    } else {
-      // http:// 또는 data: URL은 그대로 사용
-      resolvedImageUrlRef.current = transformedImageUrl;
-    }
+      img.src = url;
+    });
+  };
+
+  // v92: transformedImageUrl 변경 시 즉시 변환 시작 (Promise 저장)
+  useEffect(() => {
+    resolvedImagePromiseRef.current = resolveImageToBase64(transformedImageUrl);
   }, [transformedImageUrl]);
+
+  // v92: Vision 이미지 완료 대기 헬퍼 (최대 5초 타임아웃)
+  const waitForImage = async () => {
+    if (!resolvedImagePromiseRef.current) return null;
+    try {
+      return await Promise.race([
+        resolvedImagePromiseRef.current,
+        new Promise((resolve) => setTimeout(() => {
+          console.warn('[MasterChat] 이미지 변환 5초 초과 → 텍스트 전용 진행');
+          resolve(null);
+        }, 5000))
+      ]);
+    } catch (e) {
+      return null;
+    }
+  };
 
   // 테마 색상
   const theme = MASTER_THEMES[masterKey] || MASTER_THEMES['VAN GOGH'];
@@ -127,17 +145,11 @@ const MasterChat = ({
     }
   }, [messages, pendingCorrection, messageCount, isChatEnded]);
 
-  // 첫 마운트 시 인사 (저장된 대화 없을 때만)
+  // v92: 첫 마운트 시 인사 — 프리페치 제거, 항상 Vision 포함 loadGreeting 호출
   useEffect(() => {
     if (!hasGreeted.current && masterKey) {
       hasGreeted.current = true;
-      if (prefetchedGreeting?.message) {
-        // 프리로드된 그리팅 즉시 표시
-        timeTravelRef.current = prefetchedGreeting.timeTravel;
-        setMessages([{ role: 'master', content: prefetchedGreeting.message }]);
-      } else {
-        loadGreeting();
-      }
+      loadGreeting();
     }
   }, []);
 
@@ -175,6 +187,10 @@ const MasterChat = ({
     timeTravelRef.current = tt;
 
     setIsLoading(true);
+    
+    // v92: Vision 이미지 변환 완료 대기 (최대 5초 타임아웃)
+    const imageBase64 = await waitForImage();
+    
     try {
       const authToken = await auth.currentUser?.getIdToken().catch(() => null);
       const response = await fetch(`${API_BASE_URL}/api/master-feedback`, {
@@ -190,7 +206,7 @@ const MasterChat = ({
           lang: lang,
           timeTravel: tt,
           subjectType: subjectType || 'person',
-          transformedImageUrl: resolvedImageUrlRef.current  // v91: blob→base64 변환된 URL
+          transformedImageUrl: imageBase64  // v92: Promise 기반 대기 후 전달
         })
       });
 
@@ -248,6 +264,10 @@ const MasterChat = ({
     }
     
     setIsLoading(true);
+    
+    // v92: Vision 이미지 변환 완료 대기 (첫 호출 시만 실제 대기, 이후엔 즉시 resolve)
+    const imageBase64 = await waitForImage();
+    
     try {
       // 대화 히스토리 구성 (Claude API 형식) - 시스템 메시지 제외
       const conversationHistory = messages
@@ -272,7 +292,7 @@ const MasterChat = ({
           lang: lang,
           timeTravel: timeTravelRef.current,
           subjectType: subjectType || 'person',
-          transformedImageUrl: resolvedImageUrlRef.current  // v91: blob→base64 변환된 URL
+          transformedImageUrl: imageBase64  // v92: Promise 기반 대기 후 전달
         })
       });
       
@@ -416,7 +436,7 @@ const MasterChat = ({
           </div>
         ))}
         
-        {/* 타이핑 인디케이터 */}
+        {/* 타이핑 인디케이터 — v92: 첫 greeting 로딩 시 스켈레톤 문구 표시 */}
         {isLoading && (
           <div className="chat-message master">
             <img className="avatar-img-small" src={theme.avatar} alt={masterName} onClick={() => setShowProfile(true)} style={{ cursor: "pointer", backgroundColor: `${theme.primary}30` }} />
@@ -424,7 +444,15 @@ const MasterChat = ({
               background: `${theme.primary}20`,
               borderColor: `${theme.primary}40`
             }}>
-              <span></span><span></span><span></span>
+              {messages.length === 0 && chatText.common?.paintingFinalStroke ? (
+                <span className="skeleton-text" dir="auto">
+                  {chatText.common.paintingFinalStroke
+                    .replace('{masterName}', masterName)
+                    .replace('{withParticle}', getSubjectParticle(masterName))}
+                </span>
+              ) : (
+                <><span></span><span></span><span></span></>
+              )}
             </div>
           </div>
         )}
@@ -766,6 +794,23 @@ const MasterChat = ({
         @keyframes typing {
           0%, 60%, 100% { transform: translateY(0); }
           30% { transform: translateY(-6px); }
+        }
+
+        /* v92: 첫 greeting 스켈레톤 문구 (마지막 붓질 연출) */
+        .chat-message .bubble.typing .skeleton-text {
+          width: auto;
+          height: auto;
+          background: none;
+          border-radius: 0;
+          animation: skeletonFade 1.8s ease-in-out infinite;
+          color: var(--master-color, #F5A623);
+          font-size: 13px;
+          font-style: italic;
+          opacity: 0.85;
+        }
+        @keyframes skeletonFade {
+          0%, 100% { opacity: 0.55; }
+          50% { opacity: 0.95; }
         }
 
         /* 입력 영역 (목업 준수) */

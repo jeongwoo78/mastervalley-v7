@@ -18,7 +18,8 @@ export const masterChat = {
     senderMe: 'أنا',
     placeholderEnded: 'انتهت المحادثة مع الفنان',
     placeholderConverting: 'جارٍ التحويل...',
-    placeholderDefault: 'تحدّث مع {masterName}...'
+    placeholderDefault: 'تحدّث مع {masterName}...',
+    paintingFinalStroke: '{masterName} يضيف اللمسات الأخيرة...'
   },
 
   // ===== أسماء الأساتذة (7) =====
