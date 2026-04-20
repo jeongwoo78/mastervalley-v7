@@ -505,7 +505,7 @@ async function handleOneClick(req, res, params) {
   let completedCount = 0;
   let successCount = 0;
   
-  const BATCH_SIZE = 3;
+  const BATCH_SIZE = 5;
   const sessionStart = Date.now();
   const results = new Array(totalCount).fill(null);
   

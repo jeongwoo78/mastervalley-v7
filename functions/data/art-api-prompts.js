@@ -338,13 +338,6 @@ export const RENAISSANCE_PROMPTS = {
  prompt: `Subject's clothing transforms into elegant garments of this painting's era and style, covering chest, waist and hip areas. Tempera painting of the subject by Sandro Botticelli. Thin translucent layers build up to create a smooth luminous surface. Precise delicate dark outlines define every form clearly. Elegant elongated figures hold graceful S-curved postures. Edges between forms remain sharp and clean. Soft bright spring garden tone wraps the scene. Pale rose 30%, forest green 25%, gold 20%, ivory 25%. Dense orange grove and flowering meadow fill the background. Wildflowers, orange blossoms, and laurel wreaths decorate the scene. Skin luminous in pale ivory and soft pink. Gold accents glow softly on fabric edges. Brushwork follows the graceful contours of each form. Soft even spring light illuminates throughout. Forest green deepens in foliage behind figures. Pale tones layered delicately across the composition.`
  },
 
- // ★ 비너스의 탄생 — 108w
- 'botticelli-birthofvenus': {
- name: '비너스의 탄생',
- nameEn: 'Birth of Venus',
- prompt: `Subject's clothing transforms into elegant garments of this painting's era and style, covering chest, waist and hip areas. Tempera painting of the subject by Sandro Botticelli. Thin translucent layers build up to create a smooth luminous surface. Precise delicate dark outlines define every form clearly. Elegant elongated figures hold graceful S-curved postures. Edges between forms remain sharp and clean. Soft ethereal pastel tone drifts across the scene like sea mist. Pale aqua blue 30%, soft pink 25%, ivory 25%, gold 20%. Calm turquoise sea and pale sky fill the background. Roses float gently in the breeze. Skin glows smooth like polished marble in pale ivory and soft pink. Gold shimmers across flowing hair and shell edges. Brushwork follows the flowing movement of wind and waves. Soft delicate light illuminates from the left. Aqua blue deepens gently in the sea and sky. Bright figures rise luminously against the cool blue ground.`
- },
-
  // ─────────────────────────────────────────
  // 레오나르도 다 빈치
  // ─────────────────────────────────────────
@@ -1625,7 +1618,6 @@ export const masterworkNameMapping = {
  
  // 르네상스
  'primavera': 'botticelli-primavera', '프리마베라': 'botticelli-primavera',
- 'venus and mars': 'botticelli-venusmars',
  'the last supper': 'leonardo-lastsupper', '최후의 만찬': 'leonardo-lastsupper',
  'virgin of the rocks': 'leonardo-virginrocks', '암굴의 성모': 'leonardo-virginrocks',
  'bacchus and ariadne': 'titian-bacchus', '바쿠스와 아리아드네': 'titian-bacchus',
@@ -1653,7 +1645,6 @@ export const masterworkNameMapping = {
  'le dejeuner': 'boucher-breakfast', '아침 식사': 'boucher-breakfast',
  
  // 신고전/낭만/사실
- 'death of marat': 'david-marat', '마라의 죽음': 'david-marat',
  'coronation of napoleon': 'david-coronation', 'oath of the horatii': 'david-horatii',
  'princesse de broglie': 'ingres-broglie', '드 브로이 공주': 'ingres-broglie',
  'napoleon on his imperial throne': 'ingres-napoleon', '왕좌의 나폴레옹': 'ingres-napoleon',
@@ -1664,7 +1655,6 @@ export const masterworkNameMapping = {
  'the stone breakers': 'courbet-stonebreakers', 'a burial at ornans': 'courbet-burial',
  'bonjour monsieur courbet': 'courbet-bonjour',
  'bar at the folies-bergère': 'manet-bar', 'bar at the folies-bergere': 'manet-bar', '폴리베르제르의 바': 'manet-bar',
- 'the fifer': 'manet-fifer', '피리 부는 소년': 'manet-fifer',
  
  // 인상주의
  'luncheon of the boating party': 'renoir-boating', 'bal du moulin de la galette': 'renoir-moulin',
@@ -1708,7 +1698,7 @@ export function getArtistMasterworkList(artistKey) {
  'gothic': ['gothic-chartres', 'gothic-notredame', 'gothic-saintechapelle'],
  'byzantine': ['byzantine-justinian', 'byzantine-theodora', 'byzantine-deesis', 'byzantine-pantocrator'],
  'islamic-miniature': ['islamic-youth', 'islamic-miraj', 'islamic-simurgh', 'islamic-lovers', 'islamic-rustam'],
- 'botticelli': ['botticelli-primavera', 'botticelli-venusmars'],
+ 'botticelli': ['botticelli-primavera'],
  'leonardo': ['leonardo-lastsupper', 'leonardo-virginrocks'],
  'titian': ['titian-bacchus', 'titian-assumption'],
  'michelangelo': ['michelangelo-adam', 'michelangelo-lastjudgment'],
@@ -1719,12 +1709,12 @@ export function getArtistMasterworkList(artistKey) {
  'velazquez': ['velazquez-meninas', 'velazquez-pope', 'velazquez-breda'],
  'watteau': ['watteau-cythera', 'watteau-pierrot', 'watteau-fete'],
  'boucher': ['boucher-pompadour', 'boucher-breakfast'],
- 'david': ['david-marat', 'david-coronation', 'david-horatii'],
+ 'david': ['david-coronation', 'david-horatii'],
  'ingres': ['ingres-broglie', 'ingres-napoleon'],
  'turner': ['turner-rain', 'turner-temeraire', 'turner-slaveship'],
  'delacroix': ['delacroix-liberty', 'delacroix-sardanapalus'],
  'courbet': ['courbet-stonebreakers', 'courbet-burial', 'courbet-bonjour'],
- 'manet': ['manet-bar', 'manet-fifer'],
+ 'manet': ['manet-bar'],
  'renoir': ['renoir-boating', 'renoir-moulin', 'renoir-swing'],
  'degas': ['degas-danceclass', 'degas-star', 'degas-absinthe'],
  'monet': ['monet-waterlilies', 'monet-impression', 'monet-parasol'],
