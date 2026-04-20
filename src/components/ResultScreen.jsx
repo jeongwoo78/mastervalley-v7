@@ -487,6 +487,27 @@ const ResultScreen = ({
           });
           
           console.log(`✅ [v93] pending[${idx}] 복구 성공: ${data.selectedArtist}`);
+          
+          // v93: 복구된 결과를 갤러리에도 저장 (saveToGallery의 transformId 중복 체크가 이중 저장 방지)
+          try {
+            const category = recoveredResult.style?.category || selectedStyle?.category;
+            const rawName = recoveredResult.aiSelectedArtist || recoveredResult.style?.name || 'Converted Image';
+            await saveToGallery(recoveredResult.resultUrl, {
+              category,
+              artistName: rawName,
+              movementName: recoveredResult.style?.name || selectedStyle?.name || '',
+              workName: recoveredResult.selected_work || null,
+              styleId: recoveredResult.style?.id || selectedStyle?.id || '',
+              isRetransform: false,
+              transformId: tid,
+              sessionId: `session_recovered_${Date.now()}`,
+              savedAt: new Date().toISOString(),
+              styleIndex: idx
+            });
+            console.log(`💾 [v93] pending[${idx}] 갤러리 저장 완료`);
+          } catch (saveErr) {
+            console.warn(`[v93] pending[${idx}] 갤러리 저장 실패:`, saveErr.message);
+          }
         } else if (data.status === 'failed') {
           setResults(prev => {
             const next = [...prev];
