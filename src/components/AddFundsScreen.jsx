@@ -1,4 +1,5 @@
 // AddFundsScreen.jsx - Add Funds Screen (RevenueCat IAP 연동)
+// v95 (2026-04): 서버 영수증 검증 연동 — transactionId 제거, RC 반영 대기 retry 추가
 import React, { useState } from 'react';
 import { getUi } from '../i18n';
 import { purchasePack, isNativeIAP } from '../utils/revenueCat';
@@ -22,8 +23,8 @@ const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, l
 
     // 웹 환경: IAP 불가
     if (!isNativeIAP()) {
-      alert(lang === 'ko' 
-        ? '인앱결제는 앱에서만 가능합니다.' 
+      alert(lang === 'ko'
+        ? '인앱결제는 앱에서만 가능합니다.'
         : 'In-app purchases are only available in the app.');
       return;
     }
@@ -31,41 +32,74 @@ const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, l
     setPurchasing(pack.id);
 
     try {
-      // 1. RevenueCat 구매 실행 (OS 결제 시트)
+      // 1. OS 결제 시트 (RevenueCat)
       const result = await purchasePack(pack.id);
 
       if (!result.success) {
         if (result.error !== 'cancelled') {
-          alert(lang === 'ko' ? '구매 처리 중 오류가 발생했습니다.' : 'An error occurred during purchase.');
+          alert(lang === 'ko'
+            ? '구매 처리 중 오류가 발생했습니다.'
+            : 'An error occurred during purchase.');
         }
         return;
       }
 
-      // 2. 서버에 크레딧 추가 요청
-      const transactionId = `rc_${pack.productId}_${Date.now()}`;
+      // 2. 서버 크레딧 추가 요청 (RC 반영 지연 대비 retry 루프)
+      //    v95: productId만 전송 — 서버가 RC REST API로 직접 검증
       const authToken = await auth.currentUser?.getIdToken().catch(() => null);
-      const addResult = await fetch(`${API_BASE_URL}/api/add-credit`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...(authToken && { 'Authorization': `Bearer ${authToken}` })
-        },
-        body: JSON.stringify({
-          productId: pack.productId,
-          transactionId
-        })
-      });
 
-      const addData = await addResult.json();
+      let addData = null;
+      let lastError = null;
+      const retryDelays = [0, 2000, 4000, 6000]; // 0s, 2s, 4s, 6s → 최대 ~12초
 
-      if (addData.success) {
-        // 잔액은 Firestore onSnapshot이 자동 업데이트
+      for (let attempt = 0; attempt < retryDelays.length; attempt++) {
+        if (retryDelays[attempt] > 0) {
+          await new Promise(r => setTimeout(r, retryDelays[attempt]));
+        }
+
+        try {
+          const addResult = await fetch(`${API_BASE_URL}/api/add-credit`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              ...(authToken && { 'Authorization': `Bearer ${authToken}` })
+            },
+            body: JSON.stringify({ productId: pack.productId })
+          });
+
+          addData = await addResult.json();
+          lastError = null;
+
+          if (addData.success) break;
+
+          // RevenueCat 반영 대기 중 → retry
+          if (addData.reason === 'no_purchase' || addData.reason === 'no_recent_purchase') {
+            console.log(`⏳ RC 반영 대기 (${attempt + 1}/${retryDelays.length}): ${addData.reason}`);
+            continue;
+          }
+
+          // 그 외 에러(인증/검증 실패 등)는 즉시 중단
+          break;
+
+        } catch (fetchErr) {
+          lastError = fetchErr;
+          console.warn(`⚠️ add-credit 네트워크 에러 (${attempt + 1}/${retryDelays.length}):`, fetchErr.message);
+          continue;  // 네트워크 에러도 retry
+        }
+      }
+
+      // 3. 결과 처리
+      if (addData?.success) {
+        // 잔액은 Firestore onSnapshot이 자동 반영
         onPurchaseComplete?.();
       } else {
-        console.error('크레딧 추가 실패:', addData.error);
-        alert(lang === 'ko' 
-          ? '결제는 완료되었으나 크레딧 반영에 문제가 있습니다. 고객지원에 문의해 주세요.' 
-          : 'Payment completed but credits were not applied. Please contact support.');
+        console.error('크레딧 추가 실패:', addData?.error || lastError?.message);
+
+        // 결제는 됐는데 크레딧 미반영 — 정확히 안내
+        // (2단계 Webhook 배포되면 자동 복구됨)
+        alert(lang === 'ko'
+          ? '결제는 완료되었습니다. 크레딧 반영에 시간이 걸릴 수 있으니, 잠시 후 앱을 다시 실행해 주세요. 계속 문제가 있으면 고객지원에 문의해 주세요.'
+          : 'Payment completed. Credits may take a moment to appear. Please restart the app shortly. If the issue persists, contact support.');
       }
 
     } catch (error) {
