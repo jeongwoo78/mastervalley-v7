@@ -420,8 +420,8 @@ const ProcessingScreen = ({ photo, originalPhotoUrl, selectedStyle, onComplete, 
               </div>
             )}
 
-            {/* 결과 미리보기: 실패 → 안내 */}
-            {viewIndex >= 0 && previewResult && !previewResult.success && (
+            {/* 결과 미리보기: 실패 → 안내 (v93: success === false 명시 체크) */}
+            {viewIndex >= 0 && previewResult && previewResult.success === false && (
               <div className="oneclick-preview">
                 <div className="img-placeholder" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                   <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
@@ -435,8 +435,8 @@ const ProcessingScreen = ({ photo, originalPhotoUrl, selectedStyle, onComplete, 
               </div>
             )}
             
-            {/* 미완료 도트 탭 시 스피너 */}
-            {viewIndex >= 0 && !previewResult && (
+            {/* 미완료 도트 탭 시 스피너 (v93: pending도 스피너로 표시) */}
+            {viewIndex >= 0 && (!previewResult || previewResult.pending === true) && (
               <div className="oneclick-preview">
                 <div className="img-placeholder">
                   <div className="spinner" style={{ width: 24, height: 24 }}></div>
