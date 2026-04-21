@@ -286,7 +286,7 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
       else if (err.code === 'auth/weak-password')          setError(t.weakPassword);
       else if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password')
                                                            setError(t.wrongCredentials);
-      else                                                 setError(t.loginFailed);
+      else                                                 setError(`${t.loginFailed} (${err.code})`);
     } finally {
       setLoading(false);
     }
