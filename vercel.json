@@ -21,7 +21,10 @@
     "api/master-feedback.js": {
       "maxDuration": 60
     },
-    "api/deduct-credit.js": {
+    "api/add-credit.js": {
+      "maxDuration": 60
+    },
+    "api/revenuecat-webhook.js": {
       "maxDuration": 60
     }
   },
