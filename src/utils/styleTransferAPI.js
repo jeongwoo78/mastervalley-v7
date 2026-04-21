@@ -272,8 +272,11 @@ export const processFullTransform = async (photoFile, styles, selectedStyle, onP
       };
       
       // 결과 처리 헬퍼 (onSnapshot + fallback polling 공용)
+      const processing = new Set(); // 레이스 컨디션 방어: 이미지 다운로드 중 이중 진입 방지
       const processResult = async (idx, tid, data) => {
         if (results[idx] !== null) return; // 이미 처리됨
+        if (processing.has(idx)) return;   // 다른 경로에서 처리 중
+        processing.add(idx);               // 진입 잠금
         
         if (data.status === 'completed' && data.resultUrl) {
           try {
@@ -310,7 +313,8 @@ export const processFullTransform = async (photoFile, styles, selectedStyle, onP
             success: false
           };
         } else {
-          return; // 아직 진행 중
+          processing.delete(idx); // 아직 진행 중이면 잠금 해제
+          return;
         }
         
         completedCount++;
