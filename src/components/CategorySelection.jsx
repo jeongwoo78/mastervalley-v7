@@ -1,6 +1,6 @@
 // CategorySelection.jsx - Main Screen (Dark Theme + Luxury Deco)
 // Design A: 골드+퍼플 장식 + 넓은 골드 그라데이션 타이틀
-import React from 'react';
+import React, { useEffect } from 'react';
 import { getUi } from '../i18n';
 
 // Thumbnail imports
@@ -40,6 +40,10 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
   const handleMenuClick = () => {
     onMenu?.();
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="main-screen">
@@ -117,11 +121,8 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
 
       <style>{`
         .main-screen {
-          box-sizing: border-box;
-          min-height: 100vh;
-          min-height: 100dvh;
-          padding-top: env(safe-area-inset-top, 0px);
-          padding-bottom: env(safe-area-inset-bottom, 0px);
+          min-height: calc(100vh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 12px);
+          min-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 12px);
           background: #0a1a1f;
           display: flex;
           flex-direction: column;
@@ -358,7 +359,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           display: flex;
           flex-direction: column;
           align-items: center;
-          padding: 8px 24px 20px;
+          padding: 8px 24px 0;
           width: 100%;
           position: relative;
           z-index: 1;

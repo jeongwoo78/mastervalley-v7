@@ -430,7 +430,7 @@ const s = {
   container: {
     width: '100%',
     maxWidth: '340px',
-    padding: '20px 0',
+    padding: '8px 0',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
@@ -439,15 +439,14 @@ const s = {
     display: 'flex',
     flexDirection: 'column',
     gap: '6px',
+    textTransform: 'uppercase',
     marginBottom: '28px',
     direction: 'ltr',
-    textTransform: 'uppercase',
   },
   eyebrowMain: {
     fontSize: '13px',
-    letterSpacing: '3px',
-    color: 'rgba(138,154,184,0.7)',
-    fontWeight: 500,
+    letterSpacing: '2.5px',
+    color: 'rgba(138,154,184,0.55)',
   },
   eyebrowDot: {
     color: 'rgba(184,154,90,0.6)',
@@ -456,8 +455,8 @@ const s = {
   },
   eyebrowSub: {
     fontSize: '11px',
-    letterSpacing: '2.5px',
     color: 'rgba(184,154,90,0.55)',
+    letterSpacing: '2.5px',
   },
   title: {
     fontFamily: "'Cormorant Garamond', Georgia, serif",
