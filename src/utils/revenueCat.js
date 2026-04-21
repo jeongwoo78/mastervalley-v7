@@ -176,6 +176,26 @@ export const purchasePack = async (packId) => {
 };
 
 /**
+ * RevenueCat 로그아웃 (계정 전환 시 필수)
+ * Firebase signOut 전에 호출 → 다음 로그인 시 새 유저로 초기화됨
+ */
+export const logOutRC = async () => {
+  if (!isInitialized || !PurchasesModule) {
+    isInitialized = false;
+    return;
+  }
+
+  const { Purchases } = PurchasesModule;
+  try {
+    await Purchases.logOut();
+    console.log('✅ RevenueCat 로그아웃 완료');
+  } catch (error) {
+    console.error('❌ RevenueCat 로그아웃 실패:', error);
+  }
+  isInitialized = false;
+};
+
+/**
  * 구매 복원 (앱 재설치 시)
  */
 export const restorePurchases = async () => {

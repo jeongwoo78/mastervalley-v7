@@ -16,7 +16,7 @@ import MenuScreen from './components/MenuScreen';
 // LanguageScreen removed - 메뉴 아코디언에서 직접 변경
 import InsufficientBalancePopup from './components/InsufficientBalancePopup';
 import { getTransformCost } from './utils/pricing';
-import { initRevenueCat } from './utils/revenueCat';
+import { initRevenueCat, logOutRC } from './utils/revenueCat';
 import { initFCM, onNotificationTap } from './utils/fcm';
 import './styles/App.css';
 
@@ -358,6 +358,7 @@ const App = () => {
   // 로그아웃
   const handleLogout = async () => {
     try {
+      await logOutRC();
       await signOut(auth);
       setUser(null);
       handleReset();
