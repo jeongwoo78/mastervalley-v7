@@ -385,7 +385,10 @@ const ResultScreen = ({
       const result = await processStyleTransfer(
         imageToModify,
         styleToUse,
-        correctionPrompt  // 보정 프롬프트 전달
+        correctionPrompt,  // 보정 프롬프트 전달
+        null,              // onProgress
+        { skipFcm: true }, // 재변환은 FCM 중복 방지
+        lang               // FCM 실패 메시지 언어
       );
       
       if (result.success && result.resultUrl) {
@@ -711,6 +714,11 @@ const ResultScreen = ({
     
     console.log(`[v94 retry] 결과: 성공 ${successCount}, 스킵 ${skippedCount}, 실패 ${failCount}, 한도초과 ${limitExceeded}`);
     
+    // ===== 부분성공 결과 반영 (에러 여부와 무관하게 먼저 처리) =====
+    if (successCount > 0 && onRetrySuccess) {
+      onRetrySuccess({ isFullTransform: true, results: updatedResults });
+    }
+
     // ===== 결과별 알림 =====
     if (serverVersionError) {
       alert(t.retryServerError || 'Retry failed due to server error. Please contact support.');
@@ -719,9 +727,6 @@ const ResultScreen = ({
     } else if (limitExceeded) {
       alert(t.retryLimitExceeded || 'Retry limit exceeded (max 3)');
     } else if (successCount > 0) {
-      if (onRetrySuccess) {
-        onRetrySuccess({ isFullTransform: true, results: updatedResults });
-      }
       alert(t.retrySuccess);
     } else if (skippedCount > 0 || failCount > 0) {
       alert(t.retryFailed || 'Retry failed');

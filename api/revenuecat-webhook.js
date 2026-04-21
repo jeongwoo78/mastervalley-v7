@@ -105,7 +105,7 @@ export default async function handler(req, res) {
     await eventRef.set({
       eventType,
       processedAt: FieldValue.serverTimestamp(),
-      storeTxId: event.store_transaction_id || null,
+      storeTxId: event.store_transaction_id || event.transaction_id || null,
       result: result.action || 'unknown'
     });
 
@@ -126,11 +126,11 @@ async function handlePurchase(event) {
   const {
     app_user_id: userId,
     product_id: productId,
-    store_transaction_id: storeTxId,
     purchased_at_ms,
     environment,
     store
   } = event;
+  const storeTxId = event.store_transaction_id || event.transaction_id;
 
   if (!userId || !productId || !storeTxId) {
     console.warn(`⚠️ Invalid purchase data: user=${userId}, product=${productId}, tx=${storeTxId}`);
@@ -201,9 +201,9 @@ async function handlePurchase(event) {
 async function handleCancellation(event) {
   const {
     app_user_id: userId,
-    store_transaction_id: storeTxId,
     cancel_reason
   } = event;
+  const storeTxId = event.store_transaction_id || event.transaction_id;
 
   if (!userId || !storeTxId) {
     console.warn(`⚠️ Invalid cancellation data: user=${userId}, tx=${storeTxId}`);
