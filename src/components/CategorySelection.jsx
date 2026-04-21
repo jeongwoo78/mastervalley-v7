@@ -277,8 +277,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
 
         /* Category Grid */
         .category-grid {
-          flex: 1;
-          padding: 52px 20px 16px;
+          padding: 52px 20px 0;
           display: flex;
           flex-direction: column;
           justify-content: flex-start;
@@ -359,8 +358,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           display: flex;
           flex-direction: column;
           align-items: center;
-          padding: 3px 24px 0;
-          margin-top: -10px;
+          padding: 24px 24px 0;
           width: 100%;
           position: relative;
           z-index: 1;
@@ -389,7 +387,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           }
 
           .category-grid {
-            padding: 36px 16px 16px;
+            padding: 36px 16px 0;
             gap: 10px;
           }
         }
