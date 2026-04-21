@@ -8,7 +8,6 @@ export default defineConfig({
     sourcemap: false,
     chunkSizeWarningLimit: 1000,
     rollupOptions: {
-      external: ['@revenuecat/purchases-capacitor'],
       output: {
         manualChunks: {
           'vendor-react':    ['react', 'react-dom'],
@@ -16,11 +15,6 @@ export default defineConfig({
           'vendor-misc':     ['react-zoom-pan-pinch'],
         }
       }
-    }
-  },
-  resolve: {
-    alias: {
-      '@revenuecat/purchases-capacitor': '/src/utils/revenueCatStub.js'
     }
   },
   server: {

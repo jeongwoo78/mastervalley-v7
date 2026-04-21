@@ -13,9 +13,9 @@ const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, l
   const t = getUi(lang).addFunds;
 
   const packs = [
-    { id: 'starter', name: 'Starter', price: 0.99, value: 0.99, bonus: null, bonusAmount: null, productId: 'mv_starter_099', tagline: t.tagStarter },
+    { id: 'starter', name: 'Starter', price: 0.99, value: 0.99, bonus: null, bonusAmount: null, productId: 'mv_starter_099', tagline: t.tagStarter, featured: true },
     { id: 'standard', name: 'Standard', price: 4.99, value: 5.49, bonus: '+10%', bonusAmount: 0.50, productId: 'mv_standard_499', tagline: t.tagStandard },
-    { id: 'plus', name: 'Plus', price: 49.99, value: 59.99, bonus: '+20%', bonusAmount: 10.00, productId: 'mv_plus_4999', tagline: t.tagPlus, featured: true }
+    { id: 'plus', name: 'Plus', price: 49.99, value: 59.99, bonus: '+20%', bonusAmount: 10.00, productId: 'mv_plus_4999', tagline: t.tagPlus }
   ];
 
   const handlePurchase = async (pack) => {
