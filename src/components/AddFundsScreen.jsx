@@ -214,7 +214,7 @@ const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, l
 
         .header-title {
           flex: 1;
-          color: #fff;
+          color: rgba(255,255,255,0.9);
           font-size: 17px;
           font-weight: 600;
           text-align: center;
@@ -280,7 +280,7 @@ const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, l
         .pack-name {
           font-size: 14px;
           font-weight: 600;
-          color: #fff;
+          color: rgba(255,255,255,0.9);
         }
 
         .bonus {
@@ -299,13 +299,13 @@ const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, l
         }
 
         .get-amount {
-          color: #fff;
+          color: rgba(255,255,255,0.85);
           font-weight: 700;
           font-size: 15px;
         }
 
         .bonus-text {
-          color: #fff;
+          color: rgba(255,255,255,0.75);
           font-weight: 500;
         }
 
@@ -313,7 +313,7 @@ const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, l
           display: block;
           margin-top: 4px;
           font-size: 12px;
-          color: rgba(255,255,255,0.8);
+          color: rgba(255,255,255,0.6);
           font-style: italic;
         }
 
