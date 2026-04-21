@@ -37,9 +37,16 @@ const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, l
 
       if (!result.success) {
         if (result.error !== 'cancelled') {
-          alert(lang === 'ko'
-            ? '구매 처리 중 오류가 발생했습니다.'
-            : 'An error occurred during purchase.');
+          // 🐛 DEBUG v95.1: 에러 원인 파악용 상세 노출 (임시)
+          const debugInfo = [
+            `error: ${result.error || 'unknown'}`,
+            `code: ${result.code || 'none'}`,
+            `msg: ${result.message || 'none'}`,
+            `full: ${JSON.stringify(result).slice(0, 300)}`
+          ].join('\n');
+          alert((lang === 'ko'
+            ? '[DEBUG] 구매 실패 상세:\n\n'
+            : '[DEBUG] Purchase failed:\n\n') + debugInfo);
         }
         return;
       }
@@ -104,7 +111,16 @@ const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, l
 
     } catch (error) {
       console.error('Purchase error:', error);
-      alert(lang === 'ko' ? '결제 처리 중 오류가 발생했습니다.' : 'An error occurred during purchase.');
+      // 🐛 DEBUG v95.1: 예외 원인 파악용 상세 노출 (임시)
+      const debugInfo = [
+        `name: ${error.name || 'Error'}`,
+        `code: ${error.code || 'none'}`,
+        `msg: ${error.message || String(error)}`,
+        `stack: ${(error.stack || '').slice(0, 200)}`
+      ].join('\n');
+      alert((lang === 'ko'
+        ? '[DEBUG] 예외 발생 상세:\n\n'
+        : '[DEBUG] Exception details:\n\n') + debugInfo);
     } finally {
       setPurchasing(null);
     }

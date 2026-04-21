@@ -1,6 +1,7 @@
-// revenueCat.js - RevenueCat 인앱결제 서비스
+// revenueCat.js - RevenueCat 인앱결제 서비스 (v15: dynamic import 복원)
+//
 // 설치: npm install @revenuecat/purchases-capacitor
-// 네이티브 빌드 전까지는 설치 불필요 (dynamic import로 웹에서 안전)
+// 동적 import로 웹에서 안전 (네이티브 플랫폼에서만 SDK 로드)
 
 import { Capacitor } from '@capacitor/core';
 
@@ -22,11 +23,14 @@ const PACK_TO_PRODUCT = {
   'plus':     'mv_plus_4999'
 };
 
-let isInitialized = false;
 let PurchasesModule = null;
+let isInitialized = false;
+// 🐛 DEBUG v15: 초기화 실패 원인 추적
+let lastInitError = null;
+let sdkLoadError = null;
 
 /**
- * RevenueCat SDK 동적 로드 (네이티브 환경에서만)
+ * 동적으로 RevenueCat SDK 로드 (네이티브 플랫폼에서만)
  */
 const loadSDK = async () => {
   if (PurchasesModule) return PurchasesModule;
@@ -35,9 +39,11 @@ const loadSDK = async () => {
   try {
     const mod = await import('@revenuecat/purchases-capacitor');
     PurchasesModule = mod;
+    sdkLoadError = null;
     return mod;
-  } catch (e) {
-    console.warn('⚠️ RevenueCat SDK 미설치 — npm install @revenuecat/purchases-capacitor');
+  } catch (error) {
+    sdkLoadError = `import failed: ${error.message || String(error)}`;
+    console.error('❌ RevenueCat SDK 로드 실패:', error);
     return null;
   }
 };
@@ -49,23 +55,43 @@ const loadSDK = async () => {
 export const initRevenueCat = async (userId) => {
   if (isInitialized) return;
 
-  const sdk = await loadSDK();
-  if (!sdk) return;
+  if (Capacitor.getPlatform() === 'web') {
+    lastInitError = 'web platform (no native IAP)';
+    return;
+  }
 
+  const sdk = await loadSDK();
+  if (!sdk) {
+    lastInitError = `loadSDK returned null (${sdkLoadError || 'unknown'})`;
+    return;
+  }
+
+  const { Purchases, LOG_LEVEL } = sdk;
   const platform = Capacitor.getPlatform();
 
   try {
     const apiKey = platform === 'ios' ? RC_API_KEY_APPLE : RC_API_KEY_GOOGLE;
 
-    await sdk.Purchases.configure({
+    if (!userId) {
+      lastInitError = 'userId is empty/null';
+      return;
+    }
+    if (!apiKey) {
+      lastInitError = `apiKey empty for platform=${platform}`;
+      return;
+    }
+
+    await Purchases.configure({
       apiKey,
       appUserID: userId
     });
 
-    await sdk.Purchases.setLogLevel({ level: sdk.LOG_LEVEL.DEBUG });
+    await Purchases.setLogLevel({ level: LOG_LEVEL.DEBUG });
     isInitialized = true;
+    lastInitError = null;
     console.log('✅ RevenueCat 초기화 완료');
   } catch (error) {
+    lastInitError = `configure failed: ${error.message || error.code || String(error)}`;
     console.error('❌ RevenueCat 초기화 실패:', error);
   }
 };
@@ -75,9 +101,10 @@ export const initRevenueCat = async (userId) => {
  */
 export const getOfferings = async () => {
   if (!isInitialized || !PurchasesModule) return null;
+  const { Purchases } = PurchasesModule;
 
   try {
-    const offerings = await PurchasesModule.Purchases.getOfferings();
+    const offerings = await Purchases.getOfferings();
     return offerings.current;
   } catch (error) {
     console.error('❌ Offerings 조회 실패:', error);
@@ -91,11 +118,24 @@ export const getOfferings = async () => {
  */
 export const purchasePack = async (packId) => {
   if (!isInitialized || !PurchasesModule) {
-    return { success: false, error: 'RevenueCat not initialized' };
+    return {
+      success: false,
+      error: 'RevenueCat not initialized',
+      _debug: {
+        isInit: isInitialized,
+        hasModule: !!PurchasesModule,
+        platform: Capacitor.getPlatform(),
+        isNative: Capacitor.isNativePlatform(),
+        initError: lastInitError || 'none',
+        sdkError: sdkLoadError || 'none'
+      }
+    };
   }
 
+  const { Purchases } = PurchasesModule;
+
   try {
-    const offerings = await PurchasesModule.Purchases.getOfferings();
+    const offerings = await Purchases.getOfferings();
     const current = offerings.current;
 
     if (!current) {
@@ -116,7 +156,7 @@ export const purchasePack = async (packId) => {
       return { success: false, error: `Product not found: ${productId}` };
     }
 
-    const { customerInfo } = await PurchasesModule.Purchases.purchasePackage({ aPackage: targetPackage });
+    const { customerInfo } = await Purchases.purchasePackage({ aPackage: targetPackage });
 
     const creditInfo = PRODUCT_MAP[productId];
     return {
@@ -140,9 +180,10 @@ export const purchasePack = async (packId) => {
  */
 export const restorePurchases = async () => {
   if (!isInitialized || !PurchasesModule) return null;
+  const { Purchases } = PurchasesModule;
 
   try {
-    const { customerInfo } = await PurchasesModule.Purchases.restorePurchases();
+    const { customerInfo } = await Purchases.restorePurchases();
     return customerInfo;
   } catch (error) {
     console.error('❌ 구매 복원 실패:', error);
