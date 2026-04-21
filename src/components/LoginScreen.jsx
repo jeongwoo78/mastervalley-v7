@@ -430,7 +430,7 @@ const s = {
   container: {
     width: '100%',
     maxWidth: '340px',
-    padding: '8px 0',
+    padding: '3px 0',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
