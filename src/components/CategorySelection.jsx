@@ -117,6 +117,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
 
       <style>{`
         .main-screen {
+          box-sizing: border-box;
           min-height: 100vh;
           min-height: 100dvh;
           padding-top: env(safe-area-inset-top, 0px);

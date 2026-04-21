@@ -298,7 +298,10 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
     <div style={s.screen}>
       <div style={{ ...s.container, alignItems: isRTL ? 'flex-end' : 'flex-start' }}>
 
-        <p style={s.eyebrow}>Master Valley <span style={s.eyebrowDot}>·</span> <span style={s.eyebrowSub}>AI Time Travel Studio</span></p>
+        <p style={s.eyebrow}>
+          <span style={s.eyebrowMain}>Master Valley</span>
+          <span style={s.eyebrowSub}>AI Time Travel Studio</span>
+        </p>
 
         <h1 style={s.title}>
           One photo.<br />
@@ -433,12 +436,18 @@ const s = {
     alignItems: 'flex-start',
   },
   eyebrow: {
-    fontSize: '12px',
-    letterSpacing: '2.5px',
-    textTransform: 'uppercase',
-    color: 'rgba(138,154,184,0.55)',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '6px',
     marginBottom: '28px',
     direction: 'ltr',
+    textTransform: 'uppercase',
+  },
+  eyebrowMain: {
+    fontSize: '13px',
+    letterSpacing: '3px',
+    color: 'rgba(138,154,184,0.7)',
+    fontWeight: 500,
   },
   eyebrowDot: {
     color: 'rgba(184,154,90,0.6)',
@@ -446,8 +455,9 @@ const s = {
     letterSpacing: '0',
   },
   eyebrowSub: {
-    color: 'rgba(184,154,90,0.55)',
+    fontSize: '11px',
     letterSpacing: '2.5px',
+    color: 'rgba(184,154,90,0.55)',
   },
   title: {
     fontFamily: "'Cormorant Garamond', Georgia, serif",

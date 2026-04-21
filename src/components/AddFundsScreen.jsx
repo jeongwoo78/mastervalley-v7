@@ -183,6 +183,7 @@ const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, l
 
       <style>{`
         .funds-screen {
+          box-sizing: border-box;
           min-height: 100vh;
           min-height: 100dvh;
           padding-top: env(safe-area-inset-top, 0px);
