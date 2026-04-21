@@ -26,8 +26,6 @@ const getAuthToken = async () => {
   }
 };
 
-const chargedTransformIds = new Set(); // 레거시 — 향후 제거 예정
-
 const fileToBase64 = async (file) => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
