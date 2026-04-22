@@ -140,6 +140,7 @@ export const processStyleTransfer = async (photoFile, selectedStyle, correctionP
               selected_work: data.selectedWork || null,
               selectionMethod: data.selectionMethod || null,
               subjectType: data.subjectType || null,
+              wasRetry: data.wasRetry === true,  // v98: 서버가 재시도로 처리했는지 (구버전 서버 감지용)
               selectionDetails: null
             });
           } catch (dlErr) {

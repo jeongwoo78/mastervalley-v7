@@ -448,6 +448,7 @@ async function handleSingle(req, res, params) {
       selectionMethod: result.selectionMethod || null,
       subjectType: result.subjectType || null,
       isRetransform: result.isRetransform || false,
+      wasRetry: retryValidated,  // v98: 클라이언트 안전장치 #2가 읽어서 구버전 서버 감지
       completedAt: FieldValue.serverTimestamp(),
       updatedAt: FieldValue.serverTimestamp()
     });
