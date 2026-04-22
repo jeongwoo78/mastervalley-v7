@@ -210,7 +210,7 @@ export const ui = {
 
   // ===== AI Consent =====
   aiConsent: {
-    message: 'Votre photo sera envoyée à Replicate et Anthropic pour la transformation IA et ne sera pas conservée après le traitement.',
+    message: 'Votre photo sera envoyée à des fournisseurs d\'IA tiers de confiance pour la transformation et ne sera pas conservée après le traitement. Consultez notre Politique de Confidentialité pour plus de détails.',
     confirm: "D'accord"
   },
 

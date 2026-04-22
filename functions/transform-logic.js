@@ -54,7 +54,7 @@ async function waitForResult(predictionId) {
  */
 async function pollFallback(predictionId) {
   const startTime = Date.now();
-  const MAX_POLL_TIME = 300000; // 5분
+  const MAX_POLL_TIME = 120000; // v98: 5분 → 2분 (유저 대기 단축 + 재시도가 더 빠른 복구 경로)
   const POLL_INTERVAL = 1000;   // 1초
   
   while (Date.now() - startTime < MAX_POLL_TIME) {
@@ -93,7 +93,7 @@ async function pollFallback(predictionId) {
     }
   }
   
-  throw new Error('폴링 타임아웃 (5분)');
+  throw new Error('폴링 타임아웃 (2분)');
 }
 
 /**

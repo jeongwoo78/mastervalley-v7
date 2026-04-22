@@ -203,7 +203,7 @@ export const ui = {
 
   // ===== AI Consent =====
   aiConsent: {
-    message: "Fotoğrafınız AI dönüşümü için Replicate ve Anthropic'e gönderilecek ve işlem sonrasında saklanmayacaktır.",
+    message: "Fotoğrafınız dönüşüm için güvenilir üçüncü taraf AI sağlayıcılarına gönderilecek ve işlem sonrasında saklanmayacaktır. Ayrıntılar için Gizlilik Politikamıza bakın.",
     confirm: 'Tamam'
   },
 

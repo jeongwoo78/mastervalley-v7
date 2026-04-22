@@ -210,7 +210,7 @@ export const ui = {
 
   // ===== AI Consent =====
   aiConsent: {
-    message: '您的照片將發送至 Replicate 和 Anthropic 進行 AI 轉換，處理完成後不會被保留。',
+    message: '您的照片將發送至受信任的第三方 AI 服務商進行轉換，處理完成後不會被保留。詳情請參閱我們的隱私政策。',
     confirm: '確認'
   },
 

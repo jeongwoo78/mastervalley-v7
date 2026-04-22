@@ -53,6 +53,7 @@ const MasterChat = ({
   const chatAreaRef = useRef(null);
   const hasGreeted = useRef(savedChatData?.messages?.length > 0);
   const isChatEndedRef = useRef(savedChatData?.isChatEnded || false);
+  const isLoadingRef = useRef(false);  // v98: 동기적 중복 요청 차단 (React state는 비동기)
   const timeTravelRef = useRef(null);
   const resolvedImagePromiseRef = useRef(null);  // v92: blob → base64 변환 Promise (loadGreeting이 await)
   
@@ -229,6 +230,10 @@ const MasterChat = ({
 
   // 메시지 전송
   const sendMessage = async () => {
+    // v98: 동기적 중복 요청 차단 (React state보다 먼저 체크)
+    //   빠른 엔터 연타 → setIsLoading(true) 반영 전 2번째 진입 방지
+    if (isLoadingRef.current) return;
+    
     if (!inputValue.trim() || isLoading || isRetransforming || isChatEnded) return;
     
     // 20회 제한 체크
@@ -263,6 +268,8 @@ const MasterChat = ({
       return;  // API 호출 차단
     }
     
+    // v98: ref 세팅은 state보다 먼저 (즉시 반영)
+    isLoadingRef.current = true;
     setIsLoading(true);
     
     // v92: Vision 이미지 변환 완료 대기 (첫 호출 시만 실제 대기, 이후엔 즉시 resolve)
@@ -328,8 +335,11 @@ const MasterChat = ({
         role: 'master',
         content: chatText.common.errorMessage
       }]);
+    } finally {
+      // v98: ref/state 해제는 finally에서 (return/throw 모든 경로 커버)
+      isLoadingRef.current = false;
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   // 재변환 실행

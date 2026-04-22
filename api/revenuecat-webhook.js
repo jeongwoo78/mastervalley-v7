@@ -18,6 +18,7 @@
 
 import { initializeApp, getApps, cert } from 'firebase-admin/app';
 import { getFirestore, FieldValue } from 'firebase-admin/firestore';
+import { timingSafeEqual } from 'crypto';
 
 if (!getApps().length) {
   initializeApp({
@@ -52,7 +53,23 @@ export default async function handler(req, res) {
   }
 
   const authHeader = req.headers.authorization || '';
-  if (authHeader !== expectedAuth) {
+  
+  // v98: Timing-safe 비교 (OWASP 베스트 프랙티스)
+  // - 문자열 직접 비교(!==)는 응답 시간으로 secret 유추 가능 (timing attack)
+  // - timingSafeEqual은 길이 무관 항상 고정 시간 → 시간차 공격 차단
+  let authOk = false;
+  try {
+    const aBuf = Buffer.from(authHeader);
+    const bBuf = Buffer.from(expectedAuth);
+    // 길이 다르면 timingSafeEqual이 throw → catch로 빠짐 (= 실패 처리)
+    if (aBuf.length === bBuf.length) {
+      authOk = timingSafeEqual(aBuf, bBuf);
+    }
+  } catch {
+    authOk = false;
+  }
+  
+  if (!authOk) {
     console.warn(`🚨 Webhook auth 실패: header=${authHeader.slice(0, 20)}...`);
     return res.status(401).json({ error: 'Unauthorized' });
   }

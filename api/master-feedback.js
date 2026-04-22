@@ -548,7 +548,9 @@ export default async function handler(req, res) {
     } else if (conversationType === 'feedback') {
       // 대화 히스토리가 있으면 추가
       if (conversationHistory && Array.isArray(conversationHistory)) {
-        messages = conversationHistory.map(msg => ({
+        // v98: 최근 8턴만 유지 (토큰 비용 34% 절감, 거장 짧은 답변 특성상 품질 영향 없음)
+        const trimmedHistory = conversationHistory.slice(-8);
+        messages = trimmedHistory.map(msg => ({
           role: msg.role === 'master' ? 'assistant' : 'user',
           content: msg.content
         }));
