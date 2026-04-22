@@ -78,6 +78,51 @@ async function deductCredit(userId, deductionKey, cost) {
 }
 
 // ========================================
+// v97: 안전 차감 래퍼 (Firestore 장애 등으로 차감 실패 시 장부 기록)
+// - 차감 성공: 정상 진행
+// - 차감 실패: failed_deductions 컬렉션에 기록 → 유저에게는 결과 제공
+//   → 나중에 수동 or 배치로 복구
+// - Replicate 비용 이미 발생했으므로 유저에게 결과 제공이 비즈니스상 최선
+// ========================================
+async function safeDeductCredit(userId, deductionKey, cost, context = {}) {
+  if (!userId) return { success: true, skipped: true };
+  
+  try {
+    await deductCredit(userId, deductionKey, cost);
+    return { success: true };
+  } catch (err) {
+    console.error(`🚨 CRITICAL: 크레딧 차감 실패 - 장부 기록`, {
+      userId,
+      deductionKey,
+      cost,
+      error: err.message,
+      context
+    });
+    
+    // failed_deductions 장부에 기록 (복구용)
+    try {
+      await db.collection('failed_deductions').doc(deductionKey).set({
+        userId,
+        deductionKey,
+        cost,
+        errorMessage: err.message,
+        context,              // { type: 'single' | 'oneclick', category, ... }
+        status: 'pending',    // 'pending' | 'recovered' | 'waived'
+        createdAt: FieldValue.serverTimestamp(),
+        updatedAt: FieldValue.serverTimestamp()
+      });
+      console.log(`📒 장부 기록 완료: ${deductionKey} | $${cost}`);
+    } catch (ledgerErr) {
+      // 장부 기록도 실패 — Firestore 전체 장애 가능성. 로그만 남김.
+      console.error(`🚨 장부 기록도 실패 (Firestore 전체 장애 의심): ${ledgerErr.message}`);
+    }
+    
+    // 비즈니스 결정: 차감 실패해도 유저에게 결과는 제공
+    return { success: false, failed: true };
+  }
+}
+
+// ========================================
 // FCM 메시지 i18n (11개 언어)
 // ========================================
 const FCM_MESSAGES = {
@@ -346,6 +391,13 @@ async function handleSingle(req, res, params) {
   // 멱등성 체크: 이미 완료된 변환이면 중복 처리 건너뜀
   const existing = await docRef.get();
   if (existing.exists && existing.data().status === 'completed') {
+    // v98: 소유권 검증 - 타 유저의 transformId로 결과 접근 차단
+    const existingUserId = existing.data().userId;
+    if (existingUserId && existingUserId !== userId) {
+      console.warn(`🚨 소유권 위반 시도: ${userId}가 ${existingUserId}의 transformId(${transformId}) 접근`);
+      return res.status(403).json({ error: 'Forbidden: transformId belongs to another user' });
+    }
+    
     console.log(`⏭️ 이미 완료된 변환, 건너뜀: ${transformId}`);
     return res.status(200).json({
       transformId,
@@ -375,10 +427,15 @@ async function handleSingle(req, res, params) {
     
     console.log(`✅ 단일 변환 완료: ${transformId} | ${result.selectedArtist || '재변환'}`);
     
-    // 💰 서버 크레딧 차감 (v94: 재시도는 무료)
+    // 💰 서버 크레딧 차감 (v94: 재시도는 무료 / v97: 안전 래퍼 적용)
     if (!retryValidated) {
       const cost = getTransformCost(selectedStyle, result.isRetransform);
-      await deductCredit(userId, transformId, cost);
+      await safeDeductCredit(userId, transformId, cost, {
+        type: 'single',
+        category: selectedStyle.category,
+        styleName: selectedStyle.name,
+        isRetransform: !!result.isRetransform
+      });
     } else {
       console.log(`💰 재시도로 크레딧 차감 스킵: ${transformId}`);
     }
@@ -591,10 +648,15 @@ async function handleOneClick(req, res, params) {
   const sessionElapsed = ((Date.now() - sessionStart) / 1000).toFixed(1);
   console.log(`🏁 원클릭 세션 완료: ${sessionId} (${successCount}/${totalCount} 성공, ${sessionElapsed}초)`);
   
-  // 💰 원클릭 세트 크레딧 차감 (1건 이상 성공 시)
+  // 💰 원클릭 세트 크레딧 차감 (1건 이상 성공 시 / v97: 안전 래퍼 적용)
   if (successCount >= 1) {
     const oneClickCost = getOneClickCost(category);
-    await deductCredit(userId, sessionId, oneClickCost);
+    await safeDeductCredit(userId, sessionId, oneClickCost, {
+      type: 'oneclick',
+      category,
+      totalCount,
+      successCount
+    });
   }
   
   await sessionRef.update({

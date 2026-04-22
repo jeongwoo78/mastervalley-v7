@@ -252,8 +252,22 @@ export const processFullTransform = async (photoFile, styles, selectedStyle, onP
       
       const timeoutId = setTimeout(() => {
         cleanup();
-        console.warn(`⏰ 원클릭 타임아웃: ${completedCount}/${transformIds.length}`);
-        resolve({ results, transformIds });
+        
+        // v98: null 슬롯을 명시적 failed로 마킹
+        //   - handleRetry의 filter(r => r && r.success === false)가 통과하도록
+        //   - 서버에 isRetry=true로 요청 → 차감 없이 무료 재생성
+        //   - 정우 설계 철학: "결제 1회, 실패분은 재시도로 무료 보상"
+        const finalResults = results.map((r, idx) => r ?? {
+          style: styles[idx],
+          transformId: transformIds[idx],
+          error: 'Client timeout (10 min) - retry to resume',
+          success: false
+        });
+        
+        const timedOutCount = finalResults.filter(r => r.success === false && r.error?.includes('timeout')).length;
+        console.warn(`⏰ 원클릭 타임아웃: ${completedCount}/${transformIds.length} 완료, ${timedOutCount}건 timeout으로 마킹`);
+        
+        resolve({ results: finalResults, transformIds });
       }, 600000);
       
       const cleanup = () => {
