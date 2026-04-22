@@ -209,7 +209,7 @@ export const ui = {
 
   // ===== AI Consent =====
   aiConsent: {
-    message: '사진은 AI 변환을 위해 신뢰할 수 있는 제3자 AI 제공업체에 전송되며, 처리 후 보관되지 않습니다. 자세한 내용은 개인정보처리방침을 참조하세요.',
+    message: '사진은 AI 변환을 위해 신뢰할 수 있는 제3자 AI 제공업체에 전송되며, 처리 후 보관되지 않습니다. 자세한 내용은 개인정보처리지침을 참조하세요.',
     confirm: '확인'
   },
 
@@ -218,7 +218,7 @@ export const ui = {
     title: '앱 정보',
     version: '버전',
     termsOfService: '이용약관',
-    privacyPolicy: '개인정보처리방침',
+    privacyPolicy: '개인정보처리지침',
     imageCredits: '이미지 크레딧',
     lichtensteinCredit: 'Lichtenstein avatar: Eric Koch / Anefo (1967), CC BY-SA 3.0'
   },

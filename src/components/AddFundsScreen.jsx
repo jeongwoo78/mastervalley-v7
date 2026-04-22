@@ -131,6 +131,8 @@ const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, l
           <div
             key={pack.id}
             className={`pack-item ${pack.featured ? 'featured' : ''}`}
+            onClick={() => handlePurchase(pack)}
+            style={{ cursor: purchasing ? 'default' : 'pointer' }}
           >
             <div className="pack-info">
               <div className="pack-header">
@@ -149,7 +151,7 @@ const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, l
             </div>
             <button
               className="pack-price-btn"
-              onClick={() => handlePurchase(pack)}
+              onClick={(e) => { e.stopPropagation(); handlePurchase(pack); }}
               disabled={!!purchasing}
               style={purchasing === pack.id ? { opacity: 0.6 } : {}}
             >
@@ -248,6 +250,11 @@ const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, l
         .pack-item.featured {
           border: 1.5px solid #3a7a7a;
           background: #1a2a2f;
+        }
+
+        .pack-item:active {
+          transform: scale(0.98);
+          background: #2a3a3f;
         }
 
         .pack-info {

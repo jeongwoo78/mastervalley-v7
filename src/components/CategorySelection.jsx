@@ -358,7 +358,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           display: flex;
           flex-direction: column;
           align-items: center;
-          padding: 24px 24px 0;
+          padding: 48px 24px 0;
           width: 100%;
           position: relative;
           z-index: 1;
