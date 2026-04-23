@@ -3803,8 +3803,9 @@ export default async function handler(req, res) {
             
             const safeWorks = safeData.masterworks[replacementArtist];
             if (safeWorks && safeWorks.length > 0) {
-              selectedWork = safeWorks[0];
-              console.log(`🛡️ [MINOR-FILTER] Safe work assigned: ${selectedWork}`);
+              const safeWorkData = getPrompt(safeWorks[0]);
+              selectedWork = safeWorkData?.nameEn || safeWorks[0];  // v98: workKey→작품명 변환 (convertToWorkKey 호환)
+              console.log(`🛡️ [MINOR-FILTER] Safe work assigned: ${selectedWork} (key: ${safeWorks[0]})`);
             }
             logData.prompt.applied.minorArtistFilter = true;
           }
@@ -3815,7 +3816,8 @@ export default async function handler(req, res) {
             const safeWorksForArtist = safeData.masterworks[matchedSafeArtist];
             if (workKey && safeWorksForArtist && !safeWorksForArtist.includes(workKey)) {
               console.log(`🛡️ [MINOR-FILTER] Unsafe work "${selectedWork}" (${workKey}) → "${safeWorksForArtist[0]}"`);
-              selectedWork = safeWorksForArtist[0];
+              const safeWorkData2 = getPrompt(safeWorksForArtist[0]);
+              selectedWork = safeWorkData2?.nameEn || safeWorksForArtist[0];  // v98: workKey→작품명 변환
               logData.prompt.applied.minorWorkFilter = true;
             }
           }
@@ -3828,7 +3830,8 @@ export default async function handler(req, res) {
               const workKey = convertToWorkKey(selectedArtist, selectedWork);
               if (workKey && !safeMasterWorks.includes(workKey)) {
                 console.log(`🛡️ [MINOR-FILTER] Unsafe master work "${selectedWork}" (${workKey}) → "${safeMasterWorks[0]}"`);
-                selectedWork = safeMasterWorks[0];
+                const safeWorkData3 = getPrompt(safeMasterWorks[0]);
+                selectedWork = safeWorkData3?.nameEn || safeMasterWorks[0];  // v98: workKey→작품명 변환
                 logData.prompt.applied.minorWorkFilter = true;
               }
             }
@@ -4168,8 +4171,9 @@ export default async function handler(req, res) {
             console.log(`💬 Speech bubble text: "${speechText}" (${visionAnalysis?.speech_bubble_text ? 'Vision selected' : 'random fallback'})`);
           
             // 프롬프트에 말풍선 + 스타일 강화 추가 (말풍선을 프롬프트 앞쪽에 배치)
+            // v98: 말풍선 10% 마진 강제 + 프레임은 후처리로 추가됨 (프롬프트에서 프레임 생성 안 함)
             if (!finalPrompt.includes('speech bubble')) {
-              finalPrompt = `Exclusively Roy Lichtenstein pop art comic style. MANDATORY white oval comic speech bubble with bold black uppercase text "${speechText}" exclusively this text, clearly readable, positioned toward an upper corner of the composition, away from the subject's eyes, nose, and mouth, with tail pointing toward the subject's face, black outline on bubble, text must be fully readable inside the comic panel frame. ` + finalPrompt + `, EXTREMELY LARGE Ben-Day dots 15mm+ halftone pattern on ALL skin and surfaces, ULTRA THICK BLACK OUTLINES 20mm+, COMIC PANEL FRAME with THICK BLACK BORDER around entire image`;
+              finalPrompt = `Exclusively Roy Lichtenstein pop art comic style. MANDATORY white oval comic speech bubble with bold black uppercase text "${speechText}" exclusively this text, clearly readable, speech bubble positioned at least 10% away from all image edges within the central safe zone, away from the subject's eyes, nose, and mouth, with tail pointing toward the subject's face, black outline on bubble, text fully readable. ` + finalPrompt + `, EXTREMELY LARGE Ben-Day dots 15mm+ halftone pattern on ALL skin and surfaces, ULTRA THICK BLACK OUTLINES 20mm+`;
             }
           }
         }
@@ -4826,8 +4830,9 @@ export default async function handler(req, res) {
       console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
       
       // ========================================
-      // AI 생성물 메타데이터 삽입 (EXIF)
+      // AI 생성물 메타데이터 삽입 (EXIF) + 리히텐슈타인 검은 프레임
       // 한국 AI 기본법 대응 — 모든 출력에 AI 생성 표시
+      // v98: 리히텐슈타인 작품에 15px 검은 프레임 추가 (말풍선은 프롬프트에서 10% 마진)
       // ========================================
       let finalResultUrl = resultUrl;
       try {
@@ -4835,7 +4840,23 @@ export default async function handler(req, res) {
         const imgBuffer = Buffer.from(await imgResponse.arrayBuffer());
         const sharp = (await import('sharp')).default;
         
-        const withExifBuffer = await sharp(imgBuffer)
+        // v98: 리히텐슈타인 감지 → 검은 프레임 추가
+        const isLichtenstein = (selectedArtist || '').toUpperCase().includes('LICHTENSTEIN');
+        
+        let sharpChain = sharp(imgBuffer);
+        
+        if (isLichtenstein) {
+          sharpChain = sharpChain.extend({
+            top: 15,
+            bottom: 15,
+            left: 15,
+            right: 15,
+            background: { r: 0, g: 0, b: 0 }
+          });
+          console.log(`🎨 [LICHTENSTEIN-FRAME] 15px 검은 프레임 추가`);
+        }
+        
+        const withExifBuffer = await sharpChain
           .withExif({
             IFD0: {
               Software: 'Master Valley AI Art',

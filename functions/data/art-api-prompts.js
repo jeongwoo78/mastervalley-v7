@@ -1202,35 +1202,35 @@ export const MODERNISM_PROMPTS = {
  'lichtenstein-inthecar': {
  name: '차 안에서',
  nameEn: 'In the Car',
- prompt: `Clothing covers chest, waist and hip areas. EXTREMELY LARGE VISIBLE Ben-Day dots 20mm+ on ALL skin, hair, and clothing surfaces, DENSE PROMINENT dot pattern on ALL exposed skin with pop art intensity. Pop art painting of the subject by Roy Lichtenstein "In the Car" (1963). COMIC PANEL FRAME with THICK BLACK BORDER around entire image. ULTRA THICK BLACK INK OUTLINES 25mm+ surrounding ALL shapes faces and figures. HEAVY BLACK CONTOUR LINES on EVERY edge with comic-book power. FLAT primary colors ONLY, vermilion red 30%, bright yellow 25%, black 25%, white 20%. Horizontal parallel lines create dramatic speed across background. Bright yellow hair and coat contrast sharply against red car body. Primary colors applied pure and unmixed with sharp clean boundaries and bold graphic impact.`
+ prompt: `Clothing covers chest, waist and hip areas. EXTREMELY LARGE VISIBLE Ben-Day dots 20mm+ on ALL skin, hair, and clothing surfaces, DENSE PROMINENT dot pattern on ALL exposed skin with pop art intensity. Pop art painting of the subject by Roy Lichtenstein "In the Car" (1963). ULTRA THICK BLACK INK OUTLINES 25mm+ surrounding ALL shapes faces and figures. HEAVY BLACK CONTOUR LINES on EVERY edge with comic-book power. FLAT primary colors ONLY, vermilion red 30%, bright yellow 25%, black 25%, white 20%. Horizontal parallel lines create dramatic speed across background. Bright yellow hair and coat contrast sharply against red car body. Primary colors applied pure and unmixed with sharp clean boundaries and bold graphic impact.`
  },
 
  // ★ M-메이비 — ~85w
  'lichtenstein-mmaybe': {
  name: '아마도',
  nameEn: 'M-Maybe',
- prompt: `Clothing covers chest, waist and hip areas. EXTREMELY LARGE VISIBLE Ben-Day dots 20mm+ on ALL skin, hair, and clothing surfaces, DENSE PROMINENT dot pattern on ALL exposed skin with pop art intensity. Pop art painting of the subject by Roy Lichtenstein "M-Maybe" (1965). COMIC PANEL FRAME with THICK BLACK BORDER around entire image. ULTRA THICK BLACK INK OUTLINES 25mm+ surrounding ALL shapes faces and figures. HEAVY BLACK CONTOUR LINES on EVERY edge with comic-book power. FLAT primary colors ONLY, bright yellow 30%, blue 25%, black 25%, white 20%. Blue and yellow toned city buildings simplified in background. Bright yellow hair contrasts intensely against blue background. Primary colors applied pure and unmixed with sharp clean boundaries and bold graphic impact.`
+ prompt: `Clothing covers chest, waist and hip areas. EXTREMELY LARGE VISIBLE Ben-Day dots 20mm+ on ALL skin, hair, and clothing surfaces, DENSE PROMINENT dot pattern on ALL exposed skin with pop art intensity. Pop art painting of the subject by Roy Lichtenstein "M-Maybe" (1965). ULTRA THICK BLACK INK OUTLINES 25mm+ surrounding ALL shapes faces and figures. HEAVY BLACK CONTOUR LINES on EVERY edge with comic-book power. FLAT primary colors ONLY, bright yellow 30%, blue 25%, black 25%, white 20%. Blue and yellow toned city buildings simplified in background. Bright yellow hair contrasts intensely against blue background. Primary colors applied pure and unmixed with sharp clean boundaries and bold graphic impact.`
  },
 
  // ★ 잊어! 날 잊어! — ~85w
  'lichtenstein-forgetit': {
  name: '날 잊어',
  nameEn: 'Forget It! Forget Me!',
- prompt: `Clothing covers chest, waist and hip areas. EXTREMELY LARGE VISIBLE Ben-Day dots 20mm+ on ALL skin, hair, and clothing surfaces, DENSE PROMINENT dot pattern on ALL exposed skin with pop art intensity. Pop art painting of the subject by Roy Lichtenstein "Forget It! Forget Me!" (1962). COMIC PANEL FRAME with THICK BLACK BORDER around entire image. ULTRA THICK BLACK INK OUTLINES 25mm+ surrounding ALL shapes faces and figures. HEAVY BLACK CONTOUR LINES on EVERY edge with comic-book power. FLAT primary colors ONLY, bright yellow 30%, black 30%, blue 20%, red 20%. Solid flat color fills background behind figures. Bright yellow hair contrasts intensely against dark blue-black male hair. Primary colors applied pure and unmixed with sharp clean boundaries and bold graphic impact.`
+ prompt: `Clothing covers chest, waist and hip areas. EXTREMELY LARGE VISIBLE Ben-Day dots 20mm+ on ALL skin, hair, and clothing surfaces, DENSE PROMINENT dot pattern on ALL exposed skin with pop art intensity. Pop art painting of the subject by Roy Lichtenstein "Forget It! Forget Me!" (1962). ULTRA THICK BLACK INK OUTLINES 25mm+ surrounding ALL shapes faces and figures. HEAVY BLACK CONTOUR LINES on EVERY edge with comic-book power. FLAT primary colors ONLY, bright yellow 30%, black 30%, blue 20%, red 20%. Solid flat color fills background behind figures. Bright yellow hair contrasts intensely against dark blue-black male hair. Primary colors applied pure and unmixed with sharp clean boundaries and bold graphic impact.`
  },
 
  // ★ 오...알겠어 — ~85w
  'lichtenstein-ohhhalright': {
  name: '오 알았어',
  nameEn: 'Ohhh...Alright...',
- prompt: `Clothing covers chest, waist and hip areas. EXTREMELY LARGE VISIBLE Ben-Day dots 20mm+ on ALL skin, hair, and clothing surfaces, DENSE PROMINENT dot pattern on ALL exposed skin with pop art intensity. Pop art painting of the subject by Roy Lichtenstein "Ohhh...Alright..." (1964). COMIC PANEL FRAME with THICK BLACK BORDER around entire image. ULTRA THICK BLACK INK OUTLINES 25mm+ surrounding ALL shapes faces and figures. HEAVY BLACK CONTOUR LINES on EVERY edge with comic-book power. FLAT primary colors ONLY, bright yellow 30%, blue 30%, black 20%, red 20%. Blue color field fills area behind figure uniformly. Bright yellow hair contrasts against blue background, red lips accent sharply. Primary colors applied pure and unmixed with sharp clean boundaries and bold graphic impact.`
+ prompt: `Clothing covers chest, waist and hip areas. EXTREMELY LARGE VISIBLE Ben-Day dots 20mm+ on ALL skin, hair, and clothing surfaces, DENSE PROMINENT dot pattern on ALL exposed skin with pop art intensity. Pop art painting of the subject by Roy Lichtenstein "Ohhh...Alright..." (1964). ULTRA THICK BLACK INK OUTLINES 25mm+ surrounding ALL shapes faces and figures. HEAVY BLACK CONTOUR LINES on EVERY edge with comic-book power. FLAT primary colors ONLY, bright yellow 30%, blue 30%, black 20%, red 20%. Blue color field fills area behind figure uniformly. Bright yellow hair contrasts against blue background, red lips accent sharply. Primary colors applied pure and unmixed with sharp clean boundaries and bold graphic impact.`
  },
 
  // ★ 팔레트가 있는 정물 — ~85w
  'lichtenstein-stilllife': {
  name: '정물화',
  nameEn: 'Still Life with Palette',
- prompt: `EXTREMELY LARGE VISIBLE Ben-Day dots 20mm+ on ALL skin, hair, and clothing surfaces, DENSE PROMINENT dot pattern with pop art intensity. Pop art painting of the subject by Roy Lichtenstein "Still Life with Palette" (1972). COMIC PANEL FRAME with THICK BLACK BORDER around entire image. ULTRA THICK BLACK INK OUTLINES 25mm+ surrounding ALL shapes and objects. HEAVY BLACK CONTOUR LINES on EVERY edge with comic-book power. FLAT primary colors ONLY, bright yellow 30%, blue 25%, black 25%, white 20%. Blue and black color fields form walls behind objects. Bright yellow objects contrast sharply against blue-black background. Diagonal leading lines flow toward center with graphic energy. Primary colors applied pure and unmixed with sharp clean boundaries and bold graphic impact.`
+ prompt: `EXTREMELY LARGE VISIBLE Ben-Day dots 20mm+ on ALL skin, hair, and clothing surfaces, DENSE PROMINENT dot pattern with pop art intensity. Pop art painting of the subject by Roy Lichtenstein "Still Life with Palette" (1972). ULTRA THICK BLACK INK OUTLINES 25mm+ surrounding ALL shapes and objects. HEAVY BLACK CONTOUR LINES on EVERY edge with comic-book power. FLAT primary colors ONLY, bright yellow 30%, blue 25%, black 25%, white 20%. Blue and black color fields form walls behind objects. Bright yellow objects contrast sharply against blue-black background. Diagonal leading lines flow toward center with graphic energy. Primary colors applied pure and unmixed with sharp clean boundaries and bold graphic impact.`
  }
 };
 
