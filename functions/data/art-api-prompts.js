@@ -1024,7 +1024,7 @@ export const EXPRESSIONISM_PROMPTS = {
  'munch-madonna': {
  name: '마돈나',
  nameEn: 'Madonna',
- prompt: `Clothing covers chest, waist and hip areas. Hand-painted oil painting of the subject by Edvard Munch. Wavy distorted lines swirl across the entire surface, trembling with rough unstable thick brushmarks. Outlines ripple and twist as edges warp into wavy distorted lines. A dark red aura wraps around the figure. Deep black 40%, dark navy blue 25%, ivory 20%, crimson red 15%. Deep black fills the background. Face and skin crudely distorted with naïve primitive features, the face elongates into a glowing oval with a reddish flush, preserving original skin tone and ethnicity. Red aura light radiates outward around the hair. Rough thick brushwork spreads outward following the undulating flow of the hair. Deep red light radiates from inside the figure outward. Deep black sinks into the background and deep within the hair. Skin tone preserved with crimson claiming the aura and dark navy blue claiming the background.`
+ prompt: `Subject wearing their complete original clothing with all garments fully visible and intact. Clothing covers chest, waist and hip areas. Hand-painted oil painting of the subject by Edvard Munch. Wavy distorted lines swirl across the entire surface, trembling with rough unstable thick brushmarks. Outlines ripple and twist as edges warp into wavy distorted lines. A dark red aura wraps around the figure. Deep black 40%, dark navy blue 25%, ivory 20%, crimson red 15%. Deep black fills the background. Face and skin crudely distorted with naïve primitive features, the face elongates into a glowing oval with a reddish flush, preserving original skin tone and ethnicity. Red aura light radiates outward around the hair. Rough thick brushwork spreads outward following the undulating flow of the hair. Deep red light radiates from inside the figure outward. Deep black sinks into the background and deep within the hair. Skin tone preserved with crimson claiming the aura and dark navy blue claiming the background.`
  },
 
 
@@ -1804,8 +1804,8 @@ KLIMT - SELECT ONE:
 
  'munch': `
 MUNCH - SELECT ONE:
-1. "The Scream" → anxiety, fear, distress, tension, surprise → MALE or FEMALE | Style: wavy lines, blood-red sky
-2. "Madonna" → calm, dreamy, mysterious, sensual → FEMALE ONLY | Style: flowing hair, dark aura`,
+1. "The Scream" → PREFERRED default for most subjects, any mood, any gender | Style: wavy lines, blood-red sky, existential anxiety
+2. "Madonna" → alternative for adult female subjects when portrait has a serene contemplative quality. Do not select for minors | Style: flowing hair, dark red aura`,
 
  'matisse': `
 MATISSE - SELECT ONE:
