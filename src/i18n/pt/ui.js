@@ -233,7 +233,8 @@ export const ui = {
     tagStandard: 'Experimente o mundo dos mestres',
     tagPlus: 'E encontre a sua inspiração',
     info1: 'Sem pagamentos recorrentes',
-    info2: 'O saldo não expira'
+    info2: 'O saldo não expira',
+    purchaseComplete: 'Pagamento concluído. Seu saldo será atualizado em breve.'
   },
 
   subscriptionInfo: {

@@ -241,7 +241,8 @@ export const ui = {
     tagStandard: 'Experimenta el mundo de los maestros',
     tagPlus: 'Y encuentra tu inspiración',
     info1: 'Sin suscripción periódica',
-    info2: 'Saldo sin caducidad'
+    info2: 'Saldo sin caducidad',
+    purchaseComplete: 'Pago completado. Tu saldo se actualizará en breve.'
   },
 
   // ===== Subscription Info =====

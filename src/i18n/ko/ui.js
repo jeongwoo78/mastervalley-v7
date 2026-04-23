@@ -240,7 +240,8 @@ export const ui = {
     tagStandard: '거장의 세계를 경험하세요',
     tagPlus: '그리고 영감을 얻으세요',
     info1: '정기 구독 없음',
-    info2: '잔액 만기 없음'
+    info2: '잔액 만기 없음',
+    purchaseComplete: '결제 완료. 잔액이 곧 업데이트됩니다.'
   },
 
   // ===== Subscription Info (Track A - 탐색 화면용) =====

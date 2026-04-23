@@ -50,6 +50,8 @@ const App = () => {
   // 화면 상태: 'category' | 'photoStyle' | 'processing' | 'result' | 'addFunds' | 'menu'
   const [currentScreen, setCurrentScreen] = useState('category');
   const prevScreenRef = useRef('category');
+  const prevScreenForAddFundsRef = useRef('category');  // v98: 충전 화면 전용 이전 화면 기록
+  const menuBackHandlerRef = useRef(null);  // v98: 메뉴 서브뷰 뒤로가기 처리
   const recoverPromiseRef = useRef(null);  // 진행 중인 복원 Promise 공유
   const resultScreenActiveRef = useRef(false);  // ResultScreen 활성 시 recovery 차단
   const [showGallery, setShowGallery] = useState(false);
@@ -331,9 +333,13 @@ const App = () => {
           handleBackToCategory();
           break;
         case 'addFunds':
-          setCurrentScreen('category');
+          setCurrentScreen(prevScreenForAddFundsRef.current);  // v98: 충전 전용 이전 화면 복귀
           break;
         case 'menu':
+          // v98: 서브뷰(앱정보/이용약관/개인정보) 열려있으면 서브뷰만 닫기
+          if (menuBackHandlerRef.current && menuBackHandlerRef.current()) {
+            break;  // 서브뷰 닫힘 → 메뉴 유지
+          }
           setCurrentScreen(prevScreenRef.current);
           break;
         case 'category':
@@ -573,6 +579,7 @@ const App = () => {
 
   // Add Funds 화면
   const handleGoToAddFunds = () => {
+    prevScreenForAddFundsRef.current = currentScreen;  // v98: 충전 전용 이전 화면 기록
     setCurrentScreen('addFunds');
   };
 
@@ -667,6 +674,7 @@ const App = () => {
           currentBalance={displayCredits}
           onAddFunds={() => {
             setShowInsufficientPopup(false);
+            prevScreenForAddFundsRef.current = currentScreen;  // v98
             setCurrentScreen('addFunds');
           }}
           onClose={() => setShowInsufficientPopup(false)}
@@ -707,12 +715,12 @@ const App = () => {
 
           {currentScreen === 'addFunds' && (
             <AddFundsScreen
-              onBack={() => setCurrentScreen('category')}
+              onBack={() => setCurrentScreen(prevScreenForAddFundsRef.current)}
               userCredits={displayCredits}
               userId={user?.uid}
               onPurchaseComplete={() => {
                 // 잔액은 Firestore onSnapshot이 자동 반영
-                setCurrentScreen('category');
+                setCurrentScreen(prevScreenForAddFundsRef.current);
               }}
               lang={lang}
             />
@@ -727,6 +735,7 @@ const App = () => {
               onSupport={() => console.log('Support')}
               onLogout={handleLogout}
               onDeleteAccount={handleDeleteAccount}
+              menuBackHandlerRef={menuBackHandlerRef}
               lang={lang}
             />
           )}

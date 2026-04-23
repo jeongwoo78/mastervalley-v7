@@ -241,7 +241,8 @@ export const ui = {
     tagStandard: '巨匠の世界を体験しよう',
     tagPlus: 'そしてインスピレーションを見つけよう',
     info1: '定期課金なし',
-    info2: '残高有効期限なし'
+    info2: '残高有効期限なし',
+    purchaseComplete: 'お支払い完了。残高はまもなく更新されます。'
   },
 
   // ===== Subscription Info =====

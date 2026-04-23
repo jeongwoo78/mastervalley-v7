@@ -241,7 +241,8 @@ export const ui = {
     tagStandard: 'Rasakan dunia para maestro',
     tagPlus: 'Dan temukan inspirasi Anda',
     info1: 'Tanpa langganan berkala',
-    info2: 'Saldo tidak kedaluwarsa'
+    info2: 'Saldo tidak kedaluwarsa',
+    purchaseComplete: 'Pembayaran selesai. Saldo Anda akan segera diperbarui.'
   },
 
   // ===== Subscription Info =====

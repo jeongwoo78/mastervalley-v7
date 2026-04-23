@@ -241,7 +241,8 @@ export const ui = {
     tagStandard: 'Explorez le monde des maîtres',
     tagPlus: 'Et trouvez votre inspiration',
     info1: 'Sans abonnement récurrent',
-    info2: 'Solde sans expiration'
+    info2: 'Solde sans expiration',
+    purchaseComplete: 'Paiement effectué. Votre solde sera mis à jour sous peu.'
   },
 
   // ===== Subscription Info =====

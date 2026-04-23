@@ -241,7 +241,8 @@ export const ui = {
     tagStandard: '體驗大師的世界',
     tagPlus: '然後找到你的靈感',
     info1: '無定期扣款',
-    info2: '餘額永久有效'
+    info2: '餘額永久有效',
+    purchaseComplete: '付款完成。您的餘額即將更新。'
   },
 
   // ===== Subscription Info =====

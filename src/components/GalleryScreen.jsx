@@ -188,9 +188,9 @@ export const saveToGallery = async (imageUrl, metadataOrStyleName, categoryNameL
       return false;
     }
     
-    // ========== base64 중복 체크 (최근 30초 이내만 — 동시 저장 충돌 방지) ==========
+    // ========== base64 중복 체크 (최근 5분 이내 — 재시도 중복 저장 방지) ==========
     const existingItems = await getAllImages();
-    const recentCutoff = new Date(Date.now() - 30000).toISOString();
+    const recentCutoff = new Date(Date.now() - 300000).toISOString();
     const recentItems = existingItems.filter(item => item.createdAt > recentCutoff);
     const alreadyExists = recentItems.some(item => item.imageData === base64Image);
     if (alreadyExists) {

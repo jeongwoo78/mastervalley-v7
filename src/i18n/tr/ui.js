@@ -233,7 +233,8 @@ export const ui = {
     tagStandard: 'Ustaların dünyasını deneyimle',
     tagPlus: 'Ve ilhamını bul',
     info1: 'Tekrar eden ödeme yok',
-    info2: 'Bakiye süresiz geçerli'
+    info2: 'Bakiye süresiz geçerli',
+    purchaseComplete: 'Ödeme tamamlandı. Bakiyeniz kısa sürede güncellenecektir.'
   },
 
   subscriptionInfo: {

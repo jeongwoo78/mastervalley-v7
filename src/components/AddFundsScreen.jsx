@@ -50,7 +50,7 @@ const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, l
 
       let addData = null;
       let lastError = null;
-      const retryDelays = [0, 2000, 4000, 6000]; // 0s, 2s, 4s, 6s → 최대 ~12초
+      const retryDelays = [0, 4000, 8000, 12000]; // v98: 총 24초 (RC 반영 지연 대비 여유 2배)
 
       for (let attempt = 0; attempt < retryDelays.length; attempt++) {
         if (retryDelays[attempt] > 0) {
@@ -97,9 +97,7 @@ const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, l
 
         // 결제는 됐는데 크레딧 미반영 — 정확히 안내
         // (2단계 Webhook 배포되면 자동 복구됨)
-        alert(lang === 'ko'
-          ? '결제는 완료되었습니다. 크레딧 반영에 시간이 걸릴 수 있으니, 잠시 후 앱을 다시 실행해 주세요. 계속 문제가 있으면 고객지원에 문의해 주세요.'
-          : 'Payment completed. Credits may take a moment to appear. Please restart the app shortly. If the issue persists, contact support.');
+        alert(t.purchaseComplete);
       }
 
     } catch (error) {

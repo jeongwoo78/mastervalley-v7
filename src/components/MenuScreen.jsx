@@ -81,6 +81,7 @@ const MenuScreen = ({
   onSupport, 
   onLogout, 
   onDeleteAccount,
+  menuBackHandlerRef,  // v98: 안드로이드 뒤로가기 처리용
   lang = 'en'
 }) => {
 
@@ -92,6 +93,22 @@ const MenuScreen = ({
 
   const t = getUi(lang).menu;
   const ta = getUi(lang).about;
+
+  // v98: 안드로이드 뒤로가기 시 서브뷰 닫기 (깊은 순서대로)
+  React.useEffect(() => {
+    if (menuBackHandlerRef) {
+      menuBackHandlerRef.current = () => {
+        // 2단계: 약관/개인정보 (앱정보 안에서 열림) → 앱정보로 복귀
+        if (showTerms) { setShowTerms(false); return true; }
+        if (showPrivacy) { setShowPrivacy(false); return true; }
+        // 1단계: 앱정보/언어/고객지원 → 메뉴로 복귀
+        if (showAbout) { setShowAbout(false); return true; }
+        if (supportOpen) { setSupportOpen(false); return true; }
+        if (langOpen) { setLangOpen(false); return true; }
+        return false;  // 서브뷰 없음 → App.jsx가 메뉴 자체 닫기
+      };
+    }
+  }, [showAbout, showTerms, showPrivacy, supportOpen, langOpen]);
 
   const currentLangName = ALL_LANGS.find(l => l.code === lang)?.native || 'English';
 

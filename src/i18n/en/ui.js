@@ -240,7 +240,8 @@ export const ui = {
     tagStandard: 'Experience the world of masters',
     tagPlus: 'And find your inspiration',
     info1: 'No recurring payments',
-    info2: 'Balance never expires'
+    info2: 'Balance never expires',
+    purchaseComplete: 'Payment completed. Your balance will update shortly.'
   },
 
   // ===== Subscription Info (Track A - 탐색 화면용) =====
