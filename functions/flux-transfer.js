@@ -4849,13 +4849,13 @@ export default async function handler(req, res) {
         
         if (isLichtenstein) {
           sharpChain = sharpChain.extend({
-            top: 15,
-            bottom: 15,
-            left: 15,
-            right: 15,
+            top: 19,
+            bottom: 19,
+            left: 19,
+            right: 19,
             background: { r: 0, g: 0, b: 0 }
           });
-          console.log(`🎨 [LICHTENSTEIN-FRAME] 15px 검은 프레임 추가`);
+          console.log(`🎨 [LICHTENSTEIN-FRAME] 19px 검은 프레임 추가`);
         }
         
         const withExifBuffer = await sharpChain
