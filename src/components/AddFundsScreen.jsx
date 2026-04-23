@@ -108,14 +108,11 @@ const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, l
 
       // 3. 결과 처리
       if (addData?.success) {
-        // 잔액은 Firestore onSnapshot이 자동 반영
+        // 잔액은 Firestore onSnapshot이 자동 반영 (Optimistic 해제는 useEffect가 처리)
         onPurchaseComplete?.();
       } else {
-        console.error('크레딧 추가 실패:', addData?.error || lastError?.message);
-
-        // 결제는 됐는데 크레딧 미반영 — 정확히 안내
-        // (2단계 Webhook 배포되면 자동 복구됨)
-        alert(t.purchaseComplete);
+        // v98: alert 제거 — Optimistic UI로 이미 잔액 반영됨, Webhook이 백그라운드 복구
+        console.error('크레딧 추가 실패 — Webhook 자동 복구 대기:', addData?.error || lastError?.message);
       }
 
     } catch (error) {
