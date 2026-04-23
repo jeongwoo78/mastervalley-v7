@@ -352,6 +352,7 @@ async function handleSingle(req, res, params) {
   
   // v94: 재시도 요청 검증 (어뷰징 방어)
   let retryValidated = false;
+  let retryNeedsCharge = false;  // v98: 원본이 failed면 재시도 성공 시에도 차감 필요
   if (isRetry) {
     if (!originalTransformId) {
       return res.status(400).json({ error: 'isRetry requires originalTransformId' });
@@ -372,14 +373,16 @@ async function handleSingle(req, res, params) {
       if (retryCount >= 3) {
         return res.status(429).json({ error: 'Retry limit exceeded (max 3)' });
       }
-      // 원본 상태 확인: failed 이거나 completed인데 클라이언트가 실패로 간주한 경우 모두 허용
-      // (NSFW 왜곡 등 서버는 성공이지만 실제로는 실패한 케이스 대응)
+      // v98: 원본이 failed면 한 번도 차감 안 된 상태 → 재시도 성공 시 차감 필요
+      //      원본이 completed면 이미 차감됨 → 재시도는 무료
+      retryNeedsCharge = (origData.status === 'failed');
+      
       await origRef.update({
         retryCount: retryCount + 1,
         lastRetryAt: FieldValue.serverTimestamp()
       });
       retryValidated = true;
-      console.log(`🔁 재시도 승인: ${userId} | 원본 ${originalTransformId} (${retryCount + 1}/3)`);
+      console.log(`🔁 재시도 승인: ${userId} | 원본 ${originalTransformId} (${retryCount + 1}/3) | 차감필요: ${retryNeedsCharge}`);
     } catch (e) {
       console.error('Retry 검증 실패:', e);
       return res.status(500).json({ error: 'Retry validation failed' });
@@ -427,17 +430,23 @@ async function handleSingle(req, res, params) {
     
     console.log(`✅ 단일 변환 완료: ${transformId} | ${result.selectedArtist || '재변환'}`);
     
-    // 💰 서버 크레딧 차감 (v94: 재시도는 무료 / v97: 안전 래퍼 적용)
-    if (!retryValidated) {
+    // 💰 서버 크레딧 차감
+    // v98: 재시도여도 원본이 failed(=한 번도 차감 안 됨)면 차감
+    //       "결과물 받으면 차감" 원칙
+    if (!retryValidated || retryNeedsCharge) {
       const cost = getTransformCost(selectedStyle, result.isRetransform);
       await safeDeductCredit(userId, transformId, cost, {
         type: 'single',
         category: selectedStyle.category,
         styleName: selectedStyle.name,
-        isRetransform: !!result.isRetransform
+        isRetransform: !!result.isRetransform,
+        isRetryCharge: retryNeedsCharge  // 로그용: 재시도 차감 여부 기록
       });
+      if (retryNeedsCharge) {
+        console.log(`💰 재시도지만 원본 failed → 차감 실행: ${transformId}`);
+      }
     } else {
-      console.log(`💰 재시도로 크레딧 차감 스킵: ${transformId}`);
+      console.log(`💰 재시도 + 원본 이미 차감됨 → 스킵: ${transformId}`);
     }
     
     await docRef.update({
