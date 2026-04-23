@@ -1,6 +1,6 @@
 // AddFundsScreen.jsx - Add Funds Screen (RevenueCat IAP 연동)
 // v95 (2026-04): 서버 영수증 검증 연동 — transactionId 제거, RC 반영 대기 retry 추가
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getUi } from '../i18n';
 import { purchasePack, isNativeIAP } from '../utils/revenueCat';
 import { auth } from '../config/firebase';
@@ -9,8 +9,19 @@ const API_BASE_URL = 'https://mastervalley-v7.vercel.app';
 
 const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, lang = 'en' }) => {
   const [purchasing, setPurchasing] = useState(null);  // 구매 중인 팩 ID
+  const [optimisticCredit, setOptimisticCredit] = useState(null);  // v98: Optimistic UI - 결제 즉시 반영 (null이면 userCredits 사용)
 
   const t = getUi(lang).addFunds;
+
+  // v98: 낙관적 잔액 표시 — 결제 직후 즉시 반영, 서버 동기화되면 자동 해제
+  const displayCredit = optimisticCredit !== null ? optimisticCredit : userCredits;
+
+  // v98: 서버가 실제 잔액을 optimistic 이상으로 따라잡으면 자동 해제 (Firestore onSnapshot 반영)
+  useEffect(() => {
+    if (optimisticCredit !== null && userCredits >= optimisticCredit) {
+      setOptimisticCredit(null);
+    }
+  }, [userCredits, optimisticCredit]);
 
   const packs = [
     { id: 'starter', name: 'Starter', price: 0.99, value: 0.99, bonus: null, bonusAmount: null, productId: 'mv_starter_099', tagline: t.tagStarter, featured: true },
@@ -43,6 +54,13 @@ const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, l
         }
         return;
       }
+
+      // v98: Optimistic UI — 결제 완료 즉시 잔액 반영 (서버 동기화 대기 없이)
+      //      userCredits(실제값) + pack.value(충전액 + 보너스)
+      //      서버 반영되면 useEffect가 자동 해제
+      const optimisticTarget = userCredits + pack.value;
+      setOptimisticCredit(optimisticTarget);
+      console.log(`💰 [Optimistic] 잔액 즉시 반영: $${userCredits.toFixed(2)} → $${optimisticTarget.toFixed(2)}`);
 
       // 2. 서버 크레딧 추가 요청 (RC 반영 지연 대비 retry 루프)
       //    v95: productId만 전송 — 서버가 RC REST API로 직접 검증
@@ -120,7 +138,7 @@ const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, l
       {/* Balance Section */}
       <div className="balance-section">
         <div className="balance-label">{t.balance}</div>
-        <div className="balance-amount">${userCredits.toFixed(2)}</div>
+        <div className="balance-amount">${displayCredit.toFixed(2)}</div>
       </div>
 
       {/* Packs Section */}
