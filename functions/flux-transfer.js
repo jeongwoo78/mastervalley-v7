@@ -4840,8 +4840,10 @@ export default async function handler(req, res) {
         const imgBuffer = Buffer.from(await imgResponse.arrayBuffer());
         const sharp = (await import('sharp')).default;
         
-        // v98: 리히텐슈타인 감지 → 검은 프레임 추가
-        const isLichtenstein = (selectedArtist || '').toUpperCase().includes('LICHTENSTEIN');
+        // v98: 리히텐슈타인 감지 → 검은 프레임 추가 (한글/영문 모두 매칭)
+        const artistUpper = (selectedArtist || '').toUpperCase();
+        const isLichtenstein = artistUpper.includes('LICHTENSTEIN') || 
+                               (selectedArtist || '').includes('리히텐슈타인');
         
         let sharpChain = sharp(imgBuffer);
         
