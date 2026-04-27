@@ -249,7 +249,7 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
 
         .brand-title {
           font-family: 'Cormorant Garamond', Georgia, serif;
-          font-size: 44px;
+          font-size: clamp(32px, 9vw, 44px);  /* v24: 어르신 폰 시스템 폰트 130%+ 대응 */
           font-weight: 500;
           background: linear-gradient(135deg, #6a7a9a 20%, #8a9ab8 50%, #6a7a9a 80%);
           -webkit-background-clip: text;
@@ -257,6 +257,8 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
           background-clip: text;
           margin: 0 0 10px;
           letter-spacing: 1px;
+          word-break: keep-all;  /* v24: 한국어 단어 단위 유지 */
+          overflow-wrap: break-word;
         }
 
         .brand-tagline {
@@ -334,10 +336,12 @@ const CategorySelection = ({ onSelect, onGallery, onMenu, onAddFunds, userCredit
 
         .card-name {
           font-family: 'Cormorant Garamond', Georgia, serif;
-          font-size: 22px;
+          font-size: clamp(18px, 5.5vw, 22px);  /* v24: 어르신 폰 대응 */
           font-weight: 500;
           text-align: start;
           letter-spacing: 0.3px;
+          word-break: keep-all;  /* v24: 한국어 단어 단위 유지 */
+          overflow-wrap: break-word;
         }
 
         .card-desc {

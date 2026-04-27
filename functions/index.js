@@ -526,6 +526,27 @@ async function handleOneClick(req, res, params) {
   const batch = db.batch();
   
   const sessionRef = db.collection('oneclick_sessions').doc(sessionId);
+
+  // v24: 멱등성 체크 - 이미 완료된 세션이면 중복 처리 건너뜀 (Cloud Run 자동 retry 대응)
+  //   단독 변환과 동일한 패턴 (L394~414)
+  //   FCM 알림 중복 방지 (정우 부모님 폰 8:07/8:09 케이스 해결)
+  const existingSession = await sessionRef.get();
+  if (existingSession.exists && existingSession.data().status === 'completed') {
+    // 소유권 검증
+    const existingUserId = existingSession.data().userId;
+    if (existingUserId && existingUserId !== userId) {
+      console.warn(`🚨 소유권 위반 시도: ${userId}가 ${existingUserId}의 sessionId(${sessionId}) 접근`);
+      return res.status(403).json({ error: 'Forbidden: sessionId belongs to another user' });
+    }
+
+    console.log(`⏭️ 이미 완료된 원클릭 세션, 건너뜀: ${sessionId}`);
+    return res.status(200).json({
+      sessionId,
+      status: 'completed',
+      duplicate: true
+    });
+  }
+
   const expireAt = Timestamp.fromDate(new Date(Date.now() + 30 * 24 * 60 * 60 * 1000));  // F-3: 30일 후 TTL 삭제
   batch.set(sessionRef, {
     userId: userId || null,

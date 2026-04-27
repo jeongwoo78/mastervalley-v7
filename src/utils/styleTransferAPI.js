@@ -26,45 +26,78 @@ const getAuthToken = async () => {
   }
 };
 
+// v24: race condition 해결 + 5중 안전장치 (어르신 폰 구형 WebView 대응)
+//   1. 핸들러 먼저 등록 (race condition 해결)
+//   2. reader.result null 체크 (구형 WebView 빈 결과 대비)
+//   3. onerror 상세 메시지
+//   4. onabort 추가 (사용자 취소 등)
+//   5. try-catch로 readAsDataURL 동기 에러 잡기
 const fileToBase64 = async (file) => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
+
+    reader.onload = () => {
+      if (reader.result) resolve(reader.result);
+      else reject(new Error('FileReader returned empty result'));
+    };
+    reader.onerror = () => reject(new Error(`FileReader failed: ${reader.error?.message || 'unknown'}`));
+    reader.onabort = () => reject(new Error('FileReader aborted'));
+
+    try {
+      reader.readAsDataURL(file);
+    } catch (e) {
+      reject(new Error(`readAsDataURL threw: ${e.message}`));
+    }
   });
 };
 
+// v24: 안전장치 강화 (구형 WebView의 빈 결과/null Blob/동기 에러 대응)
 const resizeImage = async (file, maxWidth = 1024) => {
   return new Promise((resolve, reject) => {
     const img = new Image();
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
-    
+
     img.onload = () => {
       let width = img.width;
       let height = img.height;
-      
+
       if (width > maxWidth) {
         height = (height * maxWidth) / width;
         width = maxWidth;
       }
-      
+
       canvas.width = width;
       canvas.height = height;
       ctx.drawImage(img, 0, 0, width, height);
-      
+
       canvas.toBlob((blob) => {
-        resolve(new File([blob], file.name || 'photo.jpg', { type: 'image/jpeg' }));
+        if (blob) {
+          resolve(new File([blob], file.name || 'photo.jpg', { type: 'image/jpeg' }));
+        } else {
+          reject(new Error('canvas.toBlob returned null'));
+        }
       }, 'image/jpeg', 0.95);
     };
-    
+
     img.onerror = () => reject(new Error('Image load failed'));
-    
+
     const reader = new FileReader();
-    reader.onloadend = () => { img.src = reader.result; };
-    reader.onerror = () => reject(new Error('FileReader failed'));
-    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      if (reader.result) {
+        img.src = reader.result;
+      } else {
+        reject(new Error('FileReader returned empty result (resize)'));
+      }
+    };
+    reader.onerror = () => reject(new Error(`FileReader failed (resize): ${reader.error?.message || 'unknown'}`));
+    reader.onabort = () => reject(new Error('FileReader aborted (resize)'));
+
+    try {
+      reader.readAsDataURL(file);
+    } catch (e) {
+      reject(new Error(`readAsDataURL threw (resize): ${e.message}`));
+    }
   });
 };
 
