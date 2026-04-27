@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { getUi } from '../i18n';
 import { termsContent, privacyContent } from '../data/legalContent';
+import { faqContent } from '../data/faqContent';
 
 // ===== SVG Icons =====
 const IconImage = () => (
@@ -78,7 +79,6 @@ const MenuScreen = ({
   onGallery, 
   onAddFunds, 
   onLanguage, 
-  onSupport, 
   onLogout, 
   onDeleteAccount,
   menuBackHandlerRef,  // v98: 안드로이드 뒤로가기 처리용
@@ -90,6 +90,7 @@ const MenuScreen = ({
   const [showAbout, setShowAbout] = useState(false);
   const [showTerms, setShowTerms] = useState(false);
   const [showPrivacy, setShowPrivacy] = useState(false);
+  const [showFaq, setShowFaq] = useState(false);  // BLOCKER #49
 
   const t = getUi(lang).menu;
   const ta = getUi(lang).about;
@@ -101,14 +102,15 @@ const MenuScreen = ({
         // 2단계: 약관/개인정보 (앱정보 안에서 열림) → 앱정보로 복귀
         if (showTerms) { setShowTerms(false); return true; }
         if (showPrivacy) { setShowPrivacy(false); return true; }
-        // 1단계: 앱정보/언어/고객지원 → 메뉴로 복귀
+        // 1단계: 앱정보/언어/고객지원/FAQ → 메뉴로 복귀
         if (showAbout) { setShowAbout(false); return true; }
+        if (showFaq) { setShowFaq(false); return true; }
         if (supportOpen) { setSupportOpen(false); return true; }
         if (langOpen) { setLangOpen(false); return true; }
         return false;  // 서브뷰 없음 → App.jsx가 메뉴 자체 닫기
       };
     }
-  }, [showAbout, showTerms, showPrivacy, supportOpen, langOpen]);
+  }, [showAbout, showTerms, showPrivacy, showFaq, supportOpen, langOpen]);
 
   const currentLangName = ALL_LANGS.find(l => l.code === lang)?.native || 'English';
 
@@ -119,6 +121,16 @@ const MenuScreen = ({
       onLanguage(newLang);
     }
     setLangOpen(false);
+  };
+
+  // 문의하기 — mailto 링크로 기본 메일 앱 열기 (BLOCKER #49)
+  // body에 언어/플랫폼 자동 첨부 → 정우가 답변 작성 시 컨텍스트 파악 용이
+  const handleContactUs = () => {
+    const subject = encodeURIComponent('Master Valley Support');
+    const platform = (typeof navigator !== 'undefined' && navigator.userAgent) || 'Unknown';
+    const bodyText = `\n\n---\nLanguage: ${lang}\nPlatform: ${platform}`;
+    const body = encodeURIComponent(bodyText);
+    window.location.href = `mailto:support@mastervalley.app?subject=${subject}&body=${body}`;
   };
 
   // ===== Terms View =====
@@ -157,6 +169,29 @@ const MenuScreen = ({
         </header>
         <div className="legal-scroll" dir="ltr" style={{ textAlign: 'left' }}>
           <p className="legal-updated">{lang === 'ko' ? '최종 수정일: 2026년 3월 13일' : 'Last updated: March 13, 2026'}</p>
+          {sections.map((s, i) => (
+            <div key={i} className="legal-section">
+              <h3 className="legal-title">{s.title}</h3>
+              <p className="legal-text">{s.text}</p>
+            </div>
+          ))}
+        </div>
+        <style>{menuStyles}</style>
+      </div>
+    );
+  }
+
+  // ===== FAQ View (BLOCKER #49) =====
+  if (showFaq) {
+    const sections = faqContent[lang] || faqContent.en;
+    return (
+      <div className="menu-screen">
+        <header className="menu-header">
+          <button className="back-btn" onClick={() => setShowFaq(false)}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+          <span className="header-title">{t.faq}</span>
+          <span className="header-spacer"></span>
+        </header>
+        <div className="legal-scroll" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
           {sections.map((s, i) => (
             <div key={i} className="legal-section">
               <h3 className="legal-title">{s.title}</h3>
@@ -281,10 +316,10 @@ const MenuScreen = ({
 
         {supportOpen && (
           <div className="support-accordion">
-            <div className="support-option" onClick={onSupport}>
+            <div className="support-option" onClick={handleContactUs}>
               <span className="support-text">{t.contactUs}</span>
             </div>
-            <div className="support-option">
+            <div className="support-option" onClick={() => setShowFaq(true)}>
               <span className="support-text">{t.faq}</span>
             </div>
           </div>

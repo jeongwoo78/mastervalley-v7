@@ -748,7 +748,6 @@ const App = () => {
               onGallery={() => setShowGallery(true)}
               onAddFunds={handleGoToAddFunds}
               onLanguage={handleLanguageChange}
-              onSupport={() => console.log('Support')}
               onLogout={handleLogout}
               onDeleteAccount={handleDeleteAccount}
               menuBackHandlerRef={menuBackHandlerRef}
