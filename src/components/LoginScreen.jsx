@@ -7,6 +7,7 @@ import {
   signInWithCredential,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
   GoogleAuthProvider
 } from 'firebase/auth';
 import { auth, googleProvider, appleProvider } from '../config/firebase';
@@ -141,6 +142,7 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
   const [password, setPassword] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
   const [error, setError]       = useState('');
+  const [info, setInfo]         = useState('');  // 성공/안내 메시지 (녹색)
   const [loading, setLoading]   = useState(false);
   const [isNative, setIsNative] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -244,6 +246,7 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
   const handleGoogleLogin = async () => {
     setLoading(true);
     setError('');
+    setInfo('');
     try {
       if (isNative) {
         const { GoogleAuth } = await import('@codetrix-studio/capacitor-google-auth');
@@ -268,6 +271,7 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
   const handleAppleLogin = async () => {
     setLoading(true);
     setError('');
+    setInfo('');
     try {
       const result = await signInWithPopup(auth, appleProvider);
       onLoginSuccess(result.user);
@@ -283,6 +287,7 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
     e.preventDefault();
     setLoading(true);
     setError('');
+    setInfo('');
     try {
       const result = isSignUp
         ? await createUserWithEmailAndPassword(auth, email, password)
@@ -296,6 +301,31 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
       else if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password')
                                                            setError(t.wrongCredentials);
       else                                                 setError(`${t.loginFailed} (${err.code})`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // 비밀번호 재설정 이메일 발송 (BLOCKER #47)
+  const handleForgotPassword = async () => {
+    if (loading) return;
+    const trimmedEmail = (email || '').trim();
+    if (!trimmedEmail) {
+      setError(t.resetEmailRequired);
+      setInfo('');
+      return;
+    }
+    setLoading(true);
+    setError('');
+    setInfo('');
+    try {
+      await sendPasswordResetEmail(auth, trimmedEmail);
+      setInfo(t.resetEmailSent);
+    } catch (err) {
+      console.error('Password reset error:', err);
+      if (err.code === 'auth/invalid-email')      setError(t.invalidEmail);
+      else if (err.code === 'auth/user-not-found') setError(t.wrongCredentials);
+      else                                         setError(`${t.resetEmailFailed} (${err.code})`);
     } finally {
       setLoading(false);
     }
@@ -408,13 +438,23 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
             </span>
           </div>
 
+          {!isSignUp && (
+            <span
+              style={{ ...s.forgotLink, textAlign: isRTL ? 'right' : 'left', alignSelf: isRTL ? 'flex-end' : 'flex-start' }}
+              onClick={loading ? undefined : handleForgotPassword}
+            >
+              {t.forgotPassword}
+            </span>
+          )}
+
+          {info && <p style={{ ...s.info, textAlign: isRTL ? 'right' : 'left' }}>{info}</p>}
           {error && <p style={{ ...s.error, textAlign: isRTL ? 'right' : 'left' }}>{error}</p>}
 
           <div style={{ ...s.row, flexDirection: isRTL ? 'row-reverse' : 'row' }}>
             <button type="submit" disabled={loading} style={{ ...s.submitBtn, opacity: loading ? 0.6 : 1 }}>
               {loading ? t.pleaseWait : (isSignUp ? t.signUp : t.logIn)}
             </button>
-            <span style={s.signupLink} onClick={() => { setIsSignUp(!isSignUp); setError(''); }}>
+            <span style={s.signupLink} onClick={() => { setIsSignUp(!isSignUp); setError(''); setInfo(''); }}>
               {isSignUp ? t.logIn : t.signUp}
             </span>
           </div>
@@ -563,6 +603,7 @@ const s = {
     display: 'flex', alignItems: 'center',
   },
   error: { fontSize: '12px', color: 'rgba(239,68,68,0.9)', marginBottom: '12px' },
+  info:  { fontSize: '12px', color: 'rgba(74,222,128,0.9)', marginBottom: '12px' },
   row: {
     display: 'flex', alignItems: 'center',
     justifyContent: 'space-between', marginTop: '6px',
@@ -577,6 +618,13 @@ const s = {
     fontSize: '13px', color: 'rgba(255,255,255,0.2)',
     cursor: 'pointer', textDecoration: 'underline',
     textUnderlineOffset: '3px',
+  },
+  forgotLink: {
+    fontSize: '12px', color: 'rgba(255,255,255,0.35)',
+    cursor: 'pointer', textDecoration: 'underline',
+    textUnderlineOffset: '3px',
+    marginTop: '8px', marginBottom: '4px',
+    display: 'inline-block',
   },
 };
 
