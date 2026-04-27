@@ -275,6 +275,11 @@ export const ui = {
     weakPassword: 'Şifre en az 6 karakter olmalıdır',
     wrongCredentials: 'E-posta veya şifre hatalı',
     loginFailed: 'Giriş başarısız. Lütfen tekrar deneyin.',
+    forgotPassword: 'Şifrenizi mi unuttunuz?',
+    resetEmailPrompt: 'Sıfırlama bağlantısı için e-postanızı girin',
+    resetEmailSent: 'Sıfırlama e-postası gönderildi. Gelen kutunuzu kontrol edin.',
+    resetEmailRequired: 'Lütfen önce e-postanızı girin',
+    resetEmailFailed: 'Sıfırlama e-postası gönderilemedi',
     // Developer message
     devMsg1: 'Master Valley\'in geliştiricisiyim — ve ilk kullanıcısıyım.',
     devMsg2: 'Rönesans sanatçıları bin yıllık Tanrı merkezli geleneği yıktı ve insanlığın ideallerini yeniden kurdu.',

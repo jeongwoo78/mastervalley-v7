@@ -286,6 +286,11 @@ export const ui = {
     weakPassword: '密碼至少需要 6 個字元',
     wrongCredentials: '電子郵件或密碼錯誤',
     loginFailed: '登入失敗，請再試一次。',
+    forgotPassword: '忘記密碼？',
+    resetEmailPrompt: '輸入您的電子郵件以接收重設連結',
+    resetEmailSent: '已寄出重設郵件，請查看您的收件匣。',
+    resetEmailRequired: '請先輸入您的電子郵件',
+    resetEmailFailed: '重設郵件寄送失敗',
     // Developer message
     devMsg1: '我是 Master Valley 的開發者，也是它的第一位使用者。',
     devMsg2: '文藝復興的藝術家打破了千年以神為中心的傳統，重新樹立了人類的理想。',

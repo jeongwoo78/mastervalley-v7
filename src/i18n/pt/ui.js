@@ -275,6 +275,11 @@ export const ui = {
     weakPassword: 'A senha deve ter pelo menos 6 caracteres',
     wrongCredentials: 'E-mail ou senha incorretos',
     loginFailed: 'Falha no login. Tente novamente.',
+    forgotPassword: 'Esqueceu a senha?',
+    resetEmailPrompt: 'Digite seu e-mail para receber o link de redefinição',
+    resetEmailSent: 'E-mail de redefinição enviado. Verifique sua caixa de entrada.',
+    resetEmailRequired: 'Por favor, digite seu e-mail primeiro',
+    resetEmailFailed: 'Falha ao enviar e-mail de redefinição',
     // Developer message
     devMsg1: 'Sou o desenvolvedor do Master Valley — e seu primeiro usuário.',
     devMsg2: 'Os artistas do Renascimento quebraram mil anos de tradição centrada em Deus e restauraram os ideais da humanidade.',

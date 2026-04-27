@@ -286,6 +286,11 @@ export const ui = {
     weakPassword: 'Kata sandi minimal 6 karakter',
     wrongCredentials: 'Email atau kata sandi salah',
     loginFailed: 'Login gagal. Coba lagi.',
+    forgotPassword: 'Lupa kata sandi?',
+    resetEmailPrompt: 'Masukkan email untuk menerima tautan setel ulang',
+    resetEmailSent: 'Email setel ulang terkirim. Periksa kotak masuk Anda.',
+    resetEmailRequired: 'Silakan masukkan email Anda terlebih dahulu',
+    resetEmailFailed: 'Gagal mengirim email setel ulang',
     // Developer message
     devMsg1: 'Saya adalah pengembang Master Valley — dan pengguna pertamanya.',
     devMsg2: 'Seniman Renaisans menghancurkan seribu tahun tradisi berpusat pada Tuhan dan memulihkan cita-cita kemanusiaan.',

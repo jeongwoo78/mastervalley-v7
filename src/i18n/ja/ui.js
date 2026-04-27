@@ -286,6 +286,11 @@ export const ui = {
     weakPassword: 'パスワードは6文字以上にしてください',
     wrongCredentials: 'メールアドレスまたはパスワードが正しくありません',
     loginFailed: 'ログインに失敗しました。再試行してください。',
+    forgotPassword: 'パスワードをお忘れですか？',
+    resetEmailPrompt: 'リセットリンクを受け取るメールアドレスを入力してください',
+    resetEmailSent: 'リセットメールを送信しました。受信箱をご確認ください。',
+    resetEmailRequired: 'まずメールアドレスを入力してください',
+    resetEmailFailed: 'リセットメールの送信に失敗しました',
     // Developer message
     devMsg1: '私はMaster Valleyの開発者であり、最初のユーザーです。',
     devMsg2: 'ルネサンスの芸術家たちは千年続いた神中心の慣習を打ち破り、人間の理想を再び打ち立てました。',

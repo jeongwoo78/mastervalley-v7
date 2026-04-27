@@ -285,6 +285,11 @@ export const ui = {
     weakPassword: '비밀번호는 6자 이상이어야 합니다',
     wrongCredentials: '이메일 또는 비밀번호가 올바르지 않습니다',
     loginFailed: '로그인 실패. 다시 시도해주세요.',
+    forgotPassword: '비밀번호를 잊으셨나요?',
+    resetEmailPrompt: '재설정 링크를 받을 이메일을 입력하세요',
+    resetEmailSent: '재설정 메일을 보냈습니다. 받은편지함을 확인하세요.',
+    resetEmailRequired: '이메일을 먼저 입력해주세요',
+    resetEmailFailed: '재설정 메일 발송에 실패했습니다',
     // Developer message
     devMsg1: '저는 Master Valley의 개발자이자, 첫 번째 유저입니다.',
     devMsg2: '르네상스의 예술가들은 천 년간 이어진 신 중심의 관습을 깨고, 인간의 이상을 다시 세웠습니다.',

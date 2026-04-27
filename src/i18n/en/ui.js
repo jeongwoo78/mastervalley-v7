@@ -285,6 +285,11 @@ export const ui = {
     weakPassword: 'Password must be at least 6 characters',
     wrongCredentials: 'Invalid email or password',
     loginFailed: 'Login failed. Please try again.',
+    forgotPassword: 'Forgot password?',
+    resetEmailPrompt: 'Enter your email to receive a reset link',
+    resetEmailSent: 'Reset email sent. Please check your inbox.',
+    resetEmailRequired: 'Please enter your email first',
+    resetEmailFailed: 'Failed to send reset email',
     // Developer message
     devMsg1: 'I am the developer of Master Valley — and its first user.',
     devMsg2: 'Renaissance artists shattered a thousand years of God-centered tradition and restored the ideals of humanity.',

@@ -286,6 +286,11 @@ export const ui = {
     weakPassword: 'Le mot de passe doit contenir au moins 6 caractères',
     wrongCredentials: 'E-mail ou mot de passe incorrect',
     loginFailed: 'Connexion échouée. Veuillez réessayer.',
+    forgotPassword: 'Mot de passe oublié ?',
+    resetEmailPrompt: 'Saisissez votre e-mail pour recevoir un lien de réinitialisation',
+    resetEmailSent: 'E-mail de réinitialisation envoyé. Vérifiez votre boîte de réception.',
+    resetEmailRequired: 'Veuillez d\'abord saisir votre e-mail',
+    resetEmailFailed: 'Échec de l\'envoi de l\'e-mail de réinitialisation',
     // Developer message
     devMsg1: 'Je suis le développeur de Master Valley — et son premier utilisateur.',
     devMsg2: 'Les artistes de la Renaissance ont brisé mille ans de pensée centrée sur Dieu et rétabli l\'idéal humain.',
