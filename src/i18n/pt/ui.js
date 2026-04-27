@@ -84,7 +84,7 @@ export const ui = {
     nationsComplete: 'nações mestres concluídos!',
     fullTransform: '✨ Transformar Tudo',
     processingTitle: 'A processar',
-    tapToView: 'Toca para ver o resultado',
+    tapToView: 'Toque para ver o resultado',
     error: 'Erro',
     backBlocked: 'Transformação em andamento.\nPor favor, aguarde um momento.',
     masterAtWork: 'Mestre trabalhando...',

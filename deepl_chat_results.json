@@ -1,0 +1,1934 @@
+{
+  "ko": [
+    {
+      "key": "chatWith",
+      "original": "Chat with {masterName}(AI)",
+      "translated": "{masterName}(AI)와 대화하기",
+      "back": "Talk to {masterName} (AI)",
+      "score": 0.5,
+      "status": "✅"
+    },
+    {
+      "key": "helpText",
+      "original": "Chat with the master",
+      "translated": "거장과 대화하세요",
+      "back": "Talk to the masters",
+      "score": 0.25,
+      "status": "⚠️"
+    },
+    {
+      "key": "chatEnded",
+      "original": "Chat with the master has ended.",
+      "translated": "거장과의 대화가 종료되었습니다.",
+      "back": "Your conversation with the maestro has ended.",
+      "score": 0.57,
+      "status": "✅"
+    },
+    {
+      "key": "retransformFailed",
+      "original": "⚠️ Retransformation failed. Please tap the modify button again.",
+      "translated": "⚠️ 재변환에 실패하였습니다. 다시 아래 수정 버튼을 눌러주세요.",
+      "back": "The conversion of ⚠️ failed. Please try again by pressing the Fix button below.",
+      "score": 0.42,
+      "status": "⚠️"
+    },
+    {
+      "key": "retransformComplete",
+      "original": "💡 Retransform complete! Previous image saved to gallery.",
+      "translated": "💡 재변환 완료! 이전 이미지는 갤러리에 저장되어 있습니다.",
+      "back": "💡 Reconversion complete! The old image is saved in the gallery.",
+      "score": 0.44,
+      "status": "⚠️"
+    },
+    {
+      "key": "modifying",
+      "original": "{masterName} is modifying the artwork.",
+      "translated": "{masterName} 그림을 수정 중입니다.",
+      "back": "You are modifying the {masterName} picture.",
+      "score": 0.5,
+      "status": "✅"
+    },
+    {
+      "key": "senderMe",
+      "original": "Me",
+      "translated": "(MISSING)",
+      "back": "",
+      "score": 0,
+      "status": "🚨 MISSING"
+    },
+    {
+      "key": "placeholderEnded",
+      "original": "Chat with the master has ended",
+      "translated": "거장과의 대화가 종료되었습니다",
+      "back": "Your conversation with the maestro has ended",
+      "score": 0.57,
+      "status": "✅"
+    },
+    {
+      "key": "placeholderConverting",
+      "original": "Converting...",
+      "translated": "변환 중...",
+      "back": "Converting...",
+      "score": 1.0,
+      "status": "✅"
+    },
+    {
+      "key": "placeholderDefault",
+      "original": "Chat with {masterName}...",
+      "translated": "{masterName}{withParticle} 대화...",
+      "back": "{masterName}{withParticle} Conversation...",
+      "score": 0.33,
+      "status": "⚠️"
+    },
+    {
+      "key": "paintingFinalStroke",
+      "original": "{masterName} is adding the final strokes...",
+      "translated": "{masterName}{withParticle} 마지막 붓질을 하는 중입니다...",
+      "back": "{masterName}{withParticle} The final brushstrokes are being applied...",
+      "score": 0.38,
+      "status": "⚠️"
+    },
+    {
+      "key": "GOGH",
+      "original": "I enjoyed our conversation. But alas, the stars are calling — I must return to my studio.",
+      "translated": "자네와의 대화 즐거웠네. 아쉽지만, 별이 부르고 있어 작업실로 돌아가 보겠네.",
+      "back": "It's been a pleasure talking to you. Alas, the stars are calling, and I must return to my workshop.",
+      "score": 0.53,
+      "status": "✅"
+    },
+    {
+      "key": "KLIMT",
+      "original": "Our conversation was a pleasure. But alas, golden dreams await — I must return to my studio.",
+      "translated": "그대와의 대화 즐거웠소. 아쉽지만, 금빛 꿈이 기다리고 있으니 작업실로 돌아가겠소.",
+      "back": "It's been a pleasure talking to you. Alas, golden dreams await, and I must return to my workshop.",
+      "score": 0.61,
+      "status": "✅"
+    },
+    {
+      "key": "MUNCH",
+      "original": "I enjoyed our conversation. But alas, the voices within call again — I must return to my studio.",
+      "translated": "자네와의 대화 즐거웠네. 아쉽지만, 내 안의 소리가 부르고 있어 작업실로 돌아가 보겠네.",
+      "back": "It's been a pleasure talking to you. Alas, my inner voice is calling, and I must return to my workshop.",
+      "score": 0.32,
+      "status": "⚠️"
+    },
+    {
+      "key": "CHAGALL",
+      "original": "I enjoyed our conversation. But alas, it is time to fly back to my studio of dreams.",
+      "translated": "자네와의 대화 즐거웠네. 아쉽지만, 꿈속의 작업실로 다시 날아가 볼 시간이라네.",
+      "back": "It's been a pleasure talking to you. Alas, it's time to fly back to my dream workshop.",
+      "score": 0.44,
+      "status": "⚠️"
+    },
+    {
+      "key": "MATISSE",
+      "original": "I enjoyed our conversation. But alas, the colors are waiting — I must return to my studio.",
+      "translated": "자네와의 대화 즐거웠네. 아쉽지만, 색채들이 기다리고 있어 작업실로 돌아가 보겠네.",
+      "back": "It's been a pleasure talking to you. Alas, I have colors waiting for me, so I must return to my workshop.",
+      "score": 0.4,
+      "status": "⚠️"
+    },
+    {
+      "key": "FRIDA",
+      "original": "I enjoyed our chat. But it\\",
+      "translated": "너와의 대화 즐거웠어. 아쉽지만, 거울 앞 작업실로 돌아갈 시간이야.",
+      "back": "It's been a pleasure chatting with you, but alas, it's time to return to the workshop in front of the mirror.",
+      "score": 0.11,
+      "status": "⚠️"
+    },
+    {
+      "key": "LICHTENSTEIN",
+      "original": "I enjoyed our chat. But the dots are calling me back to the studio!",
+      "translated": "너와의 대화 즐거웠어. 아쉽지만, 점들이 기다리고 있거든! 작업실로 돌아갈게.",
+      "back": "It's been a pleasure talking to you, but alas, the dots are waiting! I must return to my workshop.",
+      "score": 0.32,
+      "status": "⚠️"
+    },
+    {
+      "key": "fullName",
+      "original": "Roy Lichtenstein",
+      "translated": "로이 리히텐슈타인",
+      "back": "Roy Liechtenstein",
+      "score": 0.5,
+      "status": "✅"
+    },
+    {
+      "key": "years",
+      "original": "1923~1997",
+      "translated": "1923~1997",
+      "back": "1923~1997",
+      "score": 1.0,
+      "status": "✅"
+    },
+    {
+      "key": "origin",
+      "original": "USA · Pop Art",
+      "translated": "미국 · 팝아트",
+      "back": "United States - Pop Art",
+      "score": 0.5,
+      "status": "✅"
+    },
+    {
+      "key": "quote",
+      "original": "\"I don\\",
+      "translated": "\"나는 만화를 그리는 것이 아니라, 만화를 주제로 그림을 그린다.\"",
+      "back": "\"I don't draw cartoons, I paint about cartoons.\"",
+      "score": 0.29,
+      "status": "⚠️"
+    },
+    {
+      "key": "description",
+      "original": "A Pop Art master who elevated comics to fine art. He reinterpreted popular culture through Ben-Day dots and bold outlines.",
+      "translated": "만화를 예술로 끌어올린 팝아트의 거장. 벤데이 도트와 굵은 윤곽선으로 대중문화를 재해석했다.",
+      "back": "The master of pop art who elevated comics to art. He reimagined pop culture with bendy dots and bold outlines.",
+      "score": 0.65,
+      "status": "✅"
+    },
+    {
+      "key": "errorMessage",
+      "original": "...Sorry, my thoughts wandered. Could you say that again?",
+      "translated": "...미안하네, 잠시 생각이 흐트러졌어. 다시 말해주겠나?",
+      "back": "...I'm sorry, I got a little distracted. Can you repeat that?",
+      "score": 0.27,
+      "status": "⚠️"
+    }
+  ],
+  "ja": [
+    {
+      "key": "chatWith",
+      "original": "Chat with {masterName}(AI)",
+      "translated": "{masterName}（AI）と話す",
+      "back": "Talk to {masterName} (AI)",
+      "score": 0.5,
+      "status": "✅"
+    },
+    {
+      "key": "helpText",
+      "original": "Chat with the master",
+      "translated": "巨匠と対話しよう",
+      "back": "Dialogue with the Maestros",
+      "score": 0.5,
+      "status": "✅"
+    },
+    {
+      "key": "chatEnded",
+      "original": "Chat with the master has ended.",
+      "translated": "巨匠との会話が終了しました。",
+      "back": "The conversation with the maestro ended.",
+      "score": 0.5,
+      "status": "✅"
+    },
+    {
+      "key": "retransformFailed",
+      "original": "⚠️ Retransformation failed. Please tap the modify button again.",
+      "translated": "⚠️ 再変換に失敗しました。もう一度修正ボタンを押してください。",
+      "back": "⚠️ reconversion failed. Please press the correct button again.",
+      "score": 0.62,
+      "status": "✅"
+    },
+    {
+      "key": "retransformComplete",
+      "original": "💡 Retransform complete! Previous image saved to gallery.",
+      "translated": "💡 再変換完了！前の画像はギャラリーに保存されています。",
+      "back": "💡 Re-conversion complete! The previous image is saved in the gallery.",
+      "score": 0.5,
+      "status": "✅"
+    },
+    {
+      "key": "modifying",
+      "original": "{masterName} is modifying the artwork.",
+      "translated": "{masterName}の絵を修正中です。",
+      "back": "The {masterName} picture is being corrected.",
+      "score": 0.5,
+      "status": "✅"
+    },
+    {
+      "key": "senderMe",
+      "original": "Me",
+      "translated": "(MISSING)",
+      "back": "",
+      "score": 0,
+      "status": "🚨 MISSING"
+    },
+    {
+      "key": "placeholderEnded",
+      "original": "Chat with the master has ended",
+      "translated": "巨匠との会話が終了しました",
+      "back": "The conversation with the maestro has ended.",
+      "score": 0.67,
+      "status": "✅"
+    },
+    {
+      "key": "placeholderConverting",
+      "original": "Converting...",
+      "translated": "変換中...",
+      "back": "Converting...",
+      "score": 1.0,
+      "status": "✅"
+    },
+    {
+      "key": "placeholderDefault",
+      "original": "Chat with {masterName}...",
+      "translated": "{masterName}と話す...",
+      "back": "Talk to {masterName}...",
+      "score": 0.33,
+      "status": "⚠️"
+    },
+    {
+      "key": "paintingFinalStroke",
+      "original": "{masterName} is adding the final strokes...",
+      "translated": "{masterName}が最後の筆を入れています...",
+      "back": "{masterName} is putting the final brushstroke...",
+      "score": 0.67,
+      "status": "✅"
+    },
+    {
+      "key": "GOGH",
+      "original": "I enjoyed our conversation. But alas, the stars are calling — I must return to my studio.",
+      "translated": "君との会話は楽しかった。残念だが、星が呼んでいる――アトリエに戻るとしよう。",
+      "back": "It was a pleasure talking with you. Unfortunately, the stars are calling - let's go back to the studio.",
+      "score": 0.33,
+      "status": "⚠️"
+    },
+    {
+      "key": "KLIMT",
+      "original": "Our conversation was a pleasure. But alas, golden dreams await — I must return to my studio.",
+      "translated": "あなたとの会話は楽しゅうございました。残念ですが、黄金の夢が待っています――アトリエに戻ります。",
+      "back": "I have enjoyed our conversation with you. I am sorry, but a golden dream awaits - I will return to my studio.",
+      "score": 0.53,
+      "status": "✅"
+    },
+    {
+      "key": "MUNCH",
+      "original": "I enjoyed our conversation. But alas, the voices within call again — I must return to my studio.",
+      "translated": "君との会話は楽しかった。残念だが、内なる声が再び呼んでいる――アトリエに戻るとしよう。",
+      "back": "It was a pleasure talking with you. Unfortunately, the inner voice is calling again - let's go back to the studio.",
+      "score": 0.2,
+      "status": "⚠️"
+    },
+    {
+      "key": "CHAGALL",
+      "original": "I enjoyed our conversation. But alas, it is time to fly back to my studio of dreams.",
+      "translated": "君との会話は楽しかった。残念だが、夢のアトリエへ飛んでいく時間だ。",
+      "back": "It was a pleasure talking with you. Alas, it's time to fly to the studio of dreams.",
+      "score": 0.5,
+      "status": "✅"
+    },
+    {
+      "key": "MATISSE",
+      "original": "I enjoyed our conversation. But alas, the colors are waiting — I must return to my studio.",
+      "translated": "君との会話は楽しかった。残念だが、色彩たちが待っている――アトリエに戻るとしよう。",
+      "back": "It was a pleasure talking with you. Unfortunately, the colors are waiting for us - let's go back to the studio.",
+      "score": 0.3,
+      "status": "⚠️"
+    },
+    {
+      "key": "FRIDA",
+      "original": "I enjoyed our chat. But it\\",
+      "translated": "あなたとの会話は楽しかったわ。でも、鏡のあるアトリエに戻る時間よ。",
+      "back": "It's been a pleasure talking with you. But it's time to go back to the studio with the mirror.",
+      "score": 0.12,
+      "status": "⚠️"
+    },
+    {
+      "key": "LICHTENSTEIN",
+      "original": "I enjoyed our chat. But the dots are calling me back to the studio!",
+      "translated": "君との会話は楽しかった。でもドットたちが待ってるんだ！アトリエに戻るよ。",
+      "back": "It was a pleasure talking with you. But Dot and the others are waiting for me! I'm going back to the studio.",
+      "score": 0.36,
+      "status": "⚠️"
+    },
+    {
+      "key": "fullName",
+      "original": "Roy Lichtenstein",
+      "translated": "ロイ・リキテンスタイン",
+      "back": "Roy Lichtenstein",
+      "score": 1.0,
+      "status": "✅"
+    },
+    {
+      "key": "years",
+      "original": "1923~1997",
+      "translated": "1923~1997",
+      "back": "1923~1997",
+      "score": 1.0,
+      "status": "✅"
+    },
+    {
+      "key": "origin",
+      "original": "USA · Pop Art",
+      "translated": "アメリカ · ポップアート",
+      "back": "USA - Pop Art",
+      "score": 1.0,
+      "status": "✅"
+    },
+    {
+      "key": "quote",
+      "original": "\"I don\\",
+      "translated": "「私は漫画を描いているのではない。漫画を題材に絵を描いているのだ」",
+      "back": "I don't draw cartoons. I draw pictures about cartoons.\"",
+      "score": 0.29,
+      "status": "⚠️"
+    },
+    {
+      "key": "description",
+      "original": "A Pop Art master who elevated comics to fine art. He reinterpreted popular culture through Ben-Day dots and bold outlines.",
+      "translated": "漫画を芸術に引き上げたポップアートの巨匠。ベンデイドットと太い輪郭線で大衆文化を再解釈した。",
+      "back": "A master of pop art who elevated cartooning to an art form. He reinterpreted popular culture with Benday dots and thick outlines.",
+      "score": 0.67,
+      "status": "✅"
+    },
+    {
+      "key": "errorMessage",
+      "original": "...Sorry, my thoughts wandered. Could you say that again?",
+      "translated": "...すまない、少し考えが乱れた。もう一度言ってくれるか？",
+      "back": "... Sorry, I got a little disoriented. Could you repeat that?",
+      "score": 0.4,
+      "status": "⚠️"
+    }
+  ],
+  "es": [
+    {
+      "key": "chatWith",
+      "original": "Chat with {masterName}(AI)",
+      "translated": "Chatear con {masterName} (IA)",
+      "back": "Chat with {masterName} (IA)",
+      "score": 0.75,
+      "status": "✅"
+    },
+    {
+      "key": "helpText",
+      "original": "Chat with the master",
+      "translated": "Habla con el maestro",
+      "back": "Talk to the teacher",
+      "score": 0.25,
+      "status": "⚠️"
+    },
+    {
+      "key": "chatEnded",
+      "original": "Chat with the master has ended.",
+      "translated": "La conversación con el maestro ha finalizado.",
+      "back": "The conversation with the teacher has ended.",
+      "score": 0.67,
+      "status": "✅"
+    },
+    {
+      "key": "retransformFailed",
+      "original": "⚠️ Retransformation failed. Please tap the modify button again.",
+      "translated": "⚠️ La retransformación ha fallado. Por favor, toca el botón de modificar.",
+      "back": "⚠️ The retransformation has failed. Please tap the modify button.",
+      "score": 0.88,
+      "status": "✅"
+    },
+    {
+      "key": "retransformComplete",
+      "original": "💡 Retransform complete! Previous image saved to gallery.",
+      "translated": "💡 ¡Retransformación completada! La imagen anterior está guardada en tu galería.",
+      "back": "💡 Retransformation completed! The above image is saved in your gallery.",
+      "score": 0.3,
+      "status": "⚠️"
+    },
+    {
+      "key": "requestModify",
+      "original": "Modify",
+      "translated": "Modificar",
+      "back": "Modify",
+      "score": 1.0,
+      "status": "✅"
+    },
+    {
+      "key": "modifying",
+      "original": "{masterName} is modifying the artwork.",
+      "translated": "Modificando el cuadro de {masterName}.",
+      "back": "Modifying the {masterName} box.",
+      "score": 0.6,
+      "status": "✅"
+    },
+    {
+      "key": "placeholderEnded",
+      "original": "Chat with the master has ended",
+      "translated": "Conversación con el maestro finalizada",
+      "back": "Conversation with teacher completed",
+      "score": 0.17,
+      "status": "⚠️"
+    },
+    {
+      "key": "placeholderConverting",
+      "original": "Converting...",
+      "translated": "Transformando...",
+      "back": "Transforming...",
+      "score": 0.0,
+      "status": "⚠️"
+    },
+    {
+      "key": "placeholderDefault",
+      "original": "Chat with {masterName}...",
+      "translated": "Conversar con {masterName}...",
+      "back": "Conversation with {masterName}...",
+      "score": 0.67,
+      "status": "✅"
+    },
+    {
+      "key": "paintingFinalStroke",
+      "original": "{masterName} is adding the final strokes...",
+      "translated": "{masterName} está dando las últimas pinceladas...",
+      "back": "{masterName} is putting the final touches...",
+      "score": 0.67,
+      "status": "✅"
+    },
+    {
+      "key": "GOGH",
+      "original": "I enjoyed our conversation. But alas, the stars are calling — I must return to my studio.",
+      "translated": "Disfruté nuestra conversación. Pero las estrellas me llaman — debo volver a mi estudio.",
+      "back": "I enjoyed our conversation. But the stars are calling - I must return to my studio.",
+      "score": 0.93,
+      "status": "✅"
+    },
+    {
+      "key": "KLIMT",
+      "original": "Our conversation was a pleasure. But alas, golden dreams await — I must return to my studio.",
+      "translated": "Nuestra conversación fue un placer. Pero los sueños dorados me esperan — debo volver a mi estudio.",
+      "back": "Our conversation was a pleasure. But golden dreams await me - I must return to my studio.",
+      "score": 0.94,
+      "status": "✅"
+    },
+    {
+      "key": "MUNCH",
+      "original": "I enjoyed our conversation. But alas, the voices within call again — I must return to my studio.",
+      "translated": "Disfruté nuestra conversación. Pero las voces interiores me llaman de nuevo — debo volver a mi estudio.",
+      "back": "I enjoyed our conversation. But the inner voices call me back - I must return to my studio.",
+      "score": 0.81,
+      "status": "✅"
+    },
+    {
+      "key": "CHAGALL",
+      "original": "I enjoyed our conversation. But alas, it is time to fly back to my studio of dreams.",
+      "translated": "Disfruté nuestra conversación. Pero es hora de volar de vuelta a mi estudio de sueños.",
+      "back": "I enjoyed our conversation. But it's time to fly back to my dream studio.",
+      "score": 0.75,
+      "status": "✅"
+    },
+    {
+      "key": "MATISSE",
+      "original": "I enjoyed our conversation. But alas, the colors are waiting — I must return to my studio.",
+      "translated": "Disfruté nuestra conversación. Pero los colores me esperan — debo volver a mi estudio.",
+      "back": "I enjoyed our conversation. But the colors are waiting for me - I must return to my studio.",
+      "score": 0.88,
+      "status": "✅"
+    },
+    {
+      "key": "FRIDA",
+      "original": "I enjoyed our chat. But it\\",
+      "translated": "Disfruté nuestra charla. Pero es hora de volver a mi estudio.",
+      "back": "I enjoyed our chat. But it's time to get back to my studio.",
+      "score": 0.46,
+      "status": "✅"
+    },
+    {
+      "key": "LICHTENSTEIN",
+      "original": "I enjoyed our chat. But the dots are calling me back to the studio!",
+      "translated": "Disfruté nuestra charla. ¡Pero los puntos me esperan en el estudio!",
+      "back": "I enjoyed our chat, but the stitches are waiting for me in the studio!",
+      "score": 0.69,
+      "status": "✅"
+    },
+    {
+      "key": "fullName",
+      "original": "Roy Lichtenstein",
+      "translated": "Roy Lichtenstein",
+      "back": "Roy Lichtenstein",
+      "score": 1.0,
+      "status": "✅"
+    },
+    {
+      "key": "years",
+      "original": "1923~1997",
+      "translated": "1923~1997",
+      "back": "1923~1997",
+      "score": 1.0,
+      "status": "✅"
+    },
+    {
+      "key": "origin",
+      "original": "USA · Pop Art",
+      "translated": "EE.UU. · Pop Art",
+      "back": "USA - Pop Art",
+      "score": 1.0,
+      "status": "✅"
+    },
+    {
+      "key": "quote",
+      "original": "\"I don\\",
+      "translated": "\"No dibujo cómics, pinto cuadros sobre cómics.\"",
+      "back": "\"I don't draw comics, I paint pictures about comics.\"",
+      "score": 0.25,
+      "status": "⚠️"
+    },
+    {
+      "key": "description",
+      "original": "A Pop Art master who elevated comics to fine art. He reinterpreted popular culture through Ben-Day dots and bold outlines.",
+      "translated": "Maestro del Pop Art que elevó el cómic a arte. Reinterpretó la cultura popular a través de puntos Ben-Day y líneas audaces.",
+      "back": "Master of Pop Art who elevated comics to art. He reinterpreted popular culture through Ben-Day dots and bold lines.",
+      "score": 0.85,
+      "status": "✅"
+    },
+    {
+      "key": "errorMessage",
+      "original": "...Sorry, my thoughts wandered. Could you say that again?",
+      "translated": "...Perdona, me he distraído un momento. ¿Podrías repetirlo?",
+      "back": "...Sorry, I got distracted for a moment. Could you repeat that?",
+      "score": 0.36,
+      "status": "⚠️"
+    }
+  ],
+  "fr": [
+    {
+      "key": "chatWith",
+      "original": "Chat with {masterName}(AI)",
+      "translated": "Discuter avec {masterName} (IA)",
+      "back": "Chat with {masterName} (IA)",
+      "score": 0.75,
+      "status": "✅"
+    },
+    {
+      "key": "helpText",
+      "original": "Chat with the master",
+      "translated": "Discutez avec le maître",
+      "back": "Discuss with the master",
+      "score": 0.75,
+      "status": "✅"
+    },
+    {
+      "key": "chatEnded",
+      "original": "Chat with the master has ended.",
+      "translated": "La conversation avec le maître est terminée.",
+      "back": "The conversation with the master is over.",
+      "score": 0.5,
+      "status": "✅"
+    },
+    {
+      "key": "retransformFailed",
+      "original": "⚠️ Retransformation failed. Please tap the modify button again.",
+      "translated": "⚠️ La retransformation a échoué. Veuillez appuyer à nouveau sur modifier.",
+      "back": "⚠️ Retransformation failed. Please press modify again.",
+      "score": 0.62,
+      "status": "✅"
+    },
+    {
+      "key": "retransformComplete",
+      "original": "💡 Retransform complete! Previous image saved to gallery.",
+      "translated": "💡 Retransformation terminée ! L\\",
+      "back": "💡 Retransformation complete! L\\",
+      "score": 0.14,
+      "status": "⚠️"
+    },
+    {
+      "key": "requestModify",
+      "original": "Modify",
+      "translated": "Modifier",
+      "back": "Edit",
+      "score": 0.0,
+      "status": "⚠️"
+    },
+    {
+      "key": "modifying",
+      "original": "{masterName} is modifying the artwork.",
+      "translated": "Modification du tableau de {masterName}.",
+      "back": "Modification of the {masterName} table.",
+      "score": 0.4,
+      "status": "⚠️"
+    },
+    {
+      "key": "senderMe",
+      "original": "Me",
+      "translated": "Moi",
+      "back": "Me",
+      "score": 1.0,
+      "status": "✅"
+    },
+    {
+      "key": "placeholderEnded",
+      "original": "Chat with the master has ended",
+      "translated": "Conversation avec le maître terminée",
+      "back": "Conversation with the master completed",
+      "score": 0.5,
+      "status": "✅"
+    },
+    {
+      "key": "placeholderConverting",
+      "original": "Converting...",
+      "translated": "Transformation en cours...",
+      "back": "Transformation in progress...",
+      "score": 0.0,
+      "status": "⚠️"
+    },
+    {
+      "key": "placeholderDefault",
+      "original": "Chat with {masterName}...",
+      "translated": "Converser avec {masterName}...",
+      "back": "Chat with {masterName}...",
+      "score": 1.0,
+      "status": "✅"
+    },
+    {
+      "key": "paintingFinalStroke",
+      "original": "{masterName} is adding the final strokes...",
+      "translated": "{masterName} ajoute les dernières touches...",
+      "back": "{masterName} adds final touches...",
+      "score": 0.33,
+      "status": "⚠️"
+    },
+    {
+      "key": "KLIMT",
+      "original": "Our conversation was a pleasure. But alas, golden dreams await — I must return to my studio.",
+      "translated": "Notre conversation fut un plaisir. Mais les rêves dorés m\\",
+      "back": "Our conversation was a pleasure. But golden dreams m\\",
+      "score": 0.5,
+      "status": "✅"
+    },
+    {
+      "key": "fullName",
+      "original": "Roy Lichtenstein",
+      "translated": "Roy Lichtenstein",
+      "back": "Roy Lichtenstein",
+      "score": 1.0,
+      "status": "✅"
+    },
+    {
+      "key": "years",
+      "original": "1923~1997",
+      "translated": "1923~1997",
+      "back": "1923~1997",
+      "score": 1.0,
+      "status": "✅"
+    },
+    {
+      "key": "origin",
+      "original": "USA · Pop Art",
+      "translated": "États-Unis · Pop Art",
+      "back": "United States - Pop Art",
+      "score": 0.5,
+      "status": "✅"
+    },
+    {
+      "key": "quote",
+      "original": "\"I don\\",
+      "translated": "\"Je ne dessine pas des BD, je peins des tableaux sur les BD.\"",
+      "back": "\"I don't draw comics, I paint pictures on comics.\"",
+      "score": 0.25,
+      "status": "⚠️"
+    },
+    {
+      "key": "description",
+      "original": "A Pop Art master who elevated comics to fine art. He reinterpreted popular culture through Ben-Day dots and bold outlines.",
+      "translated": "Maître du Pop Art qui a élevé la bande dessinée au rang d\\",
+      "back": "Master of Pop Art who elevated comics to the status of an art form",
+      "score": 0.35,
+      "status": "⚠️"
+    },
+    {
+      "key": "errorMessage",
+      "original": "...Sorry, my thoughts wandered. Could you say that again?",
+      "translated": "...Pardonnez-moi, j\\",
+      "back": "...Forgive me, j\\",
+      "score": 0.0,
+      "status": "⚠️"
+    }
+  ],
+  "id": [
+    {
+      "key": "chatWith",
+      "original": "Chat with {masterName}(AI)",
+      "translated": "Bicara dengan {masterName} (AI)",
+      "back": "Talk to {masterName} (AI)",
+      "score": 0.5,
+      "status": "✅"
+    },
+    {
+      "key": "helpText",
+      "original": "Chat with the master",
+      "translated": "Bicara dengan maestro",
+      "back": "Talk to the maestro",
+      "score": 0.25,
+      "status": "⚠️"
+    },
+    {
+      "key": "chatEnded",
+      "original": "Chat with the master has ended.",
+      "translated": "Percakapan dengan maestro telah berakhir.",
+      "back": "The conversation with the maestro has ended.",
+      "score": 0.67,
+      "status": "✅"
+    },
+    {
+      "key": "retransformFailed",
+      "original": "⚠️ Retransformation failed. Please tap the modify button again.",
+      "translated": "⚠️ Retransformasi gagal. Silakan ketuk tombol modifikasi lagi.",
+      "back": "⚠️ Retransformation failed. Please tap the modify button again.",
+      "score": 1.0,
+      "status": "✅"
+    },
+    {
+      "key": "retransformComplete",
+      "original": "💡 Retransform complete! Previous image saved to gallery.",
+      "translated": "💡 Retransformasi selesai! Gambar sebelumnya tersimpan di galeri.",
+      "back": "💡 Retransformation complete! Previous image is saved in the gallery.",
+      "score": 0.56,
+      "status": "✅"
+    },
+    {
+      "key": "requestModify",
+      "original": "Modify",
+      "translated": "Modifikasi",
+      "back": "Modified",
+      "score": 0.0,
+      "status": "⚠️"
+    },
+    {
+      "key": "modifying",
+      "original": "{masterName} is modifying the artwork.",
+      "translated": "Memodifikasi lukisan {masterName}.",
+      "back": "Modify the painting {masterName}.",
+      "score": 0.4,
+      "status": "⚠️"
+    },
+    {
+      "key": "senderMe",
+      "original": "Me",
+      "translated": "Saya",
+      "back": "I am",
+      "score": 0.0,
+      "status": "⚠️"
+    },
+    {
+      "key": "placeholderEnded",
+      "original": "Chat with the master has ended",
+      "translated": "Percakapan dengan maestro telah berakhir",
+      "back": "The conversation with the maestro is over",
+      "score": 0.33,
+      "status": "⚠️"
+    },
+    {
+      "key": "placeholderConverting",
+      "original": "Converting...",
+      "translated": "Mentransformasi...",
+      "back": "Transforming...",
+      "score": 0.0,
+      "status": "⚠️"
+    },
+    {
+      "key": "placeholderDefault",
+      "original": "Chat with {masterName}...",
+      "translated": "Bicara dengan {masterName}...",
+      "back": "Talk to {masterName}...",
+      "score": 0.33,
+      "status": "⚠️"
+    },
+    {
+      "key": "paintingFinalStroke",
+      "original": "{masterName} is adding the final strokes...",
+      "translated": "{masterName} sedang menambahkan sapuan terakhir...",
+      "back": "{masterName} is adding the last sweep...",
+      "score": 0.67,
+      "status": "✅"
+    },
+    {
+      "key": "GOGH",
+      "original": "I enjoyed our conversation. But alas, the stars are calling — I must return to my studio.",
+      "translated": "Aku menikmati percakapan kita. Tapi bintang-bintang memanggilku — aku harus kembali ke studio.",
+      "back": "I enjoyed our conversation. But the stars are calling me - I need to get back to the studio.",
+      "score": 0.73,
+      "status": "✅"
+    },
+    {
+      "key": "KLIMT",
+      "original": "Our conversation was a pleasure. But alas, golden dreams await — I must return to my studio.",
+      "translated": "Percakapan kita sangat menyenangkan. Tapi mimpi keemasan menungguku — aku harus kembali ke studio.",
+      "back": "Our conversation was a lot of fun. But a golden dream awaits me - I must return to the studio.",
+      "score": 0.61,
+      "status": "✅"
+    },
+    {
+      "key": "MUNCH",
+      "original": "I enjoyed our conversation. But alas, the voices within call again — I must return to my studio.",
+      "translated": "Aku menikmati percakapan kita. Tapi suara-suara dalam diri memanggilku lagi — aku harus kembali ke studio.",
+      "back": "I enjoyed our conversation. But the voices inside are calling me again - I need to get back to the studio.",
+      "score": 0.59,
+      "status": "✅"
+    },
+    {
+      "key": "CHAGALL",
+      "original": "I enjoyed our conversation. But alas, it is time to fly back to my studio of dreams.",
+      "translated": "Aku menikmati percakapan kita. Tapi sudah waktunya terbang kembali ke studio mimpiku.",
+      "back": "I enjoyed our conversation. But it was time to fly back to my dream studio.",
+      "score": 0.75,
+      "status": "✅"
+    },
+    {
+      "key": "MATISSE",
+      "original": "I enjoyed our conversation. But alas, the colors are waiting — I must return to my studio.",
+      "translated": "Aku menikmati percakapan kita. Tapi warna-warna menungguku — aku harus kembali ke studio.",
+      "back": "I enjoyed our conversation. But the colors are waiting for me - I need to get back to the studio.",
+      "score": 0.69,
+      "status": "✅"
+    },
+    {
+      "key": "FRIDA",
+      "original": "I enjoyed our chat. But it\\",
+      "translated": "Aku menikmati obrolan kita. Tapi sudah waktunya kembali ke studioku.",
+      "back": "I enjoyed our chat. But it was time to go back to my studio.",
+      "score": 0.46,
+      "status": "✅"
+    },
+    {
+      "key": "LICHTENSTEIN",
+      "original": "I enjoyed our chat. But the dots are calling me back to the studio!",
+      "translated": "Aku menikmati obrolan kita. Tapi titik-titik sudah memanggilku kembali ke studio!",
+      "back": "I enjoyed our chat. But the dots have already called me back to the studio!",
+      "score": 0.79,
+      "status": "✅"
+    },
+    {
+      "key": "fullName",
+      "original": "Roy Lichtenstein",
+      "translated": "Roy Lichtenstein",
+      "back": "Roy Lichtenstein",
+      "score": 1.0,
+      "status": "✅"
+    },
+    {
+      "key": "years",
+      "original": "1923~1997",
+      "translated": "1923~1997",
+      "back": "1923~1997",
+      "score": 1.0,
+      "status": "✅"
+    },
+    {
+      "key": "origin",
+      "original": "USA · Pop Art",
+      "translated": "AS · Pop Art",
+      "back": "US - Pop Art",
+      "score": 0.67,
+      "status": "✅"
+    },
+    {
+      "key": "quote",
+      "original": "\"I don\\",
+      "translated": "\"Aku tidak menggambar komik, aku melukis tentang komik.\"",
+      "back": "\"I don't draw comics, I paint about comics.\"",
+      "score": 0.29,
+      "status": "⚠️"
+    },
+    {
+      "key": "description",
+      "original": "A Pop Art master who elevated comics to fine art. He reinterpreted popular culture through Ben-Day dots and bold outlines.",
+      "translated": "Maestro Pop Art yang mengangkat komik menjadi seni. Menafsirkan ulang budaya populer melalui titik Ben-Day dan garis tebal.",
+      "back": "Pop Art maestro who elevated comics to art. Reinterpreting popular culture through Ben-Day dots and bold lines.",
+      "score": 0.7,
+      "status": "✅"
+    },
+    {
+      "key": "errorMessage",
+      "original": "...Sorry, my thoughts wandered. Could you say that again?",
+      "translated": "...Maaf, pikiranku sempat teralihkan. Bisakah kau ulangi?",
+      "back": "...Sorry, I was distracted. Can you repeat that?",
+      "score": 0.33,
+      "status": "⚠️"
+    }
+  ],
+  "ar": [
+    {
+      "key": "chatWith",
+      "original": "Chat with {masterName}(AI)",
+      "translated": "تحدّث مع {masterName} (AI)",
+      "back": "Talk to {masterName} (AI)",
+      "score": 0.5,
+      "status": "✅"
+    },
+    {
+      "key": "helpText",
+      "original": "Chat with the master",
+      "translated": "تحدث مع الأستاذ",
+      "back": "Talk to the professor",
+      "score": 0.25,
+      "status": "⚠️"
+    },
+    {
+      "key": "chatEnded",
+      "original": "Chat with the master has ended.",
+      "translated": "انتهت المحادثة مع الفنان.",
+      "back": "The conversation with the artist is over.",
+      "score": 0.33,
+      "status": "⚠️"
+    },
+    {
+      "key": "retransformFailed",
+      "original": "⚠️ Retransformation failed. Please tap the modify button again.",
+      "translated": "⚠️ فشلت إعادة التحويل. يرجى الضغط على زر التعديل مرة أخرى.",
+      "back": "⚠️ Conversion failed. Please press the edit button again.",
+      "score": 0.62,
+      "status": "✅"
+    },
+    {
+      "key": "retransformComplete",
+      "original": "💡 Retransform complete! Previous image saved to gallery.",
+      "translated": "💡 اكتمل إعادة التحويل! الصورة السابقة محفوظة في المعرض.",
+      "back": "💡 Reconversion complete! The previous image is saved in the gallery.",
+      "score": 0.56,
+      "status": "✅"
+    },
+    {
+      "key": "requestModify",
+      "original": "Modify",
+      "translated": "تعديل",
+      "back": "edit",
+      "score": 0.0,
+      "status": "⚠️"
+    },
+    {
+      "key": "modifying",
+      "original": "{masterName} is modifying the artwork.",
+      "translated": "جارٍ تعديل لوحة {masterName}.",
+      "back": "The {masterName} panel is being modified.",
+      "score": 0.5,
+      "status": "✅"
+    },
+    {
+      "key": "senderMe",
+      "original": "Me",
+      "translated": "أنا",
+      "back": "I",
+      "score": 0.0,
+      "status": "⚠️"
+    },
+    {
+      "key": "placeholderEnded",
+      "original": "Chat with the master has ended",
+      "translated": "انتهت المحادثة مع الفنان",
+      "back": "The conversation with the artist ended",
+      "score": 0.5,
+      "status": "✅"
+    },
+    {
+      "key": "placeholderConverting",
+      "original": "Converting...",
+      "translated": "جارٍ التحويل...",
+      "back": "Converting...",
+      "score": 1.0,
+      "status": "✅"
+    },
+    {
+      "key": "placeholderDefault",
+      "original": "Chat with {masterName}...",
+      "translated": "تحدّث مع {masterName}...",
+      "back": "Talk to {masterName}...",
+      "score": 0.33,
+      "status": "⚠️"
+    },
+    {
+      "key": "paintingFinalStroke",
+      "original": "{masterName} is adding the final strokes...",
+      "translated": "{masterName} يضيف اللمسات الأخيرة...",
+      "back": "{masterName} adds the finishing touches...",
+      "score": 0.33,
+      "status": "⚠️"
+    },
+    {
+      "key": "GOGH",
+      "original": "I enjoyed our conversation. But alas, the stars are calling — I must return to my studio.",
+      "translated": "استمتعت بحوارنا. لكن النجوم تناديني — عليّ العودة إلى مرسمي.",
+      "back": "I enjoyed our conversation. But the stars are calling me - I have to go back to my studio.",
+      "score": 0.75,
+      "status": "✅"
+    },
+    {
+      "key": "KLIMT",
+      "original": "Our conversation was a pleasure. But alas, golden dreams await — I must return to my studio.",
+      "translated": "كانت محادثتنا ممتعة. لكن الأحلام الذهبية تنتظرني — عليّ العودة إلى مرسمي.",
+      "back": "Our conversation was pleasant. But golden dreams await me - I have to get back to my studio.",
+      "score": 0.69,
+      "status": "✅"
+    },
+    {
+      "key": "MUNCH",
+      "original": "I enjoyed our conversation. But alas, the voices within call again — I must return to my studio.",
+      "translated": "استمتعت بحوارنا. لكن الأصوات الداخلية تناديني مجدداً — عليّ العودة إلى مرسمي.",
+      "back": "I enjoyed our conversation. But the inner voices are calling me again - I have to go back to my studio.",
+      "score": 0.61,
+      "status": "✅"
+    },
+    {
+      "key": "CHAGALL",
+      "original": "I enjoyed our conversation. But alas, it is time to fly back to my studio of dreams.",
+      "translated": "استمتعت بحوارنا. لكن حان الوقت للطيران عائداً إلى مرسم الأحلام.",
+      "back": "I enjoyed our conversation. But it's time to fly back to the dream studio.",
+      "score": 0.69,
+      "status": "✅"
+    },
+    {
+      "key": "MATISSE",
+      "original": "I enjoyed our conversation. But alas, the colors are waiting — I must return to my studio.",
+      "translated": "استمتعت بحوارنا. لكن الألوان تنتظرني — عليّ العودة إلى مرسمي.",
+      "back": "I enjoyed our conversation. But the colors are waiting for me - I have to go back to my studio.",
+      "score": 0.71,
+      "status": "✅"
+    },
+    {
+      "key": "FRIDA",
+      "original": "I enjoyed our chat. But it\\",
+      "translated": "استمتعت بحوارنا. لكن حان وقت العودة إلى مرسمي.",
+      "back": "I enjoyed our conversation. But it's time to go back to my studio.",
+      "score": 0.38,
+      "status": "⚠️"
+    },
+    {
+      "key": "LICHTENSTEIN",
+      "original": "I enjoyed our chat. But the dots are calling me back to the studio!",
+      "translated": "استمتعت بحوارنا. لكن النقاط تناديني عائداً إلى المرسم!",
+      "back": "I enjoyed our conversation. But the dots are calling me back to the studio!",
+      "score": 0.92,
+      "status": "✅"
+    },
+    {
+      "key": "fullName",
+      "original": "Roy Lichtenstein",
+      "translated": "روي ليختنشتاين",
+      "back": "Roy Liechtenstein",
+      "score": 0.5,
+      "status": "✅"
+    },
+    {
+      "key": "years",
+      "original": "1923~1997",
+      "translated": "1923~1997",
+      "back": "1923~1997",
+      "score": 1.0,
+      "status": "✅"
+    },
+    {
+      "key": "origin",
+      "original": "USA · Pop Art",
+      "translated": "أمريكا · فن البوب",
+      "back": "America - Pop Art",
+      "score": 0.67,
+      "status": "✅"
+    },
+    {
+      "key": "quote",
+      "original": "\"I don\\",
+      "translated": "\"أنا لا أرسم كوميكس، بل أرسم لوحات موضوعها الكوميكس.\"",
+      "back": "\"I don't draw comics, I draw comics-themed paintings.\"",
+      "score": 0.29,
+      "status": "⚠️"
+    },
+    {
+      "key": "description",
+      "original": "A Pop Art master who elevated comics to fine art. He reinterpreted popular culture through Ben-Day dots and bold outlines.",
+      "translated": "أستاذ فن البوب الذي رفع الكوميكس إلى مرتبة الفن. أعاد تفسير الثقافة الشعبية بنقاط بن-داي والخطوط العريضة.",
+      "back": "The pop art master who elevated comics to the status of art. He reinterpreted pop culture with Ben-Day dots and outlines.",
+      "score": 0.75,
+      "status": "✅"
+    },
+    {
+      "key": "errorMessage",
+      "original": "...Sorry, my thoughts wandered. Could you say that again?",
+      "translated": "...عذراً، تشتّتت أفكاري قليلاً. هل يمكنك التكرار؟",
+      "back": "I'm sorry, I got a little distracted... Can you repeat?",
+      "score": 0.2,
+      "status": "⚠️"
+    }
+  ],
+  "tr": [
+    {
+      "key": "chatWith",
+      "original": "Chat with {masterName}(AI)",
+      "translated": "{masterName} (AI) ile sohbet",
+      "back": "Chat with {masterName} (AI)",
+      "score": 1.0,
+      "status": "✅"
+    },
+    {
+      "key": "helpText",
+      "original": "Chat with the master",
+      "translated": "Usta ile konuşun",
+      "back": "Talk to the master",
+      "score": 0.5,
+      "status": "✅"
+    },
+    {
+      "key": "chatEnded",
+      "original": "Chat with the master has ended.",
+      "translated": "Usta ile sohbet sona erdi.",
+      "back": "The conversation with the master ended.",
+      "score": 0.67,
+      "status": "✅"
+    },
+    {
+      "key": "retransformFailed",
+      "original": "⚠️ Retransformation failed. Please tap the modify button again.",
+      "translated": "⚠️ Yeniden dönüşüm başarısız. Lütfen değiştir düğmesine tekrar basın.",
+      "back": "⚠️ Reconversion failed. Please press the change button again.",
+      "score": 0.62,
+      "status": "✅"
+    },
+    {
+      "key": "retransformComplete",
+      "original": "💡 Retransform complete! Previous image saved to gallery.",
+      "translated": "💡 Yeniden dönüşüm tamamlandı! Önceki görsel galeriye kaydedildi.",
+      "back": "💡 Recycling is complete! Previous image saved in gallery.",
+      "score": 0.62,
+      "status": "✅"
+    },
+    {
+      "key": "requestModify",
+      "original": "Modify",
+      "translated": "Düzenle",
+      "back": "Edit",
+      "score": 0.0,
+      "status": "⚠️"
+    },
+    {
+      "key": "modifying",
+      "original": "{masterName} is modifying the artwork.",
+      "translated": "{masterName} tablosu düzenleniyor.",
+      "back": "Editing table {masterName}.",
+      "score": 0.2,
+      "status": "⚠️"
+    },
+    {
+      "key": "senderMe",
+      "original": "Me",
+      "translated": "Ben",
+      "back": "I am",
+      "score": 0.0,
+      "status": "⚠️"
+    },
+    {
+      "key": "placeholderEnded",
+      "original": "Chat with the master has ended",
+      "translated": "Usta ile sohbet sona erdi",
+      "back": "Conversation with the master came to an end",
+      "score": 0.38,
+      "status": "⚠️"
+    },
+    {
+      "key": "placeholderConverting",
+      "original": "Converting...",
+      "translated": "Dönüştürülüyor...",
+      "back": "Transforming...",
+      "score": 0.0,
+      "status": "⚠️"
+    },
+    {
+      "key": "placeholderDefault",
+      "original": "Chat with {masterName}...",
+      "translated": "{masterName} ile sohbet et...",
+      "back": "Chat with {masterName}",
+      "score": 1.0,
+      "status": "✅"
+    },
+    {
+      "key": "paintingFinalStroke",
+      "original": "{masterName} is adding the final strokes...",
+      "translated": "{masterName} son fırça darbelerini atıyor...",
+      "back": "{masterName} is giving the last brushstrokes.",
+      "score": 0.5,
+      "status": "✅"
+    },
+    {
+      "key": "GOGH",
+      "original": "I enjoyed our conversation. But alas, the stars are calling — I must return to my studio.",
+      "translated": "Sohbetimiz keyifliydi. Ama yıldızlar beni çağırıyor — atölyeme dönmeliyim.",
+      "back": "Our conversation was pleasant. But the stars are calling me - I must return to my workshop.",
+      "score": 0.75,
+      "status": "✅"
+    },
+    {
+      "key": "KLIMT",
+      "original": "Our conversation was a pleasure. But alas, golden dreams await — I must return to my studio.",
+      "translated": "Sohbetimiz bir zevkti. Ama altın rüyalar beni bekliyor — atölyeme dönmeliyim.",
+      "back": "Our conversation was a pleasure. But golden dreams await me - I must return to my workshop.",
+      "score": 0.88,
+      "status": "✅"
+    },
+    {
+      "key": "MUNCH",
+      "original": "I enjoyed our conversation. But alas, the voices within call again — I must return to my studio.",
+      "translated": "Sohbetimiz keyifliydi. Ama içimdeki sesler yine çağırıyor — atölyeme dönmeliyim.",
+      "back": "Our conversation was pleasant. But the voices inside me are calling me again - I have to go back to my workshop.",
+      "score": 0.47,
+      "status": "✅"
+    },
+    {
+      "key": "CHAGALL",
+      "original": "I enjoyed our conversation. But alas, it is time to fly back to my studio of dreams.",
+      "translated": "Sohbetimiz keyifliydi. Ama rüyalarımın atölyesine geri uçma zamanı geldi.",
+      "back": "Our conversation was pleasant. But it's time to fly back to the workshop of my dreams.",
+      "score": 0.69,
+      "status": "✅"
+    },
+    {
+      "key": "MATISSE",
+      "original": "I enjoyed our conversation. But alas, the colors are waiting — I must return to my studio.",
+      "translated": "Sohbetimiz keyifliydi. Ama renkler beni bekliyor — atölyeme dönmeliyim.",
+      "back": "Our conversation was enjoyable. But the colors are waiting for me - I have to go back to my workshop.",
+      "score": 0.56,
+      "status": "✅"
+    },
+    {
+      "key": "FRIDA",
+      "original": "I enjoyed our chat. But it\\",
+      "translated": "Sohbetimiz keyifliydi. Ama atölyeme dönme zamanı geldi.",
+      "back": "We enjoyed our conversation. But it's time to go back to my workshop.",
+      "score": 0.31,
+      "status": "⚠️"
+    },
+    {
+      "key": "LICHTENSTEIN",
+      "original": "I enjoyed our chat. But the dots are calling me back to the studio!",
+      "translated": "Sohbetimiz keyifliydi. Ama noktalar beni atölyeye geri çağırıyor!",
+      "back": "I enjoyed our conversation. But the dots are calling me back to the workshop!",
+      "score": 0.85,
+      "status": "✅"
+    },
+    {
+      "key": "fullName",
+      "original": "Roy Lichtenstein",
+      "translated": "Roy Lichtenstein",
+      "back": "Roy Lichtenstein",
+      "score": 1.0,
+      "status": "✅"
+    },
+    {
+      "key": "years",
+      "original": "1923~1997",
+      "translated": "1923~1997",
+      "back": "1923~1997",
+      "score": 1.0,
+      "status": "✅"
+    },
+    {
+      "key": "origin",
+      "original": "USA · Pop Art",
+      "translated": "ABD · Pop Art",
+      "back": "USA - Pop Art",
+      "score": 1.0,
+      "status": "✅"
+    },
+    {
+      "key": "quote",
+      "original": "\"I don\\",
+      "translated": "\"Çizgi roman çizmiyorum, çizgi romanı konu alan resimler yapıyorum.\"",
+      "back": "\"I don't draw comics, I make paintings based on comics.\"",
+      "score": 0.22,
+      "status": "⚠️"
+    },
+    {
+      "key": "description",
+      "original": "A Pop Art master who elevated comics to fine art. He reinterpreted popular culture through Ben-Day dots and bold outlines.",
+      "translated": "Çizgi romanı sanata yükselten Pop Art ustası. Ben-Day noktaları ve kalın kontur çizgileriyle popüler kültürü yeniden yorumladı.",
+      "back": "Pop Art master who elevated comics to art. Ben-Day reinterpreted popular culture with his dots and thick contour lines.",
+      "score": 0.7,
+      "status": "✅"
+    },
+    {
+      "key": "errorMessage",
+      "original": "...Sorry, my thoughts wandered. Could you say that again?",
+      "translated": "...Özür dilerim, düşüncelerim biraz dağıldı. Tekrar söyler misiniz?",
+      "back": "...I apologize, my thoughts got a bit scattered. Could you say that again?",
+      "score": 0.54,
+      "status": "✅"
+    }
+  ],
+  "pt": [
+    {
+      "key": "chatWith",
+      "original": "Chat with {masterName}(AI)",
+      "translated": "Conversar com {masterName} (IA)",
+      "back": "Chat with {masterName} (AI)",
+      "score": 1.0,
+      "status": "✅"
+    },
+    {
+      "key": "helpText",
+      "original": "Chat with the master",
+      "translated": "Converse com o mestre",
+      "back": "Talk to the master",
+      "score": 0.5,
+      "status": "✅"
+    },
+    {
+      "key": "chatEnded",
+      "original": "Chat with the master has ended.",
+      "translated": "A conversa com o mestre terminou.",
+      "back": "The conversation with the master was over.",
+      "score": 0.5,
+      "status": "✅"
+    },
+    {
+      "key": "retransformFailed",
+      "original": "⚠️ Retransformation failed. Please tap the modify button again.",
+      "translated": "⚠️ Retransformação falhou. Por favor, toque em modificar novamente.",
+      "back": "⚠️ Retransformation failed. Please tap modify again.",
+      "score": 0.75,
+      "status": "✅"
+    },
+    {
+      "key": "retransformComplete",
+      "original": "💡 Retransform complete! Previous image saved to gallery.",
+      "translated": "💡 Retransformação concluída! A imagem anterior foi guardada na galeria.",
+      "back": "💡 Retrofitting complete! The previous image has been saved in the gallery.",
+      "score": 0.5,
+      "status": "✅"
+    },
+    {
+      "key": "requestModify",
+      "original": "Modify",
+      "translated": "Editar",
+      "back": "Edit",
+      "score": 0.0,
+      "status": "⚠️"
+    },
+    {
+      "key": "modifying",
+      "original": "{masterName} is modifying the artwork.",
+      "translated": "A editar a tela de {masterName}.",
+      "back": "Editing the {masterName} screen.",
+      "score": 0.4,
+      "status": "⚠️"
+    },
+    {
+      "key": "placeholderEnded",
+      "original": "Chat with the master has ended",
+      "translated": "A conversa com o mestre terminou",
+      "back": "The conversation with the master ended",
+      "score": 0.67,
+      "status": "✅"
+    },
+    {
+      "key": "placeholderConverting",
+      "original": "Converting...",
+      "translated": "A transformar...",
+      "back": "Transforming...",
+      "score": 0.0,
+      "status": "⚠️"
+    },
+    {
+      "key": "placeholderDefault",
+      "original": "Chat with {masterName}...",
+      "translated": "Conversa com {masterName}...",
+      "back": "Talk to {masterName}...",
+      "score": 0.33,
+      "status": "⚠️"
+    },
+    {
+      "key": "paintingFinalStroke",
+      "original": "{masterName} is adding the final strokes...",
+      "translated": "{masterName} está dando as últimas pinceladas...",
+      "back": "{masterName} is making his final strokes...",
+      "score": 0.67,
+      "status": "✅"
+    },
+    {
+      "key": "GOGH",
+      "original": "I enjoyed our conversation. But alas, the stars are calling — I must return to my studio.",
+      "translated": "Apreciei a nossa conversa. Mas as estrelas me chamam — preciso voltar ao meu ateliê.",
+      "back": "I enjoyed our conversation. But the stars are calling me - I need to get back to my studio.",
+      "score": 0.75,
+      "status": "✅"
+    },
+    {
+      "key": "KLIMT",
+      "original": "Our conversation was a pleasure. But alas, golden dreams await — I must return to my studio.",
+      "translated": "Nossa conversa foi um prazer. Mas sonhos dourados me aguardam — preciso voltar ao meu ateliê.",
+      "back": "Our conversation was a pleasure. But golden dreams await me - I need to get back to my studio.",
+      "score": 0.76,
+      "status": "✅"
+    },
+    {
+      "key": "MUNCH",
+      "original": "I enjoyed our conversation. But alas, the voices within call again — I must return to my studio.",
+      "translated": "Apreciei a nossa conversa. Mas as vozes interiores me chamam novamente — preciso voltar ao meu ateliê.",
+      "back": "I enjoyed our conversation. But the inner voices are calling me again - I need to get back to my studio.",
+      "score": 0.61,
+      "status": "✅"
+    },
+    {
+      "key": "CHAGALL",
+      "original": "I enjoyed our conversation. But alas, it is time to fly back to my studio of dreams.",
+      "translated": "Apreciei a nossa conversa. Mas é hora de voar de volta ao meu ateliê dos sonhos.",
+      "back": "I enjoyed our conversation. But it's time to fly back to my dream studio.",
+      "score": 0.75,
+      "status": "✅"
+    },
+    {
+      "key": "MATISSE",
+      "original": "I enjoyed our conversation. But alas, the colors are waiting — I must return to my studio.",
+      "translated": "Apreciei a nossa conversa. Mas as cores me esperam — preciso voltar ao meu ateliê.",
+      "back": "I enjoyed our conversation. But the colors are waiting for me - I need to get back to my studio.",
+      "score": 0.71,
+      "status": "✅"
+    },
+    {
+      "key": "FRIDA",
+      "original": "I enjoyed our chat. But it\\",
+      "translated": "Gostei da nossa conversa. Mas é hora de voltar ao meu ateliê.",
+      "back": "I enjoyed our conversation. But it's time to get back to my studio.",
+      "score": 0.38,
+      "status": "⚠️"
+    },
+    {
+      "key": "LICHTENSTEIN",
+      "original": "I enjoyed our chat. But the dots are calling me back to the studio!",
+      "translated": "Gostei da nossa conversa. Mas os pontos estão me chamando de volta ao ateliê!",
+      "back": "I enjoyed our conversation. But the stitches are calling me back to the studio!",
+      "score": 0.85,
+      "status": "✅"
+    },
+    {
+      "key": "fullName",
+      "original": "Roy Lichtenstein",
+      "translated": "Roy Lichtenstein",
+      "back": "Roy Lichtenstein",
+      "score": 1.0,
+      "status": "✅"
+    },
+    {
+      "key": "years",
+      "original": "1923~1997",
+      "translated": "1923~1997",
+      "back": "1923~1997",
+      "score": 1.0,
+      "status": "✅"
+    },
+    {
+      "key": "origin",
+      "original": "USA · Pop Art",
+      "translated": "EUA · Pop Art",
+      "back": "USA - Pop Art",
+      "score": 1.0,
+      "status": "✅"
+    },
+    {
+      "key": "quote",
+      "original": "\"I don\\",
+      "translated": "\"Não pinto quadrinhos; pinto telas cujo tema são os quadrinhos.\"",
+      "back": "\"I don't paint comics; I paint canvases whose subject is comics.\"",
+      "score": 0.22,
+      "status": "⚠️"
+    },
+    {
+      "key": "description",
+      "original": "A Pop Art master who elevated comics to fine art. He reinterpreted popular culture through Ben-Day dots and bold outlines.",
+      "translated": "Mestre do Pop Art que elevou os quadrinhos à arte. Reinterpretou a cultura popular através de pontos Ben-Day e contornos ousados.",
+      "back": "Master of Pop Art who elevated comics to art. He reinterpreted popular culture through Ben-Day dots and bold outlines.",
+      "score": 0.9,
+      "status": "✅"
+    },
+    {
+      "key": "errorMessage",
+      "original": "...Sorry, my thoughts wandered. Could you say that again?",
+      "translated": "...Desculpa, perdi um pouco o fio ao pensamento. Podes repetir?",
+      "back": "...Sorry, I lost my train of thought a bit. Could you repeat that?",
+      "score": 0.38,
+      "status": "⚠️"
+    }
+  ],
+  "th": [
+    {
+      "key": "chatWith",
+      "original": "Chat with {masterName}(AI)",
+      "translated": "สนทนากับ {masterName} (AI)",
+      "back": "Chat with {masterName} (AI)",
+      "score": 1.0,
+      "status": "✅"
+    },
+    {
+      "key": "helpText",
+      "original": "Chat with the master",
+      "translated": "สนทนากับศิลปิน",
+      "back": "Artist Conversation",
+      "score": 0.0,
+      "status": "⚠️"
+    },
+    {
+      "key": "chatEnded",
+      "original": "Chat with the master has ended.",
+      "translated": "การสนทนากับศิลปินเอกสิ้นสุดแล้ว",
+      "back": "The conversation with the renowned artist has concluded.",
+      "score": 0.43,
+      "status": "⚠️"
+    },
+    {
+      "key": "retransformFailed",
+      "original": "⚠️ Retransformation failed. Please tap the modify button again.",
+      "translated": "⚠️ การแปลงใหม่ล้มเหลว กรุณาแตะปุ่มแก้ไขอีกครั้ง",
+      "back": "⚠️ The conversion failed. Please tap the edit button again.",
+      "score": 0.75,
+      "status": "✅"
+    },
+    {
+      "key": "retransformComplete",
+      "original": "💡 Retransform complete! Previous image saved to gallery.",
+      "translated": "💡 แปลงใหม่เสร็จแล้ว! รูปเดิมถูกบันทึกในแกลเลอรีแล้ว",
+      "back": "💡 The new conversion is complete! The original image has been saved to the gallery.",
+      "score": 0.42,
+      "status": "⚠️"
+    },
+    {
+      "key": "requestModify",
+      "original": "Modify",
+      "translated": "✨ ขอแก้ไข",
+      "back": "✨ Please correct",
+      "score": 0.0,
+      "status": "⚠️"
+    },
+    {
+      "key": "modifying",
+      "original": "{masterName} is modifying the artwork.",
+      "translated": "{masterName} กำลังแก้ไขผลงาน",
+      "back": "{masterName} is currently editing the work.",
+      "score": 0.5,
+      "status": "✅"
+    },
+    {
+      "key": "senderMe",
+      "original": "Me",
+      "translated": "ฉัน",
+      "back": "I",
+      "score": 0.0,
+      "status": "⚠️"
+    },
+    {
+      "key": "placeholderEnded",
+      "original": "Chat with the master has ended",
+      "translated": "การสนทนากับศิลปินเอกสิ้นสุดแล้ว",
+      "back": "The conversation with the renowned artist has concluded.",
+      "score": 0.43,
+      "status": "⚠️"
+    },
+    {
+      "key": "placeholderConverting",
+      "original": "Converting...",
+      "translated": "กำลังแปลง...",
+      "back": "Converting...",
+      "score": 1.0,
+      "status": "✅"
+    },
+    {
+      "key": "placeholderDefault",
+      "original": "Chat with {masterName}...",
+      "translated": "สนทนากับ {masterName}...",
+      "back": "Conversation with {masterName}...",
+      "score": 0.67,
+      "status": "✅"
+    },
+    {
+      "key": "paintingFinalStroke",
+      "original": "{masterName} is adding the final strokes...",
+      "translated": "{masterName} กำลังลงฝีแปรงสุดท้าย...",
+      "back": "Master {masterName} is putting the finishing touches on...",
+      "score": 0.38,
+      "status": "⚠️"
+    },
+    {
+      "key": "GOGH",
+      "original": "I enjoyed our conversation. But alas, the stars are calling — I must return to my studio.",
+      "translated": "สนุกกับการสนทนาของเรานะครับ แต่น่าเสียดาย ดวงดาวกำลังเรียกผม — ต้องกลับไปที่สตูดิโอแล้วครับ",
+      "back": "I'm enjoying our conversation, but unfortunately, the stars are calling me. I need to head back to the studio.",
+      "score": 0.59,
+      "status": "✅"
+    },
+    {
+      "key": "KLIMT",
+      "original": "Our conversation was a pleasure. But alas, golden dreams await — I must return to my studio.",
+      "translated": "การสนทนาของเราเป็นความยินดียิ่ง แต่น่าเสียดาย ความฝันสีทองกำลังรอข้าพเจ้าอยู่ — ต้องกลับไปที่สตูดิโอแล้ว",
+      "back": "Our conversation has been a great pleasure, but unfortunately, a golden opportunity awaits me—I must return to the studio now.",
+      "score": 0.55,
+      "status": "✅"
+    },
+    {
+      "key": "MUNCH",
+      "original": "I enjoyed our conversation. But alas, the voices within call again — I must return to my studio.",
+      "translated": "สนุกกับการสนทนาของเรานะ แต่น่าเสียดาย เสียงภายในเรียกฉันอีกครั้ง — ต้องกลับไปที่สตูดิโอแล้ว",
+      "back": "I enjoyed our conversation, but unfortunately, I have to return to the studio.",
+      "score": 0.56,
+      "status": "✅"
+    },
+    {
+      "key": "CHAGALL",
+      "original": "I enjoyed our conversation. But alas, it is time to fly back to my studio of dreams.",
+      "translated": "สนุกกับการสนทนาของเรานะครับ แต่น่าเสียดาย ถึงเวลาบินกลับไปสตูดิโอแห่งความฝันแล้ว",
+      "back": "I enjoyed our conversation, but unfortunately, it's time to fly back to the studio of dreams.",
+      "score": 0.81,
+      "status": "✅"
+    },
+    {
+      "key": "MATISSE",
+      "original": "I enjoyed our conversation. But alas, the colors are waiting — I must return to my studio.",
+      "translated": "สนุกกับการสนทนาของเรานะครับ แต่น่าเสียดาย สีสันกำลังรอผมอยู่ — ต้องกลับไปที่สตูดิโอแล้วครับ",
+      "back": "Enjoy our conversation, but unfortunately, I have to get back to the studio.",
+      "score": 0.47,
+      "status": "✅"
+    },
+    {
+      "key": "FRIDA",
+      "original": "I enjoyed our chat. But it\\",
+      "translated": "สนุกกับการพูดคุยของเรานะ แต่ถึงเวลากลับไปที่สตูดิโอของฉันแล้ว",
+      "back": "Enjoy our conversation, but it's time to head back to my studio.",
+      "score": 0.25,
+      "status": "⚠️"
+    },
+    {
+      "key": "LICHTENSTEIN",
+      "original": "I enjoyed our chat. But the dots are calling me back to the studio!",
+      "translated": "สนุกกับการพูดคุยของเรานะ แต่เหล่าจุดกำลังเรียกผมกลับไปที่สตูดิโอ!",
+      "back": "Enjoy our conversation, but I have to get back to the studio!",
+      "score": 0.54,
+      "status": "✅"
+    },
+    {
+      "key": "fullName",
+      "original": "Roy Lichtenstein",
+      "translated": "รอย ลิกเทนสไตน์",
+      "back": "Roy Lichtenstein",
+      "score": 1.0,
+      "status": "✅"
+    },
+    {
+      "key": "years",
+      "original": "1923~1997",
+      "translated": "1923~1997",
+      "back": "1923~1997",
+      "score": 1.0,
+      "status": "✅"
+    },
+    {
+      "key": "origin",
+      "original": "USA · Pop Art",
+      "translated": "อเมริกา · ป็อปอาร์ต",
+      "back": "America · Pop Art",
+      "score": 0.67,
+      "status": "✅"
+    },
+    {
+      "key": "quote",
+      "original": "\"I don\\",
+      "translated": "\"ฉันไม่ได้วาดการ์ตูน ฉันวาดภาพโดยใช้การ์ตูนเป็นหัวข้อ\"",
+      "back": "\"I don't draw cartoons. I paint using cartoons as a subject.\"",
+      "score": 0.2,
+      "status": "⚠️"
+    },
+    {
+      "key": "description",
+      "original": "A Pop Art master who elevated comics to fine art. He reinterpreted popular culture through Ben-Day dots and bold outlines.",
+      "translated": "ปรมาจารย์ป๊อปอาร์ตผู้ยกระดับการ์ตูนเป็นศิลปะ ตีความวัฒนธรรมป๊อปใหม่ด้วยจุด Ben-Day และเส้นขอบหนา",
+      "back": "The Pop Art Master Who Elevated Cartoons to Art, Reinterpreting Pop Culture Through Ben-Day Dots and Bold Outlines",
+      "score": 0.7,
+      "status": "✅"
+    },
+    {
+      "key": "errorMessage",
+      "original": "...Sorry, my thoughts wandered. Could you say that again?",
+      "translated": "...ขอโทษนะ ความคิดหลุดไปสักครู่ ช่วยพูดอีกครั้งได้ไหม?",
+      "back": "Sorry, I lost track for a moment. Could you repeat that?",
+      "score": 0.36,
+      "status": "⚠️"
+    }
+  ],
+  "zh-TW": [
+    {
+      "key": "chatWith",
+      "original": "Chat with {masterName}(AI)",
+      "translated": "與{masterName}（AI）對話",
+      "back": "Talk to {masterName}(AI).",
+      "score": 0.5,
+      "status": "✅"
+    },
+    {
+      "key": "helpText",
+      "original": "Chat with the master",
+      "translated": "與大師對話",
+      "back": "Dialogue with the Master",
+      "score": 0.75,
+      "status": "✅"
+    },
+    {
+      "key": "chatEnded",
+      "original": "Chat with the master has ended.",
+      "translated": "與大師的對話已結束。",
+      "back": "The conversation with the Master has ended.",
+      "score": 0.83,
+      "status": "✅"
+    },
+    {
+      "key": "retransformFailed",
+      "original": "⚠️ Retransformation failed. Please tap the modify button again.",
+      "translated": "⚠️ 重新轉換失敗，請再次點擊修改按鈕。",
+      "back": "⚠️ Re-conversion failed, please click the Modify button again.",
+      "score": 0.67,
+      "status": "✅"
+    },
+    {
+      "key": "retransformComplete",
+      "original": "💡 Retransform complete! Previous image saved to gallery.",
+      "translated": "💡 重新轉換完成！先前的圖片已儲存至相簿。",
+      "back": "💡 The reconversion is complete! The previous picture has been saved to the album.",
+      "score": 0.36,
+      "status": "⚠️"
+    },
+    {
+      "key": "modifying",
+      "original": "{masterName} is modifying the artwork.",
+      "translated": "正在修改{masterName}的畫作。",
+      "back": "The {masterName} drawing is being modified.",
+      "score": 0.5,
+      "status": "✅"
+    },
+    {
+      "key": "senderMe",
+      "original": "Me",
+      "translated": "(MISSING)",
+      "back": "",
+      "score": 0,
+      "status": "🚨 MISSING"
+    },
+    {
+      "key": "placeholderEnded",
+      "original": "Chat with the master has ended",
+      "translated": "與大師的對話已結束",
+      "back": "The conversation with the Master is over.",
+      "score": 0.5,
+      "status": "✅"
+    },
+    {
+      "key": "placeholderConverting",
+      "original": "Converting...",
+      "translated": "轉換中...",
+      "back": "Converting...",
+      "score": 1.0,
+      "status": "✅"
+    },
+    {
+      "key": "placeholderDefault",
+      "original": "Chat with {masterName}...",
+      "translated": "與{masterName}對話...",
+      "back": "Talk to {masterName}...",
+      "score": 0.33,
+      "status": "⚠️"
+    },
+    {
+      "key": "paintingFinalStroke",
+      "original": "{masterName} is adding the final strokes...",
+      "translated": "{masterName}正在完成最後的筆觸...",
+      "back": "{masterName} is finishing up the last touches...",
+      "score": 0.43,
+      "status": "⚠️"
+    },
+    {
+      "key": "GOGH",
+      "original": "I enjoyed our conversation. But alas, the stars are calling — I must return to my studio.",
+      "translated": "與你的對話很愉快。可惜，星星在呼喚我——我得回到工作室了。",
+      "back": "It's been a pleasure talking to you. Unfortunately, the stars are calling me - I have to get back to the studio.",
+      "score": 0.37,
+      "status": "⚠️"
+    },
+    {
+      "key": "KLIMT",
+      "original": "Our conversation was a pleasure. But alas, golden dreams await — I must return to my studio.",
+      "translated": "與你的對話令人愉悅。可惜，金色的夢在等待著我——我得回到工作室了。",
+      "back": "It was a pleasure to talk to you. Unfortunately, golden dreams await me - I have to get back to the studio.",
+      "score": 0.5,
+      "status": "✅"
+    },
+    {
+      "key": "MUNCH",
+      "original": "I enjoyed our conversation. But alas, the voices within call again — I must return to my studio.",
+      "translated": "與你的對話很愉快。可惜，內心的聲音再次呼喚我——我得回到工作室了。",
+      "back": "It's been a pleasure talking to you. Unfortunately, the inner voice is calling me again - I have to get back to the studio.",
+      "score": 0.24,
+      "status": "⚠️"
+    },
+    {
+      "key": "CHAGALL",
+      "original": "I enjoyed our conversation. But alas, it is time to fly back to my studio of dreams.",
+      "translated": "與你的對話很愉快。可惜，該飛回我夢中的工作室了。",
+      "back": "It was a pleasure talking to you. Unfortunately, it's time to fly back to the studio of my dreams.",
+      "score": 0.53,
+      "status": "✅"
+    },
+    {
+      "key": "MATISSE",
+      "original": "I enjoyed our conversation. But alas, the colors are waiting — I must return to my studio.",
+      "translated": "與你的對話很愉快。可惜，色彩在等待著我——我得回到工作室了。",
+      "back": "It's been a great conversation with you. Unfortunately, colors are waiting for me - I have to get back to the studio.",
+      "score": 0.38,
+      "status": "⚠️"
+    },
+    {
+      "key": "FRIDA",
+      "original": "I enjoyed our chat. But it\\",
+      "translated": "與你的對話很開心。但該回到我的工作室了。",
+      "back": "It's been a pleasure talking to you. But it's time to go back to my studio.",
+      "score": 0.14,
+      "status": "⚠️"
+    },
+    {
+      "key": "LICHTENSTEIN",
+      "original": "I enjoyed our chat. But the dots are calling me back to the studio!",
+      "translated": "與你的對話很開心。但圓點們在工作室等我呢！",
+      "back": "It's been a pleasure talking to you. But the polka dots are waiting for me in the studio!",
+      "score": 0.39,
+      "status": "⚠️"
+    },
+    {
+      "key": "fullName",
+      "original": "Roy Lichtenstein",
+      "translated": "羅伊·李奇登斯坦",
+      "back": "Roy Lichtenstein",
+      "score": 1.0,
+      "status": "✅"
+    },
+    {
+      "key": "years",
+      "original": "1923~1997",
+      "translated": "1923~1997",
+      "back": "1923~1997",
+      "score": 1.0,
+      "status": "✅"
+    },
+    {
+      "key": "origin",
+      "original": "USA · Pop Art",
+      "translated": "美國 · 普普藝術",
+      "back": "USA - Pupu Art",
+      "score": 0.67,
+      "status": "✅"
+    },
+    {
+      "key": "quote",
+      "original": "\"I don\\",
+      "translated": "\"我不是在畫漫畫，我是在畫以漫畫為主題的畫。\"",
+      "back": "\"I'm not drawing comics, I'm drawing comics based on comics.\"",
+      "score": 0.14,
+      "status": "⚠️"
+    },
+    {
+      "key": "description",
+      "original": "A Pop Art master who elevated comics to fine art. He reinterpreted popular culture through Ben-Day dots and bold outlines.",
+      "translated": "將漫畫提升為藝術的普普藝術巨匠。以班戴點和粗輪廓線重新詮釋大眾文化。",
+      "back": "A master of Pop Art who elevated comics to the status of art. Reinterpretation of popular culture with Bandai dots and thick silhouettes.",
+      "score": 0.6,
+      "status": "✅"
+    },
+    {
+      "key": "errorMessage",
+      "original": "...Sorry, my thoughts wandered. Could you say that again?",
+      "translated": "...抱歉，思緒有些紊亂，可以再說一次嗎？",
+      "back": "... I'm sorry, I'm a little disoriented. Can you say that again?",
+      "score": 0.45,
+      "status": "✅"
+    }
+  ]
+}

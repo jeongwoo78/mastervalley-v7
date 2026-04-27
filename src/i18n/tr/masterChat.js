@@ -13,7 +13,7 @@ export const masterChat = {
     retransformComplete: '💡 Yeniden dönüşüm tamamlandı! Önceki görsel galeriye kaydedildi.',
     requestModify: 'Düzenle',
     errorMessage: '...Özür dilerim, düşüncelerim biraz dağıldı. Tekrar söyler misiniz?',
-    modifying: '{masterName} tablosu düzenleniyor.',
+    modifying: '{masterName} eserini düzenliyor.',
     senderMe: 'Ben',
     placeholderEnded: 'Usta ile sohbet sona erdi',
     placeholderConverting: 'Dönüştürülüyor...',

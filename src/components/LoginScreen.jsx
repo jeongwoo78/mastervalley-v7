@@ -36,14 +36,23 @@ const LABELS_COMMON = {
   m05:'Chagall', m06:'Frida', m07:'Lichtenstein',
 };
 
+// s01 자산이 로마 모자이크인 언어 (ja/es/fr/id)
+const MOSAIC_S01 = { s01:'Roman Mosaic' };
+// s06 자산이 사실주의(마네)인 언어 (pt)
+const REALISM_S06 = { s06:'Realism' };
+
 const SLIDE_LABELS = {
   ko: { ...LABELS_COMMON, o01:'Korean', o02:'Chinese', o03:'Japanese' },
-  ja: { ...LABELS_COMMON, o01:'Japanese', o02:'Chinese', o03:'Korean' },
+  ja: { ...LABELS_COMMON, ...MOSAIC_S01, o01:'Japanese', o02:'Chinese', o03:'Korean' },
   zh: { ...LABELS_COMMON, o01:'Chinese', o02:'Japanese', o03:'Korean' },
   ar: { ...LABELS_COMMON, o01:'Chinese', o02:'Japanese', o03:'Korean' },
 };
-// 나머지 언어 = 중일한
+// 나머지 언어 = 중일한 베이스
 ['en','es','fr','th','pt','id','tr'].forEach(l => { SLIDE_LABELS[l] = SLIDE_LABELS.zh; });
+// es/fr/id는 s01이 모자이크 자산이므로 라벨 덮어쓰기
+['es','fr','id'].forEach(l => { SLIDE_LABELS[l] = { ...SLIDE_LABELS[l], ...MOSAIC_S01 }; });
+// pt는 s06이 사실주의(마네) 자산이므로 라벨 덮어쓰기
+SLIDE_LABELS.pt = { ...SLIDE_LABELS.pt, ...REALISM_S06 };
 
 // 종형 타이밍 (위치 0~21)
 // 가속 3장 → 고속 점진하강 → 피크 250ms×3 → 복귀 → 감속 → 여운 1000

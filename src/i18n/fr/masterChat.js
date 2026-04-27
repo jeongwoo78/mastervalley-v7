@@ -14,7 +14,7 @@ export const masterChat = {
     retransformComplete: '💡 Retransformation terminée ! L\'image précédente est sauvegardée dans votre galerie.',
     requestModify: 'Modifier',
     errorMessage: '...Pardonnez-moi, j\'ai perdu le fil un instant. Pourriez-vous répéter ?',
-    modifying: 'Modification du tableau de {masterName}.',
+    modifying: '{masterName} retravaille l\'œuvre.',
     senderMe: 'Moi',
     placeholderEnded: 'Conversation avec le maître terminée',
     placeholderConverting: 'Transformation en cours...',

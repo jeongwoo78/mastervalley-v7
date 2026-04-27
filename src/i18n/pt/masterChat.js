@@ -13,7 +13,7 @@ export const masterChat = {
     retransformComplete: '💡 Retransformação concluída! A imagem anterior foi guardada na galeria.',
     requestModify: 'Editar',
     errorMessage: '...Desculpa, perdi um pouco o fio ao pensamento. Podes repetir?',
-    modifying: 'A editar a tela de {masterName}.',
+    modifying: '{masterName} está a modificar a obra.',
     senderMe: 'Eu',
     placeholderEnded: 'A conversa com o mestre terminou',
     placeholderConverting: 'A transformar...',
