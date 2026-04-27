@@ -13,34 +13,34 @@ export const oneclickOrientalBasicInfo = {
   'korean-minhwa': {
     name: 'Korean Traditional Painting',
     subtitle1: 'Minhwa (Folk Painting)',
-    subtitle2: 'Aesthetics of empty space and color'
+    subtitle2: 'Folk dreams on canvas'
   },
   'korean-pungsokdo': {
     name: 'Korean Traditional Painting',
     subtitle1: 'Pungsokdo (Genre Painting)',
-    subtitle2: 'Aesthetics of empty space and color'
+    subtitle2: 'Daily life of the people'
   },
   'korean-jingyeong': {
     name: 'Korean Traditional Painting',
     subtitle1: 'Jingyeong Sansu (True-view Landscape)',
-    subtitle2: 'Aesthetics of empty space and color'
+    subtitle2: 'Korean landscapes through Joseon eyes'
   },
   // China
   'chinese-ink': {
     name: 'Chinese Traditional Painting',
     subtitle1: 'Ink Wash Painting (Shuǐmò)',
-    subtitle2: 'Philosophy of ink and empty space'
+    subtitle2: 'Spirit painted in ink'
   },
   'chinese-gongbi': {
     name: 'Chinese Traditional Painting',
     subtitle1: 'Gongbi (Meticulous Painting)',
-    subtitle2: 'Philosophy of ink and empty space'
+    subtitle2: 'The pinnacle of precision'
   },
   // Japan
   'japanese-ukiyoe': {
     name: 'Japanese Traditional Painting',
     subtitle1: 'Ukiyo-e (Floating World Pictures)',
-    subtitle2: 'Beauty of the fleeting world'
+    subtitle2: 'Floating world pressed in woodblock'
   },
   'japanese-rinpa': {
     name: 'Japanese Traditional Painting',

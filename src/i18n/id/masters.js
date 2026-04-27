@@ -5,10 +5,10 @@
 // ========================================
 
 export const mastersBasicInfo = {
-  'vangogh': { loading: { name: 'Vincent van Gogh (1853–1890)', subtitle1: 'Post-Impresionisme · Belanda', subtitle2: 'Gairah kuas yang berputar spiral' },
+  'vangogh': { loading: { name: 'Vincent van Gogh (1853–1890)', subtitle1: 'Post-Impresionisme · Belanda', subtitle2: 'Keabadian yang mekar dari penderitaan' },
     result: {
       name: 'Vincent van Gogh (1853–1890)',
-      subtitle1: 'Post-Impresionisme · Belanda',
+      subtitle1: 'Malam Berbintang · Bunga Matahari · Potret Diri',
       subtitle2: 'Gairah kuas yang berputar spiral',
       works: {
         'starrynight': { subtitle1: 'Malam Berbintang (The Starry Night)', subtitle2: 'Langit malam dilukis dalam pusaran' },
@@ -18,10 +18,10 @@ export const mastersBasicInfo = {
         'wheatfield': { subtitle1: 'Ladang Gandum dengan Cemara (Wheat Field with Cypresses)', subtitle2: 'Ladang emas menari di angin' },
       }
     }, },
-  'klimt': { loading: { name: 'Gustav Klimt (1862–1918)', subtitle1: 'Art Nouveau · Austria', subtitle2: 'Dunia emas penuh sensualitas' },
+  'klimt': { loading: { name: 'Gustav Klimt (1862–1918)', subtitle1: 'Art Nouveau · Austria', subtitle2: 'Mimpi keemasan Wina di akhir abad' },
     result: {
       name: 'Gustav Klimt (1862–1918)',
-      subtitle1: 'Art Nouveau · Austria',
+      subtitle1: 'Ciuman · Judith · Pohon Kehidupan',
       subtitle2: 'Dunia sensualitas keemasan',
       works: {
         'kiss': { subtitle1: 'Ciuman (The Kiss)', subtitle2: 'Ciuman abadi yang larut dalam emas' },
@@ -29,10 +29,10 @@ export const mastersBasicInfo = {
         'judith': { subtitle1: 'Judith I', subtitle2: 'Antara yang sakral dan sensual, pesona emas' },
       }
     }, },
-  'munch': { loading: { name: 'Edvard Munch (1863–1944)', subtitle1: 'Ekspresionisme · Norwegia', subtitle2: 'Melukis jeritan batin' },
+  'munch': { loading: { name: 'Edvard Munch (1863–1944)', subtitle1: 'Ekspresionisme · Norwegia', subtitle2: 'Pelukis jiwa yang lahir dari kehilangan' },
     result: {
       name: 'Edvard Munch (1863–1944)',
-      subtitle1: 'Ekspresionisme · Norwegia',
+      subtitle1: 'Jeritan · Madonna · Tarian Kehidupan',
       subtitle2: 'Melukis jeritan batin',
       works: {
         'scream': { subtitle1: 'Jeritan (The Scream)', subtitle2: 'Jiwa yang menangis di bawah langit merah darah' },
@@ -40,10 +40,10 @@ export const mastersBasicInfo = {
         'danceoflife': { subtitle1: 'Tarian Kehidupan (The Dance of Life)', subtitle2: 'Waltz cinta dan kehilangan' },
       }
     }, },
-  'matisse': { loading: { name: 'Henri Matisse (1869–1954)', subtitle1: 'Fauvisme · Prancis', subtitle2: 'Pesulap warna' },
+  'matisse': { loading: { name: 'Henri Matisse (1869–1954)', subtitle1: 'Fauvisme · Prancis', subtitle2: 'Menyanyikan kegembiraan melalui warna' },
     result: {
       name: 'Henri Matisse (1869–1954)',
-      subtitle1: 'Fauvisme · Prancis',
+      subtitle1: 'Tarian · Kamar Merah · Garis Hijau',
       subtitle2: 'Pesulap warna',
       works: {
         'greenstripe': { subtitle1: 'Garis Hijau (The Green Stripe)', subtitle2: 'Satu garis hijau yang mendeklarasikan revolusi warna' },
@@ -52,10 +52,10 @@ export const mastersBasicInfo = {
         'derain': { subtitle1: 'Potret André Derain (Portrait of André Derain)', subtitle2: 'Rekan Fauviis dilukis dengan warna alam liar' },
       }
     }, },
-  'chagall': { loading: { name: 'Marc Chagall (1887–1985)', subtitle1: 'Surealisme · Rusia/Prancis', subtitle2: 'Penyair cinta dan mimpi' },
+  'chagall': { loading: { name: 'Marc Chagall (1887–1985)', subtitle1: 'Surealisme · Rusia/Prancis', subtitle2: 'Pelukis 100 tahun cinta' },
     result: {
       name: 'Marc Chagall (1887–1985)',
-      subtitle1: 'Surealisme · Rusia/Prancis',
+      subtitle1: 'Kekasih dengan Bunga · Aku dan Desa · La Mariée',
       subtitle2: 'Penyair cinta dan mimpi',
       works: {
         'lovers': { subtitle1: 'Kekasih dengan Bunga (Lovers with Flowers)', subtitle2: 'Cinta yang bersinar hangat dalam sebuket bunga' },
@@ -63,7 +63,7 @@ export const mastersBasicInfo = {
         'village': { subtitle1: 'Aku dan Desa (I and the Village)', subtitle2: 'Kenangan rumah yang melayang seperti mimpi' },
       }
     }, },
-  'picasso': { loading: { name: 'Pablo Picasso (1881–1973)', subtitle1: 'Kubisme · Spanyol', subtitle2: 'Revolusioner yang mendekonstruksi pandangan' },
+  'picasso': { loading: { name: 'Pablo Picasso (1881–1973)', subtitle1: 'Kubisme · Spanyol', subtitle2: 'Jenius transformasi tanpa akhir' },
     result: {
       name: 'Pablo Picasso (1881–1973)',
       subtitle1: 'Les Demoiselles d\'Avignon · Guernica · Potret Dora Maar',
@@ -72,10 +72,10 @@ export const mastersBasicInfo = {
         'doramaar': { subtitle1: 'Potret Dora Maar (Portrait of Dora Maar)', subtitle2: 'Potret terdekonstruksi di mana depan bertemu samping' },
       }
     }, },
-  'frida': { loading: { name: 'Frida Kahlo (1907–1954)', subtitle1: 'Surealisme · Meksiko', subtitle2: 'Potret diri yang menghadapi rasa sakit' },
+  'frida': { loading: { name: 'Frida Kahlo (1907–1954)', subtitle1: 'Surealisme · Meksiko', subtitle2: 'Tubuh hancur, kuas tak terpatahkan' },
     result: {
       name: 'Frida Kahlo (1907–1954)',
-      subtitle1: 'Surealisme · Meksiko',
+      subtitle1: 'Aku dan Beo-beoku · Tulang Belakang yang Patah · Potret Diri dengan Monyet',
       subtitle2: 'Potret diri menatap rasa sakit',
       works: {
         'parrots': { subtitle1: 'Aku dan Beo-beoku (Me and My Parrots)', subtitle2: 'Potret diri dalam kesepian, bersama burung beo' },
@@ -86,7 +86,7 @@ export const mastersBasicInfo = {
     loading: {
       name: 'Roy Lichtenstein (1923–1997)',
       subtitle1: 'Pop Art · Amerika Serikat',
-      subtitle2: 'Pria yang mengubah komik menjadi seni'
+      subtitle2: 'Revolusi yang dimulai dari Mickey Mouse'
     },
     result: {
       name: 'Roy Lichtenstein (1923–1997)',

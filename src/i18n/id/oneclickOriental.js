@@ -7,9 +7,9 @@ export const oneclickOrientalBasicInfo = {
   'korean-minhwa': { name: 'Lukisan Tradisional Korea (Korean Traditional Painting)', subtitle1: 'Minhwa (Minhwa)', subtitle2: 'Harapan rakyat dalam gambar' },
   'korean-pungsokdo': { name: 'Lukisan Tradisional Korea (Korean Traditional Painting)', subtitle1: 'Pungsokdo (Pungsokdo)', subtitle2: 'Keseharian menjadi seni' },
   'korean-jingyeong': { name: 'Lukisan Tradisional Korea (Korean Traditional Painting)', subtitle1: 'Jingyeong Sansuhwa (Jingyeong Sansuhwa)', subtitle2: 'Gunung Joseon dilihat dengan mata sendiri' },
-  'chinese-ink': { name: 'Lukisan Tradisional Tiongkok (Chinese Traditional Painting)', subtitle1: 'Tinta (Ink Wash)', subtitle2: 'Lanskap jiwa dalam tinta' },
+  'chinese-ink': { name: 'Lukisan Tradisional Tiongkok (Chinese Traditional Painting)', subtitle1: 'Tinta (Ink Wash)', subtitle2: 'Pemandangan jiwa dalam tinta' },
   'chinese-gongbi': { name: 'Lukisan Tradisional Tiongkok (Chinese Traditional Painting)', subtitle1: 'Gongbi (Gongbi)', subtitle2: 'Puncak presisi' },
-  'japanese-ukiyoe': { name: 'Lukisan Tradisional Jepang (Japanese Traditional Painting)', subtitle1: 'Ukiyo-e (Ukiyo-e)', subtitle2: 'Dunia mengambang terukir di atas kayu' },
+  'japanese-ukiyoe': { name: 'Lukisan Tradisional Jepang (Japanese Traditional Painting)', subtitle1: 'Ukiyo-e (Ukiyo-e)', subtitle2: 'Dunia mengambang terukir di kayu' },
   'japanese-rinpa': { name: 'Lukisan Tradisional Jepang (Japanese Traditional Painting)', subtitle1: 'Rinpa (Rinpa)', subtitle2: 'Estetika dekoratif di atas lembaran emas' }
 };
 

@@ -16,7 +16,7 @@ export const oneclickMastersBasicInfo = {
   },
   'klimt': {
     name: 'Gustav Klimt (1862–1918)',
-    subtitle1: 'Le Baiser · Adèle · L\'Arbre de vie',
+    subtitle1: 'Le Baiser · Judith · L\'Arbre de vie',
     subtitle2: 'Le monde doré de la sensualité'
   },
   'munch': {
@@ -46,7 +46,7 @@ export const oneclickMastersBasicInfo = {
   },
   'lichtenstein': {
     name: 'Roy Lichtenstein (1923–1997)',
-    subtitle1: 'Drowning Girl · Whaam! · In the Car',
+    subtitle1: 'La Fille qui se noie · Whaam! · Dans la voiture',
     subtitle2: 'L\'homme qui transforma la BD en art'
   }
 };

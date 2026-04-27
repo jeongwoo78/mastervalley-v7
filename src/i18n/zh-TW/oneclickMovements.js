@@ -42,7 +42,7 @@ export const oneclickMovementsBasicInfo = {
   'boucher': { name: '洛可可 (Rococo, 18世紀)', subtitle1: '布雪', subtitle2: '描繪宮廷的華麗' },
   'david': { name: '新古典主義 (Neoclassicism, 18–19世紀)', subtitle1: '雅克-路易·大衛', subtitle2: '革命的畫家' },
   'ingres': { name: '新古典主義 (Neoclassicism, 18–19世紀)', subtitle1: '讓-奧古斯特-多明尼克·安格爾', subtitle2: '追尋完美的線條' },
-  'turner': { name: '浪漫主義 (Romanticism, 19世紀)', subtitle1: 'J.M.W. 乇納', subtitle2: '光與大氣的畫家' },
+  'turner': { name: '浪漫主義 (Romanticism, 19世紀)', subtitle1: 'J.M.W. 透納', subtitle2: '光與大氣的畫家' },
   'delacroix': { name: '浪漫主義 (Romanticism, 19世紀)', subtitle1: '歐仁·德拉克洛瓦', subtitle2: '將情感風暴繪上畫布' },
   'courbet': { name: '寫實主義 (Realism, 19世紀)', subtitle1: '居斯塔夫·庫爾貝', subtitle2: '只畫眼前所見' },
   'manet': { name: '寫實主義 (Realism, 19世紀)', subtitle1: '愛德華·馬奈', subtitle2: '開啟現代繪畫之門' },
@@ -60,8 +60,8 @@ export const oneclickMovementsBasicInfo = {
   'kirchner': { name: '表現主義 (Expressionism, 1905–1930)', subtitle1: '恩斯特·路德維希·乞希納', subtitle2: '揭露都市的焦慮' },
   'kokoschka': { name: '表現主義 (Expressionism, 1905–1930)', subtitle1: '奧斯卡·柯克西卡', subtitle2: '肖像即心理戰場' },
   'picasso': { name: '立體派 (Cubism, 20世紀初)', subtitle1: '巴勃羅·畢卡索', subtitle2: '解構視角的革命者' },
-  'magritte': { name: '超現實主義 (Surrealism, 1920–1960)', subtitle1: '乃內·馬格利特', subtitle2: '眼見的陷阱' },
-  'miro': { name: '超現實主義 (Surrealism, 1920–1960)', subtitle1: '乔安·乃洛', subtitle2: '情感先於形體' },
+  'magritte': { name: '超現實主義 (Surrealism, 1920–1960)', subtitle1: '雷內·馬格利特', subtitle2: '眼見的陷阱' },
+  'miro': { name: '超現實主義 (Surrealism, 1920–1960)', subtitle1: '喬安·米羅', subtitle2: '情感先於形體' },
   'chagall': { name: '超現實主義 (Surrealism, 1920–1960)', subtitle1: '馬克·夏卡爾', subtitle2: '愛與夢的詩人' },
   'lichtenstein': { name: '普普藝術 (Pop Art, 1950–1970)', subtitle1: '羅伊·李奇登斯坦', subtitle2: '將漫畫變成藝術的人' }
 };
@@ -85,7 +85,7 @@ export const oneclickMovementsSecondary = {
   'boucher': { content: `一個貴族的遊戲成為藝術的時代。\n粉彩色調、曲線與優雅的裝飾填滿了畫布。\n\n布雪以感官的肉體與奢華的裝飾為特徵。\n在法國宮廷的支持下完成了洛可可藝術。` },
   'david': { content: `一個革命決定藝術方向的時代。\n新古典主義走向理性；浪漫主義走向情感；寫實主義走向具體。\n\n大衛以堅定的輪廓與古典比例構建革命的形象。\n他領導新古典主義，成為拿破崙時代的官方畫家。` },
   'ingres': { content: `一個革命決定藝術方向的時代。\n新古典主義走向理性；浪漫主義走向情感；寫實主義走向具體。\n\n安格爾以光滑的肌膚與完美掌控的線條為特徵。\n相信「線條比色彩更高貴」的最後古典主義者。` },
-  'turner': { content: `一個革命決定藝術方向的時代。\n新古典主義走向理性；浪漫主義走向情感；寫實主義走向具體。\n\n乇納以溶解形體的霧氣與表現性的風暴為特徵。\n在印象派之前就抵達了光的本質。` },
+  'turner': { content: `一個革命決定藝術方向的時代。\n新古典主義走向理性；浪漫主義走向情感；寫實主義走向具體。\n\n透納以溶解形體的霧氣與表現性的風暴為特徵。\n在印象派之前就抵達了光的本質。` },
   'delacroix': { content: `一個革命決定藝術方向的時代。\n新古典主義走向理性；浪漫主義走向情感；寫實主義走向具體。\n\n德拉克洛瓦以激情的筆觸與強烈的色彩對比為特徵。\n他領導浪漫主義，將革命精神轉譯為情感的語言。` },
   'courbet': { content: `一個革命決定藝術方向的時代。\n新古典主義走向理性；浪漫主義走向情感；寫實主義走向具體。\n\n庫爾貝不加理想化，如實描繪現實。\n他宣告寫實主義：「我畫不了天使，因為我從未見過。」` },
   'manet': { content: `一個革命決定藝術方向的時代。\n新古典主義走向理性；浪漫主義走向情感；寫實主義走向具體。\n\n馬奈以大膽的平面與挑戰性的構圖為特徵。\n他打破傳統繪畫的規則，開啟了通向印象派的大門。` },
@@ -104,7 +104,7 @@ export const oneclickMovementsSecondary = {
   'kokoschka': { content: `一個不畫所見而畫所感的時代。\n扭曲的形體與尖銳的色彩引爆了內心的情感。\n\n柯克西卡以粗獷的筆觸與極端的心理張力為特徵。\n將肖像變成心理戰場的畫家。` },
   'picasso': { content: `一個所有規則崩塌並被重寫的時代。\n透視、形體和色彩的傳統被解構並重新組裝。\n\n畢卡索以幾何解構物體，從多個角度同時呈現。\n他創立立體派，摧毀了五百年的透視秩序。` },
   'magritte': { content: `一個所有規則崩塌並被重寫的時代。\n透視、形體和色彩的傳統被解構並重新組裝。\n\n馬格利特以日常物體與語言的碰撞顛覆思維。\n他揭露所見與所信之間的陷阱。` },
-  'miro': { content: `一個所有規則崩塌並被重寫的時代。\n透視、形體和色彩的傳統被解構並重新組裝。\n\n乃洛以自由的線條和原色符號漂浮在畫布上。\n他將形體之前的情感視覺化。` },
+  'miro': { content: `一個所有規則崩塌並被重寫的時代。\n透視、形體和色彩的傳統被解構並重新組裝。\n\n米羅以自由的線條和原色符號漂浮在畫布上。\n他將形體之前的情感視覺化。` },
   'chagall': { content: `一個所有規則崩塌並被重寫的時代。\n透視、形體和色彩的傳統被解構並重新組裝。\n\n夏卡爾以夢幻的色彩與非現實的構圖為特徵。\n將夢疊加在現實上的愛之畫家。` },
   'lichtenstein': { content: `一個所有規則崩塌並被重寫的時代。\n透視、形體和色彩的傳統被解構並重新組裝。\n\n李奇登斯坦以本戴點、粗輪廓和強烈原色為特徵。\n他將漫畫搬上畫布，消除了藝術與流行文化的界線。` }
 };

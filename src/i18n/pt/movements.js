@@ -24,19 +24,19 @@ export const movementsBasicInfo = {
     loading: { name: 'Neoclassicismo · Romantismo · Realismo (séculos 18–19)', subtitle1: 'David · Delacroix · Courbet', subtitle2: 'Razão, emoção e realidade se divergem' }
   },
   'impressionism': {
-    loading: { name: 'Impressionismo (século 19)', subtitle1: 'Monet · Renoir · Degas', subtitle2: 'A revolução da luz e da cor' }
+    loading: { name: 'Impressionismo (1860–1890)', subtitle1: 'Monet · Renoir · Degas', subtitle2: 'O momento em que a luz se torna cor' }
   },
   'postImpressionism': {
-    loading: { name: 'Pós-impressionismo (final do século 19)', subtitle1: 'Van Gogh · Cézanne · Gauguin', subtitle2: 'Para além dos momentos de luz' }
+    loading: { name: 'Pós-impressionismo (1880–1910)', subtitle1: 'Van Gogh · Cézanne · Gauguin', subtitle2: 'Para além da luz, rumo ao interior' }
   },
   'fauvism': {
-    loading: { name: 'Fauvismo (1905–1910)', subtitle1: 'Matisse · Derain · Vlaminck', subtitle2: 'A revolução da cor pura' }
+    loading: { name: 'Fauvismo (1905–1910)', subtitle1: 'Matisse · Derain · Vlaminck', subtitle2: 'As feras que libertaram a cor' }
   },
   'expressionism': {
-    loading: { name: 'Expressionismo (início do século 20)', subtitle1: 'Munch · Kirchner · Kokoschka', subtitle2: 'O grito interior derramado na tela' }
+    loading: { name: 'Expressionismo (1905–1930)', subtitle1: 'Munch · Kirchner · Kokoschka', subtitle2: 'Pintar o que se sente' }
   },
   'modernism': {
-    loading: { name: 'Modernismo (século 20)', subtitle1: 'Picasso · Miró · Magritte', subtitle2: 'Quebrar tradições e reinventar a arte' }
+    loading: { name: 'Modernismo (século 20)', subtitle1: 'Picasso · Magritte · Chagall', subtitle2: 'A demolição de todas as regras' }
   },
   'classical-sculpture': {
     result: {
@@ -374,7 +374,7 @@ export const movementsResultEducation = {
   name: 'Mosaico Romano', description: `A refinada técnica tessera e as cores vibrantes dos mosaicos romanos foram aplicadas.\nMilhares de pequenos fragmentos de pedra colorida são dispostos um a um para criar cenas de mitologia e vida quotidiana.\n\nDa grandiosa cena de batalha do "Mosaico de Alexandre" ao humilde quotidiano retratado em "Cave Canem" — cores que atravessaram 2.000 anos.\nO mosaico romano é a essência da arte decorativa antiga, onde cada pedra carrega o toque de um artesão.` },
 
   'byzantine': {
-  name: 'Bizantino', description: `Os mosaicos dourados bizantinos e a frontalidade sagrada foram aplicados.\nFiguras planas e simbólicas são colocadas sobre fundos de folha de ouro para expressar uma divindade que transcende a humanidade.\n\nNo ouro resplandecente de Hagia Sophia, "Imperador Justiniano" transmite majestade imperial; "Cristo Pantocrator" transmite o olhar divino.\nArte religiosa dourada que influenciou profundamente os ícones russos e a arte medieval da Europa Ocidental.` },
+  name: 'Bizântino', description: `Os mosaicos dourados bizantinos e a frontalidade sagrada foram aplicados.\nFiguras planas e simbólicas são colocadas sobre fundos de folha de ouro para expressar uma divindade que transcende a humanidade.\n\nNo ouro resplandecente de Hagia Sophia, "Imperador Justiniano" transmite majestade imperial; "Cristo Pantocrator" transmite o olhar divino.\nArte religiosa dourada que influenciou profundamente os ícones russos e a arte medieval da Europa Ocidental.` },
   'gothic': {
   name: 'Gótico', description: `A ascensão vertical gótica e a magia da luz foram aplicadas.\nA luz colorida que jorra pelos vitrais incorpora a glória do céu em todo o espaço.\n\nA luz cobalto que preenche a "Virgem Azul de Chartres", os raios caleidoscópicos que passam pela "Rosa de Notre-Dame" inscrevem o anseio por alcançar o céu.\nA arte gótica é um livro de vidro que ensinou a Bíblia aos crentes analfabetos, e o mistério da própria luz.` },
   'islamic-miniature': {
@@ -385,7 +385,7 @@ export const movementsResultEducation = {
   'michelangelo': {
   name: 'Michelangelo', description: `A beleza humana heroica e o dinamismo dramático de Michelangelo foram aplicados.\nCom uma compreensão perfeita da anatomia humana, seres humanos heroicamente divinos são expressos.\n\nUm espírito artístico invencível que pintou o teto da Capela Sistina sozinho, deitado de costas por quatro anos.\nMichelangelo é um escultor que libertou anjos do mármore, um pintor que soprou vida no afresco.` },
   'raphael': {
-  name: 'Raphael', description: `O equilíbrio perfeito e a composição harmoniosa de Raphael foram aplicados.\nBeleza ideal e harmonia clássica incorporadas na sua forma mais pura.\n\nEm "A Escola de Atenas" reuniu filósofos antigos num único espaço; em "Madonna Sistina" atingiu o pico da beleza sublime.\nApesar de uma vida curta de 37 anos, permanece o cume da beleza ideal do Renascimento e modelo para o classicismo posterior.` },
+  name: 'Rafael', description: `O equilíbrio perfeito e a composição harmoniosa de Raphael foram aplicados.\nBeleza ideal e harmonia clássica incorporadas na sua forma mais pura.\n\nEm "A Escola de Atenas" reuniu filósofos antigos num único espaço; em "Madonna Sistina" atingiu o pico da beleza sublime.\nApesar de uma vida curta de 37 anos, permanece o cume da beleza ideal do Renascimento e modelo para o classicismo posterior.` },
   'botticelli': {
   name: 'Botticelli', description: `As linhas graciosas e o lirismo poético de Botticelli foram aplicados.\nLinhas fluentes e cores transparentes expressam a beleza mitológica.\n\nOs cabelos dourados ao vento em "O Nascimento de Vénus", o jardim místico em "Primavera" desdobram uma beleza ideal como um sonho.\nBotticelli é pintor poeta que representou a idade de ouro de Florença sob o mecenato dos Médici.` },
   'titian': {

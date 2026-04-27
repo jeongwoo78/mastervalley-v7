@@ -9,32 +9,32 @@ export const oneclickOrientalBasicInfo = {
   'korean-minhwa': {
     name: 'الرسم التقليدي الكوري',
     subtitle1: 'مينهوا (الرسم الشعبي)',
-    subtitle2: 'جماليات الفراغ واللون'
+    subtitle2: 'أحلام الشعب على القماش'
   },
   'korean-pungsokdo': {
     name: 'الرسم التقليدي الكوري',
     subtitle1: 'بونغسوكدو (رسم النوع)',
-    subtitle2: 'جماليات الفراغ واللون'
+    subtitle2: 'الحياة اليومية للناس'
   },
   'korean-jingyeong': {
     name: 'الرسم التقليدي الكوري',
     subtitle1: 'جينغيونغ سانسو (منظر طبيعي حقيقي)',
-    subtitle2: 'جماليات الفراغ واللون'
+    subtitle2: 'المناظر الطبيعية الكورية بعيون جوسون'
   },
   'chinese-ink': {
     name: 'الرسم التقليدي الصيني',
     subtitle1: 'رسم الحبر المائي (سويمو)',
-    subtitle2: 'فلسفة الحبر والفراغ'
+    subtitle2: 'الروح مرسومة بالحبر'
   },
   'chinese-gongbi': {
     name: 'الرسم التقليدي الصيني',
     subtitle1: 'غونغبي (الرسم الدقيق)',
-    subtitle2: 'فلسفة الحبر والفراغ'
+    subtitle2: 'ذروة الدقة'
   },
   'japanese-ukiyoe': {
     name: 'الرسم التقليدي الياباني',
     subtitle1: 'أوكييو-إي (صور العالم العابر)',
-    subtitle2: 'جمال العالم العابر'
+    subtitle2: 'عالم العابر في الطباعة الخشبية'
   },
   'japanese-rinpa': {
     name: 'الرسم التقليدي الياباني',

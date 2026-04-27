@@ -7,32 +7,32 @@ export const oneclickOrientalBasicInfo = {
   'korean-minhwa': {
     name: 'Kore Geleneksel Resmi',
     subtitle1: 'Minhwa (Halk Resmi)',
-    subtitle2: 'Boşluk ve renk estetiği'
+    subtitle2: 'Tuval üzerinde halkın düşleri'
   },
   'korean-pungsokdo': {
     name: 'Kore Geleneksel Resmi',
     subtitle1: 'Pungsokdo (Tür Resmi)',
-    subtitle2: 'Boşluk ve renk estetiği'
+    subtitle2: 'Halkın günlük yaşamı'
   },
   'korean-jingyeong': {
     name: 'Kore Geleneksel Resmi',
     subtitle1: 'Jingyeong Sansu (Gerçek Görünüm Manzarası)',
-    subtitle2: 'Boşluk ve renk estetiği'
+    subtitle2: 'Joseon gözüyle Kore manzaraları'
   },
   'chinese-ink': {
     name: 'Çin Geleneksel Resmi',
     subtitle1: 'Mürekkep Yıkama Resmi (Shuǐmò)',
-    subtitle2: 'Mürekkep ve boşluğun felsefesi'
+    subtitle2: 'Mürekkepte yakalanan ruh'
   },
   'chinese-gongbi': {
     name: 'Çin Geleneksel Resmi',
     subtitle1: 'Gongbi (Titiz Resim)',
-    subtitle2: 'Mürekkep ve boşluğun felsefesi'
+    subtitle2: 'Hassasiyetin zirvesi'
   },
   'japanese-ukiyoe': {
     name: 'Japon Geleneksel Resmi',
     subtitle1: 'Ukiyo-e (Geçici Dünya Resimleri)',
-    subtitle2: 'Geçici dünyanın güzelliği'
+    subtitle2: 'Tahta baskıda süzülen geçici dünya'
   },
   'japanese-rinpa': {
     name: 'Japon Geleneksel Resmi',

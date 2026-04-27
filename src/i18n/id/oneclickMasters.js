@@ -11,7 +11,7 @@ export const oneclickMastersBasicInfo = {
   'chagall': { name: 'Marc Chagall (1887–1985)', subtitle1: 'Di Atas Kota · Aku dan Desa · Buket dengan Kekasih Terbang', subtitle2: 'Penyair cinta dan mimpi' },
   'picasso': { name: 'Pablo Picasso (1881–1973)', subtitle1: 'Les Demoiselles d\'Avignon · Guernica · Potret Dora Maar', subtitle2: 'Revolusioner yang mendekonstruksi pandangan' },
   'frida': { name: 'Frida Kahlo (1907–1954)', subtitle1: 'Kolom Patah · Kalung Duri dan Kolibri', subtitle2: 'Potret diri yang menghadapi rasa sakit' },
-  'lichtenstein': { name: 'Roy Lichtenstein (1923–1997)', subtitle1: 'Drowning Girl · Whaam! · In the Car', subtitle2: 'Pria yang mengubah komik menjadi seni' }
+  'lichtenstein': { name: 'Roy Lichtenstein (1923–1997)', subtitle1: 'Gadis yang Tenggelam · Whaam! · Di Dalam Mobil', subtitle2: 'Pria yang mengubah komik menjadi seni' }
 };
 
 export const oneclickMastersPrimary = {

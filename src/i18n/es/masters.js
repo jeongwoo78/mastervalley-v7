@@ -14,7 +14,7 @@ export const mastersBasicInfo = {
     loading: {
       name: 'Vincent van Gogh (1853–1890)',
       subtitle1: 'Postimpresionismo · Países Bajos',
-      subtitle2: 'La pasión del pincel en espiral'
+      subtitle2: 'Belleza inmortal nacida del sufrimiento'
     },
     result: {
       name: 'Vincent van Gogh (1853–1890)',
@@ -33,7 +33,7 @@ export const mastersBasicInfo = {
     loading: {
       name: 'Gustav Klimt (1862–1918)',
       subtitle1: 'Art Nouveau · Austria',
-      subtitle2: 'El mundo dorado de la sensualidad'
+      subtitle2: 'Sueño dorado de la Viena fin-de-siècle'
     },
     result: {
       name: 'Gustav Klimt (1862–1918)',
@@ -50,7 +50,7 @@ export const mastersBasicInfo = {
     loading: {
       name: 'Edvard Munch (1863–1944)',
       subtitle1: 'Expresionismo · Noruega',
-      subtitle2: 'Pintar el grito interior'
+      subtitle2: 'Pintor del alma, nacido de la pérdida'
     },
     result: {
       name: 'Edvard Munch (1863–1944)',
@@ -67,7 +67,7 @@ export const mastersBasicInfo = {
     loading: {
       name: 'Henri Matisse (1869–1954)',
       subtitle1: 'Fauvismo · Francia',
-      subtitle2: 'El mago del color'
+      subtitle2: 'Cantando la alegría a través del color'
     },
     result: {
       name: 'Henri Matisse (1869–1954)',
@@ -85,7 +85,7 @@ export const mastersBasicInfo = {
     loading: {
       name: 'Marc Chagall (1887–1985)',
       subtitle1: 'Surrealismo · Rusia/Francia',
-      subtitle2: 'Poeta del amor y los sueños'
+      subtitle2: 'Pintor de 100 años de amor'
     },
     result: {
       name: 'Marc Chagall (1887–1985)',
@@ -102,7 +102,7 @@ export const mastersBasicInfo = {
     loading: {
       name: 'Pablo Picasso (1881–1973)',
       subtitle1: 'Cubismo · España',
-      subtitle2: 'El revolucionario que deconstruyó la mirada'
+      subtitle2: 'Genio de la transformación infinita'
     },
     result: {
       name: 'Pablo Picasso (1881–1973)',
@@ -117,7 +117,7 @@ export const mastersBasicInfo = {
     loading: {
       name: 'Frida Kahlo (1907–1954)',
       subtitle1: 'Surrealismo · México',
-      subtitle2: 'El autorretrato que enfrentó el dolor'
+      subtitle2: 'Cuerpo roto, pincel inquebrantable'
     },
     result: {
       name: 'Frida Kahlo (1907–1954)',
@@ -133,7 +133,7 @@ export const mastersBasicInfo = {
     loading: {
       name: 'Roy Lichtenstein (1923–1997)',
       subtitle1: 'Pop Art · Estados Unidos',
-      subtitle2: 'El hombre que convirtió el cómic en arte'
+      subtitle2: 'La revolución que empezó con Mickey Mouse'
     },
     result: {
       name: 'Roy Lichtenstein (1923–1997)',

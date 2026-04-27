@@ -106,7 +106,7 @@ export const movementsBasicInfo = {
   'david': { result: { name: '新古典主義 (Neoclassicism, 18–19世紀)', subtitle1: '雅克-路易·大衛', subtitle2: '革命的畫家' } },
   'ingres': { result: { name: '新古典主義 (Neoclassicism, 18–19世紀)', subtitle1: '讓-奧古斯特-多明尼克·安格爾', subtitle2: '追尋完美的線條' } },
   'delacroix': { result: { name: '浪漫主義 (Romanticism, 19世紀)', subtitle1: '歐仁·德拉克洛瓦', subtitle2: '將情感風暴繪上畫布' } },
-  'turner': { result: { name: '浪漫主義 (Romanticism, 19世紀)', subtitle1: 'J.M.W. 乇納', subtitle2: '光與大氣的畫家' } },
+  'turner': { result: { name: '浪漫主義 (Romanticism, 19世紀)', subtitle1: 'J.M.W. 透納', subtitle2: '光與大氣的畫家' } },
   'courbet': { result: { name: '寫實主義 (Realism, 19世紀)', subtitle1: '居斯塔夫·庫爾貝', subtitle2: '只畫眼前所見' } },
   'manet': { result: { name: '寫實主義 (Realism, 19世紀)', subtitle1: '愛德華·馬奈', subtitle2: '開啟現代繪畫之門' } },
   'monet': { result: { name: '印象派 (Impressionism, 1860–1890)', subtitle1: '克勞德·莫內', subtitle2: '追逐光的瞬間' } },
@@ -124,8 +124,8 @@ export const movementsBasicInfo = {
   'kokoschka': { result: { name: '表現主義 (Expressionism, 1905–1930)', subtitle1: '奧斯卡·柯克西卡', subtitle2: '肖像即心理戰場' } },
   'picasso': { result: { name: '立體派 (Cubism, 20世紀初)', subtitle1: '巴勃羅·畢卡索', subtitle2: '解構視角的革命者' } },
   'lichtenstein': { result: { name: '普普藝術 (Pop Art, 1950–1970)', subtitle1: '羅伊·李奇登斯坦', subtitle2: '將漫畫變成藝術的人' } },
-  'miro': { result: { name: '超現實主義 (Surrealism, 1920–1960)', subtitle1: '乔安·乃洛', subtitle2: '情感先於形體' } },
-  'magritte': { result: { name: '超現實主義 (Surrealism, 1920–1960)', subtitle1: '乃內·馬格利特', subtitle2: '眼見的陷阱' } },
+  'miro': { result: { name: '超現實主義 (Surrealism, 1920–1960)', subtitle1: '喬安·米羅', subtitle2: '情感先於形體' } },
+  'magritte': { result: { name: '超現實主義 (Surrealism, 1920–1960)', subtitle1: '雷內·馬格利特', subtitle2: '眼見的陷阱' } },
   'chagall': { result: { name: '超現實主義 (Surrealism, 1920–1960)', subtitle1: '馬克·夏卡爾', subtitle2: '愛與夢的詩人' } }
 };
 
@@ -179,7 +179,7 @@ export const movementsLoadingEducation = {
   'neoclassicism_vs_romanticism_vs_realism': {
     name: '新古典主義 · 浪漫主義 · 寫實主義',
     description: `十八世紀末，理性、情感與現實碰撞的時代開啟。
-大衛與安格爾追求古代的理想之美；德拉克洛瓦與乇納將情感風暴傾注於畫布。
+大衛與安格爾追求古代的理想之美；德拉克洛瓦與透納將情感風暴傾注於畫布。
 庫爾貝與馬奈拒絕理想與幻想，只呈現眼前的現實。
 
 新古典主義、浪漫主義、寫實主義 — 三股洪流的碰撞，開啟了通往現代藝術的大門。`
@@ -223,7 +223,7 @@ export const movementsLoadingEducation = {
   'modernism': {
     name: '現代主義',
     description: `二十世紀，傳統被打破，全新的藝術實驗爆發。
-畢卡索解構形體；乃洛玩弄符號；馬格利特顛覆現實。
+畢卡索解構形體；米羅玩弄符號；馬格利特顛覆現實。
 李奇登斯坦將漫畫搬上畫布；夏卡爾，愛與夢。
 
 立體派、超現實主義、普普藝術：無限實驗的時代。
@@ -252,7 +252,7 @@ export const movementsResultEducation = {
   'david': { name: '大衛', description: `大衛堅定的輪廓與嚴謹的構圖已被應用。\n以清晰的線條構建形體，以理想比例排列英雄人物。\n\n《拿破崙加冕》記錄歷史的莊嚴；《馬拉之死》記錄革命的悲劇。\n大衛是以繪畫記錄歷史的革命畫家，從法國大革命到拿破崙。` },
   'ingres': { name: '安格爾', description: `安格爾細膩的輪廓與瓷器般的質感已被應用。\n流暢的線條與光滑的肌膚表現古典的純粹。\n\n《大宮女》描繪不可能的長背；《瓦爾賓松浴女》達到曲線之美的頂峰。\n安格爾是在與德拉克洛瓦的色彩之爭中堅持線條純粹的新古典主義大師。` },
   'delacroix': { name: '德拉克洛瓦', description: `德拉克洛瓦強烈的色彩與旋轉的構圖已被應用。\n充滿激情的筆觸與鮮豔的原色，在畫布上引爆澎湃的情感。\n\n《自由引導人民》捕捉革命精神；《阿爾及爾的女人》將異國色彩傾注畫布。\n德拉克洛瓦是決定性地影響印象派與野獸派的色彩革命先驅。` },
-  'turner': { name: '乇納', description: `乇納的光散射與大氣質感已被應用。\n溶解形體的霧氣與金色光線，表現令人震撼的自然瞬間。\n\n他將自己綁在船桅上描繪《暴風雪》；《雨、蒸氣與速度》將工業革命的能量溶解在光中。\n透納是將形體溶入光中的光之革命者，印象派的先行者。` },
+  'turner': { name: '透納', description: `透納的光散射與大氣質感已被應用。\n溶解形體的霧氣與金色光線，表現令人震撼的自然瞬間。\n\n他將自己綁在船桅上描繪《暴風雪》；《雨、蒸氣與速度》將工業革命的能量溶解在光中。\n透納是將形體溶入光中的光之革命者，印象派的先行者。` },
   'courbet': { name: '庫爾貝', description: `庫爾貝粗獷的調色刀質感與深沉色調已被應用。\n拒絕理想化，以厚重的顏料捕捉眼前的現實。\n\n他畫《碎石工人》的勞動與《奧爾南的葬禮》中普通人的喪禮，宣稱：「我畫不了天使，因為我從未見過。」\n庫爾貝是宣告寫實主義、將現實提升為藝術的革命者。` },
   'manet': { name: '馬奈', description: `馬奈大膽的平面構圖與鮮明的明暗對比已被應用。\n大膽省去中間調，自信的筆觸捕捉現代都市生活。\n\n《草地上的午餐》與《奧林匹亞》在展出時引起巨大醜聞，挑戰傳統。\n馬內是寫實主義與印象派之間的橋樑，通向現代藝術的連結者。` },
   'monet': { name: '莫內', description: `莫內閃爍的色彩與柔和的光之氛圍已被應用。\n短促的筆觸將色彩並置，讓光在觀者眼中自然融合。\n\n《日出·印象》為印象派命名；因白內障失去視力，仍完成250幅《睡蓮》。\n莫內是將86年人生獻給光的印象派象徵。` },
@@ -270,7 +270,7 @@ export const movementsResultEducation = {
   'kokoschka': { name: '柯克西卡', description: `柯克西卡尖銳的筆觸與激烈的色彩已被應用。\n破碎的筆觸與狂熱的色調，爆發性地揭露主題的心理。\n\n《風中的新娘》中愛的激情；系列《自畫像》中內心的焦慮。\n科科施卡是被納粹烙上墮落藝術之名、400件作品被沒收的心靈解剖師。` },
   'picasso': { name: '畢卡索', description: `畢卡索幾何解構與多視角構圖已被應用。\n面部與身體分解為稜角面，同時呈現正面與側面。\n\n《亞維儂的少女》開啟立體派；《朵拉·瑪爾肖像》完成多視角解構，91年人生留下超過50,000件作品。\n畢卡索是二十世紀的藝術本身：不畫所見，而畫所思。` },
   'lichtenstein': { name: '李奇登斯坦', description: `李奇登斯坦的本戴點與粗黑輪廓已被應用。\n漫畫印刷技法放大為繪畫；平塗原色與點狀圖案將流行文化轉化為藝術。\n\n《Whaam!》中戰機爆炸；《快樂的眼淚》中漫畫情感登上畫布，引發「這是藝術嗎？」的爭論。\n李奇登斯坦是消除流行文化與藝術界線的普普藝術大師。` },
-  'miro': { name: '乃洛', description: `乃洛遊戲般的符號與原色組合已被應用。\n如孩童般自由的線條與原色形體漂浮在白色背景上。\n\n《加泰隆尼亞風景》中他將故鄉的記憶分解為符號；《朝向星辰》中展開宇宙的想像。\n米羅是跨越類型界限創造自己符號世界的藝術自由之魂。` },
+  'miro': { name: '米羅', description: `米羅遊戲般的符號與原色組合已被應用。\n如孩童般自由的線條與原色形體漂浮在白色背景上。\n\n《加泰隆尼亞風景》中他將故鄉的記憶分解為符號；《朝向星辰》中展開宇宙的想像。\n米羅是跨越類型界限創造自己符號世界的藝術自由之魂。` },
   'magritte': { name: '馬格利特', description: `馬格利特的哲學悖論與不可能的場景已被應用。\n以寫實手法描繪，卻以現實中不可能的方式組合，打破認知框架。\n\n《形象的叛逆》質疑再現的本質；《哥爾孔達》將日常翻轉為超現實。\n馬格利特是追尋眼見之物背後奧秘的思考型畫家。` },
   'chagall': { name: '夏卡爾', description: `夏卡爾的夢幻色彩與詩意幻想已被應用。\n柔和的粉彩色調與夢幻氛圍，展開愛與鄉愁的世界。\n\n《我與村莊》中故鄉維捷布斯克的記憶；《在城市上空》中與貝拉的愛——畫了一輩子。\n夏卡爾是在畫布上歌唱愛與鄉愁直到97歲的詩人。` }
 };

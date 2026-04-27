@@ -46,7 +46,7 @@ export const oneclickMastersBasicInfo = {
   },
   'lichtenstein': {
     name: 'รอย ลิกเทนสไตน์ (Roy Lichtenstein, 1923–1997)',
-    subtitle1: 'Drowning Girl · Whaam! · In the Car',
+    subtitle1: 'หญิงสาวจมน้ำ · Whaam! · ในรถ',
     subtitle2: 'ชายผู้เปลี่ยนการ์ตูนเป็นศิลปะ'
   }
 };

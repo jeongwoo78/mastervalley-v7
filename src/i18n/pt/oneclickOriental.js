@@ -7,32 +7,32 @@ export const oneclickOrientalBasicInfo = {
   'korean-minhwa': {
     name: 'Pintura Tradicional Coreana',
     subtitle1: 'Minhwa (Pintura Popular)',
-    subtitle2: 'Estética do espaço vazio e da cor'
+    subtitle2: 'Os sonhos do povo sobre a tela'
   },
   'korean-pungsokdo': {
     name: 'Pintura Tradicional Coreana',
     subtitle1: 'Pungsokdo (Pintura de Género)',
-    subtitle2: 'Estética do espaço vazio e da cor'
+    subtitle2: 'O quotidiano do povo'
   },
   'korean-jingyeong': {
     name: 'Pintura Tradicional Coreana',
     subtitle1: 'Jingyeong Sansu (Paisagem Real)',
-    subtitle2: 'Estética do espaço vazio e da cor'
+    subtitle2: 'Paisagens coreanas pelos olhos de Joseon'
   },
   'chinese-ink': {
     name: 'Pintura Tradicional Chinesa',
     subtitle1: 'Tinta e Aguada (Shuǐmò)',
-    subtitle2: 'Filosofia da tinta e do espaço vazio'
+    subtitle2: 'O espírito pintado em tinta'
   },
   'chinese-gongbi': {
     name: 'Pintura Tradicional Chinesa',
     subtitle1: 'Gongbi (Pintura Meticulosa)',
-    subtitle2: 'Filosofia da tinta e do espaço vazio'
+    subtitle2: 'O ápice da precisão'
   },
   'japanese-ukiyoe': {
     name: 'Pintura Tradicional Japonesa',
     subtitle1: 'Ukiyo-e (Imagens do Mundo Flutuante)',
-    subtitle2: 'A beleza do mundo transitório'
+    subtitle2: 'O mundo flutuante gravado em madeira'
   },
   'japanese-rinpa': {
     name: 'Pintura Tradicional Japonesa',

@@ -5,7 +5,7 @@
 // ========================================
 
 export const mastersBasicInfo = {
-  'vangogh': { loading: { name: '文森·梵谷 (1853–1890)', subtitle1: '後期印象主義 · 荷蘭', subtitle2: '旋轉的筆觸與熾烈的激情' },
+  'vangogh': { loading: { name: '文森·梵谷 (1853–1890)', subtitle1: '後期印象主義 · 荷蘭', subtitle2: '從苦難中綻放的不朽' },
     result: {
       name: '文森·梵谷 (1853–1890)',
       subtitle1: '星夜 · 向日葵 · 自畫像',
@@ -18,7 +18,7 @@ export const mastersBasicInfo = {
         'wheatfield': { subtitle1: '麥田與柏樹 (Wheat Field with Cypresses)', subtitle2: '金色麥田在風中搖曳' },
       }
     }, },
-  'klimt': { loading: { name: '古斯塔夫·克林姆 (1862–1918)', subtitle1: '新藝術 · 奧地利', subtitle2: '金色的官能世界' },
+  'klimt': { loading: { name: '古斯塔夫·克林姆 (1862–1918)', subtitle1: '新藝術 · 奧地利', subtitle2: '世紀末維也納的金色夢' },
     result: {
       name: '古斯塔夫·克林姆 (1862–1918)',
       subtitle1: '吻 · 乞蒂 · 生命之樹',
@@ -29,7 +29,7 @@ export const mastersBasicInfo = {
         'judith': { subtitle1: '乞蒂一世 (Judith I)', subtitle2: '在神聖與官能之間，金色誘惑' },
       }
     }, },
-  'munch': { loading: { name: '愛德華·孟克 (1863–1944)', subtitle1: '表現主義 · 挪威', subtitle2: '畫下內心的吶喊' },
+  'munch': { loading: { name: '愛德華·孟克 (1863–1944)', subtitle1: '表現主義 · 挪威', subtitle2: '由失去而生的靈魂畫家' },
     result: {
       name: '愛德華·孟克 (1863–1944)',
       subtitle1: '吶喊 · 聖母 · 生命之舞',
@@ -40,7 +40,7 @@ export const mastersBasicInfo = {
         'danceoflife': { subtitle1: '生命之舞 (The Dance of Life)', subtitle2: '愛與失落的華爾滋' },
       }
     }, },
-  'matisse': { loading: { name: '亨利·馬蒂斯 (1869–1954)', subtitle1: '野獸派 · 法國', subtitle2: '色彩的魔術師' },
+  'matisse': { loading: { name: '亨利·馬蒂斯 (1869–1954)', subtitle1: '野獸派 · 法國', subtitle2: '以色彩歌頌歡樂' },
     result: {
       name: '亨利·馬蒂斯 (1869–1954)',
       subtitle1: '舞蹈 · 紅色房間 · 綠色條紋',
@@ -52,7 +52,7 @@ export const mastersBasicInfo = {
         'derain': { subtitle1: '安德烈·德朗肖像 (Portrait of André Derain)', subtitle2: '用野性色彩描繪的野獸派同儕' },
       }
     }, },
-  'chagall': { loading: { name: '馬克·夏卡爾 (1887–1985)', subtitle1: '超現實主義 · 俄羅斯／法國', subtitle2: '愛與夢的詩人' },
+  'chagall': { loading: { name: '馬克·夏卡爾 (1887–1985)', subtitle1: '超現實主義 · 俄羅斯／法國', subtitle2: '繪盡百年愛情的畫家' },
     result: {
       name: '馬克·夏卡爾 (1887–1985)',
       subtitle1: '花與戀人 · 我與村莊 · 新娘',
@@ -63,7 +63,7 @@ export const mastersBasicInfo = {
         'village': { subtitle1: '我與村莊 (I and the Village)', subtitle2: '如夢般漂流的故鄉記憶' },
       }
     }, },
-  'picasso': { loading: { name: '巴勃羅·畢卡索 (1881–1973)', subtitle1: '立體主義 · 西班牙', subtitle2: '解構視角的革命者' },
+  'picasso': { loading: { name: '巴勃羅·畢卡索 (1881–1973)', subtitle1: '立體主義 · 西班牙', subtitle2: '不斷蛻變的天才' },
     result: {
       name: '巴勃羅·畢卡索 (1881–1973)',
       subtitle1: '亞維儂的少女 · 格爾尼卡 · 朵拉·瑪爾肖像',
@@ -72,7 +72,7 @@ export const mastersBasicInfo = {
         'doramaar': { subtitle1: '朵拉·瑪爾肖像 (Portrait of Dora Maar)', subtitle2: '正面與側面交匯的解構肖像' },
       }
     }, },
-  'frida': { loading: { name: '芙烈達·卡蘿 (1907–1954)', subtitle1: '超現實主義 · 墨西哥', subtitle2: '直面痛苦的自畫像' },
+  'frida': { loading: { name: '芙烈達·卡蘿 (1907–1954)', subtitle1: '超現實主義 · 墨西哥', subtitle2: '破碎的身體，不屈的畫筆' },
     result: {
       name: '芙烈達·卡蘿 (1907–1954)',
       subtitle1: '我和我的鸚鵡們 · 破碎的柱子 · 與猴子的自畫像',
@@ -83,10 +83,10 @@ export const mastersBasicInfo = {
       }
     }, },
   'lichtenstein': {
-    loading: { name: '羅伊·李奇登斯坦 (1923–1997)', subtitle1: '普普藝術 · 美國', subtitle2: '將漫畫變成藝術的人' },
+    loading: { name: '羅伊·李奇登斯坦 (1923–1997)', subtitle1: '普普藝術 · 美國', subtitle2: '始於米奇的革命' },
     result: {
       name: '羅伊·李奇登斯坦 (1923–1997)',
-      subtitle1: 'Drowning Girl · Whaam! · In the Car',
+      subtitle1: '在車內 · M-或許 · 算了！',
       subtitle2: '將漫畫變成藝術的人',
       works: {
         'inthecar': { subtitle1: '在車內 (In the Car)', subtitle2: '漫畫中凝結的瞬間' },

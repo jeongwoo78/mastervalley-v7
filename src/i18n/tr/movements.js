@@ -51,37 +51,37 @@ export const movementsBasicInfo = {
   },
   'impressionism': {
     loading: {
-      name: 'İzlenimcilik (19. yüzyıl)',
+      name: 'İzlenimcilik (1860–1890)',
       subtitle1: 'Monet · Renoir · Degas',
-      subtitle2: 'Işık ve rengin devrimi'
+      subtitle2: 'Işığın renge dönüştüğü an'
     }
   },
   'postImpressionism': {
     loading: {
-      name: 'Post-İzlenimcilik (19. yüzyıl sonu)',
+      name: 'Post-İzlenimcilik (1880–1910)',
       subtitle1: 'Van Gogh · Cézanne · Gauguin',
-      subtitle2: 'Işık anlarının ötesine geçmek'
+      subtitle2: 'Işığın ötesinde, içe doğru'
     }
   },
   'fauvism': {
     loading: {
       name: 'Fovizm (1905–1910)',
       subtitle1: 'Matisse · Derain · Vlaminck',
-      subtitle2: 'Saf rengin devrimi'
+      subtitle2: 'Rengi özgürleştiren vahşiler'
     }
   },
   'expressionism': {
     loading: {
-      name: 'Dışavurumculuk (20. yüzyıl başı)',
+      name: 'Dışavurumculuk (1905–1930)',
       subtitle1: 'Munch · Kirchner · Kokoschka',
-      subtitle2: 'Tuvale dökülen iç çığlık'
+      subtitle2: 'Hissedileni resmetmek'
     }
   },
   'modernism': {
     loading: {
       name: 'Modernizm (20. yüzyıl)',
-      subtitle1: 'Picasso · Miró · Magritte',
-      subtitle2: 'Gelenekleri kırmak ve sanatı yeniden icat etmek'
+      subtitle1: 'Picasso · Magritte · Chagall',
+      subtitle2: 'Tüm kuralların yıkımı'
     }
   },
   'classical-sculpture': {

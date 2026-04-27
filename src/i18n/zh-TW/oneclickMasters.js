@@ -11,7 +11,7 @@ export const oneclickMastersBasicInfo = {
   'chagall': { name: '馬克·夏卡爾 (1887–1985)', subtitle1: '在城市上空 · 我與村莊 · 花束與飛翔的戀人', subtitle2: '愛與夢的詩人' },
   'picasso': { name: '巴勃羅·畢卡索 (1881–1973)', subtitle1: '亞維儂的少女 · 格爾尼卡 · 朵拉·瑪爾肖像', subtitle2: '解構視角的革命者' },
   'frida': { name: '芙烈達·卡蘿 (1907–1954)', subtitle1: '斷裂的圓柱 · 帶荊棘項鍊與蜂鳥', subtitle2: '直面痛苦的自畫像' },
-  'lichtenstein': { name: '羅伊·李奇登斯坦 (1923–1997)', subtitle1: 'Drowning Girl · Whaam! · In the Car', subtitle2: '將漫畫變成藝術的人' }
+  'lichtenstein': { name: '羅伊·李奇登斯坦 (1923–1997)', subtitle1: '溺水的女孩 · 轟! · 在車內', subtitle2: '將漫畫變成藝術的人' }
 };
 
 export const oneclickMastersPrimary = {

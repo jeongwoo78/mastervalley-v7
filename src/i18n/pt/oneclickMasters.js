@@ -26,7 +26,7 @@ export const oneclickMastersBasicInfo = {
   },
   'chagall': {
     name: 'Marc Chagall (1887–1985)',
-    subtitle1: 'O Aniversário · Eu e a Aldeia · A Noiva',
+    subtitle1: 'Sobre a Cidade · Eu e a Aldeia · Buquê com Amantes',
     subtitle2: 'Poeta do amor e dos sonhos'
   },
   'picasso': {
@@ -41,7 +41,7 @@ export const oneclickMastersBasicInfo = {
   },
   'lichtenstein': {
     name: 'Roy Lichtenstein (1923–1997)',
-    subtitle1: 'No Carro · Whaam! · Talvez',
+    subtitle1: 'A Garota Afogada · Whaam! · No Carro',
     subtitle2: 'O homem que transformou quadrinhos em arte'
   }
 };
