@@ -302,6 +302,11 @@ export const ui = {
     devMsg6: '西洋2800年の流れと巨匠の視線、東洋千年の哲学。',
     devMsg7: 'Master Valleyにその手がかりがあります。',
     devMsgSign: '— Jeongwoo, Master Valley',
+    // Terms agreement (BLOCKER #46)
+    termsAgreement: '18歳以上であり、{terms}および{privacy}に同意します',
+    termsLink: '利用規約',
+    privacyLink: 'プライバシーポリシー',
+    termsRequired: '利用規約への同意が必要です',
   },
 
   // ===== Common =====

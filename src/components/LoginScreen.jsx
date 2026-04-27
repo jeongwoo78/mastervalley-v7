@@ -8,11 +8,14 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
+  signOut,
   GoogleAuthProvider
 } from 'firebase/auth';
-import { auth, googleProvider, appleProvider } from '../config/firebase';
+import { setDoc } from 'firebase/firestore';
+import { auth, db, doc, getDoc, googleProvider, appleProvider } from '../config/firebase';
 import { Capacitor } from '@capacitor/core';
 import { getUi } from '../i18n';
+import TermsConsentModal from './TermsConsentModal';
 
 // ─── 캐러셀 설정 ─────────────────────────────────────────
 const SUPPORTED_LANGS = ['ko','en','ja','es','fr','ar','th','zh','pt','id','tr'];
@@ -137,7 +140,7 @@ function buildSlides(lang) {
 }
 
 // ─── 컴포넌트 ─────────────────────────────────────────────
-const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
+const LoginScreen = ({ onLoginSuccess, lang = 'en', pendingConsentUser = null }) => {
   const [email, setEmail]       = useState('');
   const [password, setPassword] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
@@ -148,6 +151,12 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [displaySlide, setDisplaySlide] = useState(0);
   const [loadedSlides, setLoadedSlides] = useState(new Set([0])); // 원본만 초기 로드
+  // 약관 동의 (BLOCKER #46)
+  const [termsAgreed, setTermsAgreed] = useState(false);  // 이메일 회원가입 체크박스
+  const [legalModalType, setLegalModalType] = useState(null);  // 'terms' | 'privacy' | null
+  const [showOAuthConsent, setShowOAuthConsent] = useState(false);  // OAuth 첫 가입 동의 모달
+  const [oauthConsentChecked, setOauthConsentChecked] = useState(false);
+  const [pendingOAuthUser, setPendingOAuthUser] = useState(null);  // OAuth 로그인 성공 후 동의 대기 중인 user
 
   const posRef      = useRef(0);
   const cycleRef    = useRef(0);
@@ -156,11 +165,24 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
 
   const allSlides = useMemo(() => buildSlides(lang), [lang]);
   const t = getUi(lang).login;
+  const tCommon = getUi(lang).common;
 
   function getDelay(position) {
     if (position === 0) return 1200; // 2회차~: 사이클 경계
     return TIMINGS[position];
   }
+
+  // 외부(App.jsx)에서 미동의 사용자 마운트 시 자동으로 OAuth 동의 모달 표시 (BLOCKER #46)
+  // 시나리오: 동의 안 하고 앱 종료 → 재시작 시 onAuthStateChanged로 user 살아남
+  //          → App.jsx termsAcceptedFromDb=false → LoginScreen 재마운트 + pendingConsentUser 전달
+  useEffect(() => {
+    if (pendingConsentUser && !showOAuthConsent) {
+      setPendingOAuthUser(pendingConsentUser);
+      setOauthConsentChecked(false);
+      setShowOAuthConsent(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pendingConsentUser]);
 
   // 캐러셀 자동 재생
   useEffect(() => {
@@ -253,10 +275,10 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
         const googleUser = await GoogleAuth.signIn();
         const credential = GoogleAuthProvider.credential(googleUser.authentication.idToken);
         const result = await signInWithCredential(auth, credential);
-        onLoginSuccess(result.user);
+        await handleOAuthSuccess(result.user);
       } else {
         const result = await signInWithPopup(auth, googleProvider);
-        onLoginSuccess(result.user);
+        await handleOAuthSuccess(result.user);
       }
     } catch (err) {
       console.error('Google login error:', err);
@@ -274,7 +296,7 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
     setInfo('');
     try {
       const result = await signInWithPopup(auth, appleProvider);
-      onLoginSuccess(result.user);
+      await handleOAuthSuccess(result.user);
     } catch (err) {
       console.error('Apple login error:', err);
       setError(t.appleFailed);
@@ -283,8 +305,77 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
     }
   };
 
+  // OAuth 로그인 성공 후 약관 동의 흐름 (BLOCKER #46)
+  // 첫 가입(=Firestore users/{uid} 문서 없거나 termsAccepted 없음)이면 동의 모달 표시
+  // 기존 동의 사용자는 바로 통과
+  const handleOAuthSuccess = async (user) => {
+    if (!user) return;
+    try {
+      const userRef = doc(db, 'users', user.uid);
+      const userDoc = await getDoc(userRef);
+      const alreadyAgreed = userDoc.exists() && userDoc.data()?.termsAccepted === true;
+      if (alreadyAgreed) {
+        // 기존 동의 사용자: 바로 진행
+        onLoginSuccess(user);
+        return;
+      }
+      // 신규 또는 미동의: 동의 모달 표시 + 사용자 보류
+      setPendingOAuthUser(user);
+      setOauthConsentChecked(false);
+      setShowOAuthConsent(true);
+    } catch (err) {
+      console.error('OAuth consent check error:', err);
+      // Firestore 조회 실패 시: 안전하게 동의 모달 표시 (재동의 받기)
+      setPendingOAuthUser(user);
+      setOauthConsentChecked(false);
+      setShowOAuthConsent(true);
+    }
+  };
+
+  // OAuth 동의 모달 — 동의 누르면 Firestore 기록 + 로그인 완료
+  const handleOAuthConsentConfirm = async () => {
+    if (!oauthConsentChecked || !pendingOAuthUser) return;
+    setLoading(true);
+    try {
+      const userRef = doc(db, 'users', pendingOAuthUser.uid);
+      // merge: true로 기존 문서 보존 (ensureUserDoc이 만든 credits 등 유지)
+      await setDoc(userRef, {
+        termsAccepted: true,
+        termsAcceptedAt: new Date().toISOString(),
+        termsVersion: '2026-04-14'
+      }, { merge: true });
+      const user = pendingOAuthUser;
+      setShowOAuthConsent(false);
+      setPendingOAuthUser(null);
+      setOauthConsentChecked(false);
+      onLoginSuccess(user);
+    } catch (err) {
+      console.error('Terms acceptance save error:', err);
+      setError(t.loginFailed);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // OAuth 동의 모달 — 거부/닫기 시 로그아웃 + 로그인 화면 유지
+  const handleOAuthConsentCancel = async () => {
+    try {
+      await signOut(auth);
+    } catch (err) {
+      console.error('SignOut on consent cancel error:', err);
+    }
+    setShowOAuthConsent(false);
+    setPendingOAuthUser(null);
+    setOauthConsentChecked(false);
+  };
+
   const handleEmailSubmit = async (e) => {
     e.preventDefault();
+    // 회원가입 모드일 때 약관 동의 필수 (BLOCKER #46)
+    if (isSignUp && !termsAgreed) {
+      setError(t.termsRequired);
+      return;
+    }
     setLoading(true);
     setError('');
     setInfo('');
@@ -292,6 +383,23 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
       const result = isSignUp
         ? await createUserWithEmailAndPassword(auth, email, password)
         : await signInWithEmailAndPassword(auth, email, password);
+      // 회원가입 성공 시 약관 동의 기록 (Firestore)
+      // ensureUserDoc이 App.jsx의 onAuthStateChanged에서 호출되어 users/{uid} 생성
+      // 그 직후 우리가 termsAccepted를 merge로 추가
+      if (isSignUp && result?.user) {
+        try {
+          const userRef = doc(db, 'users', result.user.uid);
+          await setDoc(userRef, {
+            termsAccepted: true,
+            termsAcceptedAt: new Date().toISOString(),
+            termsVersion: '2026-04-14'
+          }, { merge: true });
+        } catch (saveErr) {
+          // 저장 실패해도 가입은 진행 (Firestore 일시 장애 대비)
+          // 다음 로그인 시 OAuth 흐름과 동일하게 동의 모달 다시 받게 됨
+          console.error('Terms acceptance save error (signup):', saveErr);
+        }
+      }
       onLoginSuccess(result.user);
     } catch (err) {
       console.error('Email auth error:', err);
@@ -447,6 +555,50 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
             </span>
           )}
 
+          {/* 회원가입 모드: 약관 동의 체크박스 (BLOCKER #46) */}
+          {isSignUp && (
+            <label style={{ ...s.termsRow, flexDirection: isRTL ? 'row-reverse' : 'row' }}>
+              <input
+                type="checkbox"
+                checked={termsAgreed}
+                onChange={(e) => setTermsAgreed(e.target.checked)}
+                style={s.termsCheckbox}
+              />
+              <span style={s.termsText}>
+                {(() => {
+                  // {terms}, {privacy} placeholder를 클릭 가능한 링크로 분해
+                  // 순서가 언어별로 다를 수 있어 정규식 split 사용
+                  const parts = (t.termsAgreement || '').split(/(\{terms\}|\{privacy\})/g);
+                  return parts.map((part, i) => {
+                    if (part === '{terms}') {
+                      return (
+                        <span
+                          key={i}
+                          style={s.termsInlineLink}
+                          onClick={(e) => { e.preventDefault(); setLegalModalType('terms'); }}
+                        >
+                          {t.termsLink}
+                        </span>
+                      );
+                    }
+                    if (part === '{privacy}') {
+                      return (
+                        <span
+                          key={i}
+                          style={s.termsInlineLink}
+                          onClick={(e) => { e.preventDefault(); setLegalModalType('privacy'); }}
+                        >
+                          {t.privacyLink}
+                        </span>
+                      );
+                    }
+                    return <React.Fragment key={i}>{part}</React.Fragment>;
+                  });
+                })()}
+              </span>
+            </label>
+          )}
+
           {info && <p style={{ ...s.info, textAlign: isRTL ? 'right' : 'left' }}>{info}</p>}
           {error && <p style={{ ...s.error, textAlign: isRTL ? 'right' : 'left' }}>{error}</p>}
 
@@ -454,13 +606,80 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en' }) => {
             <button type="submit" disabled={loading} style={{ ...s.submitBtn, opacity: loading ? 0.6 : 1 }}>
               {loading ? t.pleaseWait : (isSignUp ? t.signUp : t.logIn)}
             </button>
-            <span style={s.signupLink} onClick={() => { setIsSignUp(!isSignUp); setError(''); setInfo(''); }}>
+            <span style={s.signupLink} onClick={() => { setIsSignUp(!isSignUp); setError(''); setInfo(''); setTermsAgreed(false); }}>
               {isSignUp ? t.logIn : t.signUp}
             </span>
           </div>
         </form>
 
       </div>
+
+      {/* 약관/개인정보 인앱 모달 (이메일 회원가입 + OAuth 동의 양쪽에서 사용) */}
+      {legalModalType && (
+        <TermsConsentModal
+          type={legalModalType}
+          onClose={() => setLegalModalType(null)}
+          lang={lang}
+        />
+      )}
+
+      {/* OAuth 첫 가입 동의 모달 (BLOCKER #46) */}
+      {showOAuthConsent && (
+        <div style={s.oauthOverlay}>
+          <div style={s.oauthModal}>
+            <h3 style={s.oauthTitle}>{t.signUp}</h3>
+            <p style={s.oauthSubtitle}>{t.tagline}</p>
+
+            <label style={{ ...s.termsRow, flexDirection: isRTL ? 'row-reverse' : 'row', marginTop: '20px' }}>
+              <input
+                type="checkbox"
+                checked={oauthConsentChecked}
+                onChange={(e) => setOauthConsentChecked(e.target.checked)}
+                style={s.termsCheckbox}
+              />
+              <span style={s.termsText}>
+                {(() => {
+                  const parts = (t.termsAgreement || '').split(/(\{terms\}|\{privacy\})/g);
+                  return parts.map((part, i) => {
+                    if (part === '{terms}') {
+                      return (
+                        <span key={i} style={s.termsInlineLink} onClick={(e) => { e.preventDefault(); setLegalModalType('terms'); }}>
+                          {t.termsLink}
+                        </span>
+                      );
+                    }
+                    if (part === '{privacy}') {
+                      return (
+                        <span key={i} style={s.termsInlineLink} onClick={(e) => { e.preventDefault(); setLegalModalType('privacy'); }}>
+                          {t.privacyLink}
+                        </span>
+                      );
+                    }
+                    return <React.Fragment key={i}>{part}</React.Fragment>;
+                  });
+                })()}
+              </span>
+            </label>
+
+            <div style={s.oauthBtnRow}>
+              <button
+                onClick={handleOAuthConsentCancel}
+                disabled={loading}
+                style={{ ...s.oauthCancelBtn, opacity: loading ? 0.6 : 1 }}
+              >
+                {tCommon.cancel}
+              </button>
+              <button
+                onClick={handleOAuthConsentConfirm}
+                disabled={!oauthConsentChecked || loading}
+                style={{ ...s.oauthConfirmBtn, opacity: (!oauthConsentChecked || loading) ? 0.4 : 1 }}
+              >
+                {loading ? t.pleaseWait : tCommon.confirm}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
@@ -625,6 +844,97 @@ const s = {
     textUnderlineOffset: '3px',
     marginTop: '8px', marginBottom: '4px',
     display: 'inline-block',
+  },
+  // 약관 동의 체크박스 (BLOCKER #46)
+  termsRow: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    gap: '10px',
+    marginTop: '12px',
+    marginBottom: '8px',
+    cursor: 'pointer',
+    userSelect: 'none',
+  },
+  termsCheckbox: {
+    width: '18px', height: '18px',
+    marginTop: '2px',
+    accentColor: 'rgba(255,255,255,0.6)',
+    cursor: 'pointer',
+    flexShrink: 0,
+  },
+  termsText: {
+    fontSize: '12px',
+    color: 'rgba(255,255,255,0.6)',
+    lineHeight: 1.5,
+    flex: 1,
+  },
+  termsInlineLink: {
+    color: 'rgba(255,255,255,0.85)',
+    textDecoration: 'underline',
+    textUnderlineOffset: '2px',
+    cursor: 'pointer',
+  },
+  // OAuth 첫 가입 동의 모달
+  oauthOverlay: {
+    position: 'fixed',
+    inset: 0,
+    background: 'rgba(0,0,0,0.7)',
+    zIndex: 9000,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '20px',
+  },
+  oauthModal: {
+    background: '#0f242a',
+    borderRadius: '16px',
+    padding: '24px 22px',
+    width: '100%',
+    maxWidth: '360px',
+    boxShadow: '0 12px 40px rgba(0,0,0,0.5)',
+  },
+  oauthTitle: {
+    color: '#fff',
+    fontSize: '18px',
+    fontWeight: 600,
+    margin: 0,
+    textAlign: 'center',
+  },
+  oauthSubtitle: {
+    color: 'rgba(255,255,255,0.5)',
+    fontSize: '13px',
+    margin: '8px 0 0 0',
+    textAlign: 'center',
+    lineHeight: 1.5,
+  },
+  oauthBtnRow: {
+    display: 'flex',
+    gap: '10px',
+    marginTop: '20px',
+  },
+  oauthCancelBtn: {
+    flex: 1,
+    padding: '12px',
+    background: 'transparent',
+    border: '1px solid rgba(255,255,255,0.15)',
+    borderRadius: '10px',
+    color: 'rgba(255,255,255,0.7)',
+    fontSize: '14px',
+    fontWeight: 500,
+    cursor: 'pointer',
+    fontFamily: "'DM Sans', -apple-system, sans-serif",
+  },
+  oauthConfirmBtn: {
+    flex: 1,
+    padding: '12px',
+    background: 'rgba(255,255,255,0.95)',
+    border: 'none',
+    borderRadius: '10px',
+    color: '#0a1a1f',
+    fontSize: '14px',
+    fontWeight: 600,
+    cursor: 'pointer',
+    fontFamily: "'DM Sans', -apple-system, sans-serif",
   },
 };
 

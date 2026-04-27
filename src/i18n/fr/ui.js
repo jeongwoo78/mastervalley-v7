@@ -302,6 +302,11 @@ export const ui = {
     devMsg6: '2800 ans de courant occidental et le regard des maîtres, mille ans de philosophie orientale.',
     devMsg7: 'Master Valley en détient la clé.',
     devMsgSign: '— Jeongwoo, Master Valley',
+    // Terms agreement (BLOCKER #46)
+    termsAgreement: 'J\'ai 18 ans ou plus et j\'accepte les {terms} et la {privacy}',
+    termsLink: 'Conditions d\'utilisation',
+    privacyLink: 'Politique de confidentialité',
+    termsRequired: 'Veuillez accepter les conditions pour continuer',
   },
 
   // ===== Common =====

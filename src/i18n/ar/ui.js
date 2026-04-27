@@ -302,6 +302,11 @@ export const ui = {
     devMsg6: '2800 عام من مسار الغرب ونظرة الأساتذة، ألف عام من فلسفة الشرق.',
     devMsg7: 'الدليل موجود في Master Valley.',
     devMsgSign: '— Jeongwoo, Master Valley',
+    // Terms agreement (BLOCKER #46)
+    termsAgreement: 'عمري 18 عامًا أو أكثر وأوافق على {terms} و{privacy}',
+    termsLink: 'شروط الخدمة',
+    privacyLink: 'سياسة الخصوصية',
+    termsRequired: 'يرجى الموافقة على الشروط للمتابعة',
   },
 
   // ===== Common =====

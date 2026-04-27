@@ -302,6 +302,11 @@ export const ui = {
     devMsg6: '2800 ปีแห่งกระแสของตะวันตกและมุมมองของจิตรกรเอก ปรัชญาพันปีของตะวันออก',
     devMsg7: 'เบาะแสนั้นอยู่ใน Master Valley',
     devMsgSign: '— Jeongwoo, Master Valley',
+    // Terms agreement (BLOCKER #46)
+    termsAgreement: 'ฉันอายุ 18 ปีขึ้นไป และยอมรับ{terms}และ{privacy}',
+    termsLink: 'ข้อกำหนดการใช้บริการ',
+    privacyLink: 'นโยบายความเป็นส่วนตัว',
+    termsRequired: 'กรุณายอมรับข้อกำหนดเพื่อดำเนินการต่อ',
   },
 
   // ===== Common =====

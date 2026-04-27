@@ -291,6 +291,11 @@ export const ui = {
     devMsg6: '2800 yıllık Batı akışı ve ustaların bakışı, bin yıllık Doğu felsefesi.',
     devMsg7: 'İpucu Master Valley\'de.',
     devMsgSign: '— Jeongwoo, Master Valley',
+    // Terms agreement (BLOCKER #46)
+    termsAgreement: '18 yaşında veya daha büyüğüm ve {terms} ile {privacy}\'nı kabul ediyorum',
+    termsLink: 'Kullanım Koşulları',
+    privacyLink: 'Gizlilik Politikası',
+    termsRequired: 'Lütfen devam etmek için koşulları kabul edin',
   },
 
   common: {

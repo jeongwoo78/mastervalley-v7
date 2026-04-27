@@ -302,6 +302,11 @@ export const ui = {
     devMsg6: '2800 tahun arus perubahan Barat dan pandangan para maestro, seribu tahun filosofi Timur.',
     devMsg7: 'Petunjuknya ada di Master Valley.',
     devMsgSign: '— Jeongwoo, Master Valley',
+    // Terms agreement (BLOCKER #46)
+    termsAgreement: 'Saya berusia 18 tahun atau lebih dan menyetujui {terms} dan {privacy}',
+    termsLink: 'Syarat Layanan',
+    privacyLink: 'Kebijakan Privasi',
+    termsRequired: 'Harap setujui ketentuan untuk melanjutkan',
   },
 
   // ===== Common =====

@@ -71,6 +71,9 @@ const App = () => {
   
   // AI 데이터 처리 동의 팝업 (Firestore 기반)
   const [aiConsentGiven, setAiConsentGiven] = useState(false);
+  // 약관 동의 상태 (BLOCKER #46)
+  // null = 아직 Firestore 조회 전, true/false = 조회 완료
+  const [termsAcceptedFromDb, setTermsAcceptedFromDb] = useState(null);
   const [showAiConsent, setShowAiConsent] = useState(false);
   const [pendingTransform, setPendingTransform] = useState(null);
   
@@ -186,6 +189,10 @@ const App = () => {
             const data = snapshot.data();
             setUserCredits(data.credits ?? 0);
             setAiConsentGiven(data.aiConsent === true);
+            setTermsAcceptedFromDb(data.termsAccepted === true);
+          } else {
+            // 문서 없음 (이론상 ensureUserDoc 후엔 발생 X) — 미동의로 처리
+            setTermsAcceptedFromDb(false);
           }
           setCreditsLoaded(true);
         }, (error) => {
@@ -195,6 +202,7 @@ const App = () => {
       } else {
         setUserCredits(0);
         setCreditsLoaded(false);
+        setTermsAcceptedFromDb(null);  // 로그아웃 시 리셋
       }
     });
 
@@ -642,9 +650,17 @@ const App = () => {
     );
   }
 
-  // 로그인 안 된 경우
-  if (!user) {
-    return <LoginScreen onLoginSuccess={handleLoginSuccess} lang={lang} />;
+  // 로그인 안 됐거나, 로그인은 됐지만 약관 미동의인 경우 → LoginScreen 유지 (BLOCKER #46)
+  // termsAcceptedFromDb === null: Firestore 조회 전 (LoadingScreen 위에서 이미 처리됨)
+  // termsAcceptedFromDb === false: 명시적 미동의 → OAuth 동의 모달 자동 표시 필요
+  if (!user || termsAcceptedFromDb === false) {
+    return (
+      <LoginScreen
+        onLoginSuccess={handleLoginSuccess}
+        lang={lang}
+        pendingConsentUser={user && termsAcceptedFromDb === false ? user : null}
+      />
+    );
   }
 
   return (

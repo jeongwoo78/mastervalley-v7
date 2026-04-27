@@ -301,6 +301,11 @@ export const ui = {
     devMsg6: '2800 years of Western flow and the masters\' gaze, a thousand years of Eastern philosophy.',
     devMsg7: 'The clue lies in Master Valley.',
     devMsgSign: '— Jeongwoo, Master Valley',
+    // Terms agreement (BLOCKER #46)
+    termsAgreement: 'I am 18 years or older and agree to the {terms} and {privacy}',
+    termsLink: 'Terms of Service',
+    privacyLink: 'Privacy Policy',
+    termsRequired: 'Please agree to the terms to continue',
   },
 
   // ===== Common =====

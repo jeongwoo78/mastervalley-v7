@@ -302,6 +302,11 @@ export const ui = {
     devMsg6: '西方 2800 年的脈絡與大師的目光，東方千年的哲學。',
     devMsg7: '答案的線索就在 Master Valley。',
     devMsgSign: '— Jeongwoo, Master Valley',
+    // Terms agreement (BLOCKER #46)
+    termsAgreement: '我年滿18歲，並同意{terms}及{privacy}',
+    termsLink: '服務條款',
+    privacyLink: '隱私權政策',
+    termsRequired: '請同意條款以繼續',
   },
 
   // ===== Common =====

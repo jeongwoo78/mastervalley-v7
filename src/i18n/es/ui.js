@@ -302,6 +302,11 @@ export const ui = {
     devMsg6: '2800 años de flujo occidental y la mirada de los maestros, mil años de filosofía oriental.',
     devMsg7: 'La pista está en Master Valley.',
     devMsgSign: '— Jeongwoo, Master Valley',
+    // Terms agreement (BLOCKER #46)
+    termsAgreement: 'Tengo 18 años o más y acepto los {terms} y la {privacy}',
+    termsLink: 'Términos del Servicio',
+    privacyLink: 'Política de Privacidad',
+    termsRequired: 'Debes aceptar los términos para continuar',
   },
 
   // ===== Common =====

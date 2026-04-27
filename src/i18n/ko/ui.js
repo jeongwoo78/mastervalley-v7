@@ -301,6 +301,11 @@ export const ui = {
     devMsg6: '서양 2800년의 흐름과 거장의 시선, 동양 천 년의 철학.',
     devMsg7: 'Master Valley에 그 실마리가 있습니다.',
     devMsgSign: '— 정우, Master Valley',
+    // Terms agreement (BLOCKER #46)
+    termsAgreement: '만 18세 이상이며, {terms} 및 {privacy}에 동의합니다',
+    termsLink: '이용약관',
+    privacyLink: '개인정보처리지침',
+    termsRequired: '약관 동의가 필요합니다',
   },
 
   // ===== Common =====
