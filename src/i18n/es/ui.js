@@ -268,7 +268,7 @@ export const ui = {
   },
 
     login: {
-    tagline: 'Una foto, un viaje de 2800 años a través del tiempo',
+    tagline: 'Una foto, un viaje de 2800 años por el arte',
     sub: 'Ver el mundo a través de los ojos de los maestros',
     continueWithGoogle: 'Continuar con Google',
     continueWithApple: 'Continuar con Apple',
@@ -305,8 +305,34 @@ export const ui = {
     // Terms agreement (BLOCKER #46)
     termsAgreement: 'Tengo 18 años o más y acepto los {terms} y la {privacy}',
     termsLink: 'Términos del Servicio',
-    privacyLink: 'Política de Privacidad',
+    privacyLink: 'Política de privacidad',
     termsRequired: 'Debes aceptar los términos para continuar',
+  },
+
+  // ===== Delete Account (BLOCKER #48) =====
+  deleteAccount: {
+    warningTitle: 'Eliminar cuenta',
+    warningIntro: 'La eliminación de la cuenta es permanente. Se eliminarán todos los siguientes datos:',
+    warningItem1: 'Saldo',
+    warningItem2: 'Todo el historial de transformaciones y galería',
+    warningItem3: 'Información de la cuenta',
+    warningIrreversible: 'Los datos eliminados no se pueden recuperar.',
+    warningPurchaseNote: 'Sin embargo, los registros de compra serán anonimizados y conservados conforme a las leyes aplicables.',
+    warningContinueQuestion: '¿Deseas continuar?',
+    warningContinueBtn: 'Continuar',
+
+    reauthTitle: 'Verificación de identidad',
+    reauthDesc: 'Inicia sesión de nuevo para eliminar tu cuenta.',
+    reauthGoogleBtn: 'Iniciar sesión con Google de nuevo',
+    reauthAppleBtn: 'Iniciar sesión con Apple de nuevo',
+    reauthEmailLabel: 'Contraseña',
+    reauthEmailBtn: 'Confirmar',
+
+    deleting: 'Eliminando tu cuenta...',
+    deleteSuccess: 'Tu cuenta ha sido eliminada.',
+    deleteError: 'Ocurrió un error al eliminar. Inténtalo de nuevo.',
+    reauthError: 'La verificación de identidad falló.',
+    inProgressBlock: 'Hay una transformación en curso. Inténtalo después de que termine.',
   },
 
   // ===== Common =====

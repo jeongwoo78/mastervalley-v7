@@ -789,8 +789,174 @@ export const dailyCleanup = onSchedule({
       cleanedTransforms++;
     }
     
-    console.log(`🧹 dailyCleanup 완료: 세션 ${cleanedSessions}건, 변환 ${cleanedTransforms}건 timeout 처리`);
+    // 3) 익명화된 결제 기록 5년 경과 시 삭제 (한국 전자상거래법 5년 보관 의무 만료)
+    let cleanedAnonymizedPurchases = 0;
+    const fiveYearsAgo = Timestamp.fromDate(
+      new Date(Date.now() - 5 * 365 * 24 * 60 * 60 * 1000)
+    );
+    const expiredAnonymized = await db.collection('purchases')
+      .where('originalUserId_redacted', '==', true)
+      .where('anonymizedAt', '<=', fiveYearsAgo)
+      .get();
+    
+    // Batch 삭제 (500개 단위)
+    const expiredDocs = expiredAnonymized.docs;
+    for (let i = 0; i < expiredDocs.length; i += 500) {
+      const batch = db.batch();
+      const chunk = expiredDocs.slice(i, i + 500);
+      chunk.forEach(doc => batch.delete(doc.ref));
+      await batch.commit();
+      cleanedAnonymizedPurchases += chunk.length;
+    }
+    
+    console.log(`🧹 dailyCleanup 완료: 세션 ${cleanedSessions}건, 변환 ${cleanedTransforms}건 timeout 처리, 만료 익명결제 ${cleanedAnonymizedPurchases}건 삭제`);
   } catch (error) {
     console.error('❌ dailyCleanup 에러:', error);
+  }
+});
+
+// ========================================
+// BLOCKER #48: 계정 삭제 (deleteAccount)
+// ========================================
+// - 1단계 경고 + 2단계 재인증은 클라이언트에서 처리
+// - 클라이언트는 재인증 직후 ID 토큰을 새로 발급받아 호출 (5분 룰)
+// - 서버는 verifyAuth로 토큰 검증 후 단계별 삭제 처리
+// - 결제 기록(purchases)은 익명화 (한국 전자상거래법 5년 보관)
+// - 진행 중 변환 있으면 거부 (사용자에게 변환 완료 후 재시도 안내)
+// ========================================
+export const deleteAccount = onRequest({
+  cors: true,
+  timeoutSeconds: 120,
+  memory: '512MiB',
+  region: 'us-central1'
+}, async (req, res) => {
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+  
+  try {
+    // 인증 검증 (5분 이내 재인증 토큰 필수)
+    const userId = await verifyAuth(req);
+    if (!userId) {
+      return res.status(401).json({ error: 'Unauthorized: invalid or missing auth token' });
+    }
+    
+    console.log(`[deleteAccount] 시작: ${userId}`);
+    
+    // 1) 진행 중 변환 검증 (옵션 3-A: 거부)
+    const processingTransforms = await db.collection('transforms')
+      .where('userId', '==', userId)
+      .where('status', '==', 'processing')
+      .limit(1)
+      .get();
+    
+    const processingSessions = await db.collection('oneclick_sessions')
+      .where('userId', '==', userId)
+      .where('status', '==', 'processing')
+      .limit(1)
+      .get();
+    
+    if (!processingTransforms.empty || !processingSessions.empty) {
+      console.log(`[deleteAccount] 거부 (진행 중 변환): ${userId}`);
+      return res.status(409).json({ 
+        error: 'transform_in_progress',
+        message: 'A transformation is in progress. Please try again after it completes.'
+      });
+    }
+    
+    // 2) 사용자 변환 기록 삭제 (transforms)
+    const transformsSnapshot = await db.collection('transforms')
+      .where('userId', '==', userId)
+      .get();
+    
+    let deletedTransforms = 0;
+    // Firestore batch 한계: 500개. 분할 처리.
+    const transformDocs = transformsSnapshot.docs;
+    for (let i = 0; i < transformDocs.length; i += 500) {
+      const batch = db.batch();
+      const chunk = transformDocs.slice(i, i + 500);
+      chunk.forEach(doc => batch.delete(doc.ref));
+      await batch.commit();
+      deletedTransforms += chunk.length;
+    }
+    
+    // 3) 원클릭 세션 삭제 (oneclick_sessions)
+    const sessionsSnapshot = await db.collection('oneclick_sessions')
+      .where('userId', '==', userId)
+      .get();
+    
+    let deletedSessions = 0;
+    const sessionDocs = sessionsSnapshot.docs;
+    for (let i = 0; i < sessionDocs.length; i += 500) {
+      const batch = db.batch();
+      const chunk = sessionDocs.slice(i, i + 500);
+      chunk.forEach(doc => batch.delete(doc.ref));
+      await batch.commit();
+      deletedSessions += chunk.length;
+    }
+    
+    // 4) 결제 기록 익명화 (옵션 1-A: 법령 보관 의무)
+    // userId를 'deleted_${timestamp}_${shortHash}' 로 변경
+    // 실제 결제 데이터(금액, 날짜, txId)는 유지 → 회계/세무/분쟁 대응 가능
+    const purchasesSnapshot = await db.collection('purchases')
+      .where('userId', '==', userId)
+      .get();
+    
+    let anonymizedPurchases = 0;
+    if (!purchasesSnapshot.empty) {
+      const anonId = `deleted_${Date.now()}_${userId.substring(0, 6)}`;
+      const purchaseDocs = purchasesSnapshot.docs;
+      for (let i = 0; i < purchaseDocs.length; i += 500) {
+        const batch = db.batch();
+        const chunk = purchaseDocs.slice(i, i + 500);
+        chunk.forEach(doc => {
+          batch.update(doc.ref, {
+            userId: anonId,
+            anonymizedAt: FieldValue.serverTimestamp(),
+            originalUserId_redacted: true  // 원본 userId는 명시적으로 제거됨을 표시
+          });
+        });
+        await batch.commit();
+        anonymizedPurchases += chunk.length;
+      }
+    }
+    
+    // 5) 사용자 문서 삭제 (users/{uid})
+    await db.collection('users').doc(userId).delete();
+    
+    // 6) Firebase Auth 계정 삭제
+    await getAuth().deleteUser(userId);
+    
+    // 7) 삭제 이력 기록 (감사 추적용 — 분쟁/문의 대응)
+    await db.collection('account_deletions').add({
+      userId: userId,
+      deletedAt: FieldValue.serverTimestamp(),
+      stats: {
+        transforms: deletedTransforms,
+        sessions: deletedSessions,
+        purchasesAnonymized: anonymizedPurchases
+      }
+    });
+    
+    // Storage results/, retransforms/는 7일 Lifecycle에 맡김 (옵션 2-A)
+    // IndexedDB 갤러리는 클라이언트가 삭제 (서버 접근 불가)
+    
+    console.log(`[deleteAccount] 완료: ${userId} | transforms: ${deletedTransforms}, sessions: ${deletedSessions}, purchases: ${anonymizedPurchases}`);
+    
+    return res.status(200).json({
+      success: true,
+      stats: {
+        transforms: deletedTransforms,
+        sessions: deletedSessions,
+        purchasesAnonymized: anonymizedPurchases
+      }
+    });
+    
+  } catch (error) {
+    console.error('[deleteAccount] 에러:', error);
+    return res.status(500).json({ error: 'Internal error during account deletion' });
   }
 });

@@ -268,7 +268,7 @@ export const ui = {
   },
 
     login: {
-    tagline: '一張照片，2800年的時光之旅',
+    tagline: '一張照片，2800年藝術之旅',
     sub: '透過大師的目光看世界',
     continueWithGoogle: '使用 Google 繼續',
     continueWithApple: '使用 Apple 繼續',
@@ -307,6 +307,32 @@ export const ui = {
     termsLink: '服務條款',
     privacyLink: '隱私權政策',
     termsRequired: '請同意條款以繼續',
+  },
+
+  // ===== Delete Account (BLOCKER #48) =====
+  deleteAccount: {
+    warningTitle: '刪除帳戶',
+    warningIntro: '帳戶刪除為永久性。以下所有資料將被刪除：',
+    warningItem1: '餘額',
+    warningItem2: '所有轉換記錄和圖庫',
+    warningItem3: '帳戶資訊',
+    warningIrreversible: '已刪除的資料無法恢復。',
+    warningPurchaseNote: '但是，付款記錄將被匿名化並依適用法律保留。',
+    warningContinueQuestion: '您要繼續嗎？',
+    warningContinueBtn: '繼續',
+
+    reauthTitle: '身分驗證',
+    reauthDesc: '請重新登入以刪除您的帳戶。',
+    reauthGoogleBtn: '使用 Google 重新登入',
+    reauthAppleBtn: '使用 Apple 重新登入',
+    reauthEmailLabel: '密碼',
+    reauthEmailBtn: '確認',
+
+    deleting: '正在刪除您的帳戶...',
+    deleteSuccess: '您的帳戶已被刪除。',
+    deleteError: '刪除時發生錯誤。請重試。',
+    reauthError: '身分驗證失敗。',
+    inProgressBlock: '正在進行轉換。請在完成後重試。',
   },
 
   // ===== Common =====

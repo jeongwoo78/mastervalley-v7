@@ -267,7 +267,7 @@ export const ui = {
   },
 
     login: {
-    tagline: 'One photo, a 2800-year journey through time',
+    tagline: 'One photo, a 2800-year art journey',
     sub: 'See the world through the eyes of masters',
     continueWithGoogle: 'Continue with Google',
     continueWithApple: 'Continue with Apple',
@@ -306,6 +306,32 @@ export const ui = {
     termsLink: 'Terms of Service',
     privacyLink: 'Privacy Policy',
     termsRequired: 'Please agree to the terms to continue',
+  },
+
+  // ===== Delete Account (BLOCKER #48) =====
+  deleteAccount: {
+    warningTitle: 'Delete Account',
+    warningIntro: 'Account deletion is permanent. The following data will all be deleted:',
+    warningItem1: 'Account balance',
+    warningItem2: 'All transformation history and gallery',
+    warningItem3: 'Account information',
+    warningIrreversible: 'Deleted data cannot be recovered.',
+    warningPurchaseNote: 'However, purchase records will be anonymized and retained per applicable laws.',
+    warningContinueQuestion: 'Do you want to continue?',
+    warningContinueBtn: 'Continue',
+
+    reauthTitle: 'Identity Verification',
+    reauthDesc: 'Please sign in again to delete your account.',
+    reauthGoogleBtn: 'Sign in with Google again',
+    reauthAppleBtn: 'Sign in with Apple again',
+    reauthEmailLabel: 'Password',
+    reauthEmailBtn: 'Confirm',
+
+    deleting: 'Deleting your account...',
+    deleteSuccess: 'Your account has been deleted.',
+    deleteError: 'An error occurred while deleting. Please try again.',
+    reauthError: 'Identity verification failed.',
+    inProgressBlock: 'A transformation is in progress. Please try again after it completes.',
   },
 
   // ===== Common =====

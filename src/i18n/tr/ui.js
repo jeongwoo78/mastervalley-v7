@@ -257,7 +257,7 @@ export const ui = {
   },
 
     login: {
-    tagline: 'Bir fotoğraf, 2800 yıllık bir zaman yolculuğu',
+    tagline: 'Bir fotoğraf, 2800 yıllık bir sanat yolculuğu',
     sub: 'Dünyayı ustaların gözünden gör',
     continueWithGoogle: 'Google ile devam et',
     continueWithApple: 'Apple ile devam et',
@@ -296,6 +296,32 @@ export const ui = {
     termsLink: 'Kullanım Koşulları',
     privacyLink: 'Gizlilik Politikası',
     termsRequired: 'Lütfen devam etmek için koşulları kabul edin',
+  },
+
+  // ===== Delete Account (BLOCKER #48) =====
+  deleteAccount: {
+    warningTitle: 'Hesabı Sil',
+    warningIntro: 'Hesap silme kalıcıdır. Aşağıdaki tüm veriler silinecektir:',
+    warningItem1: 'Bakiye',
+    warningItem2: 'Tüm dönüşüm geçmişi ve galeri',
+    warningItem3: 'Hesap bilgileri',
+    warningIrreversible: 'Silinen veriler kurtarılamaz.',
+    warningPurchaseNote: 'Ancak, satın alma kayıtları anonimleştirilecek ve geçerli yasalara uygun olarak saklanacaktır.',
+    warningContinueQuestion: 'Devam etmek istiyor musunuz?',
+    warningContinueBtn: 'Devam',
+
+    reauthTitle: 'Kimlik Doğrulama',
+    reauthDesc: 'Hesabınızı silmek için lütfen tekrar giriş yapın.',
+    reauthGoogleBtn: 'Google ile tekrar giriş yap',
+    reauthAppleBtn: 'Apple ile tekrar giriş yap',
+    reauthEmailLabel: 'Şifre',
+    reauthEmailBtn: 'Onayla',
+
+    deleting: 'Hesabınız siliniyor...',
+    deleteSuccess: 'Hesabınız silindi.',
+    deleteError: 'Silinirken bir hata oluştu. Lütfen tekrar deneyin.',
+    reauthError: 'Kimlik doğrulama başarısız oldu.',
+    inProgressBlock: 'Bir dönüşüm devam ediyor. Tamamlandıktan sonra tekrar deneyin.',
   },
 
   common: {

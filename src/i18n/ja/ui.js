@@ -268,7 +268,7 @@ export const ui = {
   },
 
     login: {
-    tagline: '一枚の写真、2800年の時間旅行',
+    tagline: '写真一枚、2800年の芸術の旅',
         sub: '巨匠の目で世界を見る',
     continueWithGoogle: 'Googleで続ける',
     continueWithApple: 'Appleで続ける',
@@ -307,6 +307,32 @@ export const ui = {
     termsLink: '利用規約',
     privacyLink: 'プライバシーポリシー',
     termsRequired: '利用規約への同意が必要です',
+  },
+
+  // ===== Delete Account (BLOCKER #48) =====
+  deleteAccount: {
+    warningTitle: 'アカウントの削除',
+    warningIntro: 'アカウントの削除は永久的であり、以下のデータがすべて削除されます:',
+    warningItem1: '残高',
+    warningItem2: 'すべての変換履歴とギャラリー',
+    warningItem3: 'アカウント情報',
+    warningIrreversible: '削除されたデータは復元できません。',
+    warningPurchaseNote: 'ただし、決済記録は匿名化され、法令に従って保管されます。',
+    warningContinueQuestion: '続行しますか?',
+    warningContinueBtn: '続行',
+
+    reauthTitle: '本人確認',
+    reauthDesc: 'アカウントの削除のため、再度ログインしてください。',
+    reauthGoogleBtn: 'Googleで再ログイン',
+    reauthAppleBtn: 'Appleで再ログイン',
+    reauthEmailLabel: 'パスワード',
+    reauthEmailBtn: '確認',
+
+    deleting: 'アカウントを削除中...',
+    deleteSuccess: 'アカウントが削除されました。',
+    deleteError: '削除中にエラーが発生しました。もう一度お試しください。',
+    reauthError: '本人確認に失敗しました。',
+    inProgressBlock: '変換が進行中です。完了後にもう一度お試しください。',
   },
 
   // ===== Common =====

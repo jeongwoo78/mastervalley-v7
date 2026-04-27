@@ -268,7 +268,7 @@ export const ui = {
   },
 
     login: {
-    tagline: 'Satu foto, perjalanan 2800 tahun melintasi waktu',
+    tagline: 'Satu foto, perjalanan seni 2800 tahun',
     sub: 'Melihat dunia melalui mata para maestro',
     continueWithGoogle: 'Lanjutkan dengan Google',
     continueWithApple: 'Lanjutkan dengan Apple',
@@ -307,6 +307,32 @@ export const ui = {
     termsLink: 'Syarat Layanan',
     privacyLink: 'Kebijakan Privasi',
     termsRequired: 'Harap setujui ketentuan untuk melanjutkan',
+  },
+
+  // ===== Delete Account (BLOCKER #48) =====
+  deleteAccount: {
+    warningTitle: 'Hapus Akun',
+    warningIntro: 'Penghapusan akun bersifat permanen. Semua data berikut akan dihapus:',
+    warningItem1: 'Saldo',
+    warningItem2: 'Semua riwayat transformasi dan galeri',
+    warningItem3: 'Informasi akun',
+    warningIrreversible: 'Data yang telah dihapus tidak dapat dipulihkan.',
+    warningPurchaseNote: 'Namun, catatan pembelian akan dianonimkan dan disimpan sesuai dengan hukum yang berlaku.',
+    warningContinueQuestion: 'Apakah Anda ingin melanjutkan?',
+    warningContinueBtn: 'Lanjutkan',
+
+    reauthTitle: 'Verifikasi Identitas',
+    reauthDesc: 'Silakan masuk kembali untuk menghapus akun Anda.',
+    reauthGoogleBtn: 'Masuk lagi dengan Google',
+    reauthAppleBtn: 'Masuk lagi dengan Apple',
+    reauthEmailLabel: 'Kata sandi',
+    reauthEmailBtn: 'Konfirmasi',
+
+    deleting: 'Menghapus akun Anda...',
+    deleteSuccess: 'Akun Anda telah dihapus.',
+    deleteError: 'Terjadi kesalahan saat menghapus. Silakan coba lagi.',
+    reauthError: 'Verifikasi identitas gagal.',
+    inProgressBlock: 'Transformasi sedang berlangsung. Silakan coba lagi setelah selesai.',
   },
 
   // ===== Common =====

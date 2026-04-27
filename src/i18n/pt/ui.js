@@ -257,7 +257,7 @@ export const ui = {
   },
 
     login: {
-    tagline: 'Uma foto, uma viagem de 2800 anos através do tempo',
+    tagline: 'Uma foto, uma viagem de 2800 anos pela arte',
     sub: 'Ver o mundo através dos olhos dos mestres',
     continueWithGoogle: 'Continuar com Google',
     continueWithApple: 'Continuar com Apple',
@@ -296,6 +296,32 @@ export const ui = {
     termsLink: 'Termos de Serviço',
     privacyLink: 'Política de Privacidade',
     termsRequired: 'Aceite os termos para continuar',
+  },
+
+  // ===== Delete Account (BLOCKER #48) =====
+  deleteAccount: {
+    warningTitle: 'Excluir conta',
+    warningIntro: 'A exclusão da conta é permanente. Todos os seguintes dados serão excluídos:',
+    warningItem1: 'Saldo',
+    warningItem2: 'Todo o histórico de transformações e galeria',
+    warningItem3: 'Informações da conta',
+    warningIrreversible: 'Os dados excluídos não podem ser recuperados.',
+    warningPurchaseNote: 'No entanto, os registros de compra serão anonimizados e mantidos conforme as leis aplicáveis.',
+    warningContinueQuestion: 'Deseja continuar?',
+    warningContinueBtn: 'Continuar',
+
+    reauthTitle: 'Verificação de identidade',
+    reauthDesc: 'Faça login novamente para excluir sua conta.',
+    reauthGoogleBtn: 'Entrar novamente com Google',
+    reauthAppleBtn: 'Entrar novamente com Apple',
+    reauthEmailLabel: 'Senha',
+    reauthEmailBtn: 'Confirmar',
+
+    deleting: 'Excluindo sua conta...',
+    deleteSuccess: 'Sua conta foi excluída.',
+    deleteError: 'Ocorreu um erro ao excluir. Tente novamente.',
+    reauthError: 'A verificação de identidade falhou.',
+    inProgressBlock: 'Uma transformação está em andamento. Tente novamente após a conclusão.',
   },
 
   common: {

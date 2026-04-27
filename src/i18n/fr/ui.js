@@ -268,7 +268,7 @@ export const ui = {
   },
 
     login: {
-    tagline: 'Une photo, un voyage de 2800 ans à travers le temps',
+    tagline: 'Une photo, un voyage de 2800 ans dans l\'art',
     sub: 'Voir le monde à travers les yeux des maîtres',
     continueWithGoogle: 'Continuer avec Google',
     continueWithApple: 'Continuer avec Apple',
@@ -307,6 +307,32 @@ export const ui = {
     termsLink: 'Conditions d\'utilisation',
     privacyLink: 'Politique de confidentialité',
     termsRequired: 'Veuillez accepter les conditions pour continuer',
+  },
+
+  // ===== Delete Account (BLOCKER #48) =====
+  deleteAccount: {
+    warningTitle: 'Supprimer le compte',
+    warningIntro: 'La suppression du compte est définitive. Toutes les données suivantes seront supprimées :',
+    warningItem1: 'Solde',
+    warningItem2: 'Tout l\'historique de transformation et la galerie',
+    warningItem3: 'Informations du compte',
+    warningIrreversible: 'Les données supprimées ne peuvent pas être récupérées.',
+    warningPurchaseNote: 'Toutefois, les enregistrements d\'achat seront anonymisés et conservés conformément aux lois applicables.',
+    warningContinueQuestion: 'Voulez-vous continuer ?',
+    warningContinueBtn: 'Continuer',
+
+    reauthTitle: 'Vérification d\'identité',
+    reauthDesc: 'Veuillez vous reconnecter pour supprimer votre compte.',
+    reauthGoogleBtn: 'Se reconnecter avec Google',
+    reauthAppleBtn: 'Se reconnecter avec Apple',
+    reauthEmailLabel: 'Mot de passe',
+    reauthEmailBtn: 'Confirmer',
+
+    deleting: 'Suppression de votre compte...',
+    deleteSuccess: 'Votre compte a été supprimé.',
+    deleteError: 'Une erreur s\'est produite lors de la suppression. Veuillez réessayer.',
+    reauthError: 'La vérification d\'identité a échoué.',
+    inProgressBlock: 'Une transformation est en cours. Veuillez réessayer après son achèvement.',
   },
 
   // ===== Common =====

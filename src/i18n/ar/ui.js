@@ -268,7 +268,7 @@ export const ui = {
   },
 
     login: {
-    tagline: 'صورة واحدة، رحلة 2800 عام عبر الزمن',
+    tagline: 'صورة واحدة، رحلة فنية عبر 2800 عام',
     sub: 'شاهد العالم من خلال عيون العظماء',
     continueWithGoogle: 'المتابعة عبر Google',
     continueWithApple: 'المتابعة عبر Apple',
@@ -307,6 +307,32 @@ export const ui = {
     termsLink: 'شروط الخدمة',
     privacyLink: 'سياسة الخصوصية',
     termsRequired: 'يرجى الموافقة على الشروط للمتابعة',
+  },
+
+  // ===== Delete Account (BLOCKER #48) =====
+  deleteAccount: {
+    warningTitle: 'حذف الحساب',
+    warningIntro: 'حذف الحساب نهائي. سيتم حذف جميع البيانات التالية:',
+    warningItem1: 'الرصيد',
+    warningItem2: 'جميع سجلات التحويل والمعرض',
+    warningItem3: 'معلومات الحساب',
+    warningIrreversible: 'لا يمكن استرداد البيانات المحذوفة.',
+    warningPurchaseNote: 'ومع ذلك، سيتم إخفاء هوية سجلات الشراء وحفظها وفقًا للقوانين المعمول بها.',
+    warningContinueQuestion: 'هل تريد المتابعة؟',
+    warningContinueBtn: 'متابعة',
+
+    reauthTitle: 'التحقق من الهوية',
+    reauthDesc: 'يرجى تسجيل الدخول مرة أخرى لحذف حسابك.',
+    reauthGoogleBtn: 'تسجيل الدخول بـ Google مرة أخرى',
+    reauthAppleBtn: 'تسجيل الدخول بـ Apple مرة أخرى',
+    reauthEmailLabel: 'كلمة المرور',
+    reauthEmailBtn: 'تأكيد',
+
+    deleting: 'جاري حذف حسابك...',
+    deleteSuccess: 'تم حذف حسابك.',
+    deleteError: 'حدث خطأ أثناء الحذف. يرجى المحاولة مرة أخرى.',
+    reauthError: 'فشل التحقق من الهوية.',
+    inProgressBlock: 'جاري إجراء تحويل. يرجى المحاولة مرة أخرى بعد اكتماله.',
   },
 
   // ===== Common =====

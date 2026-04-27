@@ -268,7 +268,7 @@ export const ui = {
   },
 
     login: {
-    tagline: 'ภาพถ่ายหนึ่งใบ การเดินทาง 2800 ปีข้ามเวลา',
+    tagline: 'ภาพหนึ่งใบ การเดินทางทางศิลปะ 2800 ปี',
     sub: 'มองโลกผ่านสายตาของปรมาจารย์',
     continueWithGoogle: 'ดำเนินการต่อด้วย Google',
     continueWithApple: 'ดำเนินการต่อด้วย Apple',
@@ -307,6 +307,32 @@ export const ui = {
     termsLink: 'ข้อกำหนดการใช้บริการ',
     privacyLink: 'นโยบายความเป็นส่วนตัว',
     termsRequired: 'กรุณายอมรับข้อกำหนดเพื่อดำเนินการต่อ',
+  },
+
+  // ===== Delete Account (BLOCKER #48) =====
+  deleteAccount: {
+    warningTitle: 'ลบบัญชี',
+    warningIntro: 'การลบบัญชีเป็นการถาวร ข้อมูลต่อไปนี้ทั้งหมดจะถูกลบ:',
+    warningItem1: 'ยอดคงเหลือ',
+    warningItem2: 'ประวัติการแปลงและแกลเลอรีทั้งหมด',
+    warningItem3: 'ข้อมูลบัญชี',
+    warningIrreversible: 'ข้อมูลที่ถูกลบไม่สามารถกู้คืนได้',
+    warningPurchaseNote: 'อย่างไรก็ตาม บันทึกการซื้อจะถูกทำให้ไม่ระบุตัวตนและเก็บไว้ตามกฎหมายที่บังคับใช้',
+    warningContinueQuestion: 'คุณต้องการดำเนินการต่อหรือไม่?',
+    warningContinueBtn: 'ดำเนินการต่อ',
+
+    reauthTitle: 'การยืนยันตัวตน',
+    reauthDesc: 'กรุณาเข้าสู่ระบบอีกครั้งเพื่อลบบัญชีของคุณ',
+    reauthGoogleBtn: 'เข้าสู่ระบบด้วย Google อีกครั้ง',
+    reauthAppleBtn: 'เข้าสู่ระบบด้วย Apple อีกครั้ง',
+    reauthEmailLabel: 'รหัสผ่าน',
+    reauthEmailBtn: 'ยืนยัน',
+
+    deleting: 'กำลังลบบัญชีของคุณ...',
+    deleteSuccess: 'บัญชีของคุณถูกลบแล้ว',
+    deleteError: 'เกิดข้อผิดพลาดขณะลบ กรุณาลองอีกครั้ง',
+    reauthError: 'การยืนยันตัวตนล้มเหลว',
+    inProgressBlock: 'การแปลงกำลังดำเนินการอยู่ กรุณาลองอีกครั้งหลังจากเสร็จสิ้น',
   },
 
   // ===== Common =====

@@ -626,11 +626,11 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en', pendingConsentUser = null })
       {/* OAuth 첫 가입 동의 모달 (BLOCKER #46) */}
       {showOAuthConsent && (
         <div style={s.oauthOverlay}>
-          <div style={s.oauthModal}>
-            <h3 style={s.oauthTitle}>{t.signUp}</h3>
+          <div style={s.oauthInline}>
             <p style={s.oauthSubtitle}>{t.tagline}</p>
+            <div style={s.oauthDivider}></div>
 
-            <label style={{ ...s.termsRow, flexDirection: isRTL ? 'row-reverse' : 'row', marginTop: '20px' }}>
+            <label style={{ ...s.termsRow, flexDirection: isRTL ? 'row-reverse' : 'row' }}>
               <input
                 type="checkbox"
                 checked={oauthConsentChecked}
@@ -874,65 +874,59 @@ const s = {
     textUnderlineOffset: '2px',
     cursor: 'pointer',
   },
-  // OAuth 첫 가입 동의 모달
+  // OAuth 첫 가입 동의 — D3 레이아웃 (박스 없음, 화면 아래 2/3, sage 톤)
   oauthOverlay: {
     position: 'fixed',
     inset: 0,
-    background: 'rgba(0,0,0,0.7)',
+    background: 'rgba(10,26,31,0.85)',
     zIndex: 9000,
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'flex-end',
     justifyContent: 'center',
-    padding: '20px',
+    padding: '0 24px 80px',
   },
-  oauthModal: {
-    background: '#0f242a',
-    borderRadius: '16px',
-    padding: '24px 22px',
+  oauthInline: {
     width: '100%',
     maxWidth: '360px',
-    boxShadow: '0 12px 40px rgba(0,0,0,0.5)',
-  },
-  oauthTitle: {
-    color: '#fff',
-    fontSize: '18px',
-    fontWeight: 600,
-    margin: 0,
-    textAlign: 'center',
   },
   oauthSubtitle: {
-    color: 'rgba(255,255,255,0.5)',
-    fontSize: '13px',
-    margin: '8px 0 0 0',
+    fontFamily: "'Cormorant Garamond', serif",
+    fontStyle: 'italic',
+    color: 'rgba(220,228,224,0.5)',
+    fontSize: '15px',
+    margin: 0,
     textAlign: 'center',
+    letterSpacing: '0.3px',
     lineHeight: 1.5,
+  },
+  oauthDivider: {
+    borderTop: '1px solid rgba(220,228,224,0.08)',
+    margin: '20px 0 18px',
   },
   oauthBtnRow: {
     display: 'flex',
-    gap: '10px',
-    marginTop: '20px',
+    gap: '12px',
+    marginTop: '22px',
+    justifyContent: 'center',
   },
   oauthCancelBtn: {
-    flex: 1,
-    padding: '12px',
+    padding: '10px 24px',
     background: 'transparent',
-    border: '1px solid rgba(255,255,255,0.15)',
-    borderRadius: '10px',
-    color: 'rgba(255,255,255,0.7)',
+    border: 'none',
+    color: 'rgba(220,228,224,0.4)',
     fontSize: '14px',
-    fontWeight: 500,
+    fontWeight: 400,
     cursor: 'pointer',
     fontFamily: "'DM Sans', -apple-system, sans-serif",
   },
   oauthConfirmBtn: {
-    flex: 1,
-    padding: '12px',
-    background: 'rgba(255,255,255,0.95)',
-    border: 'none',
-    borderRadius: '10px',
-    color: '#0a1a1f',
+    padding: '10px 24px',
+    background: 'transparent',
+    border: '1px solid rgba(138,168,150,0.5)',
+    borderRadius: '8px',
+    color: '#8aa896',
     fontSize: '14px',
-    fontWeight: 600,
+    fontWeight: 500,
     cursor: 'pointer',
     fontFamily: "'DM Sans', -apple-system, sans-serif",
   },

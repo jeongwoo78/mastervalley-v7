@@ -209,7 +209,7 @@ export const ui = {
 
   // ===== AI Consent =====
   aiConsent: {
-    message: '사진은 AI 변환을 위해 신뢰할 수 있는 제3자 AI 제공업체에 전송되며, 처리 후 보관되지 않습니다. 자세한 내용은 개인정보처리지침을 참조하세요.',
+    message: '사진은 AI 변환을 위해 신뢰할 수 있는 제3자 AI 제공업체에 전송되며, 처리 후 보관되지 않습니다. 자세한 내용은 개인정보처리방침을 참조하세요.',
     confirm: '확인'
   },
 
@@ -218,7 +218,7 @@ export const ui = {
     title: '앱 정보',
     version: '버전',
     termsOfService: '이용약관',
-    privacyPolicy: '개인정보처리지침',
+    privacyPolicy: '개인정보처리방침',
     imageCredits: '이미지 크레딧',
     lichtensteinCredit: 'Lichtenstein avatar: Eric Koch / Anefo (1967), CC BY-SA 3.0'
   },
@@ -267,7 +267,7 @@ export const ui = {
   },
 
     login: {
-    tagline: '당신의 한 장의 사진, 2800년의 시간여행',
+    tagline: '사진 한 장, 2800년의 예술 여행',
     sub: '거장의 눈으로 세상을 보다',
     continueWithGoogle: 'Google로 계속하기',
     continueWithApple: 'Apple로 계속하기',
@@ -304,8 +304,37 @@ export const ui = {
     // Terms agreement (BLOCKER #46)
     termsAgreement: '만 18세 이상이며, {terms} 및 {privacy}에 동의합니다',
     termsLink: '이용약관',
-    privacyLink: '개인정보처리지침',
+    privacyLink: '개인정보처리방침',
     termsRequired: '약관 동의가 필요합니다',
+  },
+
+  // ===== Delete Account (BLOCKER #48) =====
+  deleteAccount: {
+    // 1단계 — 경고
+    warningTitle: '계정 삭제',
+    warningIntro: '계정 삭제는 영구적이며 다음 데이터가 모두 삭제됩니다:',
+    warningItem1: '잔액',
+    warningItem2: '모든 변환 기록과 갤러리',
+    warningItem3: '계정 정보',
+    warningIrreversible: '삭제된 데이터는 복구할 수 없습니다.',
+    warningPurchaseNote: '다만, 결제 기록은 익명화되어 법령에 따라 보관됩니다.',
+    warningContinueQuestion: '계속하시겠습니까?',
+    warningContinueBtn: '계속',
+
+    // 2단계 — 재인증
+    reauthTitle: '본인 확인',
+    reauthDesc: '계정 삭제를 위해 다시 로그인해주세요.',
+    reauthGoogleBtn: 'Google로 다시 로그인',
+    reauthAppleBtn: 'Apple로 다시 로그인',
+    reauthEmailLabel: '비밀번호',
+    reauthEmailBtn: '확인',
+
+    // 진행/완료
+    deleting: '계정을 삭제하는 중...',
+    deleteSuccess: '계정이 삭제되었습니다.',
+    deleteError: '삭제 중 오류가 발생했습니다. 다시 시도해주세요.',
+    reauthError: '본인 확인에 실패했습니다.',
+    inProgressBlock: '변환이 진행 중입니다. 완료 후 다시 시도해주세요.',
   },
 
   // ===== Common =====

@@ -13,6 +13,7 @@ import ResultScreen from './components/ResultScreen';
 import GalleryScreen, { saveToGallery, isDeletedTransformId } from './components/GalleryScreen';
 import AddFundsScreen from './components/AddFundsScreen';
 import MenuScreen from './components/MenuScreen';
+import DeleteAccountModal from './components/DeleteAccountModal';
 // LanguageScreen removed - 메뉴 아코디언에서 직접 변경
 import InsufficientBalancePopup from './components/InsufficientBalancePopup';
 import { getTransformCost } from './utils/pricing';
@@ -76,6 +77,7 @@ const App = () => {
   const [termsAcceptedFromDb, setTermsAcceptedFromDb] = useState(null);
   const [showAiConsent, setShowAiConsent] = useState(false);
   const [pendingTransform, setPendingTransform] = useState(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);  // BLOCKER #48
   
   // 데이터 상태
   const [mainCategory, setMainCategory] = useState(null);
@@ -321,6 +323,12 @@ const App = () => {
         return;
       }
 
+      // 계정 삭제 모달 열려있으면 닫기 (BLOCKER #48)
+      if (showDeleteModal) {
+        setShowDeleteModal(false);
+        return;
+      }
+
       // 화면별 뒤로가기
       switch (currentScreen) {
         case 'result':
@@ -362,7 +370,7 @@ const App = () => {
     return () => {
       backHandler.then(h => h.remove());
     };
-  }, [currentScreen, showGallery, showInsufficientPopup, showAiConsent, showBackBlockedToast]);
+  }, [currentScreen, showGallery, showInsufficientPopup, showAiConsent, showDeleteModal, showBackBlockedToast]);
 
   // 로그인 성공
   const handleLoginSuccess = (loggedInUser) => {
@@ -597,12 +605,21 @@ const App = () => {
     setCurrentScreen('menu');
   };
 
-  // 계정 삭제 (나중에 구현)
+  // 계정 삭제 (BLOCKER #48) — 모달 열기
   const handleDeleteAccount = () => {
-    if (window.confirm('Are you sure you want to delete your account? This cannot be undone.')) {
-      console.log('Delete account requested');
-      // TODO: Implement account deletion
-    }
+    if (!user) return;
+    setShowDeleteModal(true);
+  };
+
+  // 계정 삭제 완료 — 모든 화면 정리 → 로그인 화면 (자동 onAuthStateChanged 트리거)
+  const handleDeleteComplete = () => {
+    setShowDeleteModal(false);
+    setUser(null);
+    // 잔액/화면/임시 상태 모두 초기화
+    setUserCredits(0);
+    setCreditsLoaded(false);
+    setTermsAcceptedFromDb(null);
+    handleReset();
   };
 
   // 다시 시도 성공 시
@@ -681,6 +698,16 @@ const App = () => {
             </button>
           </div>
         </div>
+      )}
+
+      {/* 계정 삭제 모달 (BLOCKER #48) */}
+      {showDeleteModal && user && (
+        <DeleteAccountModal
+          user={user}
+          lang={lang}
+          onCancel={() => setShowDeleteModal(false)}
+          onComplete={handleDeleteComplete}
+        />
       )}
 
       {/* 잔액 부족 팝업 */}
@@ -871,37 +898,37 @@ const App = () => {
         .ai-consent-overlay {
           position: fixed;
           top: 0; left: 0; right: 0; bottom: 0;
-          background: rgba(0,0,0,0.85);
+          background: rgba(10,26,31,0.85);
           display: flex;
-          align-items: center;
+          align-items: flex-end;
           justify-content: center;
           z-index: 9999;
-          padding: 24px;
+          padding: 0 24px 80px;
         }
         .ai-consent-modal {
-          background: #1e1e1e;
-          border-radius: 16px;
-          padding: 20px 20px 12px;
-          max-width: 260px;
+          background: transparent;
           width: 100%;
-          text-align: center;
+          max-width: 360px;
         }
         .ai-consent-text {
-          color: rgba(255,255,255,0.6);
+          color: rgba(220,228,224,0.6);
           font-size: 13px;
-          line-height: 1.55;
-          margin-bottom: 16px;
+          line-height: 1.6;
+          margin: 0;
           text-align: left;
         }
         .ai-consent-btn {
-          width: 100%;
-          padding: 10px;
+          display: block;
+          margin: 22px auto 0;
+          padding: 10px 28px;
           background: transparent;
-          color: #fff;
-          border: none;
+          color: #8aa896;
+          border: 1px solid rgba(138,168,150,0.5);
+          border-radius: 8px;
           font-size: 14px;
-          font-weight: 600;
+          font-weight: 500;
           cursor: pointer;
+          font-family: 'DM Sans', -apple-system, sans-serif;
         }
         .back-blocked-toast {
           position: fixed;
