@@ -318,6 +318,7 @@ export const ui = {
     warningItem3: 'Información de la cuenta',
     warningIrreversible: 'Los datos eliminados no se pueden recuperar.',
     warningPurchaseNote: 'Sin embargo, los registros de compra serán anonimizados y conservados conforme a las leyes aplicables.',
+    warningRejoinNote: 'Si te registras de nuevo con un correo electrónico usado anteriormente, no se otorgarán los créditos gratuitos para nuevos usuarios.',
     warningContinueQuestion: '¿Deseas continuar?',
     warningContinueBtn: 'Continuar',
 

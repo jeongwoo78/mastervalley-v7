@@ -11,6 +11,7 @@ import {
   EmailAuthProvider,
   signOut
 } from 'firebase/auth';
+import { Capacitor } from '@capacitor/core';
 import { auth, googleProvider, appleProvider } from '../config/firebase';
 import { getUi } from '../i18n';
 
@@ -56,10 +57,22 @@ const DeleteAccountModal = ({ user, lang = 'en', onCancel, onComplete }) => {
     setError('');
     setLoading(true);
     try {
-      // 1. 재인증
+      // 1. 재인증 (네이티브/웹 분기)
+      const isNative = Capacitor.isNativePlatform();
+      
       if (isGoogle) {
-        await reauthenticateWithPopup(user, googleProvider);
+        if (isNative) {
+          // 네이티브: GoogleAuth 플러그인으로 토큰 받아서 credential 재인증
+          const { GoogleAuth } = await import('@codetrix-studio/capacitor-google-auth');
+          const googleUser = await GoogleAuth.signIn();
+          const credential = GoogleAuthProvider.credential(googleUser.authentication.idToken);
+          await reauthenticateWithCredential(user, credential);
+        } else {
+          // 웹: 팝업
+          await reauthenticateWithPopup(user, googleProvider);
+        }
       } else if (isApple) {
+        // Apple은 현재 웹 팝업만 — 네이티브 iOS는 별도 작업 예정
         await reauthenticateWithPopup(user, appleProvider);
       } else if (isEmail) {
         if (!password) {
@@ -131,10 +144,11 @@ const DeleteAccountModal = ({ user, lang = 'en', onCancel, onComplete }) => {
       console.error('[DeleteAccount] error:', err);
       // 재인증 실패는 따로 메시지
       const code = err.code || '';
+      const msg = err.message || '';
       if (code.includes('wrong-password') || code.includes('invalid-credential') || code.includes('user-mismatch')) {
         setError(t.reauthError);
-      } else if (code.includes('cancelled-popup') || code.includes('popup-closed')) {
-        // 사용자가 OAuth 팝업 닫음 — 조용히 무시
+      } else if (code.includes('cancelled-popup') || code.includes('popup-closed') || msg.includes('cancelled') || msg.includes('canceled') || msg.includes('SIGN_IN_CANCELLED')) {
+        // 사용자가 OAuth 취소 — 조용히 무시 (네이티브 + 웹 둘 다)
         setError('');
       } else {
         setError(t.deleteError);
@@ -160,6 +174,7 @@ const DeleteAccountModal = ({ user, lang = 'en', onCancel, onComplete }) => {
             </ul>
             <p style={s.notice}>{t.warningIrreversible}</p>
             <p style={s.notice}>{t.warningPurchaseNote}</p>
+            <p style={s.notice}>{t.warningRejoinNote}</p>
             <p style={s.question}>{t.warningContinueQuestion}</p>
             {error && <p style={s.error}>{error}</p>}
             <div style={s.btnRow}>

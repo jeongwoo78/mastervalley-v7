@@ -861,7 +861,7 @@ const s = {
   termsCheckbox: {
     width: '18px', height: '18px',
     marginTop: '2px',
-    accentColor: 'rgba(255,255,255,0.6)',
+    accentColor: '#8aa896',
     cursor: 'pointer',
     flexShrink: 0,
   },

@@ -318,6 +318,7 @@ export const ui = {
     warningItem3: 'アカウント情報',
     warningIrreversible: '削除されたデータは復元できません。',
     warningPurchaseNote: 'ただし、決済記録は匿名化され、法令に従って保管されます。',
+    warningRejoinNote: '以前に使用したメールアドレスで再登録した場合、新規無料クレジットは付与されません。',
     warningContinueQuestion: '続行しますか?',
     warningContinueBtn: '続行',
 

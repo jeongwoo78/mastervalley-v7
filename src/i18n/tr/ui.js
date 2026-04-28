@@ -307,6 +307,7 @@ export const ui = {
     warningItem3: 'Hesap bilgileri',
     warningIrreversible: 'Silinen veriler kurtarılamaz.',
     warningPurchaseNote: 'Ancak, satın alma kayıtları anonimleştirilecek ve geçerli yasalara uygun olarak saklanacaktır.',
+    warningRejoinNote: 'Daha önce kullanılmış bir e-posta adresiyle tekrar kayıt olursanız, yeni kullanıcı ücretsiz kredisi verilmez.',
     warningContinueQuestion: 'Devam etmek istiyor musunuz?',
     warningContinueBtn: 'Devam',
 

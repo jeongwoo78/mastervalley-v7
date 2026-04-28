@@ -318,6 +318,7 @@ export const ui = {
     warningItem3: 'معلومات الحساب',
     warningIrreversible: 'لا يمكن استرداد البيانات المحذوفة.',
     warningPurchaseNote: 'ومع ذلك، سيتم إخفاء هوية سجلات الشراء وحفظها وفقًا للقوانين المعمول بها.',
+    warningRejoinNote: 'في حال إعادة التسجيل بعنوان بريد إلكتروني سبق استخدامه، لن يتم منح أرصدة المستخدم الجديد المجانية.',
     warningContinueQuestion: 'هل تريد المتابعة؟',
     warningContinueBtn: 'متابعة',
 

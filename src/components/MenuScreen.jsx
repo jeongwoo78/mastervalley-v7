@@ -158,7 +158,7 @@ const MenuScreen = ({
           <span className="header-spacer"></span>
         </header>
         <div className="legal-scroll" dir="ltr" style={{ textAlign: 'left' }}>
-          <p className="legal-updated">{lang === 'ko' ? '최종 수정일: 2026년 3월 13일' : 'Last updated: March 13, 2026'}</p>
+          <p className="legal-updated">{lang === 'ko' ? '최종 수정일: 2026년 4월 29일' : 'Last updated: April 29, 2026'}</p>
           {sections.map((s, i) => (
             <div key={i} className="legal-section">
               <h3 className="legal-title">{s.title}</h3>
@@ -182,7 +182,7 @@ const MenuScreen = ({
           <span className="header-spacer"></span>
         </header>
         <div className="legal-scroll" dir="ltr" style={{ textAlign: 'left' }}>
-          <p className="legal-updated">{lang === 'ko' ? '최종 수정일: 2026년 3월 13일' : 'Last updated: March 13, 2026'}</p>
+          <p className="legal-updated">{lang === 'ko' ? '최종 수정일: 2026년 4월 29일' : 'Last updated: April 29, 2026'}</p>
           {sections.map((s, i) => (
             <div key={i} className="legal-section">
               <h3 className="legal-title">{s.title}</h3>

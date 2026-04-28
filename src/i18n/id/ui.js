@@ -318,6 +318,7 @@ export const ui = {
     warningItem3: 'Informasi akun',
     warningIrreversible: 'Data yang telah dihapus tidak dapat dipulihkan.',
     warningPurchaseNote: 'Namun, catatan pembelian akan dianonimkan dan disimpan sesuai dengan hukum yang berlaku.',
+    warningRejoinNote: 'Jika Anda mendaftar ulang dengan alamat email yang pernah digunakan sebelumnya, kredit gratis pengguna baru tidak akan diberikan.',
     warningContinueQuestion: 'Apakah Anda ingin melanjutkan?',
     warningContinueBtn: 'Lanjutkan',
 

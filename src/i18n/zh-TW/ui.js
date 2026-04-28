@@ -318,6 +318,7 @@ export const ui = {
     warningItem3: '帳戶資訊',
     warningIrreversible: '已刪除的資料無法恢復。',
     warningPurchaseNote: '但是，付款記錄將被匿名化並依適用法律保留。',
+    warningRejoinNote: '若使用先前使用過的電子郵件地址重新註冊，將不會發放新用戶免費點數。',
     warningContinueQuestion: '您要繼續嗎？',
     warningContinueBtn: '繼續',
 

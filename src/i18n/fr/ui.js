@@ -318,6 +318,7 @@ export const ui = {
     warningItem3: 'Informations du compte',
     warningIrreversible: 'Les données supprimées ne peuvent pas être récupérées.',
     warningPurchaseNote: 'Toutefois, les enregistrements d\'achat seront anonymisés et conservés conformément aux lois applicables.',
+    warningRejoinNote: 'Si vous vous réinscrivez avec une adresse e-mail précédemment utilisée, les crédits gratuits réservés aux nouveaux utilisateurs ne seront pas accordés.',
     warningContinueQuestion: 'Voulez-vous continuer ?',
     warningContinueBtn: 'Continuer',
 

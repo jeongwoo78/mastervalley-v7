@@ -307,6 +307,7 @@ export const ui = {
     warningItem3: 'Informações da conta',
     warningIrreversible: 'Os dados excluídos não podem ser recuperados.',
     warningPurchaseNote: 'No entanto, os registros de compra serão anonimizados e mantidos conforme as leis aplicáveis.',
+    warningRejoinNote: 'Se você se registrar novamente com um endereço de e-mail usado anteriormente, os créditos gratuitos para novos usuários não serão concedidos.',
     warningContinueQuestion: 'Deseja continuar?',
     warningContinueBtn: 'Continuar',
 

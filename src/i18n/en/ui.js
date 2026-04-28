@@ -317,6 +317,7 @@ export const ui = {
     warningItem3: 'Account information',
     warningIrreversible: 'Deleted data cannot be recovered.',
     warningPurchaseNote: 'However, purchase records will be anonymized and retained per applicable laws.',
+    warningRejoinNote: 'If you re-register with a previously used email address, new-user free credits will not be granted.',
     warningContinueQuestion: 'Do you want to continue?',
     warningContinueBtn: 'Continue',
 
