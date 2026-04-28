@@ -634,8 +634,10 @@ const App = () => {
     }
   };
 
-  // 로딩 중 (인증 + 로그인 유저는 크레딧까지)
-  if (authLoading || (user && !creditsLoaded)) {
+  // 로딩 중 (인증 진행 중일 때만)
+  // user가 있는데 creditsLoaded 안 됐어도 → LoginScreen이나 메인 화면이 처리하도록 진행
+  // (이렇게 해야 OAuth 직후 LoginScreen이 unmount→remount되어 state 날아가는 버그 방지)
+  if (authLoading) {
     return (
       <div className="auth-loading">
         <div className="loading-spinner"></div>
@@ -668,9 +670,10 @@ const App = () => {
   }
 
   // 로그인 안 됐거나, 로그인은 됐지만 약관 미동의인 경우 → LoginScreen 유지 (BLOCKER #46)
-  // termsAcceptedFromDb === null: Firestore 조회 전 (LoadingScreen 위에서 이미 처리됨)
-  // termsAcceptedFromDb === false: 명시적 미동의 → OAuth 동의 모달 자동 표시 필요
-  if (!user || termsAcceptedFromDb === false) {
+  // termsAcceptedFromDb === null: Firestore 조회 전 → LoginScreen 유지 (OAuth 직후 모달 표시 위해)
+  // termsAcceptedFromDb === false: 명시적 미동의 → LoginScreen 유지
+  // termsAcceptedFromDb === true: 메인 앱 진입 가능
+  if (!user || termsAcceptedFromDb !== true) {
     return (
       <LoginScreen
         onLoginSuccess={handleLoginSuccess}

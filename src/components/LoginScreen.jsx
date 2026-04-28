@@ -11,7 +11,7 @@ import {
   signOut,
   GoogleAuthProvider
 } from 'firebase/auth';
-import { setDoc, updateDoc } from 'firebase/firestore';
+import { setDoc, updateDoc, getDocFromServer } from 'firebase/firestore';
 import { auth, db, doc, getDoc, googleProvider, appleProvider } from '../config/firebase';
 import { Capacitor } from '@capacitor/core';
 import { getUi } from '../i18n';
@@ -305,7 +305,9 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en', pendingConsentUser = null })
     if (!user) return;
     try {
       const userRef = doc(db, 'users', user.uid);
-      const userDoc = await getDoc(userRef);
+      // getDocFromServer: 캐시 무시하고 서버에서만 조회
+      // 계정 삭제 직후 재로그인 시 클라이언트 캐시가 stale 데이터 반환하는 문제 방지
+      const userDoc = await getDocFromServer(userRef);
       const alreadyAgreed = userDoc.exists() && userDoc.data()?.termsAccepted === true;
       if (alreadyAgreed) {
         // 기존 동의 사용자: 바로 진행
