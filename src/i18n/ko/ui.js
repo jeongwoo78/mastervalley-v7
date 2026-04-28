@@ -267,7 +267,7 @@ export const ui = {
   },
 
     login: {
-    tagline: '사진 한 장, 2800년의 예술 여행',
+    tagline: '사진 한 장, 2800년의 미술 여행',
     sub: '거장의 눈으로 세상을 보다',
     continueWithGoogle: 'Google로 계속하기',
     continueWithApple: 'Apple로 계속하기',

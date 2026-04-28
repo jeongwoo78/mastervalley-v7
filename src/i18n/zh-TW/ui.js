@@ -268,7 +268,7 @@ export const ui = {
   },
 
     login: {
-    tagline: '一張照片，2800年藝術之旅',
+    tagline: '一張照片，2800年美術之旅',
     sub: '透過大師的目光看世界',
     continueWithGoogle: '使用 Google 繼續',
     continueWithApple: '使用 Apple 繼續',

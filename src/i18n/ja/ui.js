@@ -268,7 +268,7 @@ export const ui = {
   },
 
     login: {
-    tagline: '写真一枚、2800年の芸術の旅',
+    tagline: '写真一枚、2800年の美術の旅',
         sub: '巨匠の目で世界を見る',
     continueWithGoogle: 'Googleで続ける',
     continueWithApple: 'Appleで続ける',

@@ -91,6 +91,8 @@ const MenuScreen = ({
   const [showTerms, setShowTerms] = useState(false);
   const [showPrivacy, setShowPrivacy] = useState(false);
   const [showFaq, setShowFaq] = useState(false);  // BLOCKER #49
+  const [contactOpen, setContactOpen] = useState(false);  // 문의하기 인라인 펼침
+  const [copied, setCopied] = useState(false);  // 이메일 복사 토스트
 
   const t = getUi(lang).menu;
   const ta = getUi(lang).about;
@@ -123,14 +125,26 @@ const MenuScreen = ({
     setLangOpen(false);
   };
 
-  // 문의하기 — mailto 링크로 기본 메일 앱 열기 (BLOCKER #49)
-  // body에 언어/플랫폼 자동 첨부 → 정우가 답변 작성 시 컨텍스트 파악 용이
-  const handleContactUs = () => {
-    const subject = encodeURIComponent('Master Valley Support');
-    const platform = (typeof navigator !== 'undefined' && navigator.userAgent) || 'Unknown';
-    const bodyText = `\n\n---\nLanguage: ${lang}\nPlatform: ${platform}`;
-    const body = encodeURIComponent(bodyText);
-    window.location.href = `mailto:support@mastervalley.app?subject=${subject}&body=${body}`;
+  // 문의하기 — 메뉴 인라인으로 이메일 주소 표시 + 복사 (BLOCKER #49)
+  // mailto 사용 안 함: 사용자 환경에 메일 앱 설정 안 되어 있어도 동작
+  const SUPPORT_EMAIL = 'support@mastervalley.app';
+  const handleContactToggle = () => {
+    setContactOpen(!contactOpen);
+  };
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(SUPPORT_EMAIL);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      // clipboard API 미지원 환경 fallback
+      const textarea = document.createElement('textarea');
+      textarea.value = SUPPORT_EMAIL;
+      document.body.appendChild(textarea);
+      textarea.select();
+      try { document.execCommand('copy'); setCopied(true); setTimeout(() => setCopied(false), 2000); } catch {}
+      document.body.removeChild(textarea);
+    }
   };
 
   // ===== Terms View =====
@@ -316,9 +330,28 @@ const MenuScreen = ({
 
         {supportOpen && (
           <div className="support-accordion">
-            <div className="support-option" onClick={handleContactUs}>
+            <div className="support-option" onClick={handleContactToggle}>
               <span className="support-text">{t.contactUs}</span>
+              <span className={`support-chevron ${contactOpen ? 'open' : ''}`}><IconChevron /></span>
             </div>
+            {contactOpen && (
+              <div className="contact-inline" onClick={handleCopyEmail} role="button" tabIndex={0}>
+                <span className="contact-dash">-</span>
+                <span className="contact-email">{SUPPORT_EMAIL}</span>
+                <span className="contact-copy-icon">
+                  {copied ? (
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                  ) : (
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                    </svg>
+                  )}
+                </span>
+              </div>
+            )}
             <div className="support-option" onClick={() => setShowFaq(true)}>
               <span className="support-text">{t.faq}</span>
             </div>
@@ -459,9 +492,54 @@ const menuStyles = `
     padding: 12px 16px 12px 48px;
     cursor: pointer;
     transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
   .support-option:hover { background: rgba(255,255,255,0.08); }
   .support-text { color: rgba(255,255,255,0.6); font-size: 14px; }
+  .support-chevron {
+    color: rgba(255,255,255,0.3);
+    transition: transform 0.2s;
+    width: 16px;
+    height: 16px;
+    display: inline-flex;
+  }
+  .support-chevron.open { transform: rotate(90deg); }
+  .support-chevron svg { width: 16px; height: 16px; }
+
+  /* 문의하기 인라인 표시 */
+  .contact-inline {
+    padding: 12px 16px 12px 48px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .contact-inline:hover { background: rgba(255,255,255,0.04); }
+  .contact-inline:active { background: rgba(255,255,255,0.06); }
+  .contact-dash {
+    color: rgba(255,255,255,0.2);
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .contact-email {
+    color: rgba(255,255,255,0.85);
+    font-size: 13px;
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    user-select: all;
+    word-break: break-all;
+  }
+  .contact-copy-icon {
+    color: rgba(255,255,255,0.4);
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    transition: color 0.2s;
+  }
+  .contact-inline:hover .contact-copy-icon { color: rgba(255,255,255,0.7); }
 
   .about-app-info {
     display: flex;
