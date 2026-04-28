@@ -74,7 +74,28 @@ const App = () => {
   const [aiConsentGiven, setAiConsentGiven] = useState(false);
   // 약관 동의 상태 (BLOCKER #46)
   // null = 아직 Firestore 조회 전, true/false = 조회 완료
-  const [termsAcceptedFromDb, setTermsAcceptedFromDb] = useState(null);
+  // 새로고침 시 깜빡임 방지를 위해 sessionStorage 캐싱 (이전 세션에서 동의했으면 즉시 true)
+  const [termsAcceptedFromDb, setTermsAcceptedFromDb] = useState(() => {
+    try {
+      return sessionStorage.getItem('mv_terms_accepted') === '1' ? true : null;
+    } catch {
+      return null;
+    }
+  });
+
+  // sessionStorage 동기화 헬퍼 (true일 때만 저장, 그 외엔 제거)
+  const setTermsWithCache = (value) => {
+    setTermsAcceptedFromDb(value);
+    try {
+      if (value === true) {
+        sessionStorage.setItem('mv_terms_accepted', '1');
+      } else {
+        sessionStorage.removeItem('mv_terms_accepted');
+      }
+    } catch {
+      // sessionStorage 사용 불가 시 무시
+    }
+  };
   const [showAiConsent, setShowAiConsent] = useState(false);
   const [pendingTransform, setPendingTransform] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);  // BLOCKER #48
@@ -191,10 +212,10 @@ const App = () => {
             const data = snapshot.data();
             setUserCredits(data.credits ?? 0);
             setAiConsentGiven(data.aiConsent === true);
-            setTermsAcceptedFromDb(data.termsAccepted === true);
+            setTermsWithCache(data.termsAccepted === true);
           } else {
             // 문서 없음 (이론상 ensureUserDoc 후엔 발생 X) — 미동의로 처리
-            setTermsAcceptedFromDb(false);
+            setTermsWithCache(false);
           }
           setCreditsLoaded(true);
         }, (error) => {
@@ -204,7 +225,7 @@ const App = () => {
       } else {
         setUserCredits(0);
         setCreditsLoaded(false);
-        setTermsAcceptedFromDb(null);  // 로그아웃 시 리셋
+        setTermsWithCache(null);  // 로그아웃 시 리셋 (sessionStorage도 제거)
       }
     });
 
@@ -374,7 +395,10 @@ const App = () => {
 
   // 로그인 성공
   const handleLoginSuccess = (loggedInUser) => {
+    // 약관 동의 흐름 통과한 사용자만 이 함수에 도달함 (LoginScreen이 보장)
+    // 즉시 termsAcceptedFromDb=true로 set해서 onSnapshot 도착 전 깜빡임 방지
     setUser(loggedInUser);
+    setTermsWithCache(true);
   };
 
   // 로그아웃
@@ -383,6 +407,7 @@ const App = () => {
       await logOutRC();
       await signOut(auth);
       setUser(null);
+      setTermsWithCache(null);  // sessionStorage 정리
       handleReset();
     } catch (error) {
       console.error('Logout error:', error);
@@ -618,7 +643,7 @@ const App = () => {
     // 잔액/화면/임시 상태 모두 초기화
     setUserCredits(0);
     setCreditsLoaded(false);
-    setTermsAcceptedFromDb(null);
+    setTermsWithCache(null);
     handleReset();
   };
 
@@ -634,9 +659,7 @@ const App = () => {
     }
   };
 
-  // 로딩 중 (인증 진행 중일 때만)
-  // user가 있는데 creditsLoaded 안 됐어도 → LoginScreen이나 메인 화면이 처리하도록 진행
-  // (이렇게 해야 OAuth 직후 LoginScreen이 unmount→remount되어 state 날아가는 버그 방지)
+  // 로딩 중 (인증 초기화)
   if (authLoading) {
     return (
       <div className="auth-loading">
@@ -669,10 +692,11 @@ const App = () => {
     );
   }
 
-  // 로그인 안 됐거나, 로그인은 됐지만 약관 미동의인 경우 → LoginScreen 유지 (BLOCKER #46)
-  // termsAcceptedFromDb === null: Firestore 조회 전 → LoginScreen 유지 (OAuth 직후 모달 표시 위해)
-  // termsAcceptedFromDb === false: 명시적 미동의 → LoginScreen 유지
-  // termsAcceptedFromDb === true: 메인 앱 진입 가능
+  // 약관 동의 안 한 사용자는 모두 LoginScreen으로
+  // - !user: 로그아웃 상태
+  // - termsAcceptedFromDb=null: OAuth 직후 또는 새로고침 직후 (LoginScreen 내부에서 처리)
+  // - termsAcceptedFromDb=false: 명시적 미동의 (LoginScreen 모달 표시)
+  // termsAcceptedFromDb=true가 되어야 메인 앱 진입
   if (!user || termsAcceptedFromDb !== true) {
     return (
       <LoginScreen
@@ -914,7 +938,7 @@ const App = () => {
           max-width: 360px;
         }
         .ai-consent-text {
-          color: rgba(220,228,224,0.6);
+          color: rgba(220,228,224,0.8);
           font-size: 13px;
           line-height: 1.6;
           margin: 0;

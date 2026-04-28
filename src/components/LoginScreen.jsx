@@ -427,6 +427,9 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en', pendingConsentUser = null })
     setError('');
     setInfo('');
     try {
+      // 메일 언어를 사용자 언어로 설정 (Firebase 기본 템플릿이 다국어 지원)
+      // ko/en/ja/zh-TW/es/fr/pt/id/ar/tr/th 모두 Firebase가 자동 처리
+      auth.languageCode = lang;
       await sendPasswordResetEmail(auth, trimmedEmail);
       setInfo(t.resetEmailSent);
     } catch (err) {
@@ -864,12 +867,12 @@ const s = {
   },
   termsText: {
     fontSize: '12px',
-    color: 'rgba(255,255,255,0.6)',
+    color: 'rgba(255,255,255,0.85)',
     lineHeight: 1.5,
     flex: 1,
   },
   termsInlineLink: {
-    color: 'rgba(255,255,255,0.85)',
+    color: 'rgba(255,255,255,1)',
     textDecoration: 'underline',
     textUnderlineOffset: '2px',
     cursor: 'pointer',
@@ -892,7 +895,7 @@ const s = {
   oauthSubtitle: {
     fontFamily: "'Cormorant Garamond', serif",
     fontStyle: 'italic',
-    color: 'rgba(220,228,224,0.5)',
+    color: 'rgba(220,228,224,0.7)',
     fontSize: '15px',
     margin: 0,
     textAlign: 'center',

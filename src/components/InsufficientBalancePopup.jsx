@@ -93,7 +93,7 @@ const InsufficientBalancePopup = ({
         }
 
         .popup-title {
-          color: #fff;
+          color: rgba(255,255,255,0.95);
           font-size: 22px;
           font-weight: 700;
           margin-bottom: 16px;
@@ -107,7 +107,7 @@ const InsufficientBalancePopup = ({
         }
 
         .popup-info .need {
-          color: #fff;
+          color: rgba(255,255,255,0.9);
           font-weight: 600;
         }
 
@@ -139,7 +139,7 @@ const InsufficientBalancePopup = ({
         .rec-value {
           font-size: 18px;
           font-weight: 700;
-          color: #fff;
+          color: rgba(255,255,255,0.9);
         }
 
         .popup-buttons {

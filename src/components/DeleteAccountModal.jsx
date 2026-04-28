@@ -253,7 +253,7 @@ const s = {
   },
   intro: {
     fontSize: '13px',
-    color: 'rgba(220,228,224,0.6)',
+    color: 'rgba(220,228,224,0.85)',
     lineHeight: 1.6,
     margin: '0 0 12px 0',
     textAlign: 'left',
@@ -264,20 +264,20 @@ const s = {
   },
   listItem: {
     fontSize: '13px',
-    color: 'rgba(220,228,224,0.6)',
+    color: 'rgba(220,228,224,0.85)',
     lineHeight: 1.7,
     listStyle: 'disc',
   },
   notice: {
     fontSize: '12.5px',
-    color: 'rgba(220,228,224,0.55)',
+    color: 'rgba(220,228,224,0.8)',
     lineHeight: 1.55,
     margin: '0 0 10px 0',
     textAlign: 'left',
   },
   question: {
     fontSize: '13px',
-    color: 'rgba(220,228,224,0.7)',
+    color: 'rgba(220,228,224,0.9)',
     lineHeight: 1.6,
     margin: '14px 0 0 0',
     textAlign: 'left',
@@ -344,7 +344,7 @@ const s = {
   },
   deleting: {
     fontSize: '14px',
-    color: 'rgba(220,228,224,0.7)',
+    color: 'rgba(220,228,224,0.9)',
     textAlign: 'center',
     margin: 0,
     fontFamily: "'Cormorant Garamond', serif",
