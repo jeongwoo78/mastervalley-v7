@@ -13,6 +13,7 @@
 // A-2: Firebase Auth 토큰 검증용
 import { initializeApp, getApps, cert } from 'firebase-admin/app';
 import { getAuth } from 'firebase-admin/auth';
+import { getFirestore, FieldValue } from 'firebase-admin/firestore';
 
 if (!getApps().length) {
   initializeApp({
@@ -23,6 +24,8 @@ if (!getApps().length) {
     })
   });
 }
+
+const db = getFirestore();
 
 // ========================================
 // 거장 페르소나 (간소화)
@@ -462,10 +465,26 @@ export default async function handler(req, res) {
     if (!authHeader?.startsWith('Bearer ')) {
       return res.status(401).json({ error: 'Unauthorized: missing auth token' });
     }
+    let uid;
     try {
-      await getAuth().verifyIdToken(authHeader.split('Bearer ')[1]);
+      const decoded = await getAuth().verifyIdToken(authHeader.split('Bearer ')[1]);
+      uid = decoded.uid;
     } catch (authErr) {
       return res.status(401).json({ error: 'Unauthorized: invalid auth token' });
+    }
+
+    // #51: Rate limit — 1초 미만 연속 호출 차단 (비용 어뷰징 방지)
+    try {
+      const userRef = db.collection('users').doc(uid);
+      const userSnap = await userRef.get();
+      const lastChatAt = userSnap.data()?.lastChatAt?.toMillis?.() || 0;
+      if (Date.now() - lastChatAt < 1000) {
+        return res.status(429).json({ error: 'Too many requests. Please wait a moment.' });
+      }
+      await userRef.update({ lastChatAt: FieldValue.serverTimestamp() });
+    } catch (rateLimitErr) {
+      // Firestore 장애 시 차단하지 않고 통과 (가용성 우선)
+      console.error('[rate-limit] Firestore error, allowing request:', rateLimitErr.message);
     }
 
     const { 
