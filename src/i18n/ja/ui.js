@@ -286,6 +286,7 @@ export const ui = {
     weakPassword: 'パスワードは6文字以上にしてください',
     wrongCredentials: 'メールアドレスまたはパスワードが正しくありません',
     loginFailed: 'ログインに失敗しました。再試行してください。',
+    tooManyRequests: '試行回数が多すぎます。しばらくしてからもう一度お試しください。',
     forgotPassword: 'パスワードをお忘れですか？',
     resetEmailPrompt: 'リセットリンクを受け取るメールアドレスを入力してください',
     resetEmailSent: 'リセットメールを送信しました。受信箱をご確認ください。',

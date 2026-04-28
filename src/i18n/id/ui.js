@@ -286,6 +286,7 @@ export const ui = {
     weakPassword: 'Kata sandi minimal 6 karakter',
     wrongCredentials: 'Email atau kata sandi salah',
     loginFailed: 'Login gagal. Coba lagi.',
+    tooManyRequests: 'Terlalu banyak percobaan. Silakan coba lagi nanti.',
     forgotPassword: 'Lupa kata sandi?',
     resetEmailPrompt: 'Masukkan email untuk menerima tautan setel ulang',
     resetEmailSent: 'Email setel ulang terkirim. Periksa kotak masuk Anda.',

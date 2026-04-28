@@ -286,6 +286,7 @@ export const ui = {
     weakPassword: 'La contraseña debe tener al menos 6 caracteres',
     wrongCredentials: 'Correo o contraseña incorrectos',
     loginFailed: 'Inicio de sesión fallido. Inténtalo de nuevo.',
+    tooManyRequests: 'Demasiados intentos. Por favor, inténtalo de nuevo más tarde.',
     forgotPassword: '¿Olvidaste tu contraseña?',
     resetEmailPrompt: 'Ingresa tu correo para recibir un enlace de restablecimiento',
     resetEmailSent: 'Correo de restablecimiento enviado. Revisa tu bandeja de entrada.',
