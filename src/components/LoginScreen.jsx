@@ -565,8 +565,15 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en', pendingConsentUser = null })
                 type="checkbox"
                 checked={termsAgreed}
                 onChange={(e) => setTermsAgreed(e.target.checked)}
-                style={s.termsCheckbox}
+                style={s.termsCheckboxHidden}
               />
+              <span style={{ ...s.termsCheckboxBox, ...(termsAgreed ? s.termsCheckboxBoxChecked : {}) }}>
+                {termsAgreed && (
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8aa896" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                )}
+              </span>
               <span style={s.termsText}>
                 {(() => {
                   // {terms}, {privacy} placeholder를 클릭 가능한 링크로 분해
@@ -638,8 +645,15 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en', pendingConsentUser = null })
                 type="checkbox"
                 checked={oauthConsentChecked}
                 onChange={(e) => setOauthConsentChecked(e.target.checked)}
-                style={s.termsCheckbox}
+                style={s.termsCheckboxHidden}
               />
+              <span style={{ ...s.termsCheckboxBox, ...(oauthConsentChecked ? s.termsCheckboxBoxChecked : {}) }}>
+                {oauthConsentChecked && (
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8aa896" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                )}
+              </span>
               <span style={s.termsText}>
                 {(() => {
                   const parts = (t.termsAgreement || '').split(/(\{terms\}|\{privacy\})/g);
@@ -858,12 +872,29 @@ const s = {
     cursor: 'pointer',
     userSelect: 'none',
   },
-  termsCheckbox: {
-    width: '18px', height: '18px',
+  termsCheckboxHidden: {
+    position: 'absolute',
+    opacity: 0,
+    width: 0,
+    height: 0,
+    pointerEvents: 'none',
+  },
+  termsCheckboxBox: {
+    width: '18px',
+    height: '18px',
     marginTop: '2px',
-    accentColor: '#8aa896',
-    cursor: 'pointer',
+    border: '1.5px solid rgba(220,228,224,0.4)',
+    borderRadius: '3px',
+    background: 'transparent',
     flexShrink: 0,
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    transition: 'border-color 0.15s',
+    cursor: 'pointer',
+  },
+  termsCheckboxBoxChecked: {
+    borderColor: '#8aa896',
   },
   termsText: {
     fontSize: '12px',

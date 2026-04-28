@@ -318,7 +318,7 @@ export const ui = {
     warningItem3: '계정 정보',
     warningIrreversible: '삭제된 데이터는 복구할 수 없습니다.',
     warningPurchaseNote: '다만, 결제 기록은 익명화되어 법령에 따라 보관됩니다.',
-    warningRejoinNote: '이전에 사용한 이메일 주소로 다시 가입하시면 신규 무료 크레딧은 지급되지 않습니다.',
+    warningRejoinNote: '이전에 사용한 이메일 주소로 다시 가입시, 신규 무료 크레딧은 지급되지 않습니다.',
     warningContinueQuestion: '계속하시겠습니까?',
     warningContinueBtn: '계속',
 

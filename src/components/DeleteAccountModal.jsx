@@ -84,11 +84,13 @@ const DeleteAccountModal = ({ user, lang = 'en', onCancel, onComplete }) => {
         await reauthenticateWithCredential(user, credential);
       }
 
+      // 재인증 성공 → 즉시 deleting 화면 전환 (시각적 피드백)
+      setStep('deleting');
+
       // 2. 새 ID 토큰 발급 (재인증 직후 갱신)
       const idToken = await user.getIdToken(true);
 
       // 3. Cloud Function 호출
-      setStep('deleting');
       const region = 'us-central1';
       const projectId = 'master-valley';
       const url = `https://${region}-${projectId}.cloudfunctions.net/deleteAccount`;
@@ -284,7 +286,7 @@ const s = {
     listStyle: 'disc',
   },
   notice: {
-    fontSize: '12.5px',
+    fontSize: '13.5px',
     color: 'rgba(220,228,224,0.8)',
     lineHeight: 1.55,
     margin: '0 0 10px 0',
