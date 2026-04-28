@@ -286,6 +286,7 @@ export const ui = {
     weakPassword: '密碼至少需要 6 個字元',
     wrongCredentials: '電子郵件或密碼錯誤',
     loginFailed: '登入失敗，請再試一次。',
+    tooManyRequests: '嘗試次數過多，請稍後再試。',
     forgotPassword: '忘記密碼？',
     resetEmailPrompt: '輸入您的電子郵件以接收重設連結',
     resetEmailSent: '已寄出重設郵件，請查看您的收件匣。',
