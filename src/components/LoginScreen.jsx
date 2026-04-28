@@ -172,17 +172,10 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en', pendingConsentUser = null })
     return TIMINGS[position];
   }
 
-  // 외부(App.jsx)에서 미동의 사용자 마운트 시 자동으로 OAuth 동의 모달 표시 (BLOCKER #46)
-  // 시나리오: 동의 안 하고 앱 종료 → 재시작 시 onAuthStateChanged로 user 살아남
-  //          → App.jsx termsAcceptedFromDb=false → LoginScreen 재마운트 + pendingConsentUser 전달
-  useEffect(() => {
-    if (pendingConsentUser && !showOAuthConsent) {
-      setPendingOAuthUser(pendingConsentUser);
-      setOauthConsentChecked(false);
-      setShowOAuthConsent(true);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pendingConsentUser]);
+  // ※ 과거 pendingConsentUser 자동 모달 표시 로직 제거 (2026-04-28)
+  //   - 계정 삭제 직후 재로그인 시 race condition으로 약관 모달이 OAuth 전에 자동 표시되는 버그
+  //   - 동의 미완료 사용자는 App.jsx에서 강제 로그아웃 처리 (재로그인 유도)
+  //   - 정상 OAuth 흐름은 handleOAuthSuccess()가 처리
 
   // 캐러셀 자동 재생
   useEffect(() => {
