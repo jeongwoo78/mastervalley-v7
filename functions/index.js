@@ -9,11 +9,23 @@ import { initializeApp } from 'firebase-admin/app';
 import { getAuth } from 'firebase-admin/auth';
 import { getFirestore, FieldValue, Timestamp } from 'firebase-admin/firestore';
 import { getMessaging } from 'firebase-admin/messaging';
+import { createHash } from 'crypto';
 
 import { runTransform, runVisionAnalysis } from './transform-logic.js';
 
 initializeApp();
 const db = getFirestore();
+
+// ========================================
+// 이메일 해시 헬퍼 (어뷰징 방지: 삭제 후 재가입 시 무료 크레딧 차단)
+// ========================================
+const HASH_SALT = 'mv_2026_xK9pQ3vL8nR5';
+function hashEmail(email) {
+  if (!email) return null;
+  return createHash('sha256').update(email.toLowerCase().trim() + HASH_SALT).digest('hex');
+}
+
+const INITIAL_FREE_CREDITS = 0.30;
 
 // ========================================
 // A-2: Firebase Auth 토큰 검증
@@ -924,6 +936,20 @@ export const deleteAccount = onRequest({
       }
     }
     
+    // 5) 사용자 문서 삭제 직전 — 이메일 해시 보관 (재가입 어뷰징 방지)
+    const userDocSnapshot = await db.collection('users').doc(userId).get();
+    const userEmail = userDocSnapshot.exists ? userDocSnapshot.data()?.email : null;
+    
+    if (userEmail) {
+      const emailHash = hashEmail(userEmail);
+      if (emailHash) {
+        await db.collection('deleted_users').doc(emailHash).set({
+          deletedAt: FieldValue.serverTimestamp()
+        });
+        console.log(`[deleteAccount] 이메일 해시 저장: ${userId}`);
+      }
+    }
+    
     // 5) 사용자 문서 삭제 (users/{uid})
     await db.collection('users').doc(userId).delete();
     
@@ -958,5 +984,81 @@ export const deleteAccount = onRequest({
   } catch (error) {
     console.error('[deleteAccount] 에러:', error);
     return res.status(500).json({ error: 'Internal error during account deletion' });
+  }
+});
+
+// ========================================
+// 신규 가입자 문서 생성 (provisionUser)
+// ========================================
+// - 기존: 클라이언트(firebase.js ensureUserDoc)가 직접 setDoc
+// - 변경: 서버가 처리 (deleted_users 해시 체크 후 무료 크레딧 결정)
+// - 어뷰징 방지: 삭제된 계정으로 재가입 시 INITIAL_FREE_CREDITS 미지급
+// ========================================
+export const provisionUser = onRequest({
+  cors: true,
+  timeoutSeconds: 30,
+  memory: '256MiB',
+  region: 'us-central1'
+}, async (req, res) => {
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+  
+  try {
+    const userId = await verifyAuth(req);
+    if (!userId) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+    
+    const email = req.body?.email || '';
+    
+    const userRef = db.collection('users').doc(userId);
+    const userDoc = await userRef.get();
+    
+    // 이미 문서 있으면 그대로 반환 (멱등성)
+    if (userDoc.exists) {
+      return res.status(200).json({ 
+        success: true, 
+        existing: true,
+        credits: userDoc.data()?.credits ?? 0
+      });
+    }
+    
+    // 신규 — deleted_users 해시 체크
+    let initialCredits = INITIAL_FREE_CREDITS;
+    let wasDeleted = false;
+    
+    if (email) {
+      const emailHash = hashEmail(email);
+      if (emailHash) {
+        const deletedDoc = await db.collection('deleted_users').doc(emailHash).get();
+        if (deletedDoc.exists) {
+          initialCredits = 0;
+          wasDeleted = true;
+          console.log(`[provisionUser] 삭제 이력 발견: ${userId} → 0크레딧 지급`);
+        }
+      }
+    }
+    
+    await userRef.set({
+      email: email,
+      credits: initialCredits,
+      createdAt: new Date().toISOString()
+    });
+    
+    console.log(`[provisionUser] 신규 생성: ${userId} | credits: ${initialCredits} | wasDeleted: ${wasDeleted}`);
+    
+    return res.status(200).json({
+      success: true,
+      existing: false,
+      credits: initialCredits
+    });
+    
+  } catch (error) {
+    console.error('[provisionUser] 에러:', error);
+    return res.status(500).json({ error: 'Internal error during user provisioning' });
   }
 });

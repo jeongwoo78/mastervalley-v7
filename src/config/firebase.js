@@ -37,17 +37,43 @@ const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
 const appleProvider = new OAuthProvider('apple.com');
 
-// 신규 유저 초기 크레딧 (폐쇄 테스트: $10.00, 프로덕션: $0.30)
-const INITIAL_FREE_CREDITS = 0.30;
-
 // 유저 문서 초기화 (첫 로그인 시 credits 필드 생성)
+// - 서버 위임: provisionUser Cloud Function이 deleted_users 해시 체크 + 무료 크레딧 결정
+// - 어뷰징 방지: 삭제된 계정으로 재가입 시 INITIAL_FREE_CREDITS 미지급
+const PROVISION_USER_URL = 'https://us-central1-master-valley.cloudfunctions.net/provisionUser';
+
 const ensureUserDoc = async (userId, email) => {
   const userRef = doc(db, 'users', userId);
   const userDoc = await getDoc(userRef);
-  if (!userDoc.exists()) {
+  if (userDoc.exists()) return; // 이미 있으면 스킵 (네트워크 호출 절약)
+  
+  // 신규 — 서버에 위임
+  try {
+    const idToken = await auth.currentUser.getIdToken();
+    const response = await fetch(PROVISION_USER_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${idToken}`
+      },
+      body: JSON.stringify({ email: email || '' })
+    });
+    
+    if (!response.ok) {
+      console.error('[ensureUserDoc] provisionUser 실패:', response.status);
+      // fallback: 기존 방식으로 문서 생성 (어뷰징 가능하지만 사용성 우선)
+      await setDoc(userRef, {
+        email: email || '',
+        credits: 0.30,
+        createdAt: new Date().toISOString()
+      });
+    }
+  } catch (err) {
+    console.error('[ensureUserDoc] 네트워크 에러:', err);
+    // fallback: 기존 방식
     await setDoc(userRef, {
       email: email || '',
-      credits: INITIAL_FREE_CREDITS,
+      credits: 0.30,
       createdAt: new Date().toISOString()
     });
   }
