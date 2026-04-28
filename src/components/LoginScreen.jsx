@@ -11,7 +11,7 @@ import {
   signOut,
   GoogleAuthProvider
 } from 'firebase/auth';
-import { setDoc } from 'firebase/firestore';
+import { setDoc, updateDoc } from 'firebase/firestore';
 import { auth, db, doc, getDoc, googleProvider, appleProvider } from '../config/firebase';
 import { Capacitor } from '@capacitor/core';
 import { getUi } from '../i18n';
@@ -338,12 +338,15 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en', pendingConsentUser = null })
     setLoading(true);
     try {
       const userRef = doc(db, 'users', pendingOAuthUser.uid);
-      // merge: true로 기존 문서 보존 (ensureUserDoc이 만든 credits 등 유지)
-      await setDoc(userRef, {
+      // ensureUserDoc 완료 대기 (race condition 방지)
+      // 계정 삭제 직후 재가입 시 ensureUserDoc과 setDoc이 충돌하는 케이스 대응
+      await new Promise(resolve => setTimeout(resolve, 500));
+      // updateDoc: ensureUserDoc이 이미 문서 생성했으므로 update만
+      await updateDoc(userRef, {
         termsAccepted: true,
         termsAcceptedAt: new Date().toISOString(),
         termsVersion: '2026-04-14'
-      }, { merge: true });
+      });
       const user = pendingOAuthUser;
       setShowOAuthConsent(false);
       setPendingOAuthUser(null);
@@ -385,15 +388,17 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en', pendingConsentUser = null })
         : await signInWithEmailAndPassword(auth, email, password);
       // 회원가입 성공 시 약관 동의 기록 (Firestore)
       // ensureUserDoc이 App.jsx의 onAuthStateChanged에서 호출되어 users/{uid} 생성
-      // 그 직후 우리가 termsAccepted를 merge로 추가
+      // 그 직후 termsAccepted를 update로 추가
       if (isSignUp && result?.user) {
         try {
+          // ensureUserDoc 완료 대기 (race condition 방지)
+          await new Promise(resolve => setTimeout(resolve, 500));
           const userRef = doc(db, 'users', result.user.uid);
-          await setDoc(userRef, {
+          await updateDoc(userRef, {
             termsAccepted: true,
             termsAcceptedAt: new Date().toISOString(),
             termsVersion: '2026-04-14'
-          }, { merge: true });
+          });
         } catch (saveErr) {
           // 저장 실패해도 가입은 진행 (Firestore 일시 장애 대비)
           // 다음 로그인 시 OAuth 흐름과 동일하게 동의 모달 다시 받게 됨
