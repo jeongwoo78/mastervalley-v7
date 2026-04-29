@@ -275,16 +275,16 @@ const App = () => {
     
     const promise = (async () => {
       try {
-        // P0-#6 (v99): 검색 윈도우 1시간 → 7일로 확장
-        //   배경: 서버는 30일 보관(TTL)하지만 클라이언트는 1시간만 가져옴
-        //   사용자가 다음날/주말에 앱 열어도 미수신 결과 자동 복원되도록
-        //   중복 방지: saveToGallery가 transformId 기준 사전 체크 → 영향 없음
-        const sevenDaysAgo = Timestamp.fromDate(new Date(Date.now() - 7 * 24 * 60 * 60 * 1000));
+        // 검색 윈도우 1시간 (P0 #6 롤백 — 7일은 다른 디바이스 결과까지 부활시킴)
+        //   배경: 7일 윈도우 시 정우 케이스 발생 — 다른 디바이스에서 한 변환 19건이 한꺼번에 부활
+        //   대안: 1시간 윈도우면 진짜 미수신 케이스만 복원 (FCM 알림 탭 시 즉시 처리됨)
+        //   장기 해결: 서버 측 deletedByUser 필드 추가 (출시 후 v2)
+        const oneHourAgo = Timestamp.fromDate(new Date(Date.now() - 60 * 60 * 1000));
         const q = query(
           collection(db, 'transforms'),
           where('userId', '==', userId),
           where('status', '==', 'completed'),
-          where('completedAt', '>=', sevenDaysAgo)
+          where('completedAt', '>=', oneHourAgo)
         );
         const snapshot = await getDocs(q);
         if (snapshot.empty) return;
