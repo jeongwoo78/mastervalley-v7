@@ -253,6 +253,8 @@ export const ui = {
     info2: 'Balance never expires',
     purchaseComplete: 'Payment completed. Your balance will update shortly.',
     purchaseDelayed: 'Your payment was completed but the balance is delayed. Please tap "Restore Purchases" in the menu.',
+    iapWebOnly: 'In-app purchases are only available in the app.',
+    purchaseFailed: 'Payment failed. Please try again.',
   },
 
   // ===== Subscription Info (Track A - 탐색 화면용) =====

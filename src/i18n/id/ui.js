@@ -254,6 +254,8 @@ export const ui = {
     info2: 'Saldo tidak kedaluwarsa',
     purchaseComplete: 'Pembayaran selesai. Saldo Anda akan segera diperbarui.',
     purchaseDelayed: 'Pembayaran selesai tetapi saldo tertunda. Ketuk "Pulihkan Pembelian" di menu.',
+    iapWebOnly: 'Pembelian dalam aplikasi hanya tersedia di aplikasi.',
+    purchaseFailed: 'Pembayaran gagal. Silakan coba lagi.',
   },
 
   // ===== Subscription Info =====

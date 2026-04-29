@@ -254,6 +254,8 @@ export const ui = {
     info2: '餘額永久有效',
     purchaseComplete: '付款完成。您的餘額即將更新。',
     purchaseDelayed: '付款已完成，但餘額更新延遲。請點擊選單中的「恢復購買」。',
+    iapWebOnly: '應用內購買僅在應用中可用。',
+    purchaseFailed: '付款失敗。請重試。',
   },
 
   // ===== Subscription Info =====

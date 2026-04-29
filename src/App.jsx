@@ -244,12 +244,16 @@ const App = () => {
     
     const promise = (async () => {
       try {
-        const oneHourAgo = Timestamp.fromDate(new Date(Date.now() - 60 * 60 * 1000));
+        // P0-#6 (v99): 검색 윈도우 1시간 → 7일로 확장
+        //   배경: 서버는 30일 보관(TTL)하지만 클라이언트는 1시간만 가져옴
+        //   사용자가 다음날/주말에 앱 열어도 미수신 결과 자동 복원되도록
+        //   중복 방지: saveToGallery가 transformId 기준 사전 체크 → 영향 없음
+        const sevenDaysAgo = Timestamp.fromDate(new Date(Date.now() - 7 * 24 * 60 * 60 * 1000));
         const q = query(
           collection(db, 'transforms'),
           where('userId', '==', userId),
           where('status', '==', 'completed'),
-          where('completedAt', '>=', oneHourAgo)
+          where('completedAt', '>=', sevenDaysAgo)
         );
         const snapshot = await getDocs(q);
         if (snapshot.empty) return;
@@ -656,6 +660,8 @@ const App = () => {
       setAiSelectedArtist(result.aiSelectedArtist || null);
       setAiSelectedWork(result.selected_work || null);
       setSubjectType(result.subjectType || null);
+      // v99 (#3 보강): retry 성공 시 새 transformId 갱신 → 다음 retry 시 정확한 검증
+      setCurrentTransformId(result?.transformId || null);
     }
   };
 

@@ -246,6 +246,8 @@ export const ui = {
     info2: 'O saldo não expira',
     purchaseComplete: 'Pagamento concluído. Seu saldo será atualizado em breve.',
     purchaseDelayed: 'Pagamento concluído, mas o saldo está atrasado. Toque em "Restaurar compras" no menu.',
+    iapWebOnly: 'Compras no aplicativo só estão disponíveis no app.',
+    purchaseFailed: 'Pagamento falhou. Tente novamente.',
   },
 
   subscriptionInfo: {

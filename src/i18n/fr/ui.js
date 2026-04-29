@@ -254,6 +254,8 @@ export const ui = {
     info2: 'Solde sans expiration',
     purchaseComplete: 'Paiement effectué. Votre solde sera mis à jour sous peu.',
     purchaseDelayed: 'Paiement effectué mais le solde tarde. Appuyez sur "Restaurer les achats" dans le menu.',
+    iapWebOnly: 'Les achats intégrés ne sont disponibles que dans l\'application.',
+    purchaseFailed: 'Échec du paiement. Veuillez réessayer.',
   },
 
   // ===== Subscription Info =====

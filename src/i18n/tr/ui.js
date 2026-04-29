@@ -246,6 +246,8 @@ export const ui = {
     info2: 'Bakiye süresiz geçerli',
     purchaseComplete: 'Ödeme tamamlandı. Bakiyeniz kısa sürede güncellenecektir.',
     purchaseDelayed: 'Ödeme tamamlandı ancak bakiye gecikti. Menüden "Satın Alımları Geri Yükle"ye dokunun.',
+    iapWebOnly: 'Uygulama içi satın alımlar yalnızca uygulamada mevcuttur.',
+    purchaseFailed: 'Ödeme başarısız. Lütfen tekrar deneyin.',
   },
 
   subscriptionInfo: {

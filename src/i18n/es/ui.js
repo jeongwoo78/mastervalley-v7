@@ -254,6 +254,8 @@ export const ui = {
     info2: 'Saldo sin caducidad',
     purchaseComplete: 'Pago completado. Tu saldo se actualizará en breve.',
     purchaseDelayed: 'El pago se completó pero el saldo se retrasa. Toca "Restaurar compras" en el menú.',
+    iapWebOnly: 'Las compras dentro de la aplicación solo están disponibles en la app.',
+    purchaseFailed: 'El pago falló. Inténtalo de nuevo.',
   },
 
   // ===== Subscription Info =====

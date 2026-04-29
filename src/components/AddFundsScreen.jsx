@@ -48,9 +48,7 @@ const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, l
 
     // 웹 환경: IAP 불가
     if (!isNativeIAP()) {
-      alert(lang === 'ko'
-        ? '인앱결제는 앱에서만 가능합니다.'
-        : 'In-app purchases are only available in the app.');
+      alert(t.iapWebOnly);
       return;
     }
 
@@ -64,7 +62,7 @@ const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, l
         if (result.error !== 'cancelled') {
           // 상세 디버그는 콘솔로만 (유저에게 노출 X)
           console.error('[Purchase] Failed:', result);
-          alert('Purchase failed. Please try again.');
+          alert(t.purchaseFailed);
         }
         return;
       }
@@ -131,7 +129,7 @@ const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, l
 
     } catch (error) {
       console.error('[Purchase] Exception:', error);
-      alert('An error occurred during purchase. Please try again.');
+      alert(t.purchaseFailed);
     } finally {
       setPurchasing(null);
     }
