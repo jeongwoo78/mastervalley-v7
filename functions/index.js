@@ -363,42 +363,74 @@ async function handleSingle(req, res, params) {
   }
   
   // v94: 재시도 요청 검증 (어뷰징 방어)
+  // v99 (#3): originalTransformId가 null이어도 최근 completed 자동 검색 (state 손실 복구)
   let retryValidated = false;
   let retryNeedsCharge = false;  // v98: 원본이 failed면 재시도 성공 시에도 차감 필요
+  let resolvedOriginalTid = originalTransformId;  // v99: 자동 검색 결과 저장
+  
   if (isRetry) {
-    if (!originalTransformId) {
-      return res.status(400).json({ error: 'isRetry requires originalTransformId' });
+    // v99: originalTransformId 없으면 → 최근 10분 같은 사용자/스타일의 completed 자동 검색
+    if (!resolvedOriginalTid) {
+      try {
+        const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000);
+        const recentSnap = await db.collection('transforms')
+          .where('userId', '==', userId)
+          .where('styleId', '==', selectedStyle.id || '')
+          .where('status', '==', 'completed')
+          .where('createdAt', '>=', tenMinutesAgo)
+          .orderBy('createdAt', 'desc')
+          .limit(1)
+          .get();
+        
+        if (!recentSnap.empty) {
+          resolvedOriginalTid = recentSnap.docs[0].id;
+          console.log(`🔍 v99 retry 자동 검색 성공: ${userId} | style=${selectedStyle.id} | 발견 tid=${resolvedOriginalTid}`);
+        } else {
+          // 검색 결과 없음 → 정상 새 변환 흐름으로 fallback (isRetry 무효화)
+          console.log(`🔍 v99 retry 자동 검색 실패 (최근 completed 없음): ${userId} | style=${selectedStyle.id} → 정상 결제 흐름으로 fallback`);
+          // isRetry를 false로 만들어 정상 흐름 진입
+          // 변수명은 이미 const라 새 변수에 결과 저장만 함
+        }
+      } catch (e) {
+        console.error('v99 retry 자동 검색 실패:', e);
+        // 검색 실패해도 정상 새 변환으로 fallback (사용자 차단 X)
+      }
     }
-    try {
-      const origRef = db.collection('transforms').doc(originalTransformId);
-      const origSnap = await origRef.get();
-      if (!origSnap.exists) {
-        return res.status(400).json({ error: 'Original transform not found' });
+    
+    // resolvedOriginalTid가 있을 때만 retry 검증 진행
+    if (resolvedOriginalTid) {
+      try {
+        const origRef = db.collection('transforms').doc(resolvedOriginalTid);
+        const origSnap = await origRef.get();
+        if (!origSnap.exists) {
+          return res.status(400).json({ error: 'Original transform not found' });
+        }
+        const origData = origSnap.data();
+        if (origData.userId !== userId) {
+          console.warn(`⚠️ Retry 어뷰징 시도: ${userId}가 ${origData.userId}의 transformId 접근`);
+          return res.status(403).json({ error: 'Unauthorized retry' });
+        }
+        // 재시도 카운터 (서버측 이중 방어)
+        const retryCount = origData.retryCount || 0;
+        if (retryCount >= 3) {
+          return res.status(429).json({ error: 'Retry limit exceeded (max 3)' });
+        }
+        // v98: 원본이 failed면 한 번도 차감 안 된 상태 → 재시도 성공 시 차감 필요
+        //      원본이 completed면 이미 차감됨 → 재시도는 무료
+        retryNeedsCharge = (origData.status === 'failed');
+        
+        await origRef.update({
+          retryCount: retryCount + 1,
+          lastRetryAt: FieldValue.serverTimestamp()
+        });
+        retryValidated = true;
+        console.log(`🔁 재시도 승인: ${userId} | 원본 ${resolvedOriginalTid} (${retryCount + 1}/3) | 차감필요: ${retryNeedsCharge}`);
+      } catch (e) {
+        console.error('Retry 검증 실패:', e);
+        return res.status(500).json({ error: 'Retry validation failed' });
       }
-      const origData = origSnap.data();
-      if (origData.userId !== userId) {
-        console.warn(`⚠️ Retry 어뷰징 시도: ${userId}가 ${origData.userId}의 transformId 접근`);
-        return res.status(403).json({ error: 'Unauthorized retry' });
-      }
-      // 재시도 카운터 (서버측 이중 방어)
-      const retryCount = origData.retryCount || 0;
-      if (retryCount >= 3) {
-        return res.status(429).json({ error: 'Retry limit exceeded (max 3)' });
-      }
-      // v98: 원본이 failed면 한 번도 차감 안 된 상태 → 재시도 성공 시 차감 필요
-      //      원본이 completed면 이미 차감됨 → 재시도는 무료
-      retryNeedsCharge = (origData.status === 'failed');
-      
-      await origRef.update({
-        retryCount: retryCount + 1,
-        lastRetryAt: FieldValue.serverTimestamp()
-      });
-      retryValidated = true;
-      console.log(`🔁 재시도 승인: ${userId} | 원본 ${originalTransformId} (${retryCount + 1}/3) | 차감필요: ${retryNeedsCharge}`);
-    } catch (e) {
-      console.error('Retry 검증 실패:', e);
-      return res.status(500).json({ error: 'Retry validation failed' });
     }
+    // resolvedOriginalTid가 null이면 → 정상 새 변환 흐름으로 진행 (retryValidated=false 유지)
   }
   
   const docRef = db.collection('transforms').doc(transformId);

@@ -738,18 +738,22 @@ const ResultScreen = ({
   //   시나리오: 서버는 성공했는데 클라이언트 이미지 다운로드 실패로 UI는 실패 표시
   //   이 경우 "다시 시도" 시 새 transformId로 또 차감되는 버그를 막음
   //   원클릭(handleRetry)과 동일한 v94 패턴을 단독 변환에도 적용
+  // v99 (#3 보강): transformId 없어도 isRetry=true로 강제 → 서버가 자동 검색하여 무료 retry
+  //   클라이언트 state 손실 시에도 1결제 1결과 보장
   const handleSingleModeRetry = async () => {
     if (!originalPhoto || !selectedStyle || isRetrying) return;
     
     setIsRetrying(true);
     setRetryProgress(`${selectedStyle.name} ${t.retrying}`);
     
-    // 원본 transformId 존재 시 재시도 모드 (서버가 크레딧 차감 스킵)
-    const useIsRetry = !!transformId;
-    if (useIsRetry) {
-      console.log(`[v95 single retry] isRetry=true, originalTid=${transformId}`);
+    // v99: 항상 isRetry=true로 보냄 (서버가 자동 검색 + fallback 처리)
+    //   - transformId 있으면: 기존 검증 흐름 (서버가 받은 tid 그대로 사용)
+    //   - transformId 없으면: 서버가 최근 10분 completed 자동 검색
+    //     → 찾으면 무료 retry, 못 찾으면 정상 결제 흐름으로 fallback
+    if (transformId) {
+      console.log(`[v99 single retry] isRetry=true, originalTid=${transformId}`);
     } else {
-      console.log(`[v95 single retry] 최초 시도 (transformId 없음 → 일반 변환)`);
+      console.log(`[v99 single retry] transformId 없음 → 서버 자동 검색 모드`);
     }
     
     try {
@@ -760,14 +764,13 @@ const ResultScreen = ({
         () => setRetryProgress(`${selectedStyle.name} ${t.retrying}`),
         { skipFcm: true },  // 재시도는 FCM 푸시 중복 방지
         lang,               // 실패 시 FCM 메시지가 올바른 언어로
-        useIsRetry
-          ? { isRetry: true, originalTransformId: transformId }
-          : {}
+        { isRetry: true, originalTransformId: transformId || null }
       );
       
       // 서버 wasRetry 응답 검증 (구버전 서버 감지 — 원클릭과 동일 패턴)
-      if (useIsRetry && result.success && result.wasRetry !== true) {
-        console.error(`[v95 single retry] ⚠️ wasRetry=${result.wasRetry}, 서버 구버전 가능성 (크레딧 차감 의심)`);
+      // v99: transformId 있을 때만 wasRetry=true 기대 (없으면 fallback일 수 있음)
+      if (transformId && result.success && result.wasRetry !== true) {
+        console.error(`[v99 single retry] ⚠️ wasRetry=${result.wasRetry}, 서버 구버전 가능성 (크레딧 차감 의심)`);
       }
       
       if (result.success) {
