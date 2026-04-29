@@ -4,6 +4,10 @@ import React, { useState } from 'react';
 import { getUi } from '../i18n';
 import { termsContent, privacyContent } from '../data/legalContent';
 import { faqContent } from '../data/faqContent';
+import { restorePurchases, isNativeIAP } from '../utils/revenueCat';
+import { auth } from '../config/firebase';
+
+const API_BASE_URL = 'https://mastervalley-v7.vercel.app';
 
 // ===== SVG Icons =====
 const IconImage = () => (
@@ -93,6 +97,8 @@ const MenuScreen = ({
   const [showFaq, setShowFaq] = useState(false);  // BLOCKER #49
   const [contactOpen, setContactOpen] = useState(false);  // 문의하기 인라인 펼침
   const [copied, setCopied] = useState(false);  // 이메일 복사 토스트
+  const [restoring, setRestoring] = useState(false);  // 구매 복원 진행 중
+  const [restoreToast, setRestoreToast] = useState('');  // 복원 결과 토스트 (key명 자체 — t에서 매핑)
 
   const t = getUi(lang).menu;
   const ta = getUi(lang).about;
@@ -144,6 +150,77 @@ const MenuScreen = ({
       textarea.select();
       try { document.execCommand('copy'); setCopied(true); setTimeout(() => setCopied(false), 2000); } catch {}
       document.body.removeChild(textarea);
+    }
+  };
+
+  // 구매 복원 (Apple Guideline 3.1.1 + 결제 후 크레딧 미반영 시 보조)
+  const handleRestorePurchases = async () => {
+    if (restoring) return;
+    
+    // 웹 환경: IAP 불가
+    if (!isNativeIAP()) {
+      setRestoreToast('restoreFailed');
+      setTimeout(() => setRestoreToast(''), 3000);
+      return;
+    }
+
+    setRestoring(true);
+    setRestoreToast('');
+    
+    try {
+      // 1. RevenueCat이 영수증 재검증 + 서버에 동기화
+      const restoreResult = await restorePurchases();
+      
+      if (!restoreResult.success) {
+        setRestoreToast('restoreFailed');
+        setTimeout(() => setRestoreToast(''), 3000);
+        return;
+      }
+      
+      // 2. 서버 동기화 잠시 대기 (RevenueCat → 우리 서버 webhook 또는 REST 반영)
+      await new Promise(r => setTimeout(r, 2000));
+      
+      // 3. add-credit 호출 (productId 없이 = restore 모드)
+      const authToken = await auth.currentUser?.getIdToken().catch(() => null);
+      if (!authToken) {
+        setRestoreToast('restoreFailed');
+        setTimeout(() => setRestoreToast(''), 3000);
+        return;
+      }
+      
+      const response = await fetch(`${API_BASE_URL}/api/add-credit`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${authToken}`
+        },
+        body: JSON.stringify({ mode: 'restore' })
+      });
+      
+      const data = await response.json();
+      
+      // 4. 결과별 토스트
+      if (data.success && data.processedCount > 0) {
+        // 신규 처리된 구매 있음
+        setRestoreToast('restoreSuccess');
+      } else if (data.success && data.alreadyProcessed) {
+        // 이미 다 처리됨 (잔액에 반영된 상태)
+        setRestoreToast('restoreNoItems');
+      } else if (response.status === 402) {
+        // 영수증 검증 실패 (구매 내역 없음)
+        setRestoreToast('restoreNoItems');
+      } else {
+        setRestoreToast('restoreFailed');
+      }
+      
+      setTimeout(() => setRestoreToast(''), 3000);
+      
+    } catch (err) {
+      console.error('[Restore] error:', err);
+      setRestoreToast('restoreFailed');
+      setTimeout(() => setRestoreToast(''), 3000);
+    } finally {
+      setRestoring(false);
     }
   };
 
@@ -317,6 +394,24 @@ const MenuScreen = ({
           <span className="menu-label">{t.addFunds}</span>
           <span className="menu-chevron-svg"><IconChevron /></span>
         </div>
+
+        {/* Restore Purchases (Apple Guideline 3.1.1) */}
+        <div
+          className="menu-restore-row"
+          onClick={handleRestorePurchases}
+          role="button"
+          tabIndex={0}
+          aria-disabled={restoring}
+        >
+          <span className="menu-restore-label">
+            {restoring ? '...' : t.restorePurchases}
+          </span>
+        </div>
+        {restoreToast && (
+          <div className="menu-restore-toast">
+            {t[restoreToast] || ''}
+          </div>
+        )}
 
         {/* Support - Accordion */}
         <div 
@@ -540,6 +635,38 @@ const menuStyles = `
     transition: color 0.2s;
   }
   .contact-inline:hover .contact-copy-icon { color: rgba(255,255,255,0.7); }
+
+  /* 구매 복원 (보조 기능 — 메인 메뉴 아이콘 없는 작은 텍스트 링크 톤) */
+  .menu-restore-row {
+    padding: 10px 16px 4px;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .menu-restore-row[aria-disabled="true"] { cursor: default; }
+  .menu-restore-label {
+    color: rgba(255,255,255,0.4);
+    font-size: 12px;
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: rgba(255,255,255,0.2);
+  }
+  .menu-restore-row:hover .menu-restore-label {
+    color: rgba(255,255,255,0.65);
+    text-decoration-color: rgba(255,255,255,0.4);
+  }
+  .menu-restore-toast {
+    margin: 6px 16px 0;
+    padding: 10px 14px;
+    background: rgba(138,168,150,0.08);
+    border: 1px solid rgba(138,168,150,0.2);
+    border-radius: 8px;
+    color: rgba(220,228,224,0.85);
+    font-size: 12.5px;
+    text-align: center;
+    line-height: 1.5;
+  }
 
   .about-app-info {
     display: flex;

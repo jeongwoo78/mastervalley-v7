@@ -197,6 +197,10 @@ export const ui = {
     contactUs: 'Bize Ulaşın',
     faq: 'Sık Sorulan Sorular',
     deleteAccount: 'Hesabı Sil',
+    restorePurchases: 'Satın Alımları Geri Yükle',
+    restoreSuccess: 'Satın alımlar geri yüklendi. Lütfen bakiyenizi kontrol edin.',
+    restoreNoItems: 'Geri yüklenecek satın alım yok.',
+    restoreFailed: 'Geri yükleme başarısız oldu. Lütfen daha sonra tekrar deneyin.',
     about: 'Hakkında'
   },
 
@@ -235,6 +239,7 @@ export const ui = {
     info1: 'Tekrar eden ödeme yok',
     info2: 'Bakiye süresiz geçerli',
     purchaseComplete: 'Ödeme tamamlandı. Bakiyeniz kısa sürede güncellenecektir.'
+    purchaseDelayed: 'Ödeme tamamlandı ancak bakiye gecikti. Menüden "Satın Alımları Geri Yükle"ye dokunun.',
   },
 
   subscriptionInfo: {

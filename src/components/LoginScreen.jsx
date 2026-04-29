@@ -406,9 +406,12 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en', pendingConsentUser = null })
       if      (err.code === 'auth/email-already-in-use')  setError(t.emailInUse);
       else if (err.code === 'auth/invalid-email')          setError(t.invalidEmail);
       else if (err.code === 'auth/weak-password')          setError(t.weakPassword);
-      else if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password')
-                                                           setError(t.wrongCredentials);
-      else                                                 setError(`${t.loginFailed} (${err.code})`);
+      else if (err.code === 'auth/user-not-found' || 
+               err.code === 'auth/wrong-password' || 
+               err.code === 'auth/invalid-credential')     setError(t.wrongCredentials);
+      else if (err.code === 'auth/too-many-requests')      setError(t.tooManyRequests);
+      else if (err.code === 'auth/network-request-failed') setError(t.networkError);
+      else                                                 setError(t.loginFailed);
     } finally {
       setLoading(false);
     }
@@ -434,9 +437,11 @@ const LoginScreen = ({ onLoginSuccess, lang = 'en', pendingConsentUser = null })
       setInfo(t.resetEmailSent);
     } catch (err) {
       console.error('Password reset error:', err);
-      if (err.code === 'auth/invalid-email')      setError(t.invalidEmail);
-      else if (err.code === 'auth/user-not-found') setError(t.wrongCredentials);
-      else                                         setError(`${t.resetEmailFailed} (${err.code})`);
+      if      (err.code === 'auth/invalid-email')           setError(t.invalidEmail);
+      else if (err.code === 'auth/user-not-found')          setError(t.wrongCredentials);
+      else if (err.code === 'auth/too-many-requests')       setError(t.tooManyRequests);
+      else if (err.code === 'auth/network-request-failed')  setError(t.networkError);
+      else                                                  setError(t.resetEmailFailed);
     } finally {
       setLoading(false);
     }
@@ -838,7 +843,7 @@ const s = {
     cursor: 'pointer', padding: '4px',
     display: 'flex', alignItems: 'center',
   },
-  error: { fontSize: '12px', color: 'rgba(239,68,68,0.9)', marginBottom: '12px' },
+  error: { fontSize: '12px', color: 'rgba(220,170,160,0.85)', marginBottom: '12px' },
   info:  { fontSize: '12px', color: 'rgba(74,222,128,0.9)', marginBottom: '12px' },
   row: {
     display: 'flex', alignItems: 'center',

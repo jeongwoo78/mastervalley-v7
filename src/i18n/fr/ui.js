@@ -203,6 +203,10 @@ export const ui = {
     contactUs: 'Contactez-nous',
     faq: 'Questions Fréquentes',
     deleteAccount: 'Supprimer le compte',
+    restorePurchases: 'Restaurer les achats',
+    restoreSuccess: 'Achats restaurés. Veuillez vérifier votre solde.',
+    restoreNoItems: 'Aucun achat à restaurer.',
+    restoreFailed: 'Échec de la restauration. Veuillez réessayer plus tard.',
     about: 'À propos'
   },
 
@@ -243,6 +247,7 @@ export const ui = {
     info1: 'Sans abonnement récurrent',
     info2: 'Solde sans expiration',
     purchaseComplete: 'Paiement effectué. Votre solde sera mis à jour sous peu.'
+    purchaseDelayed: 'Paiement effectué mais le solde tarde. Appuyez sur "Restaurer les achats" dans le menu.',
   },
 
   // ===== Subscription Info =====

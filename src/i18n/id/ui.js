@@ -203,6 +203,10 @@ export const ui = {
     contactUs: 'Hubungi Kami',
     faq: 'Pertanyaan Umum',
     deleteAccount: 'Hapus akun',
+    restorePurchases: 'Pulihkan Pembelian',
+    restoreSuccess: 'Pembelian dipulihkan. Silakan periksa saldo Anda.',
+    restoreNoItems: 'Tidak ada pembelian untuk dipulihkan.',
+    restoreFailed: 'Pemulihan gagal. Silakan coba lagi nanti.',
     about: 'Tentang'
   },
 
@@ -243,6 +247,7 @@ export const ui = {
     info1: 'Tanpa langganan berkala',
     info2: 'Saldo tidak kedaluwarsa',
     purchaseComplete: 'Pembayaran selesai. Saldo Anda akan segera diperbarui.'
+    purchaseDelayed: 'Pembayaran selesai tetapi saldo tertunda. Ketuk "Pulihkan Pembelian" di menu.',
   },
 
   // ===== Subscription Info =====

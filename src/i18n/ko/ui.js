@@ -202,6 +202,10 @@ export const ui = {
     contactUs: '문의하기',
     faq: '자주 묻는 질문',
     deleteAccount: '계정 삭제',
+    restorePurchases: '구매 복원',
+    restoreSuccess: '구매가 복원되었습니다. 잔액을 확인해주세요.',
+    restoreNoItems: '복원할 구매 내역이 없습니다.',
+    restoreFailed: '복원에 실패했습니다. 잠시 후 다시 시도해주세요.',
     about: '앱 정보'
   },
 
@@ -242,6 +246,7 @@ export const ui = {
     info1: '정기 구독 없음',
     info2: '잔액 만기 없음',
     purchaseComplete: '결제 완료. 잔액이 곧 업데이트됩니다.'
+    purchaseDelayed: '결제는 완료되었으나 잔액 반영이 지연되고 있습니다. 메뉴의 "구매 복원"을 눌러주세요.',
   },
 
   // ===== Subscription Info (Track A - 탐색 화면용) =====

@@ -202,6 +202,10 @@ export const ui = {
     contactUs: 'Contact Us',
     faq: 'FAQ',
     deleteAccount: 'Delete Account',
+    restorePurchases: 'Restore Purchases',
+    restoreSuccess: 'Purchases restored. Please check your balance.',
+    restoreNoItems: 'No purchases to restore.',
+    restoreFailed: 'Restore failed. Please try again later.',
     about: 'About'
   },
 
@@ -242,6 +246,7 @@ export const ui = {
     info1: 'No recurring payments',
     info2: 'Balance never expires',
     purchaseComplete: 'Payment completed. Your balance will update shortly.'
+    purchaseDelayed: 'Your payment was completed but the balance is delayed. Please tap "Restore Purchases" in the menu.',
   },
 
   // ===== Subscription Info (Track A - 탐색 화면용) =====

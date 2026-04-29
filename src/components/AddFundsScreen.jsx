@@ -10,6 +10,7 @@ const API_BASE_URL = 'https://mastervalley-v7.vercel.app';
 const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, lang = 'en' }) => {
   const [purchasing, setPurchasing] = useState(null);  // 구매 중인 팩 ID
   const [optimisticCredit, setOptimisticCredit] = useState(null);  // v98: Optimistic UI - 결제 즉시 반영 (null이면 userCredits 사용)
+  const [delayNotice, setDelayNotice] = useState(false);  // v99: 5분 후에도 잔액 미반영 시 안내
 
   const t = getUi(lang).addFunds;
 
@@ -17,11 +18,24 @@ const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, l
   const displayCredit = optimisticCredit !== null ? optimisticCredit : userCredits;
 
   // v98: 서버가 실제 잔액을 optimistic 이상으로 따라잡으면 자동 해제 (Firestore onSnapshot 반영)
+  // v99: 따라잡으면 delayNotice도 즉시 해제
   useEffect(() => {
     if (optimisticCredit !== null && userCredits >= optimisticCredit) {
       setOptimisticCredit(null);
+      setDelayNotice(false);
     }
   }, [userCredits, optimisticCredit]);
+
+  // v99: optimistic 설정 후 5분이 지나도 실잔액이 따라오지 않으면 안내 표시
+  //      Restore Purchases로 사용자가 능동 회수 가능 (#1 + #10 연계)
+  useEffect(() => {
+    if (optimisticCredit === null) return;
+    const timeoutId = setTimeout(() => {
+      // 5분 시점에 여전히 optimistic 활성 = 서버 반영 안 됨
+      setDelayNotice(true);
+    }, 5 * 60 * 1000);
+    return () => clearTimeout(timeoutId);
+  }, [optimisticCredit]);
 
   const packs = [
     { id: 'starter', name: 'Starter', price: 0.99, value: 0.99, bonus: null, bonusAmount: null, productId: 'mv_starter_099', tagline: t.tagStarter, featured: true },
@@ -173,6 +187,13 @@ const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, l
           </div>
         ))}
       </div>
+
+      {/* v99: 결제 후 5분 미반영 시 안내 (#1) */}
+      {delayNotice && (
+        <div className="delay-notice">
+          {t.purchaseDelayed}
+        </div>
+      )}
 
       {/* Info Text */}
       <div className="info-text">
@@ -352,6 +373,19 @@ const AddFundsScreen = ({ onBack, userCredits = 0, userId, onPurchaseComplete, l
           font-size: 14px;
           margin: 0;
           line-height: 1.6;
+        }
+
+        /* v99: 결제 후 잔액 미반영 안내 (#1) */
+        .delay-notice {
+          margin: 12px 18px 0;
+          padding: 12px 14px;
+          background: rgba(220,170,160,0.08);
+          border: 1px solid rgba(220,170,160,0.25);
+          border-radius: 10px;
+          color: rgba(220,170,160,0.9);
+          font-size: 13px;
+          line-height: 1.5;
+          text-align: center;
         }
 
         /* Mobile */

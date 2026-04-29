@@ -203,6 +203,10 @@ export const ui = {
     contactUs: 'Contáctanos',
     faq: 'Preguntas Frecuentes',
     deleteAccount: 'Eliminar cuenta',
+    restorePurchases: 'Restaurar compras',
+    restoreSuccess: 'Compras restauradas. Verifica tu saldo.',
+    restoreNoItems: 'No hay compras para restaurar.',
+    restoreFailed: 'Error al restaurar. Inténtalo de nuevo más tarde.',
     about: 'Acerca de'
   },
 
@@ -243,6 +247,7 @@ export const ui = {
     info1: 'Sin suscripción periódica',
     info2: 'Saldo sin caducidad',
     purchaseComplete: 'Pago completado. Tu saldo se actualizará en breve.'
+    purchaseDelayed: 'El pago se completó pero el saldo se retrasa. Toca "Restaurar compras" en el menú.',
   },
 
   // ===== Subscription Info =====

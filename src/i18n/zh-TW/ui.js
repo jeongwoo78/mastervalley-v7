@@ -203,6 +203,10 @@ export const ui = {
     contactUs: '聯絡我們',
     faq: '常見問題',
     deleteAccount: '刪除帳號',
+    restorePurchases: '恢復購買',
+    restoreSuccess: '購買已恢復，請查看餘額。',
+    restoreNoItems: '沒有可恢復的購買記錄。',
+    restoreFailed: '恢復失敗，請稍後再試。',
     about: '關於'
   },
 
@@ -243,6 +247,7 @@ export const ui = {
     info1: '無定期扣款',
     info2: '餘額永久有效',
     purchaseComplete: '付款完成。您的餘額即將更新。'
+    purchaseDelayed: '付款已完成，但餘額更新延遲。請點擊選單中的「恢復購買」。',
   },
 
   // ===== Subscription Info =====

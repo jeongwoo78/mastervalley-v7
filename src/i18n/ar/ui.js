@@ -203,6 +203,10 @@ export const ui = {
     contactUs: 'اتصل بنا',
     faq: 'الأسئلة الشائعة',
     deleteAccount: 'حذف الحساب',
+    restorePurchases: 'استعادة المشتريات',
+    restoreSuccess: 'تمت استعادة المشتريات. يرجى التحقق من رصيدك.',
+    restoreNoItems: 'لا توجد مشتريات للاستعادة.',
+    restoreFailed: 'فشلت الاستعادة. يرجى المحاولة لاحقًا.',
     about: 'حول التطبيق'
   },
 
@@ -243,6 +247,7 @@ export const ui = {
     info1: 'لا اشتراكات متكرّرة',
     info2: 'الرصيد لا تنتهي صلاحيته',
     purchaseComplete: 'تمت عملية الدفع. سيتم تحديث رصيدك قريباً.'
+    purchaseDelayed: 'اكتمل الدفع ولكن الرصيد متأخر. اضغط على "استعادة المشتريات" في القائمة.',
   },
 
   // ===== Subscription Info =====

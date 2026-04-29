@@ -203,6 +203,10 @@ export const ui = {
     contactUs: 'お問い合わせ',
     faq: 'よくある質問',
     deleteAccount: 'アカウント削除',
+    restorePurchases: '購入を復元',
+    restoreSuccess: '購入が復元されました。残高をご確認ください。',
+    restoreNoItems: '復元する購入履歴がありません。',
+    restoreFailed: '復元に失敗しました。しばらくしてからもう一度お試しください。',
     about: 'アプリ情報'
   },
 
@@ -243,6 +247,7 @@ export const ui = {
     info1: '定期課金なし',
     info2: '残高有効期限なし',
     purchaseComplete: 'お支払い完了。残高はまもなく更新されます。'
+    purchaseDelayed: '決済は完了しましたが、残高反映が遅延しています。メニューの「購入を復元」を押してください。',
   },
 
   // ===== Subscription Info =====

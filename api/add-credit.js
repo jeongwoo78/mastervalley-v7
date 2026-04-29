@@ -73,20 +73,37 @@ async function fetchSubscriber(userId) {
 
 /**
  * v98: 모든 미처리 구매 조회 (중복 구매 전수 지급용)
+ * v99: productId 없으면 PRODUCT_CREDITS 모든 상품에서 검색 (Restore Purchases 지원)
+ * @param {string} userId - Firebase UID
+ * @param {string|null} productId - 특정 상품 (null이면 모든 상품)
  * @returns {{found: boolean, purchases: Array, reason?: string}}
- *   purchases는 최신순 정렬된 미처리 구매 배열
+ *   purchases는 최신순 정렬된 미처리 구매 배열 (각 항목에 _productId 포함)
  */
 async function findAllUnclaimedPurchases(userId, productId) {
   const data = await fetchSubscriber(userId);
-  const purchases = data.subscriber?.non_subscriptions?.[productId] || [];
+  const nonSubs = data.subscriber?.non_subscriptions || {};
 
-  if (purchases.length === 0) {
+  // productId 지정되면 해당 상품만, 아니면 모든 상품 검사
+  const targetProductIds = productId
+    ? [productId]
+    : Object.keys(PRODUCT_CREDITS);
+
+  // 모든 대상 상품의 구매 목록 합치기 (productId 정보 보존)
+  let allPurchases = [];
+  for (const pid of targetProductIds) {
+    const list = nonSubs[pid] || [];
+    for (const p of list) {
+      allPurchases.push({ ...p, _productId: pid });
+    }
+  }
+
+  if (allPurchases.length === 0) {
     return { found: false, purchases: [], reason: 'no_purchase' };
   }
 
   // 최근 24시간 이내 구매만 후보
   const cutoffMs = Date.now() - PURCHASE_WINDOW_MS;
-  const recent = purchases.filter(p => {
+  const recent = allPurchases.filter(p => {
     const ms = new Date(p.purchase_date).getTime();
     return ms >= cutoffMs;
   });
@@ -143,19 +160,18 @@ export default async function handler(req, res) {
     }
 
     // 2. 입력 검증
-    const { productId } = req.body || {};
-    if (!productId) {
-      return res.status(400).json({ error: 'Missing productId' });
-    }
-    const creditsToAdd = PRODUCT_CREDITS[productId];
-    if (!creditsToAdd) {
+    //    v99: productId 없으면 'restore' 모드 (모든 상품 검사)
+    const { productId, mode } = req.body || {};
+    const isRestore = !productId || mode === 'restore';
+
+    if (productId && !PRODUCT_CREDITS[productId]) {
       return res.status(400).json({ error: `Invalid product: ${productId}` });
     }
 
-    // 3. RevenueCat 영수증 검증 (v98: 다건 지원)
+    // 3. RevenueCat 영수증 검증 (v99: productId 없으면 전체 검색)
     let verified;
     try {
-      verified = await findAllUnclaimedPurchases(userId, productId);
+      verified = await findAllUnclaimedPurchases(userId, isRestore ? null : productId);
     } catch (rcErr) {
       console.error(`❌ RevenueCat API error: ${rcErr.message}`);
       return res.status(503).json({
@@ -166,7 +182,7 @@ export default async function handler(req, res) {
     }
 
     if (!verified.found) {
-      console.warn(`⚠️ 영수증 검증 실패: ${userId} | ${productId} | ${verified.reason}`);
+      console.warn(`⚠️ 영수증 검증 실패: ${userId} | ${productId || 'restore'} | ${verified.reason}`);
       return res.status(402).json({
         success: false,
         error: 'purchase_not_verified',
@@ -174,8 +190,9 @@ export default async function handler(req, res) {
       });
     }
 
-    // 4. v98: 미처리 구매 전부 순차 지급 (각자 멱등성 보장)
+    // 4. v98/v99: 미처리 구매 전부 순차 지급 (각자 멱등성 보장)
     //    동시 요청 중에도 Firestore 트랜잭션이 중복 차단 → 안전
+    //    v99: 각 purchase의 자체 _productId 사용 (Restore 시 다종 상품 혼합 가능)
     const unclaimedPurchases = verified.purchases;
     const userRef = db.collection('users').doc(userId);
     
@@ -188,6 +205,14 @@ export default async function handler(req, res) {
     for (const purchase of unclaimedPurchases) {
       const storeTxId = purchase.store_transaction_id;
       const purchaseRef = db.collection('purchases').doc(storeTxId);
+      
+      // v99: 각 purchase의 자체 productId 사용 (Restore에서 starter/standard 혼합 가능)
+      const pProductId = purchase._productId || productId;
+      const pCreditsToAdd = PRODUCT_CREDITS[pProductId];
+      if (!pCreditsToAdd) {
+        console.warn(`⚠️ Unknown productId in purchase: ${pProductId}`);
+        continue;
+      }
 
       try {
         const txResult = await db.runTransaction(async (transaction) => {
@@ -201,7 +226,7 @@ export default async function handler(req, res) {
           if (!userDoc.exists) throw new Error('User document not found');
 
           const currentBalance = userDoc.data().credits || 0;
-          const newBalance = Math.round((currentBalance + creditsToAdd) * 100) / 100;
+          const newBalance = Math.round((currentBalance + pCreditsToAdd) * 100) / 100;
 
           transaction.update(userRef, {
             credits: newBalance,
@@ -210,15 +235,15 @@ export default async function handler(req, res) {
 
           transaction.set(purchaseRef, {
             userId,
-            productId,
-            creditsAdded: creditsToAdd,
+            productId: pProductId,
+            creditsAdded: pCreditsToAdd,
             balanceBefore: currentBalance,
             balanceAfter: newBalance,
             storeTransactionId: storeTxId,
             store: purchase.store || 'unknown',
             isSandbox: !!purchase.is_sandbox,
             purchaseDate: purchase.purchase_date,
-            source: 'rest',
+            source: isRestore ? 'rest_restore' : 'rest',
             status: 'completed',
             timestamp: FieldValue.serverTimestamp()
           });
@@ -229,7 +254,7 @@ export default async function handler(req, res) {
         if (txResult.alreadyProcessed) {
           alreadyProcessedCount++;
         } else {
-          totalCreditsAdded += creditsToAdd;
+          totalCreditsAdded += pCreditsToAdd;
           processedCount++;
           finalBalance = txResult.balance;
           processedTxIds.push(storeTxId);
@@ -247,10 +272,11 @@ export default async function handler(req, res) {
       finalBalance = userDoc.exists ? (userDoc.data().credits || 0) : 0;
     }
 
-    console.log(`💰 크레딧 지급 완료: ${userId} | 신규 ${processedCount}건(+$${totalCreditsAdded.toFixed(2)}) | 중복 ${alreadyProcessedCount}건 | 잔액 $${finalBalance} | txIds: ${processedTxIds.join(',') || 'none'}`);
+    console.log(`💰 크레딧 지급 완료: ${userId} | mode=${isRestore ? 'restore' : 'normal'} | 신규 ${processedCount}건(+$${totalCreditsAdded.toFixed(2)}) | 중복 ${alreadyProcessedCount}건 | 잔액 $${finalBalance} | txIds: ${processedTxIds.join(',') || 'none'}`);
     
     return res.status(200).json({
       success: true,
+      mode: isRestore ? 'restore' : 'normal',
       alreadyProcessed: processedCount === 0 && alreadyProcessedCount > 0,
       creditsAdded: totalCreditsAdded,
       processedCount,

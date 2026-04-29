@@ -197,6 +197,10 @@ export const ui = {
     contactUs: 'Fale Conosco',
     faq: 'Perguntas Frequentes',
     deleteAccount: 'Eliminar Conta',
+    restorePurchases: 'Restaurar compras',
+    restoreSuccess: 'Compras restauradas. Verifique seu saldo.',
+    restoreNoItems: 'Nenhuma compra para restaurar.',
+    restoreFailed: 'Falha ao restaurar. Tente novamente mais tarde.',
     about: 'Sobre'
   },
 
@@ -235,6 +239,7 @@ export const ui = {
     info1: 'Sem pagamentos recorrentes',
     info2: 'O saldo não expira',
     purchaseComplete: 'Pagamento concluído. Seu saldo será atualizado em breve.'
+    purchaseDelayed: 'Pagamento concluído, mas o saldo está atrasado. Toque em "Restaurar compras" no menu.',
   },
 
   subscriptionInfo: {

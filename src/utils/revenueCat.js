@@ -196,18 +196,35 @@ export const logOutRC = async () => {
 };
 
 /**
- * 구매 복원 (앱 재설치 시)
+ * 구매 복원 (앱 재설치 / 다른 기기 / 결제 후 크레딧 미반영 시)
+ * RevenueCat이 영수증을 다시 검증하고 customerInfo를 갱신함.
+ * 이후 서버 add-credit (productId 없이 호출 = restore 모드) 호출하면
+ * 미처리 구매 자동 일괄 지급.
+ *
+ * @returns {{success: boolean, customerInfo?: object, error?: string}}
  */
 export const restorePurchases = async () => {
-  if (!isInitialized || !PurchasesModule) return null;
+  if (!isInitialized || !PurchasesModule) {
+    return {
+      success: false,
+      error: 'RevenueCat not initialized',
+      _debug: {
+        isInit: isInitialized,
+        hasModule: !!PurchasesModule,
+        platform: Capacitor.getPlatform(),
+        initError: lastInitError || 'none'
+      }
+    };
+  }
+
   const { Purchases } = PurchasesModule;
 
   try {
     const { customerInfo } = await Purchases.restorePurchases();
-    return customerInfo;
+    return { success: true, customerInfo };
   } catch (error) {
     console.error('❌ 구매 복원 실패:', error);
-    return null;
+    return { success: false, error: error.message || 'restore_failed' };
   }
 };
 
