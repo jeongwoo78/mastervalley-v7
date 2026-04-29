@@ -246,7 +246,7 @@ export const ui = {
     tagPlus: 'Y encuentra tu inspiración',
     info1: 'Sin suscripción periódica',
     info2: 'Saldo sin caducidad',
-    purchaseComplete: 'Pago completado. Tu saldo se actualizará en breve.'
+    purchaseComplete: 'Pago completado. Tu saldo se actualizará en breve.',
     purchaseDelayed: 'El pago se completó pero el saldo se retrasa. Toca "Restaurar compras" en el menú.',
   },
 

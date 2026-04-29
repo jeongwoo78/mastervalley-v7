@@ -246,7 +246,7 @@ export const ui = {
     tagPlus: 'そしてインスピレーションを見つけよう',
     info1: '定期課金なし',
     info2: '残高有効期限なし',
-    purchaseComplete: 'お支払い完了。残高はまもなく更新されます。'
+    purchaseComplete: 'お支払い完了。残高はまもなく更新されます。',
     purchaseDelayed: '決済は完了しましたが、残高反映が遅延しています。メニューの「購入を復元」を押してください。',
   },
 

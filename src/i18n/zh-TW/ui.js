@@ -246,7 +246,7 @@ export const ui = {
     tagPlus: '然後找到你的靈感',
     info1: '無定期扣款',
     info2: '餘額永久有效',
-    purchaseComplete: '付款完成。您的餘額即將更新。'
+    purchaseComplete: '付款完成。您的餘額即將更新。',
     purchaseDelayed: '付款已完成，但餘額更新延遲。請點擊選單中的「恢復購買」。',
   },
 

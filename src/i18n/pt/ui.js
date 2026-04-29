@@ -238,7 +238,7 @@ export const ui = {
     tagPlus: 'E encontre a sua inspiração',
     info1: 'Sem pagamentos recorrentes',
     info2: 'O saldo não expira',
-    purchaseComplete: 'Pagamento concluído. Seu saldo será atualizado em breve.'
+    purchaseComplete: 'Pagamento concluído. Seu saldo será atualizado em breve.',
     purchaseDelayed: 'Pagamento concluído, mas o saldo está atrasado. Toque em "Restaurar compras" no menu.',
   },
 

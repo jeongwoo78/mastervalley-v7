@@ -238,7 +238,7 @@ export const ui = {
     tagPlus: 'Ve ilhamını bul',
     info1: 'Tekrar eden ödeme yok',
     info2: 'Bakiye süresiz geçerli',
-    purchaseComplete: 'Ödeme tamamlandı. Bakiyeniz kısa sürede güncellenecektir.'
+    purchaseComplete: 'Ödeme tamamlandı. Bakiyeniz kısa sürede güncellenecektir.',
     purchaseDelayed: 'Ödeme tamamlandı ancak bakiye gecikti. Menüden "Satın Alımları Geri Yükle"ye dokunun.',
   },
 

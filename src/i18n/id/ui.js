@@ -246,7 +246,7 @@ export const ui = {
     tagPlus: 'Dan temukan inspirasi Anda',
     info1: 'Tanpa langganan berkala',
     info2: 'Saldo tidak kedaluwarsa',
-    purchaseComplete: 'Pembayaran selesai. Saldo Anda akan segera diperbarui.'
+    purchaseComplete: 'Pembayaran selesai. Saldo Anda akan segera diperbarui.',
     purchaseDelayed: 'Pembayaran selesai tetapi saldo tertunda. Ketuk "Pulihkan Pembelian" di menu.',
   },
 

@@ -245,7 +245,7 @@ export const ui = {
     tagPlus: 'And find your inspiration',
     info1: 'No recurring payments',
     info2: 'Balance never expires',
-    purchaseComplete: 'Payment completed. Your balance will update shortly.'
+    purchaseComplete: 'Payment completed. Your balance will update shortly.',
     purchaseDelayed: 'Your payment was completed but the balance is delayed. Please tap "Restore Purchases" in the menu.',
   },
 

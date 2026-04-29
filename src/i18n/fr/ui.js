@@ -246,7 +246,7 @@ export const ui = {
     tagPlus: 'Et trouvez votre inspiration',
     info1: 'Sans abonnement récurrent',
     info2: 'Solde sans expiration',
-    purchaseComplete: 'Paiement effectué. Votre solde sera mis à jour sous peu.'
+    purchaseComplete: 'Paiement effectué. Votre solde sera mis à jour sous peu.',
     purchaseDelayed: 'Paiement effectué mais le solde tarde. Appuyez sur "Restaurer les achats" dans le menu.',
   },
 
