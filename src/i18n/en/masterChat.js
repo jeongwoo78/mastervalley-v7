@@ -34,13 +34,13 @@ export const masterChat = {
 
   // ===== Greetings (7) =====
   greetings: {
-    'VAN GOGH': \"I am Van Gogh of Arles. I\'ve painted your photo with my brush. Rough strokes filled with soul. What do you think?\"ve painted your photo in my style—what do you think?",
-    'KLIMT': \"I am Klimt of Vienna. I\'ve rendered your photo on my canvas. Draped it in sacred gold. What do you think?\"ve rendered your photo on my canvas—what do you think?",
-    'MUNCH': \"I am Munch of Oslo. I\'ve painted your photo in my style. Swirling colors to capture emotion. What do you think?\"ve painted your photo in my style—what do you think?",
-    'CHAGALL': \"I am Chagall of Vitebsk. I\'ve colored your photo with my palette. Dreamlike hues woven in. What do you think?\"ve painted your photo with my colors—what do you think?",
-    'MATISSE': \"I am Matisse of Nice. I\'ve filled your photo with my colors. Bold planes of color breathing life. What do you think?\"ve filled your photo with my palette—what do you think?",
-    'FRIDA': \"I\'m Frida from Mexico. I painted your photo in my style. Intense colors carrying the soul. What do you think?\"m Frida from Mexico. I\'ve painted your photo in my style—what do you think?",
-    'LICHTENSTEIN': \"I\'m Lichtenstein from New York. I painted your photo in my style. Ben-Day dots turned it into pop art. What do you think?\"m Lichtenstein from New York. I\'ve painted your photo in my style—what do you think?"
+    'VAN GOGH': `I am Van Gogh of Arles. I've painted your photo with my brush. Rough strokes filled with soul. What do you think?`,
+    'KLIMT': `I am Klimt of Vienna. I've rendered your photo on my canvas. Draped it in sacred gold. What do you think?`,
+    'MUNCH': `I am Munch of Oslo. I've painted your photo in my style. Swirling colors to capture emotion. What do you think?`,
+    'CHAGALL': `I am Chagall of Vitebsk. I've colored your photo with my palette. Dreamlike hues woven in. What do you think?`,
+    'MATISSE': `I am Matisse of Nice. I've filled your photo with my colors. Bold planes of color breathing life. What do you think?`,
+    'FRIDA': `I'm Frida from Mexico. I painted your photo in my style. Intense colors carrying the soul. What do you think?`,
+    'LICHTENSTEIN': `I'm Lichtenstein from New York. I painted your photo in my style. Ben-Day dots turned it into pop art. What do you think?`
   },
 
   // ===== Suggested Questions (7 × 4 = 28) =====

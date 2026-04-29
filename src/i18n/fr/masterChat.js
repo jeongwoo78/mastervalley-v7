@@ -35,13 +35,13 @@ export const masterChat = {
 
   // ===== Salutations initiales (7) =====
   greetings: {
-    'VAN GOGH': \"Je suis Van Gogh, d'Arles. J'ai peint votre photo avec mon pinceau. Des coups de brosse bruts, emplis d'âme. Qu'en pensez-vous ?\"Arles. J\'ai peint votre photo dans mon style. Qu\'en pensez-vous ?',
-    'KLIMT': \"Je suis Klimt, de Vienne. J'ai peint votre photo sur ma toile. Je l'ai drapée d'or sacré. Qu'en pensez-vous ?\"ai peint votre photo sur ma toile. Qu\'en pensez-vous ?',
-    'MUNCH': \"Je suis Munch, d'Oslo. J'ai peint votre photo dans mon style. Des couleurs tourbillonnantes pour capturer l'émotion. Qu'en pensez-vous ?\"Oslo. J\'ai peint votre photo dans mon style. Qu\'en pensez-vous ?',
-    'CHAGALL': \"Je suis Chagall, de Vitebsk. J'ai teint votre photo de mes couleurs. Des teintes oniriques tissées. Qu'en pensez-vous ?\"ai peint votre photo avec mes couleurs. Qu\'en pensez-vous ?',
-    'MATISSE': \"Je suis Matisse, de Nice. J'ai rempli votre photo de mes couleurs. Des aplats audacieux qui insufflent la vie. Qu'en pensez-vous ?\"ai rempli votre photo de ma palette. Qu\'en pensez-vous ?',
-    'FRIDA': \"Je suis Frida, du Mexique. J'ai peint votre photo dans mon style. Des couleurs intenses portant l'âme. Qu'en pensez-vous ?\"ai peint votre photo dans mon style. Qu\'en pensez-vous ?',
-    'LICHTENSTEIN': \"Je suis Lichtenstein, de New York. J'ai peint votre photo dans mon style. Les points Ben-Day en ont fait du pop art. Qu'en pensez-vous ?\"ai peint votre photo dans mon style. Qu\'en pensez-vous ?'
+    'VAN GOGH': `Je suis Van Gogh, d'Arles. J'ai peint votre photo avec mon pinceau. Des coups de brosse bruts, emplis d'âme. Qu'en pensez-vous ?`,
+    'KLIMT': `Je suis Klimt, de Vienne. J'ai peint votre photo sur ma toile. Je l'ai drapée d'or sacré. Qu'en pensez-vous ?`,
+    'MUNCH': `Je suis Munch, d'Oslo. J'ai peint votre photo dans mon style. Des couleurs tourbillonnantes pour capturer l'émotion. Qu'en pensez-vous ?`,
+    'CHAGALL': `Je suis Chagall, de Vitebsk. J'ai teint votre photo de mes couleurs. Des teintes oniriques tissées. Qu'en pensez-vous ?`,
+    'MATISSE': `Je suis Matisse, de Nice. J'ai rempli votre photo de mes couleurs. Des aplats audacieux qui insufflent la vie. Qu'en pensez-vous ?`,
+    'FRIDA': `Je suis Frida, du Mexique. J'ai peint votre photo dans mon style. Des couleurs intenses portant l'âme. Qu'en pensez-vous ?`,
+    'LICHTENSTEIN': `Je suis Lichtenstein, de New York. J'ai peint votre photo dans mon style. Les points Ben-Day en ont fait du pop art. Qu'en pensez-vous ?`
   },
 
   // ===== Questions suggérées (7 × 4 = 28) =====
