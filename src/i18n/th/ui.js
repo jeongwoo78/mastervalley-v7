@@ -19,6 +19,11 @@ export const ui = {
   // ===== PhotoStyleScreen =====
   photoStyle: {
     tapToSelectPhoto: 'แตะเพื่อเลือกรูปภาพ',
+    convertingPhoto: 'กำลังแปลงรูปภาพ...',
+    fileErrorEmpty: 'ไม่สามารถอ่านไฟล์ได้',
+    fileErrorTooLarge: 'รูปภาพใหญ่เกินไป (สูงสุด 30MB)',
+    fileErrorNotImage: 'อนุญาตเฉพาะไฟล์รูปภาพเท่านั้น',
+    fileErrorHeicFailed: 'ไม่สามารถประมวลผลรูปภาพนี้ได้ กรุณาเลือกรูปภาพอื่น',
     movementsName: 'ศิลปะตะวันตก',
     movementsTabName: 'ตะวันตก',
     mastersTabName: 'ศิลปินเอก',

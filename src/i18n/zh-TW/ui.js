@@ -19,6 +19,11 @@ export const ui = {
   // ===== PhotoStyleScreen =====
   photoStyle: {
     tapToSelectPhoto: '點擊選擇照片',
+    convertingPhoto: '正在轉換照片...',
+    fileErrorEmpty: '無法讀取檔案。',
+    fileErrorTooLarge: '照片過大（最大30MB）。',
+    fileErrorNotImage: '僅允許上傳圖片檔案。',
+    fileErrorHeicFailed: '無法處理此照片，請選擇其他照片。',
     movementsName: '西洋美術史',
     movementsTabName: '西洋美術史',
     mastersTabName: '大師典藏',

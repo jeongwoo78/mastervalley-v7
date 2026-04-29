@@ -19,6 +19,11 @@ export const ui = {
   // ===== PhotoStyleScreen =====
   photoStyle: {
     tapToSelectPhoto: 'Toca para seleccionar foto',
+    convertingPhoto: 'Convirtiendo foto...',
+    fileErrorEmpty: 'No se puede leer el archivo.',
+    fileErrorTooLarge: 'Foto demasiado grande (máx. 30MB).',
+    fileErrorNotImage: 'Solo se permiten archivos de imagen.',
+    fileErrorHeicFailed: 'No se pudo procesar esta foto. Por favor, intenta con otra.',
     movementsName: 'Historia del Arte Occidental',
     movementsTabName: 'Arte Occidental',
     mastersTabName: 'Maestros',

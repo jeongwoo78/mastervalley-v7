@@ -17,6 +17,11 @@ export const ui = {
 
   photoStyle: {
     tapToSelectPhoto: 'Fotoğraf seçmek için dokun',
+    convertingPhoto: 'Fotoğraf dönüştürülüyor...',
+    fileErrorEmpty: 'Dosya okunamıyor.',
+    fileErrorTooLarge: 'Fotoğraf çok büyük (en fazla 30MB).',
+    fileErrorNotImage: 'Yalnızca resim dosyalarına izin verilir.',
+    fileErrorHeicFailed: 'Bu fotoğraf işlenemedi. Lütfen başka bir fotoğraf deneyin.',
     movementsName: 'Batı Sanat Tarihi',
     movementsTabName: 'Batı Sanatı',
     mastersTabName: 'Ustalar',

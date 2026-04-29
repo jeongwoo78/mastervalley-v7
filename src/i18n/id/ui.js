@@ -19,6 +19,11 @@ export const ui = {
   // ===== PhotoStyleScreen =====
   photoStyle: {
     tapToSelectPhoto: 'Ketuk untuk memilih foto',
+    convertingPhoto: 'Mengonversi foto...',
+    fileErrorEmpty: 'Tidak dapat membaca berkas.',
+    fileErrorTooLarge: 'Foto terlalu besar (maks. 30MB).',
+    fileErrorNotImage: 'Hanya berkas gambar yang diizinkan.',
+    fileErrorHeicFailed: 'Tidak dapat memproses foto ini. Silakan coba foto lain.',
     movementsName: 'Sejarah Seni Barat',
     movementsTabName: 'Seni Barat',
     mastersTabName: 'Maestro',

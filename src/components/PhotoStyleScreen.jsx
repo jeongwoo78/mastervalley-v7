@@ -36,6 +36,7 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
   const [photo, setPhoto] = useState(null);
   const [photoPreview, setPhotoPreview] = useState(null);
   const [selectedStyle, setSelectedStyle] = useState(null);
+  const [isConvertingHeic, setIsConvertingHeic] = useState(false);  // P0-#5: HEIC 변환 진행 중
 
   // 미니 바 sticky (풀 배너가 화면 밖으로 나가면 상단에 고정)
   const fullBannerRefs = useRef({});
@@ -235,14 +236,73 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
     fileInputRef.current?.click();
   };
 
-  const handleFileChange = (e) => {
+  const handleFileChange = async (e) => {
     const file = e.target.files?.[0];
-    if (file) {
-      setPhoto(file);
-      const reader = new FileReader();
-      reader.onloadend = () => setPhotoPreview(reader.result);
-      reader.readAsDataURL(file);
+    if (!file) return;
+
+    // P0-#5: 파일 검증
+    // 1. 빈 파일
+    if (file.size === 0) {
+      alert(t.fileErrorEmpty || 'Cannot read file.');
+      e.target.value = '';  // input 초기화 (같은 파일 재선택 가능)
+      return;
     }
+
+    // 2. 크기 제한 (30MB) — Instagram 표준
+    const MAX_SIZE = 30 * 1024 * 1024;
+    if (file.size > MAX_SIZE) {
+      alert(t.fileErrorTooLarge || 'File too large (30MB max).');
+      e.target.value = '';
+      return;
+    }
+
+    // 3. HEIC 자동 변환 (iPhone 사진 호환성)
+    let processedFile = file;
+    const isHeic = /\.(heic|heif)$/i.test(file.name) || 
+                   file.type === 'image/heic' || 
+                   file.type === 'image/heif';
+    
+    if (isHeic) {
+      try {
+        setIsConvertingHeic(true);
+        const heic2any = (await import('heic2any')).default;
+        const blob = await heic2any({
+          blob: file,
+          toType: 'image/jpeg',
+          quality: 0.92
+        });
+        // heic2any는 Blob 반환 (배열일 수도 있음)
+        const resultBlob = Array.isArray(blob) ? blob[0] : blob;
+        processedFile = new File([resultBlob], file.name.replace(/\.(heic|heif)$/i, '.jpg'), {
+          type: 'image/jpeg',
+          lastModified: Date.now()
+        });
+      } catch (err) {
+        console.error('HEIC 변환 실패:', err);
+        alert(t.fileErrorHeicFailed || 'Could not process this photo. Please try another.');
+        setIsConvertingHeic(false);
+        e.target.value = '';
+        return;
+      }
+      setIsConvertingHeic(false);
+    }
+
+    // 4. MIME 검증 (HEIC 변환 후에는 image/jpeg)
+    if (!processedFile.type.startsWith('image/')) {
+      alert(t.fileErrorNotImage || 'Only image files allowed.');
+      e.target.value = '';
+      return;
+    }
+
+    setPhoto(processedFile);
+    const reader = new FileReader();
+    reader.onloadend = () => setPhotoPreview(reader.result);
+    reader.onerror = () => {
+      alert(t.fileErrorEmpty || 'Cannot read file.');
+      setPhoto(null);
+      setPhotoPreview(null);
+    };
+    reader.readAsDataURL(processedFile);
   };
 
   const handleStyleSelect = (style) => {
@@ -530,10 +590,19 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
           type="file"
           ref={fileInputRef}
           onChange={handleFileChange}
-          accept="image/*"
+          accept="image/*,.heic,.heif"
           style={{ display: 'none' }}
         />
-        {photoPreview ? (
+        {isConvertingHeic ? (
+          <div className="photo-placeholder">
+            <span className="photo-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ animation: 'spin 1s linear infinite' }}>
+                <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+              </svg>
+            </span>
+            <span className="photo-text">{ps.convertingPhoto || 'Converting...'}</span>
+          </div>
+        ) : photoPreview ? (
           <img src={photoPreview} alt="Selected" className="photo-preview" />
         ) : (
           <div className="photo-placeholder">
@@ -1227,6 +1296,12 @@ const PhotoStyleScreen = ({ mainCategory, onBack, onSelect, onMenu, onAddFunds, 
           .style-period {
             font-size: 9.5px;
           }
+        }
+
+        /* P0-#5: HEIC 변환 중 스피너 */
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
         }
       `}</style>
     </div>

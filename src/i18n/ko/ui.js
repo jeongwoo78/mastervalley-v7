@@ -18,6 +18,11 @@ export const ui = {
   // ===== PhotoStyleScreen =====
   photoStyle: {
     tapToSelectPhoto: '탭하여 사진 선택',
+    convertingPhoto: '사진 변환 중...',
+    fileErrorEmpty: '파일을 읽을 수 없습니다.',
+    fileErrorTooLarge: '사진 크기가 너무 큽니다 (30MB 이하만 가능).',
+    fileErrorNotImage: '이미지 파일만 업로드 가능합니다.',
+    fileErrorHeicFailed: '사진을 처리할 수 없습니다. 다른 사진을 선택해주세요.',
     movementsName: '서양 미술사',
     movementsTabName: '서양 미술사',
     mastersTabName: '거장 컬렉션',

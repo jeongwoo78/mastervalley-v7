@@ -19,6 +19,11 @@ export const ui = {
   // ===== PhotoStyleScreen =====
   photoStyle: {
     tapToSelectPhoto: 'اضغط لاختيار صورة',
+    convertingPhoto: 'جاري تحويل الصورة...',
+    fileErrorEmpty: 'تعذر قراءة الملف.',
+    fileErrorTooLarge: 'حجم الصورة كبير جداً (30 ميغابايت كحد أقصى).',
+    fileErrorNotImage: 'يُسمح فقط بملفات الصور.',
+    fileErrorHeicFailed: 'تعذر معالجة هذه الصورة. يرجى تجربة صورة أخرى.',
     movementsName: 'تاريخ الفن الغربي',
     movementsTabName: 'الفن الغربي',
     mastersTabName: 'الأساتذة',

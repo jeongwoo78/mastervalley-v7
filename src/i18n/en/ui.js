@@ -18,6 +18,11 @@ export const ui = {
   // ===== PhotoStyleScreen =====
   photoStyle: {
     tapToSelectPhoto: 'Tap to select photo',
+    convertingPhoto: 'Converting photo...',
+    fileErrorEmpty: 'Cannot read file.',
+    fileErrorTooLarge: 'Photo too large (30MB max).',
+    fileErrorNotImage: 'Only image files allowed.',
+    fileErrorHeicFailed: 'Could not process this photo. Please try another.',
     movementsName: 'Western Art',
     movementsTabName: 'Western Art',
     mastersTabName: 'Masters',
