@@ -213,19 +213,6 @@ const App = () => {
             const data = snapshot.data();
             setUserCredits(data.credits ?? 0);
             setAiConsentGiven(data.aiConsent === true);
-
-            // race condition 방지: handleOAuthConsentConfirm이 setTermsWithCache(true) 한 직후
-            //   onSnapshot이 stale 데이터(termsAccepted 미반영)를 들고 도착하는 경우 무시
-            //   localStorage='1'을 신뢰 source로 사용 → 다음 snapshot에서 정확한 데이터 받음
-            //   (계정 삭제 후 같은 디바이스 재가입 시 18세 약관 모달 두 번 뜨는 케이스 해결)
-            let cached = null;
-            try { cached = localStorage.getItem('mv_terms_accepted'); } catch {}
-            if (cached === '1' && data.termsAccepted !== true) {
-              // stale snapshot — localStorage 신뢰
-              setCreditsLoaded(true);
-              return;
-            }
-
             setTermsWithCache(data.termsAccepted === true);
           } else {
             // 문서 없음 (이론상 ensureUserDoc 후엔 발생 X) — 미동의로 처리
