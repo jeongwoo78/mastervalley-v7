@@ -157,9 +157,10 @@ const MenuScreen = ({
   const handleRestorePurchases = async () => {
     if (restoring) return;
     
-    // 웹 환경: IAP 불가
+    // 웹 환경: 현재는 결제 기능 없음 → 복원할 내역도 없음
+    // (향후 웹 결제 추가 시 여기서 웹 결제 복원 로직 분기)
     if (!isNativeIAP()) {
-      setRestoreToast('restoreFailed');
+      setRestoreToast('restoreNoItems');
       setTimeout(() => setRestoreToast(''), 3000);
       return;
     }
