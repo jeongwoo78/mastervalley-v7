@@ -74,26 +74,27 @@ const App = () => {
   const [aiConsentGiven, setAiConsentGiven] = useState(false);
   // 약관 동의 상태 (BLOCKER #46)
   // null = 아직 Firestore 조회 전, true/false = 조회 완료
-  // 새로고침 시 깜빡임 방지를 위해 sessionStorage 캐싱 (이전 세션에서 동의했으면 즉시 true)
+  // 깜빡임 방지를 위해 localStorage 캐싱 (이전 세션에서 동의했으면 즉시 true)
+  // sessionStorage는 앱(Capacitor) 재시작 시 비어있어서 매번 깜빡임 발생 → localStorage로 영구 캐싱
   const [termsAcceptedFromDb, setTermsAcceptedFromDb] = useState(() => {
     try {
-      return sessionStorage.getItem('mv_terms_accepted') === '1' ? true : null;
+      return localStorage.getItem('mv_terms_accepted') === '1' ? true : null;
     } catch {
       return null;
     }
   });
 
-  // sessionStorage 동기화 헬퍼 (true일 때만 저장, 그 외엔 제거)
+  // localStorage 동기화 헬퍼 (true일 때만 저장, 그 외엔 제거)
   const setTermsWithCache = (value) => {
     setTermsAcceptedFromDb(value);
     try {
       if (value === true) {
-        sessionStorage.setItem('mv_terms_accepted', '1');
+        localStorage.setItem('mv_terms_accepted', '1');
       } else {
-        sessionStorage.removeItem('mv_terms_accepted');
+        localStorage.removeItem('mv_terms_accepted');
       }
     } catch {
-      // sessionStorage 사용 불가 시 무시
+      // localStorage 사용 불가 시 무시
     }
   };
   const [showAiConsent, setShowAiConsent] = useState(false);
@@ -225,7 +226,7 @@ const App = () => {
       } else {
         setUserCredits(0);
         setCreditsLoaded(false);
-        setTermsWithCache(null);  // 로그아웃 시 리셋 (sessionStorage도 제거)
+        setTermsWithCache(null);  // 로그아웃 시 리셋 (localStorage도 제거)
       }
     });
 
@@ -411,7 +412,7 @@ const App = () => {
       await logOutRC();
       await signOut(auth);
       setUser(null);
-      setTermsWithCache(null);  // sessionStorage 정리
+      setTermsWithCache(null);  // localStorage 정리
       handleReset();
     } catch (error) {
       console.error('Logout error:', error);
