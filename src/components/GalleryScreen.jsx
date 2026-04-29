@@ -120,7 +120,9 @@ const clearAllImages = async () => {
 const urlToBase64 = async (url) => {
   try {
     const response = await fetch(url);
+    if (!response.ok) return null; // Storage 만료 등 404/403 방어
     const blob = await response.blob();
+    if (!blob.type.startsWith('image/')) return null; // HTML 에러 페이지 방어
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onloadend = () => resolve(reader.result);
