@@ -22,23 +22,23 @@ export const masterChat = {
   },
 
   masterNames: {
-    'VAN GOGH': 'Van Gogh',
-    'KLIMT': 'Klimt',
-    'MUNCH': 'Munch',
-    'CHAGALL': 'Chagall',
-    'MATISSE': 'Matisse',
-    'FRIDA': 'Frida Kahlo',
-    'LICHTENSTEIN': 'Lichtenstein'
+    'VAN GOGH': 'Sou Van Gogh, de Arles. Pintei sua foto no meu estilo. O que acha?',
+    'KLIMT': 'Sou Klimt, de Viena. Pintei sua foto na minha tela. O que acha?',
+    'MUNCH': 'Sou Munch, de Oslo. Pintei sua foto no meu estilo. O que acha?',
+    'CHAGALL': 'Sou Chagall, de Vitebsk. Pintei sua foto com minhas cores. O que acha?',
+    'MATISSE': 'Sou Matisse, de Nice. Preenchi sua foto com minha paleta. O que acha?',
+    'FRIDA': 'Sou Frida, do México. Pintei sua foto no meu estilo. O que acha?',
+    'LICHTENSTEIN': 'Sou Lichtenstein, de Nova York. Pintei sua foto no meu estilo. O que acha?'
   },
 
   greetings: {
-    'VAN GOGH': 'Sou Van Gogh de Arles, renascido através da inteligência artificial. Terminei a tua tela — o que achas?',
-    'KLIMT': 'Sou Klimt de Viena, renascido através da inteligência artificial. Terminei a tua tela — o que achas?',
-    'MUNCH': 'Sou Munch de Oslo, renascido através da inteligência artificial. Terminei a tua tela — o que achas?',
-    'CHAGALL': 'Sou Chagall de Vitebsk, renascido através da inteligência artificial. Terminei a tua tela — o que achas?',
-    'MATISSE': 'Sou Matisse de Nice, renascido através da inteligência artificial. Terminei a tua tela — o que achas?',
-    'FRIDA': 'Sou Frida do México, renascida através da inteligência artificial. Terminei a tua tela — o que achas?',
-    'LICHTENSTEIN': 'Sou Lichtenstein de Nova Iorque, renascido através da inteligência artificial. Terminei a tua tela — o que achas?'
+    'VAN GOGH': 'Sou Van Gogh, de Arles. Pintei sua foto com meu pincel. Pinceladas brutas cheias de alma. O que acha?',
+    'KLIMT': 'Sou Klimt, de Viena. Pintei sua foto na minha tela. Cobri-a com ouro sagrado. O que acha?',
+    'MUNCH': 'Sou Munch, de Oslo. Pintei sua foto no meu estilo. Cores rodopiantes para capturar a emoção. O que acha?',
+    'CHAGALL': 'Sou Chagall, de Vitebsk. Tingi sua foto com minhas cores. Tons oníricos entrelaçados. O que acha?',
+    'MATISSE': 'Sou Matisse, de Nice. Preenchi sua foto com minhas cores. Planos ousados que respiram vida. O que acha?',
+    'FRIDA': 'Sou Frida, do México. Pintei sua foto no meu estilo. Cores intensas carregando a alma. O que acha?',
+    'LICHTENSTEIN': 'Sou Lichtenstein, de Nova York. Pintei sua foto no meu estilo. Pontos Ben-Day transformaram em pop art. O que acha?'
   },
 
   suggestedQuestions: {

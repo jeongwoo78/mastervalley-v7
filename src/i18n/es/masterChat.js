@@ -24,24 +24,24 @@ export const masterChat = {
 
   // ===== Nombres de maestros (7) =====
   masterNames: {
-    'VAN GOGH': 'Van Gogh',
-    'KLIMT': 'Klimt',
-    'MUNCH': 'Munch',
-    'CHAGALL': 'Chagall',
-    'MATISSE': 'Matisse',
-    'FRIDA': 'Frida Kahlo',
-    'LICHTENSTEIN': 'Lichtenstein'
+    'VAN GOGH': 'Soy Van Gogh, de Arlés. He pintado tu foto con mi estilo. ¿Qué te parece?',
+    'KLIMT': 'Soy Klimt, de Viena. He pintado tu foto en mi lienzo. ¿Qué opinas?',
+    'MUNCH': 'Soy Munch, de Oslo. He pintado tu foto con mi estilo. ¿Qué te parece?',
+    'CHAGALL': 'Soy Chagall, de Vítebsk. He pintado tu foto con mis colores. ¿Qué te parece?',
+    'MATISSE': 'Soy Matisse, de Niza. He llenado tu foto con mi paleta. ¿Qué te parece?',
+    'FRIDA': 'Soy Frida, de México. He pintado tu foto con mi estilo. ¿Qué te parece?',
+    'LICHTENSTEIN': 'Soy Lichtenstein, de Nueva York. He pintado tu foto con mi estilo. ¿Qué te parece?'
   },
 
   // ===== Saludos iniciales (7) =====
   greetings: {
-    'VAN GOGH': 'Soy Van Gogh, de Arlés. He resucitado a través de la IA. He terminado tu cuadro, ¿qué te parece?',
-    'KLIMT': 'Soy Klimt, de Viena. He resucitado a través de la IA. He terminado tu cuadro, ¿qué opinas?',
-    'MUNCH': 'Soy Munch, de Oslo. He resucitado a través de la IA. He terminado tu cuadro, ¿qué te parece?',
-    'CHAGALL': 'Soy Chagall, de Vítebsk. He resucitado a través de la IA. He terminado tu cuadro, ¿qué te parece?',
-    'MATISSE': 'Soy Matisse, de Niza. He resucitado a través de la IA. He terminado tu cuadro, ¿qué te parece?',
-    'FRIDA': 'Soy Frida, de México. He resucitado a través de la IA. He terminado tu cuadro, ¿qué te parece?',
-    'LICHTENSTEIN': 'Soy Lichtenstein, de Nueva York. He resucitado a través de la IA. He terminado tu cuadro, ¿qué te parece?'
+    'VAN GOGH': 'Soy Van Gogh, de Arlés. He pintado tu foto con mi pincel. Pinceladas rudas llenas de alma. ¿Qué te parece?',
+    'KLIMT': 'Soy Klimt, de Viena. He pintado tu foto en mi lienzo. La envolví en oro sagrado. ¿Qué opinas?',
+    'MUNCH': 'Soy Munch, de Oslo. He pintado tu foto con mi estilo. Colores arremolinados para capturar la emoción. ¿Qué te parece?',
+    'CHAGALL': 'Soy Chagall, de Vítebsk. He teñido tu foto con mis colores. Tonos oníricos entrelazados. ¿Qué te parece?',
+    'MATISSE': 'Soy Matisse, de Niza. He llenado tu foto con mis colores. Planos audaces que respiran vida. ¿Qué te parece?',
+    'FRIDA': 'Soy Frida, de México. Pinté tu foto con mi estilo. Colores intensos que llevan el alma. ¿Qué te parece?',
+    'LICHTENSTEIN': 'Soy Lichtenstein, de Nueva York. Pinté tu foto con mi estilo. Los puntos Ben-Day lo convirtieron en pop art. ¿Qué te parece?'
   },
 
   // ===== Preguntas sugeridas (7 × 4 = 28) =====

@@ -106,16 +106,16 @@ const MasterChat = ({
     resolvedImagePromiseRef.current = resolveImageToBase64(transformedImageUrl);
   }, [transformedImageUrl]);
 
-  // v92: Vision 이미지 완료 대기 헬퍼 (최대 5초 타임아웃)
+  // v92: Vision 이미지 완료 대기 헬퍼 (최대 15초 타임아웃)
   const waitForImage = async () => {
     if (!resolvedImagePromiseRef.current) return null;
     try {
       return await Promise.race([
         resolvedImagePromiseRef.current,
         new Promise((resolve) => setTimeout(() => {
-          console.warn('[MasterChat] 이미지 변환 5초 초과 → 텍스트 전용 진행');
+          console.warn('[MasterChat] 이미지 변환 15초 초과 → 텍스트 전용 진행');
           resolve(null);
-        }, 5000))
+        }, 15000))
       ]);
     } catch (e) {
       return null;
@@ -189,7 +189,7 @@ const MasterChat = ({
 
     setIsLoading(true);
     
-    // v92: Vision 이미지 변환 완료 대기 (최대 5초 타임아웃)
+    // v92: Vision 이미지 변환 완료 대기 (최대 15초 타임아웃)
     const imageBase64 = await waitForImage();
     
     try {

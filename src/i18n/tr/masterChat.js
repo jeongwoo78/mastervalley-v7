@@ -22,23 +22,23 @@ export const masterChat = {
   },
 
   masterNames: {
-    'VAN GOGH': 'Van Gogh',
-    'KLIMT': 'Klimt',
-    'MUNCH': 'Munch',
-    'CHAGALL': 'Chagall',
-    'MATISSE': 'Matisse',
-    'FRIDA': 'Frida Kahlo',
-    'LICHTENSTEIN': 'Lichtenstein'
+    'VAN GOGH': "Ben Arles'ten Van Gogh. Fotoğrafını kendi tarzımla çizdim. Ne dersin?",
+    'KLIMT': "Ben Viyana'dan Klimt. Fotoğrafını tuvalime aktardım. Ne dersin?",
+    'MUNCH': "Ben Oslo'dan Munch. Fotoğrafını kendi tarzımla çizdim. Ne dersin?",
+    'CHAGALL': "Ben Vitebsk'ten Chagall. Fotoğrafını kendi renklerimle boyadım. Ne dersin?",
+    'MATISSE': "Ben Nice'ten Matisse. Fotoğrafını kendi paletimle doldurdum. Ne dersin?",
+    'FRIDA': "Ben Meksika'dan Frida. Fotoğrafını kendi tarzımla çizdim. Ne dersin?",
+    'LICHTENSTEIN': "Ben New York'tan Lichtenstein. Fotoğrafını kendi tarzımla çizdim. Ne dersin?"
   },
 
   greetings: {
-    'VAN GOGH': 'Ben Arles\'ten Van Gogh, yapay zeka aracılığıyla yeniden hayat buldum. Tablonu tamamladım, nasıl buldun?',
-    'KLIMT': 'Ben Viyana\'dan Klimt, yapay zeka aracılığıyla yeniden hayat buldum. Tablonu tamamladım, nasıl buldun?',
-    'MUNCH': 'Ben Oslo\'dan Munch, yapay zeka aracılığıyla yeniden hayat buldum. Tablonu tamamladım, nasıl buldun?',
-    'CHAGALL': 'Ben Vitebsk\'ten Chagall, yapay zeka aracılığıyla yeniden hayat buldum. Tablonu tamamladım, nasıl buldun?',
-    'MATISSE': 'Ben Nice\'den Matisse, yapay zeka aracılığıyla yeniden hayat buldum. Tablonu tamamladım, nasıl buldun?',
-    'FRIDA': 'Ben Meksika\'dan Frida, yapay zeka aracılığıyla yeniden hayat buldum. Tablonu tamamladım, nasıl buldun?',
-    'LICHTENSTEIN': 'Ben New York\'tan Lichtenstein, yapay zeka aracılığıyla yeniden hayat buldum. Tablonu tamamladım, nasıl buldun?'
+    'VAN GOGH': \"Ben Arles'ten Van Gogh. Fotoğrafını fırçamla çizdim. Sert fırça darbeleriyle ruh kattım. Ne dersin?\"ten Van Gogh, yapay zeka aracılığıyla yeniden hayat buldum. Tablonu tamamladım, nasıl buldun?',
+    'KLIMT': \"Ben Viyana'dan Klimt. Fotoğrafını tuvalime çizdim. Kutsal altınla kapladım. Ne dersin?\"dan Klimt, yapay zeka aracılığıyla yeniden hayat buldum. Tablonu tamamladım, nasıl buldun?',
+    'MUNCH': \"Ben Oslo'dan Munch. Fotoğrafını kendi tarzımla çizdim. Dönen renklerle duyguları yakaladım. Ne dersin?\"dan Munch, yapay zeka aracılığıyla yeniden hayat buldum. Tablonu tamamladım, nasıl buldun?',
+    'CHAGALL': \"Ben Vitebsk'ten Chagall. Fotoğrafını kendi renklerimle boyadım. Rüya gibi tonlar kattım. Ne dersin?\"ten Chagall, yapay zeka aracılığıyla yeniden hayat buldum. Tablonu tamamladım, nasıl buldun?',
+    'MATISSE': \"Ben Nice'ten Matisse. Fotoğrafını kendi renklerimle doldurdum. Cesur renk yüzeyleriyle hayat verdim. Ne dersin?\"den Matisse, yapay zeka aracılığıyla yeniden hayat buldum. Tablonu tamamladım, nasıl buldun?',
+    'FRIDA': \"Ben Meksika'dan Frida. Fotoğrafını kendi tarzımla çizdim. Yoğun renklerle ruh kattım. Ne dersin?\"dan Frida, yapay zeka aracılığıyla yeniden hayat buldum. Tablonu tamamladım, nasıl buldun?',
+    'LICHTENSTEIN': \"Ben New York'tan Lichtenstein. Fotoğrafını kendi tarzımla çizdim. Ben-Day noktalarıyla pop art yaptım. Ne dersin?\"tan Lichtenstein, yapay zeka aracılığıyla yeniden hayat buldum. Tablonu tamamladım, nasıl buldun?'
   },
 
   suggestedQuestions: {

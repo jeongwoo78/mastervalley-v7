@@ -24,24 +24,24 @@ export const masterChat = {
 
   // ===== Nama Maestro (7) =====
   masterNames: {
-    'VAN GOGH': 'Van Gogh',
-    'KLIMT': 'Klimt',
-    'MUNCH': 'Munch',
-    'CHAGALL': 'Chagall',
-    'MATISSE': 'Matisse',
-    'FRIDA': 'Frida Kahlo',
-    'LICHTENSTEIN': 'Lichtenstein'
+    'VAN GOGH': 'Saya Van Gogh dari Arles. Saya melukis foto Anda dengan gaya saya. Bagaimana menurut Anda?',
+    'KLIMT': 'Saya Klimt dari Wina. Saya melukis foto Anda di kanvas saya. Bagaimana menurut Anda?',
+    'MUNCH': 'Saya Munch dari Oslo. Saya melukis foto Anda dengan gaya saya. Bagaimana menurut Anda?',
+    'CHAGALL': 'Saya Chagall dari Vitebsk. Saya melukis foto Anda dengan warna-warna saya. Bagaimana menurut Anda?',
+    'MATISSE': 'Saya Matisse dari Nice. Saya mengisi foto Anda dengan palet saya. Bagaimana menurut Anda?',
+    'FRIDA': 'Saya Frida dari Meksiko. Saya melukis foto Anda dengan gaya saya. Bagaimana menurut Anda?',
+    'LICHTENSTEIN': 'Saya Lichtenstein dari New York. Saya melukis foto Anda dengan gaya saya. Bagaimana menurut Anda?'
   },
 
   // ===== Salam Pembuka (7) =====
   greetings: {
-    'VAN GOGH': 'Aku Van Gogh dari Arles. Aku dibangkitkan kembali melalui AI. Aku telah menyelesaikan lukisanmu, bagaimana menurutmu?',
-    'KLIMT': 'Aku Klimt dari Wina. Aku dibangkitkan kembali melalui AI. Aku telah menyelesaikan lukisanmu, bagaimana menurutmu?',
-    'MUNCH': 'Aku Munch dari Oslo. Aku dibangkitkan kembali melalui AI. Aku telah menyelesaikan lukisanmu, bagaimana menurutmu?',
-    'CHAGALL': 'Aku Chagall dari Vitebsk. Aku dibangkitkan kembali melalui AI. Aku telah menyelesaikan lukisanmu, bagaimana menurutmu?',
-    'MATISSE': 'Aku Matisse dari Nice. Aku dibangkitkan kembali melalui AI. Aku telah menyelesaikan lukisanmu, bagaimana menurutmu?',
-    'FRIDA': 'Aku Frida dari Meksiko. Aku dibangkitkan kembali melalui AI. Aku telah menyelesaikan lukisanmu, bagaimana menurutmu?',
-    'LICHTENSTEIN': 'Aku Lichtenstein dari New York. Aku dibangkitkan kembali melalui AI. Aku telah menyelesaikan lukisanmu, bagaimana menurutmu?'
+    'VAN GOGH': 'Saya Van Gogh dari Arles. Saya melukis foto Anda dengan kuas saya. Sapuan kuas kasar penuh jiwa. Bagaimana menurut Anda?',
+    'KLIMT': 'Saya Klimt dari Wina. Saya melukis foto Anda di kanvas saya. Saya selimuti dengan emas suci. Bagaimana menurut Anda?',
+    'MUNCH': 'Saya Munch dari Oslo. Saya melukis foto Anda dengan gaya saya. Warna berputar menangkap emosi. Bagaimana menurut Anda?',
+    'CHAGALL': 'Saya Chagall dari Vitebsk. Saya warnai foto Anda dengan warna saya. Nuansa mimpi terjalin di dalamnya. Bagaimana menurut Anda?',
+    'MATISSE': 'Saya Matisse dari Nice. Saya isi foto Anda dengan warna saya. Bidang warna berani yang menghembuskan kehidupan. Bagaimana menurut Anda?',
+    'FRIDA': 'Saya Frida dari Meksiko. Saya melukis foto Anda dengan gaya saya. Warna intens membawa jiwa. Bagaimana menurut Anda?',
+    'LICHTENSTEIN': 'Saya Lichtenstein dari New York. Saya melukis foto Anda dengan gaya saya. Titik Ben-Day mengubahnya menjadi pop art. Bagaimana menurut Anda?'
   },
 
   // ===== Pertanyaan yang Disarankan (7 × 4) =====
