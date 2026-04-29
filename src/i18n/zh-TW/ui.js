@@ -221,7 +221,8 @@ export const ui = {
   // ===== AI Consent =====
   aiConsent: {
     message: '您的照片將發送至受信任的第三方 AI 服務商進行轉換，處理完成後不會被保留。詳情請參閱我們的隱私政策。',
-    confirm: '確認'
+    confirm: '確認',
+    decline: '拒絕'
   },
 
   // ===== About =====
@@ -289,7 +290,7 @@ export const ui = {
     password: '密碼',
     logIn: '登入',
     signUp: '註冊',
-    pleaseWait: '請稍候...',
+    pleaseWait: '登入中...',
     loginCancelled: '登入已取消',
     networkError: '網路錯誤，請再試一次。',
     googleFailed: 'Google 登入失敗',

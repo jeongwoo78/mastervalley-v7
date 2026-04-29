@@ -214,7 +214,8 @@ export const ui = {
   // ===== AI Consent =====
   aiConsent: {
     message: 'Sua foto será enviada para provedores de IA terceirizados confiáveis para transformação e não será retida após o processamento. Consulte nossa Política de Privacidade para mais detalhes.',
-    confirm: 'OK'
+    confirm: 'OK',
+    decline: 'Recusar'
   },
 
   // ===== About =====
@@ -278,7 +279,7 @@ export const ui = {
     password: 'Senha',
     logIn: 'Entrar',
     signUp: 'Cadastrar',
-    pleaseWait: 'Aguarde...',
+    pleaseWait: 'Entrando...',
     loginCancelled: 'Login cancelado',
     networkError: 'Erro de rede. Tente novamente.',
     googleFailed: 'Falha no login com Google',

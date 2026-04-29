@@ -195,7 +195,7 @@ const App = () => {
           
           const timeout = setTimeout(() => setGalleryLoading(false), 15000);
           
-          await recoverMissedTransforms(currentUser.uid);
+          await recoverMissedTransforms(currentUser.uid, 'fcm_tap');
           
           clearTimeout(timeout);
           // true→false 전환으로 GalleryScreen 새로고침 트리거
@@ -204,7 +204,7 @@ const App = () => {
         });
 
         // 미수신 변환 복원 (앱 재시작 시)
-        recoverMissedTransforms(currentUser.uid);
+        recoverMissedTransforms(currentUser.uid, 'cold_start');
 
         // Firestore 실시간 잔액 구독
         const userRef = doc(db, 'users', currentUser.uid);
@@ -238,10 +238,27 @@ const App = () => {
 
   // 미수신 변환 복원 (강제종료/백그라운드 복구)
   // Promise 공유: 동시 호출 시 실제 작업은 1회만, 모든 호출자가 같은 완료를 기다림
-  const recoverMissedTransforms = (userId) => {
+  // P1 #11/#56: 쿨다운 30초로 비용 누수 방지 (콜드스타트/알림탭은 면제)
+  const recoverMissedTransforms = (userId, trigger = 'unknown') => {
     // Lock: ResultScreen이 활성이면 recovery 불필요
     if (resultScreenActiveRef.current) return Promise.resolve();
     if (recoverPromiseRef.current) return recoverPromiseRef.current;
+    
+    // 쿨다운 체크 (30초) — 콜드스타트와 알림 탭은 무조건 실행 (사용자 의도 명확)
+    const COOLDOWN_MS = 30 * 1000;
+    const SKIP_COOLDOWN_TRIGGERS = ['cold_start', 'fcm_tap'];
+    if (!SKIP_COOLDOWN_TRIGGERS.includes(trigger)) {
+      try {
+        const lastChecked = parseInt(localStorage.getItem('mv_recovery_last') || '0', 10);
+        const elapsed = Date.now() - lastChecked;
+        if (lastChecked > 0 && elapsed < COOLDOWN_MS) {
+          // 30초 이내 재호출 → SKIP (비용 절감)
+          return Promise.resolve();
+        }
+      } catch {
+        // localStorage 접근 실패 시 무시 (안전하게 실행 진행)
+      }
+    }
     
     const promise = (async () => {
       try {
@@ -304,6 +321,13 @@ const App = () => {
       } catch (error) {
         console.error('갤러리 복원 실패:', error);
       } finally {
+        // P1 #11/#56: 마지막 실행 시각 저장 (다음 호출 쿨다운 체크용)
+        // 에러 발생 시에도 갱신 — 무한 재시도 방지
+        try {
+          localStorage.setItem('mv_recovery_last', Date.now().toString());
+        } catch {
+          // localStorage 사용 불가 시 무시
+        }
         recoverPromiseRef.current = null;  // 완료 후 다음 호출 허용
       }
     })();
@@ -316,7 +340,7 @@ const App = () => {
   useEffect(() => {
     const stateHandler = CapApp.addListener('appStateChange', ({ isActive }) => {
       if (isActive && user) {
-        recoverMissedTransforms(user.uid);
+        recoverMissedTransforms(user.uid, 'foreground');
       }
     });
     return () => {
@@ -480,6 +504,13 @@ const App = () => {
       startTransform(pendingTransform.photo, pendingTransform.style, pendingTransform.preview);
       setPendingTransform(null);
     }
+  };
+
+  // P1 #12 (GDPR): AI 동의 거부 — 모달 닫고 변환 보류 상태도 클리어
+  // 거부해도 앱 사용 가능 (변환만 못 함). 다시 변환 시도하면 모달 재표시.
+  const handleAiConsentDecline = () => {
+    setShowAiConsent(false);
+    setPendingTransform(null);
   };
 
   // ========================================
@@ -722,14 +753,19 @@ const App = () => {
           {getUi(lang).processing.backBlocked}
         </div>
       )}
-      {/* AI 데이터 처리 동의 팝업 */}
+      {/* AI 데이터 처리 동의 팝업 (P1 #12: GDPR — 거부 옵션 추가) */}
       {showAiConsent && (
         <div className="ai-consent-overlay" onClick={() => {}}>
           <div className="ai-consent-modal">
             <p className="ai-consent-text">{getUi(lang).aiConsent.message}</p>
-            <button className="ai-consent-btn" onClick={handleAiConsentConfirm}>
-              {getUi(lang).aiConsent.confirm}
-            </button>
+            <div className="ai-consent-buttons">
+              <button className="ai-consent-btn ai-consent-decline" onClick={handleAiConsentDecline}>
+                {getUi(lang).aiConsent.decline}
+              </button>
+              <button className="ai-consent-btn ai-consent-confirm" onClick={handleAiConsentConfirm}>
+                {getUi(lang).aiConsent.confirm}
+              </button>
+            </div>
           </div>
         </div>
       )}
@@ -953,7 +989,6 @@ const App = () => {
         }
         .ai-consent-btn {
           display: block;
-          margin: 22px auto 0;
           padding: 10px 28px;
           background: transparent;
           color: #8aa896;
@@ -963,6 +998,19 @@ const App = () => {
           font-weight: 500;
           cursor: pointer;
           font-family: 'DM Sans', -apple-system, sans-serif;
+        }
+        .ai-consent-buttons {
+          display: flex;
+          gap: 12px;
+          justify-content: center;
+          margin-top: 22px;
+        }
+        .ai-consent-confirm {
+          /* 기존 sage 톤 그대로 */
+        }
+        .ai-consent-decline {
+          color: rgba(255,255,255,0.5);
+          border-color: rgba(255,255,255,0.18);
         }
         .back-blocked-toast {
           position: fixed;

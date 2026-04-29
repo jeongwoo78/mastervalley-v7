@@ -35,8 +35,12 @@ const PRODUCT_CREDITS = {
   'mv_plus_4999':    59.99
 };
 
-// 구매 인정 창 (24시간)
-const PURCHASE_WINDOW_MS = 24 * 60 * 60 * 1000;
+// 구매 인정 창 (7일 — P1 #14)
+//   배경: 24시간이면 webhook timeout 등으로 미반영된 결제를
+//         사용자가 24시간 후 "구매 복원" 눌러도 후보에서 제외되어 영구 손실
+//   해결: RevenueCat 재시도 최대 기간(7일)에 맞춰 확장
+//   안전성: purchases/{txId} 멱등성으로 이중 지급 불가
+const PURCHASE_WINDOW_MS = 7 * 24 * 60 * 60 * 1000;
 
 /**
  * RevenueCat REST API v1: 사용자 구매 내역 조회

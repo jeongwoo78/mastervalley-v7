@@ -221,7 +221,8 @@ export const ui = {
   // ===== AI Consent =====
   aiConsent: {
     message: 'Votre photo sera envoyée à des fournisseurs d\'IA tiers de confiance pour la transformation et ne sera pas conservée après le traitement. Consultez notre Politique de Confidentialité pour plus de détails.',
-    confirm: "D'accord"
+    confirm: "D'accord",
+    decline: 'Refuser'
   },
 
   // ===== About =====
@@ -289,7 +290,7 @@ export const ui = {
     password: 'Mot de passe',
     logIn: 'Se connecter',
     signUp: "S\'inscrire",
-    pleaseWait: 'Veuillez patienter...',
+    pleaseWait: 'Connexion...',
     loginCancelled: 'Connexion annulée',
     networkError: 'Erreur réseau. Veuillez réessayer.',
     googleFailed: 'Connexion Google échouée',

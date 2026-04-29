@@ -220,7 +220,8 @@ export const ui = {
   // ===== AI Consent =====
   aiConsent: {
     message: 'Your photo will be sent to trusted third-party AI providers for transformation and will not be retained after processing. See our Privacy Policy for details.',
-    confirm: 'OK'
+    confirm: 'OK',
+    decline: 'Decline'
   },
 
   // ===== About =====
@@ -288,7 +289,7 @@ export const ui = {
     password: 'Password',
     logIn: 'Log In',
     signUp: 'Sign Up',
-    pleaseWait: 'Please wait...',
+    pleaseWait: 'Signing in...',
     loginCancelled: 'Login cancelled',
     networkError: 'Network error. Please try again.',
     googleFailed: 'Google login failed',

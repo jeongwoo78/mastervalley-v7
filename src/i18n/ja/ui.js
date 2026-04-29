@@ -221,7 +221,8 @@ export const ui = {
   // ===== AI Consent =====
   aiConsent: {
     message: '写真はAI変換のため信頼できる第三者AIプロバイダーに送信され、処理後は保存されません。詳細はプライバシーポリシーをご参照ください。',
-    confirm: '確認'
+    confirm: '確認',
+    decline: '拒否'
   },
 
   // ===== About =====
@@ -289,7 +290,7 @@ export const ui = {
     password: 'パスワード',
     logIn: 'ログイン',
     signUp: '新規登録',
-    pleaseWait: 'お待ちください...',
+    pleaseWait: 'サインイン中...',
     loginCancelled: 'ログインがキャンセルされました',
     networkError: 'ネットワークエラー。再試行してください。',
     googleFailed: 'Googleログインに失敗しました',

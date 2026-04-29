@@ -220,7 +220,8 @@ export const ui = {
   // ===== AI Consent =====
   aiConsent: {
     message: '사진은 AI 변환을 위해 신뢰할 수 있는 제3자 AI 제공업체에 전송되며, 처리 후 보관되지 않습니다. 자세한 내용은 개인정보처리방침을 참조하세요.',
-    confirm: '확인'
+    confirm: '확인',
+    decline: '거부'
   },
 
   // ===== About =====
@@ -288,7 +289,7 @@ export const ui = {
     password: '비밀번호',
     logIn: '로그인',
     signUp: '회원가입',
-    pleaseWait: '잠시만요...',
+    pleaseWait: '로그인 중...',
     loginCancelled: '로그인이 취소되었습니다.',
     networkError: '네트워크 연결을 확인해주세요.',
     googleFailed: 'Google 로그인에 실패했습니다.',

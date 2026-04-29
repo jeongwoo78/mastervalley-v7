@@ -221,7 +221,8 @@ export const ui = {
   // ===== AI Consent =====
   aiConsent: {
     message: 'Foto Anda akan dikirim ke penyedia AI pihak ketiga tepercaya untuk transformasi dan tidak akan disimpan setelah pemrosesan. Lihat Kebijakan Privasi kami untuk detailnya.',
-    confirm: 'OK'
+    confirm: 'OK',
+    decline: 'Tolak'
   },
 
   // ===== About =====
@@ -289,7 +290,7 @@ export const ui = {
     password: 'Kata sandi',
     logIn: 'Masuk',
     signUp: 'Daftar',
-    pleaseWait: 'Harap tunggu...',
+    pleaseWait: 'Masuk...',
     loginCancelled: 'Login dibatalkan',
     networkError: 'Kesalahan jaringan. Coba lagi.',
     googleFailed: 'Login Google gagal',

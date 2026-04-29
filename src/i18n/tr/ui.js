@@ -214,7 +214,8 @@ export const ui = {
   // ===== AI Consent =====
   aiConsent: {
     message: "Fotoğrafınız dönüşüm için güvenilir üçüncü taraf AI sağlayıcılarına gönderilecek ve işlem sonrasında saklanmayacaktır. Ayrıntılar için Gizlilik Politikamıza bakın.",
-    confirm: 'Tamam'
+    confirm: 'Tamam',
+    decline: 'Reddet'
   },
 
   // ===== About =====
@@ -278,7 +279,7 @@ export const ui = {
     password: 'Şifre',
     logIn: 'Giriş Yap',
     signUp: 'Kayıt Ol',
-    pleaseWait: 'Lütfen bekleyin...',
+    pleaseWait: 'Giriş yapılıyor...',
     loginCancelled: 'Giriş iptal edildi',
     networkError: 'Ağ hatası. Lütfen tekrar deneyin.',
     googleFailed: 'Google girişi başarısız',
