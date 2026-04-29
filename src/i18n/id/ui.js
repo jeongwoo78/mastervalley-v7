@@ -207,6 +207,7 @@ export const ui = {
     restoreSuccess: 'Pembelian dipulihkan. Silakan periksa saldo Anda.',
     restoreNoItems: 'Tidak ada pembelian untuk dipulihkan.',
     restoreFailed: 'Pemulihan gagal. Silakan coba lagi nanti.',
+    restorePending: 'Pembayaran sedang diproses. Silakan coba lagi sebentar.',
     about: 'Tentang'
   },
 

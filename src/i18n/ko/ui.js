@@ -206,6 +206,7 @@ export const ui = {
     restoreSuccess: '구매가 복원되었습니다. 잔액을 확인해주세요.',
     restoreNoItems: '복원할 구매 내역이 없습니다.',
     restoreFailed: '복원에 실패했습니다. 잠시 후 다시 시도해주세요.',
+    restorePending: '결제가 진행 중입니다. 잠시 후 다시 시도해주세요.',
     about: '앱 정보'
   },
 

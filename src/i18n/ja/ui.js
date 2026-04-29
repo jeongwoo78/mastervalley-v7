@@ -207,6 +207,7 @@ export const ui = {
     restoreSuccess: '購入が復元されました。残高をご確認ください。',
     restoreNoItems: '復元する購入履歴がありません。',
     restoreFailed: '復元に失敗しました。しばらくしてからもう一度お試しください。',
+    restorePending: '決済処理中です。しばらくしてからもう一度お試しください。',
     about: 'アプリ情報'
   },
 

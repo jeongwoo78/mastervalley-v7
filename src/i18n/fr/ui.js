@@ -207,6 +207,7 @@ export const ui = {
     restoreSuccess: 'Achats restaurés. Veuillez vérifier votre solde.',
     restoreNoItems: 'Aucun achat à restaurer.',
     restoreFailed: 'Échec de la restauration. Veuillez réessayer plus tard.',
+    restorePending: 'Le paiement est en cours de traitement. Veuillez réessayer dans quelques instants.',
     about: 'À propos'
   },
 

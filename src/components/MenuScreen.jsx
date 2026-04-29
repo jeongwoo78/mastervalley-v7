@@ -173,8 +173,15 @@ const MenuScreen = ({
       const restoreResult = await restorePurchases();
       
       if (!restoreResult.success) {
-        setRestoreToast('restoreFailed');
+        // pending 상태: 결제 진행 중 (카드사 검증 등) — 실패가 아니라 대기
+        const errMsg = (restoreResult.error || '').toLowerCase();
+        if (errMsg.includes('pending')) {
+          setRestoreToast('restorePending');
+        } else {
+          setRestoreToast('restoreFailed');
+        }
         setTimeout(() => setRestoreToast(''), 3000);
+        setRestoring(false);
         return;
       }
       
@@ -186,6 +193,7 @@ const MenuScreen = ({
       if (!authToken) {
         setRestoreToast('restoreFailed');
         setTimeout(() => setRestoreToast(''), 3000);
+        setRestoring(false);
         return;
       }
       
@@ -218,7 +226,13 @@ const MenuScreen = ({
       
     } catch (err) {
       console.error('[Restore] error:', err);
-      setRestoreToast('restoreFailed');
+      // 예외 메시지에도 pending 케이스 처리
+      const msg = (err.message || '').toLowerCase();
+      if (msg.includes('pending')) {
+        setRestoreToast('restorePending');
+      } else {
+        setRestoreToast('restoreFailed');
+      }
       setTimeout(() => setRestoreToast(''), 3000);
     } finally {
       setRestoring(false);
@@ -396,24 +410,6 @@ const MenuScreen = ({
           <span className="menu-chevron-svg"><IconChevron /></span>
         </div>
 
-        {/* Restore Purchases (Apple Guideline 3.1.1) */}
-        <div
-          className="menu-restore-row"
-          onClick={handleRestorePurchases}
-          role="button"
-          tabIndex={0}
-          aria-disabled={restoring}
-        >
-          <span className="menu-restore-label">
-            {restoring ? '...' : t.restorePurchases}
-          </span>
-        </div>
-        {restoreToast && (
-          <div className="menu-restore-toast">
-            {t[restoreToast] || ''}
-          </div>
-        )}
-
         {/* Support - Accordion */}
         <div 
           className={`menu-item-svg ${supportOpen ? 'accordion-open' : ''}`}
@@ -448,6 +444,22 @@ const MenuScreen = ({
                 </span>
               </div>
             )}
+            
+            {/* Restore Purchases (Apple Guideline 3.1.1) — 결제 후 크레딧 미반영 시 자동 회수 */}
+            <div 
+              className="support-option" 
+              onClick={handleRestorePurchases} 
+              aria-disabled={restoring}
+              style={restoring ? { opacity: 0.5, pointerEvents: 'none' } : {}}
+            >
+              <span className="support-text">{t.restorePurchases}</span>
+            </div>
+            {restoreToast && (
+              <div className="menu-restore-toast">
+                {t[restoreToast] || ''}
+              </div>
+            )}
+            
             <div className="support-option" onClick={() => setShowFaq(true)}>
               <span className="support-text">{t.faq}</span>
             </div>
@@ -637,28 +649,9 @@ const menuStyles = `
   }
   .contact-inline:hover .contact-copy-icon { color: rgba(255,255,255,0.7); }
 
-  /* 구매 복원 (보조 기능 — 메인 메뉴 아이콘 없는 작은 텍스트 링크 톤) */
-  .menu-restore-row {
-    padding: 10px 16px 4px;
-    text-align: center;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-  .menu-restore-row[aria-disabled="true"] { cursor: default; }
-  .menu-restore-label {
-    color: rgba(255,255,255,0.4);
-    font-size: 12px;
-    font-family: 'DM Sans', -apple-system, sans-serif;
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    text-decoration-color: rgba(255,255,255,0.2);
-  }
-  .menu-restore-row:hover .menu-restore-label {
-    color: rgba(255,255,255,0.65);
-    text-decoration-color: rgba(255,255,255,0.4);
-  }
+  /* 구매 복원 토스트 (고객지원 펼침 안의 support-option 다음에 표시) */
   .menu-restore-toast {
-    margin: 6px 16px 0;
+    margin: 4px 16px 8px 24px;
     padding: 10px 14px;
     background: rgba(138,168,150,0.08);
     border: 1px solid rgba(138,168,150,0.2);

@@ -207,6 +207,7 @@ export const ui = {
     restoreSuccess: '購買已恢復，請查看餘額。',
     restoreNoItems: '沒有可恢復的購買記錄。',
     restoreFailed: '恢復失敗，請稍後再試。',
+    restorePending: '付款處理中，請稍後再試。',
     about: '關於'
   },
 

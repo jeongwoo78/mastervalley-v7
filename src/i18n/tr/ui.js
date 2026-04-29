@@ -201,6 +201,7 @@ export const ui = {
     restoreSuccess: 'Satın alımlar geri yüklendi. Lütfen bakiyenizi kontrol edin.',
     restoreNoItems: 'Geri yüklenecek satın alım yok.',
     restoreFailed: 'Geri yükleme başarısız oldu. Lütfen daha sonra tekrar deneyin.',
+    restorePending: 'Ödeme işleniyor. Lütfen birazdan tekrar deneyin.',
     about: 'Hakkında'
   },
 

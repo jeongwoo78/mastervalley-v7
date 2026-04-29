@@ -206,6 +206,7 @@ export const ui = {
     restoreSuccess: 'Purchases restored. Please check your balance.',
     restoreNoItems: 'No purchases to restore.',
     restoreFailed: 'Restore failed. Please try again later.',
+    restorePending: 'Payment is being processed. Please try again shortly.',
     about: 'About'
   },
 

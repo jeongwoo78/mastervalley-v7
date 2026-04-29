@@ -207,6 +207,7 @@ export const ui = {
     restoreSuccess: 'Compras restauradas. Verifica tu saldo.',
     restoreNoItems: 'No hay compras para restaurar.',
     restoreFailed: 'Error al restaurar. Inténtalo de nuevo más tarde.',
+    restorePending: 'El pago está en proceso. Inténtalo de nuevo en unos momentos.',
     about: 'Acerca de'
   },
 
